@@ -1,0 +1,31 @@
+{
+  "name": "asylum-connect-catalog",
+  "version": "0.1",
+  "description": "Asylum Connect Catalog App powered by the One Degree API",
+  "engines": {
+    "node": "6.2.2"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "ejs": "2.5.6",
+    "express": "4.15.2"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremyhatter/asylum-connect-1deg-catalog"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}

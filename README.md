@@ -1,1 +1,1 @@
-# asylum-connect-1deg-catalog
+# Asylum Connect Catalog powerd by One Degree
