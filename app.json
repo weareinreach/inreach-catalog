@@ -1,8 +1,8 @@
 {
-  "name": "Start on Heroku: Node.js",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
+  "name": "Asylum Connect Catalog",
+  "description": "The updated Asylum Connect Cataglog powered by One Degree",
+  "repository": "https://github.com/jeremyhatter/asylum-connect-1deg-catalog",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
-  "keywords": ["node", "express", "heroku"],
+  "keywords": ["node", "react", "heroku"],
   "image": "heroku/nodejs"
 }
