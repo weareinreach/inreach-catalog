@@ -3,7 +3,6 @@ import {render} from 'react-dom';
 import AsylumConnectCatalog from './components/AsylumConnectCatalog';
 import asylumConnectCatalogTheme from './theme/asylumConnectCatalogTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 /**
  * App entry file
@@ -16,7 +15,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 const rootElement = document.getElementById('main');
 
 render(
-  <MuiThemeProvider muiTheme={getMuiTheme(asylumConnectCatalogTheme)}>
+  <MuiThemeProvider theme={asylumConnectCatalogTheme}>
     <AsylumConnectCatalog />
   </MuiThemeProvider>,
   rootElement);
