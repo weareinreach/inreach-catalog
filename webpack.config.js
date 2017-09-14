@@ -1,3 +1,4 @@
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require("webpack");
 var path = require("path");
 
@@ -18,6 +19,10 @@ var config = {
       query: {
         presets: ['es2015', 'react']
       }
+    },
+    {
+        test: /\.scss$/,
+        loader: (process.env.NODE_ENV === 'production' ? ExtractTextPlugin.extract('css-loader?minimize!sass-loader') : 'style-loader!css-loader!sass-loader'),
     }]
   },
   resolve: {
@@ -29,7 +34,10 @@ var config = {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new ExtractTextPlugin('../css/style.css', {
+      allChunks: true
+    })
   ]
 };
 
