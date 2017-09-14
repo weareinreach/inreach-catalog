@@ -4,6 +4,7 @@ import Dialog, { DialogActions,
   DialogContentText,
   DialogTitle } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import Header from './Header'
 require('./AsylumConnectCatalog.scss');
 
 export default class AsylumConnectCatalog extends React.Component { 
@@ -25,9 +26,7 @@ export default class AsylumConnectCatalog extends React.Component {
   render() {
     return (
       <div>
-        <header>
-          <nav/>
-        </header>
+        <Header />
         <div className="content" >
           <Button raised color="primary" onClick={() => this.setState({ open: true })}>Open alert dialog</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
