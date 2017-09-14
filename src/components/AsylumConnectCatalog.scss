@@ -1,0 +1,6 @@
+.content {
+  width: 100%;
+  & > div {
+    min-width: 88px;
+  }
+}
