@@ -1,57 +1,50 @@
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Dialog, { DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle } from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
 require('./AsylumConnectCatalog.scss');
 
 export default class AsylumConnectCatalog extends React.Component { 
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
+
     this.state = {
       open: false,
-    }
-    this.handleOpen = this.handleOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  };
+    };
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+  }
 
-  handleOpen() {
-    this.setState({open: true});
-  };
-
-  handleClose() {
-    this.setState({open: false});
-  };
-
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-    ];
-
     return (
       <div>
         <header>
           <nav/>
         </header>
         <div className="content" >
-          <RaisedButton label="Dialog" onClick={this.handleOpen} />
-          <Dialog
-            title="Dialog With Actions"
-            actions={actions}
-            modal={false}
-            open={this.state.open}
-            onRequestClose={this.handleClose}
-          >
-            The actions in this window were passed in as an array of React objects.
+          <Button raised color="primary" onClick={() => this.setState({ open: true })}>Open alert dialog</Button>
+          <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+            <DialogTitle>Dialog With Actions</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                The actions in this window were passed in as an array of React objects.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleRequestClose} color="primary">
+                Disagree
+              </Button>
+              <Button onClick={this.handleRequestClose} color="primary">
+                Agree
+              </Button>
+            </DialogActions>
           </Dialog>
         </div>
         <footer />
