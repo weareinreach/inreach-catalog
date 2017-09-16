@@ -1,0 +1,11 @@
+export { default as AccountIcon } from './AccountIcon';
+export { default as FavoritesIcon } from './FavoritesIcon';
+export { default as FiltersIcon } from './FiltersIcon';
+export { default as FlagIcon } from './FlagIcon';
+export { default as LanguageIcon } from './LanguageIcon';
+export { default as PinpointIcon } from './PinpointIcon';
+export { default as PrivacyIcon } from './PrivacyIcon';
+export { default as RecommendedStarIcon } from './RecommendedStarIcon';
+export { default as RedHeartIcon } from './RedHeartIcon';
+export { default as SearchIcon } from './SearchIcon';
+export { default as ShareIcon } from './ShareIcon';
