@@ -13,28 +13,38 @@ export default createMuiTheme({
   typography: {
     // Nav style
     "display1": {
-      "fontSize": 14,
+      "fontSize": 12,
       "fontWeight": "bold",
       "color": "rgba(0, 0, 0, 0.87)",
+      "lineHeight": "20px",
+      "textAlign": "center",
+      "textTransform": "uppercase"
     },
     "display2": {
-      "fontSize": 14,
+      "fontSize": 13,
       "fontWeight": "inherit",
       "color": "rgba(0, 0, 0, 0.38)",
       "lineHeight": "20px",
+      "textTransform": "normal"
     },
     "display3": {
-      "fontSize": 14,
+      "fontSize": 13,
       "fontWeight": "inherit",
       "color": "#F36F6F",
       "lineHeight": "20px",
       "textTransform": "uppercase"
     },
+    "display4": {
+      "fontSize": 13,
+      "fontWeight": "bold",
+      "color": "rgba(0, 0, 0, 0.87)",
+      "textTransform": "uppercase",
+      "textAlign": "center"
+    },
     "button": {
-      "fontSize": 16,
+      "fontSize": 14,
       "fontWeight": "bold",
       "letterSpacing": 1,
-      "height": 20,
     }
   },
   

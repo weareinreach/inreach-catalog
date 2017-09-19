@@ -28,7 +28,8 @@ export default class Language extends React.Component {
           aria-owns={this.state.open ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
-          type="display2">
+          type="display2"
+          style={{textAlign:'center'}}>
         Language
         </Typography>
         <Menu 

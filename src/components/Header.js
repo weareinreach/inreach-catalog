@@ -1,48 +1,26 @@
 import React from 'react';
-import Nav from './Nav';
+
+import NavDesktop from './NavDesktop';
+import NavMobile from './NavMobile';
 
 import Grid from 'material-ui/Grid';
-import Hidden from 'material-ui/Hidden';
-import Drawer from 'material-ui/Drawer';
-import Button from 'material-ui/Button';
 
 export default class Header extends React.Component { 
   constructor() {
     super();
-    this.state = {
-      left: false,
-    }
-    this.openDrawer = this.openDrawer.bind(this)
-    this.closeDrawer = this.closeDrawer.bind(this)
   }
-    
-  openDrawer(){
-    this.setState({
-      left: true,
-    });
-  };
-  
-  closeDrawer(){
-    this.setState({
-      left: false,
-    });
-  };
 
   render() {
     return (
       <Grid container>
-        <Hidden only={['sm', 'xs', 'md']}>
-          <Button onClick={this.openDrawer}>Open</Button>
-          <Drawer open={this.state.left} onRequestClose={this.closeDrawer}>
-            <div tabIndex={0} role="button" onClick={this.closeDrawer}>
-              <Nav style={{width: 250, flex: 'initial'}} />
-            </div>
-          </Drawer>
-        </Hidden>
-        <Grid item xs={0} lg={12}>
-          <Nav />
+        <Grid item hidden={{ mdUp: true }} xs={12} style={{position: 'fixed', bottom:'0', width: '100%'}}>
+          <NavMobile />
+        </Grid>
+        <Grid item hidden={{ smDown: true }} md={12}>
+          <NavDesktop />
         </Grid>
       </Grid>
     )
   }
 }
+

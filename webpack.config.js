@@ -39,10 +39,6 @@ var config = {
       allChunks: true
     })
   ],
-  devServer: {
-    compress: true,
-    disableHostCheck: true,
- } 
 };
 
 if(process.env.NODE_ENV === 'production') {
