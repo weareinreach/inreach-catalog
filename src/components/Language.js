@@ -1,6 +1,7 @@
 import React from 'react';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
 export default class Language extends React.Component { 
   constructor() {
@@ -23,12 +24,13 @@ export default class Language extends React.Component {
   render() {
     return (
       <div>
-        <Button
+        <Typography
           aria-owns={this.state.open ? 'simple-menu' : null}
           aria-haspopup="true"
-          onClick={this.handleClick}>
+          onClick={this.handleClick}
+          type="display2">
         Language
-        </Button>
+        </Typography>
         <Menu 
           id="simple-menu"
           anchorEl={this.state.anchorEl}

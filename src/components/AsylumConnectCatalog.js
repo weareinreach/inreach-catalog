@@ -4,10 +4,8 @@ import Dialog, { DialogActions,
   DialogContentText,
   DialogTitle } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
-<<<<<<< HEAD
 import Header from './Header'
-=======
->>>>>>> master
+
 require('./AsylumConnectCatalog.scss');
 
 export default class AsylumConnectCatalog extends React.Component { 

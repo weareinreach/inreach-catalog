@@ -9,7 +9,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
     "web-prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
-    "web-dev": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public/ --config webpack.config.js --port 8080 --inline --hot --colors",
+    "web-dev": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public/ --config webpack.config.js --port $PORT --host $IP --inline --hot --colors",
     "postinstall": "webpack -p"
   },
   "dependencies": {
