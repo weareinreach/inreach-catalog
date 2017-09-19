@@ -1,5 +1,5 @@
 import { createMuiTheme } from 'material-ui/styles';
-import * as Colors from 'material-ui/colors';
+
 
 /**
  *  Light Theme is the default theme used in material-ui. It is guaranteed to
