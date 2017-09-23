@@ -5,6 +5,7 @@ import Dialog, { DialogActions,
   DialogTitle } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 require('./AsylumConnectCatalog.scss');
+import CustomButton from './Button.js';
 
 export default class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
@@ -29,6 +30,12 @@ export default class AsylumConnectCatalog extends React.Component {
           <nav/>
         </header>
         <div className="content" >
+          <CustomButton variant="primary">
+            button button
+          </CustomButton>
+          <CustomButton variant="secondary">
+            button
+          </CustomButton>
           <Button raised color="primary" onClick={() => this.setState({ open: true })}>Open alert dialog</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
             <DialogTitle>Dialog With Actions</DialogTitle>
