@@ -35,8 +35,8 @@ const styles = theme => ({
 });
 
 // Custom Button component with variant property
-function CustomButton(props) {
-  const { children, classes, className, variant} = props;
+function AsylumConnectButton(props) {
+  const { children, classes, className, variant, onClick} = props;
 
   return (
     <Button className={classNames(
@@ -47,13 +47,14 @@ function CustomButton(props) {
         },
         className,
       )}
+      onClick={onClick}
     >
       {children}
     </Button>
   );
 }
 
-CustomButton.propTypes = {
+AsylumConnectButton.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -61,4 +62,4 @@ CustomButton.propTypes = {
 };
 
 // Inject style to Custom Button component
-export default withStyles(styles)(CustomButton);
+export default withStyles(styles)(AsylumConnectButton);
