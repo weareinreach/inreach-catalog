@@ -1,6 +1,7 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require("webpack");
 var path = require("path");
+var express = require('express');
 
 var config = {
   entry: [
@@ -41,7 +42,16 @@ var config = {
   ],
   devServer: {
     compress: true,
-    disableHostCheck: true
+    disableHostCheck: true,
+    historyApiFallback: true,
+    //publicPath: '/js/',
+    /*setup(app){
+      app.use(express.static(__dirname + '/public/'));
+
+      app.get('*', function(req, res) {
+        res.sendFile(__dirname + '/public/index.html');
+      });
+    }*/
   }
 };
 

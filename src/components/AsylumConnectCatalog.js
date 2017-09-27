@@ -4,6 +4,16 @@ import Dialog, { DialogActions,
   DialogContentText,
   DialogTitle } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+  Link
+} from 'react-router-dom';
+import RedirectWithParams from '../helpers/RedirectWithParams';
+import MapContainer from './MapContainer';
+import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
 import AsylumConnectButton from './AsylumConnectButton.js';
 
@@ -29,8 +39,21 @@ export default class AsylumConnectCatalog extends React.Component {
         <header>
           <nav/>
         </header>
-        <div className="content" >
-          <AsylumConnectButton variant="primary" onClick={() => this.setState({ open: true })}>
+        <Router>
+          <div className="content" >
+            <Switch>
+              <Route exact path="/" component={MapContainer}/>
+              <Route path="/resource/:id" component={MapContainer}/>
+              <Route path="/search/:near/:for/:filter/:sort" component={MapContainer}/>
+              <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
+              <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
+              <Redirect from="/search" to="/"/>
+              <Redirect from="/resource" to="/"/>
+              <Route component={PageContainer} />
+            </Switch>
+          </div>
+        </Router>
+          {/*<AsylumConnectButton variant="primary" onClick={() => this.setState({ open: true })}>
             button button
           </AsylumConnectButton>
           <AsylumConnectButton variant="secondary" onClick={() => this.setState({ open: true })}>
@@ -53,7 +76,7 @@ export default class AsylumConnectCatalog extends React.Component {
               </Button>
             </DialogActions>
           </Dialog>
-        </div>
+        </div>*/ }
         <footer />
       </div>
     );
