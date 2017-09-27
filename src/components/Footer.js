@@ -19,6 +19,7 @@ const styles = theme => ({
   bgDarkGrey: { backgroundColor: theme.palette.common.darkGrey },
   bgLightGrey: { backgroundColor: theme.palette.common.lightGrey },
   paddingBelow: { paddingBottom: '0.5rem' },
+  paddingBelowLarge: { paddingBottom: '2rem' },
   paddingVertical: { padding: '1.5rem 0' },
   textBlack: { color: theme.palette.common.darkBlack },
   textCenter: { textAlign: 'center' },
@@ -29,6 +30,7 @@ const Footer = ({ classes }) => {
     bgDarkGrey,
     bgLightGrey,
     paddingBelow,
+    paddingBelowLarge,
     paddingVertical,
     textBlack,
     textCenter,
@@ -44,10 +46,10 @@ const Footer = ({ classes }) => {
 
   return (
     <footer className={textCenter}>
-      <Grid container className={classNames(bgDarkGrey, paddingVertical)}>
+      <Grid container spacing={0} className={classNames(bgDarkGrey, paddingVertical)}>
 
-        <Grid item xs={12} md={6}>
-          <Typography type="display3" className={classNames(paddingBelow)}>
+        <Grid item xs={12} md={6} className={paddingBelowLarge}>
+          <Typography type="display3" className={paddingBelow}>
             Connect with AsylumConnect
           </Typography>
           <Grid container justify="center">
