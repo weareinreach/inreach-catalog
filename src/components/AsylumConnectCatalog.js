@@ -5,6 +5,8 @@ import Dialog, { DialogActions,
   DialogTitle } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 require('./AsylumConnectCatalog.scss');
+
+import Footer from './Footer';
 import AsylumConnectButton from './AsylumConnectButton.js';
 
 export default class AsylumConnectCatalog extends React.Component { 
@@ -54,7 +56,7 @@ export default class AsylumConnectCatalog extends React.Component {
             </DialogActions>
           </Dialog>
         </div>
-        <footer />
+        <Footer />
       </div>
     );
   }
