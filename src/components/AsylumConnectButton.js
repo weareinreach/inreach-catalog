@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   primary: {
     color: theme.palette.primary[500],
-    backgroundColor: theme.palette.white,
+    backgroundColor: theme.palette.common.white,
     borderColor: theme.palette.primary[500],
     '&:hover': {
       color: theme.palette.common.white,
