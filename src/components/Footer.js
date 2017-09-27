@@ -20,6 +20,7 @@ const styles = theme => ({
   bgLightGrey: { backgroundColor: theme.palette.common.lightGrey },
   paddingBelow: { paddingBottom: '0.5rem' },
   paddingVertical: { padding: '1.5rem 0' },
+  textBlack: { color: theme.palette.common.darkBlack },
   textCenter: { textAlign: 'center' },
 });
 
@@ -29,12 +30,13 @@ const Footer = ({ classes }) => {
     bgLightGrey,
     paddingBelow,
     paddingVertical,
+    textBlack,
     textCenter,
   } = classes;
 
   const ContactLink = ({ link, icon }) => (
     <Grid item>
-      <a href={link} target="_blank">
+      <a href={link} target="_blank" className={textBlack}>
         <FontAwesome name={icon} size="lg" />
       </a>
     </Grid>
