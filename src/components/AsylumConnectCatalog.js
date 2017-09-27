@@ -15,6 +15,8 @@ import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';
 import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
+
+import Footer from './Footer';
 import AsylumConnectButton from './AsylumConnectButton.js';
 
 export default class AsylumConnectCatalog extends React.Component { 
@@ -76,8 +78,9 @@ export default class AsylumConnectCatalog extends React.Component {
               </Button>
             </DialogActions>
           </Dialog>
+<<<<<<< HEAD
         </div>*/ }
-        <footer />
+        <Footer />
       </div>
     );
   }
