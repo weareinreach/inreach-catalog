@@ -4,38 +4,52 @@ import PropTypes from 'prop-types'
 import OffsiteLink from './OffsiteLink';
 import Language from './Language';
 import Account from './Account';
+import AsylumConnectButton from './AsylumConnectButton';
 import RedHeartIcon from './icons/RedHeartIcon';
 
+import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer'
-import Button from 'material-ui/Button';
+import Toolbar from 'material-ui/Toolbar'
+import IconButton from 'material-ui/IconButton'
+import MenuIcon from 'material-ui/Menu'
+import Drawer from 'material-ui/Drawer';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
 import widthWidth from './withWidth'
 
-const NavTablet = () => { 
+const styles = theme => ({
+  root: {
+    marginTop: theme.spacing.unit * 3,
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+});
+
+const NavTablet = (props) => { 
+  const classes = props.classes;
   return (
     <AppBar style={{backgroundColor: 'white'}}>
+    <Toolbar>
+      {/* Hide Offsite Link for tablet*/} 
+      <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+          <MenuIcon />
+        </IconButton>
       <Grid container
             align='center'
             direction='row'
             justify='center'
             style={{padding: '20 0 20 0'}}>
         
-        {/* Hide Offsite Link for tablet*/} 
-        <Grid item sm={2}>
-          <Button style={{padding: '0 20', color: '#6988C0'}}>Drawer</Button>
-        </Grid>
-        
         {/* Find Resource Link */}
         <Grid item sm={3} >
-          <Grid container
-            align='center'
-            direction='row'
-            justify='center'>
-            <Button style={{padding: '0 20', color: '#6988C0', backgroundColor: 'white', border:'2px solid #6988C0', borderRadius: '20px'}}>Find Resources</Button>
-          </Grid>
+          <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
         </Grid>
         
         {/* Language Component */}
@@ -52,14 +66,20 @@ const NavTablet = () => {
         <Grid item sm={3}>
           <Grid container
             align='center'
-            direction='row'>
-            <Grid item sm={10} style={{textAlign: 'right', paddingRight: '0'}}><Typography type="display3">View Your Favorites</Typography></Grid>
-            <Grid item sm={2} style={{paddingLeft:'0'}}><RedHeartIcon/></Grid>
+            direction='row'
+            justify='center'>
+          <Typography type="display4">View Your Favorites</Typography>
+          <RedHeartIcon width={'45px'}/>
           </Grid>
         </Grid>
       </Grid>
+      </Toolbar>
     </AppBar>
   )
 }
 
-export default NavTablet;
+NavTablet.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NavTablet);

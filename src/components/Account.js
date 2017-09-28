@@ -10,10 +10,10 @@ const Account = () => {
           direction='row'
           justify='space-around'>
       <Grid item lg={7}>
-        <Typography type="display2" style={{textAlign:'right'}}>Log In</Typography>
+        <Typography type="body1" style={{textAlign:'right'}}>Log In</Typography>
       </Grid>
       <Grid item lg={5}>
-        <Typography type="display2">Log Out</Typography>
+        <Typography type="body1">Log Out</Typography>
       </Grid>
     </Grid>
   )

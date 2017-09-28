@@ -8,12 +8,13 @@ const OffsiteLink = () => {
     <Grid container
           align='stretch'
           direction='row'
-          justify='space-around'>
-    <Grid item xs={3}><Typography type="display1">Logo</Typography></Grid>
-    <Grid item xs={2}><Typography type="display1">About Us</Typography></Grid>
-    <Grid item xs={2}><Typography type="display1">Take Action</Typography></Grid>
-    <Grid item xs={2}><Typography type="display1">Get Help</Typography></Grid>
-    <Grid item xs={2}><Typography type="display1">Contact Us</Typography></Grid>
+          justify='space-between'
+          style={{textAlign: 'center'}}>
+    <Grid item xs={3}><a href='' target='_blank'><Typography type="display4">Logo</Typography></a></Grid>
+    <Grid item xs={2}><Typography type="display4">About Us</Typography></Grid>
+    <Grid item xs={2}><Typography type="display4">Take Action</Typography></Grid>
+    <Grid item xs={2}><Typography type="display4">Get Help</Typography></Grid>
+    <Grid item xs={2}><Typography type="display4">Contact Us</Typography></Grid>
   </Grid>
   )
 }

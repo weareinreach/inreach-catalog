@@ -4,6 +4,7 @@ import OffsiteLink from './OffsiteLink';
 import Language from './Language';
 import Account from './Account';
 import RedHeartIcon from './icons/RedHeartIcon';
+import AsylumConnectButton from './AsylumConnectButton';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer'
@@ -17,7 +18,7 @@ const NavDesktop = () => {
       <Grid container
             align='center'
             direction='row'
-            justify='center'
+            justify='space-around'
             style={{padding: '20 0 20 0'}}>
         
         {/* Hide Offsite Link for tablet*/} 
@@ -26,13 +27,8 @@ const NavDesktop = () => {
         </Grid>
         
         {/* Find Resource Link */}
-        <Grid item md={3} lg={2}>
-          <Grid container
-            align='center'
-            direction='row'
-            justify='center'>
-            <Button style={{padding: '0 20', color: '#6988C0', backgroundColor: 'white', border:'2px solid #6988C0', borderRadius: '20px'}}>Find Resources</Button>
-          </Grid>
+        <Grid item md={2}>
+          <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
         </Grid>
         
         {/* Language Component */}
@@ -41,17 +37,18 @@ const NavDesktop = () => {
         </Grid>
         
         {/* Account Component */}
-        <Grid item md={1} lg={2}>
+        <Grid item md={1}>
           <Account />
         </Grid>
         
         {/* Favorite Link */}
-        <Grid item md={2} lg={2}>
+        <Grid item sm={3}>
           <Grid container
             align='center'
-            direction='row'>
-            <Grid item md={9} style={{textAlign: 'right', paddingRight: '0'}}><Typography type="display3">View Your Favorites</Typography></Grid>
-            <Grid item md={3} style={{paddingLeft:'0'}}><RedHeartIcon/></Grid>
+            direction='row'
+            justify='center'>
+            <Typography type="display4">View Your Favorites</Typography>
+            <RedHeartIcon width={'45px'}/>
           </Grid>
         </Grid>
       </Grid>
