@@ -1,5 +1,6 @@
 import { createMuiTheme } from 'material-ui/styles';
 
+
 /**
  *  Light Theme is the default theme used in material-ui. It is guaranteed to
  *  have all theme variables needed for every component. Variables not defined
