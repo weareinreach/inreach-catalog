@@ -16,6 +16,7 @@ import MapContainer from './MapContainer';
 import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
 
+import Announcement from './Announcement';
 import Footer from './Footer';
 import AsylumConnectButton from './AsylumConnectButton.js';
 
@@ -41,6 +42,7 @@ export default class AsylumConnectCatalog extends React.Component {
         <header>
           <nav/>
         </header>
+        <Announcement />
         <Router>
           <div className="content" >
             <Switch>

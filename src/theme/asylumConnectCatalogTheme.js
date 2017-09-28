@@ -10,6 +10,7 @@ export default createMuiTheme({
   "palette": {
     "common": {
       "black": "#000",
+      "blue": "#6988c1",
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
       "fullBlack": "rgba(0, 0, 0, 1)",
