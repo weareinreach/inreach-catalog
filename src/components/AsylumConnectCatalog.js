@@ -19,8 +19,9 @@ require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import Footer from './Footer';
 import AsylumConnectButton from './AsylumConnectButton.js';
+import withWidth from './withWidth';
 
-export default class AsylumConnectCatalog extends React.Component { 
+class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
     super(props, context);
 
@@ -37,12 +38,13 @@ export default class AsylumConnectCatalog extends React.Component {
   }
 
   render() {
+    const isMobile = this.props.width < 600;
     return (
       <div>
         <header>
           <nav/>
         </header>
-        <Announcement />
+        { isMobile ? null : <Announcement />}
         <Router>
           <div className="content" >
             <Switch>
@@ -82,8 +84,10 @@ export default class AsylumConnectCatalog extends React.Component {
           </Dialog>
 <<<<<<< HEAD
         </div>*/ }
-        <Footer />
+        { isMobile ? null : <Footer /> }
       </div>
     );
   }
 };
+
+export default withWidth(AsylumConnectCatalog);
