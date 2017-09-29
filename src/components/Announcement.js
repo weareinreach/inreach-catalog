@@ -4,6 +4,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 import Disclaimer from './Disclaimer';
+import PrivacyStatement from './PrivacyStatement';
 import withWidth from './withWidth';
 
 const styles = (theme) => ({
@@ -48,15 +49,25 @@ class Announcement extends React.Component {
       </strong>
     );
 
+    const PrivacyButton = () => (
+      <strong onClick={this.handleOpenPrivacy}>
+        User Privacy Statement
+      </strong>
+    );
+
     return (
       <div className={announcement}>
         <Typography type="body1" className={textWhite}>
-          Asylum seekers contact service providers at their own risk. { width > 600 ? <br /> : null } Please read our complete <DisclaimerButton /> and <strong>User Privacy Statement</strong> before using our catalog.
+          Asylum seekers contact service providers at their own risk. { width > 600 ? <br /> : null } Please read our complete <DisclaimerButton /> and <PrivacyButton /> before using our catalog.
         </Typography>
 
         <Disclaimer
           handleRequestClose={this.handleRequestClose}
           isOpen={dialog === 'disclaimer'}
+        />
+        <PrivacyStatement
+          handleRequestClose={this.handleRequestClose}
+          isOpen={dialog === 'privacy'}
         />
       </div>
     );
