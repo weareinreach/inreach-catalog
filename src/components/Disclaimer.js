@@ -37,6 +37,7 @@ const Disclaimer = ({classes, handleRequestClose, isOpen}) => (
 
 Disclaimer.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(Disclaimer);
