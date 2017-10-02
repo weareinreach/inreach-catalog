@@ -13,7 +13,10 @@ const styles = (theme) => ({
     justifyContent: 'center',
     marginTop: '4rem',
   },
-  disclaimerBody: { padding: '5.5rem' },
+  disclaimerBody: {
+    padding: '5.5rem',
+    overflow: 'scroll',
+  },
   paperWidthSm: { maxWidth: '650px' },
   title: { paddingBottom: '1rem', textAlign: 'center', },
 });
