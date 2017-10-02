@@ -13,6 +13,7 @@ const styles = (theme) => ({
     padding: '2rem 0',
     textAlign: 'center',
   },
+  pointer: { cursor: 'pointer' },
   textWhite: { color: theme.palette.common.darkWhite },
 });
 
@@ -44,13 +45,19 @@ class Announcement extends React.Component {
     const { announcement, textWhite } = classes;
 
     const DisclaimerButton = () => (
-      <strong onClick={this.handleOpenDisclaimer}>
+      <strong
+        className={classes.pointer}
+        onClick={this.handleOpenDisclaimer}
+      >
         Disclaimer
       </strong>
     );
 
     const PrivacyButton = () => (
-      <strong onClick={this.handleOpenPrivacy}>
+      <strong
+        className={classes.pointer}
+        onClick={this.handleOpenPrivacy}
+      >
         User Privacy Statement
       </strong>
     );
