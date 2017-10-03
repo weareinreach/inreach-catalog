@@ -3,8 +3,10 @@ import React from 'react';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
-import DisclaimerDialog from './privacy/DisclaimerDialog';
-import PrivacyDialog from './privacy/PrivacyDialog';
+import {
+  DisclaimerDialog,
+  PrivacyDialog,
+} from './privacy';
 import withWidth from './withWidth';
 
 const styles = (theme) => ({

@@ -18,7 +18,7 @@ require('./AsylumConnectCatalog.scss');
 
 import Announcement from './Announcement';
 import Footer from './Footer';
-import PrivacyMobile from './privacy/PrivacyMobile';
+import { PrivacyMobile } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
 
