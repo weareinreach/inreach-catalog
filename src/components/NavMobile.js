@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
 
 import SearchIcon from './icons/SearchIcon'
@@ -14,10 +12,10 @@ import PrivacyIcon from './icons/PrivacyIcon'
 
 const styles = {
   root: {
-    width: '100%',
+    width: '100vw',
     display: 'flex',
     flexDirection: 'row',
-    justify: 'space-around',
+    justify: 'space-between',
   },
   BottomNavBar: {
     position:'fixed',
@@ -25,6 +23,8 @@ const styles = {
   },
   NavButton: {
     minWidth: '20%',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
   }
 };
 
@@ -50,11 +50,11 @@ class NavMobile extends React.Component {
           showLabels
           className={classes.root}
         >
-          <BottomNavigationButton className={classes.NavButton} label="Search" icon={<SearchIcon />} />
-          <BottomNavigationButton className={classes.NavButton} label="Favorites" icon={<FavoritesIcon />} />
-          <BottomNavigationButton className={classes.NavButton} label="Language" icon={<LanguageIcon />} />
-          <BottomNavigationButton className={classes.NavButton} label="Account" icon={<AccountIcon />} />
-          <BottomNavigationButton className={classes.NavButton} label="Privacy" icon={<PrivacyIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="search" icon={<SearchIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="favorites" icon={<FavoritesIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="language" icon={<LanguageIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="account" icon={<AccountIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="privacy" icon={<PrivacyIcon />} />
         </BottomNavigation>
       </div>
     )
