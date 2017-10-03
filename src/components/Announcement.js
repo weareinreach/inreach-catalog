@@ -3,8 +3,8 @@ import React from 'react';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
-import Disclaimer from './Disclaimer';
-import PrivacyStatement from './PrivacyStatement';
+import DisclaimerDialog from './privacy/DisclaimerDialog';
+import PrivacyDialog from './privacy/PrivacyDialog';
 import withWidth from './withWidth';
 
 const styles = (theme) => ({
@@ -68,11 +68,11 @@ class Announcement extends React.Component {
           Asylum seekers contact service providers at their own risk. { width > 600 ? <br /> : null } Please read our complete <DisclaimerButton /> and <PrivacyButton /> before using our catalog.
         </Typography>
 
-        <Disclaimer
+        <DisclaimerDialog
           handleRequestClose={this.handleRequestClose}
           isOpen={dialog === 'disclaimer'}
         />
-        <PrivacyStatement
+        <PrivacyDialog
           handleRequestClose={this.handleRequestClose}
           isOpen={dialog === 'privacy'}
         />
