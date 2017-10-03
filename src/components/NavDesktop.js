@@ -1,4 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
 
 import OffsiteLink from './OffsiteLink';
 import Language from './Language';
@@ -6,47 +11,51 @@ import Account from './Account';
 import RedHeartIcon from './icons/RedHeartIcon';
 import AsylumConnectButton from './AsylumConnectButton';
 
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer'
-import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+const styles = theme => ({
+  root: {
+    padding: '10 0 10 0'
+  },
+  viewYourFavoritesText: {
+    color: theme.palette.secondary[500],
+    fontWeight: '300'
+  }
+});
 
-const NavDesktop = () => { 
+const NavDesktop = (props) => {
+  const classes = props.classes;
   return (
     <Grid container
-          align='baseline'
+          align='center'
           direction='row'
           justify='space-around'
-          style={{padding: '10 0 10 0'}}
-          spacing={0}>
+          spacing={0}
+          className={classes.root}>
       
-      {/* Hide Offsite Link for tablet*/} 
       <Grid item md={5}>
         <OffsiteLink />
       </Grid>
       
-      {/* Find Resource Link */}
       <Grid item md={2}>
         <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
       </Grid>
       
-      {/* Language Component */}
       <Grid item md={1}>
         <Language />
       </Grid>
       
-      {/* Account Component */}
       <Grid item md={1}>
         <Account />
       </Grid>
       
-      {/* Favorite Link */}
       <Grid item md={3}>
-        <Button> View Your Favorites<RedHeartIcon width={'45px'}/></Button>
+        <Button className={classes.viewYourFavoritesText}> View Your Favorites<RedHeartIcon width={'45px'}/></Button>
       </Grid>
     </Grid>
   )
 }
 
-export default NavDesktop;
+NavDesktop.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NavDesktop);
