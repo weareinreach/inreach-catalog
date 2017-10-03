@@ -1,9 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { withStyles } from 'material-ui/styles';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 
-export default class Language extends React.Component { 
+import ChevronIcon from './icons/ChevronIcon';
+
+const styles = theme => ({
+  root: {
+    display: 'inline',
+    width: 'auto'
+  },
+  centerTextAlign: {
+    textAlign: 'center',
+  },
+  AsylumConnectMenu: {
+    marginTop: '56px'
+  }
+});
+
+class Language extends React.Component { 
   constructor() {
     super();
     this.state = {
@@ -22,21 +40,26 @@ export default class Language extends React.Component {
   };
 
   render() {
+    const classes = this.props.classes;
     return (
       <div>
-        <Typography
-          aria-owns={this.state.open ? 'simple-menu' : null}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-          type="body1"
-          style={{textAlign:'center'}}>
-        Language
-        </Typography>
+        <IconButton className={classes.root}>
+          <Typography
+            aria-owns={this.state.open ? 'simple-menu' : null}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+            type="body1"
+            className={classes.centerTextAlign}>
+          Language
+          </Typography>
+          <ChevronIcon width={'20px'}/>
+        </IconButton>
         <Menu 
           id="simple-menu"
           anchorEl={this.state.anchorEl}
           open={this.state.open}
-          onRequestClose={this.handleRequestClose}>
+          onRequestClose={this.handleRequestClose}
+          className={classes.AsylumConnectMenu}>
             <MenuItem onClick={this.handleRequestClose}>English</MenuItem>
             <MenuItem onClick={this.handleRequestClose}>Chinese</MenuItem>
         </Menu>
@@ -44,3 +67,9 @@ export default class Language extends React.Component {
     );
   }
 };
+
+Language.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Language);
