@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
+import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
 
 import SearchIcon from './icons/SearchIcon'
 import FavoritesIcon from './icons/FavoritesIcon'
@@ -9,34 +12,57 @@ import LanguageIcon from './icons/LanguageIcon'
 import AccountIcon from './icons/AccountIcon'
 import PrivacyIcon from './icons/PrivacyIcon'
 
-const NavMobile = () => { 
-  return (
-    <Grid container 
-          align='center'
-          direction='row'
-          justify='space-between'>
-      <Grid item xs={2}>
-        <SearchIcon />
-        <Typography type='display4'>search</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <FavoritesIcon/>
-        <Typography type='display4'>favorites</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <LanguageIcon />
-        <Typography type='display4'>language</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <AccountIcon />
-        <Typography type='display4'>account</Typography>
-      </Grid>
-      <Grid item xs={2}>
-        <PrivacyIcon />
-        <Typography type='display4'>privacy</Typography>
-      </Grid>
-    </Grid>
-  )
+const styles = {
+  root: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justify: 'space-around',
+  },
+  BottomNavBar: {
+    position:'fixed',
+    bottom:'20'
+  },
+  NavButton: {
+    minWidth: '20%',
+  }
+};
+
+class NavMobile extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: 0,
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event, value) {
+    this.setState({ value });
+  };
+  render() {
+    const classes = this.props.classes;
+    const { value } = this.state;
+    return (
+      <div className={classes.BottomNavBar}>
+        <BottomNavigation
+          value={value}
+          onChange={this.handleChange}
+          showLabels
+          className={classes.root}
+        >
+          <BottomNavigationButton className={classes.NavButton} label="Search" icon={<SearchIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="Favorites" icon={<FavoritesIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="Language" icon={<LanguageIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="Account" icon={<AccountIcon />} />
+          <BottomNavigationButton className={classes.NavButton} label="Privacy" icon={<PrivacyIcon />} />
+        </BottomNavigation>
+      </div>
+    )
+  }
 }
 
-export default NavMobile
+NavMobile.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NavMobile);

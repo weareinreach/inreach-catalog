@@ -9,29 +9,17 @@ import Grid from 'material-ui/Grid';
 import withWidth from './withWidth'
 
 const Header = ({width}) => { 
-  if (width <= 425) 
+  if (width <= 425)
     return (
-      <Grid container>
-          <Grid item xs={12}  style={{position: 'fixed', bottom:'0', width: '100%'}}>
-            <NavMobile />
-          </Grid>
-      </Grid>
+      <NavMobile />
     )
-  else if (width > 425 && width <= 768)
+  else if (width > 425 && width <= 1024)
     return (
-      <Grid container>
-        <Grid item md={12}>
-          <NavTablet />
-        </Grid>
-      </Grid>
+      <NavTablet />
     )
   else
     return (
-      <Grid container>
-        <Grid item md={12}>
-          <NavDesktop />
-        </Grid>
-      </Grid>
+      <NavDesktop />
     )      
 }
 

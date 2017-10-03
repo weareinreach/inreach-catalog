@@ -14,45 +14,38 @@ import Typography from 'material-ui/Typography';
 
 const NavDesktop = () => { 
   return (
-    <AppBar style={{backgroundColor: 'white'}}>
-      <Grid container
-            align='center'
-            direction='row'
-            justify='space-around'
-            style={{padding: '20 0 20 0'}}>
-        
-        {/* Hide Offsite Link for tablet*/} 
-        <Grid item md={5}>
-          <OffsiteLink />
-        </Grid>
-        
-        {/* Find Resource Link */}
-        <Grid item md={2}>
-          <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
-        </Grid>
-        
-        {/* Language Component */}
-        <Grid item md={1}>
-          <Language />
-        </Grid>
-        
-        {/* Account Component */}
-        <Grid item md={1}>
-          <Account />
-        </Grid>
-        
-        {/* Favorite Link */}
-        <Grid item sm={3}>
-          <Grid container
-            align='center'
-            direction='row'
-            justify='center'>
-            <Typography type="display4">View Your Favorites</Typography>
-            <RedHeartIcon width={'45px'}/>
-          </Grid>
-        </Grid>
+    <Grid container
+          align='baseline'
+          direction='row'
+          justify='space-around'
+          style={{padding: '10 0 10 0'}}
+          spacing={0}>
+      
+      {/* Hide Offsite Link for tablet*/} 
+      <Grid item md={5}>
+        <OffsiteLink />
       </Grid>
-    </AppBar>
+      
+      {/* Find Resource Link */}
+      <Grid item md={2}>
+        <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
+      </Grid>
+      
+      {/* Language Component */}
+      <Grid item md={1}>
+        <Language />
+      </Grid>
+      
+      {/* Account Component */}
+      <Grid item md={1}>
+        <Account />
+      </Grid>
+      
+      {/* Favorite Link */}
+      <Grid item md={3}>
+        <Button> View Your Favorites<RedHeartIcon width={'45px'}/></Button>
+      </Grid>
+    </Grid>
   )
 }
 

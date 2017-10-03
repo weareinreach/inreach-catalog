@@ -15,6 +15,7 @@ import MenuIcon from 'material-ui/Menu'
 import Drawer from 'material-ui/Drawer';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button'
 
 import widthWidth from './withWidth'
 
@@ -35,46 +36,32 @@ const styles = theme => ({
 const NavTablet = (props) => { 
   const classes = props.classes;
   return (
-    <AppBar style={{backgroundColor: 'white'}}>
-    <Toolbar>
-      {/* Hide Offsite Link for tablet*/} 
-      <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-          <MenuIcon />
-        </IconButton>
-      <Grid container
-            align='center'
-            direction='row'
-            justify='center'
-            style={{padding: '20 0 20 0'}}>
-        
-        {/* Find Resource Link */}
-        <Grid item sm={3} >
-          <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
-        </Grid>
-        
-        {/* Language Component */}
-        <Grid item sm={2}>
-          <Language />
-        </Grid>
-        
-        {/* Account Component */}
-        <Grid item sm={2}>
-          <Account />
-        </Grid>
-        
-        {/* Favorite Link */}
-        <Grid item sm={3}>
-          <Grid container
-            align='center'
-            direction='row'
-            justify='center'>
-          <Typography type="display4">View Your Favorites</Typography>
-          <RedHeartIcon width={'45px'}/>
-          </Grid>
-        </Grid>
+    <Grid container spacing={0}
+          align='baseline'
+          direction='row'
+          justify='space-around'
+          style={{padding: '10 0 10 0'}}>
+      
+      {/* Language Component */}
+      <Grid item md={2}>
+        <Language />
       </Grid>
-      </Toolbar>
-    </AppBar>
+      
+      {/* Language Component */}
+      <Grid item md={2}>
+        <Language />
+      </Grid>
+      
+      {/* Account Component */}
+      <Grid item md={3}>
+        <Account />
+      </Grid>
+      
+      {/* Favorite Link */}
+      <Grid item md={5}>
+        <Button>View Your Favorites <RedHeartIcon width={'45px'}/></Button>
+      </Grid>
+    </Grid>
   )
 }
 
@@ -83,3 +70,8 @@ NavTablet.propTypes = {
 };
 
 export default withStyles(styles)(NavTablet);
+
+// {/* Hide Offsite Link for tablet*/} 
+//       <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+//           <MenuIcon />
+//         </IconButton>

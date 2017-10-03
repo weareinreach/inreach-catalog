@@ -39,7 +39,7 @@ export default class AsylumConnectCatalog extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header/>
         <Router>
           <div className="content" >
             <Switch>
