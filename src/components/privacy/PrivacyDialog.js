@@ -16,7 +16,7 @@ const styles = (theme) => ({
   },
   disclaimerBody: {
     padding: '5.5rem',
-    overflow: 'scroll',
+    overflowY: 'auto',
   },
   paperWidthSm: { maxWidth: '650px' },
   title: { paddingBottom: '1rem', textAlign: 'center', },

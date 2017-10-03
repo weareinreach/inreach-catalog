@@ -15,7 +15,10 @@ const styles = (theme) => ({
     justifyContent: 'center',
     marginTop: '4rem',
   },
-  disclaimerBody: { padding: '5.5rem' },
+  disclaimerBody: {
+    padding: '5.5rem',
+    overflowY: 'auto',
+  },
   title: { paddingBottom: '1rem', textAlign: 'center', },
 });
 
