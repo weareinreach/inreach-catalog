@@ -1,3 +1,4 @@
+import 'normalize.css';
 import React from 'react';
 import {render} from 'react-dom';
 import AsylumConnectCatalog from './components/AsylumConnectCatalog';
@@ -11,7 +12,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //load our css
 //require('../../web/src/stylesheets/main.scss');
 //require('../../node_modules/react-quill/dist/quill.snow.css');
-import 'normalize.css';
 
 const rootElement = document.getElementById('main');
 
