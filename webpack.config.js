@@ -22,7 +22,7 @@ var config = {
       }
     },
     {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         loader: (process.env.NODE_ENV === 'production' ? ExtractTextPlugin.extract('css-loader?minimize!sass-loader') : 'style-loader!css-loader!sass-loader'),
     },{
     test: /\.(jpg|png|svg)$/,
