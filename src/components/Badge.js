@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from 'material-ui/Tooltip';
+
 import {
   CommunitySupportIcon,
   ComputersIcon,
@@ -13,21 +15,61 @@ import {
   MentalHealthIcon,
   SportsEntertainmentIcon,
 } from './icons';
+const Badge = ({ type }) => {
+  const typeMapping = {
+    communitySupport: {
+      label: 'Community Support',
+      icon: <CommunitySupportIcon />,
+    },
+    computers: {
+      label: 'Computers',
+      icon: <ComputersIcon />,
+    },
+    educationEmployment: {
+      label: 'Education / Employment',
+      icon: <EducationEmploymentIcon />,
+    },
+    food: {
+      label: 'Food',
+      icon: <FoodIcon />,
+    },
+    housing: {
+      label: 'Housing',
+      icon: <HousingIcon />,
+    },
+    hygiene: {
+      label: 'Hygiene',
+      icon: <HygieneIcon />,
+    },
+    legal: {
+      label: 'Legal',
+      icon: <LegalIcon />,
+    },
+    medical: {
+      label: 'Medical',
+      icon: <MedicalIcon />,
+    },
+    mentalHealth: {
+      label: 'Mental Health',
+      icon: <MentalHealthIcon />,
+    },
+    sportsEntertainment: {
+      label: 'Sports / Entertainment',
+      icon: <SportsEntertainmentIcon />,
+    },
+  };
 
-const Badge = ({ type }) => (
-  <div>
-    { type === 'communitySupport' && <CommunitySupportIcon />}
-    { type === 'computers' && <ComputersIcon />}
-    { type === 'educationEmployment' && <EducationEmploymentIcon />}
-    { type === 'food' && <FoodIcon />}
-    { type === 'housing' && <HousingIcon />}
-    { type === 'hygiene' && <HygieneIcon />}
-    { type === 'legal' && <LegalIcon />}
-    { type === 'medical' && <MedicalIcon />}
-    { type === 'mentalHealth' && <MentalHealthIcon />}
-    { type === 'sportsEntertainment' && <SportsEntertainmentIcon />}
-  </div>
-);
+  return (
+    <Tooltip
+      label={typeMapping[type].label}
+      placement="top"
+    >
+      <div style={{ width: '75px', height: '75px' }}>
+        { typeMapping[type].icon }
+      </div>
+    </Tooltip>
+  );
+};
 
 Badge.propTypes = {
   type: PropTypes.oneOf([
@@ -43,6 +85,5 @@ Badge.propTypes = {
     'sportsEntertainment',
   ]).isRequired
 };
-
 
 export default Badge;
