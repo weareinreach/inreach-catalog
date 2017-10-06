@@ -33,7 +33,7 @@ class OffsiteLink extends React.Component {
     const classes = this.props.classes;
     return (
       <div className={classes.root}>
-        <IconButton className={classes.IconButton}>
+        <IconButton className={classes.IconButton} href='http://www.asylumconnect.org'>
           <img src={LogoImg} className={classes.LogoFitHeight}/>
         </IconButton>
         <Button href='http://www.asylumconnect.org/our-organization/'><Typography type="display4">about us</Typography></Button>
