@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tooltip from 'material-ui/Tooltip';
+import { withStyles } from 'material-ui/styles';
 
 import {
   CommunitySupportIcon,
@@ -15,7 +16,13 @@ import {
   MentalHealthIcon,
   SportsEntertainmentIcon,
 } from './icons';
-const Badge = ({ type }) => {
+
+const styles = theme => ({
+  tooltip: { fontFamily: 'sans-serif' },
+  icon: { width: '75px', height: '75px' },
+});
+
+const Badge = ({ classes, type }) => {
   const typeMapping = {
     communitySupport: {
       label: 'Community Support',
@@ -61,10 +68,11 @@ const Badge = ({ type }) => {
 
   return (
     <Tooltip
+      className={classes.tooltip}
       label={typeMapping[type].label}
       placement="top"
     >
-      <div style={{ width: '75px', height: '75px' }}>
+      <div className={classes.icon}>
         { typeMapping[type].icon }
       </div>
     </Tooltip>
@@ -86,4 +94,4 @@ Badge.propTypes = {
   ]).isRequired
 };
 
-export default Badge;
+export default withStyles(styles)(Badge);
