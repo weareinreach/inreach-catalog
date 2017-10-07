@@ -17,6 +17,7 @@ import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
 
 import Announcement from './Announcement';
+import Header from './Header'
 import Footer from './Footer';
 import { PrivacyMobile } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
@@ -42,9 +43,7 @@ class AsylumConnectCatalog extends React.Component {
     const isMobile = this.props.width < 600;
     return (
       <div>
-        <header>
-          <nav/>
-        </header>
+        <Header />
         { isMobile ? null : <Announcement />}
         <Router>
           <div className="content" >
