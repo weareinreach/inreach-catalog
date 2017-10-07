@@ -7,7 +7,6 @@ import {
   DisclaimerDialog,
   PrivacyDialog,
 } from './privacy';
-import withWidth from './withWidth';
 
 const styles = (theme) => ({
   announcement: {
@@ -43,7 +42,7 @@ class Announcement extends React.Component {
 
   render() {
     const { dialog } = this.state;
-    const { classes, width } = this.props
+    const { classes } = this.props
     const { announcement, textWhite } = classes;
 
     const DisclaimerButton = () => (
@@ -67,7 +66,9 @@ class Announcement extends React.Component {
     return (
       <div className={announcement}>
         <Typography type="body1" className={textWhite}>
-          Asylum seekers contact service providers at their own risk. { width > 600 ? <br /> : null } Please read our complete <DisclaimerButton /> and <PrivacyButton /> before using our catalog.
+          Asylum seekers contact service providers at their own risk.
+          <br />
+          Please read our complete <DisclaimerButton /> and <PrivacyButton /> before using our catalog.
         </Typography>
 
         <DisclaimerDialog
@@ -83,4 +84,4 @@ class Announcement extends React.Component {
   }
 };
 
-export default withStyles(styles)(withWidth(Announcement));
+export default withStyles(styles)(Announcement);

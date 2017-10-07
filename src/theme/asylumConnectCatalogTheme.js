@@ -1,4 +1,5 @@
 import { createMuiTheme } from 'material-ui/styles';
+import breakpoints from './breakpoints';
 
 
 /**
@@ -283,20 +284,8 @@ export default createMuiTheme({
     }
   },
   "breakpoints": {
-    "keys": [
-      "xs",
-      "sm",
-      "md",
-      "lg",
-      "xl"
-    ],
-    "values": [
-      360,
-      600,
-      960,
-      1280,
-      1920
-    ]
+    "keys": Object.keys(breakpoints),
+    "values": Object.values(breakpoints),
   },
   "shadows": [
     "none",

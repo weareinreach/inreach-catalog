@@ -23,6 +23,8 @@ import { PrivacyMobile } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
 
+import breakpoints from '../theme/breakpoints';
+
 class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
     super(props, context);
@@ -40,7 +42,7 @@ class AsylumConnectCatalog extends React.Component {
   }
 
   render() {
-    const isMobile = this.props.width < 600;
+    const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div>
         <Header />
