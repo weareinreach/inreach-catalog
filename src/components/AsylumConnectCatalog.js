@@ -19,7 +19,11 @@ require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import Header from './Header'
 import Footer from './Footer';
-import { PrivacyMobile } from './privacy';
+import {
+  DisclaimerDialog,
+  PrivacyDialog,
+  PrivacyMobile
+} from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
 
@@ -29,24 +33,38 @@ class AsylumConnectCatalog extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      open: false,
-    };
+    this.state = { dialog: 'none' };
+
+    this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
+  handleRequestOpen(dialog) {
+    this.setState({ dialog });
+  }
+
   handleRequestClose() {
-    this.setState({
-      open: false,
-    });
+    this.setState({ dialog: 'none' });
   }
 
   render() {
+    const { dialog } = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div>
         <Header />
-        { isMobile ? null : <Announcement />}
+        { isMobile
+            ? null
+            : <Announcement handleRequestOpen={this.handleRequestOpen} />
+        }
+        <DisclaimerDialog
+          handleRequestClose={this.handleRequestClose}
+          isOpen={dialog === 'disclaimer'}
+        />
+        <PrivacyDialog
+          handleRequestClose={this.handleRequestClose}
+          isOpen={dialog === 'privacy'}
+        />
         <Router>
           <div className="content" >
             <Switch>
