@@ -1,7 +1,12 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
 
+import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
+
+import {
+  DisclaimerDialog,
+  PrivacyDialog,
+} from './privacy';
 import withWidth from './withWidth';
 
 const styles = (theme) => ({
@@ -10,18 +15,72 @@ const styles = (theme) => ({
     padding: '2rem 0',
     textAlign: 'center',
   },
+  pointer: { cursor: 'pointer' },
   textWhite: { color: theme.palette.common.darkWhite },
 });
 
-const Announcement = ({classes, width}) => {
-  const { announcement, textWhite } = classes;
-  return (
-    <div className={announcement}>
-      <Typography type="body1" className={textWhite}>
-        Asylum seekers contact service providers at their own risk. { width > 600 ? <br /> : null } Please read our complete <strong> Disclaimer</strong> and <strong>User Privacy Statement</strong> before using our catalog.
-      </Typography>
-    </div>
-  );
+class Announcement extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { dialog: 'none' };
+
+    this.handleOpenDisclaimer = this.handleOpenDisclaimer.bind(this);
+    this.handleOpenPrivacy = this.handleOpenPrivacy.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+  }
+
+  handleOpenDisclaimer() {
+    this.setState({ dialog: 'disclaimer' });
+  };
+
+  handleOpenPrivacy() {
+    this.setState({ dialog: 'privacy' });
+  }
+
+  handleRequestClose() {
+    this.setState({ dialog: 'none' });
+  };
+
+  render() {
+    const { dialog } = this.state;
+    const { classes, width } = this.props
+    const { announcement, textWhite } = classes;
+
+    const DisclaimerButton = () => (
+      <strong
+        className={classes.pointer}
+        onClick={this.handleOpenDisclaimer}
+      >
+        Disclaimer
+      </strong>
+    );
+
+    const PrivacyButton = () => (
+      <strong
+        className={classes.pointer}
+        onClick={this.handleOpenPrivacy}
+      >
+        User Privacy Statement
+      </strong>
+    );
+
+    return (
+      <div className={announcement}>
+        <Typography type="body1" className={textWhite}>
+          Asylum seekers contact service providers at their own risk. { width > 600 ? <br /> : null } Please read our complete <DisclaimerButton /> and <PrivacyButton /> before using our catalog.
+        </Typography>
+
+        <DisclaimerDialog
+          handleRequestClose={this.handleRequestClose}
+          isOpen={dialog === 'disclaimer'}
+        />
+        <PrivacyDialog
+          handleRequestClose={this.handleRequestClose}
+          isOpen={dialog === 'privacy'}
+        />
+      </div>
+    );
+  }
 };
 
 export default withStyles(styles)(withWidth(Announcement));
