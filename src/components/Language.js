@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import langs from 'langs';
+import ValidLanguageList from '../helpers/ValidLanguageList';
 
 import { withStyles } from 'material-ui/styles';
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -18,8 +20,29 @@ const styles = theme => ({
   },
   AsylumConnectMenu: {
     marginTop: '56px'
+  },
+  hiddenTranslator: {
+    visibility: 'hidden',
+    width: '0',
+    height: '0'
   }
 });
+
+class LangMenuItem extends React.Component { 
+  constructor(props) {
+    super(props);
+    this.handleSelectLang = this.handleSelectLang.bind(this)
+  }
+  
+  handleSelectLang() {
+    this.props.handleSelectLang(this.props.langCode);
+  }
+  render() {
+    return (
+      <MenuItem onClick={this.handleSelectLang} children={this.props.langName}></MenuItem>
+    )
+  }
+}
 
 class Language extends React.Component { 
   constructor() {
@@ -30,24 +53,31 @@ class Language extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
   }
   handleClick(event) {
     this.setState({ open: true, anchorEl: event.currentTarget });
   };
-
+  
   handleRequestClose() {
     this.setState({ open: false });
+  };
+  
+  handleRequestCloseAfterSelect(langCode) {
+    this.setState({ open: false });
+    window.location.hash = "#googtrans("+langCode+")";
+    location.reload();
   };
 
   render() {
     const classes = this.props.classes;
+    const langsList = ValidLanguageList.all();
     return (
       <div>
-        <IconButton className={classes.root}>
+        <IconButton className={classes.root} onClick={this.handleClick}>
           <Typography
             aria-owns={this.state.open ? 'simple-menu' : null}
             aria-haspopup="true"
-            onClick={this.handleClick}
             type="body1"
             className={classes.centerTextAlign}>
           Language
@@ -60,8 +90,13 @@ class Language extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
           className={classes.AsylumConnectMenu}>
-            <MenuItem onClick={this.handleRequestClose}>English</MenuItem>
-            <MenuItem onClick={this.handleRequestClose}>Chinese</MenuItem>
+            {
+              langsList.map(function(lang, index) {
+                return (
+                  <LangMenuItem key={index} langName={lang.name} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
+                )
+              }, this)
+            }
         </Menu>
       </div>
     );
@@ -70,6 +105,11 @@ class Language extends React.Component {
 
 Language.propTypes = {
   classes: PropTypes.object.isRequired,
+};
+
+LangMenuItem.propTypes = {
+  langName: PropTypes.string.isRequired,
+  langCode: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(Language);

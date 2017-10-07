@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
+    "langs": "^2.0.0",
     "request": "^2.81.0",
     "tape": "^4.7.0",
     "url-loader": "^0.5.9",
