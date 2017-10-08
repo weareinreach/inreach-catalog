@@ -9,11 +9,11 @@ import Grid from 'material-ui/Grid';
 import withWidth from './withWidth'
 
 const Header = ({width}) => { 
-  if (width <= 425)
+  if (width <= 600)
     return (
       <NavMobile />
     )
-  else if (width > 425 && width <= 1024)
+  else if (width > 600 && width <= 1024)
     return (
       <NavTablet />
     )

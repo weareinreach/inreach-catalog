@@ -19,8 +19,11 @@ require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import Header from './Header'
 import Footer from './Footer';
+import { PrivacyMobile } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
+
+import breakpoints from '../theme/breakpoints';
 
 class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
@@ -39,7 +42,7 @@ class AsylumConnectCatalog extends React.Component {
   }
 
   render() {
-    const isMobile = this.props.width < 600;
+    const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div>
         <Header />
@@ -50,6 +53,7 @@ class AsylumConnectCatalog extends React.Component {
               <Route exact path="/" component={MapContainer}/>
               <Route path="/resource/:id" component={MapContainer}/>
               <Route path="/search/:near/:for/:filter/:sort" component={MapContainer}/>
+              <Route path="/privacy" component={PrivacyMobile}/>
               <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
               <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
               <Redirect from="/search" to="/"/>

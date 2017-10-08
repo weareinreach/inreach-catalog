@@ -1,4 +1,5 @@
 import { createMuiTheme } from 'material-ui/styles';
+import breakpoints from './breakpoints';
 
 
 /**
@@ -22,8 +23,8 @@ export default createMuiTheme({
       "fullWhite": "rgba(255, 255, 255, 1)",
       "darkWhite": "rgba(255, 255, 255, 0.87)",
       "lightWhite": "rgba(255, 255, 255, 0.54)",
-      "darkGrey": "e9e9e9",
-      "lightGrey": "f7f7f7"
+      "darkGrey": "#e9e9e9",
+      "lightGrey": "#f7f7f7"
     },
     "type": "light",
     "primary": {
@@ -263,7 +264,12 @@ export default createMuiTheme({
       "fontSize": 16,
       "textTransform": "uppercase",
       "fontWeight": 600,
-      "fontFamily": "\"Open Sans\", sans-serif"
+      "fontFamily": "\"Open Sans\", sans-serif",
+      "paddingTop": 10,
+      "paddingRight": 8,
+      "paddingBottom": 10,
+      "paddingLeft": 8,
+      
     }
   },
   "mixins": {
@@ -278,20 +284,8 @@ export default createMuiTheme({
     }
   },
   "breakpoints": {
-    "keys": [
-      "xs",
-      "sm",
-      "md",
-      "lg",
-      "xl"
-    ],
-    "values": [
-      360,
-      600,
-      960,
-      1280,
-      1920
-    ]
+    "keys": Object.keys(breakpoints),
+    "values": Object.values(breakpoints),
   },
   "shadows": [
     "none",
