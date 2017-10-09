@@ -55,16 +55,22 @@ class AsylumConnectCatalog extends React.Component {
         <Header />
         { isMobile
             ? null
-            : <Announcement handleRequestOpen={this.handleRequestOpen} />
+            : (
+              <div>
+                <Announcement
+                  handleRequestOpen={this.handleRequestOpen}
+                />
+                <DisclaimerDialog
+                  handleRequestClose={this.handleRequestClose}
+                  isOpen={dialog === 'disclaimer'}
+                />
+                <PrivacyDialog
+                  handleRequestClose={this.handleRequestClose}
+                  isOpen={dialog === 'privacy'}
+                />
+              </div>
+            )
         }
-        <DisclaimerDialog
-          handleRequestClose={this.handleRequestClose}
-          isOpen={dialog === 'disclaimer'}
-        />
-        <PrivacyDialog
-          handleRequestClose={this.handleRequestClose}
-          isOpen={dialog === 'privacy'}
-        />
         <Router>
           <div className="content" >
             <Switch>
