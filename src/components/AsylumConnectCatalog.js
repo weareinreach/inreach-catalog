@@ -84,7 +84,6 @@ class AsylumConnectCatalog extends React.Component {
               <Route exact path="/" component={MapContainer}/>
               <Route path="/resource/:id" component={MapContainer}/>
               <Route path="/search/:near/:for/:filter/:sort" component={MapContainer}/>
-              <Route path="/privacy" component={PrivacyMobile}/>
               <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
               <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
               <Redirect from="/search" to="/"/>
