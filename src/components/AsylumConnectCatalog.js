@@ -19,7 +19,10 @@ require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import Header from './Header'
 import Footer from './Footer';
-import LoginDialog from './account/LoginDialog';
+import {
+  AccountMobile,
+  LoginDialog,
+} from './account';
 import {
   DisclaimerDialog,
   PrivacyDialog,
@@ -56,14 +59,20 @@ class AsylumConnectCatalog extends React.Component {
       <div>
         <Header handleRequestOpen={handleRequestOpen}/>
         { isMobile
-            ?  (
-              ['disclaimer', 'privacy'].includes(dialog) &&
-              <PrivacyMobile
-                tab={dialog === 'privacy' ? 0 : 1}
-                handleRequestOpen={handleRequestOpen}
-              />
-            )
-            : (
+            ? (<div>{
+                  ['disclaimer', 'privacy'].includes(dialog) &&
+                  <PrivacyMobile
+                    tab={dialog === 'privacy' ? 0 : 1}
+                    handleRequestOpen={handleRequestOpen}
+                  />
+                }{
+                  ['login', 'signup'].includes(dialog) &&
+                    <AccountMobile
+                      tab={dialog ==='login' ? 0 : 1}
+                      handleRequestOpen={handleRequestOpen}
+                    />
+                }</div>
+            ) : (
               <div>
                 <Announcement
                   handleRequestOpen={handleRequestOpen}
