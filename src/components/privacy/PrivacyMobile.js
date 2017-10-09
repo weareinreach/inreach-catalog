@@ -19,51 +19,33 @@ const styles = theme => ({
   textCenter: { textAlign: 'center' },
 });
 
-class Privacy extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { tab: 0 };
+const PrivacyMobile = ({classes, handleRequestOpen, tab}) => (
+  <div>
+    <Paper className={classes.root}>
+      <Typography className={classes.textCenter} type="display1">
+        {tab === 0 && 'Privacy Statement' }
+        {tab === 1 && 'AC Disclaimer' }
+      </Typography>
+      <Tabs
+        value={tab}
+        onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'privacy' : 'disclaimer')}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab label="PRIVACY" />
+        <Tab label="DISCLAIMER" />
+      </Tabs>
+    </Paper>
+    <TabContainer>
+      {tab === 0 && <DisclaimerText /> }
+      {tab === 1 && <PrivacyText /> }
+    </TabContainer>
+  </div>
+);
 
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event, tab) {
-    this.setState({ tab });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { tab } = this.state;
-
-    return (
-      <div>
-        <Paper className={classes.root}>
-          <Typography className={classes.textCenter} type="display1">
-            {tab === 0 && 'Privacy Statement' }
-            {tab === 1 && 'AC Disclaimer' }
-          </Typography>
-          <Tabs
-            value={tab}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab label="PRIVACY" />
-            <Tab label="DISCLAIMER" />
-          </Tabs>
-        </Paper>
-        <TabContainer>
-          {tab === 0 && <DisclaimerText /> }
-          {tab === 1 && <PrivacyText /> }
-        </TabContainer>
-      </div>
-    );
-  }
-}
-
-Privacy.propTypes = {
+PrivacyMobile.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Privacy);
+export default withStyles(styles)(PrivacyMobile);
