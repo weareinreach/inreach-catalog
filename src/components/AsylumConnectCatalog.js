@@ -19,7 +19,7 @@ require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import Header from './Header'
 import Footer from './Footer';
-import LoginDialog from './login/LoginDialog';
+import LoginDialog from './account/LoginDialog';
 import {
   DisclaimerDialog,
   PrivacyDialog,
