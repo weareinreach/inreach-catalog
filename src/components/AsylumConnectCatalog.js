@@ -53,7 +53,7 @@ class AsylumConnectCatalog extends React.Component {
     const { handleRequestClose, handleRequestOpen } = this;
     return (
       <div>
-        <Header />
+        <Header handleRequestOpen={handleRequestOpen}/>
         { isMobile
             ?  (
               ['disclaimer', 'privacy'].includes(dialog) &&
