@@ -7,7 +7,7 @@ import Grid from 'material-ui/Grid';
 
 import OffsiteLink from './OffsiteLink';
 import Language from './Language';
-import Account from './Account';
+import AccountNav from './AccountNav';
 import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesButton from './FavoritesButton'
 
@@ -30,7 +30,7 @@ const NavDesktop = ({ classes, handleRequestOpen }) => (
     <OffsiteLink />
     <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
     <Language />
-    <Account handleRequestOpen={handleRequestOpen}/>
+    <AccountNav handleRequestOpen={handleRequestOpen}/>
     <FavoritesButton>view your favorites</FavoritesButton>
   </div>
 );
