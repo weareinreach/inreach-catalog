@@ -8,9 +8,11 @@ import Typography from 'material-ui/Typography';
 import DisclaimerText from './DisclaimerText';
 import PrivacyText from './PrivacyText';
 
-const TabContainer = ({ children }) => {
-  return <div style={{ padding: '2.5rem' }}>{children}</div>;
-}
+const TabContainer = ({ children }) => (
+  <div style={{ padding: '2.5rem' }}>
+    {children}
+  </div>
+);
 
 TabContainer.propTypes = { children: PropTypes.node.isRequired };
 
