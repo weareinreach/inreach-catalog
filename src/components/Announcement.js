@@ -1,12 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-
-import {
-  DisclaimerDialog,
-  PrivacyDialog,
-} from './privacy';
 
 const styles = (theme) => ({
   announcement: {
@@ -18,70 +14,35 @@ const styles = (theme) => ({
   textWhite: { color: theme.palette.common.darkWhite },
 });
 
-class Announcement extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { dialog: 'none' };
+const Announcement = ({ classes, handleRequestOpen }) => (
+  <div className={classes.announcement}>
 
-    this.handleOpenDisclaimer = this.handleOpenDisclaimer.bind(this);
-    this.handleOpenPrivacy = this.handleOpenPrivacy.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-  }
-
-  handleOpenDisclaimer() {
-    this.setState({ dialog: 'disclaimer' });
-  };
-
-  handleOpenPrivacy() {
-    this.setState({ dialog: 'privacy' });
-  }
-
-  handleRequestClose() {
-    this.setState({ dialog: 'none' });
-  };
-
-  render() {
-    const { dialog } = this.state;
-    const { classes } = this.props
-    const { announcement, textWhite } = classes;
-
-    const DisclaimerButton = () => (
+    <Typography type="body1" className={classes.textWhite}>
+      Asylum seekers contact service providers at their own risk.
+      <br />
+      <span>Please read our complete </span>
       <strong
         className={classes.pointer}
-        onClick={this.handleOpenDisclaimer}
+        onClick={() => handleRequestOpen('disclaimer')}
       >
         Disclaimer
       </strong>
-    );
-
-    const PrivacyButton = () => (
+      <span> and </span>
       <strong
         className={classes.pointer}
-        onClick={this.handleOpenPrivacy}
+        onClick={() => handleRequestOpen('privacy')}
       >
         User Privacy Statement
       </strong>
-    );
+      <span> before using our catalog.</span>
+    </Typography>
 
-    return (
-      <div className={announcement}>
-        <Typography type="body1" className={textWhite}>
-          Asylum seekers contact service providers at their own risk.
-          <br />
-          Please read our complete <DisclaimerButton /> and <PrivacyButton /> before using our catalog.
-        </Typography>
+  </div>
+);
 
-        <DisclaimerDialog
-          handleRequestClose={this.handleRequestClose}
-          isOpen={dialog === 'disclaimer'}
-        />
-        <PrivacyDialog
-          handleRequestClose={this.handleRequestClose}
-          isOpen={dialog === 'privacy'}
-        />
-      </div>
-    );
-  }
+Announcement.propTypes = {
+  classes: PropTypes.object.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Announcement);

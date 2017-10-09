@@ -8,10 +8,10 @@ import NavTablet from './NavTablet';
 import Grid from 'material-ui/Grid';
 import withWidth from './withWidth'
 
-const Header = ({width}) => { 
+const Header = ({handleRequestOpen, width}) => { 
   if (width <= 600)
     return (
-      <NavMobile />
+      <NavMobile handleRequestOpen={handleRequestOpen}/>
     )
   else if (width > 600 && width <= 1024)
     return (
@@ -23,6 +23,9 @@ const Header = ({width}) => {
     )      
 }
 
-Header.propTypes = { width: PropTypes.number.isRequired };
+Header.propTypes = {
+  handleRequestOpen: PropTypes.func.isRequired,
+  width: PropTypes.number.isRequired
+};
   
 export default withWidth(Header); 

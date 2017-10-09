@@ -41,6 +41,10 @@ class NavMobile extends React.Component {
   }
   handleChange(event, value) {
     this.setState({ value });
+    if (value === 4)
+      this.props.handleRequestOpen('privacy');
+    else
+      this.props.handleRequestOpen('none');
   };
   iconColor(position){
     if (position === null) {
