@@ -25,21 +25,19 @@ const styles = theme => ({
   
 });
 
-const NavDesktop = (props) => {
-  const classes = props.classes;
-  return (
-    <div className={classes.root}>
-      <OffsiteLink />
-      <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
-      <Language />
-      <Account />
-      <FavoritesButton>view your favorites</FavoritesButton>
-    </div>
-  )
-}
+const NavDesktop = ({ classes, handleRequestOpen }) => (
+  <div className={classes.root}>
+    <OffsiteLink />
+    <AsylumConnectButton variant='primary'>find resource</AsylumConnectButton>
+    <Language />
+    <Account handleRequestOpen={handleRequestOpen}/>
+    <FavoritesButton>view your favorites</FavoritesButton>
+  </div>
+);
 
 NavDesktop.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(NavDesktop);

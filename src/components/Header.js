@@ -15,11 +15,11 @@ const Header = ({handleRequestOpen, width}) => {
     )
   else if (width > 600 && width <= 1024)
     return (
-      <NavTablet />
+      <NavTablet handleRequestOpen={handleRequestOpen}/>
     )
   else
     return (
-      <NavDesktop />
+      <NavDesktop handleRequestOpen={handleRequestOpen}/>
     )      
 }
 

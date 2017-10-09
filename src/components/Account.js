@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -20,20 +21,27 @@ const styles = theme => ({
   }
 });
 
-class Account extends React.Component { 
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    const { classes } = this.props
-    return (
-    <div>
-        <Button className={classes.divider}><Typography type="body1" className={classes.lowercaseText}>Log In</Typography></Button>
-        <Button><Typography type="body1" className={classes.lowercaseText}>Sign Up</Typography></Button>
-    </div>
-    )
-  }
+const Account = ({classes, handleRequestOpen}) => (
+  <div>
+    <Button
+      className={classes.divider}
+      onClick={() => handleRequestOpen('login')}
+    >
+      <Typography type="body1" className={classes.lowercaseText}>
+        Log In
+      </Typography>
+    </Button>
+    <Button>
+      <Typography type="body1" className={classes.lowercaseText}>
+        Sign Up
+      </Typography>
+    </Button>
+  </div>
+);
+
+Account.propTypes = {
+  classes: PropTypes.object.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Account);

@@ -20,8 +20,7 @@ const styles = theme => ({
   }
 });
 
-const NavTablet = (props) => { 
-  const classes = props.classes;
+const NavTablet = ({ classes, handleRequestOpen }) => { 
   return (
     <Grid container spacing={0}
           align='center'
@@ -38,7 +37,7 @@ const NavTablet = (props) => {
       </Grid>
       
       <Grid item md={3}>
-        <Account />
+        <Account handleRequestOpen={handleRequestOpen}/>
       </Grid>
       
       <Grid item md={5}>

@@ -6,7 +6,6 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
-import PrivacyText from './PrivacyText';
 
 const styles = (theme) => ({
   buttonContainer: {
@@ -22,7 +21,7 @@ const styles = (theme) => ({
   title: { paddingBottom: '1rem', textAlign: 'center', },
 });
 
-const PrivacyDialog = ({classes, handleRequestClose, isOpen}) => (
+const LoginDialog = ({classes, handleRequestClose, isOpen}) => (
   <Dialog
     classes={{ paperWidthSm: classes.paperWidthSm }}
     open={isOpen}
@@ -30,21 +29,20 @@ const PrivacyDialog = ({classes, handleRequestClose, isOpen}) => (
   >
     <div className={classes.disclaimerBody}>
       <Typography className={classes.title} type="display1">
-        AsylumConnect User Privacy Statement
+        Log In
       </Typography>
-      <PrivacyText />
       <div className={classes.buttonContainer}>
         <AsylumConnectButton onClick={handleRequestClose} variant="secondary">
-          OK
+          Log In
         </AsylumConnectButton>
       </div>
     </div>
   </Dialog>
 );
 
-PrivacyDialog.propTypes = {
+LoginDialog.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 };
 
-export default withStyles(styles)(PrivacyDialog);
+export default withStyles(styles)(LoginDialog);
