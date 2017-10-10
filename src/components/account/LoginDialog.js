@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
-import AsylumConnectButton from '../AsylumConnectButton';
+import LoginForm from './LoginForm';
 
 const styles = (theme) => ({
   buttonContainer: {
@@ -31,11 +31,7 @@ const LoginDialog = ({classes, handleRequestClose, isOpen}) => (
       <Typography className={classes.title} type="display1">
         Log In
       </Typography>
-      <div className={classes.buttonContainer}>
-        <AsylumConnectButton onClick={handleRequestClose} variant="secondary">
-          Log In
-        </AsylumConnectButton>
-      </div>
+      <LoginForm />
     </div>
   </Dialog>
 );
