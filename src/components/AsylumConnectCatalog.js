@@ -17,6 +17,7 @@ import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
 
 import Announcement from './Announcement';
+import { AsylumConnectDialog } from './dialog';
 import Header from './Header'
 import Footer from './Footer';
 import {
@@ -77,17 +78,9 @@ class AsylumConnectCatalog extends React.Component {
                 <Announcement
                   handleRequestOpen={handleRequestOpen}
                 />
-                <DisclaimerDialog
+                <AsylumConnectDialog
+                  dialog={dialog}
                   handleRequestClose={handleRequestClose}
-                  isOpen={dialog === 'disclaimer'}
-                />
-                <LoginDialog
-                  handleRequestClose={handleRequestClose}
-                  isOpen={dialog === 'login'}
-                />
-                <PrivacyDialog
-                  handleRequestClose={handleRequestClose}
-                  isOpen={dialog === 'privacy'}
                 />
               </div>
             )
