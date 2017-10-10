@@ -57,7 +57,15 @@ class LoginForm extends React.Component {
           margin="normal"
         />
         <Typography type="body1" className={classes.paddingVertical}>
-          By clicking "Log In," you agree to One Degree's Privacy Policy and Terms of Use.
+          By clicking "Log In," you agree to One Degree's{` `}
+          <a href="https://www.1degree.org/privacy" target="_blank">
+            Privacy Policy
+          </a>
+          {` `}and{` `}
+          <a href="https://www.1degree.org/terms-of-use" target="_blank">
+            Terms of Use
+          </a>
+          .
         </Typography>
         <AsylumConnectButton
           variant="secondary"
