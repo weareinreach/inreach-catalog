@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 
+import LoginForm from './LoginForm';
+
 const TabContainer = ({ children }) => (
   <div style={{ padding: '2.5rem' }}>
     {children}
@@ -37,10 +39,8 @@ const AccountMobile = ({classes, handleRequestOpen, tab}) => (
       </Tabs>
     </Paper>
     <TabContainer>
-      {/*
-      {tab === 0 && <DisclaimerText /> }
-      {tab === 1 && <PrivacyText /> }
-      */}
+      {tab === 0 && <LoginForm /> }
+      {/* {tab === 1 && <PrivacyText /> }*/}
     </TabContainer>
   </div>
 );
