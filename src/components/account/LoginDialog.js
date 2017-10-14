@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { DialogTitle } from '../dialog';
-import LoginForm from './LoginForm';
+import LoginFormContainer from './LoginFormContainer';
 
 const LoginDialog = () => (
   <div>
     <DialogTitle>
       Log In
     </DialogTitle>
-    <LoginForm />
+    <LoginFormContainer />
   </div>
 );
 
