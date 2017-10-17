@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import fetch from 'node-fetch';
 
 import config from '../../config/config.js';
 import LoginForm from './LoginForm';
@@ -23,11 +24,30 @@ class LoginFormContainer extends React.Component {
   }
 
   handleSubmit() {
-    const apiDomain = config[process.env.NODE_ENV];
+    const { email, password } = this.state;
+    const apiDomain = config[process.env.NODE_ENV].odas;
+    const url = `${apiDomain}api/user`;
     const payload = {
-      'login_key': this.state.name,
-      password: this.state.password,
+      session: {
+        'login_key': email,
+        password,
+      },
     };
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'demo:16mission',
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      },
+      body: payload,
+    };
+    fetch(url, options)
+      .then( response => {
+        debugger
+      })
+      .catch( error => {
+      });
   }
 
   render() {
