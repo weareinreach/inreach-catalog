@@ -57,9 +57,7 @@ const LoginForm = ({
       </a>
       .
     </Typography>
-    <AsylumConnectButton
-      variant="secondary"
-    >
+    <AsylumConnectButton variant="secondary">
       Log In
     </AsylumConnectButton>
     <div onClick={() => handleRequestOpen('forgot')}>

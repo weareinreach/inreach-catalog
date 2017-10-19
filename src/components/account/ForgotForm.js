@@ -14,8 +14,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     textAlign: 'center',
   },
-  paddingAbove: { paddingTop: '2.5rem' },
-  paddingVertical: { padding: '2.5rem 6rem' },
+  spacingVertical: { margin: '2.5rem 0' },
 });
 
 const ForgotForm = ({
@@ -40,15 +39,13 @@ const ForgotForm = ({
       margin="normal"
     />
     <AsylumConnectButton
+      className={classes.spacingVertical}
       variant="secondary"
     >
       Send
     </AsylumConnectButton>
-    <div onClick={() => handleRequestOpen('login')}>
-      <Typography
-        className={classes.paddingAbove}
-              type="body1"
-      >
+    <div onClick={() => handleRequestOpen('login')} >
+      <Typography type="body1" >
         <a>Back</a>
       </Typography>
     </div>
