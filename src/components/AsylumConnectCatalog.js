@@ -19,39 +19,71 @@ require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import Header from './Header'
 import Footer from './Footer';
-import { PrivacyMobile } from './privacy';
+import {
+  DisclaimerDialog,
+  PrivacyDialog,
+  PrivacyMobile
+} from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
+
+import breakpoints from '../theme/breakpoints';
 
 class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      open: false,
-    };
+    this.state = { dialog: 'none' };
+
+    this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
+  handleRequestOpen(dialog) {
+    this.setState({ dialog });
+  }
+
   handleRequestClose() {
-    this.setState({
-      open: false,
-    });
+    this.setState({ dialog: 'none' });
   }
 
   render() {
-    const isMobile = this.props.width < 600;
+    const { dialog } = this.state;
+    const isMobile = this.props.width < breakpoints['sm'];
+    const { handleRequestClose, handleRequestOpen } = this;
     return (
       <div>
-        <Header />
-        { isMobile ? null : <Announcement />}
+        <Header handleRequestOpen={handleRequestOpen}/>
+        { isMobile
+            ?  (
+              ['disclaimer', 'privacy'].includes(dialog) &&
+              <PrivacyMobile
+                tab={dialog === 'privacy' ? 0 : 1}
+                handleRequestOpen={handleRequestOpen}
+              />
+            )
+            : (
+              <div>
+                <Announcement
+                  handleRequestOpen={handleRequestOpen}
+                />
+                <DisclaimerDialog
+                  handleRequestClose={handleRequestClose}
+                  isOpen={dialog === 'disclaimer'}
+                />
+                <PrivacyDialog
+                  handleRequestClose={handleRequestClose}
+                  isOpen={dialog === 'privacy'}
+                />
+              </div>
+            )
+        }
         <Router>
           <div className="content" >
             <Switch>
               <Route exact path="/" component={MapContainer}/>
               <Route path="/resource/:id" component={MapContainer}/>
               <Route path="/search/:near/:for/:filter/:sort" component={MapContainer}/>
-              <Route path="/privacy" component={PrivacyMobile}/>
               <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
               <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
               <Redirect from="/search" to="/"/>

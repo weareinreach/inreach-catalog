@@ -1,22 +1,39 @@
 import React from 'react';
 
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-const Account = () => { 
-  return (
-    <Grid container
-          align='stretch'
-          direction='row'
-          justify='space-around'>
-      <Grid item lg={7}>
-        <Typography type="body1" style={{textAlign:'right'}}>Log In</Typography>
-      </Grid>
-      <Grid item lg={5}>
-        <Typography type="body1">Log Out</Typography>
-      </Grid>
-    </Grid>
-  )
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  divider: {
+    borderRight: "1px solid",
+    borderColor: theme.palette.text.divider
+  },
+  lowercaseText: {
+    textTransform: 'capitalize'
+  }
+});
+
+class Account extends React.Component { 
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    const { classes } = this.props
+    return (
+    <div>
+        <Button className={classes.divider}><Typography type="body1" className={classes.lowercaseText}>Log In</Typography></Button>
+        <Button><Typography type="body1" className={classes.lowercaseText}>Sign Up</Typography></Button>
+    </div>
+    )
+  }
 }
 
-export default Account
+export default withStyles(styles)(Account);
