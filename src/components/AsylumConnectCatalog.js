@@ -80,6 +80,7 @@ class AsylumConnectCatalog extends React.Component {
               <AsylumConnectDialog
                 dialog={dialog}
                 handleRequestClose={handleRequestClose}
+                handleRequestOpen={handleRequestOpen}
               />
             </div>
           )

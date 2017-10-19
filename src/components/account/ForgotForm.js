@@ -18,7 +18,7 @@ const styles = (theme) => ({
   paddingVertical: { padding: '2.5rem 6rem' },
 });
 
-const LoginForm = ({
+const ForgotForm = ({
   classes,
   email,
   handleChange,
@@ -27,6 +27,9 @@ const LoginForm = ({
   password,
 }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
+    <Typography type="body1">
+      We'll send you an email to reset your password.
+    </Typography>
     <TextField
       required
       id="email"
@@ -36,50 +39,28 @@ const LoginForm = ({
       onChange={handleChange}
       margin="normal"
     />
-    <TextField
-      required
-      id="password"
-      label="Password"
-      name="password"
-      value={password}
-      onChange={handleChange}
-      margin="normal"
-      type="password"
-    />
-    <Typography type="body1" className={classes.paddingVertical}>
-      By clicking "Log In," you agree to One Degree's{` `}
-      <a href="https://www.1degree.org/privacy" target="_blank">
-        Privacy Policy
-      </a>
-      {` `}and{` `}
-      <a href="https://www.1degree.org/terms-of-use" target="_blank">
-        Terms of Use
-      </a>
-      .
-    </Typography>
     <AsylumConnectButton
       variant="secondary"
     >
-      Log In
+      Send
     </AsylumConnectButton>
-    <div onClick={() => handleRequestOpen('forgot')}>
+    <div onClick={() => handleRequestOpen('login')}>
       <Typography
         className={classes.paddingAbove}
               type="body1"
       >
-        <a>Forgot Password?</a>
+        <a>Back</a>
       </Typography>
     </div>
   </form>
 );
 
-LoginForm.propTypes = {
+ForgotForm.propTypes = {
   classes: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(ForgotForm);

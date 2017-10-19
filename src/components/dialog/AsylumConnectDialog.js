@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 import { DisclaimerDialog, PrivacyDialog } from '../privacy';
-import { LoginDialog } from '../account';
+import { ForgotDialog, LoginDialog } from '../account';
 
 const styles = (theme) => ({
   dialogBody: {
@@ -15,7 +15,12 @@ const styles = (theme) => ({
   },
 });
 
-const AsylumConnectDialog = ({classes, dialog, handleRequestClose }) => (
+const AsylumConnectDialog = ({
+  classes,
+  dialog,
+  handleRequestClose,
+  handleRequestOpen,
+}) => (
   <Dialog
     open={dialog !== 'none'}
     onRequestClose={handleRequestClose}
@@ -23,7 +28,10 @@ const AsylumConnectDialog = ({classes, dialog, handleRequestClose }) => (
     <div className={classes.dialogBody}>
       { dialog === 'disclaimer' &&
         <DisclaimerDialog handleRequestClose={handleRequestClose}/> }
-      { dialog === 'login' && <LoginDialog /> }
+      { dialog === 'forgot' &&
+        <ForgotDialog handleRequestOpen={handleRequestOpen}/> }
+      { dialog === 'login' &&
+        <LoginDialog handleRequestOpen={handleRequestOpen}/> }
       { dialog === 'privacy' &&
         <PrivacyDialog handleRequestClose={handleRequestClose}/> }
     </div>
@@ -34,6 +42,7 @@ AsylumConnectDialog.propTypes = {
   classes: PropTypes.shape({ dialogBody: PropTypes.string }).isRequired,
   dialog: PropTypes.string.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(AsylumConnectDialog);

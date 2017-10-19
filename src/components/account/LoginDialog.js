@@ -4,13 +4,17 @@ import PropTypes from 'prop-types';
 import { DialogTitle } from '../dialog';
 import LoginFormContainer from './LoginFormContainer';
 
-const LoginDialog = () => (
+const LoginDialog = ({ handleRequestOpen }) => (
   <div>
     <DialogTitle>
       Log In
     </DialogTitle>
-    <LoginFormContainer />
+    <LoginFormContainer handleRequestOpen={handleRequestOpen} />
   </div>
 );
+
+LoginDialog.propTypes = {
+  handleRequestOpen: PropTypes.func.isRequired,
+};
 
 export default LoginDialog;
