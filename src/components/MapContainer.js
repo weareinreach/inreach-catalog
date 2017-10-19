@@ -10,6 +10,7 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 
 import SearchFormContainer from './SearchFormContainer';
+//require('./MapContainer.scss');
 
 const styles = (theme) => ({
   searchArea: {
@@ -17,11 +18,6 @@ const styles = (theme) => ({
   }
 });
 
-const SearchForm = () => (
-  <div>
-    <h2>Main Search Form</h2>
-  </div>
-);
 const SearchResultsContainer = () => (
   <div>
     <h2>Search Results Form Followed By Search Results</h2>
@@ -38,28 +34,81 @@ const GoogleMap =() => (
   </div>
 );
 
-const Routes = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={SearchFormContainer}/>
-      <Route path="/search/:near/:for/:filter/:sort" component={SearchResultsContainer}/>
-      <Route path="/resource/:id" component={Resource}/>
-    </Switch>
-  </Router>
-);
-
 class MapContainer extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    //this.state = { dialog: 'none' };
+    this.state = {
+      nearAddress: '',
+      searchStatus: false,
+      errorMessage: false
+    }
+
+
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
+    this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
+    this.Routes = this.Routes.bind(this)
+  }
+
+  componentWillMount() {
+    this.clearErrors();
+  }
+  
+  clearErrors() {
+    this.setState({
+      errorMessage: false
+    });
+  }
+
+  handlePlaceSelect(address) {
+    this.setState({
+      nearAddress: address,
+    })
+
+  }
+
+  handleSearchButtonClick() {
+    this.clearErrors();
+    
+    if(this.state.nearAddress == null || this.state.nearAddress == '') {
+      this.setState({
+        searchStatus: "error",
+        errorMessage: "Unable to find your location, please try entering your city, state in the box above."
+      });
+      return;
+    } 
+    
+    this.setState({
+      searchStatus: 'redirect'
+    });
+  }
+
+  Routes() {
+    return  (
+      <Router>
+        <Switch>
+          <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
+            handlePlaceSelect={this.handlePlaceSelect} 
+            handleSearchButtonClick={this.handleSearchButtonClick} />} />
+          <Route path="/search/:near/:for/:filter/:sort" component={SearchResultsContainer}/>
+          <Route path="/resource/:id" component={Resource}/>
+        </Switch>
+      </Router>
+    );
+  }
+
   render() {
-    const { classes } = this.props
-    const { searchArea } = classes;
+    //const { classes } = this.props
+    //const { searchArea } = classes;
+    const addedProps = this.state;
 
     return (
-      <div className="map-container"> 
+      <div className="container--map"> 
         {/* TODO: Adjust this to the Material UI Tab Components for Mobile */}
-        <Grid container>
+        <Grid container spacing={0}>
           <Grid item xs={12} md={7}>
-            <div className={searchArea}>
-              <Routes />
+            <div className="container--search">
+              {this.Routes()}
             </div>
           </Grid>
           <Grid item xs={12} md={5} >
