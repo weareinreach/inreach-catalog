@@ -48,6 +48,7 @@ function AsylumConnectButton(props) {
         className,
       )}
       onClick={onClick}
+      type="submit"
     >
       {children}
     </Button>
