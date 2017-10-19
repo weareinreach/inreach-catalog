@@ -26,24 +26,26 @@ class LoginFormContainer extends React.Component {
   handleSubmit() {
     const { email, password } = this.state;
     const apiDomain = config[process.env.NODE_ENV].odas;
-    const url = `${apiDomain}api/user`;
-    const payload = {
+    const url = `${apiDomain}api/session`;
+    const payload = JSON.stringify({
       session: {
         'login_key': email,
         password,
       },
-    };
+    });
     const options = {
       method: 'POST',
       headers: {
-        Authorization: 'demo:16mission',
+        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
         'Content-Type': 'application/json',
         OneDegreeSource: 'asylumconnect',
       },
       body: payload,
     };
     fetch(url, options)
-      .then( response => {
+      .then( response => response.json())
+      .then( ({ jwt }) => {
+        window.localStorage.setItem('jwt', jwt);
         debugger
       })
       .catch( error => {
