@@ -23,7 +23,8 @@ class LoginFormContainer extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     const { email, password } = this.state;
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/session`;

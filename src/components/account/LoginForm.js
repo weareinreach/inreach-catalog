@@ -25,7 +25,7 @@ const LoginForm = ({
   handleSubmit,
   password,
 }) => (
-  <form className={classes.container}>
+  <form className={classes.container} onSubmit={handleSubmit}>
     <TextField
       required
       id="email"
@@ -57,7 +57,6 @@ const LoginForm = ({
       .
     </Typography>
     <AsylumConnectButton
-      onClick={handleSubmit}
       variant="secondary"
     >
       Log In
