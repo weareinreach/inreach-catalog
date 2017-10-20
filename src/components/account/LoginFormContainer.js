@@ -57,7 +57,7 @@ class LoginFormContainer extends React.Component {
         }
       })
       .catch(error => {
-        console.log(error);
+        handleMessageNew('Oops! Something went wrong.');
       });
   }
 
