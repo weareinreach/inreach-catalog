@@ -4,8 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types'
 import classNames from 'classnames';
 
-import Typography from 'material-ui/Typography'
-import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
 import RedHeartIcon from './icons/RedHeartIcon';
 
@@ -13,32 +12,40 @@ import RedHeartIcon from './icons/RedHeartIcon';
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
-    fontWeight: '300'
+    fontWeight: '300',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
 // Custom Button component with variant property
-function FavoritesButton(props) {
+function FavoritesLink(props) {
   const { children, classes, className, variant, onClick} = props;
 
   return (
-    <Button className={classNames(
-        classes.viewYourFavoritesText,
-        className,
-      )}
-      onClick={onClick}
-    >
-      {children}
-      <RedHeartIcon width={'46px'}/>
-    </Button>
+    <a href=''>
+      <Typography type='display4'
+                  className=
+                  {classNames(
+                    classes.viewYourFavoritesText,
+                    className,
+                  )}
+                  onClick={onClick}
+      >
+        {children}
+        <RedHeartIcon width={'38px'}/>
+      </Typography>
+    </a>
   );
 }
 
-FavoritesButton.propTypes = {
+FavoritesLink.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string
 };
 
 // Inject style to Custom Button component
-export default withStyles(styles)(FavoritesButton);
+export default withStyles(styles)(FavoritesLink);

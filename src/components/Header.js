@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-import NavDesktop from './NavDesktop';
-import NavMobile from './NavMobile';
-import NavTablet from './NavTablet';
+import NavDesktop from './navigation/NavDesktop';
+import NavMobile from './navigation/NavMobile';
+import NavTablet from './navigation/NavTablet';
 
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';

@@ -188,7 +188,7 @@ export default createMuiTheme({
     "fontWeightRegular": 400,
     "fontWeightMedium": 600,
     "display4": {
-      "fontSize": 14,
+      "fontSize": 12,
       "fontWeight": 600,
       "fontFamily": "\"Open Sans\", sans-serif",
       "letterSpacing": "-.04em",
@@ -247,7 +247,7 @@ export default createMuiTheme({
       "color": "rgba(0, 0, 0, 0.38)"
     },
     "body1": {
-      "fontSize": 14,
+      "fontSize": 13,
       "fontWeight": 300,
       "fontFamily": "\"Open Sans\", sans-serif",
       "lineHeight": "20px",
@@ -261,15 +261,11 @@ export default createMuiTheme({
       "color": "rgba(0, 0, 0, 0.54)"
     },
     "button": {
-      "fontSize": 16,
+      "fontSize": 14,
       "textTransform": "uppercase",
       "fontWeight": 600,
       "fontFamily": "\"Open Sans\", sans-serif",
-      "paddingTop": 10,
-      "paddingRight": 8,
-      "paddingBottom": 10,
-      "paddingLeft": 8,
-      
+      "letterSpacing": "1.2px",
     }
   },
   "mixins": {

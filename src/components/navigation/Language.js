@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import langs from 'langs';
-import ValidLanguageList from '../helpers/ValidLanguageList';
+import ValidLanguageList from '../../helpers/ValidLanguageList';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
-import ChevronIcon from './icons/ChevronIcon';
+import ChevronIcon from '../icons/ChevronIcon';
 
 const styles = theme => ({
   root: {
@@ -46,11 +45,15 @@ const styles = theme => ({
     fontWeight: 'bold',
     textDecoration: 'none',
   },
-  lowercaseText: {
-    textTransform: 'capitalize'
+  languageLink: {
+    textTransform: 'capitalize',
   },
   centerTextAlign: {
-    textAlign: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center', 
+    padding: '5 5 5',
+    cursor: 'pointer'
   }
 });
 
@@ -101,16 +104,16 @@ class Language extends React.Component {
     const langsList = ValidLanguageList.all();
     return (
       <div className={classes.root}>
-        <Button className={classes.lowercaseText} onClick={this.handleClick}>
+        <div className={classes.languageLink} onClick={this.handleClick}>
           <Typography
             aria-owns={this.state.open ? 'simple-menu' : null}
             aria-haspopup="true"
             type="body1"
             className={classes.centerTextAlign}>
           Language
+          <ChevronIcon width={'18px'}/>
           </Typography>
-          <ChevronIcon width={'20px'}/>
-        </Button>
+        </div>
         {this.state.open &&
           <List className={classes.languageList}>
             <ListSubheader className={classes.poweredByGoogle}>
