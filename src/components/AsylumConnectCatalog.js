@@ -121,32 +121,7 @@ class AsylumConnectCatalog extends React.Component {
             </Switch>
           </div>
         </Router>
-          {/*<AsylumConnectButton variant="primary" onClick={() => this.setState({ open: true })}>
-            button button
-          </AsylumConnectButton>
-          <AsylumConnectButton variant="secondary" onClick={() => this.setState({ open: true })}>
-            button
-          </AsylumConnectButton>
-          <Button raised color="primary" onClick={() => this.setState({ open: true })}>Open alert dialog</Button>
-          <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-            <DialogTitle>Dialog With Actions</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                The actions in this window were passed in as an array of React objects.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleRequestClose} color="primary">
-                Disagree
-              </Button>
-              <Button onClick={this.handleRequestClose} color="primary">
-                Agree
-              </Button>
-            </DialogActions>
-          </Dialog>
-<<<<<<< HEAD
-        </div>*/ }
-        { isMobile ? null : <Footer /> }
+        {isMobile ? null : <Footer />}
         <Message
           handleMessageClose={this.handleMessageClose}
           message={message}
