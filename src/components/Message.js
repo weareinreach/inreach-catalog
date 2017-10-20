@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 import Button from 'material-ui/Button';
 import Snackbar from 'material-ui/Snackbar';
@@ -15,7 +15,7 @@ const styles = theme => ({
   },
 });
 
-const Message = ({ classes, handleMessageClose, message, open }) => (
+const Message = ({classes, handleMessageClose, message, open}) => (
   <Snackbar
     anchorOrigin={{
       vertical: 'bottom',
@@ -34,8 +34,7 @@ const Message = ({ classes, handleMessageClose, message, open }) => (
         aria-label="Close"
         color="inherit"
         className={classes.close}
-        onClick={handleMessageClose}
-      >
+        onClick={handleMessageClose}>
         <CloseIcon />
       </IconButton>,
     ]}

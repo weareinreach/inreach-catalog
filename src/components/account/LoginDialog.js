@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DialogTitle } from '../dialog';
+import {DialogTitle} from '../dialog';
 import LoginFormContainer from './LoginFormContainer';
 
 const LoginDialog = ({
   handleMessageNew,
   handleRequestClose,
-  handleRequestOpen
+  handleRequestOpen,
 }) => (
   <div>
-    <DialogTitle>
-      Log In
-    </DialogTitle>
+    <DialogTitle>Log In</DialogTitle>
     <LoginFormContainer
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}

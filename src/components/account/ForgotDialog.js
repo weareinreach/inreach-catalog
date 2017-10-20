@@ -1,25 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DialogTitle } from '../dialog';
+import {DialogTitle} from '../dialog';
 import ForgotFormContainer from './ForgotFormContainer';
 
 const ForgotDialog = ({
   handleMessageNew,
   handleRequestClose,
-  handleRequestOpen
-}) => (
+  handleRequestOpen,
+}) =>
   <div>
-    <DialogTitle>
-      Reset Password
-    </DialogTitle>
+    <DialogTitle>Reset Password</DialogTitle>
     <ForgotFormContainer
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
       handleRequestOpen={handleRequestOpen}
     />
-  </div>
-);
+  </div>;
 
 ForgotDialog.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,

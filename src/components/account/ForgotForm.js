@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 
 import TextField from 'material-ui/Textfield';
 import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 import config from '../../config/config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
-const styles = (theme) => ({
+const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
   },
-  spacingVertical: { margin: '2.5rem 0' },
+  spacingVertical: {margin: '2.5rem 0'},
   link: {
     color: theme.palette.primary[500],
     cursor: 'pointer',
@@ -45,12 +45,11 @@ const ForgotForm = ({
     />
     <AsylumConnectButton
       className={classes.spacingVertical}
-      variant="secondary"
-    >
+      variant="secondary">
       Send
     </AsylumConnectButton>
-    <div onClick={() => handleRequestOpen('login')} >
-      <Typography type="body1" >
+    <div onClick={() => handleRequestOpen('login')}>
+      <Typography type="body1">
         <span className={classes.link}>Back</span>
       </Typography>
     </div>

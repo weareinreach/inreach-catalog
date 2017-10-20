@@ -7,10 +7,10 @@ import ForgotForm from './ForgotForm';
 
 class ForgotFormContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      email: "",
+      email: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -18,17 +18,17 @@ class ForgotFormContainer extends React.Component {
   }
 
   handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const {name, value} = event.target;
+    this.setState({[name]: value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleMessageNew, handleRequestClose } = this.props;
-    const { email } = this.state;
+    const {handleMessageNew, handleRequestClose} = this.props;
+    const {email} = this.state;
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/passwords`;
-    const payload = JSON.stringify({ email });
+    const payload = JSON.stringify({email});
     const options = {
       method: 'POST',
       headers: {
@@ -39,16 +39,18 @@ class ForgotFormContainer extends React.Component {
       body: payload,
     };
     fetch(url, options)
-      .then( ({ status }) => {
+      .then(({status}) => {
         if (status === 200) {
-          handleMessageNew('Please check your inbox for instructions on how to reset your password.');
+          handleMessageNew(
+            'Please check your inbox for instructions on how to reset your password.',
+          );
           this.props.handleRequestClose();
         } else {
           handleMessageNew('Please check your email and try again.');
         }
       })
-      .catch( error => {
-        console.log(error)
+      .catch(error => {
+        console.log(error);
       });
   }
 
@@ -62,7 +64,7 @@ class ForgotFormContainer extends React.Component {
       />
     );
   }
-};
+}
 
 ForgotFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import TextField from 'material-ui/Textfield';
 import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 import config from '../../config/config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
-const styles = (theme) => ({
+const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -18,8 +18,8 @@ const styles = (theme) => ({
     color: theme.palette.primary[500],
     cursor: 'pointer',
   },
-  paddingAbove: { paddingTop: '2.5rem' },
-  paddingVertical: { padding: '2.5rem 6rem' },
+  paddingAbove: {paddingTop: '2.5rem'},
+  paddingVertical: {padding: '2.5rem 6rem'},
 });
 
 const LoginForm = ({
@@ -62,14 +62,9 @@ const LoginForm = ({
       </a>
       .
     </Typography>
-    <AsylumConnectButton variant="secondary">
-      Log In
-    </AsylumConnectButton>
+    <AsylumConnectButton variant="secondary">Log In</AsylumConnectButton>
     <div onClick={() => handleRequestOpen('forgot')}>
-      <Typography
-        className={classes.paddingAbove}
-              type="body1"
-      >
+      <Typography className={classes.paddingAbove} type="body1">
         <span className={classes.link}>Forgot Password?</span>
       </Typography>
     </div>

@@ -8,11 +8,11 @@ import LoginForm from './LoginForm';
 
 class LoginFormContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,19 +20,19 @@ class LoginFormContainer extends React.Component {
   }
 
   handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const {name, value} = event.target;
+    this.setState({[name]: value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleMessageNew, handleRequestClose } = this.props;
-    const { email, password } = this.state;
+    const {handleMessageNew, handleRequestClose} = this.props;
+    const {email, password} = this.state;
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/session`;
     const payload = JSON.stringify({
       session: {
-        'login_key': email,
+        login_key: email,
         password,
       },
     });
@@ -46,18 +46,17 @@ class LoginFormContainer extends React.Component {
       body: payload,
     };
     fetch(url, options)
-      .then( response => {
+      .then(response => {
         if (response.status === 201) {
-          response.json()
-            .then( ({ jwt }) => {
-              window.localStorage.setItem('jwt', jwt);
-              handleRequestClose()
-            })
+          response.json().then(({jwt}) => {
+            window.localStorage.setItem('jwt', jwt);
+            handleRequestClose();
+          });
         } else {
           handleMessageNew('The email or password you entered was incorrect.');
         }
       })
-      .catch( error => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -72,7 +71,7 @@ class LoginFormContainer extends React.Component {
       />
     );
   }
-};
+}
 
 LoginFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
