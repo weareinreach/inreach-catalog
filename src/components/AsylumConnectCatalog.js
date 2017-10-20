@@ -85,9 +85,12 @@ class AsylumConnectCatalog extends React.Component {
                   tab={dialog === 'privacy' ? 0 : 1}
                   handleRequestOpen={handleRequestOpen}
                 /> }{
-                ['login', 'signup'].includes(dialog) &&
+                ['forgot', 'login', 'signup'].includes(dialog) &&
                   <AccountMobile
-                    tab={dialog ==='login' ? 0 : 1}
+                    dialog={dialog}
+                    tab={dialog ==='signup' ? 1 : 0}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestClose={handleRequestClose}
                     handleRequestOpen={handleRequestOpen}
                   /> }
             </div>
