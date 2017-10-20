@@ -37,10 +37,16 @@ class ForgotFormContainer extends React.Component {
       body: payload,
     };
     fetch(url, options)
-      .then( response => {
-        this.props.handleRequestClose();
+      .then( ({ status }) => {
+        if (status === 200) {
+          console.log('Email Sent');
+          this.props.handleRequestClose();
+        } else {
+          console.log('Not valid email');
+        }
       })
       .catch( error => {
+        console.log(error)
       });
   }
 

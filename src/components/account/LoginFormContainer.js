@@ -45,12 +45,19 @@ class LoginFormContainer extends React.Component {
       body: payload,
     };
     fetch(url, options)
-      .then( response => response.json())
+      .then( response => {
+        if (response.status === 201)
+          return response.json();
+        else
+          console.log(`${status}`);
+      })
       .then( ({ jwt }) => {
         window.localStorage.setItem('jwt', jwt);
+        console.log('Logged In')
         this.props.handleRequestClose()
       })
       .catch( error => {
+        console.log(error);
       });
   }
 
