@@ -28,23 +28,24 @@ const LoginForm = ({
 }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <TextField
-      required
       id="email"
       label="Email"
-      name="email"
-      value={email}
-      onChange={handleChange}
       margin="normal"
+      name="email"
+      onChange={handleChange}
+      required
+      type="email"
+      value={email}
     />
     <TextField
-      required
       id="password"
       label="Password"
-      name="password"
-      value={password}
-      onChange={handleChange}
       margin="normal"
+      name="password"
+      onChange={handleChange}
+      required
       type="password"
+      value={password}
     />
     <Typography type="body1" className={classes.paddingVertical}>
       By clicking "Log In," you agree to One Degree's{` `}

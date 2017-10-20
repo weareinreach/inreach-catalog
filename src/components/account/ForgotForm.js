@@ -30,13 +30,14 @@ const ForgotForm = ({
       We'll send you an email to reset your password.
     </Typography>
     <TextField
-      required
       id="email"
       label="Email"
-      name="email"
-      value={email}
-      onChange={handleChange}
       margin="normal"
+      name="email"
+      onChange={handleChange}
+      required
+      type="email"
+      value={email}
     />
     <AsylumConnectButton
       className={classes.spacingVertical}
