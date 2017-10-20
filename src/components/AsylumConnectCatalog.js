@@ -31,6 +31,7 @@ import {
 } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
+import Message from './Message';
 
 import breakpoints from '../theme/breakpoints';
 
@@ -38,11 +39,29 @@ class AsylumConnectCatalog extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = { dialog: 'none' };
+    this.state = {
+      dialog: 'none',
+      message: '',
+      messageOpen: false,
+    };
 
     this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleMessageNew = this.handleMessageNew.bind(this);
+    this.handleMessageClose = this.handleMessageClose.bind(this);
   }
+
+  handleMessageNew(message) {
+    this.setState({ message, messageOpen: true });
+  }
+
+  handleMessageClose(event, reason) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ messageOpen: false });
+  };
 
   handleRequestOpen(dialog) {
     this.setState({ dialog });
@@ -53,9 +72,9 @@ class AsylumConnectCatalog extends React.Component {
   }
 
   render() {
-    const { dialog } = this.state;
+    const { dialog, message, messageOpen } = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
-    const { handleRequestClose, handleRequestOpen } = this;
+    const { handleMessageNew, handleRequestClose, handleRequestOpen } = this;
     return (
       <div>
         <Header handleRequestOpen={handleRequestOpen}/>
@@ -79,6 +98,7 @@ class AsylumConnectCatalog extends React.Component {
               />
               <AsylumConnectDialog
                 dialog={dialog}
+                handleMessageNew={handleMessageNew}
                 handleRequestClose={handleRequestClose}
                 handleRequestOpen={handleRequestOpen}
               />
@@ -125,6 +145,11 @@ class AsylumConnectCatalog extends React.Component {
 <<<<<<< HEAD
         </div>*/ }
         { isMobile ? null : <Footer /> }
+        <Message
+          handleMessageClose={this.handleMessageClose}
+          message={message}
+          open={messageOpen}
+        />
       </div>
     );
   }

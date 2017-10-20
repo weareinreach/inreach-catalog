@@ -18,6 +18,7 @@ const styles = (theme) => ({
 const AsylumConnectDialog = ({
   classes,
   dialog,
+  handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
 }) => (
@@ -30,12 +31,14 @@ const AsylumConnectDialog = ({
         <DisclaimerDialog handleRequestClose={handleRequestClose}/> }
       { dialog === 'forgot' &&
         <ForgotDialog
+          handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
         />
       }
       { dialog === 'login' &&
         <LoginDialog
+          handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
         />
@@ -49,6 +52,7 @@ const AsylumConnectDialog = ({
 AsylumConnectDialog.propTypes = {
   classes: PropTypes.shape({ dialogBody: PropTypes.string }).isRequired,
   dialog: PropTypes.string.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
 };

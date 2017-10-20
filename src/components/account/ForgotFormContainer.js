@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import fetch from 'node-fetch';
 
 import config from '../../config/config.js';
@@ -23,6 +24,7 @@ class ForgotFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { handleMessageNew, handleRequestClose } = this.props;
     const { email } = this.state;
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/passwords`;
@@ -39,10 +41,10 @@ class ForgotFormContainer extends React.Component {
     fetch(url, options)
       .then( ({ status }) => {
         if (status === 200) {
-          console.log('Email Sent');
+          handleMessageNew('Please check your inbox for instructions on how to reset your password.');
           this.props.handleRequestClose();
         } else {
-          console.log('Not valid email');
+          handleMessageNew('Please check your email and try again.');
         }
       })
       .catch( error => {
@@ -60,6 +62,11 @@ class ForgotFormContainer extends React.Component {
       />
     );
   }
+};
+
+ForgotFormContainer.propTypes = {
+  handleMessageNew: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired,
 };
 
 export default ForgotFormContainer;

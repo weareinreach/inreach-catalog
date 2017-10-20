@@ -26,6 +26,7 @@ class LoginFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { handleMessageNew, handleRequestClose } = this.props;
     const { email, password } = this.state;
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/session`;
@@ -46,15 +47,15 @@ class LoginFormContainer extends React.Component {
     };
     fetch(url, options)
       .then( response => {
-        if (response.status === 201)
-          return response.json();
-        else
-          console.log(`${status}`);
-      })
-      .then( ({ jwt }) => {
-        window.localStorage.setItem('jwt', jwt);
-        console.log('Logged In')
-        this.props.handleRequestClose()
+        if (response.status === 201) {
+          response.json()
+            .then( ({ jwt }) => {
+              window.localStorage.setItem('jwt', jwt);
+              handleRequestClose()
+            })
+        } else {
+          handleMessageNew('The email or password you entered was incorrect.');
+        }
       })
       .catch( error => {
         console.log(error);
@@ -71,6 +72,11 @@ class LoginFormContainer extends React.Component {
       />
     );
   }
+};
+
+LoginFormContainer.propTypes = {
+  handleMessageNew: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired,
 };
 
 export default LoginFormContainer;

@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import { DialogTitle } from '../dialog';
 import LoginFormContainer from './LoginFormContainer';
 
-const LoginDialog = ({ handleRequestClose, handleRequestOpen }) => (
+const LoginDialog = ({
+  handleMessageNew,
+  handleRequestClose,
+  handleRequestOpen
+}) => (
   <div>
     <DialogTitle>
       Log In
     </DialogTitle>
     <LoginFormContainer
+      handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
       handleRequestOpen={handleRequestOpen}
     />
@@ -17,6 +22,7 @@ const LoginDialog = ({ handleRequestClose, handleRequestOpen }) => (
 );
 
 LoginDialog.propTypes = {
+  handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
 };
