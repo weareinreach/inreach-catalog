@@ -52,7 +52,7 @@ class AsylumConnectCatalog extends React.Component {
   }
 
   handleMessageNew(message) {
-    this.setState({ message, messageOpen: true });
+    this.setState({message, messageOpen: true});
   }
 
   handleMessageClose(event, reason) {
@@ -60,54 +60,53 @@ class AsylumConnectCatalog extends React.Component {
       return;
     }
 
-    this.setState({ messageOpen: false });
-  };
+    this.setState({messageOpen: false});
+  }
 
   handleRequestOpen(dialog) {
-    this.setState({ dialog });
+    this.setState({dialog});
   }
 
   handleRequestClose() {
-    this.setState({ dialog: 'none' });
+    this.setState({dialog: 'none'});
   }
 
   render() {
-    const { dialog, message, messageOpen } = this.state;
+    const {dialog, message, messageOpen} = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
-    const { handleMessageNew, handleRequestClose, handleRequestOpen } = this;
+    const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
       <div>
-        <Header handleRequestOpen={handleRequestOpen}/>
-        { isMobile ? (
-            <div> {
-                ['disclaimer', 'privacy'].includes(dialog) &&
-                <PrivacyMobile
-                  tab={dialog === 'privacy' ? 0 : 1}
-                  handleRequestOpen={handleRequestOpen}
-                /> }{
-                ['forgot', 'login', 'signup'].includes(dialog) &&
-                  <AccountMobile
-                    dialog={dialog}
-                    tab={dialog ==='signup' ? 1 : 0}
-                    handleMessageNew={handleMessageNew}
-                    handleRequestClose={handleRequestClose}
-                    handleRequestOpen={handleRequestOpen}
-                  /> }
-            </div>
-          ) : (
-            <div>
-              <Announcement
+        <Header handleRequestOpen={handleRequestOpen} />
+        {isMobile ? (
+          <div>
+            {['disclaimer', 'privacy'].includes(dialog) && (
+              <PrivacyMobile
+                tab={dialog === 'privacy' ? 0 : 1}
                 handleRequestOpen={handleRequestOpen}
               />
-              <AsylumConnectDialog
+            )}
+            {['forgot', 'login', 'signup'].includes(dialog) && (
+              <AccountMobile
                 dialog={dialog}
+                tab={dialog === 'signup' ? 1 : 0}
                 handleMessageNew={handleMessageNew}
                 handleRequestClose={handleRequestClose}
                 handleRequestOpen={handleRequestOpen}
               />
-            </div>
-          )
-        }
+            )}
+          </div>
+        ) : (
+          <div>
+            <Announcement handleRequestOpen={handleRequestOpen} />
+            <AsylumConnectDialog
+              dialog={dialog}
+              handleMessageNew={handleMessageNew}
+              handleRequestClose={handleRequestClose}
+              handleRequestOpen={handleRequestOpen}
+            />
+          </div>
+        )}
         <Router>
           <div className="content" >
             <Switch>
