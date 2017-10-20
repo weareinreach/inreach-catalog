@@ -23,6 +23,25 @@ class ForgotFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { email } = this.state;
+    const apiDomain = config[process.env.NODE_ENV].odas;
+    const url = `${apiDomain}api/passwords`;
+    const payload = JSON.stringify({ email });
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      },
+      body: payload,
+    };
+    fetch(url, options)
+      .then( response => {
+        this.props.handleRequestClose();
+      })
+      .catch( error => {
+      });
   }
 
   render() {

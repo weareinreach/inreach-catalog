@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import fetch from 'node-fetch';
 
 import config from '../../config/config.js';
+
 import LoginForm from './LoginForm';
 
 class LoginFormContainer extends React.Component {
@@ -47,7 +48,7 @@ class LoginFormContainer extends React.Component {
       .then( response => response.json())
       .then( ({ jwt }) => {
         window.localStorage.setItem('jwt', jwt);
-        debugger
+        this.props.handleRequestClose()
       })
       .catch( error => {
       });

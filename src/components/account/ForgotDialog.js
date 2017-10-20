@@ -4,13 +4,21 @@ import PropTypes from 'prop-types';
 import { DialogTitle } from '../dialog';
 import ForgotFormContainer from './ForgotFormContainer';
 
-const ForgotDialog = ({ handleRequestOpen }) => (
+const ForgotDialog = ({ handleRequestClose, handleRequestOpen }) => (
   <div>
     <DialogTitle>
       Reset Password
     </DialogTitle>
-    <ForgotFormContainer handleRequestOpen={handleRequestOpen} />
+    <ForgotFormContainer
+      handleRequestClose={handleRequestClose}
+      handleRequestOpen={handleRequestOpen}
+    />
   </div>
 );
+
+ForgotDialog.propTypes = {
+  handleRequestClose: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+};
 
 export default ForgotDialog;

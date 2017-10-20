@@ -29,9 +29,17 @@ const AsylumConnectDialog = ({
       { dialog === 'disclaimer' &&
         <DisclaimerDialog handleRequestClose={handleRequestClose}/> }
       { dialog === 'forgot' &&
-        <ForgotDialog handleRequestOpen={handleRequestOpen}/> }
+        <ForgotDialog
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />
+      }
       { dialog === 'login' &&
-        <LoginDialog handleRequestOpen={handleRequestOpen}/> }
+        <LoginDialog
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />
+      }
       { dialog === 'privacy' &&
         <PrivacyDialog handleRequestClose={handleRequestClose}/> }
     </div>
