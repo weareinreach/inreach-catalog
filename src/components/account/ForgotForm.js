@@ -15,6 +15,10 @@ const styles = (theme) => ({
     textAlign: 'center',
   },
   spacingVertical: { margin: '2.5rem 0' },
+  link: {
+    color: theme.palette.primary[500],
+    cursor: 'pointer',
+  },
 });
 
 const ForgotForm = ({
@@ -47,7 +51,7 @@ const ForgotForm = ({
     </AsylumConnectButton>
     <div onClick={() => handleRequestOpen('login')} >
       <Typography type="body1" >
-        <a>Back</a>
+        <span className={classes.link}>Back</span>
       </Typography>
     </div>
   </form>

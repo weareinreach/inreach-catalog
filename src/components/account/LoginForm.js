@@ -14,6 +14,10 @@ const styles = (theme) => ({
     flexDirection: 'column',
     textAlign: 'center',
   },
+  link: {
+    color: theme.palette.primary[500],
+    cursor: 'pointer',
+  },
   paddingAbove: { paddingTop: '2.5rem' },
   paddingVertical: { padding: '2.5rem 6rem' },
 });
@@ -66,7 +70,7 @@ const LoginForm = ({
         className={classes.paddingAbove}
               type="body1"
       >
-        <a>Forgot Password?</a>
+        <span className={classes.link}>Forgot Password?</span>
       </Typography>
     </div>
   </form>
