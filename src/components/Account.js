@@ -1,15 +1,17 @@
 import React from 'react';
 
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: '0 5 0'
+  },
+  accountLinks: {
+    padding: '5 5 5'
   },
   divider: {
     borderRight: "1px solid",
@@ -28,9 +30,9 @@ class Account extends React.Component {
   render() {
     const { classes } = this.props
     return (
-    <div>
-        <Button className={classes.divider}><Typography type="body1" className={classes.lowercaseText}>Log In</Typography></Button>
-        <Button><Typography type="body1" className={classes.lowercaseText}>Sign Up</Typography></Button>
+    <div className={classes.root}>
+      <a className={[classes.divider, classes.accountLinks].join(' ')} href=''><Typography type='body1' className={classes.lowercaseText}>Log In</Typography></a>
+      <a className={classes.accountLinks} href=''><Typography type='body1' className={classes.lowercaseText}>Sign Up</Typography></a>
     </div>
     )
   }

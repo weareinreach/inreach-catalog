@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
 
-import SearchIcon from './icons/SearchIcon'
-import FavoritesIcon from './icons/FavoritesIcon'
-import LanguageIcon from './icons/LanguageIcon'
-import AccountIcon from './icons/AccountIcon'
-import PrivacyIcon from './icons/PrivacyIcon'
+import SearchIcon from '../icons/SearchIcon'
+import FavoritesIcon from '../icons/FavoritesIcon'
+import LanguageIcon from '../icons/LanguageIcon'
+import AccountIcon from '../icons/AccountIcon'
+import PrivacyIcon from '../icons/PrivacyIcon'
 
 const styles = theme => ({
   root: {

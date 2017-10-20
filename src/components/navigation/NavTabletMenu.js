@@ -6,8 +6,8 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 
-import LogoImg from '../images/AC-logo.png';
-import ChevronIcon from './icons/ChevronIcon';
+import LogoImg from '../../images/AC-logo.png';
+import ChevronIcon from '../icons/ChevronIcon';
 
 const styles = theme => ({
   root: {

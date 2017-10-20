@@ -1,26 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-import NavDesktop from './NavDesktop';
-import NavMobile from './NavMobile';
-import NavTablet from './NavTablet';
+import NavDesktop from './navigation/NavDesktop';
+import NavMobile from './navigation/NavMobile';
+import NavTablet from './navigation/NavTablet';
 
-import Grid from 'material-ui/Grid';
-import withWidth from './withWidth'
+import withWidth from './withWidth';
+import breakpoints from '../theme/breakpoints';
 
-const Header = ({handleRequestOpen, width}) => { 
-  if (width <= 600)
+class Header extends React.Component { 
+  constructor(props) {
+    super(props);
+  }
+  render(){
+    const isMobile = this.props.width < breakpoints['sm'];
+    const isTablet = this.props.width < breakpoints['md'];
+    let Nav;
+    if (isMobile) {
+      Nav = <NavMobile handleRequestOpen={this.props.handleRequestOpen}/>
+    } else if (isTablet) {
+      Nav = <NavTablet />
+    } else {
+      Nav = <NavDesktop />
+    }
     return (
-      <NavMobile handleRequestOpen={handleRequestOpen}/>
+      <div>
+        {Nav}
+      </div>
     )
-  else if (width > 600 && width <= 1024)
-    return (
-      <NavTablet />
-    )
-  else
-    return (
-      <NavDesktop />
-    )      
+  }
 }
 
 Header.propTypes = {

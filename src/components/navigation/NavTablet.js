@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
-import Account from './Account';
-import RedHeartIcon from './icons/RedHeartIcon';
+import Account from '../Account';
+import RedHeartIcon from '../icons/RedHeartIcon';
 
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';

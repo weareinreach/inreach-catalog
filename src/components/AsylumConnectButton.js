@@ -10,9 +10,10 @@ import Button from 'material-ui/Button';
 // Define a custom style for button
 const styles = theme => ({
   button: {
-    border: '2px solid',
-    padding: '8 35',
+    border: '1.7px solid',
+    padding: '0 20',
     'border-radius': '50px',
+    minHeight: '30px'
   },
   primary: {
     color: theme.palette.primary[500],
