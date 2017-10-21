@@ -20,13 +20,15 @@ var config = {
       query: {
         presets: ['es2015', 'react']
       }
-    },
-    {
+    },{
         test: /\.s?css$/,
         loader: (process.env.NODE_ENV === 'production' ? ExtractTextPlugin.extract('css-loader?minimize!sass-loader') : 'style-loader!css-loader!sass-loader'),
     },{
     test: /\.(jpg|png|svg)$/,
     loader: 'url-loader',
+    },{
+      test: /\.json$/, 
+      loader: 'json-loader'
     }]
   },
   resolve: {
@@ -41,7 +43,10 @@ var config = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new ExtractTextPlugin('../css/style.css', {
       allChunks: true
-    })
+    }),
+    new webpack.NormalModuleReplacementPlugin(
+       /\/iconv-loader$/, 'node-noop'
+   )
   ],
   devServer: {
     compress: true,
