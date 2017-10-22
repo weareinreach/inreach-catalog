@@ -27,8 +27,8 @@ class SearchFormContainer extends React.Component {
     const { title, subheading, container } = this.props.classes;
     
     return (
-      <Grid container spacing={0} justify="center" align="center" className={container}>
-        <Grid item md={10} lg={8} sm={12}>
+      <Grid container alignItems='center' justify='center' spacing={0} className={container}>
+        <Grid item md={10} lg={9} sm={12}>
           <Grid container spacing={0}>
             <Grid item xs={12}>
               <Typography type="title" className={title}>

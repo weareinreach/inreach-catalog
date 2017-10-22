@@ -41,11 +41,13 @@ class MapContainer extends React.Component {
     this.state = {
       nearAddress: '',
       searchStatus: false,
-      errorMessage: false
+      errorMessage: false,
+      selectedResources: []
     }
 
 
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
+    this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.Routes = this.Routes.bind(this)
   }
@@ -65,6 +67,24 @@ class MapContainer extends React.Component {
       nearAddress: address,
     })
 
+  }
+
+  handleResourceTypeSelect(event, checked) { 
+    var index;
+    const target = event.target;
+    var selectedResources = this.state.selectedResources.slice();
+    
+    if(checked && selectedResources.indexOf(target.value) < 0) {
+      selectedResources.push(target.value)
+      this.setState({
+        selectedResources: selectedResources
+      });
+    } else if(!checked && (index = selectedResources.indexOf(target.value)) >= 0) {
+      selectedResources.splice(index, 1)
+      this.setState({
+        selectedResources: selectedResources
+      });
+    }
   }
 
   handleSearchButtonClick() {
@@ -89,7 +109,10 @@ class MapContainer extends React.Component {
         <Switch>
           <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
             handlePlaceSelect={this.handlePlaceSelect} 
-            handleSearchButtonClick={this.handleSearchButtonClick} />} />
+            handleSearchButtonClick={this.handleSearchButtonClick}
+            handleResourceTypeSelect={this.handleResourceTypeSelect}
+             />} />
+            }
           <Route path="/search/:near/:for/:filter/:sort" component={SearchResultsContainer}/>
           <Route path="/resource/:id" component={Resource}/>
         </Switch>

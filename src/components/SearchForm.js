@@ -71,7 +71,6 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    console.log(this.props.width);
     const { searchInputContainer, searchInput, placesContainer, formRow } = this.props.classes;
     
     const cssClasses = {
@@ -128,10 +127,10 @@ class SearchForm extends React.Component {
             />
           </Grid>
           <Grid item sm={4} xs={12}>
-            <ResourceTypeSelector containerWidth={this.props.containerWidth} />
+            <ResourceTypeSelector containerWidth={this.props.containerWidth} onChange={this.props.handleResourceTypeSelect} selectedResources={this.props.selectedResources} />
           </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
+          <Grid item xs={12} className={formRow}>
+            {/*<FormControlLabel
               control={
                 <Checkbox
                   value="checkedA"
@@ -139,7 +138,7 @@ class SearchForm extends React.Component {
               }
             label="Include remote resources"
             className={formRow}
-            />
+            />*/}
           </Grid>
           <Grid item xs={12}>
             <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
