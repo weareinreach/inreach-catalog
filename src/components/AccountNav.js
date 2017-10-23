@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-class Account extends React.Component { 
+class AccountNav extends React.Component { 
   constructor(props) {
     super(props);
   }
@@ -31,11 +31,11 @@ class Account extends React.Component {
     const { classes } = this.props
     return (
     <div className={classes.root}>
-      <a className={[classes.divider, classes.accountLinks].join(' ')} href=''><Typography type='body1' className={classes.lowercaseText}>Log In</Typography></a>
-      <a className={classes.accountLinks} href=''><Typography type='body1' className={classes.lowercaseText}>Sign Up</Typography></a>
+      <a className={[classes.divider, classes.accountLinks].join(' ')} href='#' onClick={() => this.props.handleRequestOpen('login')}><Typography type='body1' className={classes.lowercaseText}>Log In</Typography></a>
+      <a className={classes.accountLinks} href='#'><Typography type='body1' className={classes.lowercaseText}>Sign Up</Typography></a>
     </div>
     )
   }
 }
 
-export default withStyles(styles)(Account);
+export default withStyles(styles)(AccountNav);

@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 
 import Language from './Language';
-import Account from '../Account';
+import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
@@ -46,7 +46,7 @@ const NavDesktop = (props) => {
       <a href='http://www.asylumconnect.org/contact-us/'><Typography type="display4">contact us</Typography></a>
       <AsylumConnectButton variant='primary'>find resources</AsylumConnectButton>
       <Language />
-      <Account />
+      <AccountNav handleRequestOpen={props.handleRequestOpen} />
       <FavoritesLink>view your favorites</FavoritesLink>
     </div>
   )

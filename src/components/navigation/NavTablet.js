@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
-import Account from '../Account';
+import AccountNav from '../AccountNav';
 import RedHeartIcon from '../icons/RedHeartIcon';
 
 import { withStyles } from 'material-ui/styles';
@@ -20,8 +20,7 @@ const styles = theme => ({
   }
 });
 
-const NavTablet = (props) => { 
-  const classes = props.classes;
+const NavTablet = ({ classes, handleRequestOpen }) => { 
   return (
     <Grid container spacing={0}
           align='center'
@@ -38,7 +37,7 @@ const NavTablet = (props) => {
       </Grid>
       
       <Grid item md={3}>
-        <Account />
+        <AccountNav handleRequestOpen={handleRequestOpen}/>
       </Grid>
       
       <Grid item md={5}>

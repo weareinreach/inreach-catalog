@@ -19,9 +19,9 @@ class Header extends React.Component {
     if (isMobile) {
       Nav = <NavMobile handleRequestOpen={this.props.handleRequestOpen}/>
     } else if (isTablet) {
-      Nav = <NavTablet />
+      Nav = <NavTablet handleRequestOpen={this.props.handleRequestOpen} />
     } else {
-      Nav = <NavDesktop />
+      Nav = <NavDesktop handleRequestOpen={this.props.handleRequestOpen} />
     }
     return (
       <div>

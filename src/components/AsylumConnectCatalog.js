@@ -17,8 +17,13 @@ import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
 
 import Announcement from './Announcement';
+import { AsylumConnectDialog } from './dialog';
 import Header from './Header'
 import Footer from './Footer';
+import {
+  AccountMobile,
+  LoginDialog,
+} from './account';
 import {
   DisclaimerDialog,
   PrivacyDialog,
@@ -26,6 +31,7 @@ import {
 } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withWidth from './withWidth';
+import Message from './Message';
 
 import breakpoints from '../theme/breakpoints';
 
@@ -33,51 +39,74 @@ class AsylumConnectCatalog extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = { dialog: 'none' };
+    this.state = {
+      dialog: 'none',
+      message: '',
+      messageOpen: false,
+    };
 
     this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleMessageNew = this.handleMessageNew.bind(this);
+    this.handleMessageClose = this.handleMessageClose.bind(this);
+  }
+
+  handleMessageNew(message) {
+    this.setState({message, messageOpen: true});
+  }
+
+  handleMessageClose(event, reason) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({messageOpen: false});
   }
 
   handleRequestOpen(dialog) {
-    this.setState({ dialog });
+    this.setState({dialog});
   }
 
   handleRequestClose() {
-    this.setState({ dialog: 'none' });
+    this.setState({dialog: 'none'});
   }
 
   render() {
-    const { dialog } = this.state;
+    const {dialog, message, messageOpen} = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
-    const { handleRequestClose, handleRequestOpen } = this;
+    const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
       <div>
-        <Header handleRequestOpen={handleRequestOpen}/>
-        { isMobile
-            ?  (
-              ['disclaimer', 'privacy'].includes(dialog) &&
+        <Header handleRequestOpen={handleRequestOpen} />
+        {isMobile ? (
+          <div>
+            {['disclaimer', 'privacy'].includes(dialog) && (
               <PrivacyMobile
                 tab={dialog === 'privacy' ? 0 : 1}
                 handleRequestOpen={handleRequestOpen}
               />
-            )
-            : (
-              <div>
-                <Announcement
-                  handleRequestOpen={handleRequestOpen}
-                />
-                <DisclaimerDialog
-                  handleRequestClose={handleRequestClose}
-                  isOpen={dialog === 'disclaimer'}
-                />
-                <PrivacyDialog
-                  handleRequestClose={handleRequestClose}
-                  isOpen={dialog === 'privacy'}
-                />
-              </div>
-            )
-        }
+            )}
+            {['forgot', 'login', 'signup'].includes(dialog) && (
+              <AccountMobile
+                dialog={dialog}
+                tab={dialog === 'signup' ? 1 : 0}
+                handleMessageNew={handleMessageNew}
+                handleRequestClose={handleRequestClose}
+                handleRequestOpen={handleRequestOpen}
+              />
+            )}
+          </div>
+        ) : (
+          <div>
+            <Announcement handleRequestOpen={handleRequestOpen} />
+            <AsylumConnectDialog
+              dialog={dialog}
+              handleMessageNew={handleMessageNew}
+              handleRequestClose={handleRequestClose}
+              handleRequestOpen={handleRequestOpen}
+            />
+          </div>
+        )}
         <Router>
           <div className="content" >
             <Switch>
@@ -92,32 +121,12 @@ class AsylumConnectCatalog extends React.Component {
             </Switch>
           </div>
         </Router>
-          {/*<AsylumConnectButton variant="primary" onClick={() => this.setState({ open: true })}>
-            button button
-          </AsylumConnectButton>
-          <AsylumConnectButton variant="secondary" onClick={() => this.setState({ open: true })}>
-            button
-          </AsylumConnectButton>
-          <Button raised color="primary" onClick={() => this.setState({ open: true })}>Open alert dialog</Button>
-          <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-            <DialogTitle>Dialog With Actions</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                The actions in this window were passed in as an array of React objects.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleRequestClose} color="primary">
-                Disagree
-              </Button>
-              <Button onClick={this.handleRequestClose} color="primary">
-                Agree
-              </Button>
-            </DialogActions>
-          </Dialog>
-<<<<<<< HEAD
-        </div>*/ }
-        { isMobile ? null : <Footer /> }
+        {isMobile ? null : <Footer />}
+        <Message
+          handleMessageClose={this.handleMessageClose}
+          message={message}
+          open={messageOpen}
+        />
       </div>
     );
   }
