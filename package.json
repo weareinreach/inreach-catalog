@@ -25,7 +25,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.5",
     "jss": "^8.1.0",
-    "material-ui": "^1.0.0-beta.10",
+    "material-ui": "^1.0.0-beta.17",
     "material-ui-icons": "^1.0.0-beta.15",
     "node-fetch": "^1.7.3",
     "node-sass": "^4.5.3",
