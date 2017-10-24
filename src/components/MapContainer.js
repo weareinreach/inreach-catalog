@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 import SearchFormContainer from './SearchFormContainer';
 //require('./MapContainer.scss');
@@ -18,11 +19,14 @@ const styles = (theme) => ({
   }
 });
 
-const SearchResultsContainer = () => (
-  <div>
-    <h2>Search Results Form Followed By Search Results</h2>
-  </div>
-);
+const SearchResultsContainer = ( props ) => {
+  console.log(props);
+  return (
+    <div>
+      <h2>Search Results Form Followed By Search Results</h2>
+    </div>
+  );
+}
 const Resource = () => (
   <div>
     <h2>Resource</h2>
@@ -40,6 +44,7 @@ class MapContainer extends React.Component {
     //this.state = { dialog: 'none' };
     this.state = {
       nearAddress: '',
+      nearLatLng: null,
       searchStatus: false,
       errorMessage: false,
       selectedResources: []
@@ -47,6 +52,7 @@ class MapContainer extends React.Component {
 
 
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
+    this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.Routes = this.Routes.bind(this)
@@ -63,10 +69,23 @@ class MapContainer extends React.Component {
   }
 
   handlePlaceSelect(address) {
+
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => this.setState({
+        nearAddress: address,
+        nearLatLng: latLng
+      }))
+      .catch(error => console.error('Error', error))
+
+  }
+
+  handlePlaceChange(address) {
     this.setState({
       nearAddress: address,
-    })
-
+      nearLatLng: null,
+      searchStatus: null
+    });
   }
 
   handleResourceTypeSelect(event, checked) { 
@@ -77,12 +96,14 @@ class MapContainer extends React.Component {
     if(checked && selectedResources.indexOf(target.value) < 0) {
       selectedResources.push(target.value)
       this.setState({
-        selectedResources: selectedResources
+        selectedResources: selectedResources,
+        searchStatus: null
       });
     } else if(!checked && (index = selectedResources.indexOf(target.value)) >= 0) {
       selectedResources.splice(index, 1)
       this.setState({
-        selectedResources: selectedResources
+        selectedResources: selectedResources,
+        searchStatus: null
       });
     }
   }
@@ -90,10 +111,18 @@ class MapContainer extends React.Component {
   handleSearchButtonClick() {
     this.clearErrors();
     
-    if(this.state.nearAddress == null || this.state.nearAddress == '') {
+    if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
       this.setState({
         searchStatus: "error",
         errorMessage: "Unable to find your location, please try entering your city, state in the box above."
+      });
+      return;
+    } 
+
+    if(this.state.selectedResources.length == 0) {
+      this.setState({
+        searchStatus: "error",
+        errorMessage: "Please select at least one resource type from the dropdown"
       });
       return;
     } 
@@ -109,6 +138,7 @@ class MapContainer extends React.Component {
         <Switch>
           <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
             handlePlaceSelect={this.handlePlaceSelect} 
+            handlePlaceChange={this.handlePlaceChange}
             handleSearchButtonClick={this.handleSearchButtonClick}
             handleResourceTypeSelect={this.handleResourceTypeSelect}
              />} />

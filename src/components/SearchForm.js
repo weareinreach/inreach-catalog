@@ -60,7 +60,9 @@ class SearchForm extends React.Component {
   }
 
   handlePlaceSelect(address) {
-    this.handlePlaceChange(address);
+    this.setState({
+      address
+    })
     this.props.handlePlaceSelect(address);
   }
 
@@ -68,6 +70,7 @@ class SearchForm extends React.Component {
     this.setState({
       address
     })
+    this.props.handlePlaceChange(address);
   }
 
   render() {
@@ -99,7 +102,8 @@ class SearchForm extends React.Component {
     const searchStatus = () => {
       switch(this.props.searchStatus) {
         case 'redirect':
-          return (<Redirect to={`/search/${encodeURIComponent(this.props.nearAddress)}/test/test/test`} />);
+          var resourceTypes = (this.props.selectedResources.length ? this.props.selectedResources.join(',') : 'any');
+          return (<Redirect to={`/search/${encodeURIComponent(this.props.nearLatLng.lat + ',' + this.props.nearLatLng.lng)}/${encodeURIComponent(resourceTypes)}/test/test`} />);
         break;
         case 'error':
           var errors = (this.props.errorMessage.length ? [this.props.errorMessage] : []);
