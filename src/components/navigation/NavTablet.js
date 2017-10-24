@@ -23,7 +23,7 @@ const styles = theme => ({
 const NavTablet = ({ classes, handleRequestOpen }) => { 
   return (
     <Grid container spacing={0}
-          align='center'
+          alignItems='center'
           direction='row'
           justify='space-around'
           className={classes.root}>
