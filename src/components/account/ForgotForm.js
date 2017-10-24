@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TextField from 'material-ui/Textfield';
+import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
