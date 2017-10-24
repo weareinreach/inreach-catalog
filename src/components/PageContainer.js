@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AccountPage from './account/AccountPage';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -16,12 +18,6 @@ const FavoritesListPage = ( {match, newList} ) => (
     <h2>{newList ? "New " : ""}{match.params.id ? "Favorites page for id:"+match.params.id : "Favorite page for non-logged in user"}</h2>
   </div>
 );
-const AccountPage = ( {match} ) => (
-  <div>
-    <h2>Account page for id: {match.params.id}</h2>
-  </div>
-);
-
 
 class PageContainer extends React.Component {
   render() {
