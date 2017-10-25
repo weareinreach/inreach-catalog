@@ -1,113 +1,60 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask';
+import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
 import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
 
-// Define a custom style
+import OrgSettingsInfo from './OrgSettingsInfo';
+import OrgSettingsHour from './OrgSettingsHour';
+import OrgSettingsAdditional from './OrgSettingsAdditional';
+
+import AsylumConnectButton from '../AsylumConnectButton';
+
 const styles = theme => ({
-  form: {
+  root: {
+    width: '43%',
+    padding: '0 5% 0 5%'
+  },
+  formType: {
+    margin: '10% 0 10% 0'
+  },
+  extraMargin: {
+    margin: '20px 0 20px 0'
+  },
+  settingsTypeFont: {
+    marginRight: '20px',
+    lineHeight: '1.6',
+    fontSize: 13,
+    fontWeight: 700,
+    fontFamily: "\"Open Sans\", sans-serif",
+    color: theme.palette.common.lightBlack,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    cursor: 'pointer'
   },
-  inputLabel: {
-    marginTop: '20px',
-    '& label': theme.custom.inputLabel,
-    '& div': {
-      marginTop: '23px'
-    },
-    '& input': theme.custom.inputText
-  },
-  inputWithMask: {
-    color: 'red'
-  }
 });
-
-function TextMaskCustom(props) {
-  return (
-    <MaskedInput
-      {...props}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  );
-}
 
 class OrgSettings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      phoneTextMask: '(  )   -   '
-    };
-    this.handleChange = this.handleChange.bind(this)
   }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
   render() {
-    console.log(this.props)
-    const classes = this.props;
+    const { classes } = this.props;
     return (
-      <div>
-        <Typography type='display3'>Your Organization</Typography>
-        <form className={classes.form}>  
-          <TextField
-            className={classes.inputLabel}
-            label='About:'
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder='Hint text'
-          />
-          <TextField
-            className={classes.inputLabel}
-            label='Who it helps:'
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder='Population'
-          />
-          <TextField
-            className={classes.inputLabel}
-            label='Websites:'
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder='URL'
-          />
-          <FormControl>
-            <InputLabel 
-              children='Phone number:'
-              shrink />
-            <Input
-              name='phoneTextMask'
-              value={this.state.textmask}
-              inputComponent={TextMaskCustom}
-              onChange={this.handleChange}
-            />
-          </FormControl>
-          <TextField
-            className={classes.inputLabel}
-            label='Address:'
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder='Address'
-          />
-        </form>
+      <div className={classes.root}>
+        <Typography type='display3' className={classes.formType}>Your Organization</Typography>
+        <OrgSettingsInfo />
+        <OrgSettingsHour />
+        <OrgSettingsAdditional />
+        <AsylumConnectButton variant='primary'>request change</AsylumConnectButton>
+        <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
+        <div className={classes.settingsTypeFont}>
+          <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a>catalog@asylumconnect.org</a>.</span>
+        </div>
       </div>
-    );
+    )
   }
 }
 

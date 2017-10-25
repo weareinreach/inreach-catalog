@@ -198,22 +198,22 @@ export default createMuiTheme({
     },
     "display3": {
       "fontSize": 16,
-      "fontWeight": 600,
+      "fontWeight": 700,
       "fontFamily": "\"Open Sans\", sans-serif",
       "letterSpacing": "-.02em",
       "lineHeight": 1.35,
       "color": "rgba(0, 0, 0, 0.87)"
     },
     "display2": {
-      "fontSize": 20,
-      "fontWeight": 400,
+      "fontSize": 18,
+      "fontWeight": 500,
       "fontFamily": "\"Roboto\", sans-serif",
-      "lineHeight": "48px",
+      "lineHeight": "inherit",
       "color": "rgba(0, 0, 0, 0.87)"
     },
     "display1": {
-      "fontSize": 24,
-      "fontWeight": 600,
+      "fontSize": 22,
+      "fontWeight": 700,
       "fontFamily": "\"Roboto\", sans-serif",
       "lineHeight": "40px",
       "color": "rgba(0, 0, 0, 0.87)"
@@ -263,9 +263,9 @@ export default createMuiTheme({
     "button": {
       "fontSize": 14,
       "textTransform": "uppercase",
-      "fontWeight": 600,
+      "fontWeight": 700,
       "fontFamily": "\"Open Sans\", sans-serif",
-      "letterSpacing": "1.2px",
+      "letterSpacing": "1px",
     }
   },
   "mixins": {
@@ -342,5 +342,38 @@ export default createMuiTheme({
     "popover": 2100,
     "snackbar": 2900,
     "tooltip": 3000
+  },
+  "custom": {
+    "inputLabel": {
+      "fontSize": 17,
+      "fontWeight": 700,
+      "fontFamily": "\"Open Sans\", sans-serif",
+      "letterSpacing": "-.02em",
+      "& p": {
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#000"
+      },
+      '& span': {
+        "height": '20px',
+        "fontSize": '20px'
+      },
+    },
+    "inputText": {
+      "fontSize": 13,
+      "fontWeight": 400,
+      "fontFamily": "\"Open Sans\", sans-serif",
+      "lineHeight": 20,
+      "color": "rgba(0, 0, 0, 0.90)",
+    }
+  },
+  overrides: {
+    MuiInput: {
+      underline: {
+        '&:before': {
+        height: "0.8px"
+        }
+      }
+    }
   }
 });
