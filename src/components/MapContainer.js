@@ -8,9 +8,11 @@ import {
 } from 'react-router-dom';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import SearchFormContainer from './SearchFormContainer';
+import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
+var queryOneDegree = new OneDegreeResourceQuery();
 //require('./MapContainer.scss');
 
 const styles = (theme) => ({
@@ -20,7 +22,7 @@ const styles = (theme) => ({
 });
 
 const SearchResultsContainer = ( props ) => {
-  console.log(props);
+  props.fetchSearchResults();
   return (
     <div>
       <h2>Search Results Form Followed By Search Results</h2>
@@ -42,19 +44,21 @@ class MapContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
     //this.state = { dialog: 'none' };
+    //
+    let { nearLatLng, selectedResources } = this.parseParams(props.match.params);
     this.state = {
       nearAddress: '',
-      nearLatLng: null,
+      nearLatLng,
       searchStatus: false,
       errorMessage: false,
-      selectedResources: []
+      selectedResources
     }
-
 
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
+    this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.Routes = this.Routes.bind(this)
   }
 
@@ -132,6 +136,32 @@ class MapContainer extends React.Component {
     });
   }
 
+  fetchSearchResults() {
+    queryOneDegree
+      .addTags(this.state.selectedResources)
+      .setLocation(this.state.nearLatLng)
+      .fetch({
+        callback: (res) => { console.log(res) } 
+      });
+  }
+
+  parseParams(params) {
+    var nearLatLng = null, selectedResources = [];
+    if(params.near) {
+      var latLng = decodeURIComponent(params.near).split(',')
+      nearLatLng = {
+        lat: latLng[0],
+        lng: latLng[1]
+      }
+    }
+
+    if(params.for) {
+      selectedResources = decodeURIComponent(params.for).split(',');
+    }
+
+    return {selectedResources, nearLatLng};
+  }
+
   Routes() {
     return  (
       <Router>
@@ -143,7 +173,9 @@ class MapContainer extends React.Component {
             handleResourceTypeSelect={this.handleResourceTypeSelect}
              />} />
             }
-          <Route path="/search/:near/:for/:filter/:sort" component={SearchResultsContainer}/>
+          <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
+            fetchSearchResults={this.fetchSearchResults}
+            />} />
           <Route path="/resource/:id" component={Resource}/>
         </Switch>
       </Router>
