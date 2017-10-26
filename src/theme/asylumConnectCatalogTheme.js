@@ -213,7 +213,7 @@ export default createMuiTheme({
     },
     "display1": {
       "fontSize": 24,
-      "fontWeight": 600,
+      "fontWeight": 700,
       "fontFamily": "\"Roboto\", sans-serif",
       "lineHeight": "40px",
       "color": "rgba(0, 0, 0, 0.87)"
@@ -227,7 +227,7 @@ export default createMuiTheme({
     },
     "title": {
       "fontSize": 21,
-      "fontWeight": 500,
+      "fontWeight": 700,
       "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
       "lineHeight": 1,
       "color": "rgba(0, 0, 0, 0.87)"
@@ -281,7 +281,7 @@ export default createMuiTheme({
   },
   "breakpoints": {
     "keys": Object.keys(breakpoints),
-    "values": Object.values(breakpoints),
+    "values": breakpoints,
   },
   "shadows": [
     "none",

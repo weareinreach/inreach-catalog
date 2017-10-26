@@ -1,30 +1,73 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
-import Input from 'material-ui/Input';
+import Grid from 'material-ui/Grid';
+import { FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
+import Snackbar from 'material-ui/Snackbar';
+import Slide from 'material-ui/transitions/Slide';
+
+import AsylumConnectButton from './AsylumConnectButton';
+import ErrorMessage from './ErrorMessage';
+import SearchBar from './SearchBar';
 
 const styles = theme => ({
-  searchInput: {
-    border: 'none',
-    boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',//0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)
-    padding: '0.8rem',
-    fontFamily: theme.typography.fontFamily,
-    fontSize: theme.typography.fontSize
+  formRow: {
+    marginBottom: '2.5rem'
   },
 });
 
 class SearchForm extends React.Component {
-  constructor(props) {
-    super(props)
-    //this.state = { dialog: 'none' };
-  }
-
   render() {
-    const { searchInput } = this.props.classes;
+    const { formRow } = this.props.classes;
+
+    const searchStatus = () => {
+      switch(this.props.searchStatus) {
+        case 'redirect':
+          var resourceTypes = (this.props.selectedResources.length ? this.props.selectedResources.join(',') : 'any');
+          return (<Redirect to={`/search/${encodeURIComponent(this.props.nearLatLng.lat + ',' + this.props.nearLatLng.lng)}/${encodeURIComponent(resourceTypes)}/all/default`} push={true} />);
+        break;
+        case 'error':
+          var errors = (this.props.errorMessage.length ? [this.props.errorMessage] : []);
+          return errors.map(function(name, index){
+            return <ErrorMessage key={ Date.now() } message={ name } />;
+          })
+        break;
+        default:
+          return null;
+        break;
+      } 
+    }
+
     return (
       <div>
-        <Input className={searchInput} disableUnderline={true} placeholder="Start typing address, city or zip code in the US&elip;"/>
-        {/*<ResourceTypeSelector />*/}
+        {searchStatus()}
+        <SearchBar {...this.props} classes={null} />
+        <Grid container spacing={0}>
+          <Grid item xs={12} className={formRow}>
+            {/*<FormControlLabel
+              control={
+                <Checkbox
+                  value="checkedA"
+                />
+              }
+            label="Include remote resources"
+            className={formRow}
+            />*/}
+          </Grid>
+          <Grid item xs={12}>
+            <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
+              Search
+            </AsylumConnectButton>
+          </Grid>
+        </Grid>
+        
       </div>
     );
   }

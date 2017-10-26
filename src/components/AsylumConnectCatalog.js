@@ -121,7 +121,7 @@ class AsylumConnectCatalog extends React.Component {
             </Switch>
           </div>
         </Router>
-        {isMobile ? null : <Footer />}
+        { isMobile ? null : <Footer /> }
         <Message
           handleMessageClose={this.handleMessageClose}
           message={message}
