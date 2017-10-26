@@ -18,16 +18,26 @@ var queryOneDegree = new OneDegreeResourceQuery();
 const styles = (theme) => ({
   searchArea: {
     padding: '2rem',
+  },
+  container: {
+    minHeight: '500px'
   }
 });
 
-const SearchResultsContainer = ( props ) => {
-  props.fetchSearchResults();
-  return (
-    <div>
-      <h2>Search Results Form Followed By Search Results</h2>
-    </div>
-  );
+class SearchResultsContainer extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    props.clearSearchStatus();
+  }
+
+  render() {
+    this.props.fetchSearchResults();
+    return (
+      <div>
+        <h2>Search Results Form Followed By Search Results</h2>
+      </div>);
+  }
+    
 }
 const Resource = () => (
   <div>
@@ -59,6 +69,7 @@ class MapContainer extends React.Component {
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
+    this.clearSearchStatus = this.clearSearchStatus.bind(this)
     this.Routes = this.Routes.bind(this)
   }
 
@@ -69,6 +80,12 @@ class MapContainer extends React.Component {
   clearErrors() {
     this.setState({
       errorMessage: false
+    });
+  }
+
+  clearSearchStatus() {
+    this.setState({
+      searchStatus: false
     });
   }
 
@@ -175,6 +192,7 @@ class MapContainer extends React.Component {
             }
           <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
             fetchSearchResults={this.fetchSearchResults}
+            clearSearchStatus={this.clearSearchStatus}
             />} />
           <Route path="/resource/:id" component={Resource}/>
         </Switch>
@@ -193,7 +211,11 @@ class MapContainer extends React.Component {
         <Grid container spacing={0}>
           <Grid item xs={12} md={7}>
             <div className="container--search">
-              {this.Routes()}
+              <Grid container alignItems='center' justify='center' spacing={0} className={this.props.classes.container}>
+                <Grid item md={10} lg={9} sm={12}>
+                  {this.Routes()}
+                </Grid>
+              </Grid>
             </div>
           </Grid>
           <Grid item xs={12} md={5} >
