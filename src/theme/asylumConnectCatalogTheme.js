@@ -227,7 +227,7 @@ export default createMuiTheme({
     },
     "title": {
       "fontSize": 21,
-      "fontWeight": 500,
+      "fontWeight": 700,
       "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
       "lineHeight": 1,
       "color": "rgba(0, 0, 0, 0.87)"
@@ -281,7 +281,7 @@ export default createMuiTheme({
   },
   "breakpoints": {
     "keys": Object.keys(breakpoints),
-    "values": Object.values(breakpoints),
+    "values": breakpoints,
   },
   "shadows": [
     "none",

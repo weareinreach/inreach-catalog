@@ -12,6 +12,7 @@ import {
   HousingIcon,
   HygieneIcon,
   LegalIcon,
+  MailIcon,
   MedicalIcon,
   MentalHealthIcon,
   SportsEntertainmentIcon,
@@ -19,17 +20,17 @@ import {
 
 const styles = theme => ({
   tooltip: { fontFamily: 'sans-serif' },
-  icon: { width: '75px', height: '75px' },
+  icon: { display: 'inline-block', verticalAlign: 'middle' },
 });
 
-const Badge = ({ classes, type }) => {
+const Badge = ({ classes, type, height, width }) => {
   const typeMapping = {
     communitySupport: {
       label: 'Community Support',
       icon: <CommunitySupportIcon />,
     },
     computers: {
-      label: 'Computers',
+      label: 'Computers and Internet',
       icon: <ComputersIcon />,
     },
     educationEmployment: {
@@ -52,6 +53,10 @@ const Badge = ({ classes, type }) => {
       label: 'Legal',
       icon: <LegalIcon />,
     },
+    mail: {
+      label: 'Mail Services',
+      icon: <MailIcon />,
+    },
     medical: {
       label: 'Medical',
       icon: <MedicalIcon />,
@@ -66,13 +71,16 @@ const Badge = ({ classes, type }) => {
     },
   };
 
+  const iconWidth = (width ? width : '75px');
+  const iconHeight = (height ? height : '75px');
+
   return (
     <Tooltip
       className={classes.tooltip}
-      label={typeMapping[type].label}
+      title={typeMapping[type].label}
       placement="top"
     >
-      <div className={classes.icon}>
+      <div className={classes.icon} style={ {width: iconWidth, height: iconHeight} }>
         { typeMapping[type].icon }
       </div>
     </Tooltip>
@@ -88,6 +96,7 @@ Badge.propTypes = {
     'housing',
     'hygiene',
     'legal',
+    'mail',
     'medical',
     'mentalHealth',
     'sportsEntertainment',
