@@ -1,6 +1,8 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
 
+import ResourceTypeSelector from '../ResourceTypeSelector';
+
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
@@ -56,6 +58,27 @@ const styles = theme => ({
     alignItems: 'center',
     cursor: 'pointer'
   },
+  modifiedSelector: {
+    '&>div': {
+      '&>div:first-child': {
+        height: 0,
+        backgroundColor: 'white',
+        boxShadow: 'none',
+        padding: 0,
+        fontSize: 13,
+        fontWeight: 700,
+        fontFamily: "\"Open Sans\", sans-serif",
+        letterSpacing: "-.02em",
+        color: theme.palette.common.lightBlack,
+        '&>div': {
+          display: 'flex'
+        }
+      }
+    },
+    '& svg': {
+      float: 'none'
+    }
+  }
 });
 
 class OrgSettingsAdditional extends React.Component {
@@ -63,10 +86,12 @@ class OrgSettingsAdditional extends React.Component {
     super(props);
     this.state = {
       open: true,
-      capacity: false
+      capacity: false,
+      selectedResources: []
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleCapacity = this.handleToggleCapacity.bind(this)
+    this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
   }
 
   handleChange(e) {
@@ -81,8 +106,28 @@ class OrgSettingsAdditional extends React.Component {
       [name]: !this.state[name],
     })
   }
+  handleResourceTypeSelect(event, checked) { 
+    var index;
+    const target = event.target;
+    var selectedResources = this.state.selectedResources.slice();
+    if(checked && selectedResources.indexOf(target.value) < 0) {
+      selectedResources.push(target.value)
+      this.setState({
+        selectedResources: selectedResources,
+        searchStatus: null
+      });
+    } else if(!checked && (index = selectedResources.indexOf(target.value)) >= 0) {
+      selectedResources.splice(index, 1)
+      this.setState({
+        selectedResources: selectedResources,
+        searchStatus: null
+      });
+    }
+    
+  }
   render() {
     const { classes } = this.props;
+    console.log(this.state.selectedResources)
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -112,10 +157,9 @@ class OrgSettingsAdditional extends React.Component {
               label='Yes'
             />
           </FormControl>
-          <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
-            <span>Resource Type</span>
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-          </div>
+          <FormControl className={classes.modifiedSelector}>
+            <ResourceTypeSelector onChange={this.handleResourceTypeSelect} selectedResources={this.state.selectedResources} />
+          </FormControl>
         </form>
       </div>
     )
