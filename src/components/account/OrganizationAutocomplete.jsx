@@ -7,31 +7,33 @@ import parse from 'autosuggest-highlight/parse';
 import Fa from 'react-fontawesome';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
-import { MenuItem } from 'material-ui/Menu';
-import { withStyles } from 'material-ui/styles';
+import {MenuItem} from 'material-ui/Menu';
+import {withStyles} from 'material-ui/styles';
 
 function renderInput(inputProps) {
-  const { classes, autoFocus, value, ref, isLoading } = inputProps;
+  const {classes, autoFocus, value, ref, isLoading} = inputProps;
   delete inputProps['isLoading'];
 
   return (
     <TextField
       autoFocus={autoFocus}
       className={classes.textField}
-      label={<span>Organization Name {isLoading ? <Fa name="spinner" spin/> : ``}</span>}
+      label={
+        <span>
+          Organization Name {isLoading ? <Fa name="spinner" spin /> : ``}
+        </span>
+      }
       value={value}
       inputRef={ref}
-      InputProps={Object.assign(
-        {},
-        inputProps,
-        { classes: { input: classes.input }},
-      )}
+      InputProps={Object.assign({}, inputProps, {
+        classes: {input: classes.input},
+      })}
       required
     />
   );
 }
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
+function renderSuggestion(suggestion, {query, isHighlighted}) {
   const matches = match(suggestion.name, query);
   const parts = parse(suggestion.name, matches);
 
@@ -40,11 +42,11 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
-            <span key={index} style={{ fontWeight: 300 }}>
+            <span key={index} style={{fontWeight: 300}}>
               {part.text}
             </span>
           ) : (
-            <strong key={index} style={{ fontWeight: 500 }}>
+            <strong key={index} style={{fontWeight: 500}}>
               {part.text}
             </strong>
           );
@@ -55,7 +57,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 }
 
 function renderSuggestionsContainer(options) {
-  const { containerProps, children } = options;
+  const {containerProps, children} = options;
 
   return (
     <Paper {...containerProps} square>

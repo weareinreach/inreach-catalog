@@ -19,7 +19,7 @@ const styles = theme => ({
     flexDirection: 'column',
     textAlign: 'center',
   },
-  flex: { display: 'flex' },
+  flex: {display: 'flex'},
   link: {
     color: theme.palette.primary[500],
     cursor: 'pointer',
@@ -56,32 +56,34 @@ const SignupForm = ({
         <AsylumConnectButton
           className={classes.marginBottom}
           onClick={() => handleSelect('seeker')}
-          variant="secondary"
-        >
+          variant="secondary">
           I am an asylum seeker
         </AsylumConnectButton>
         <AsylumConnectButton
           className={classes.marginBottomLg}
           onClick={() => handleSelect('provider')}
-          variant="secondary"
-        >
+          variant="secondary">
           I am a service provider
         </AsylumConnectButton>
       </div>
     )}
     {selection !== '' && (
       <form className={classes.container} onSubmit={handleSubmit}>
-        {selection === 'provider' &&
+        {selection === 'provider' && (
           <OrganizationAutocomplete
             handleOrganizationSearchChange={handleOrganizationSearchChange}
             handleOrganizationSelect={handleOrganizationSelect}
-            handleOrganizationsFetchRequested={handleOrganizationsFetchRequested}
-            handleOrganizationsClearRequested={handleOrganizationsClearRequested}
+            handleOrganizationsFetchRequested={
+              handleOrganizationsFetchRequested
+            }
+            handleOrganizationsClearRequested={
+              handleOrganizationsClearRequested
+            }
             isLoadingOrganizations={isLoadingOrganizations}
             organizationSearch={organizationSearch}
             organizations={organizations}
           />
-        }
+        )}
         <TextField
           id="email"
           label={selection === 'seeker' ? 'Email' : 'Organization Email'}
@@ -131,17 +133,17 @@ const SignupForm = ({
       steps={2}
       position="static"
       activeStep={selection === '' ? 0 : 1}
-      nextButton={<div/>}
-      backButton={<div/>}
+      nextButton={<div />}
+      backButton={<div />}
     />
-    {selection !== '' &&
+    {selection !== '' && (
       <div className={classes.flex}>
         <Button dense onClick={() => handleSelect('')}>
           <KeyboardArrowLeft />
-           Back
+          Back
         </Button>
       </div>
-    }
+    )}
   </div>
 );
 

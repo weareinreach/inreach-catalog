@@ -38,36 +38,45 @@ class SignupFormContainer extends React.Component {
     this.setState({[name]: value});
   }
 
-  handleOrganizationSearchChange(event, { newValue }) {
-    this.setState({ organizationSearch: newValue });
-  };
+  handleOrganizationSearchChange(event, {newValue}) {
+    this.setState({organizationSearch: newValue});
+  }
 
   handleOrganizationsFetchRequested() {
-    this.setState({ isLoadingOrganizations: true });
+    this.setState({isLoadingOrganizations: true});
     this.debouncedLoadOrganizations();
   }
 
   handleOrganizationsClearRequested() {
-    this.setState({ organizations: [] });
+    this.setState({organizations: []});
   }
 
-  handleOrganizationSelect(event, { suggestion }) {
-    this.setState({ organizationSelection: suggestion });
+  handleOrganizationSelect(event, {suggestion}) {
+    this.setState({organizationSelection: suggestion});
   }
 
   handleSelect(selection) {
     this.setState({selection});
-  };
+  }
 
   handleSubmit(event) {
     event.preventDefault();
     const {handleMessageNew, handleRequestClose} = this.props;
-    const {email, password, organizationSearch, organizationSelection, passwordConfirmation} = this.state;
+    const {
+      email,
+      password,
+      organizationSearch,
+      organizationSelection,
+      passwordConfirmation,
+    } = this.state;
     if (password !== passwordConfirmation) {
       handleMessageNew('Sorry. The passwords you have entered do not match');
       return;
     }
-    if (!organizationSelection || organizationSearch !== organizationSelection.name) {
+    if (
+      !organizationSelection ||
+      organizationSearch !== organizationSelection.name
+    ) {
       handleMessageNew('Please select an organization.');
       return;
     }
@@ -81,7 +90,9 @@ class SignupFormContainer extends React.Component {
     this.createUser(userPayload)
       .then(response => {
         if (response.status !== 201) {
-          handleMessageNew(`Sorry. An account for that email might aleady exist.`);
+          handleMessageNew(
+            `Sorry. An account for that email might aleady exist.`,
+          );
         } else {
           return response.json();
         }
@@ -93,7 +104,7 @@ class SignupFormContainer extends React.Component {
             affiliation: {
               organization_name: 'organization',
               fetchable_id: 1,
-            }
+            },
           });
           return this.createAffiliation(affiliationPayload);
         } else {
@@ -101,7 +112,7 @@ class SignupFormContainer extends React.Component {
         }
       })
       .then(response => {
-        debugger
+        debugger;
         console.log(response);
       })
       .catch(error => {
@@ -142,14 +153,15 @@ class SignupFormContainer extends React.Component {
     const apiDomain = config[process.env.NODE_ENV].odrs;
     const url = `${apiDomain}organizations.jsonp?`;
     const apiKeyParam = `api_key=${config[process.env.NODE_ENV].odApiKey}`;
-    const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state.organizationSearch}`;
+    const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state
+      .organizationSearch}`;
     fetchJsonp(url + apiKeyParam + queryParams)
       .then(response => response.json())
       .then(data => {
         this.setState({
           isLoadingOrganizations: false,
           organizations: data.organizations,
-        })
+        });
       });
   }
 
@@ -161,8 +173,12 @@ class SignupFormContainer extends React.Component {
         handleChange={this.handleChange}
         handleOrganizationSearchChange={this.handleOrganizationSearchChange}
         handleOrganizationSelect={this.handleOrganizationSelect}
-        handleOrganizationsClearRequested={this.handleOrganizationsClearRequested}
-        handleOrganizationsFetchRequested={this.handleOrganizationsFetchRequested}
+        handleOrganizationsClearRequested={
+          this.handleOrganizationsClearRequested
+        }
+        handleOrganizationsFetchRequested={
+          this.handleOrganizationsFetchRequested
+        }
         handleSelect={this.handleSelect}
         handleSubmit={this.handleSubmit}
       />
