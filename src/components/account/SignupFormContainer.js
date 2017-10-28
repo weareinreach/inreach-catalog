@@ -68,14 +68,16 @@ class SignupFormContainer extends React.Component {
       organizationSearch,
       organizationSelection,
       passwordConfirmation,
+      selection,
     } = this.state;
     if (password !== passwordConfirmation) {
       handleMessageNew('Sorry. The passwords you have entered do not match');
       return;
     }
     if (
-      !organizationSelection ||
-      organizationSearch !== organizationSelection.name
+      selection === 'provider' &&
+      (!organizationSelection ||
+        organizationSearch !== organizationSelection.name)
     ) {
       handleMessageNew('Please select an organization.');
       return;
@@ -99,7 +101,7 @@ class SignupFormContainer extends React.Component {
       })
       .then(data => {
         window.localStorage.setItem('jwt', data.jwt);
-        if (this.state.selection === 'provider') {
+        if (selection === 'provider') {
           const affiliationPayload = JSON.stringify({
             affiliation: {
               organization_name: 'organization',
