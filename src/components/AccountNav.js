@@ -31,8 +31,24 @@ class AccountNav extends React.Component {
     const { classes } = this.props
     return (
     <div className={classes.root}>
-      <a className={[classes.divider, classes.accountLinks].join(' ')} href='#' onClick={() => this.props.handleRequestOpen('login')}><Typography type='body1' className={classes.lowercaseText}>Log In</Typography></a>
-      <a className={classes.accountLinks} href='#'><Typography type='body1' className={classes.lowercaseText}>Sign Up</Typography></a>
+      <a
+        className={[classes.divider, classes.accountLinks].join(' ')}
+        href='#'
+        onClick={() => this.props.handleRequestOpen('login')}
+      >
+        <Typography type='body1' className={classes.lowercaseText}>
+          Log In
+        </Typography>
+      </a>
+      <a
+        className={classes.accountLinks}
+        href='#'
+        onClick={() => this.props.handleRequestOpen('signup')}
+      >
+        <Typography type='body1' className={classes.lowercaseText} >
+          Sign Up
+        </Typography>
+      </a>
     </div>
     )
   }

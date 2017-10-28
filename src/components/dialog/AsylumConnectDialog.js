@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
-import {ForgotDialog, LoginDialog} from '../account';
+import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
 
 const styles = theme => ({
   dialogBody: {
@@ -40,6 +40,12 @@ const AsylumConnectDialog = ({
         />}
       {dialog === 'privacy' &&
         <PrivacyDialog handleRequestClose={handleRequestClose} />}
+      {dialog === 'signup' &&
+        <SignupDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />}
     </div>
   </Dialog>;
 
