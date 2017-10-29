@@ -71,7 +71,7 @@ class SignupFormContainer extends React.Component {
       selection,
     } = this.state;
     if (password !== passwordConfirmation) {
-      handleMessageNew('Sorry. The passwords you have entered do not match');
+      handleMessageNew('The passwords you have entered do not match');
       return;
     }
     if (
@@ -91,12 +91,10 @@ class SignupFormContainer extends React.Component {
     });
     this.createUser(userPayload)
       .then(response => {
-        if (response.status !== 201) {
-          handleMessageNew(
-            `Sorry. An account for that email might aleady exist.`,
-          );
-        } else {
+        if (response.status === 201) {
           return response.json();
+        } else {
+          return Promise.reject('USER_POST_FAILURE');
         }
       })
       .then(data => {
@@ -110,15 +108,33 @@ class SignupFormContainer extends React.Component {
           });
           return this.createAffiliation(affiliationPayload);
         } else {
-          handleRequestClose();
+          return Promise.reject('USER_POST_SUCCESS');
         }
       })
       .then(response => {
-        debugger;
-        console.log(response);
+        if (response.status !== 201) {
+          return Promise.reject('AFFILIATION_PUT_FAILURE');
+        } else {
+          handleRequestClose();
+        }
       })
       .catch(error => {
-        handleMessageNew('Oops! Something went wrong.');
+        switch (error) {
+          case 'USER_POST_SUCCESS':
+            handleRequestClose();
+            break;
+          case 'USER_POST_FAILURE':
+            handleMessageNew(
+              'Sorry. We could not create an account with that email.',
+            );
+            break;
+          case 'AFFILIATION_PUT_FAILURE':
+            handleMessageNew`Sorry. Something went wrong connecting you to your organization.`;
+            handleRequestClose();
+            break;
+          default:
+            handleMessageNew('Oops! Something went wrong.');
+        }
       });
   }
 
@@ -137,16 +153,17 @@ class SignupFormContainer extends React.Component {
     return fetch(url, options);
   }
 
-  createAffiliation(paylaod) {
+  createAffiliation(payload) {
+    const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/affiliations`;
     const options = {
       method: 'PUT',
       headers: {
-        Authorization: window.localStorage.get('jwt'),
+        Authorization: window.localStorage.getItem('jwt'),
         'Content-Type': 'application/json',
         OneDegreeSource: 'asylumconnect',
       },
-      body: affiliationPayload,
+      body: payload,
     };
     return fetch(url, options);
   }
