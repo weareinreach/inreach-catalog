@@ -57,11 +57,20 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
 }
 
 function renderSuggestionsContainer(options) {
-  const {containerProps, children} = options;
+  const {containerProps, children, query} = options;
 
   return (
     <Paper {...containerProps} square>
       {children}
+      { query.length > 0 && children !== null && (
+        <a href="#">
+          <MenuItem component="div">
+            <span style={{fontWeight: 200}}>
+              Can't find it? Add a new organization here...
+            </span>
+          </MenuItem>
+        </a>
+      )}
     </Paper>
   );
 }
