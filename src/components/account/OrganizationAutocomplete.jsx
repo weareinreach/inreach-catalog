@@ -5,31 +5,35 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 
 import Fa from 'react-fontawesome';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
+import {FormControl} from 'material-ui/Form';
+import Input, {InputLabel, InputAdornment} from 'material-ui/Input';
 import {MenuItem} from 'material-ui/Menu';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
 import {withStyles} from 'material-ui/styles';
+
 
 function renderInput(inputProps) {
   const {classes, autoFocus, value, ref, isLoading} = inputProps;
   delete inputProps['isLoading'];
 
   return (
-    <TextField
-      autoFocus={autoFocus}
-      className={classes.textField}
-      label={
-        <span>
-          Organization Name {isLoading ? <Fa name="spinner" spin /> : ``}
-        </span>
-      }
-      value={value}
-      inputRef={ref}
-      InputProps={Object.assign({}, inputProps, {
-        classes: {input: classes.input},
-      })}
-      required
-    />
+    <FormControl className={classes.textField}>
+      <InputLabel htmlFor="organization">Organization Name</InputLabel>
+      <Input
+        id="organization"
+        value={value}
+        ref={ref}
+        {...Object.assign({}, inputProps, {classes: { inputAdorned: classes.inputAdorned }})}
+        endAdornment={
+          <InputAdornment
+            style={isLoading ? null : {visibility: 'hidden'}}
+            position="end">
+            <Fa name="spinner" spin />
+          </InputAdornment>
+        }
+      />
+    </FormControl>
   );
 }
 
@@ -102,6 +106,9 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
+  },
+  inputAdorned: {
+    width: '94%',
   },
 });
 
