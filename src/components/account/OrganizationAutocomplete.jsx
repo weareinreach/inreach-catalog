@@ -121,6 +121,7 @@ const OrganizationAutocomplete = ({
     getSuggestionValue={getSuggestionValue}
     renderInputComponent={renderInput}
     renderSuggestion={renderSuggestion}
+    focusInputOnSuggestionClick={false}
     inputProps={{
       autoFocus: true,
       classes,
