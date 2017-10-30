@@ -95,6 +95,8 @@ const SignupForm = ({
           value={email}
         />
         <TextField
+          error={password.length > 0 && password.length < 8}
+          helperText={password.length > 0 && password.length < 8 ? 'Password must be at least 8 characters.' : null}
           id="password"
           label="Password"
           margin="normal"

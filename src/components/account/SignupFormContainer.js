@@ -70,6 +70,11 @@ class SignupFormContainer extends React.Component {
       passwordConfirmation,
       selection,
     } = this.state;
+
+    if (password.length < 8) {
+      handleMessageNew('Password must be at least 8 characters.');
+      return;
+    }
     if (password !== passwordConfirmation) {
       handleMessageNew('The passwords you have entered do not match');
       return;
