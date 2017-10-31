@@ -22,6 +22,7 @@ const styles = theme => ({
 const AccountMobile = ({
   classes,
   dialog,
+  handleLogIn,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
@@ -47,6 +48,7 @@ const AccountMobile = ({
       {tab === 0 &&
         dialog === 'login' && (
           <LoginFormContainer
+            handleLogIn={handleLogIn}
             handleMessageNew={handleMessageNew}
             handleRequestClose={handleRequestClose}
             handleRequestOpen={handleRequestOpen}
@@ -67,6 +69,7 @@ const AccountMobile = ({
 
 AccountMobile.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,

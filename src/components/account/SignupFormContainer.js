@@ -103,7 +103,7 @@ class SignupFormContainer extends React.Component {
         }
       })
       .then(data => {
-        window.localStorage.setItem('jwt', data.jwt);
+        this.props.handleLogIn(data.jwt);
         if (selection === 'provider') {
           const affiliationPayload = JSON.stringify({
             affiliation: {
@@ -211,6 +211,7 @@ class SignupFormContainer extends React.Component {
 }
 
 SignupFormContainer.propTypes = {
+  handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
 };
