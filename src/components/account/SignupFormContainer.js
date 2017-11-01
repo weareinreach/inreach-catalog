@@ -137,7 +137,9 @@ class SignupFormContainer extends React.Component {
             );
             break;
           case 'AFFILIATION_PUT_FAILURE':
-            handleMessageNew(`Sorry. Something went wrong connecting you to your organization.`);
+            handleMessageNew(
+              `Sorry. Something went wrong connecting you to your organization.`,
+            );
             handleRequestClose();
             break;
           default:
