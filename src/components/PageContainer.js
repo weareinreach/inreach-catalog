@@ -7,6 +7,8 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import FavoritesListContainer from './favorites/FavoritesListContainer';
+
 const NewFavoritesListPage = ( props ) => (
   <FavoritesListPage {...props} newList={true} />
 );
@@ -14,6 +16,7 @@ const NewFavoritesListPage = ( props ) => (
 const FavoritesListPage = ( {match, newList} ) => (
   <div>
     <h2>{newList ? "New " : ""}{match.params.id ? "Favorites page for id:"+match.params.id : "Favorite page for non-logged in user"}</h2>
+    <FavoritesListContainer />
   </div>
 );
 const AccountPage = ( {match} ) => (
