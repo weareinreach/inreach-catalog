@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import NavDesktop from './navigation/NavDesktop';
 import NavMobile from './navigation/NavMobile';
@@ -8,32 +8,41 @@ import NavTablet from './navigation/NavTablet';
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';
 
-class Header extends React.Component { 
-  constructor(props) {
-    super(props);
-  }
-  render(){
-    const isMobile = this.props.width < breakpoints['sm'];
-    const isTablet = this.props.width < breakpoints['md'];
-    let Nav;
-    if (isMobile) {
-      Nav = <NavMobile handleRequestOpen={this.props.handleRequestOpen}/>
-    } else if (isTablet) {
-      Nav = <NavTablet handleRequestOpen={this.props.handleRequestOpen} />
-    } else {
-      Nav = <NavDesktop handleRequestOpen={this.props.handleRequestOpen} />
-    }
+const Header = ({handleRequestOpen, handleLogOut, session, width}) => {
+  const isMobile = width < breakpoints['sm'];
+  const isTablet = width < breakpoints['md'];
+  if (isMobile) {
     return (
-      <div>
-        {Nav}
-      </div>
-    )
+      <NavMobile
+        handleLogOut={handleLogOut}
+        handleRequestOpen={handleRequestOpen}
+        session={session}
+      />
+    );
+  } else if (isTablet) {
+    return (
+      <NavTablet
+        handleLogOut={handleLogOut}
+        handleRequestOpen={handleRequestOpen}
+        session={session}
+      />
+    );
+  } else {
+    return (
+      <NavDesktop
+        handleLogOut={handleLogOut}
+        handleRequestOpen={handleRequestOpen}
+        session={session}
+      />
+    );
   }
-}
+};
 
 Header.propTypes = {
+  handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired
+  session: PropTypes.string,
+  width: PropTypes.number.isRequired,
 };
-  
-export default withWidth(Header); 
+
+export default withWidth(Header);

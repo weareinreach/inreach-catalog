@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
@@ -22,20 +23,67 @@ const styles = theme => ({
   }
 });
 
-class AccountNav extends React.Component { 
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    const { classes } = this.props
-    return (
-    <div className={classes.root}>
-      <a className={[classes.divider, classes.accountLinks].join(' ')} href='#' onClick={() => this.props.handleRequestOpen('login')}><Typography type='body1' className={classes.lowercaseText}>Log In</Typography></a>
-      <a className={classes.accountLinks} href='#'><Typography type='body1' className={classes.lowercaseText}>Sign Up</Typography></a>
-    </div>
-    )
-  }
-}
+const AccountNav = ({
+  classes,
+  session,
+  handleLogOut,
+  handleRequestOpen,
+}) => (
+  <div>
+
+    {session && (
+      <div className={classes.root}>
+        <a
+          className={[classes.divider, classes.accountLinks].join(' ')}
+          href='#'
+        >
+          <Typography type='body1' className={classes.lowercaseText}>
+            Account Settings
+          </Typography>
+        </a>
+        <a
+          className={classes.accountLinks}
+          href='#'
+          onClick={handleLogOut}
+        >
+          <Typography type='body1' className={classes.lowercaseText} >
+            Log Out
+          </Typography>
+        </a>
+      </div>
+    )}
+
+    {!session && (
+      <div className={classes.root}>
+        <a
+          className={[classes.divider, classes.accountLinks].join(' ')}
+          href='#'
+          onClick={() => handleRequestOpen('login')}
+        >
+          <Typography type='body1' className={classes.lowercaseText}>
+            Log In
+          </Typography>
+        </a>
+        <a
+          className={classes.accountLinks}
+          href='#'
+          onClick={() => handleRequestOpen('signup')}
+        >
+          <Typography type='body1' className={classes.lowercaseText} >
+            Sign Up
+          </Typography>
+        </a>
+      </div>
+    )}
+
+  </div>
+);
+
+AccountNav.propTypes = {
+  classes: PropTypes.object.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string,
+};
 
 export default withStyles(styles)(AccountNav);

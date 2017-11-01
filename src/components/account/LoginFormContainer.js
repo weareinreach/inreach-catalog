@@ -49,7 +49,7 @@ class LoginFormContainer extends React.Component {
       .then(response => {
         if (response.status === 201) {
           response.json().then(({jwt}) => {
-            window.localStorage.setItem('jwt', jwt);
+            this.props.handleLogIn(jwt);
             handleRequestClose();
           });
         } else {
@@ -74,6 +74,7 @@ class LoginFormContainer extends React.Component {
 }
 
 LoginFormContainer.propTypes = {
+  handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
 };

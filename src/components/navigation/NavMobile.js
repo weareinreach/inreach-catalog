@@ -40,9 +40,12 @@ class NavMobile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event, value) {
+    const { handleRequestOpen } = this.props;
     this.setState({ value });
-    if (value === 4)
-      this.props.handleRequestOpen('privacy');
+    if (value === 3)
+      handleRequestOpen('login');
+    else if (value === 4)
+      handleRequestOpen('privacy');
     else
       this.props.handleRequestOpen('none');
   };
