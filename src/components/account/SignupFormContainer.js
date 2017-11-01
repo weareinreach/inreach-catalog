@@ -94,6 +94,15 @@ class SignupFormContainer extends React.Component {
         password,
       },
     });
+    const affiliationPayload = this.state.organizationSelection
+      ? JSON.stringify({
+          affiliation: {
+            organization_name: this.state.organizationSelection.name,
+            fetchable_id: this.state.organizationSelection.id,
+          },
+        })
+      : null;
+
     this.createUser(userPayload)
       .then(response => {
         if (response.status === 201) {
@@ -105,12 +114,6 @@ class SignupFormContainer extends React.Component {
       .then(data => {
         this.props.handleLogIn(data.jwt);
         if (selection === 'provider') {
-          const affiliationPayload = JSON.stringify({
-            affiliation: {
-              organization_name: 'organization',
-              fetchable_id: 1,
-            },
-          });
           return this.createAffiliation(affiliationPayload);
         } else {
           return Promise.reject('USER_POST_SUCCESS');
