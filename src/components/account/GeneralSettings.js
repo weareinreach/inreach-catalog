@@ -94,6 +94,45 @@ class GeneralSettings extends React.Component {
       });
   }
 
+  updatePassword(currentPassword, newPassword){
+    var jwt = localStorage.getItem("jwt");
+    
+    if (!jwt) {
+      console.log("There is no available jwt");
+      return
+    }
+    const apiDomain = config[process.env.NODE_ENV].odas;
+    const url = `${apiDomain}api/passwords/change_password`;
+    const payload = JSON.stringify({
+      "current_password": currentPassword,
+      "password": newPassword,
+      "password_confirmation": newPassword
+    })
+    console.log(payload)
+    const options = {
+      method: 'PUT',
+      headers: {
+        Authorization: jwt,
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      },
+      body: payload
+    };
+    fetch(url, options)
+      .then(response => {
+        if (response.status === 200) {
+          response.json().then((res) => {
+            console.log(res)
+          });
+        } else {
+          console.log('Unauthorized');
+        }
+      })
+      .catch(error => {
+        console.log('Oops! Something went wrong.');
+      });
+  }
+
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
     
@@ -129,14 +168,15 @@ class GeneralSettings extends React.Component {
   render() {
     const { classes } = this.props;
     const { user } = this.state;
+    console.log(user)
     let email;
     email = user ? this.state.user.email : '';
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Account</Typography>
         <div>
-          <GeneralSettingsEmail currentEmail={email} handleUpdateAccount={this.updateAccount}/>
-          <GeneralSettingsPassword />
+          <GeneralSettingsEmail currentEmail={email} handleUpdateAccount={this.updateAccount} user={this.state}/>
+          <GeneralSettingsPassword handleUpdatePassword={this.updatePassword}/>
           <div><div onClick={this.handleDelete} className={classes.settingsTypeFont}>
             <span>Delete Account</span>
           </div></div>

@@ -55,10 +55,14 @@ class GeneralSettingsPassword extends React.Component {
     super(props);
     this.state = {
       phoneTextMask: '(  )   -   ',
-      open: true
+      open: true,
+      currentPassword: '',
+      newPassword: '',
+      confirmedPassword: ''
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
@@ -71,9 +75,24 @@ class GeneralSettingsPassword extends React.Component {
   handleToggleDropDown() {
     this.setState({ open: !this.state.open });
   };
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { currentPassword, newPassword, confirmedPassword } = this.state
+    if (!currentPassword || !newPassword || !confirmedPassword) {
+      console.log("Missing password input")
+    }
+
+    if (currentPassword && newPassword && confirmedPassword) {
+      if (newPassword === confirmedPassword) {
+        this.props.handleUpdatePassword(currentPassword, newPassword)
+      }
+    }
+  }
   
   render() {
     const { classes } = this.props;
+    const { currentPassword, newPassword, confirmedPassword } = this.state;
     return (
       <div>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
@@ -81,30 +100,39 @@ class GeneralSettingsPassword extends React.Component {
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </div>
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={this.handleSubmit}>
             <TextField
               className={classes.inputLabel}
+              name='currentPassword'
               label='*Enter Old Password:'
+              value={currentPassword}
               InputLabelProps={{
                 shrink: true,
               }}
               placeholder='Hint text'
+              onChange={this.handleChange}
             />
             <TextField
               className={classes.inputLabel}
+              name='newPassword'
               label='*Enter New Password:'
+              value={newPassword}
               InputLabelProps={{
                 shrink: true,
               }}
               placeholder='Hint text'
+              onChange={this.handleChange}
             />
             <TextField
               className={classes.inputLabel}
+              name='confirmedPassword'
               label='*Confirm New Password:'
+              value={confirmedPassword}
               InputLabelProps={{
                 shrink: true,
               }}
               placeholder='Hint text'
+              onChange={this.handleChange}
             />
             <div><AsylumConnectButton variant="primary">Change Password</AsylumConnectButton></div>
           </form>
