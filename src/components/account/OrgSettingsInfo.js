@@ -47,7 +47,11 @@ class OrgSettingsInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneTextMask: '(  )   -   '
+      phone: '(  )   -   ',
+      name: '',
+      description: '',
+      address: '', 
+      website: ''
     };
     this.handleChange = this.handleChange.bind(this)
   }
@@ -58,6 +62,14 @@ class OrgSettingsInfo extends React.Component {
       [name]: value,
     });
   };
+
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isRequested) {
+      const { phone, name, description, address, website } = this.state;      
+      let data = {phone, name, description, address, website};
+      this.props.handleCollectInfoData(data)
+    }
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -67,33 +79,39 @@ class OrgSettingsInfo extends React.Component {
           <TextField
             className={classes.inputLabel}
             label='About:'
+            name='name'
             InputLabelProps={{
               shrink: true,
             }}
             placeholder='Hint text'
+            onChange={this.handleChange}
           />
           <TextField
             className={classes.inputLabel}
             label='Who it helps:'
+            name='description'
             InputLabelProps={{
               shrink: true,
             }}
             placeholder='Population'
+            onChange={this.handleChange}
           />
           <TextField
             className={classes.inputLabel}
             label='Websites:'
+            name='website'
             InputLabelProps={{
               shrink: true,
             }}
             placeholder='URL'
+            onChange={this.handleChange}
           />
           <FormControl className={classes.inputLabel}>
             <InputLabel 
               children='Phone number:'
               shrink />
             <Input
-              name='phoneTextMask'
+              name='phone'
               value={this.state.textmask}
               inputComponent={TextMaskCustom}
               onChange={this.handleChange}
@@ -102,10 +120,12 @@ class OrgSettingsInfo extends React.Component {
           <TextField
             className={classes.inputLabel}
             label='Address:'
+            name='address'
             InputLabelProps={{
               shrink: true,
             }}
             placeholder='Address'
+            onChange={this.handleChange}
           />
         </form>
       </div>
@@ -115,6 +135,7 @@ class OrgSettingsInfo extends React.Component {
 
 OrgSettingsInfo.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleCollectInfoData: React.PropTypes.func
 };
 
 export default withStyles(styles)(OrgSettingsInfo);
