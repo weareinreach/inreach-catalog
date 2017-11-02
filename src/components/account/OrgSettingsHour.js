@@ -1,5 +1,6 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
+import update from 'react-addons-update';
 
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
@@ -73,7 +74,6 @@ class OrgSettingsHour extends React.Component {
     super(props);
     this.state = {
       open: true,
-      hourTextMask: '  :   -   :  ',
       monday: false,
       tuesday: false,
       wednesday: false,
@@ -81,6 +81,15 @@ class OrgSettingsHour extends React.Component {
       friday: false,
       saturday: false,
       sunday: false,
+      hourData: {        
+        monday: '  :   -   :  ',        
+        tuesday: '  :   -   :  ',        
+        wednesday: '  :   -   :  ',        
+        thursday: '  :   -   :  ',        
+        friday: '  :   -   :  ',        
+        saturday: '  :   -   :  ',        
+        sunday: '  :   -   :  ',
+      }      
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
@@ -97,12 +106,27 @@ class OrgSettingsHour extends React.Component {
   }
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    })
+    const newHourData = update(this.state.hourData, {$merge:{[name]: value}});
+    this.setState({hourData: newHourData})
+  }
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isRequested) {
+      let schedule = {};
+      const currentHourData = this.state.hourData;
+      for (let eachDay in currentHourData) {
+        if(typeof currentHourData[eachDay] == 'string'){
+          currentHourData[eachDay] = currentHourData[eachDay].split('-')
+        }
+        if (currentHourData.hasOwnProperty(eachDay)) {      
+          schedule[`${eachDay}_start`] = currentHourData[eachDay][0].trim();
+          schedule[`${eachDay}_end`] = currentHourData[eachDay][1].trim();
+        } 
+      }
+      this.props.handleCollectHourData(schedule)
+    }
   }
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props;    
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
@@ -124,7 +148,7 @@ class OrgSettingsHour extends React.Component {
                 label='Monday'
               />
               <Input
-                name='hourTextMask'
+                name='monday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -143,7 +167,7 @@ class OrgSettingsHour extends React.Component {
                 label='Tuesday'
               />
               <Input
-                name='hourTextMask'
+                name='tuesday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -162,7 +186,7 @@ class OrgSettingsHour extends React.Component {
                 label='Wednesday'
               />
               <Input
-                name='hourTextMask'
+                name='wednesday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -181,7 +205,7 @@ class OrgSettingsHour extends React.Component {
                 label='Thursday'
               />
               <Input
-                name='hourTextMask'
+                name='thursday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -200,7 +224,7 @@ class OrgSettingsHour extends React.Component {
                 label='Friday'
               />
               <Input
-                name='hourTextMask'
+                name='friday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -219,7 +243,7 @@ class OrgSettingsHour extends React.Component {
                 label='Saturday'
               />
               <Input
-                name='hourTextMask'
+                name='saturday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -238,7 +262,7 @@ class OrgSettingsHour extends React.Component {
                 label='Sunday'
               />
               <Input
-                name='hourTextMask'
+                name='sunday'
                 value={this.state.hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
@@ -253,6 +277,7 @@ class OrgSettingsHour extends React.Component {
 
 OrgSettingsHour.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleCollectHourData: React.PropTypes.func
 };
 
 export default withStyles(styles)(OrgSettingsHour);
