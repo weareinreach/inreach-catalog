@@ -168,7 +168,6 @@ class GeneralSettings extends React.Component {
   render() {
     const { classes } = this.props;
     const { user } = this.state;
-    console.log(user)
     let email;
     email = user ? this.state.user.email : '';
     return (
