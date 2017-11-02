@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AccountPage from './account/AccountPage';
+import Suggestion from './account/Suggestion';
 
 import {
   BrowserRouter as Router,
@@ -32,6 +33,7 @@ class PageContainer extends React.Component {
             <Route path="/favorites/:id" component={FavoritesListPage}/>
             <Route path="/favorites/" component={FavoritesListPage}/>
             <Route path="/account/:id" component={AccountPage}/>
+            <Route exact path="/suggestion/new" component={Suggestion}/>
             <Redirect from="/account" to="/" />
           </Switch>
         </Router>
