@@ -18,9 +18,9 @@ const styles = theme => ({
   }
 });
 
-const FavoritesLink = ({ classes }) => {
+const FavoritesLink = ({ classes, user }) => {
   return (
-    <Link to="/favorites">
+    <Link to={`/favorites${ user ? `/${user}` : null}`}>
       <Typography
         type='display4'
         className={classes.viewYourFavoritesText}
@@ -32,8 +32,11 @@ const FavoritesLink = ({ classes }) => {
   );
 }
 
+FavoritesLink.defaultProps = { user: null };
+
 FavoritesLink.propTypes = {
   classes: PropTypes.object.isRequired,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(FavoritesLink);

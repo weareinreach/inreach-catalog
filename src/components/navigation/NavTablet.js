@@ -20,7 +20,13 @@ const styles = theme => ({
   }
 });
 
-const NavTablet = ({ classes, handleLogOut, handleRequestOpen, session }) => { 
+const NavTablet = ({
+  classes,
+  handleLogOut,
+  handleRequestOpen,
+  session,
+  user,
+}) => { 
   return (
     <Grid container spacing={0}
           align='center'
@@ -45,14 +51,17 @@ const NavTablet = ({ classes, handleLogOut, handleRequestOpen, session }) => {
       </Grid>
       
       <Grid item md={5}>
-        <FavoritesLink />
+        <FavoritesLink user={user}/>
       </Grid>
     </Grid>
   )
 }
 
+NavTablet.defaultProps = { user: null };
+
 NavTablet.propTypes = {
   classes: PropTypes.object.isRequired,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(NavTablet);

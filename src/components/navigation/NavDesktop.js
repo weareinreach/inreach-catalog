@@ -32,7 +32,13 @@ const styles = theme => ({
   },
 });
 
-const NavDesktop = ({classes, handleLogOut, handleRequestOpen, session}) => (
+const NavDesktop = ({
+  classes,
+  handleLogOut,
+  handleRequestOpen,
+  session,
+  user,
+}) => (
   <div className={classes.root}>
     <IconButton
       className={classes.IconButton}
@@ -60,15 +66,21 @@ const NavDesktop = ({classes, handleLogOut, handleRequestOpen, session}) => (
       handleRequestOpen={handleRequestOpen}
       session={session}
     />
-    <FavoritesLink>view your favorites</FavoritesLink>
+    <FavoritesLink user={user}>view your favorites</FavoritesLink>
   </div>
 );
+
+NavDesktop.defaultProps = {
+  session: null,
+  user: null,
+};
 
 NavDesktop.propTypes = {
   classes: PropTypes.object.isRequired,
   handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(NavDesktop);

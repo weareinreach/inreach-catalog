@@ -75,7 +75,7 @@ class AsylumConnectCatalog extends React.Component {
 
   render() {
     const {dialog, message, messageOpen} = this.state;
-    const {handleLogIn, handleLogOut, session} = this.props;
+    const {handleLogIn, handleLogOut, session, user} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
@@ -85,6 +85,7 @@ class AsylumConnectCatalog extends React.Component {
             handleLogOut={handleLogOut}
             handleRequestOpen={handleRequestOpen}
             session={session}
+            user={user}
           />
           {isMobile ? (
             <div>
