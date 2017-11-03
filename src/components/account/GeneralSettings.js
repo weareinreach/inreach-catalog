@@ -46,28 +46,27 @@ class GeneralSettings extends React.Component {
     super(props);
     this.state = {
       user: null,
-      message: ''
+      errorMessage: '',
+      isPasswordUpdated: null,
+      isEmailUpdated: null,
     }
     this.handleDelete = this.handleDelete.bind(this)
-    this.updateAccount = this.updateAccount.bind(this)
+    this.updateEmail = this.updateEmail.bind(this)
+    this.updatePassword = this.updatePassword.bind(this)
   }
   
   handleDelete() {
     return "Delete"
   }
 
-  updateAccount(newEmail){
+  updateEmail(newEmail){
     var jwt = localStorage.getItem("jwt");
+    const {handleMessageNew} = this.props;
     
-    if (!jwt) {
-      console.log("There is no available jwt");
-      return
-    }
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/user`;
     const { user } = this.state;
     user.email = newEmail;
-    console.log(user)
     const options = {
       method: 'PUT',
       headers: {
@@ -82,33 +81,33 @@ class GeneralSettings extends React.Component {
         if (response.status === 200) {
           response.json().then((res) => {
             if (res.message === 'User updated') {
-              this.setState({ user: res.user})
+              this.setState({ user: res.user, isEmailUpdated:true })
+              handleMessageNew('Your email has been updated.');
             }
           });
         } else {
-          console.log('Unauthorized');
+          this.setState({ user: res.user, isEmailUpdated: false })
+          handleMessageNew('The email you entered was incorrect.');
         }
       })
       .catch(error => {
-        console.log('Oops! Something went wrong.');
+        handleMessageNew('Oops! Something went wrong. Error: '+ error);
       });
   }
 
   updatePassword(currentPassword, newPassword){
     var jwt = localStorage.getItem("jwt");
-    
-    if (!jwt) {
-      console.log("There is no available jwt");
-      return
-    }
+    const {handleMessageNew} = this.props;
+
     const apiDomain = config[process.env.NODE_ENV].odas;
     const url = `${apiDomain}api/passwords/change_password`;
     const payload = JSON.stringify({
-      "current_password": currentPassword,
-      "password": newPassword,
-      "password_confirmation": newPassword
+      "change_password": {
+        "current_password": currentPassword,
+        "password": newPassword,
+        "password_confirmation": newPassword
+      }
     })
-    console.log(payload)
     const options = {
       method: 'PUT',
       headers: {
@@ -119,63 +118,73 @@ class GeneralSettings extends React.Component {
       body: payload
     };
     fetch(url, options)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
-          response.json().then((res) => {
-            console.log(res)
-          });
+          this.setState({ isPasswordUpdated: true })
+          handleMessageNew('Password has been updated.')
         } else {
-          console.log('Unauthorized');
+          this.setState({ isPasswordUpdated: false })
+          handleMessageNew('The password you entered was incorrect.')
         }
       })
       .catch(error => {
-        console.log('Oops! Something went wrong.');
+        handleMessageNew('Oops! Something went wrong. Error: '+ error )
       });
   }
 
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
+    const {handleMessageNew} = this.props;
     
     if (!jwt) {
-      console.log("There is no available jwt");
-      return
-    }
-    const apiDomain = config[process.env.NODE_ENV].odas;
-    const url = `${apiDomain}api/user`;    
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      }
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          response.json().then(({user}) => {
-            this.setState({user: user})
-          });
-        } else {
-          console.log('Unauthorized');
+      handleMessageNew('You need to log in to view your account.')
+    } else {
+      const apiDomain = config[process.env.NODE_ENV].odas;
+      const url = `${apiDomain}api/user`;    
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+          OneDegreeSource: 'asylumconnect',
         }
-      })
-      .catch(error => {
-        console.log('Oops! Something went wrong.');
-      });
+      };
+      fetch(url, options)
+        .then(response => {
+          if (response.status === 200) {
+            response.json().then(({user}) => {
+              this.setState({user: user})
+            });
+          } else {
+            handleMessageNew('Sorry, please try logging in again');
+          }
+        })
+        .catch(error => {
+          handleMessageNew('Oops! Something went wrong. Error:' + error);
+        });
+    }    
   }
 
   render() {
-    const { classes } = this.props;
-    const { user } = this.state;
+    const { classes, handleMessageNew } = this.props;
+    const { user, isPasswordUpdated, isEmailUpdated } = this.state;
     let email;
     email = user ? this.state.user.email : '';
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Account</Typography>
         <div>
-          <GeneralSettingsEmail currentEmail={email} handleUpdateAccount={this.updateAccount} user={this.state}/>
-          <GeneralSettingsPassword handleUpdatePassword={this.updatePassword}/>
+          <GeneralSettingsEmail 
+            currentEmail={email} 
+            handleUpdateEmail={this.updateEmail} 
+            isEmailUpdated={isEmailUpdated}
+            handleMessageNew={handleMessageNew}
+          />
+          <GeneralSettingsPassword 
+            handleUpdatePassword={this.updatePassword} 
+            isPasswordUpdated={isPasswordUpdated} 
+            handleMessageNew={handleMessageNew}
+          />
           <div><div onClick={this.handleDelete} className={classes.settingsTypeFont}>
             <span>Delete Account</span>
           </div></div>

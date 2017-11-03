@@ -61,9 +61,9 @@ class GeneralSettingsEmail extends React.Component {
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  
   componentWillReceiveProps(nextProps){
-    if (nextProps.currentEmail !== this.props.currentEmail) {
+    if (nextProps.currentEmail !== this.props.currentEmail && this.props.currentEmail != null && this.props.currentEmail != null) {
       this.setState({ 
         currentEmail: nextProps.currentEmail,
         newEmail: '',
@@ -85,14 +85,18 @@ class GeneralSettingsEmail extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const {handleMessageNew} = this.props;
+
     const { currentEmail, newEmail, confirmedEmail } = this.state
     if (!currentEmail || !newEmail || !confirmedEmail) {
-      console.log("Missing email")
+      handleMessageNew('Missing email input.')
     }
 
     if (currentEmail && newEmail && confirmedEmail) {
       if (newEmail === confirmedEmail) {
-        this.props.handleUpdateAccount(newEmail)
+        this.props.handleUpdateEmail(newEmail)
+      } else{
+        handleMessageNew('Your new email is not matching the confirmed email.')
       }
     }
   }
@@ -154,7 +158,7 @@ class GeneralSettingsEmail extends React.Component {
 
 GeneralSettingsEmail.propTypes = {
   classes: PropTypes.object.isRequired,
-  currentEmail: PropTypes.string
+  currentEmail: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(GeneralSettingsEmail);

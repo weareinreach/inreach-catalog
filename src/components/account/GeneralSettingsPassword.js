@@ -78,15 +78,26 @@ class GeneralSettingsPassword extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const {handleMessageNew} = this.props;
     const { currentPassword, newPassword, confirmedPassword } = this.state
     if (!currentPassword || !newPassword || !confirmedPassword) {
-      console.log("Missing password input")
+      handleMessageNew('Missing password input')
     }
-
     if (currentPassword && newPassword && confirmedPassword) {
       if (newPassword === confirmedPassword) {
         this.props.handleUpdatePassword(currentPassword, newPassword)
+      } else {
+        handleMessageNew('Your new password is not matching confirmed password.')
       }
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isPasswordUpdated !== null) {
+      this.setState({
+        currentPassword: '',
+        newPassword: '',
+        confirmedPassword: ''
+      })
     }
   }
   
