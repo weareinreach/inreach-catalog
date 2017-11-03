@@ -7,12 +7,13 @@ import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
 import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
-import {ListNewDialog} from '../favorites';
+import {ListNewDialog, ListShareDialog} from '../favorites';
 
 const styles = theme => ({
   dialogBody: {
-    padding: '5.5rem',
+    minWidth: '600px',
     overflowY: 'auto',
+    padding: '5.5rem',
   },
 });
 
@@ -36,6 +37,12 @@ const AsylumConnectDialog = ({
         />}
       {dialog === 'listNew' &&
         <ListNewDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+        />
+      }
+      {dialog === 'listShare' &&
+        <ListShareDialog
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
         />

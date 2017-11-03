@@ -65,7 +65,11 @@ const FavoritesList = ({
         </Button>
         <div>
           <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
-          <AsylumConnectButton className={classes.marginLeft} variant="primary">
+          <AsylumConnectButton
+            className={classes.marginLeft}
+            onClick={() => handleRequestOpen('listShare')}
+            variant="primary"
+          >
             Share
           </AsylumConnectButton>
           <AsylumConnectButton
@@ -92,7 +96,11 @@ const FavoritesList = ({
         <AsylumConnectButton className={classes.marginRight} variant="primary">
           Print
         </AsylumConnectButton>
-        <AsylumConnectButton className={classes.marginLeft} variant="primary">
+        <AsylumConnectButton
+          className={classes.marginLeft}
+          onClick={() => handleRequestOpen('listShare')}
+          variant="primary"
+        >
           Share
         </AsylumConnectButton>
       </Grid>

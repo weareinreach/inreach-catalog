@@ -4,14 +4,14 @@ import fetch from 'node-fetch';
 
 import config from '../../config/config.js';
 
-import ListNewForm from './ListNewForm';
+import ListShareForm from './ListShareForm';
 
-class ListNewFormContainer extends React.Component {
+class ListShareFormContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
+      email: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +30,7 @@ class ListNewFormContainer extends React.Component {
 
   render() {
     return (
-      <ListNewForm
+      <ListShareForm
         {...this.props}
         {...this.state}
         handleChange={this.handleChange}
@@ -40,9 +40,9 @@ class ListNewFormContainer extends React.Component {
   }
 }
 
-ListNewFormContainer.propTypes = {
+ListShareFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
 };
 
-export default ListNewFormContainer;
+export default ListShareFormContainer;
