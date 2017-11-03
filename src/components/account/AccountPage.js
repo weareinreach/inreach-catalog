@@ -66,7 +66,7 @@ class AccountPage extends React.Component {
       });
   }
   render() {
-    const { classes } = this.props;
+    const { classes, handleMessageNew } = this.props;
     const { affiliation } = this.state;
     return (
       <div className={classes.root}>
@@ -74,9 +74,9 @@ class AccountPage extends React.Component {
         <Typography type="display2">Organization</Typography>
         <div className={classes.formRow}>
         { affiliation ? (
-          <OrgSettings />
+          <OrgSettings handleMessageNew={handleMessageNew}/>
         ):('')}          
-          <GeneralSettings />
+          <GeneralSettings handleMessageNew={handleMessageNew}/>
         </div>
       </div>
   )}

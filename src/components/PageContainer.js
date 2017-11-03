@@ -22,6 +22,7 @@ const FavoritesListPage = ( {match, newList} ) => (
 
 class PageContainer extends React.Component {
   render() {
+    const { handleMessageNew } = this.props
     return (
       <div className="page-container"> 
         <Router>
@@ -32,7 +33,10 @@ class PageContainer extends React.Component {
             <Route path="/favorites/:id/" component={FavoritesListPage}/>
             <Route path="/favorites/:id" component={FavoritesListPage}/>
             <Route path="/favorites/" component={FavoritesListPage}/>
-            <Route path="/account/:id" component={AccountPage}/>
+            <Route path="/account/:id" render={()=>(
+              <AccountPage handleMessageNew={handleMessageNew} />
+            )}
+            />
             <Route exact path="/suggestion/new" component={Suggestion}/>
             <Redirect from="/account" to="/" />
           </Switch>
