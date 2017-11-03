@@ -125,7 +125,13 @@ class AsylumConnectCatalog extends React.Component {
               <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
               <Redirect from="/search" to="/"/>
               <Redirect from="/resource" to="/"/>
-              <Route component={PageContainer} />
+              <Route render={props =>
+                  <PageContainer
+                    {...this.state}
+                    {...this.props}
+                    handleRequestOpen={handleRequestOpen}
+                  />
+              }/>
             </Switch>
           </div>
         </Router>

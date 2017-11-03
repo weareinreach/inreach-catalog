@@ -12,15 +12,15 @@ class FavoritesListContainer extends React.Component {
       open: false,
     };
 
-    this.handleClick = this.handleClick.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleMenuOpen = this.handleMenuOpen.bind(this);
+    this.handleMenuClose = this.handleMenuClose.bind(this);
   }
 
-  handleClick(event) {
+  handleMenuOpen(event) {
     this.setState({ open: true, anchorEl: event.currentTarget });
   };
 
-  handleRequestClose() {
+  handleMenuClose() {
     this.setState({ open: false });
   };
 
@@ -28,8 +28,9 @@ class FavoritesListContainer extends React.Component {
     return (
       <FavoritesList
         {...this.state}
-        handleClick={this.handleClick}
-        handleRequestClose={this.handleRequestClose}
+        {...this.props}
+        handleMenuOpen={this.handleMenuOpen}
+        handleMenuClose={this.handleMenuClose}
       />
     );
   }

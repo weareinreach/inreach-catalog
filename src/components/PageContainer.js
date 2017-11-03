@@ -25,7 +25,6 @@ const AccountPage = ( {match} ) => (
   </div>
 );
 
-
 class PageContainer extends React.Component {
   render() {
     return (
@@ -37,7 +36,7 @@ class PageContainer extends React.Component {
             <Route path="/favorites/:id/:listId" component={FavoritesListPage}/>
             <Route path="/favorites/:id/" component={FavoritesListPage}/>
             <Route path="/favorites/:id" component={FavoritesListPage}/>
-            <Route path="/favorites/" component={FavoritesListPage}/>
+            <Route path="/favorites/" render={() => <FavoritesListContainer {...this.props}/>}/>
             <Route path="/account/:id" component={AccountPage}/>
             <Redirect from="/account" to="/" />
           </Switch>
