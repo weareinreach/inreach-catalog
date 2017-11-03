@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog, { DialogActions,
   DialogContent,
   DialogContentText,
@@ -144,6 +145,19 @@ class AsylumConnectCatalog extends React.Component {
       </Router>
     );
   }
+};
+
+AsylumConnectDialog.defaultProps = {
+  session: null,
+  user: null,
+};
+
+AsylumConnectCatalog.propTypes = {
+  handleLogIn: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
+  width: PropTypes.number.isRequired,
 };
 
 export default withSession(withWidth(AsylumConnectCatalog));

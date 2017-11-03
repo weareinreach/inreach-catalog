@@ -1,11 +1,19 @@
 import React from 'react';
+import fetch from 'node-fetch';
+import config from '../config/config.js';
 
 export default function withSession(WrappedComponent) {
   return class extends React.Component {
     constructor(props) {
       super(props)
 
-      this.state = { session: window.localStorage.getItem('jwt')};
+      const jwt = window.localStorage.getItem('jwt');
+      this.state = { session: jwt, user: null };
+
+      if (jwt) {
+        this.fetchUser(jwt);
+      }
+
       this.handleStorageChange = this.handleStorageChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
@@ -17,6 +25,21 @@ export default function withSession(WrappedComponent) {
 
     componentWillUnmount() {
       window.removeEventListener('storage', this.handleStorageChange);
+    }
+
+    fetchUser(jwt) {
+      const apiDomain = config[process.env.NODE_ENV].odas;
+      const url = `${apiDomain}api/user`;
+      const options = {
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+          OneDegreeSource: 'asylumconnect',
+        },
+      };
+      fetch(url, options)
+        .then(response => response.json())
+        .then(data => this.setState({ user: data.user.id }));
     }
 
     handleStorageChange() {
