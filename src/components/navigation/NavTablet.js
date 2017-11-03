@@ -52,6 +52,7 @@ const NavTablet = ({
       
       <Grid item md={5}>
         <FavoritesLink user={user}/>
+        <FavoritesLink />
       </Grid>
     </Grid>
   )
