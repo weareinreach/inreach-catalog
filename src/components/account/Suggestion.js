@@ -43,6 +43,7 @@ class OrgSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state={
+      user:null,
       affiliation: null,
       affiliation: null,
       isInitial: true,
@@ -60,6 +61,7 @@ class OrgSettings extends React.Component {
   }
   handleClick(){
     const jwt = localStorage.getItem('jwt')
+    console.log(jwt)
     // if user already signed in
     if (jwt) {
       // get affiliation
@@ -78,7 +80,8 @@ class OrgSettings extends React.Component {
           if (response.status === 200) {
             response.json().then(({user}) => {
               // setState affiliation
-              this.setState({affiliation: user.affiliation})
+              
+              this.setState({user: user, affiliation: user.affiliation})
             });
           } else {
             console.log('Unauthorized');
@@ -117,11 +120,46 @@ class OrgSettings extends React.Component {
   submitOrgData(){
     // if affiliation is true (means user is part of an org), 
     if (this.state.affiliation) {
-      //get org id GET /organization, user can view and edit org detail POST /submissions
-    
-    // if affiliation is null (means user has account but not part of any org), 
+      //get org id GET /organization, user can view and edit org detail POST /organization
+      
+     
     } else {
-      //user can suggest org detail POST /organizations
+      // if affiliation is null (means user has account but not part of any org),
+      //user can suggest org detail POST /submissions
+      const apiDomain = config[process.env.NODE_ENV].odrs;
+      const url = `${apiDomain}api/submissions`;
+      const body = {
+        "submission": {
+          "resource_type": "Locations",
+          "parent_resource_id": 125,
+          "parent_resource_type": "Organization",
+          "client_user_id": 0,
+          content: {address: "Test Ave"}
+        }
+      }
+      const options = {
+        method: 'POST',
+        headers: {
+          Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
+          'Content-Type': 'application/json',
+          OneDegreeSource: 'asylumconnect',
+        },
+        body:  JSON.stringify(body)
+      };
+      fetch(url, options)
+        .then(response => {
+          if (response.status === 200) {
+            response.json().then((res) => {
+              console.log(res)
+            });
+          } else {
+            console.log('Unauthorized');
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          console.log('Oops! Something went wrong.');
+        });
     }
     
     console.log(this.state)
