@@ -5,10 +5,10 @@ import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
 import AccountNav from '../AccountNav';
 import RedHeartIcon from '../icons/RedHeartIcon';
+import FavoritesLink from '../FavoritesLink';
 
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
 
 const styles = theme => ({
   root: {
@@ -45,7 +45,7 @@ const NavTablet = ({ classes, handleLogOut, handleRequestOpen, session }) => {
       </Grid>
       
       <Grid item md={5}>
-        <Button className={classes.viewYourFavoritesText}>View Your Favorites <RedHeartIcon width={'45px'}/></Button>
+        <FavoritesLink />
       </Grid>
     </Grid>
   )

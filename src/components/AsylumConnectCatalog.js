@@ -78,44 +78,44 @@ class AsylumConnectCatalog extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
-      <div>
-        <Header
-          handleLogOut={handleLogOut}
-          handleRequestOpen={handleRequestOpen}
-          session={session}
-        />
-        {isMobile ? (
-          <div>
-            {['disclaimer', 'privacy'].includes(dialog) && (
-              <PrivacyMobile
-                tab={dialog === 'privacy' ? 0 : 1}
-                handleRequestOpen={handleRequestOpen}
-              />
-            )}
-            {['forgot', 'login', 'signup'].includes(dialog) && (
-              <AccountMobile
+      <Router>
+        <div>
+          <Header
+            handleLogOut={handleLogOut}
+            handleRequestOpen={handleRequestOpen}
+            session={session}
+          />
+          {isMobile ? (
+            <div>
+              {['disclaimer', 'privacy'].includes(dialog) && (
+                <PrivacyMobile
+                  tab={dialog === 'privacy' ? 0 : 1}
+                  handleRequestOpen={handleRequestOpen}
+                />
+              )}
+              {['forgot', 'login', 'signup'].includes(dialog) && (
+                <AccountMobile
+                  dialog={dialog}
+                  tab={dialog === 'signup' ? 1 : 0}
+                  handleLogIn={handleLogIn}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestClose={handleRequestClose}
+                  handleRequestOpen={handleRequestOpen}
+                />
+              )}
+            </div>
+          ) : (
+            <div>
+              <Announcement handleRequestOpen={handleRequestOpen} />
+              <AsylumConnectDialog
                 dialog={dialog}
-                tab={dialog === 'signup' ? 1 : 0}
                 handleLogIn={handleLogIn}
                 handleMessageNew={handleMessageNew}
                 handleRequestClose={handleRequestClose}
                 handleRequestOpen={handleRequestOpen}
               />
-            )}
-          </div>
-        ) : (
-          <div>
-            <Announcement handleRequestOpen={handleRequestOpen} />
-            <AsylumConnectDialog
-              dialog={dialog}
-              handleLogIn={handleLogIn}
-              handleMessageNew={handleMessageNew}
-              handleRequestClose={handleRequestClose}
-              handleRequestOpen={handleRequestOpen}
-            />
-          </div>
-        )}
-        <Router>
+            </div>
+          )}
           <div className="content" >
             <Switch>
               <Route exact path="/" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} />)}/>
@@ -134,14 +134,14 @@ class AsylumConnectCatalog extends React.Component {
               }/>
             </Switch>
           </div>
-        </Router>
-        { isMobile ? null : <Footer /> }
-        <Message
-          handleMessageClose={this.handleMessageClose}
-          message={message}
-          open={messageOpen}
-        />
-      </div>
+          { isMobile ? null : <Footer /> }
+          <Message
+            handleMessageClose={this.handleMessageClose}
+            message={message}
+            open={messageOpen}
+          />
+        </div>
+      </Router>
     );
   }
 };
