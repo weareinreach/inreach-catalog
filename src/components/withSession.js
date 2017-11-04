@@ -49,6 +49,7 @@ export default function withSession(WrappedComponent) {
     handleLogIn(jwt) {
       window.localStorage.setItem('jwt', jwt);
       this.handleStorageChange();
+      this.fetchUser(jwt);
     }
 
     handleLogOut() {
