@@ -11,6 +11,7 @@ import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import SearchFormContainer from './SearchFormContainer';
+import SearchResultsContainer from './SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
 var queryOneDegree = new OneDegreeResourceQuery();
 //require('./MapContainer.scss');
@@ -24,21 +25,6 @@ const styles = (theme) => ({
   }
 });
 
-class SearchResultsContainer extends React.Component {
-  constructor(props, context) {
-    super(props, context)
-    props.clearSearchStatus();
-  }
-
-  render() {
-    this.props.fetchSearchResults();
-    return (
-      <div>
-        <h2>Search Results Form Followed By Search Results</h2>
-      </div>);
-  }
-    
-}
 const Resource = () => (
   <div>
     <h2>Resource</h2>
