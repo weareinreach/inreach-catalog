@@ -132,39 +132,6 @@ class GeneralSettings extends React.Component {
       });
   }
 
-  componentDidMount(){
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew} = this.props;
-    
-    if (!jwt) {
-      handleMessageNew('You need to log in to view your account.')
-    } else {
-      const apiDomain = config[process.env.NODE_ENV].odas;
-      const url = `${apiDomain}api/user`;    
-      const options = {
-        method: 'GET',
-        headers: {
-          Authorization: jwt,
-          'Content-Type': 'application/json',
-          OneDegreeSource: 'asylumconnect',
-        }
-      };
-      fetch(url, options)
-        .then(response => {
-          if (response.status === 200) {
-            response.json().then(({user}) => {
-              this.setState({user: user})
-            });
-          } else {
-            handleMessageNew('Sorry, please try logging in again');
-          }
-        })
-        .catch(error => {
-          handleMessageNew('Oops! Something went wrong. Error:' + error);
-        });
-    }    
-  }
-
   render() {
     const { classes, handleMessageNew } = this.props;
     const { user, isPasswordUpdated, isEmailUpdated } = this.state;

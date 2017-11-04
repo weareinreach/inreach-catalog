@@ -31,53 +31,73 @@ class AccountPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isAuthenticated: false,
       affiliation: null
     }
   }
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
+    const {handleMessageNew} = this.props;
     
     if (!jwt) {
-      console.log("There is no available jwt");
-      return
-    }
-    const apiDomain = config[process.env.NODE_ENV].odas;
-    const url = `${apiDomain}/api/account/affiliation`;
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      }
-    };
-    fetch(url, options)
+      handleMessageNew('You need to log in to view your account.')
+    } else {
+      const apiDomain = config[process.env.NODE_ENV].odas;
+      const url = `${apiDomain}api/user`;    
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: jwt,
+          'Content-Type': 'application/json',
+          OneDegreeSource: 'asylumconnect',
+        }
+      };
+      fetch(url, options)
       .then(response => {
-        if (response.status === 200) {
-          response.json().then(({affiliation}) => {
-              this.setState({ affiliation })
+        if (response.status === 200) {          
+          response.json().then(({user}) => {
+            this.setState({ isAuthenticated: true });
+            if (user.affiliation){
+              this.setState({ affiliation: user.affiliation })
+            }
           });
         } else {
-          console.log('Unauthorized');
+          this.setState({ isAuthenticated: false })
+          handleMessageNew('Sorry, please try logging in again');
         }
       })
       .catch(error => {
-        console.log('Oops! Something went wrong.');
+        handleMessageNew('Oops! Something went wrong. Error:' + error);
       });
+    }   
   }
   render() {
     const { classes, handleMessageNew } = this.props;
-    const { affiliation } = this.state;
+    const { isAuthenticated, affiliation } = this.state;
+    let settings;
+    if (isAuthenticated && affiliation) {
+      settings = (
+        <div className={classes.formRow}>
+          <OrgSettings handleMessageNew={handleMessageNew} affiliation={affiliation}/>        
+          <GeneralSettings handleMessageNew={handleMessageNew}/>
+        </div>
+      )
+    } else if (isAuthenticated && !affiliation){
+      settings = (
+        <div className={classes.formRow}>
+          <GeneralSettings handleMessageNew={handleMessageNew}/>
+        </div>
+      )
+    } else {
+      settings = (
+        <div>Hello! You need to log in and refresh the page.</div>
+      )
+    }
     return (
       <div className={classes.root}>
         <Typography type="display1">Your Account</Typography>
         <Typography type="display2">Organization</Typography>
-        <div className={classes.formRow}>
-        { affiliation ? (
-          <OrgSettings handleMessageNew={handleMessageNew}/>
-        ):('')}          
-          <GeneralSettings handleMessageNew={handleMessageNew}/>
-        </div>
+        {settings}
       </div>
   )}
 }
