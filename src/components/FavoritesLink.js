@@ -18,19 +18,17 @@ const styles = theme => ({
   }
 });
 
-const FavoritesLink = ({ classes, user }) => {
-  return (
-    <Link to={`/favorites${ user ? `/${user}` : null}`}>
-      <Typography
-        type='display4'
-        className={classes.viewYourFavoritesText}
-      >
-        View Your Favorites
-        <RedHeartIcon width={'38px'}/>
-      </Typography>
-    </Link>
-  );
-}
+const FavoritesLink = ({ classes, user }) => (
+  <Link to={`/favorites${user ? `/${user}` : ''}`} >
+    <Typography
+      type='display4'
+      className={classes.viewYourFavoritesText}
+    >
+      View Your Favorites
+      <RedHeartIcon width={'38px'}/>
+    </Typography>
+  </Link>
+);
 
 FavoritesLink.defaultProps = { user: null };
 
