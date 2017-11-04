@@ -20,7 +20,7 @@ const styles = theme => ({
   }
 });
 
-const NavTablet = ({ classes, handleRequestOpen }) => { 
+const NavTablet = ({ classes, handleLogOut, handleRequestOpen, session }) => { 
   return (
     <Grid container spacing={0}
           alignItems='center'
@@ -37,7 +37,11 @@ const NavTablet = ({ classes, handleRequestOpen }) => {
       </Grid>
       
       <Grid item md={3}>
-        <AccountNav handleRequestOpen={handleRequestOpen}/>
+        <AccountNav
+          handleLogOut={handleLogOut}
+          handleRequestOpen={handleRequestOpen}
+          session={session}
+        />
       </Grid>
       
       <Grid item md={5}>

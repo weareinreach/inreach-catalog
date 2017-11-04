@@ -30,6 +30,7 @@ import {
   PrivacyMobile
 } from './privacy';
 import AsylumConnectButton from './AsylumConnectButton.js';
+import withSession from './withSession';
 import withWidth from './withWidth';
 import Message from './Message';
 
@@ -73,11 +74,16 @@ class AsylumConnectCatalog extends React.Component {
 
   render() {
     const {dialog, message, messageOpen} = this.state;
+    const {handleLogIn, handleLogOut, session} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
       <div>
-        <Header handleRequestOpen={handleRequestOpen} />
+        <Header
+          handleLogOut={handleLogOut}
+          handleRequestOpen={handleRequestOpen}
+          session={session}
+        />
         {isMobile ? (
           <div>
             {['disclaimer', 'privacy'].includes(dialog) && (
@@ -90,6 +96,7 @@ class AsylumConnectCatalog extends React.Component {
               <AccountMobile
                 dialog={dialog}
                 tab={dialog === 'signup' ? 1 : 0}
+                handleLogIn={handleLogIn}
                 handleMessageNew={handleMessageNew}
                 handleRequestClose={handleRequestClose}
                 handleRequestOpen={handleRequestOpen}
@@ -101,6 +108,7 @@ class AsylumConnectCatalog extends React.Component {
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
               dialog={dialog}
+              handleLogIn={handleLogIn}
               handleMessageNew={handleMessageNew}
               handleRequestClose={handleRequestClose}
               handleRequestOpen={handleRequestOpen}
@@ -135,4 +143,4 @@ class AsylumConnectCatalog extends React.Component {
   }
 };
 
-export default withWidth(AsylumConnectCatalog);
+export default withSession(withWidth(AsylumConnectCatalog));

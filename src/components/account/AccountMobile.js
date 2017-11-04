@@ -5,8 +5,9 @@ import Paper from 'material-ui/Paper';
 import Tabs, {Tab} from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 
-import LoginFormContainer from './LoginFormContainer';
 import ForgotFormContainer from './ForgotFormContainer';
+import LoginFormContainer from './LoginFormContainer';
+import SignupFormContainer from './SignupFormContainer';
 
 const TabContainer = ({children}) => (
   <div style={{padding: '2.5rem'}}>{children}</div>
@@ -22,6 +23,7 @@ const styles = theme => ({
 const AccountMobile = ({
   classes,
   dialog,
+  handleLogIn,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
@@ -47,6 +49,7 @@ const AccountMobile = ({
       {tab === 0 &&
         dialog === 'login' && (
           <LoginFormContainer
+            handleLogIn={handleLogIn}
             handleMessageNew={handleMessageNew}
             handleRequestClose={handleRequestClose}
             handleRequestOpen={handleRequestOpen}
@@ -60,13 +63,21 @@ const AccountMobile = ({
             handleRequestOpen={handleRequestOpen}
           />
         )}
-      {/* {tab === 1 && <PrivacyText /> }*/}
+      {tab === 1 && (
+        <SignupFormContainer
+          handleLogIn={handleLogIn}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />
+      )}
     </TabContainer>
   </div>
 );
 
 AccountMobile.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,

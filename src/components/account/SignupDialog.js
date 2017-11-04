@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {DialogTitle} from '../dialog';
-import LoginFormContainer from './LoginFormContainer';
+import SignupFormContainer from './SignupFormContainer';
 
-const LoginDialog = ({
+const SignupDialog = ({
   handleLogIn,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
 }) => (
   <div>
-    <DialogTitle>Log In</DialogTitle>
-    <LoginFormContainer
+    <DialogTitle>Sign Up</DialogTitle>
+    <SignupFormContainer
       handleLogIn={handleLogIn}
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
@@ -21,11 +21,11 @@ const LoginDialog = ({
   </div>
 );
 
-LoginDialog.propTypes = {
+SignupDialog.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
 };
 
-export default LoginDialog;
+export default SignupDialog;
