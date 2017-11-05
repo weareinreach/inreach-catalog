@@ -17,6 +17,25 @@ import Badge from './Badge';
 const styles = (theme) => ({
   rightSide: {
     textAlign: 'right'
+  },
+  contentSpacing: {
+    margin: "1.5rem 0"
+  },
+  lineSpacing: {
+    lineHeight: "1.4rem"
+  },
+  ratingSpacing: {
+    marginRight: "1rem"
+  },
+  dividerSpacing: {
+    marginBottom: "2rem"
+  },
+  orgName: {
+    fontSize: "21px"
+  },
+  moreInfo: {
+    fontWeight: "600",
+    color: theme.palette.primary[500]
   }
 });
 
@@ -33,34 +52,45 @@ class ResourceListItem extends React.Component {
 
   render() {
     const { format, resource, classes } = this.props;
-    const { rightSide }  = classes;
+    const { rightSide, ratingSpacing, contentSpacing, lineSpacing, dividerSpacing, moreInfo, orgName }  = classes;
     //this.props.fetchSearchResults();
     return (
       <div>
-        <Divider />
+        <Divider className={dividerSpacing} />
         <Grid container spacing={0}>
           <Grid item xs={12} >
             <Grid container alignItems="center" justify="space-between" spacing={0}>
               <Grid item xs md lg xl >
-                <Link to={'/resource/'+resource.slug}><Typography type="subheading" >{resource.name}</Typography></Link>
+                <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
               {format === 'search' ? 
-              <Grid item xs={3}>
+              <Grid item xs={3} alignItems="flex-start" >
                 <FavoritesLink>save to favorites</FavoritesLink> 
               </Grid> 
               : null }
             </Grid>
           </Grid>
+          {format == 'search' ? 
+          <Grid item xs={12} >
+            <Link to={'/resource/'+resource.slug}>
+              <Typography type="body1" className={moreInfo} >
+                See more information
+              </Typography>
+            </Link> 
+          </Grid>
+          : null}
+          <Grid item xs={12} className={contentSpacing}>
+            <Grid container spacing={0}>
             {resourceFieldsByFormat[format].map((item, index) => {
               var Content;
               switch(format) {
                 case 'search':
-                  Content = () => (<Typography type="body2">
+                  Content = () => (<Typography type="body2" className={lineSpacing}>
                     {resource[item.fieldName]}
                   </Typography>);
                 break;
                 default:
-                  Content = () => (<Typography type="body2">
+                  Content = () => (<Typography type="body2" className={lineSpacing}>
                     <strong>{item.label}:</strong> {resource[item.fieldName]}
                   </Typography>);
                 break;
@@ -70,14 +100,16 @@ class ResourceListItem extends React.Component {
                   <Content key={index} />
                 </Grid>);
             })}
+            </Grid>
+          </Grid>
           <Grid item xs={12} >
             <Grid container alignItems="center" spacing={0} justify="space-between">
               <Grid item xs={6}>
                 <Badge type='mail' width='45px' height='45px' />
               </Grid>
               <Grid item xs={6} className={rightSide}>
-                <RatingControl rating={resource.rating} />
-                <ReviewCount total={3} />
+                <RatingControl rating={resource.rating} className={ratingSpacing} />
+                <ReviewCount total={resource.opportunity_comments.length} />
               </Grid>
             </Grid>
           </Grid>

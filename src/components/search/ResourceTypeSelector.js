@@ -138,12 +138,30 @@ class ResourceTypeSelector extends React.Component {
     }
 
     this.handleToggleRequest = this.handleToggleRequest.bind(this)
+    this.handleOutsideClick = this.handleOutsideClick.bind(this)
+  }
+
+  handleOutsideClick(event) {
+    var watch = document.querySelectorAll('.resource-type-selector');
+    if(watch.length) {
+      if(!watch[0].contains(event.target)) {
+        this.handleToggleRequest();
+      } 
+    }
+    
   }
 
   handleToggleRequest() {
+    if(!this.state.open) {
+      document.addEventListener('click', this.handleOutsideClick);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick);
+    }
+
     this.setState({
       open: !this.state.open
     })
+    
   }
 
   render() {
@@ -174,7 +192,7 @@ class ResourceTypeSelector extends React.Component {
           </div>
         </div>
         {this.state.open ? 
-          <Paper className={resourceList} style={{width: this.props.containerWidth+'px'}}>
+          <Paper className={resourceList+" resource-type-selector"} style={{width: this.props.containerWidth+'px'}}>
             {resourceTypes.map((filter, i) => (
                 <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResources={selectedResources} {...filter} />
               )

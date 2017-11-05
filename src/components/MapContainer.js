@@ -64,7 +64,9 @@ class MapContainer extends React.Component {
 
   componentWillMount() {
     this.clearErrors();
-    window.onpopstate = this.reparseURL.bind(this);
+
+    window.addEventListener('popstate', this.reparseURL.bind(this));
+    //window.onpopstate = this.reparseURL.bind(this);
   }
   
   clearErrors() {

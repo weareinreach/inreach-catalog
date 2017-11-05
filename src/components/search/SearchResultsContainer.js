@@ -24,7 +24,7 @@ class SearchResultsContainer extends React.Component {
 
   componentDidMount() {
     this.doSearch();
-    window.onpopstate = this.doSearch.bind(this);
+    window.addEventListener('popstate', this.doSearch.bind(this));
   }
 
   doSearch() {

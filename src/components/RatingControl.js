@@ -29,9 +29,9 @@ class RatingControl extends React.Component {
   }
 
   render() {
-    const { classes, mode } = this.props;
+    const { classes, mode, className } = this.props;
     return (
-      <span className="center-align">
+      <span className={className + " center-align"}>
         {this.ratingArray.map((item, index) => {
           return (
             <StarRateIcon key={index} className={(item ? classes[mode] : classes.unfilled)} />

@@ -9,10 +9,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  * App entry file
  */
 
-//load our css
-//require('../../web/src/stylesheets/main.scss');
-//require('../../node_modules/react-quill/dist/quill.snow.css');
-
 const rootElement = document.getElementById('main');
 
 render(
