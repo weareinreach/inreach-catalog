@@ -6,9 +6,9 @@ class OneDegreeResourceQuery {
 
   constructor() {
     this.resetFilters();
-    this.baseURL = config[process.env.NODE_ENV].odrs;
+    this.baseURL = config[process.env.OD_API_ENV].odrs;
     this.requiredFilters = {
-      api_key: config[process.env.NODE_ENV].odApiKey,
+      api_key: config[process.env.OD_API_ENV].odApiKey,
       query: {
         properties: {
           'community-asylum-seeker': 'true',

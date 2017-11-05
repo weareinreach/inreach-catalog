@@ -26,7 +26,7 @@ class ForgotFormContainer extends React.Component {
     event.preventDefault();
     const {handleMessageNew, handleRequestClose} = this.props;
     const {email} = this.state;
-    const apiDomain = config[process.env.NODE_ENV].odas;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/passwords`;
     const payload = JSON.stringify({email});
     const options = {
