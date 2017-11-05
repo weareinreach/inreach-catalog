@@ -149,7 +149,7 @@ class SignupFormContainer extends React.Component {
   }
 
   createUser(payload) {
-    const apiDomain = config[process.env.NODE_ENV].odas;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/users`;
     const options = {
       method: 'POST',
@@ -164,7 +164,7 @@ class SignupFormContainer extends React.Component {
   }
 
   createAffiliation(payload) {
-    const apiDomain = config[process.env.NODE_ENV].odas;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/affiliations`;
     const options = {
       method: 'PUT',
@@ -179,9 +179,9 @@ class SignupFormContainer extends React.Component {
   }
 
   loadOrganizations() {
-    const apiDomain = config[process.env.NODE_ENV].odrs;
+    const apiDomain = config[process.env.OD_API_ENV].odrs;
     const url = `${apiDomain}organizations.jsonp?`;
-    const apiKeyParam = `api_key=${config[process.env.NODE_ENV].odApiKey}`;
+    const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
     const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state
       .organizationSearch}`;
     fetchJsonp(url + apiKeyParam + queryParams)
