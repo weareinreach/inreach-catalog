@@ -9,10 +9,10 @@ import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
 import Icon from 'material-ui/Icon';
 
-import AsylumConnectCheckbox from './AsylumConnectCheckbox';
-import AsylumConnectIndicator from './AsylumConnectIndicator';
-import ACBadge from './Badge';
-import { searchInput } from '../theme/sharedClasses';
+import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
+import AsylumConnectIndicator from '../AsylumConnectIndicator';
+import ACBadge from '../Badge';
+import { searchInput } from '../../theme/sharedClasses';
 
 const resourceTypes = [
   {category: 'Medical', type: 'medical', children: [
@@ -138,12 +138,30 @@ class ResourceTypeSelector extends React.Component {
     }
 
     this.handleToggleRequest = this.handleToggleRequest.bind(this)
+    this.handleOutsideClick = this.handleOutsideClick.bind(this)
+  }
+
+  handleOutsideClick(event) {
+    var watch = document.querySelectorAll('.resource-type-selector');
+    if(watch.length) {
+      if(!watch[0].contains(event.target)) {
+        this.handleToggleRequest();
+      } 
+    }
+    
   }
 
   handleToggleRequest() {
+    if(!this.state.open) {
+      document.addEventListener('click', this.handleOutsideClick);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick);
+    }
+
     this.setState({
       open: !this.state.open
     })
+    
   }
 
   render() {
@@ -174,7 +192,7 @@ class ResourceTypeSelector extends React.Component {
           </div>
         </div>
         {this.state.open ? 
-          <Paper className={resourceList} style={{width: this.props.containerWidth+'px'}}>
+          <Paper className={resourceList+" resource-type-selector"} style={{width: this.props.containerWidth+'px'}}>
             {resourceTypes.map((filter, i) => (
                 <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResources={selectedResources} {...filter} />
               )

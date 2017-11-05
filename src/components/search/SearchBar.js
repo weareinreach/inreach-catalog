@@ -9,7 +9,7 @@ import Dimensions from 'react-dimensions';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
-import { searchInput } from '../theme/sharedClasses';
+import { searchInput } from '../../theme/sharedClasses';
 
 const styles = theme => ({
   searchInput: searchInput(theme),
