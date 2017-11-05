@@ -51,34 +51,6 @@ class AsylumConnectCatalog extends React.Component {
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleMessageNew = this.handleMessageNew.bind(this);
     this.handleMessageClose = this.handleMessageClose.bind(this);
-    /*fetch(window.location.origin+'/api/submissions', 
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        "submission": {
-          "resource_type": "Organizations",
-          "client_user_id": 0,
-          "content": JSON.stringify({
-            organization: {
-              "title": "test 1",
-              "locations": [{
-                "name":"Neighborhood Center","address":"741 30th Avenue","unit":"","city":"San Francisco","state":"CA","zip_code":"94121","lat":37.7753,"long":-122.49,"is_primary":true
-              }]
-            }
-          }),
-          "submitter_type": "PublicForm"  // Arbitrary
-        }
-      })
-    })
-    .then((res) => {
-      return res.json()
-    })
-    .then((data) => {
-      console.log(data);
-    });*/
   }
 
   handleMessageNew(message) {

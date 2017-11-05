@@ -17,7 +17,7 @@ module.exports = {
                            .update( body)
                            .digest('hex');
     const signed_date = crypto.createHmac('sha256', signed_params)
-                         .update(today.toISOString())
+                         .update(today.toISOString().split('.')[0]+'Z')
                          .digest('hex');
     const signature = crypto.createHash('sha256')
                         .update(signed_date)
@@ -29,8 +29,8 @@ module.exports = {
         method: req.method,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
-          '1deg-Date': today.toISOString(), //ISO 8601-formatted timestamp
-          '1deg-Signature': signed_date
+          '1deg-Date': today.toISOString().split('.')[0]+'Z', //ISO 8601-formatted timestamp
+          '1deg-Signature': signature
         },
         body: body,
       })
