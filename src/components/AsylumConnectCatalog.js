@@ -11,11 +11,12 @@ import {
   Switch,
   Link
 } from 'react-router-dom';
+import fetch from 'node-fetch';
+
 import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';
 import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
-
 import Announcement from './Announcement';
 import { AsylumConnectDialog } from './dialog';
 import Header from './Header'
