@@ -13,9 +13,9 @@ import Checkbox from 'material-ui/Checkbox';
 import Snackbar from 'material-ui/Snackbar';
 import Slide from 'material-ui/transitions/Slide';
 
-import AsylumConnectButton from './AsylumConnectButton';
-import ErrorMessage from './ErrorMessage';
+import AsylumConnectButton from '../AsylumConnectButton';
 import SearchBar from './SearchBar';
+import SearchStatusHandler from './SearchStatusHandler';
 
 const styles = theme => ({
   formRow: {
@@ -27,27 +27,9 @@ class SearchForm extends React.Component {
   render() {
     const { formRow } = this.props.classes;
 
-    const searchStatus = () => {
-      switch(this.props.searchStatus) {
-        case 'redirect':
-          var resourceTypes = (this.props.selectedResources.length ? this.props.selectedResources.join(',') : 'any');
-          return (<Redirect to={`/search/${encodeURIComponent(this.props.nearLatLng.lat + ',' + this.props.nearLatLng.lng)}/${encodeURIComponent(resourceTypes)}/all/default`} push={true} />);
-        break;
-        case 'error':
-          var errors = (this.props.errorMessage.length ? [this.props.errorMessage] : []);
-          return errors.map(function(name, index){
-            return <ErrorMessage key={ Date.now() } message={ name } />;
-          })
-        break;
-        default:
-          return null;
-        break;
-      } 
-    }
-
     return (
       <div>
-        {searchStatus()}
+        <SearchStatusHandler {...this.props} />
         <SearchBar {...this.props} classes={null} />
         <Grid container spacing={0}>
           <Grid item xs={12} className={formRow}>

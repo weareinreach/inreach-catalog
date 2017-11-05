@@ -34,7 +34,7 @@ class RatingControl extends React.Component {
       <span className="center-align">
         {this.ratingArray.map((item, index) => {
           return (
-            <StarRateIcon className={(item ? classes[mode] : classes.unfilled)} />
+            <StarRateIcon key={index} className={(item ? classes[mode] : classes.unfilled)} />
           );
         })}
       </span>

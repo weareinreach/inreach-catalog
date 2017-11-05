@@ -10,11 +10,9 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-import SearchFormContainer from './SearchFormContainer';
-import SearchResultsContainer from './SearchResultsContainer';
+import SearchFormContainer from './search/SearchFormContainer';
+import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
-var queryOneDegree = new OneDegreeResourceQuery();
-//require('./MapContainer.scss');
 
 const styles = (theme) => ({
   searchArea: {
@@ -37,7 +35,7 @@ const GoogleMap =() => (
 );
 
 class MapContainer extends React.Component {
-  constructor(props, context) {
+  constructor(props, context) { console.log(props);
     super(props, context)
     //this.state = { dialog: 'none' };
     //
@@ -45,9 +43,12 @@ class MapContainer extends React.Component {
     this.state = {
       nearAddress: '',
       nearLatLng,
-      searchStatus: false,
+      searchStatus: null,
       errorMessage: false,
-      selectedResources
+      selectedResources,
+      searching: false,
+      searchResults: [],
+      searchResultsIndex: []
     }
 
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
@@ -55,12 +56,15 @@ class MapContainer extends React.Component {
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
+    this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
+    this.processSearchResults = this.processSearchResults.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
     this.Routes = this.Routes.bind(this)
   }
 
   componentWillMount() {
     this.clearErrors();
+    window.onpopstate = this.reparseURL.bind(this);
   }
   
   clearErrors() {
@@ -71,7 +75,7 @@ class MapContainer extends React.Component {
 
   clearSearchStatus() {
     this.setState({
-      searchStatus: false
+      searchStatus: null
     });
   }
 
@@ -119,18 +123,20 @@ class MapContainer extends React.Component {
     this.clearErrors();
     
     if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
-      this.setState({
+      /*this.setState({
         searchStatus: "error",
         errorMessage: "Unable to find your location, please try entering your city, state in the box above."
-      });
+      });*/
+      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
     } 
 
     if(this.state.selectedResources.length == 0) {
-      this.setState({
+      /*this.setState({
         searchStatus: "error",
         errorMessage: "Please select at least one resource type from the dropdown"
-      });
+      });*/
+      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
     } 
     
@@ -140,12 +146,41 @@ class MapContainer extends React.Component {
   }
 
   fetchSearchResults() {
-    queryOneDegree
+    this.setState({
+      searching: true,
+      searchResultsIndex: [],
+      searchResults: []
+    });
+    this.queryOneDegree = new OneDegreeResourceQuery();
+    this.queryOneDegree
       .addTags(this.state.selectedResources)
       .setLocation(this.state.nearLatLng)
-      .fetch({
-        callback: (res) => { console.log(res) } 
+      .fetchOrganizations({
+        callback: this.processSearchResults
       });
+  }
+
+  fetchNextSearchResultsPage() {
+    this.queryOneDegree.nextPage();
+    this.queryOneDegree.fetchOrganizations({
+      callback: this.processSearchResults
+    });
+  }
+
+  processSearchResults(data) {
+    var newOrgIds = [], newOrgs = [];
+    data.organizations.forEach((organization, index) => {
+      if(this.state.searchResultsIndex.indexOf(organization.id) === -1) {
+        newOrgIds.push(organization.id);
+        newOrgs.push(organization);
+      }
+    });
+
+    this.setState({
+      searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
+      searchResults: this.state.searchResults.concat(newOrgs),
+      searching: false
+    });
   }
 
   parseParams(params) {
@@ -165,6 +200,14 @@ class MapContainer extends React.Component {
     return {selectedResources, nearLatLng};
   }
 
+  reparseURL(ev) {
+    let { nearLatLng, selectedResources } = this.parseParams(this.props.match.params);
+    this.setState({
+      nearLatLng,
+      selectedResources
+    });
+  }
+
   Routes() {
     return  (
       <Router>
@@ -179,6 +222,10 @@ class MapContainer extends React.Component {
           <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
             fetchSearchResults={this.fetchSearchResults}
             clearSearchStatus={this.clearSearchStatus}
+            handlePlaceSelect={this.handlePlaceSelect} 
+            handlePlaceChange={this.handlePlaceChange}
+            handleSearchButtonClick={this.handleSearchButtonClick}
+            handleResourceTypeSelect={this.handleResourceTypeSelect}
             />} />
           <Route path="/resource/:id" component={Resource}/>
         </Switch>

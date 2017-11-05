@@ -9,10 +9,10 @@ import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
 import Icon from 'material-ui/Icon';
 
-import AsylumConnectCheckbox from './AsylumConnectCheckbox';
-import AsylumConnectIndicator from './AsylumConnectIndicator';
-import ACBadge from './Badge';
-import { searchInput } from '../theme/sharedClasses';
+import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
+import AsylumConnectIndicator from '../AsylumConnectIndicator';
+import ACBadge from '../Badge';
+import { searchInput } from '../../theme/sharedClasses';
 
 const resourceTypes = [
   {category: 'Medical', type: 'medical', children: [
