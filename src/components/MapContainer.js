@@ -10,6 +10,7 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
+import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
@@ -255,7 +256,11 @@ class MapContainer extends React.Component {
           </Grid>
           <Grid item xs={12} md={5} >
             {/* Map Component */}
-            <GoogleMap/>
+            <AsylumConnectMap {...this.props} 
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `400px` }} />}
+              mapElement={<div style={{ height: `100%` }} />} 
+            />
           </Grid>
         </Grid>
       </div>
