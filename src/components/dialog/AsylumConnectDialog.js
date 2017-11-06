@@ -24,6 +24,8 @@ const AsylumConnectDialog = ({
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
+  session,
+  user,
 }) =>
   <Dialog open={dialog !== 'none'} onRequestClose={handleRequestClose}>
     <div className={classes.dialogBody}>
@@ -39,6 +41,8 @@ const AsylumConnectDialog = ({
         <ListNewDialog
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
+          session={session}
+          user={user}
         />
       }
       {dialog === 'listShare' &&
@@ -66,6 +70,11 @@ const AsylumConnectDialog = ({
     </div>
   </Dialog>;
 
+AsylumConnectDialog.defaultProps = {
+  session: null,
+  user: null,
+};
+
 AsylumConnectDialog.propTypes = {
   classes: PropTypes.shape({dialogBody: PropTypes.string}).isRequired,
   dialog: PropTypes.string.isRequired,
@@ -73,6 +82,8 @@ AsylumConnectDialog.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(AsylumConnectDialog);

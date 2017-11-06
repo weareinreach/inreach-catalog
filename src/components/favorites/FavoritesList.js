@@ -117,4 +117,17 @@ const FavoritesList = ({
   </Grid>
 );
 
+FavoritesList.defaultProps = {
+  anchorEl: null,
+};
+
+FavoritesList.propTypes = {
+  anchorEl: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+  handleMenuOpen: PropTypes.func.isRequired,
+  handleMenuClose: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
+
 export default withStyles(styles)(FavoritesList);
