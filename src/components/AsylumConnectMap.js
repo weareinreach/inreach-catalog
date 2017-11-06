@@ -8,7 +8,11 @@ const AsylumConnectMap = (props) =>
     defaultZoom={8}
     defaultCenter={{ lat: -34.397, lng: 150.644 }}
   >
-    <Marker position={{ lat: -34.397, lng: 150.644 }} icon={PinpointIcon} />
+    <Marker position={{ lat: -34.397, lng: 150.644 }} icon={{
+        url: "http://asylum-connect-catalog-staging.herokuapp.com/img/icon-pinpoint.svg",
+        anchor: new google.maps.Point(25,50),
+        scaledSize: new google.maps.Size(50,50)
+    }} />
   </GoogleMap>
 
 export default withGoogleMap(AsylumConnectMap);
