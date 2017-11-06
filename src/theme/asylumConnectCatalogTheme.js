@@ -24,7 +24,8 @@ export default createMuiTheme({
       "darkWhite": "rgba(255, 255, 255, 0.87)",
       "lightWhite": "rgba(255, 255, 255, 0.54)",
       "darkGrey": "#e9e9e9",
-      "lightGrey": "#f7f7f7"
+      "lightGrey": "#f7f7f7",
+      "gold": "#ffd04a"
     },
     "type": "light",
     "primary": {

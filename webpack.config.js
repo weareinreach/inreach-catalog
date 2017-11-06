@@ -37,7 +37,8 @@ var config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'OD_API_ENV': JSON.stringify(typeof process.env.OD_API_ENV !== "undefined" ? process.env.OD_API_ENV : process.env.NODE_ENV)
       }
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
@@ -53,13 +54,10 @@ var config = {
     disableHostCheck: true,
     historyApiFallback: true,
     //publicPath: '/js/',
-    /*setup(app){
-      app.use(express.static(__dirname + '/public/'));
-
-      app.get('*', function(req, res) {
-        res.sendFile(__dirname + '/public/index.html');
-      });
-    }*/
+    before(app) {
+      var apiRoutes = require('./api/routes');
+      apiRoutes(app);
+    }
   }
 };
 

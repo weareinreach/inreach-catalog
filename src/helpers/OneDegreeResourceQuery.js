@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import fetchJsonp from 'fetch-jsonp';
 import config from '../config/config.js';
 
 class OneDegreeResourceQuery {
@@ -6,16 +7,19 @@ class OneDegreeResourceQuery {
 
   constructor() {
     this.resetFilters();
-    this.baseURL = config[process.env.NODE_ENV].odrs;
+    this.baseURL = config[process.env.OD_API_ENV].odrs;
     this.requiredFilters = {
-      api_key: config[process.env.NODE_ENV].odApiKey,
-      query: {
-        properties: {
-          'community-asylum-seeker': 'true',
-          'community-lgbt': 'true'
-        }
+      'opportunities': {
+        query: {
+          properties: {
+            'approval-asylumconnect': 'true'
+          },
+          match: 'by_type'
+        },
+        'titles_only': 'true'
       },
-      match: 'by_type'
+      'organizations': {
+      }
     };
   }
 
@@ -28,6 +32,10 @@ class OneDegreeResourceQuery {
       this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
     });
     return this;
+  }
+
+  setIds(ids) {
+    this.filters.query.ids = ids.join(',');
   }
 
   setLocation(latLng) {
@@ -59,12 +67,13 @@ class OneDegreeResourceQuery {
     return str.filter((item) => item!=='').join("&");
   }
 
-  buildFilters() {
-    return [this.serialize(this.requiredFilters), this.serialize(this.filters)].filter((item) => item!=='').join("&");
+  buildFilters(type = 'opportunities') {
+    return [this.serialize(this.requiredFilters[type]), this.serialize(this.filters)].filter((item) => item!=='').join("&");
   }
 
   resetFilters() {
     this.filters = {
+      api_key: config[process.env.OD_API_ENV].odApiKey,
       query: {
         properties: {},
         tags: [],
@@ -74,8 +83,33 @@ class OneDegreeResourceQuery {
     return this;
   }
 
-  fetch( {type = 'opportunities', callback = (res) => {} } = {} ) {
-    fetch(this.baseURL + type + '?' + this.buildFilters())
+  fetchOrganizations({ callback = (data) => { } } = {}) {
+    var self = this;
+    this.fetch({
+      callback: (data) => {
+        let ids = [];
+
+        data.opportunities.forEach((opportunity, index) => {
+          if(ids.indexOf(opportunity.organization.id) === -1) {
+            ids.push(opportunity.organization.id);
+          }
+        });
+        if(ids.length === 0) {
+          ids.push(0);
+        }
+        var orgsSearch = new OneDegreeResourceQuery();
+        orgsSearch.setIds(ids);
+        orgsSearch.fetch({
+          type: 'organizations',
+          callback: callback
+        });
+        
+      }
+    });
+  }
+
+  fetch( {type = 'opportunities', callback = (data) => { } } = {} ) {
+    fetchJsonp(this.baseURL + type + '.jsonp?' + this.buildFilters(type))
       .then(function(res) {
         return res.json();
       }).then(callback);

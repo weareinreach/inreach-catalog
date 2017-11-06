@@ -1,5 +1,8 @@
 var express = require('express');
 var app = express();
+var routes = require('./api/routes');
+
+routes(app);
 
 app.use(express.static(__dirname + '/public/'));
 
