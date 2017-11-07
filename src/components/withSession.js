@@ -10,10 +10,6 @@ export default function withSession(WrappedComponent) {
       const jwt = window.localStorage.getItem('jwt');
       this.state = { session: jwt, user: null };
 
-      if (jwt) {
-        this.fetchUser(jwt);
-      }
-
       this.handleStorageChange = this.handleStorageChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
@@ -21,6 +17,12 @@ export default function withSession(WrappedComponent) {
 
     componentDidMount() {
       window.addEventListener('storage', this.handleStorageChange);
+
+      const { session } = this.state;
+      if (session) {
+        this.fetchUser(session);
+      };
+
     }
 
     componentWillUnmount() {
