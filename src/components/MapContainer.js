@@ -5,11 +5,13 @@ import {
   Route,
   Redirect,
   Switch,
+  withRouter
 } from 'react-router-dom';
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
+import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
@@ -43,6 +45,7 @@ class MapContainer extends React.Component {
     this.state = {
       nearAddress: '',
       nearLatLng,
+      mapCenter: nearLatLng,
       searchStatus: null,
       errorMessage: false,
       selectedResources,
@@ -50,7 +53,7 @@ class MapContainer extends React.Component {
       searchResults: [],
       searchResultsIndex: []
     }
-
+    console.log(this.props);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
@@ -143,7 +146,8 @@ class MapContainer extends React.Component {
     } 
     
     this.setState({
-      searchStatus: 'redirect'
+      searchStatus: 'redirect',
+      mapCenter: this.state.nearLatLng
     });
   }
 
@@ -190,8 +194,8 @@ class MapContainer extends React.Component {
     if(params.near) {
       var latLng = decodeURIComponent(params.near).split(',')
       nearLatLng = {
-        lat: latLng[0],
-        lng: latLng[1]
+        lat: parseFloat(latLng[0]),
+        lng: parseFloat(latLng[1])
       }
     }
 
@@ -212,7 +216,6 @@ class MapContainer extends React.Component {
 
   Routes() {
     return  (
-      <Router>
         <Switch>
           <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
             handlePlaceSelect={this.handlePlaceSelect} 
@@ -229,9 +232,8 @@ class MapContainer extends React.Component {
             handleSearchButtonClick={this.handleSearchButtonClick}
             handleResourceTypeSelect={this.handleResourceTypeSelect}
             />} />
-          <Route path="/resource/:id" component={Resource}/>
+          <Route path="/resource/:id" render={ props => <Resource />} />
         </Switch>
-      </Router>
     );
   }
 
@@ -239,8 +241,19 @@ class MapContainer extends React.Component {
     //const { classes } = this.props
     //const { searchArea } = classes;
     const addedProps = this.state;
+    var mapProps = {};
+    if(this.state.mapCenter) {
+      mapProps.center = this.state.mapCenter;
+      mapProps.zoom = 8;
+    }
+    if(this.state.searchResults) {
+      mapProps.resources = this.state.searchResults;
+    }
+
+    const { Routes } = this;
 
     return (
+      <Router>
       <div className="container--map"> 
         {/* TODO: Adjust this to the Material UI Tab Components for Mobile */}
         <Grid container spacing={0}>
@@ -248,17 +261,23 @@ class MapContainer extends React.Component {
             <div className="container--search">
               <Grid container alignItems='center' justify='center' spacing={0} className={this.props.classes.container}>
                 <Grid item md={10} lg={9} sm={12}>
-                  {this.Routes()}
+                  <Routes />
                 </Grid>
               </Grid>
             </div>
           </Grid>
           <Grid item xs={12} md={5} >
             {/* Map Component */}
-            <GoogleMap/>
+            <AsylumConnectMap {...this.props} 
+              mapProps={mapProps} classes={null}
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `100%` }} />}
+              mapElement={<div style={{ height: `100%` }} />} 
+            />
           </Grid>
         </Grid>
       </div>
+      </Router>
     );
   }
 };
