@@ -38,6 +38,10 @@ const styles = theme => ({
 const FavoritesList = ({
   anchorEl,
   classes,
+  list,
+  lists,
+  match,
+  handleListSelect,
   handleMenuOpen,
   handleMenuClose,
   handleRequestOpen,
@@ -61,17 +65,23 @@ const FavoritesList = ({
           aria-owns={open ? 'favorites-menu' : null}
           aria-haspopup="true"
           onClick={handleMenuOpen}>
-          My List <Fa className={classes.marginLeft} name="chevron-down" />
+          { list ? list.title : 'Select A List' }
+          {` `}
+          <Fa className={classes.marginLeft} name="chevron-down" />
         </Button>
         <div>
-          <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
-          <AsylumConnectButton
-            className={classes.marginLeft}
-            onClick={() => handleRequestOpen('listShare')}
-            variant="primary"
-          >
-            Share
-          </AsylumConnectButton>
+          { list && (
+            <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
+          )}
+          { list && (
+            <AsylumConnectButton
+              className={classes.marginLeft}
+              onClick={() => handleRequestOpen('listShare')}
+              variant="primary"
+            >
+              Share
+            </AsylumConnectButton>
+          )}
           <AsylumConnectButton
             className={classes.marginLeft}
             onClick={() => handleRequestOpen('listNew')}
@@ -112,18 +122,29 @@ const FavoritesList = ({
       getContentAnchorEl={null}
       open={open}
       onRequestClose={handleMenuClose}>
-      <MenuItem onClick={handleMenuClose}>List</MenuItem>
+      {lists.map(list =>
+        <MenuItem
+          key={list.id}
+          onClick={() => handleListSelect(list)}
+        >
+          {list.title}
+        </MenuItem>
+      )}
     </Menu>
   </Grid>
 );
 
 FavoritesList.defaultProps = {
   anchorEl: null,
+  list: null,
 };
 
 FavoritesList.propTypes = {
   anchorEl: PropTypes.object,
   classes: PropTypes.object.isRequired,
+  list: PropTypes.object,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleListSelect: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,

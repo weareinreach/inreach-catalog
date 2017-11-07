@@ -32,8 +32,8 @@ class PageContainer extends React.Component {
         <Router>
           <Switch>
             <Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>
-            <Route path="/favorites/:id/new" component={NewFavoritesListPage}/>
-            <Route path="/favorites/:id/:listId" component={FavoritesListPage}/>
+            <Route path="/favorites/:id/new" render={() => <FavoritesListContainer {...this.props}/>}/>
+            <Route path="/favorites/:id/:listId" render={() => <FavoritesListContainer {...this.props}/>}/>
             <Route path="/favorites/:id/" render={() => <FavoritesListContainer {...this.props}/>}/>
             <Route path="/favorites/:id" render={() => <FavoritesListContainer {...this.props}/>}/>
             <Route path="/favorites/" render={() => <FavoritesListContainer {...this.props}/>}/>

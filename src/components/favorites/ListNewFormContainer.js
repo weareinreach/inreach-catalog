@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'node-fetch';
+import {withRouter} from 'react-router-dom';
 
 import config from '../../config/config.js';
 
@@ -25,7 +26,7 @@ class ListNewFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {handleMessageNew, handleRequestClose, session, user} = this.props;
+    const {handleMessageNew, handleRequestClose, history, session, user} = this.props;
     const { name } = this.state;
     const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/collections`;
@@ -47,7 +48,15 @@ class ListNewFormContainer extends React.Component {
     console.log(options)
     fetch(url, options)
       .then(response => {
-        console.log(response)
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      })
+      .then(data => {
+        history.push(`${user}/${data.collection.id}`);
+        handleRequestClose();
       })
       .catch(error => {
         console.log(error);
@@ -78,4 +87,4 @@ ListNewFormContainer.propTypes = {
   user: PropTypes.number,
 };
 
-export default ListNewFormContainer;
+export default withRouter(ListNewFormContainer);
