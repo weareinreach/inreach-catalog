@@ -17,7 +17,7 @@ const styles = theme => ({
   spacingAbove: {marginTop: '3rem'},
 });
 
-const ListShareForm = ({classes, handleChange, handleSubmit, email, password}) => (
+const ListShareForm = ({classes, email, handleChange, handleSubmit}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <TextField
       id="email"

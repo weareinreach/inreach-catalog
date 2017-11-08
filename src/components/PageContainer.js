@@ -27,16 +27,17 @@ const AccountPage = ( {match} ) => (
 
 class PageContainer extends React.Component {
   render() {
+    const { handleMessageNew, session, user } = this.props;
     return (
       <div className="page-container"> 
         <Router>
           <Switch>
             <Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>
-            <Route path="/favorites/:id/new" render={() => <FavoritesListContainer {...this.props}/>}/>
-            <Route path="/favorites/:id/:listId" render={() => <FavoritesListContainer {...this.props}/>}/>
-            <Route path="/favorites/:id/" render={() => <FavoritesListContainer {...this.props}/>}/>
-            <Route path="/favorites/:id" render={() => <FavoritesListContainer {...this.props}/>}/>
-            <Route path="/favorites/" render={() => <FavoritesListContainer {...this.props}/>}/>
+            <Route path="/favorites/:id/new" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/:id/:listId" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/:id/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/:id" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
             <Route path="/account/:id" component={AccountPage}/>
             <Redirect from="/account" to="/" />
           </Switch>

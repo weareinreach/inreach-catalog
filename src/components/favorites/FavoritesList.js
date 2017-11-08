@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Fa from 'react-fontawesome';
+import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
@@ -13,10 +14,18 @@ import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
+import ListNewDialog from './ListNewDialog';
+import ListShareDialog from './ListShareDialog';
+
 const styles = theme => ({
   container: {
     maxWidth: '720px',
     margin: '3rem 0 1rem 0',
+  },
+  dialogBody: {
+    minWidth: '600px',
+    overflowY: 'auto',
+    padding: '5.5rem',
   },
   footer: {
     backgroundColor: theme.palette.common.blue,
@@ -38,14 +47,19 @@ const styles = theme => ({
 const FavoritesList = ({
   anchorEl,
   classes,
+  dialog,
   list,
   lists,
   match,
+  handleDialogOpen,
+  handleDialogClose,
   handleListSelect,
   handleMenuOpen,
   handleMenuClose,
-  handleRequestOpen,
+  handleMessageNew,
   open,
+  session,
+  user,
 }) => (
   <Grid container direction="column" alignItems="center">
     <Typography className={classes.marginTop} type="display1">
@@ -76,7 +90,7 @@ const FavoritesList = ({
           { list && (
             <AsylumConnectButton
               className={classes.marginLeft}
-              onClick={() => handleRequestOpen('listShare')}
+              onClick={() => handleDialogOpen('share')}
               variant="primary"
             >
               Share
@@ -84,7 +98,7 @@ const FavoritesList = ({
           )}
           <AsylumConnectButton
             className={classes.marginLeft}
-            onClick={() => handleRequestOpen('listNew')}
+            onClick={() => handleDialogOpen('new')}
             variant="primary">
             <Fa className={classes.marginRight} name="plus" /> Create New List
           </AsylumConnectButton>
@@ -108,13 +122,36 @@ const FavoritesList = ({
         </AsylumConnectButton>
         <AsylumConnectButton
           className={classes.marginLeft}
-          onClick={() => handleRequestOpen('listShare')}
+          onClick={() => handleDialogOpen('share')}
           variant="primary"
         >
           Share
         </AsylumConnectButton>
       </Grid>
     </Grid>
+
+    <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
+      <div className={classes.dialogBody}>
+      {dialog === 'new' &&
+        <ListNewDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleDialogClose}
+          session={session}
+          user={user}
+        />
+      }
+      {dialog === 'share' &&
+        <ListShareDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleDialogClose}
+          session={session}
+          listId={list.id}
+          listTitle={list.title}
+        />
+      }
+      </div>
+    </Dialog>
+
     <Menu
       id="favorites-menu"
       anchorEl={anchorEl}
@@ -137,18 +174,25 @@ const FavoritesList = ({
 FavoritesList.defaultProps = {
   anchorEl: null,
   list: null,
+  session: null,
+  user: null,
 };
 
 FavoritesList.propTypes = {
   anchorEl: PropTypes.object,
   classes: PropTypes.object.isRequired,
+  dialog: PropTypes.string.isRequired,
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleListSelect: PropTypes.func.isRequired,
+  handleDialogOpen: PropTypes.func.isRequired,
+  handleDialogClose: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
-  handleRequestOpen: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(FavoritesList);

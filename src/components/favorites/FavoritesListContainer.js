@@ -13,10 +13,13 @@ class FavoritesListContainer extends React.Component {
 
     this.state = {
       anchorEl: null,
+      dialog: 'none',
       lists: [],
       open: false,
     };
 
+    this.handleDialogOpen = this.handleDialogOpen.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleListSelect = this.handleListSelect.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
@@ -53,6 +56,14 @@ class FavoritesListContainer extends React.Component {
     }
   }
 
+  handleDialogOpen(dialog) {
+    this.setState({dialog});
+  }
+
+  handleDialogClose() {
+    this.setState({dialog: 'none'});
+  }
+
   handleListSelect(list) {
     const { history, user } = this.props;
     history.push(`/favorites/${user}/${list.id}`);
@@ -76,6 +87,8 @@ class FavoritesListContainer extends React.Component {
         {...this.state}
         {...this.props}
         list={currentList}
+        handleDialogOpen={this.handleDialogOpen}
+        handleDialogClose={this.handleDialogClose}
         handleListSelect={this.handleListSelect}
         handleMenuOpen={this.handleMenuOpen}
         handleMenuClose={this.handleMenuClose}

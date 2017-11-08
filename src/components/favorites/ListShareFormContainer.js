@@ -43,6 +43,8 @@ class ListShareFormContainer extends React.Component {
 ListShareFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
+  listId: PropTypes.number.isRequired,
+  session: PropTypes.string.isRequired,
 };
 
 export default ListShareFormContainer;
