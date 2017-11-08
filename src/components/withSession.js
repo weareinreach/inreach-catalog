@@ -40,8 +40,17 @@ export default function withSession(WrappedComponent) {
         },
       };
       fetch(url, options)
-        .then(response => response.json())
-        .then(data => this.setState({ user: data.user.id }));
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            return Promise.reject(response);
+          }
+        })
+        .then(data => this.setState({ user: data.user.id }))
+        .catch(error => {
+          this.handleLogOut();
+        });
     }
 
     handleStorageChange() {
