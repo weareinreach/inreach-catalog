@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'node-fetch';
 import {withRouter} from 'react-router-dom';
 
-import config from '../../config/config.js';
+import fetchUserLists from '../../helpers/fetchUserLists';
 
 import FavoritesList from './FavoritesList';
 
@@ -37,28 +36,19 @@ class FavoritesListContainer extends React.Component {
   }
 
   fetchLists(session) {
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/account/collections/all`;
-    const options = {
-      headers: {
-        Authorization: session,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-    };
-    fetch(url, options)
+    fetchUserLists(session)
       .then(response => {
         if (response.status === 200) {
           return response.json();
         } else {
-          console.log(response);
+          return Promise.reject(response);
         }
       })
       .then(data => {
         this.setState({lists: data.collections});
       })
       .catch(response => {
-        debugger;
+        console.warn(response);
       });
   }
 
