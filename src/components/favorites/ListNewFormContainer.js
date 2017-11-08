@@ -26,16 +26,16 @@ class ListNewFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {handleMessageNew, handleRequestClose, history, session, user} = this.props;
-    const { name } = this.state;
+    const {session, user} = this.props;
+    const {name} = this.state;
     const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/collections`;
-    const payload = JSON.stringify({
+    const payload = {
       created_by_user_id: user,
-      region: "USA",
-      shared_status: "private",
+      region: 'USA',
+      shared_status: 'private',
       title: name,
-    });
+    };
     const options = {
       method: 'POST',
       headers: {
@@ -43,9 +43,8 @@ class ListNewFormContainer extends React.Component {
         'Content-Type': 'application/json',
         OneDegreeSource: 'asylumconnect',
       },
-      body: payload,
+      body: JSON.stringify(payload),
     };
-    console.log(options)
     fetch(url, options)
       .then(response => {
         if (response.status === 201) {
@@ -55,7 +54,9 @@ class ListNewFormContainer extends React.Component {
         }
       })
       .then(data => {
-        history.push(`${user}/${data.collection.id}`);
+        const {handleListNew, handleRequestClose, history} = this.props;
+        handleListNew(Object.assign({}, payload, data.collection));
+        history.push(`/favorites/${user}/${data.collection.id}`);
         handleRequestClose();
       })
       .catch(error => {

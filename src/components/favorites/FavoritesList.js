@@ -53,6 +53,7 @@ const FavoritesList = ({
   match,
   handleDialogOpen,
   handleDialogClose,
+  handleListNew,
   handleListSelect,
   handleMenuOpen,
   handleMenuClose,
@@ -135,6 +136,7 @@ const FavoritesList = ({
       {dialog === 'new' &&
         <ListNewDialog
           handleMessageNew={handleMessageNew}
+          handleListNew={handleListNew}
           handleRequestClose={handleDialogClose}
           session={session}
           user={user}
@@ -184,9 +186,10 @@ FavoritesList.propTypes = {
   dialog: PropTypes.string.isRequired,
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleListSelect: PropTypes.func.isRequired,
   handleDialogOpen: PropTypes.func.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
+  handleListNew: PropTypes.func.isRequired,
+  handleListSelect: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,

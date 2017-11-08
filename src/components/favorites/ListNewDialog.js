@@ -4,10 +4,17 @@ import PropTypes from 'prop-types';
 import {DialogTitle} from '../dialog';
 import ListNewFormContainer from './ListNewFormContainer';
 
-const ListNewDialog = ({handleMessageNew, handleRequestClose, session, user}) => (
+const ListNewDialog = ({
+  handleListNew,
+  handleMessageNew,
+  handleRequestClose,
+  session,
+  user,
+}) => (
   <div>
     <DialogTitle>Create a New Favorites List</DialogTitle>
     <ListNewFormContainer
+      handleListNew={handleListNew}
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
       session={session}
