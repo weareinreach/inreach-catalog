@@ -49,11 +49,11 @@ class SaveToFavoritesButton extends React.Component {
   render() {
     const { handleSaveToFavorites, handleMenuOpen, handleMenuClose } = this;
     const { anchorEl, open } = this.state;
-    const { classes, isFavorite, user } = this.props;
+    const { classes, isFavorite, session } = this.props;
 
     return (
       <div>
-        <Button onClick={user ? handleMenuOpen : handleSaveToFavorites}>
+        <Button onClick={session ? handleMenuOpen : handleSaveToFavorites}>
           <Typography
             type='display4'
             className={classes.viewYourFavoritesText}
@@ -78,13 +78,14 @@ class SaveToFavoritesButton extends React.Component {
 
 SaveToFavoritesButton.defaultProps = {
   isFavorite: false,
-  user: null
+  session: null
 };
 
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
   isFavorite: PropTypes.bool,
-  user: PropTypes.number,
+  lists: PropTypes.array.isRequired,
+  session: PropTypes.string,
 };
 
 export default withStyles(styles)(SaveToFavoritesButton);

@@ -231,6 +231,7 @@ class MapContainer extends React.Component {
             handlePlaceChange={this.handlePlaceChange}
             handleSearchButtonClick={this.handleSearchButtonClick}
             handleResourceTypeSelect={this.handleResourceTypeSelect}
+            session={this.props.session}
             />} />
           <Route path="/resource/:id" render={ props => <Resource />} />
         </Switch>

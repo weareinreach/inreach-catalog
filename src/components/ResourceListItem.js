@@ -9,9 +9,9 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 import { withStyles } from 'material-ui/styles';
-import FavoritesLink from './FavoritesLink';
 import RatingControl from './RatingControl';
 import ReviewCount from './ReviewCount';
+import SaveToFavoritesButton from './SaveToFavoritesBUtton';
 import Badge from './Badge';
 
 const styles = (theme) => ({
@@ -51,7 +51,7 @@ class ResourceListItem extends React.Component {
   }
 
   render() {
-    const { format, resource, classes } = this.props;
+    const { format, resource, classes, session } = this.props;
     const { rightSide, ratingSpacing, contentSpacing, lineSpacing, dividerSpacing, moreInfo, orgName }  = classes;
     //this.props.fetchSearchResults();
     return (
@@ -64,8 +64,8 @@ class ResourceListItem extends React.Component {
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
               {format === 'search' ? 
-              <Grid item xs={3} >
-                <FavoritesLink>save to favorites</FavoritesLink> 
+              <Grid item xs={3} alignItems="flex-start" >
+                <SaveToFavoritesButton session={session}/>
               </Grid> 
               : null }
             </Grid>

@@ -59,7 +59,7 @@ class SearchResultsContainer extends React.Component {
             </Grid>
           :
             this.props.searchResults.map((organization) => {
-              return <ResourceListItem resource={organization} key={organization.id} />
+              return <ResourceListItem resource={organization} key={organization.id} session={this.props.session}/>
             })
         }
       </div>);
