@@ -11,7 +11,6 @@ import {
   Switch,
   Link
 } from 'react-router-dom';
-import fetch from 'node-fetch';
 
 import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';

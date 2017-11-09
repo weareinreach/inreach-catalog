@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import config from '../config/config.js';
 
