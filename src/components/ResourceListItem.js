@@ -65,7 +65,11 @@ class ResourceListItem extends React.Component {
               </Grid>
               {format === 'search' ? 
               <Grid item xs={3} alignItems="flex-start" >
-                <SaveToFavoritesButton lists={lists} session={session}/>
+                <SaveToFavoritesButton
+                  lists={lists}
+                  resourceId={resource.id}
+                  session={session}
+                />
               </Grid> 
               : null }
             </Grid>

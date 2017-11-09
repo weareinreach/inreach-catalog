@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles';
+import fetch from 'node-fetch';
+
+import config from '../config/config.js';
 
 import Button from 'material-ui/Button';
 import Menu, {MenuItem} from 'material-ui/Menu';
@@ -42,8 +45,30 @@ class SaveToFavoritesButton extends React.Component {
     this.setState({ open: false });
   };
 
-  handleSaveToFavorites() {
-    console.log('click');
+  handleSaveToFavorites(listId) {
+    this.handleMenuClose();
+    const apiDomain = config[process.env.OD_API_ENV].odas;
+    const url = `${apiDomain}api/collections/${listId}/items`;
+    const payload = JSON.stringify({
+      fetchable_id: this.props.resourceId,
+      fetchable_type: "Opportunity",
+    });
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: this.props.session,
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      },
+      body: payload,
+    };
+    fetch(url, options)
+      .then(response => {
+        debugger
+      })
+      .catch(error => {
+        debugger
+      });
   }
 
   render() {
@@ -72,7 +97,7 @@ class SaveToFavoritesButton extends React.Component {
           {lists.map(list => (
             <MenuItem
               key={list.id}
-              onClick={handleMenuClose}
+              onClick={() => handleSaveToFavorites(list.id)}
             >
               {list.title}
             </MenuItem>
@@ -93,8 +118,9 @@ SaveToFavoritesButton.propTypes = {
   isFavorite: PropTypes.bool,
   lists: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
   })).isRequired,
+  resourceId: PropTypes.number.isRequired,
   session: PropTypes.string,
 };
 
