@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 
+import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
 import SearchBar from './SearchBar';
 import ResourceListItem from '../ResourceListItem';
@@ -20,11 +21,20 @@ class SearchResultsContainer extends React.Component {
     super(props, context)
     //this.props.clearSearchStatus();
     //this.props.fetchSearchResults();
+
+    this.state = { lists: [] };
+    this.fetchLists = this.fetchLists.bind(this);
   }
 
   componentDidMount() {
+    const { session } = this.props;
+    if (session) {
+      this.fetchLists(session);
+    }
+
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
+
   }
 
   doSearch() {
@@ -36,6 +46,23 @@ class SearchResultsContainer extends React.Component {
     if (this.props.searchStatus === "redirect"  && prevProps.searchStatus === null) {
       this.doSearch()
     }
+  }
+
+  fetchLists(session) {
+    fetchUserLists(session)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      })
+      .then(data => {
+        this.setState({lists: data.collections});
+      })
+      .catch(response => {
+        console.warn(response);
+      });
   }
 
   render() {
@@ -59,7 +86,14 @@ class SearchResultsContainer extends React.Component {
             </Grid>
           :
             this.props.searchResults.map((organization) => {
-              return <ResourceListItem resource={organization} key={organization.id} session={this.props.session}/>
+              return (
+                <ResourceListItem
+                  key={organization.id}
+                  lists={this.state.lists}
+                  resource={organization}
+                  session={this.props.session}
+                />
+              )
             })
         }
       </div>);

@@ -49,7 +49,7 @@ class SaveToFavoritesButton extends React.Component {
   render() {
     const { handleSaveToFavorites, handleMenuOpen, handleMenuClose } = this;
     const { anchorEl, open } = this.state;
-    const { classes, isFavorite, session } = this.props;
+    const { classes, isFavorite, lists, session } = this.props;
 
     return (
       <div>
@@ -69,7 +69,14 @@ class SaveToFavoritesButton extends React.Component {
           getContentAnchorEl={null}
           open={open}
           onRequestClose={handleMenuClose}>
-          <MenuItem onClick={handleMenuClose}>My List</MenuItem>
+          {lists.map(list => (
+            <MenuItem
+              key={list.id}
+              onClick={handleMenuClose}
+            >
+              {list.title}
+            </MenuItem>
+          ))}
         </Menu>
       </div>
     );
@@ -84,7 +91,10 @@ SaveToFavoritesButton.defaultProps = {
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
   isFavorite: PropTypes.bool,
-  lists: PropTypes.array.isRequired,
+  lists: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.string,
+  })).isRequired,
   session: PropTypes.string,
 };
 

@@ -51,7 +51,7 @@ class ResourceListItem extends React.Component {
   }
 
   render() {
-    const { format, resource, classes, session } = this.props;
+    const { format, resource, classes, lists, session } = this.props;
     const { rightSide, ratingSpacing, contentSpacing, lineSpacing, dividerSpacing, moreInfo, orgName }  = classes;
     //this.props.fetchSearchResults();
     return (
@@ -65,7 +65,7 @@ class ResourceListItem extends React.Component {
               </Grid>
               {format === 'search' ? 
               <Grid item xs={3} alignItems="flex-start" >
-                <SaveToFavoritesButton session={session}/>
+                <SaveToFavoritesButton lists={lists} session={session}/>
               </Grid> 
               : null }
             </Grid>
@@ -122,7 +122,8 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
-  resource: PropTypes.object.isRequired
+  resource: PropTypes.object.isRequired,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 ResourceListItem.defaultProps = {
