@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'node-fetch';
 import {withRouter} from 'react-router-dom';
 
-import config from '../../config/config.js';
+import createList from '../../helpers/createList';
 
 import ListNewForm from './ListNewForm';
 
@@ -28,24 +27,11 @@ class ListNewFormContainer extends React.Component {
     event.preventDefault();
     const {session, user} = this.props;
     const {name} = this.state;
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/collections`;
     const payload = {
       created_by_user_id: user,
-      region: 'USA',
-      shared_status: 'private',
       title: name,
     };
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: session,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body: JSON.stringify(payload),
-    };
-    fetch(url, options)
+    createList(payload, session)
       .then(response => {
         if (response.status === 201) {
           return response.json();

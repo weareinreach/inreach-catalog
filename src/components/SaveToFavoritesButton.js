@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import fetch from 'node-fetch';
 
 import config from '../config/config.js';
+import createList from '../helpers/createList'
 
 import Button from 'material-ui/Button';
 import Menu, {MenuItem} from 'material-ui/Menu';
@@ -35,6 +36,9 @@ class SaveToFavoritesButton extends React.Component {
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
+  }
+
+  handleCreateNewList() {
   }
 
   handleMenuOpen(event) {
@@ -82,7 +86,7 @@ class SaveToFavoritesButton extends React.Component {
     );
     return (
       <div>
-        <Button onClick={handleMenuOpen}>
+        <Button onClick={lists.length ? handleMenuOpen : handleCreateNewList}>
           <Typography
             type='display4'
             className={classes.viewYourFavoritesText}
