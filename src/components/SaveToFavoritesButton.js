@@ -33,12 +33,32 @@ class SaveToFavoritesButton extends React.Component {
       open: false
     };
 
+    this.handleCreateList = this.handleCreateList.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
   }
 
-  handleCreateNewList() {
+  handleCreateList(listId) {
+    const payload = {
+      created_by_user_id: this.props.user,
+      title: 'My List',
+    };
+    createList(payload, this.props.session)
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          return Promise.reject(response);
+        }
+      })
+      .then(data => {
+        this.props.handleListNew(Object.assign({}, payload, data.collection));
+        this.handleSaveToFavorites(data.collection.id);
+      })
+      .catch(error => {
+        console.warn(error);
+      })
   }
 
   handleMenuOpen(event) {
@@ -67,18 +87,15 @@ class SaveToFavoritesButton extends React.Component {
       body: payload,
     };
     fetch(url, options)
-      .then(response => {
-        debugger
-      })
       .catch(error => {
-        debugger
-      });
+        console.warn(error);
+      })
   }
 
   render() {
-    const { handleSaveToFavorites, handleMenuOpen, handleMenuClose } = this;
+    const { handleCreateList, handleSaveToFavorites, handleMenuOpen, handleMenuClose } = this;
     const { anchorEl, open } = this.state;
-    const { classes, lists, resourceId, session } = this.props;
+    const { classes, handleListNew, lists, resourceId, session } = this.props;
 
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item =>
@@ -86,7 +103,8 @@ class SaveToFavoritesButton extends React.Component {
     );
     return (
       <div>
-        <Button onClick={lists.length ? handleMenuOpen : handleCreateNewList}>
+        {/*<Button onClick={lists.length ? handleMenuOpen : handleCreateList}>*/}
+        <Button onClick={handleCreateList}>
           <Typography
             type='display4'
             className={classes.viewYourFavoritesText}
@@ -118,12 +136,14 @@ class SaveToFavoritesButton extends React.Component {
 
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleListNew: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     id: PropTypes.number,
   })).isRequired,
   resourceId: PropTypes.number.isRequired,
   session: PropTypes.string.isRequired,
+  user: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(SaveToFavoritesButton);

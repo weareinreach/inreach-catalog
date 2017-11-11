@@ -23,6 +23,7 @@ class SearchResultsContainer extends React.Component {
     //this.props.fetchSearchResults();
 
     this.state = { lists: [] };
+    this.handleListNew = this.handleListNew.bind(this);
     this.fetchLists = this.fetchLists.bind(this);
   }
 
@@ -47,6 +48,10 @@ class SearchResultsContainer extends React.Component {
       this.doSearch()
     }
   }
+
+  handleListNew(list) {
+    this.setState(prevState => ({ lists: [...prevState.lists, list]}));
+  };
 
   fetchLists(session) {
     fetchUserLists(session)
@@ -88,10 +93,12 @@ class SearchResultsContainer extends React.Component {
             this.props.searchResults.map((organization) => {
               return (
                 <ResourceListItem
+                  handleListNew={this.handleListNew}
                   key={organization.id}
                   lists={this.state.lists}
                   resource={organization}
                   session={this.props.session}
+                  user={this.props.user}
                 />
               )
             })
