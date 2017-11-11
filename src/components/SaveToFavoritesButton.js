@@ -103,8 +103,7 @@ class SaveToFavoritesButton extends React.Component {
     );
     return (
       <div>
-        {/*<Button onClick={lists.length ? handleMenuOpen : handleCreateList}>*/}
-        <Button onClick={handleCreateList}>
+        <Button onClick={lists.length ? handleMenuOpen : handleCreateList}>
           <Typography
             type='display4'
             className={classes.viewYourFavoritesText}
