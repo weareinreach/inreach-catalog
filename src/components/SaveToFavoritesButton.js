@@ -82,7 +82,7 @@ class SaveToFavoritesButton extends React.Component {
     );
     return (
       <div>
-        <Button onClick={session ? handleMenuOpen : handleSaveToFavorites}>
+        <Button onClick={handleMenuOpen}>
           <Typography
             type='display4'
             className={classes.viewYourFavoritesText}
@@ -112,10 +112,6 @@ class SaveToFavoritesButton extends React.Component {
   }
 }
 
-SaveToFavoritesButton.defaultProps = {
-  session: null
-};
-
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
   lists: PropTypes.arrayOf(PropTypes.shape({
@@ -123,7 +119,7 @@ SaveToFavoritesButton.propTypes = {
     id: PropTypes.number,
   })).isRequired,
   resourceId: PropTypes.number.isRequired,
-  session: PropTypes.string,
+  session: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(SaveToFavoritesButton);
