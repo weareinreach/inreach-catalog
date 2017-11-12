@@ -23,6 +23,8 @@ class SearchResultsContainer extends React.Component {
     //this.props.fetchSearchResults();
 
     this.state = { lists: [] };
+
+    this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
     this.handleListNew = this.handleListNew.bind(this);
     this.fetchLists = this.fetchLists.bind(this);
   }
@@ -51,6 +53,18 @@ class SearchResultsContainer extends React.Component {
 
   handleListNew(list) {
     this.setState(prevState => ({ lists: [...prevState.lists, list]}));
+  };
+
+  handleListAddFavorite(listId, favorite) {
+    this.setState(prevState => ({ lists: prevState.lists.map(list => {
+      list.id === listId
+        ? Object.assign(
+            {},
+            list,
+            {fetchable_list_items: [...list.fetchable_list_items, favorite]}
+          )
+        : list
+    })}));
   };
 
   fetchLists(session) {
@@ -93,6 +107,7 @@ class SearchResultsContainer extends React.Component {
             this.props.searchResults.map((organization) => {
               return (
                 <ResourceListItem
+                  handleListAddFavorite={this.handleListAddFavorite}
                   handleListNew={this.handleListNew}
                   key={organization.id}
                   lists={this.state.lists}

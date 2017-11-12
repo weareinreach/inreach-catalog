@@ -51,7 +51,7 @@ class ResourceListItem extends React.Component {
   }
 
   render() {
-    const { format, resource, classes, handleListNew, lists, session, user } = this.props;
+    const { format, resource, classes, handleListAddFavorite, handleListNew, lists, session, user } = this.props;
     const { rightSide, ratingSpacing, contentSpacing, lineSpacing, dividerSpacing, moreInfo, orgName }  = classes;
     //this.props.fetchSearchResults();
     return (
@@ -67,6 +67,7 @@ class ResourceListItem extends React.Component {
               <Grid item xs={3} alignItems="flex-start" >
                 {session && (
                   <SaveToFavoritesButton
+                    handleListAddFavorite={handleListAddFavorite}
                     handleListNew={handleListNew}
                     lists={lists}
                     resourceId={resource.id}
@@ -130,6 +131,7 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
+  handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   resource: PropTypes.object.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
