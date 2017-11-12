@@ -90,9 +90,17 @@ class SaveToFavoritesButton extends React.Component {
       },
       body: payload,
     };
-    fetch(url, options).catch(error => {
-      console.warn(error);
-    });
+    fetch(url, options)
+      .then(response => {
+        if (response.status === 200) {
+          this.props.handleListAddFavorite(listId, this.props.resourceId);
+        } else {
+          Promise.reject(response);
+        }
+      })
+      .catch(error => {
+        console.warn(error);
+      });
   }
 
   render() {

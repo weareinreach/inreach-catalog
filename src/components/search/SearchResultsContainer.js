@@ -56,15 +56,16 @@ class SearchResultsContainer extends React.Component {
   };
 
   handleListAddFavorite(listId, favorite) {
-    this.setState(prevState => ({ lists: prevState.lists.map(list => {
+    debugger
+    this.setState(prevState => ({ lists: prevState.lists.map(list => (
       list.id === listId
         ? Object.assign(
             {},
             list,
-            {fetchable_list_items: [...list.fetchable_list_items, favorite]}
+            {fetchable_list_items: [...list.fetchable_list_items, { fetchable_id: favorite}]}
           )
         : list
-    })}));
+    ))}));
   };
 
   fetchLists(session) {
