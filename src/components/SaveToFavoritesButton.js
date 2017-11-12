@@ -53,7 +53,11 @@ class SaveToFavoritesButton extends React.Component {
         }
       })
       .then(data => {
-        this.props.handleListNew(Object.assign({}, payload, data.collection));
+        this.props.handleListNew(
+          Object.assign({}, payload, data.collection, {
+            fetchable_list_items: [],
+          }),
+        );
         this.handleSaveToFavorites(data.collection.id);
       })
       .catch(error => {
