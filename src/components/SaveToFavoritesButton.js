@@ -136,6 +136,7 @@ class SaveToFavoritesButton extends React.Component {
               key={list.id}
               onClick={() => handleSaveToFavorites(list.id)}>
               {list.title}
+              <RedHeartIcon width={'24px'} fill={list.fetchable_list_items.some(item => item.fetchable_id === resourceId)} />
             </MenuItem>
           ))}
         </Menu>
