@@ -111,7 +111,14 @@ class SaveToFavoritesButton extends React.Component {
       handleMenuClose,
     } = this;
     const {anchorEl, open} = this.state;
-    const {classes, handleListAddFavorite, handleListNew, lists, resourceId, session} = this.props;
+    const {
+      classes,
+      handleListAddFavorite,
+      handleListNew,
+      lists,
+      resourceId,
+      session,
+    } = this.props;
 
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
@@ -136,7 +143,12 @@ class SaveToFavoritesButton extends React.Component {
               key={list.id}
               onClick={() => handleSaveToFavorites(list.id)}>
               {list.title}
-              <RedHeartIcon width={'24px'} fill={list.fetchable_list_items.some(item => item.fetchable_id === resourceId)} />
+              <RedHeartIcon
+                width={'24px'}
+                fill={list.fetchable_list_items.some(
+                  item => item.fetchable_id === resourceId,
+                )}
+              />
             </MenuItem>
           ))}
         </Menu>
