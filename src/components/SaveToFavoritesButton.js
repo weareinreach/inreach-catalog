@@ -36,6 +36,7 @@ class SaveToFavoritesButton extends React.Component {
     this.handleCreateList = this.handleCreateList.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
+    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
   }
 
@@ -73,6 +74,32 @@ class SaveToFavoritesButton extends React.Component {
     this.setState({open: false});
   }
 
+  handleRemoveFavorite(listId) {
+    this.handleMenuClose();
+    const {resourceId} = this.props;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
+    const url = `${apiDomain}api/collections/${listId}/items/${resourceId}?fetchable_type=Opportunity`;
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: this.props.session,
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      },
+    };
+    fetch(url, options)
+      .then(response => {
+        if (response.status === 200) {
+          this.props.handleListRemoveFavorite(listId, resourceId);
+        } else {
+          Promise.reject(response);
+        }
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  }
+
   handleSaveToFavorites(listId) {
     this.handleMenuClose();
     const apiDomain = config[process.env.OD_API_ENV].odas;
@@ -106,14 +133,16 @@ class SaveToFavoritesButton extends React.Component {
   render() {
     const {
       handleCreateList,
-      handleSaveToFavorites,
       handleMenuOpen,
       handleMenuClose,
+      handleRemoveFavorite,
+      handleSaveToFavorites,
     } = this;
     const {anchorEl, open} = this.state;
     const {
       classes,
       handleListAddFavorite,
+      handleListRemoveFavorite,
       handleListNew,
       lists,
       resourceId,
@@ -139,19 +168,22 @@ class SaveToFavoritesButton extends React.Component {
           open={open}
           onRequestClose={handleMenuClose}
           PaperProps={{style: {maxHeight: '300px'}}}>
-          {lists.map(list => (
-            <MenuItem
-              key={list.id}
-              onClick={() => handleSaveToFavorites(list.id)}>
-              {list.title}
-              <RedHeartIcon
-                width={'24px'}
-                fill={list.fetchable_list_items.some(
-                  item => item.fetchable_id === resourceId,
-                )}
-              />
-            </MenuItem>
-          ))}
+          {lists.map(list => {
+            const isFavoriteItem = list.fetchable_list_items.some(
+              item => item.fetchable_id === resourceId,
+            );
+            return (
+              <MenuItem
+                key={list.id}
+                onClick={() =>
+                  isFavoriteItem
+                    ? handleRemoveFavorite(list.id)
+                    : handleSaveToFavorites(list.id)}>
+                {list.title}
+                <RedHeartIcon width={'24px'} fill={isFavoriteItem} />
+              </MenuItem>
+            );
+          })}
         </Menu>
       </div>
     );
@@ -161,6 +193,7 @@ class SaveToFavoritesButton extends React.Component {
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
   handleListAddFavorite: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(
     PropTypes.shape({

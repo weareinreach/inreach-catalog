@@ -25,6 +25,7 @@ class SearchResultsContainer extends React.Component {
     this.state = { lists: [] };
 
     this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
+    this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
     this.handleListNew = this.handleListNew.bind(this);
     this.fetchLists = this.fetchLists.bind(this);
   }
@@ -56,17 +57,33 @@ class SearchResultsContainer extends React.Component {
   };
 
   handleListAddFavorite(listId, favorite) {
-    debugger
     this.setState(prevState => ({ lists: prevState.lists.map(list => (
       list.id === listId
         ? Object.assign(
             {},
             list,
-            {fetchable_list_items: [...list.fetchable_list_items, { fetchable_id: favorite}]}
+            {fetchable_list_items: [
+              ...list.fetchable_list_items,
+              { fetchable_id: favorite}
+            ]},
           )
         : list
     ))}));
   };
+
+  handleListRemoveFavorite(listId, favorite) {
+    this.setState(prevState => ({ lists: prevState.lists.map(list => (
+      list.id === listId
+        ? Object.assign(
+            {},
+            list,
+            {fetchable_list_items: list.fetchable_list_items.filter(item =>
+              item.fetchable_id !== favorite
+            )},
+          )
+        : list
+    ))}));
+  }
 
   fetchLists(session) {
     fetchUserLists(session)
@@ -109,6 +126,7 @@ class SearchResultsContainer extends React.Component {
               return (
                 <ResourceListItem
                   handleListAddFavorite={this.handleListAddFavorite}
+                  handleListRemoveFavorite={this.handleListRemoveFavorite}
                   handleListNew={this.handleListNew}
                   key={organization.id}
                   lists={this.state.lists}
