@@ -64,7 +64,7 @@ class LangMenuItem extends React.Component {
   }
   
   handleSelectLang() {
-    this.props.handleSelectLang(this.props.langCode);
+    this.props.handleSelectLang(this.props.langCode, this.props.langName);
   }
   render() {
     return (
@@ -79,22 +79,18 @@ class Language extends React.Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
+      selectedLang: 'Language'
     }
     this.handleClick = this.handleClick.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
   }
   handleClick(event) {
     this.setState({ open: !this.state.open });
   };
   
-  handleRequestClose() {
-    this.setState({ open: false });
-  };
-  
-  handleRequestCloseAfterSelect(langCode) {
-    this.setState({ open: false });
+  handleRequestCloseAfterSelect(langCode, langName) {
+    this.setState({ open: false, selectedLang: langName });
     window.location.hash = "#googtrans("+langCode+")";
     location.reload();
   };
@@ -110,12 +106,12 @@ class Language extends React.Component {
             aria-haspopup="true"
             type="body1"
             className={classes.centerTextAlign}>
-          Language
+          {this.state.selectedLang}
           <ChevronIcon width={'18px'}/>
           </Typography>
         </div>
         {this.state.open &&
-          <List className={classes.languageList}>
+          <List className={[classes.languageList, 'skiptranslate'].join(' ')}>
             <ListSubheader className={classes.poweredByGoogle}>
               <span>Powered By</span>
               <a className={classes.gooLogoLink} href="https://translate.google.com" target="_blank">
