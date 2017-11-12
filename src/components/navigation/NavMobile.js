@@ -19,7 +19,8 @@ const styles = theme => ({
   },
   BottomNavBar: {
     position:'fixed',
-    bottom:'30'
+    bottom:'0',
+    zIndex: '1'
   },
   NavButton: {
     minWidth: '20%',
