@@ -32,7 +32,7 @@ const styles = theme => ({
     }
   },
   formType: {
-    margin: '10% 0 10% 0'
+    marginTop: '10%'
   },
   inputLabel: {
     '& label': theme.custom.inputLabel,
@@ -46,12 +46,18 @@ const styles = theme => ({
 class OrgSettingsInfo extends React.Component {
   constructor(props) {
     super(props);
+    //const { phone, description, address, website, name, target } = this.props.initialData;
     this.state = {
-      phone: '(  )   -   ',
-      name: '',
-      description: '',
-      address: '', 
-      website: ''
+      phone: this.props.initialData && this.props.initialData.phone? this.props.initialData.phone : '(  )   -   ',
+      description: this.props.initialData && this.props.initialData.description? this.props.initialData.description : '',
+      address: this.props.initialData && this.props.initialData.address? this.props.initialData.address : '', 
+      website: this.props.initialData && this.props.initialData.website? this.props.initialData.website : '',
+      name: this.props.initialData && this.props.initialData.name? this.props.initialData.name : '',
+      region: this.props.initialData && this.props.initialData.region? this.props.initialData.region : '',
+      city: this.props.initialData && this.props.initialData.city? this.props.initialData.city : '', 
+      state: this.props.initialData && this.props.initialData.state? this.props.initialData.state : '', 
+      zip_code: this.props.initialData && this.props.initialData.zip_code? this.props.initialData.zip_code : '',
+      target: '',
     };
     this.handleChange = this.handleChange.bind(this)
   }
@@ -65,21 +71,38 @@ class OrgSettingsInfo extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if (nextProps.isRequested) {
-      const { phone, name, description, address, website } = this.state;      
-      let data = {phone, name, description, address, website};
+      const { phone, name, description, address, website,  city, state, zip_code, region } = this.state;
+      let data = {phone: phone == '(  )   -   '? '':phone, name, description, address, website, city, state, zip_code, region};
       this.props.handleCollectInfoData(data)
     }
   }
   render() {
-    const { classes } = this.props;
+    const { classes, isSuggestion } = this.props;
+    const { phone, description, address, website, name, target, region, city, state, zip_code } = this.state;
     return (
       <div className={classes.root}>
-        <Typography type="display2" className={classes.formTitle}>Title</Typography>
         <form className={classes.form}>
+        { !isSuggestion ? (
+          <Typography type="display2" className={classes.formType}>{name}</Typography>
+          ):(
+            <TextField
+              className={classes.inputLabel}
+              label='Name:'
+              name='name'
+              value={name}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder='Hint text'
+              onChange={this.handleChange}
+            />
+          )
+        }
           <TextField
             className={classes.inputLabel}
             label='About:'
-            name='name'
+            name='description'
+            value={description}
             InputLabelProps={{
               shrink: true,
             }}
@@ -89,7 +112,7 @@ class OrgSettingsInfo extends React.Component {
           <TextField
             className={classes.inputLabel}
             label='Who it helps:'
-            name='description'
+            name='target'
             InputLabelProps={{
               shrink: true,
             }}
@@ -100,6 +123,7 @@ class OrgSettingsInfo extends React.Component {
             className={classes.inputLabel}
             label='Websites:'
             name='website'
+            value={website}
             InputLabelProps={{
               shrink: true,
             }}
@@ -112,7 +136,7 @@ class OrgSettingsInfo extends React.Component {
               shrink />
             <Input
               name='phone'
-              value={this.state.textmask}
+              value={phone}
               inputComponent={TextMaskCustom}
               onChange={this.handleChange}
             />
@@ -121,10 +145,55 @@ class OrgSettingsInfo extends React.Component {
             className={classes.inputLabel}
             label='Address:'
             name='address'
+            value={address}
             InputLabelProps={{
               shrink: true,
             }}
             placeholder='Address'
+            onChange={this.handleChange}
+          />
+          <TextField
+            className={classes.inputLabel}
+            label='Region:'
+            name='region'
+            value={region}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder='Region'
+            onChange={this.handleChange}
+          />
+          <TextField
+            className={classes.inputLabel}
+            label='City:'
+            name='city'
+            value={city}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder='City'
+            onChange={this.handleChange}
+          />
+          <TextField
+            className={classes.inputLabel}
+            label='State:'
+            name='state'
+            value={state}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder='State'
+            onChange={this.handleChange}
+          />
+          <TextField
+            className={classes.inputLabel}
+            label='Zip code:'
+            name='zip_code'
+            value={zip_code}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder='Zip code'
             onChange={this.handleChange}
           />
         </form>
@@ -135,6 +204,7 @@ class OrgSettingsInfo extends React.Component {
 
 OrgSettingsInfo.propTypes = {
   classes: PropTypes.object.isRequired,
+  info: PropTypes.object,
   handleCollectInfoData: React.PropTypes.func
 };
 

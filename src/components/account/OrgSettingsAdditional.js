@@ -1,7 +1,7 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
 
-import ResourceTypeSelector from '../ResourceTypeSelector';
+import ResourceTypeSelector from '../search/ResourceTypeSelector';
 
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';

@@ -150,7 +150,7 @@ export default createMuiTheme({
         "background": {
           "default": "#fafafa",
           "paper": "#fff",
-          "appBar": "#f5f5f5",
+          "appBar": "#fff",
           "contentFrame": "#eeeeee"
         }
       }
@@ -178,7 +178,7 @@ export default createMuiTheme({
     "background": {
       "default": "#fafafa",
       "paper": "#fff",
-      "appBar": "#f5f5f5",
+      "appBar": "rgba(0, 0, 0, 0.87)",
       "contentFrame": "#eeeeee"
     }
   },
@@ -369,11 +369,27 @@ export default createMuiTheme({
     }
   },
   overrides: {
+    MuiBottomNavigation: {
+      root: {
+        height: 'auto'
+      }
+    },
     MuiInput: {
       underline: {
         '&:before': {
         height: "0.8px"
         }
+      }
+    },
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: "#fff",
+        color: "rgba(0, 0, 0, 0.87)"
+      }
+    },
+    MuiPaper: {
+      shadow4: {
+        boxShadow: '0px 1px 0px 0px rgba(0, 0, 0, 0.2)'
       }
     }
   }

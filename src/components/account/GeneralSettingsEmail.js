@@ -53,7 +53,7 @@ class GeneralSettingsEmail extends React.Component {
     super(props);
     this.state = {
       open: true,
-      currentEmail: '',
+      currentEmail: this.props.currentEmail,
       newEmail: '',
       confirmedEmail: ''
     };

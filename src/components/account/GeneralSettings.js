@@ -6,6 +6,7 @@ import GeneralSettingsPassword from './GeneralSettingsPassword';
 
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
+import breakpoints from '../../theme/breakpoints';
 
 import Typography from 'material-ui/Typography';
 
@@ -25,12 +26,21 @@ function TextMaskCustom(props) {
 
 const styles = theme => ({
   root: {
-    width: '30%',
+    width: '33%',
     padding: '0 5% 0 5%'
   },
   formType: {
     margin: '10% 0 10% 0'
   },
+  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+    root: {
+      width: 'auto',
+      padding: '0'
+    },
+    formType: {
+      margin: '2% 0 2% 0'
+    }
+  },  
   settingsTypeFont: {
     padding: '15px 0 25px 0',
     fontSize: 13,
@@ -45,7 +55,7 @@ class GeneralSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      user: this.props.user,
       errorMessage: '',
       isPasswordUpdated: null,
       isEmailUpdated: null,
@@ -133,10 +143,9 @@ class GeneralSettings extends React.Component {
   }
 
   render() {
-    const { classes, handleMessageNew } = this.props;
-    const { user, isPasswordUpdated, isEmailUpdated } = this.state;
-    let email;
-    email = user ? this.state.user.email : '';
+    const { classes, handleMessageNew, user } = this.props;
+    const { isPasswordUpdated, isEmailUpdated } = this.state;
+    let email = user? user.email:''
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Account</Typography>
@@ -163,6 +172,7 @@ class GeneralSettings extends React.Component {
 
 GeneralSettings.propTypes = {
   classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(GeneralSettings);

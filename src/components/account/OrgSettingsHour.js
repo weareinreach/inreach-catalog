@@ -82,13 +82,13 @@ class OrgSettingsHour extends React.Component {
       saturday: false,
       sunday: false,
       hourData: {        
-        monday: '  :   -   :  ',        
-        tuesday: '  :   -   :  ',        
-        wednesday: '  :   -   :  ',        
-        thursday: '  :   -   :  ',        
-        friday: '  :   -   :  ',        
-        saturday: '  :   -   :  ',        
-        sunday: '  :   -   :  ',
+        monday: this.props.initialData ? (this.props.initialData.monday_start + this.props.initialData.monday_end) : '  :   -   :  ',        
+        tuesday: this.props.initialData ? (this.props.initialData.tuesday_start + this.props.initialData.tuesday_end) : '  :   -   :  ',        
+        wednesday: this.props.initialData ? (this.props.initialData.wednesday_start + this.props.initialData.wednesday_end) : '  :   -   :  ',        
+        thursday: this.props.initialData ? (this.props.initialData.thursday_start + this.props.initialData.thursday_end) : '  :   -   :  ',        
+        friday: this.props.initialData ? (this.props.initialData.friday_start + this.props.initialData.friday_end) : '  :   -   :  ',        
+        saturday: this.props.initialData ? (this.props.initialData.saturday_start + this.props.initialData.saturday_end) : '  :   -   :  ',        
+        sunday: this.props.initialData ? (this.props.initialData.sunday_start + this.props.initialData.sunday_end) : '  :   -   :  ',
       }      
     };
     this.handleChange = this.handleChange.bind(this)
@@ -111,22 +111,25 @@ class OrgSettingsHour extends React.Component {
   }
   componentWillReceiveProps(nextProps){
     if (nextProps.isRequested) {
-      let schedule = {};
+      let schedule = {'note':''};
       const currentHourData = this.state.hourData;
       for (let eachDay in currentHourData) {
         if(typeof currentHourData[eachDay] == 'string'){
           currentHourData[eachDay] = currentHourData[eachDay].split('-')
         }
-        if (currentHourData.hasOwnProperty(eachDay)) {      
+        if (currentHourData.hasOwnProperty(eachDay) && currentHourData[eachDay][0] && currentHourData[eachDay][1]) {      
           schedule[`${eachDay}_start`] = currentHourData[eachDay][0].trim();
           schedule[`${eachDay}_end`] = currentHourData[eachDay][1].trim();
-        } 
+        } else {
+          schedule[`${eachDay}_start`] = '';
+          schedule[`${eachDay}_end`] = '';
+        }
       }
       this.props.handleCollectHourData(schedule)
     }
   }
   render() {
-    const { classes } = this.props;    
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>

@@ -90,9 +90,10 @@ class OrgSettings extends React.Component {
         .catch(error => {
           console.log('Oops! Something went wrong.');
         });
+    } else {
+      // if user not sign in
+      this.setState({user:null})
     }
-    // if user not sign in, continue, then affiliation state is still null which lead to submitOrgData() at second condition
-
     // start collecting data
     this.setState({isInitial: false, isScheduleRequested: true, isInfoRequested: true})
     
@@ -118,51 +119,93 @@ class OrgSettings extends React.Component {
     }
   }
   submitOrgData(){
-    // if affiliation is true (means user is part of an org), 
-    if (this.state.affiliation) {
-      //get org id GET /organization, user can view and edit org detail POST /organization
-      
-     
-    } else {
-      // if affiliation is null (means user has account but not part of any org),
-      //user can suggest org detail POST /submissions
-      const apiDomain = config[process.env.NODE_ENV].odrs;
-      const url = `${apiDomain}api/submissions`;
-      const body = {
-        "submission": {
-          "resource_type": "Locations",
-          "parent_resource_id": 125,
-          "parent_resource_type": "Organization",
-          "client_user_id": 0,
-          content: {address: "Test Ave"}
-        }
-      }
-      const options = {
-        method: 'POST',
-        headers: {
-          Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
-          'Content-Type': 'application/json',
-          OneDegreeSource: 'asylumconnect',
-        },
-        body:  JSON.stringify(body)
-      };
-      fetch(url, options)
-        .then(response => {
-          if (response.status === 200) {
-            response.json().then((res) => {
-              console.log(res)
-            });
-          } else {
-            console.log('Unauthorized');
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          console.log('Oops! Something went wrong.');
-        });
-    }
-    
+    // if user signed in
+    const {user} = this.state;
     console.log(this.state)
+    const client_user_id = user ? user.id : 0
+    const {info, schedule, additional} = this.state;
+    
+    const content = {
+      "name": info.name,
+      "website": info.website,
+      "region": info.region,
+      "description": info.description,
+      "tags": [
+      ],
+      "properties": [
+        {
+            "name": "approval-asylumconnect",
+            "value": "false"
+        },
+        {
+            "name": "source-name",
+            "value": "asylumconnect"
+        },
+        {
+            "name": "community-asylum-seeker",
+            "value": "true"
+        },
+        {
+            "name": "community-lgbt",
+            "value": "true"
+        }
+      ],
+      "locations": [
+          {
+              "name": "Primary Location",
+              "address": info.address,
+              "unit": '',
+              "city": info.city,
+              "state": info.state,
+              "zip_code": info.zip_code,
+              "is_primary": true,
+              "phones": [
+                  {
+                      "digits": info.phone,
+                      "phone_type": "Office",
+                      "is_primary": true
+                  }
+              ],
+              "schedule": schedule
+          }
+      ],
+      "phones": [
+          {
+              "digits": info.phone,
+              "phone_type": "Office",
+              "is_primary": true
+          }
+      ]
+    }
+    const payload = {
+      "api_key": config[process.env.OD_API_ENV].odApiKey,
+      "submission": {
+        "resource_id": 0,
+        "resource_type": "Organization",
+        "client_user_id": client_user_id,
+        "content": JSON.stringify(content),
+        "submitter_type": "PublicForm"
+      }
+    }
+    console.log(payload)
+    console.log(content)
+    fetch(window.location.origin+'/api/submissions', 
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.status === 200) {
+        return response.json()
+      }      
+    }).then(data => {
+      console.log(data);
+    }).catch(error => {
+      console.log(error)
+    })
     console.log('let s fetch')
     this.setState({isInitial: true})
   } 
@@ -173,7 +216,7 @@ class OrgSettings extends React.Component {
     return (
       <div className={classes.root}>
         <Typography type='display3' className={classes.formType}>Your Organization</Typography>
-        <OrgSettingsInfo isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
+        <OrgSettingsInfo isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData} isSuggestion={true}/>
         <OrgSettingsHour isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
         <OrgSettingsAdditional isRequested={isAdditionalRequested}  handleCollectAdditionalData={this.collectAdditionaldata}/>
         <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import update from 'react-addons-update';
 
 import { withStyles } from 'material-ui/styles';
+import breakpoints from '../../theme/breakpoints';
 import Typography from 'material-ui/Typography';
 
 import OrgSettingsInfo from './OrgSettingsInfo';
@@ -12,6 +14,7 @@ import AsylumConnectButton from '../AsylumConnectButton';
 
 import fetch from 'node-fetch';
 import config from '../../config/config.js';
+import fetchJsonp from 'fetch-jsonp';
 
 const styles = theme => ({
   root: {
@@ -19,7 +22,16 @@ const styles = theme => ({
     padding: '0 5% 0 5%'
   },
   formType: {
-    margin: '10% 0 10% 0'
+    marginTop: '10%'
+  },
+  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+    root: {
+      width: 'auto',
+      padding: '0'
+    },
+    formType: {
+      margin: '2% 0 2% 0'
+    }
   },
   extraMargin: {
     margin: '20px 0 20px 0'
@@ -47,6 +59,7 @@ class OrgSettings extends React.Component {
       isScheduleRequested: false,
       isInfoRequested: false,
       isAdditionalRequested: false,
+      orgData: null,
       schedule: null,
       info: null,
       additional: null
@@ -59,38 +72,40 @@ class OrgSettings extends React.Component {
   // to-do: load initial Org settings data. Work with Jeremy implement making API call from Node
   componentDidMount(){    
     var jwt = localStorage.getItem("jwt");
-    const { affiliation } = this.props;
-    const apiDomain = config[process.env.NODE_ENV].odrs;
-    const url = `${apiDomain}organizations/${affiliation.fetchable_id}`;
-    console.log(url)
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      }
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          response.json().then((res) => {
-            console.log(res)
-          });
-        } else {
-          console.log('Unauthorized');
+    const { user } = this.props;
+    const apiDomain = config[process.env.OD_API_ENV].odrs;
+    const url = `${apiDomain}organizations/${user.affiliation.fetchable_id}.jsonp?`;
+    const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
+    
+    fetchJsonp(url + apiKeyParam)
+      .then(response => response.json())
+      .then(orgData => {
+        let info = {
+          name: orgData.name,
+          description: orgData.description,
+          website: orgData.website,
+          address: orgData.address,
+          phone: orgData.phone ? orgData.phone.digits : '(  )   -   ',
+        };
+        let schedule = orgData.locations? orgData.locations[0].schedule : '';
+        console.log(schedule)
+        let additional = {
+          resource: orgData.tag
         }
+        this.setState({ orgData, info, schedule, additional})
       })
-      .catch(error => {
+      .then(error => {
         console.log(error)
-        console.log('Oops! Something went wrong.');
-      });    
+      })
   }
+
   handleClick(){
     // start collecting data
     this.setState({isInitial: false, isScheduleRequested: true, isInfoRequested: true})    
   }
   collectHourData(schedule){
+    console.log("Schedule: ")
+    console.log(schedule)
     this.setState({schedule})    
   }
   collectInfoData(info){
@@ -103,60 +118,100 @@ class OrgSettings extends React.Component {
       this.setState({isInfoRequested:false})
     } else if (prevState.additional !== this.state.additional && prevState.isAdditionalRequested){  
       this.setState({isAdditionalRequested:false})
-    } else if(!this.state.isScheduleRequested && 
+    } else if(
+              !this.state.isScheduleRequested && 
               !this.state.isInfoRequested && 
               !this.state.isAdditionalRequested &&
               !this.state.isInitial) {
+                console.log("submiting")
       this.submitOrgData();
     }
   }
   // to-do: matching body content with required body from doc
   submitOrgData(){
-    const { schedule, info, additional } = this.state
-    const { affiliation } = this.props;
-    const apiDomain = config[process.env.NODE_ENV].odrs;
-    const url = `${apiDomain}/v1/organizations/${affiliation.id}`;
-    const body = {
+    const {orgData, info, schedule, additional} = this.state;
+    const {user} = this.props;
+    const content = {
+      "name": orgData.name,
       "website": info.website,
-      "description": info.about,
-      "updated_at": Date().now,
+      "region": info.region,
+      "description": info.description,
+      "tags": [
+      ],
+      "properties": [
+        {
+            "name": "approval-asylumconnect",
+            "value": "false"
+        },
+        {
+            "name": "source-name",
+            "value": "asylumconnect"
+        },
+        {
+            "name": "community-asylum-seeker",
+            "value": "true"
+        },
+        {
+            "name": "community-lgbt",
+            "value": "true"
+        }
+      ],
       "locations": [
-          {             
-            schedule
+          {
+              "name": "Primary Location",
+              "address": info.address,
+              "unit": orgData.locations[0].unit,
+              "city": info.city,
+              "state": info.state,
+              "zip_code": info.zip_code,
+              "is_primary": true,
+              "phones": [
+                  {
+                      "digits": info.phone,
+                      "phone_type": "Office",
+                      "is_primary": true
+                  }
+              ],
+              "schedule": schedule
           }
       ],
       "phones": [
           {
-              "id": 4,
-              "digits": info.phone
+              "digits": info.phone,
+              "phone_type": "Office",
+              "is_primary": true
           }
       ]
+    }        
+    const payload = {
+      "api_key": config[process.env.OD_API_ENV].odApiKey,
+      "submission": {
+        "resource_id": orgData.id,
+        "resource_type": "Organization",
+        "client_user_id": user.id, // Arbitrary
+        "content": JSON.stringify(content),
+        "submitter_type": "PublicForm"  // Arbitrary
+      }
     }
-    console.log(body)
-    // const options = {
-    //   method: 'PUT',
-    //   headers: {
-    //     Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
-    //     'Content-Type': 'application/json',
-    //     OneDegreeSource: 'asylumconnect',
-    //   },
-    //   body:  JSON.stringify(body)
-    // };
-    // fetch(url, options)
-    //   .then(response => {
-    //     if (response.status === 200) {
-    //       response.json().then((res) => {
-    //         console.log(res)
-    //       });
-    //     } else {
-    //       console.log('Unauthorized');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //     console.log('Oops! Something went wrong.');
-    //   });    
-    console.log(this.state)
+    console.log(content)
+    console.log(payload)
+    fetch(window.location.origin+'/api/submissions', 
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.status === 200) {
+        return response.json()
+      }      
+    }).then(data => {
+      console.log(data);
+    }).catch(error => {
+      console.log(error)
+    })
     console.log('let s fetch')
     this.setState({isInitial: true})
   }
@@ -164,15 +219,19 @@ class OrgSettings extends React.Component {
   // Suggestion does not have initial data to load
   // OrgSetting does have initial data to load
   render() {
-    console.log(this.props)
     const { classes } = this.props;
-    const { isInfoRequested, isScheduleRequested , isAdditionalRequested } = this.state;
+    const { isInfoRequested, isScheduleRequested , isAdditionalRequested, info, schedule, additional } = this.state;
     return (
       <div className={classes.root}>
-        <Typography type='display3' className={classes.formType}>Your Organization</Typography>
-        <OrgSettingsInfo isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
-        <OrgSettingsHour isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
-        <OrgSettingsAdditional isRequested={isAdditionalRequested}  handleCollectAdditionalData={this.collectAdditionaldata}/>
+        <Typography type="display3" className={classes.formType}>Your Organization</Typography>    
+        {info? (
+          <OrgSettingsInfo initialData={info} isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
+          ):(' ')
+        }
+        {schedule? (
+          <OrgSettingsHour initialData={schedule} isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
+          ):(' ')
+        }
         <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
         <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
         <div className={classes.settingsTypeFont}>
@@ -188,3 +247,9 @@ OrgSettings.propTypes = {
 };
 
 export default withStyles(styles)(OrgSettings);
+
+// 
+// {additional? (
+//   <OrgSettingsAdditional isRequested={isAdditionalRequested}  handleCollectAdditionalData={this.collectAdditionaldata}/>
+// ):(' ')
+// } 
