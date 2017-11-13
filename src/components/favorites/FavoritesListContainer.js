@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
+import breakpoints from '../../theme/breakpoints';
 import fetchUserLists from '../../helpers/fetchUserLists';
+import withWidth from '../withWidth';
 
 import FavoritesList from './FavoritesList';
 
@@ -82,6 +84,7 @@ class FavoritesListContainer extends React.Component {
     const currentList = this.state.lists.find(
       list => list.id == this.props.match.params.listId,
     );
+    const isMobile = this.props.width < breakpoints['sm'];
     return (
       <FavoritesList
         {...this.state}
@@ -106,4 +109,4 @@ FavoritesListContainer.propTypes = {
   session: PropTypes.string,
 };
 
-export default withRouter(FavoritesListContainer);
+export default withRouter(withWidth(FavoritesListContainer));
