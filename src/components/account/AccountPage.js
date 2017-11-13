@@ -57,7 +57,7 @@ class AccountPage extends React.Component {
   }
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew} = this.props;
+    const {handleMessageNew, handleLogout} = this.props;
     
     if (!jwt) {
       handleMessageNew('You need to log in to view your account.')
@@ -80,6 +80,7 @@ class AccountPage extends React.Component {
           });
         } else {
           this.setState({ isAuthenticated: false })
+          handleLogout()
           handleMessageNew('Sorry, please try logging in again');
         }
       })

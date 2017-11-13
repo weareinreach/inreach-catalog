@@ -116,6 +116,7 @@ class AsylumConnectCatalog extends React.Component {
             />
           </div>
         )}
+        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup'].includes(dialog)) || !isMobile ?
         <Router>
           <div className="content" >
             <Switch>
@@ -127,12 +128,13 @@ class AsylumConnectCatalog extends React.Component {
               <Redirect from="/search" to="/"/>
               <Redirect from="/resource" to="/"/>
               <Route render={() => (
-                <PageContainer handleMessageNew={handleMessageNew} />
+                <PageContainer handleMessageNew={handleMessageNew} handleLogOut={handleLogOut} />
                 )}
               />
             </Switch>
           </div>
         </Router>
+        : null }
         { isMobile ? null : <Footer /> }
         <Message
           handleMessageClose={this.handleMessageClose}

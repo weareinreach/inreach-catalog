@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  BrowserRouter as Router,
+  Redirect
+} from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
@@ -37,14 +41,24 @@ class NavMobile extends React.Component {
     super(props)
     this.state = {
       value: '',
+      redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event, value) {
-    const { handleRequestOpen } = this.props;
+    const { handleRequestOpen, session } = this.props;
     this.setState({ value });
-    if (value === 3)
-      handleRequestOpen('login');
+    if (value === 3) {
+      if(session) {
+        this.setState({
+          redirect: '/account/1'
+        });
+        handleRequestOpen('none');
+      } else {
+        handleRequestOpen('login');
+      }
+    }
     else if (value === 4)
       handleRequestOpen('privacy');
     else
@@ -66,6 +80,7 @@ class NavMobile extends React.Component {
     const { value } = this.state;
     return (
       <div className={classes.BottomNavBar}>
+        { this.state.redirect !== false ? <Router><Redirect to={this.state.redirect} push={true} /></Router> : null }
         <BottomNavigation
           value={value}
           onChange={this.handleChange}
