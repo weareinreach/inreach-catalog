@@ -9,9 +9,9 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 import { withStyles } from 'material-ui/styles';
-import FavoritesLink from './FavoritesLink';
 import RatingControl from './RatingControl';
 import ReviewCount from './ReviewCount';
+import SaveToFavoritesButton from './SaveToFavoritesBUtton';
 import Badge from './Badge';
 
 const styles = (theme) => ({
@@ -51,8 +51,26 @@ class ResourceListItem extends React.Component {
   }
 
   render() {
-    const { format, resource, classes } = this.props;
-    const { rightSide, ratingSpacing, contentSpacing, lineSpacing, dividerSpacing, moreInfo, orgName }  = classes;
+    const {
+      format,
+      resource,
+      classes,
+      handleListAddFavorite,
+      handleListRemoveFavorite,
+      handleListNew,
+      lists,
+      session,
+      user
+    } = this.props;
+    const {
+      rightSide,
+      ratingSpacing,
+      contentSpacing,
+      lineSpacing,
+      dividerSpacing,
+      moreInfo,
+      orgName
+    } = classes;
     //this.props.fetchSearchResults();
     return (
       <div>
@@ -64,8 +82,18 @@ class ResourceListItem extends React.Component {
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
               {format === 'search' ? 
-              <Grid item xs={3} >
-                <FavoritesLink>save to favorites</FavoritesLink> 
+              <Grid item xs={3} alignItems="flex-start" >
+                {session && (
+                  <SaveToFavoritesButton
+                    handleListAddFavorite={handleListAddFavorite}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleListNew={handleListNew}
+                    lists={lists}
+                    resourceId={resource.id}
+                    session={session}
+                    user={user}
+                  />
+                )}
               </Grid> 
               : null }
             </Grid>
@@ -122,11 +150,19 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
-  resource: PropTypes.object.isRequired
+  handleListAddFavorite: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
+  handleListNew: PropTypes.func.isRequired,
+  resource: PropTypes.object.isRequired,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 ResourceListItem.defaultProps = {
   format: 'search',
+  session: null,
+  user: null,
   /*resource: {"id":13007,"title":"Enroll in a family cooking class","description":"Richmond District Neighborhood Center offers a free family cooking series, in partnership with Cooking Matters. Classes are for parents with youth (elementary - high school age students) and teaches families how to prepare fast, delicious and healthy meals on a budget. In each class students cook and eat a healthy meal and go home with a bag of fresh produce and new recipes to make at home.  ","slug":"enroll-in-a-family-cooking-class-richmond-district-neighborhood-san-francisco-ca","is_appointment":false,"available_on":null,"expires_on":null,"organization":{"id":79,"name":"Richmond District Neighborhood Center","slug":"richmond-district-neighborhood-center","opportunity_count":10,"resource_type":"Organization", "description": "Develops and provides youth, adult and family programs to meet important community needs.", rating: 0},"resource_type":"Opportunity","tags":["Food","Nutrition"],"categories":[],"areas":[],"schedule":{"monday_start":"","monday_end":"","tuesday_start":"","tuesday_end":"","wednesday_start":"","wednesday_end":"","thursday_start":"","thursday_end":"","friday_start":"","friday_end":"","saturday_start":"","saturday_end":"","sunday_start":"","sunday_end":"","notes":"","translations":{}},"properties":{"action-signup-url":"http://rdnc.org/neighborhood-services/family-activities/","translations":{},"community-parents":"true"},"locations":[{"id":142,"name":"Neighborhood Center","address":"741 30th Avenue","unit":"","city":"San Francisco","state":"CA","zip_code":"94121","lat":37.7753,"long":-122.49,"is_primary":true,"phones":[{"id":307,"digits":"415-751-6600","phone_type":"Office","is_primary":true}],"schedule":{"monday_start":"","monday_end":"","tuesday_start":"","tuesday_end":"","wednesday_start":"","wednesday_end":"","thursday_start":"","thursday_end":"","friday_start":"","friday_end":"","saturday_start":"","saturday_end":"","sunday_start":"","sunday_end":"","notes":"","translations":{}}}],"phones":[{"id":30598,"digits":"415-750-8554","phone_type":null,"is_primary":false}],"emails":[],"attachments":[],"images":[],"access_instructions":[{"id":24523,"access_value":"Visit the link below for more information.","access_type":"other","instructions":null,"enable_direct_access":false,"locations":[],"emails":[]}],"rating":0,"has_pending_submission":false,"translations":{}}*/
 };
 
