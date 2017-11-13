@@ -7,6 +7,8 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
+import { StickyContainer, Sticky } from 'react-sticky';
+
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
@@ -15,45 +17,37 @@ import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
+import Resource from './Resource';
 
 const styles = (theme) => ({
   searchArea: {
     padding: '2rem',
   },
   container: {
-    minHeight: '500px'
+    minHeight: '500px',
+    paddingTop: '60px',
+    paddingBottom: '60px'
   }
 });
 
-const Resource = () => (
-  <div>
-    <h2>Resource</h2>
-  </div>
-);
-const GoogleMap =() => (
-  <div>
-    <h2>Google Map</h2>
-  </div>
-);
-
 class MapContainer extends React.Component {
-  constructor(props, context) { console.log(props);
+  constructor(props, context) {
     super(props, context)
     //this.state = { dialog: 'none' };
     //
-    let { nearLatLng, selectedResources } = this.parseParams(props.match.params);
+    let { nearLatLng, selectedResourceTypes } = this.parseParams(props.match.params);
     this.state = {
       nearAddress: '',
       nearLatLng,
       mapCenter: nearLatLng,
       searchStatus: null,
       errorMessage: false,
-      selectedResources,
+      selectedResourceTypes,
       searching: false,
       searchResults: [],
-      searchResultsIndex: []
+      searchResultsIndex: [],
+      searchResultSlugs: []
     }
-    console.log(this.props);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
@@ -107,18 +101,18 @@ class MapContainer extends React.Component {
   handleResourceTypeSelect(event, checked) { 
     var index;
     const target = event.target;
-    var selectedResources = this.state.selectedResources.slice();
+    var selectedResourceTypes = this.state.selectedResourceTypes.slice();
     
-    if(checked && selectedResources.indexOf(target.value) < 0) {
-      selectedResources.push(target.value)
+    if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
+      selectedResourceTypes.push(target.value)
       this.setState({
-        selectedResources: selectedResources,
+        selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
       });
-    } else if(!checked && (index = selectedResources.indexOf(target.value)) >= 0) {
-      selectedResources.splice(index, 1)
+    } else if(!checked && (index = selectedResourceTypes.indexOf(target.value)) >= 0) {
+      selectedResourceTypes.splice(index, 1)
       this.setState({
-        selectedResources: selectedResources,
+        selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
       });
     }
@@ -136,7 +130,7 @@ class MapContainer extends React.Component {
       return;
     } 
 
-    if(this.state.selectedResources.length == 0) {
+    if(this.state.selectedResourceTypes.length == 0) {
       /*this.setState({
         searchStatus: "error",
         errorMessage: "Please select at least one resource type from the dropdown"
@@ -159,7 +153,7 @@ class MapContainer extends React.Component {
     });
     this.queryOneDegree = new OneDegreeResourceQuery();
     this.queryOneDegree
-      .addTags(this.state.selectedResources)
+      .addTags(this.state.selectedResourceTypes)
       .setLocation(this.state.nearLatLng)
       .fetchOrganizations({
         callback: this.processSearchResults
@@ -174,23 +168,25 @@ class MapContainer extends React.Component {
   }
 
   processSearchResults(data) {
-    var newOrgIds = [], newOrgs = [];
+    var newOrgIds = [], newOrgs = [], newOrgSlugs =[];
     data.organizations.forEach((organization, index) => {
       if(this.state.searchResultsIndex.indexOf(organization.id) === -1) {
         newOrgIds.push(organization.id);
+        newOrgSlugs.push(organization.slug);
         newOrgs.push(organization);
       }
     });
 
     this.setState({
       searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
+      searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
       searchResults: this.state.searchResults.concat(newOrgs),
       searching: false
     });
   }
 
   parseParams(params) {
-    var nearLatLng = null, selectedResources = [];
+    var nearLatLng = null, selectedResourceTypes = [];
     if(params.near) {
       var latLng = decodeURIComponent(params.near).split(',')
       nearLatLng = {
@@ -200,17 +196,17 @@ class MapContainer extends React.Component {
     }
 
     if(params.for) {
-      selectedResources = decodeURIComponent(params.for).split(',');
+      selectedResourceTypes = decodeURIComponent(params.for).split(',');
     }
 
-    return {selectedResources, nearLatLng};
+    return {selectedResourceTypes, nearLatLng};
   }
 
   reparseURL(ev) {
-    let { nearLatLng, selectedResources } = this.parseParams(this.props.match.params);
+    let { nearLatLng, selectedResourceTypes } = this.parseParams(this.props.match.params);
     this.setState({
       nearLatLng,
-      selectedResources
+      selectedResourceTypes
     });
   }
 
@@ -232,7 +228,9 @@ class MapContainer extends React.Component {
             handleSearchButtonClick={this.handleSearchButtonClick}
             handleResourceTypeSelect={this.handleResourceTypeSelect}
             />} />
-          <Route path="/resource/:id" render={ props => <Resource />} />
+          <Route path="/resource/:id" render={ props => <Resource {...props} resource={(() => {
+            let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
+            return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
         </Switch>
     );
   }
@@ -249,32 +247,44 @@ class MapContainer extends React.Component {
     if(this.state.searchResults) {
       mapProps.resources = this.state.searchResults;
     }
-
     const { Routes } = this;
+    const align = this.props.match.path == '/' ? 'center' : 'flex-start' ; console.log(align);
 
     return (
       <Router>
       <div className="container--map"> 
         {/* TODO: Adjust this to the Material UI Tab Components for Mobile */}
         <Grid container spacing={0}>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={8}>
             <div className="container--search">
-              <Grid container alignItems='center' justify='center' spacing={0} className={this.props.classes.container}>
+              <Grid container alignItems={align} justify='center' spacing={0} className={this.props.classes.container}>
                 <Grid item md={10} lg={9} sm={12}>
                   <Routes />
                 </Grid>
               </Grid>
             </div>
           </Grid>
-          <Grid item xs={12} md={5} >
-            {/* Map Component */}
-            <AsylumConnectMap {...this.props} 
-              mapProps={mapProps} classes={null}
-              loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `100%` }} />}
-              mapElement={<div style={{ height: `100%` }} />} 
-            />
+          <StickyContainer style={{ /* if the map width changes these must be updated to follow suit */
+            flexBasis: "33.3333%",
+            flexGrow: "0",
+            flexShrink: "0",
+            maxWidth:"33.3333%"
+          }}>
+          <Grid item xs={12} md={4}>
+            <Sticky>
+              {(props) => (
+                <div style={props.style}>
+                  <AsylumConnectMap {...this.props} 
+                    mapProps={mapProps} classes={null}
+                    loadingElement={<div style={{ width:window.innerWidth/3+"px", height: window.innerHeight+"px" }} />}
+                    containerElement={<div style={{ width:window.innerWidth/3+"px",height: window.innerHeight+"px" }} />}
+                    mapElement={<div style={{ width:window.innerWidth/3+"px",height: window.innerHeight+"px" }} />} 
+                  />
+                </div>
+              )}
+            </Sticky>          
           </Grid>
+          </StickyContainer> 
         </Grid>
       </div>
       </Router>
