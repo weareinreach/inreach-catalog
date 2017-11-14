@@ -13,7 +13,7 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
-
+import ListResourcesContainer from './ListResourcesContainer';
 import ListNewDialog from './ListNewDialog';
 import ListShareDialog from './ListShareDialog';
 
@@ -59,6 +59,7 @@ const FavoritesList = ({
   handleMenuClose,
   handleMessageNew,
   open,
+  resources,
   session,
   user,
 }) => (
@@ -107,6 +108,9 @@ const FavoritesList = ({
       </Grid>
       <Divider />
     </Grid>
+
+    <ListResourcesContainer resources={resources} />
+
     <Grid
       container
       className={classes.footer}
@@ -194,6 +198,7 @@ FavoritesList.propTypes = {
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
   user: PropTypes.number,
 };

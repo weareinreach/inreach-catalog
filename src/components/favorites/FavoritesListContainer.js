@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
 import fetchUserLists from '../../helpers/fetchUserLists';
+import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
 import FavoritesList from './FavoritesList';
@@ -17,9 +18,11 @@ class FavoritesListContainer extends React.Component {
       dialog: 'none',
       lists: [],
       open: false,
+      resources: [],
     };
 
     this.fetchLists = this.fetchLists.bind(this);
+    this.fetchResources = this.fetchResources.bind(this);
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleListSelect = this.handleListSelect.bind(this);
@@ -32,9 +35,8 @@ class FavoritesListContainer extends React.Component {
     const {session} = this.props;
     if (session) {
       this.fetchLists(session);
-    } else {
-      console.log('no session');
     }
+    this.fetchResources([1369]);
   }
 
   fetchLists(session) {
@@ -52,6 +54,15 @@ class FavoritesListContainer extends React.Component {
       .catch(response => {
         console.warn(response);
       });
+  }
+
+  fetchResources(resources) {
+    this.queryOneDegree = new OneDegreeResourceQuery();
+    this.queryOneDegree
+      .setIds(resources)
+      .fetch({type: 'organizations', callback: data => {
+        this.setState({ resources: data.organizations });
+      }});
   }
 
   handleDialogOpen(dialog) {
