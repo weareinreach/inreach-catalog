@@ -17,9 +17,12 @@ import AsylumConnectButton from './AsylumConnectButton';
 import ACBadge from './Badge';
 import FavoritesLink from './FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
+
 import OneDegreeResourceClient from '../helpers/OneDegreeResourceClient';
 import resourceTypes from '../helpers/ResourceTypes';
 import propertyMap from '../helpers/OneDegreePropertyMap';
+import { scheduleParser, addressParser } from '../helpers/Parser';
+
 import {bodyLink} from '../theme/sharedClasses';
 
 let resourceIndex = resourceTypes.getTagIndex();
@@ -52,9 +55,11 @@ const styles = (theme) => ({
   contentSpacing: {
     margin: "1.5rem 0"
   },
-  lineSpacing: {
-    lineHeight: "1.4rem",
+  bottomSpacing: {
     marginBottom: "0.9rem"
+  },
+  lineSpacing: {
+    lineHeight: "1.4rem"
   },
   sectionSpacing: {
     marginBottom: "1.7rem"
@@ -84,13 +89,13 @@ const Communities = (props) => (
   <Grid item xs={12} className={props.classes.sectionSpacing}>
     <Grid container spacing={0}>
       <Grid item xs={12}>
-        <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.lineSpacing} >
+        <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
           Who this resource serves
         </Typography>
       </Grid>
       <Grid item xs={12}>
       {props.list && props.list.length ? 
-        <Typography type="body2" className={props.classes.lineSpacing} > 
+        <Typography type="body2" className={props.classes.bottomSpacing} > 
           { props.list.map((item) => {
                 if(typeof propertyMap['community'][item.slug] !== 'undefined') {
                   return propertyMap['community'][item.slug];
@@ -109,7 +114,7 @@ const Languages = (props) => (
   <Grid item xs={12} className={props.classes.sectionSpacing}>
     <Grid container spacing={0}>
       <Grid item xs={12}>
-        <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.lineSpacing} >
+        <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
           Non-English Services
         </Typography>
       </Grid>
@@ -124,7 +129,7 @@ const Languages = (props) => (
                 text = langs.where('1', property.code).name;
               }
               return (
-                <Typography key={text} type="body2" className={props.classes.lineSpacing} >
+                <Typography key={text} type="body2" className={props.classes.bottomSpacing} >
                   {text}
                 </Typography>
               )
@@ -143,7 +148,7 @@ const Services = (props) => {
      <Grid item xs={12} className={props.classes.sectionSpacing}>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.lineSpacing} >
+          <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
             Services
           </Typography>
         </Grid>
@@ -180,7 +185,7 @@ const About = (props) => (
   <div>
     <Grid item xs={12} className={props.classes.contentSpacing}>
       <Grid container spacing={0}>
-        <Typography type="body2" className={props.classes.lineSpacing}>
+        <Typography type="body2" className={props.classes.bottomSpacing+' '+props.classes.lineSpacing}>
           {props.resource.description}
         </Typography>
       </Grid>
@@ -192,7 +197,7 @@ const About = (props) => (
     {props.resource.opportunities && props.resource.opportunities.length ? <Services list={props.resource.opportunities} classes={props.classes} /> : null}
     {props.languages && props.languages.length ? <Languages list={props.languages} classes={props.classes} /> : null}
     {/*<Grid item xs={12}>
-      <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.lineSpacing} >
+      <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
         Additional Information
       </Typography>
     </Grid>*/}
@@ -207,25 +212,46 @@ const Loading = (props) => (
   </Grid>
 );
 
+const Phone = (props) => {
+  const { phone, classes } = props;
+  let icon, phoneType = (phone.phone_type ? phone.phone_type.toLowerCase() : null);
+  switch(phoneType) {
+    case "fax": 
+      icon = "fa-fax";
+      break;
+    default:
+      icon = "fa-phone"
+  }
+  return (
+    <a href={"tel:"+phone.digits} className={classes.bodyLink+' '+classes.listLink}>
+      <i className={"fa "+icon} aria-hidden="true"></i>&nbsp;
+      {phone.digits}
+    </a>
+  )
+}
+
 class Resource extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.odClient = new OneDegreeResourceClient();
     this.state = {
       tab: 'about',
-      loading: true,
-      oppLoading: true
+      orgLoading: true,
+      oppLoading: true,
+      reviewLoading: true,
+      reviewList: []
     };
 
     this.handleTabClick = this.handleTabClick.bind(this);
     this.handleResourceRequest = this.handleResourceRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
+    this.handleReviewRequest = this.handleReviewRequest.bind(this);
   }
 
   componentDidMount() {
     if(this.props.resource == null) {
       this.setState({
-        loading: true,
+        orgLoading: true,
         oppLoading: true
       });
       this.odClient.getOrganization({
@@ -233,11 +259,11 @@ class Resource extends React.Component {
         callback: this.handleResourceRequest
       });
     } else {
+      this.resource = this.props.resource
       this.setState({
-        loading: false,
+        orgLoading: false,
         oppLoading: true
       });
-      this.resource = this.props.resource
       this.odClient.getOpportunities({
         id: this.resource.id,
         per_page: this.resource.opportunity_count,
@@ -249,14 +275,19 @@ class Resource extends React.Component {
   componentWillUnmount() {
   }
 
+  handleReviewRequest(response) {
+    //update state with reviews
+  }
+
   handleResourceRequest(response) {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
       this.resource = response;
-      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities)
+      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities);
+      this.getOpportunityReviews();
       this.setState({
-        loading: false,
+        orgLoading: false,
         oppLoading: false
       });
     }
@@ -267,10 +298,17 @@ class Resource extends React.Component {
       //redirect
     } else {
       this.resource.opportunities = response.opportunities;
-      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities)
+      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities);
+      this.getOpportunityReviews();
       this.setState({
         oppLoading: false
       })
+    }
+  }
+
+  getOpportunityReviews() {
+    if(this.resource.opportunity_comments.length) {
+      //loop through opportunites and request comments
     }
   }
 
@@ -298,7 +336,7 @@ class Resource extends React.Component {
                       : null);
     return (
       <div>
-      { this.state.loading ?
+      { this.state.orgLoading ?
         <Loading />
       :
       <div>
@@ -338,7 +376,7 @@ class Resource extends React.Component {
             </Grid>
           </Grid>
           <Grid item xs={12} >
-            <Typography type="body1" className={classes.moreInfo+' '+classes.lineSpacing} >
+            <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
               {resource.website} {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
             </Typography>
           </Grid>
@@ -349,11 +387,11 @@ class Resource extends React.Component {
             <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
           </Grid>
           <Grid item xs={12}>
-            <Typography type="subheading" className={classes.boldFont+' '+classes.lineSpacing} >
+            <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
               How to visit this resource
             </Typography>
           </Grid>
-           <Grid item xs={12}>
+           <Grid item xs={12} className={classes.dividerSpacing}>
             <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{resource.website}</a> : null}</Typography>
             {resource.emails && resource.emails.length ? 
               <Typography type="body2" className={classes.lineSpacing} >
@@ -370,43 +408,52 @@ class Resource extends React.Component {
                   </a>
               )})}
             </Typography> : null}
+            {resource.phones && resource.phones.length ? 
             <Typography type="body2" className={classes.lineSpacing} >
-              <strong>Phone number(s): </strong>{resource.phones.map((phone) => {
-                  let icon, phoneType = (phone.phone_type ? phone.phone_type.toLowerCase() : null);
-                  switch(phoneType) {
-                    case "fax": 
-                      icon = "fa-fax";
-                      break;
-                    default:
-                      icon = "fa-phone"
-                  }
-                  return (
-                  <a href={"tel:"+phone.digits} key={phone.id} className={classes.bodyLink+' '+classes.listLink}>
-                    <i className={"fa "+icon} aria-hidden="true"></i>&nbsp;
-                    {phone.digits}
-                  </a>
-              )})}
-            </Typography>
-            <Typography type="body2" className={classes.lineSpacing} ><strong>Address: </strong>{resource.website}</Typography>
-            <Typography type="body2" className={classes.lineSpacing} ><strong>Hours: </strong>{resource.website}</Typography>
-            <Typography type="body2" className={classes.lineSpacing} ><strong>Public transportation: </strong>{resource.website}</Typography>
+              <strong className={classes.boldFont}>Phone number(s): </strong>{resource.phones.map((phone) => (
+                <Phone key={phone.id} phone={phone} classes={classes} />
+              )
+            )}
+            </Typography> : null }
+            {resource.locations && resource.locations.length ? 
+              resource.locations.map((location) => (
+                <Typography key={location.id} type="body2" className={classes.lineSpacing} >
+                  <strong className={classes.boldFont}>Location: </strong>
+                  {addressParser({address: location})}
+                </Typography>
+              ))
+            : null}
+            {resource.schedule && Object.keys(resource.schedule).length > 1 ?
+              <Typography type="body2" className={classes.lineSpacing} >
+                {scheduleParser({schedule: resource.schedule})}
+              </Typography>
+            : null}
+            {/*<Typography type="body2" className={classes.lineSpacing} >
+              <strong className={classes.boldFont}>Public transportation: </strong>
+            </Typography>*/}
           </Grid>
+          {session ? 
+          <div>
           <Grid item xs={12}>
             <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
           </Grid>
-          {session ? 
+          
           <Grid item xs={12}>
             <div>
             </div>
           </Grid>
+          </div>
           : null }
           <Grid item xs={12}>
             <Divider className={classes.dividerSpacing} />
           </Grid>
           <Grid item xs={12}>
-            <Typography type="subheading" className={classes.boldFont+' '+classes.lineSpacing} >
+            <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
               Reviews
             </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            
           </Grid>
         </Grid>
       </div>
