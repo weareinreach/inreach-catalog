@@ -9,3 +9,6 @@ export const searchInput = theme => ({
   height: '3.4rem',
   color: theme.palette.common.lightBlack
 });
+export const bodyLink = theme => ({
+  color: theme.palette.primary[500]
+});

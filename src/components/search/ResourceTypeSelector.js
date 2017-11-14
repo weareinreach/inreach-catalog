@@ -13,42 +13,9 @@ import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import AsylumConnectIndicator from '../AsylumConnectIndicator';
 import ACBadge from '../Badge';
 import { searchInput } from '../../theme/sharedClasses';
+import ResourceTypes from '../../helpers/ResourceTypes';
 
-const resourceTypes = [
-  {category: 'Medical', type: 'medical', children: [
-    {title: 'Medical clinics', value: 'Health'}, //confirm
-    {title: 'Women\'s health', value: 'Pregnancy'}, //refine
-    {title: 'Sexual health', value: 'Sexual health'},
-    {title: 'Trans health', value: 'Trans health'},
-    {title: 'Dental care', value: 'Dental'}
-  ]},
-  {category: 'Legal', type: 'legal', children: [
-    {title: 'Legal aid', value: 'Legal assistance'}, //refine
-    {title: 'Documentation', value: 'Documentation'} //MISSING
-  ]},
-  {category: 'Housing', type: 'housing', value: 'Housing'}, //refine
-  {category: 'Food', type: 'food', value: 'Food'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', value: 'Homeless support'}, //refine
-  {category: 'Computers and Internet', type: 'computers', value: 'Computer labs'},
-  {category: 'Education and Employment', type: 'educationEmployment', children: [
-    {title: 'English classes', value: 'Language resources'}, //refine
-    {title: 'Career counseling', value: 'Job training & preparation'}, //refine
-    {title: 'Libraries', value: 'Libraries'},
-    {title: 'Scholarships', value: 'Scholarships'},
-  ]},
-  {category: 'Community support', type: 'communitySupport', children: [
-    {title: 'Community centers', value: 'Community centers'},
-    {title: 'LGBTQ centers', value: 'LGBTQ centers'},
-    {title: 'Cultural centers', value: 'Cultural centers'},
-  ]},
-  {category: 'Mental health', type: 'mentalHealth', children: [
-    {title: 'Support Groups', value: 'Support groups'}, //refine
-    {title: 'Private Counseling', value: 'Counseling & therapy'},
-    {title: 'Psychiatry', value: 'Psychiatry'},
-  ]},
-  {category: 'Mail services', type: 'mail', value: 'Mail'},
-  {category: 'Sports and Entertainment', type: 'sportsEntertainment', value: 'Recreational activities'},
-];
+const resourceTypes = ResourceTypes.groupResourceTypes()
 
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {
@@ -111,7 +78,7 @@ const FilterCollection = (props) => (
       </span>
       {typeof props.value !== 'undefined' ? 
       <span className={props.classes.sectionTitle}>
-        <AsylumConnectCheckbox label='' value={props.value} onChange={props.onChange} checked={(props.selectedResources.indexOf(props.value) >= 0)} />
+        <AsylumConnectCheckbox label='' value={props.value} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(props.value) >= 0)} />
       </span>
       : null}
     </Typography>
@@ -120,7 +87,7 @@ const FilterCollection = (props) => (
       <Grid container spacing={0} className={props.classes.subfilterSpacing} >
       {props.children.map((filter, i) => (
         <Grid item key={i} xs={4}>
-          <AsylumConnectCheckbox label={filter.title} value={filter.value} onChange={props.onChange} checked={(props.selectedResources.indexOf(filter.value) >= 0)} />
+          <AsylumConnectCheckbox label={filter.title} value={filter.value} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(filter.value) >= 0)} />
         </Grid>
       ))}
       </Grid>
@@ -176,7 +143,7 @@ class ResourceTypeSelector extends React.Component {
       dividerSpacing,
       relative
     } = this.props.classes;
-    const { onChange, selectedResources }= this.props;
+    const { onChange, selectedResourceTypes }= this.props;
     const containerClasses = (this.state.open ? toggledResource + ' ' : '') + searchInput;
 
     return (
@@ -186,15 +153,15 @@ class ResourceTypeSelector extends React.Component {
             <span>
               Resource Type
             </span>
-            {this.props.selectedResources && this.props.selectedResources.length ? 
-              <AsylumConnectIndicator>{this.props.selectedResources.length}</AsylumConnectIndicator> : null}
+            {this.props.selectedResourceTypes && this.props.selectedResourceTypes.length ? 
+              <AsylumConnectIndicator>{this.props.selectedResourceTypes.length}</AsylumConnectIndicator> : null}
             {this.state.open ? <KeyboardArrowUpIcon className={arrow} /> : <KeyboardArrowDownIcon className={arrow} />}
           </div>
         </div>
         {this.state.open ? 
           <Paper className={resourceList+" resource-type-selector"} style={{width: this.props.containerWidth+'px'}}>
             {resourceTypes.map((filter, i) => (
-                <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResources={selectedResources} {...filter} />
+                <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
               )
             )}
           </Paper>
