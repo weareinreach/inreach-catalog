@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ResourceListItem from '../ResourceListItem';
+
 const ListResources = ({ resources }) => (
-  <p> List Resources </p>
+  <div>
+    {resources.map(resource =>
+      <ResourceListItem
+        key={resource.id}
+        resource={resource}
+      />
+    )}
+  </div>
 );
 
 ListResources.propTypes = {

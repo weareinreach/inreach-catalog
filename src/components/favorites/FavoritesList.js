@@ -20,7 +20,7 @@ import ListShareDialog from './ListShareDialog';
 const styles = theme => ({
   container: {
     maxWidth: '720px',
-    margin: '3rem 0 1rem 0',
+    margin: '3rem 0 5rem 0',
   },
   dialogBody: {
     minWidth: '600px',
@@ -63,7 +63,7 @@ const FavoritesList = ({
   session,
   user,
 }) => (
-  <Grid container direction="column" alignItems="center">
+  <Grid container className={classes.marginBottom} direction="column" alignItems="center">
     <Typography className={classes.marginTop} type="display1">
       Favorites
     </Typography>
@@ -106,10 +106,8 @@ const FavoritesList = ({
           </AsylumConnectButton>
         </div>
       </Grid>
-      <Divider />
+      <ListResourcesContainer resources={resources} />
     </Grid>
-
-    <ListResourcesContainer resources={resources} />
 
     <Grid
       container
