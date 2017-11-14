@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 import { withStyles } from 'material-ui/styles';
-import SaveToFavoritesButton from './SaveToFavoritesBUtton';
+import SaveToFavoritesButton from './SaveToFavoritesButton';
 import FavoritesLink from './FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
 
