@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Truncate from 'react-truncate';
 
+import Fa from 'react-fontawesome';
 import {
   Link
 } from 'react-router-dom';
@@ -66,9 +67,11 @@ class ResourceListItem extends React.Component {
       format,
       resource,
       classes,
+      handleRemoveFavorite,
       handleListAddFavorite,
       handleListRemoveFavorite,
       handleListNew,
+      isOnFavoritesList,
       lists,
       session,
       user
@@ -92,11 +95,10 @@ class ResourceListItem extends React.Component {
         <Grid container spacing={0}>
           <Grid item xs={12} >
             <Grid container alignItems="center" justify="space-between" spacing={0}>
-              <Grid item xs md lg xl >
+              <Grid item xs={9} md lg xl >
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
-              {format === 'search' ? 
-              <Grid item xs={3} container alignItems="flex-start" >
+              <Grid item xs={3} container alignItems="flex-start" justify="flex-end">
                 {session && (
                   <SaveToFavoritesButton
                     handleListAddFavorite={handleListAddFavorite}
@@ -108,8 +110,10 @@ class ResourceListItem extends React.Component {
                     user={user}
                   />
                 )}
-              </Grid> 
-              : null }
+                {isOnFavoritesList && (
+                  <Fa name="times" onClick={() => handleRemoveFavorite(resource.id)}/>
+                )}
+              </Grid>
             </Grid>
           </Grid>
           {format == 'search' ? 
@@ -180,9 +184,11 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
+  handleRemoveFavorite: PropTypes.func,
   handleListAddFavorite: PropTypes.func,
   handleListNew: PropTypes.func,
   handleListRemoveFavorite: PropTypes.func,
+  isOnFavoritesList: PropTypes.bool,
   resource: PropTypes.object.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object),
   session: PropTypes.string,
@@ -191,9 +197,11 @@ ResourceListItem.propTypes = {
 
 ResourceListItem.defaultProps = {
   format: 'search',
+  handleRemoveFavorite: null,
   handleListAddFavorite: null,
   handleListNew: null,
   handleListRemoveFavorite: null,
+  isOnFavoritesList: false,
   lists: [],
   session: null,
   user: null,
