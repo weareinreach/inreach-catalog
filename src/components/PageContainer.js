@@ -30,7 +30,6 @@ class PageContainer extends React.Component {
     const { handleMessageNew, session, user } = this.props;
     return (
       <div className="page-container"> 
-        <Router>
           <Switch>
             <Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>
             <Route path="/favorites/:id/new" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
@@ -41,7 +40,6 @@ class PageContainer extends React.Component {
             <Route path="/account/:id" component={AccountPage}/>
             <Redirect from="/account" to="/" />
           </Switch>
-        </Router>
       </div>
     );
   }

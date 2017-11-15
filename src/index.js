@@ -1,5 +1,9 @@
 import 'normalize.css';
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
 import {render} from 'react-dom';
 import AsylumConnectCatalog from './components/AsylumConnectCatalog';
 import asylumConnectCatalogTheme from './theme/asylumConnectCatalogTheme';
@@ -24,6 +28,8 @@ const rootElement = document.getElementById('main');
 
 render(
   <MuiThemeProvider theme={asylumConnectCatalogTheme}>
-    <AsylumConnectCatalog />
+    <Router>
+      <Route path="/" render={(props) => (<AsylumConnectCatalog location={props.location} history={props.history} />)} />
+    </Router>
   </MuiThemeProvider>,
   rootElement);

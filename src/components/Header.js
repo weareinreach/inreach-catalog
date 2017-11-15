@@ -13,7 +13,10 @@ const Header = ({
   handleLogOut,
   session,
   user,
-  width
+  width,
+  location,
+  history,
+  match
 }) => {
   const isMobile = width < breakpoints['sm'];
   const isTablet = width < breakpoints['md'];
@@ -23,6 +26,9 @@ const Header = ({
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
         session={session}
+        location={location}
+        history={history}
+        match={match}
       />
     );
   } else if (isTablet) {

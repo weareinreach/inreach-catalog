@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
@@ -234,7 +233,6 @@ class MapContainer extends React.Component {
       </div>
     );
     return (
-      <Router>
         <div className={"container--map "+this.props.classes.containerMap}> 
           <Grid container spacing={0}>
             <Grid item xs={12} sm={8}>
@@ -279,7 +277,6 @@ class MapContainer extends React.Component {
             </StickyContainer>}
           </Grid> 
         </div>
-      </Router>
     );
   }
 };

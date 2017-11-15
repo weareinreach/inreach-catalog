@@ -48,12 +48,24 @@ class NavMobile extends React.Component {
   handleChange(event, value) {
     const { handleRequestOpen } = this.props;
     this.setState({ value });
-    if (value === 3)
-      handleRequestOpen('login');
-    else if (value === 4)
-      handleRequestOpen('privacy');
-    else
-      this.props.handleRequestOpen('none');
+    switch(value) {
+      case 0:
+        this.props.history.push('/');
+        this.props.handleRequestOpen('none');
+      break;
+      case 1:
+        this.props.handleRequestOpen('none');
+      break;
+      case 2:
+
+      break;
+      case 3:
+        handleRequestOpen('login');
+      break;
+      case 4:
+        handleRequestOpen('privacy');
+      break;
+    }
   };
   iconColor(position){
     if (position === null) {

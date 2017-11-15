@@ -85,17 +85,19 @@ class AsylumConnectCatalog extends React.Component {
 
   render() {
     const {dialog, message, messageOpen} = this.state;
-    const {handleLogIn, handleLogOut, session, user} = this.props;
+    const {handleLogIn, handleLogOut, session, user, location, history, match} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
-      <Router>
         <div>
           <Header
             handleLogOut={handleLogOut}
             handleRequestOpen={handleRequestOpen}
             session={session}
             user={user}
+            location={location}
+            history={history}
+            match={match}
           />
           {isMobile ? (
             <div>
@@ -141,6 +143,7 @@ class AsylumConnectCatalog extends React.Component {
                   <PageContainer
                     {...this.state}
                     {...this.props}
+                    {...props}
                     handleMessageNew={handleMessageNew}
                   />
               }/>
@@ -153,7 +156,6 @@ class AsylumConnectCatalog extends React.Component {
             open={messageOpen}
           />
         </div>
-      </Router>
     );
   }
 };
