@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  BrowserRouter as Router,
+  Link
+} from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
@@ -16,10 +20,12 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justify: 'space-between',
+    height: 'auto'
   },
   BottomNavBar: {
     position:'fixed',
-    bottom:'30'
+    bottom:'0',
+    zIndex: '100'
   },
   NavButton: {
     minWidth: '20%',

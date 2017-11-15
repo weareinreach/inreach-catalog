@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Truncate from 'react-truncate';
 
 import {
   Link
@@ -9,11 +10,15 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 import { withStyles } from 'material-ui/styles';
-import SaveToFavoritesButton from './SaveToFavoritesButton';
-import FavoritesLink from './FavoritesLink';
+import withWidth from '../withWidth';
+import breakpoints from '../../theme/breakpoints';
+import SaveToFavoritesButton from '../SaveToFavoritesButton';
+import FavoritesLink from '../FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
+import Badge from '../Badge';
+import resourceTypes from '../../helpers/ResourceTypes';
 
-import Badge from './Badge';
+let resourceIndex = resourceTypes.getTagIndex();
 
 const styles = (theme) => ({
   contentSpacing: {
@@ -31,6 +36,17 @@ const styles = (theme) => ({
   moreInfo: {
     fontWeight: "600",
     color: theme.palette.primary[500]
+  },
+  [theme.breakpoints.down('sm')]: {
+    pullLeft: {
+      textAlign: "left"
+    },
+    contentSpacing: {
+      margin: "0.75rem 0"
+    },
+    badgeSpacing: {
+      marginBottom: "0.75rem"
+    }
   }
 });
 
@@ -63,9 +79,12 @@ class ResourceListItem extends React.Component {
       contentSpacing,
       lineSpacing,
       dividerSpacing,
+      badgeSpacing,
       moreInfo,
-      orgName
+      orgName,
+      pullLeft
     } = classes;
+    const isMobile = this.props.width < breakpoints['sm'];
     //this.props.fetchSearchResults();
     return (
       <div>
@@ -77,7 +96,7 @@ class ResourceListItem extends React.Component {
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
               {format === 'search' ? 
-              <Grid item xs={3} alignItems="flex-start" >
+              <Grid item xs={3} >
                 {session && (
                   <SaveToFavoritesButton
                     handleListAddFavorite={handleListAddFavorite}
@@ -106,15 +125,20 @@ class ResourceListItem extends React.Component {
             <Grid container spacing={0}>
             {resourceFieldsByFormat[format].map((item, index) => {
               var Content;
+              var text = (isMobile ? 
+                <Truncate lines={3} ellipsis={<span>...<Link to={'/resource/'+resource.slug} className={moreInfo}>read more</Link></span>} >
+                  {resource[item.fieldName]}
+                </Truncate>
+              : resource[item.fieldName] );
               switch(format) {
                 case 'search':
                   Content = () => (<Typography type="body2" className={lineSpacing}>
-                    {resource[item.fieldName]}
+                    {text}
                   </Typography>);
                 break;
                 default:
                   Content = () => (<Typography type="body2" className={lineSpacing}>
-                    <strong>{item.label}:</strong> {resource[item.fieldName]}
+                    <strong>{item.label}:</strong> {text}
                   </Typography>);
                 break;
               }
@@ -127,11 +151,23 @@ class ResourceListItem extends React.Component {
           </Grid>
           <Grid item xs={12} >
             <Grid container alignItems="center" spacing={0} justify="space-between">
-              <Grid item xs={6}>
-                <Badge type='mail' width='45px' height='45px' />
+              <Grid item xs={12} md={6} className={badgeSpacing}>
+                {resource.opportunity_tags && resource.opportunity_tags.length ?
+                  (() => {
+                    let badges = [];
+                    return resource.opportunity_tags.map((tag) => {
+                      if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
+                        badges.push(resourceIndex[tag].type);
+                        return (
+                          <Badge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                        )
+                      }
+                    })
+                  })()
+                : null}
               </Grid>
-              <Grid item xs={6} className="pull-right">
-                <RatingAndReviews rating={resource.rating} total={resource.opportunity_comments.length} />
+              <Grid item xs={12} md={6} className={"pull-right "+pullLeft}>
+                <RatingAndReviews rating={ resource.rating ? resource.rating : resource.opportunity_aggregate_ratings} total={resource.opportunity_comment_count} />
               </Grid>
             </Grid>
           </Grid>
@@ -160,4 +196,4 @@ ResourceListItem.defaultProps = {
 };
 
 
-export default withStyles(styles)(ResourceListItem);
+export default withWidth(withStyles(styles)(ResourceListItem));

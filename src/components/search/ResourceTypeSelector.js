@@ -12,8 +12,10 @@ import Icon from 'material-ui/Icon';
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import AsylumConnectIndicator from '../AsylumConnectIndicator';
 import ACBadge from '../Badge';
-import { searchInput } from '../../theme/sharedClasses';
+import { searchInput, searchInputMobile } from '../../theme/sharedClasses';
 import ResourceTypes from '../../helpers/ResourceTypes';
+import withWidth from '../withWidth';
+import breakpoints from '../../theme/breakpoints';
 
 const resourceTypes = ResourceTypes.groupResourceTypes()
 
@@ -23,6 +25,9 @@ const styles = theme => ({
     cursor: 'pointer',
     position: 'relative'
   }),
+  [theme.breakpoints.down('sm')]: {
+    searchInput: searchInputMobile(theme)
+  },
   sectionHeader: {
     color: theme.palette.common.darkBlack
   },
@@ -86,7 +91,7 @@ const FilterCollection = (props) => (
     ? 
       <Grid container spacing={0} className={props.classes.subfilterSpacing} >
       {props.children.map((filter, i) => (
-        <Grid item key={i} xs={4}>
+        <Grid item key={i} xs={12} sm={6} md={4}>
           <AsylumConnectCheckbox label={filter.title} value={filter.value} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(filter.value) >= 0)} />
         </Grid>
       ))}
@@ -145,6 +150,8 @@ class ResourceTypeSelector extends React.Component {
     } = this.props.classes;
     const { onChange, selectedResourceTypes }= this.props;
     const containerClasses = (this.state.open ? toggledResource + ' ' : '') + searchInput;
+    const isMobile = this.props.width < breakpoints['sm'];
+    const containerWidth = (isMobile ? '100%' : this.props.containerWidth+'px');
 
     return (
       <div className={relative}>
@@ -159,7 +166,7 @@ class ResourceTypeSelector extends React.Component {
           </div>
         </div>
         {this.state.open ? 
-          <Paper className={resourceList+" resource-type-selector"} style={{width: this.props.containerWidth+'px'}}>
+          <Paper className={resourceList+" resource-type-selector"} style={{width: containerWidth}}>
             {resourceTypes.map((filter, i) => (
                 <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
               )
@@ -171,4 +178,4 @@ class ResourceTypeSelector extends React.Component {
   }
 };
 
-export default withStyles(styles)(ResourceTypeSelector);
+export default withWidth(withStyles(styles)(ResourceTypeSelector));
