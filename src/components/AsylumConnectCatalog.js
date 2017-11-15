@@ -13,6 +13,8 @@ import {
   Link
 } from 'react-router-dom';
 
+import {withStyles} from 'material-ui/styles';
+
 import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';
 import PageContainer from './PageContainer';
@@ -36,6 +38,14 @@ import withWidth from './withWidth';
 import Message from './Message';
 
 import breakpoints from '../theme/breakpoints';
+
+const styles = (theme) => ({
+  [theme.breakpoints.down('sm')]: {
+    navPadding: {
+      paddingBottom: "91px"
+    }
+  }
+});
 
 class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
@@ -118,7 +128,7 @@ class AsylumConnectCatalog extends React.Component {
               />
             </div>
           )}
-          <div className="content" >
+          <div className={"content "+this.props.classes.navPadding} >
             <Switch>
               <Route path="/resource/:id" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} />)}/>
               <Route exact path="/" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
@@ -161,4 +171,4 @@ AsylumConnectCatalog.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default withSession(withWidth(AsylumConnectCatalog));
+export default withSession(withWidth(withStyles(styles)(AsylumConnectCatalog)));

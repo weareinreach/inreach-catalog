@@ -13,17 +13,17 @@ import { withStyles } from 'material-ui/styles';
 
 import { Element, scroller } from 'react-scroll';
 
-import AsylumConnectButton from './AsylumConnectButton';
-import ACBadge from './Badge';
-import FavoritesLink from './FavoritesLink';
+import AsylumConnectButton from '../AsylumConnectButton';
+import ACBadge from '../Badge';
+import FavoritesLink from '../FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
 
-import OneDegreeResourceClient from '../helpers/OneDegreeResourceClient';
-import resourceTypes from '../helpers/ResourceTypes';
-import propertyMap from '../helpers/OneDegreePropertyMap';
-import { scheduleParser, addressParser } from '../helpers/Parser';
+import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
+import resourceTypes from '../../helpers/ResourceTypes';
+import propertyMap from '../../helpers/OneDegreePropertyMap';
+import { scheduleParser, addressParser } from '../../helpers/Parser';
 
-import {bodyLink} from '../theme/sharedClasses';
+import {bodyLink} from '../../theme/sharedClasses';
 
 let resourceIndex = resourceTypes.getTagIndex();
 
@@ -40,6 +40,11 @@ const styles = (theme) => ({
   },
   tabIndicator: {
     height: "4px"
+  },
+  container: {
+    minHeight: '500px',
+    paddingTop: '60px',
+    paddingBottom: '60px'
   },
   separator: {
     padding: "0 0.75rem",
@@ -81,6 +86,13 @@ const styles = (theme) => ({
   listLink: {
     '& + &:before': {
       content: '\", \"'
+    }
+  },
+  [theme.breakpoints.down('sm')]: {
+    container: {
+      height: "100%",
+      paddingTop: '0px',
+      paddingBottom: '0px'
     }
   }
 });
@@ -335,130 +347,132 @@ class Resource extends React.Component {
                           .filter((item) => ( item.slug.indexOf('community') === 0))
                       : null);
     return (
-      <div>
-      { this.state.orgLoading ?
-        <Loading />
-      :
-      <div>
-        <Grid container spacing={0} alignItems='center' justify='center' className={classes.header+' '+classes.dividerSpacing}>
-          <Grid item xs={12} sm={5} md={5} lg={5}>
-            <Tabs
-              value={this.state.tab}
-              onChange={this.handleTabClick}
-              indicatorColor="primary"
-              textColor="black"
-              fullWidth={true}
-              scrollable={false}
-              indicatorClassName={classes.tabIndicator}
-            >
-              <Tab value="about" label="ABOUT" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
-              <Tab value="visit" label="VISIT" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
-              <Tab value="reviews" label="REVIEWS" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
-            </Tabs>
-          </Grid>
-          <Grid item xs={12} sm={7} className="pull-right">
-            <div className="center-align">
-              <FavoritesLink>save to favorites</FavoritesLink> 
-            </div>
-            <div className={classes.separator + " center-align"} ></div>
-            <AsylumConnectButton variant="secondary" className="center-align">share</AsylumConnectButton> 
-          </Grid>
-        </Grid>
-        <Grid container spacing={0} alignItems='center'>
-          <Grid item xs={12} >
-            <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
-              <Grid item xs md lg xl >
-                <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
+      <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
+        <Grid item md={10} lg={9} xs={12}>
+          { this.state.orgLoading ?
+            <Loading />
+          :
+          <div>
+            <Grid container spacing={0} alignItems='center' justify='center' className={classes.header+' '+classes.dividerSpacing}>
+              <Grid item xs={12} sm={5} md={5} lg={5}>
+                <Tabs
+                  value={this.state.tab}
+                  onChange={this.handleTabClick}
+                  indicatorColor="primary"
+                  textColor="black"
+                  fullWidth={true}
+                  scrollable={false}
+                  indicatorClassName={classes.tabIndicator}
+                >
+                  <Tab value="about" label="ABOUT" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
+                  <Tab value="visit" label="VISIT" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
+                  <Tab value="reviews" label="REVIEWS" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
+                </Tabs>
               </Grid>
-              <Grid item xs={5} className="pull-right">
-                <RatingAndReviews total={resource.opportunity_comments.length} rating={resource.rating} />
+              <Grid item xs={12} sm={7} className="pull-right">
+                <div className="center-align">
+                  <FavoritesLink>save to favorites</FavoritesLink> 
+                </div>
+                <div className={classes.separator + " center-align"} ></div>
+                <AsylumConnectButton variant="secondary" className="center-align">share</AsylumConnectButton> 
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} >
-            <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
-              {resource.website} {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
-            </Typography>
-          </Grid>
-          {this.state.oppLoading ? 
-            <Loading />
-          : <About communities={communities} languages={languages} classes={classes} resource={resource} />}
-          <Grid item xs={12}>
-            <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-              How to visit this resource
-            </Typography>
-          </Grid>
-           <Grid item xs={12} className={classes.dividerSpacing}>
-            <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{resource.website}</a> : null}</Typography>
-            {resource.emails && resource.emails.length ? 
-              <Typography type="body2" className={classes.lineSpacing} >
-                <strong className={classes.boldFont}>Email: </strong>{resource.emails.map((email) => {
-                  let name = trim(
-                    (email.title ? email.title : '')+ ' '
-                    (email.first_name ? email.first_name : '')+ ' '
-                    (email.last_name ? email.last_name : '')
-                  );
-                  return (
-                  <a href={"mailto:"+email.email} key={email.id} className={classes.bodyLink+' '+classes.listLink}>
-                    {email.email} 
-                    {name ? "("+name+")" : ''}
-                  </a>
-              )})}
-            </Typography> : null}
-            {resource.phones && resource.phones.length ? 
-            <Typography type="body2" className={classes.lineSpacing} >
-              <strong className={classes.boldFont}>Phone number(s): </strong>{resource.phones.map((phone) => (
-                <Phone key={phone.id} phone={phone} classes={classes} />
-              )
-            )}
-            </Typography> : null }
-            {resource.locations && resource.locations.length ? 
-              resource.locations.map((location) => (
-                <Typography key={location.id} type="body2" className={classes.lineSpacing} >
-                  <strong className={classes.boldFont}>Location: </strong>
-                  {addressParser({address: location})}
+            <Grid container spacing={0} alignItems='center'>
+              <Grid item xs={12} >
+                <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
+                  <Grid item xs md lg xl >
+                    <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
+                  </Grid>
+                  <Grid item xs={5} className="pull-right">
+                    <RatingAndReviews total={resource.opportunity_comments.length} rating={resource.rating} />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12} >
+                <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
+                  {resource.website} {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
                 </Typography>
-              ))
-            : null}
-            {resource.schedule && Object.keys(resource.schedule).length > 1 ?
-              <Typography type="body2" className={classes.lineSpacing} >
-                {scheduleParser({schedule: resource.schedule})}
-              </Typography>
-            : null}
-            {/*<Typography type="body2" className={classes.lineSpacing} >
-              <strong className={classes.boldFont}>Public transportation: </strong>
-            </Typography>*/}
-          </Grid>
-          {session ? 
-          <div>
-          <Grid item xs={12}>
-            <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
-          </Grid>
-          
-          <Grid item xs={12}>
-            <div>
-            </div>
-          </Grid>
+              </Grid>
+              {this.state.oppLoading ? 
+                <Loading />
+              : <About communities={communities} languages={languages} classes={classes} resource={resource} />}
+              <Grid item xs={12}>
+                <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+                  How to visit this resource
+                </Typography>
+              </Grid>
+               <Grid item xs={12} className={classes.dividerSpacing}>
+                <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{resource.website}</a> : null}</Typography>
+                {resource.emails && resource.emails.length ? 
+                  <Typography type="body2" className={classes.lineSpacing} >
+                    <strong className={classes.boldFont}>Email: </strong>{resource.emails.map((email) => {
+                      let name = trim(
+                        (email.title ? email.title : '')+ ' '
+                        (email.first_name ? email.first_name : '')+ ' '
+                        (email.last_name ? email.last_name : '')
+                      );
+                      return (
+                      <a href={"mailto:"+email.email} key={email.id} className={classes.bodyLink+' '+classes.listLink}>
+                        {email.email} 
+                        {name ? "("+name+")" : ''}
+                      </a>
+                  )})}
+                </Typography> : null}
+                {resource.phones && resource.phones.length ? 
+                <Typography type="body2" className={classes.lineSpacing} >
+                  <strong className={classes.boldFont}>Phone number(s): </strong>{resource.phones.map((phone) => (
+                    <Phone key={phone.id} phone={phone} classes={classes} />
+                  )
+                )}
+                </Typography> : null }
+                {resource.locations && resource.locations.length ? 
+                  resource.locations.map((location) => (
+                    <Typography key={location.id} type="body2" className={classes.lineSpacing} >
+                      <strong className={classes.boldFont}>Location: </strong>
+                      {addressParser({address: location})}
+                    </Typography>
+                  ))
+                : null}
+                {resource.schedule && Object.keys(resource.schedule).length > 1 ?
+                  <Typography type="body2" className={classes.lineSpacing} >
+                    {scheduleParser({schedule: resource.schedule})}
+                  </Typography>
+                : null}
+                {/*<Typography type="body2" className={classes.lineSpacing} >
+                  <strong className={classes.boldFont}>Public transportation: </strong>
+                </Typography>*/}
+              </Grid>
+              {session ? 
+              <div>
+              <Grid item xs={12}>
+                <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
+              </Grid>
+              
+              <Grid item xs={12}>
+                <div>
+                </div>
+              </Grid>
+              </div>
+              : null }
+              <Grid item xs={12}>
+                <Divider className={classes.dividerSpacing} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+                  Reviews
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                
+              </Grid>
+            </Grid>
           </div>
-          : null }
-          <Grid item xs={12}>
-            <Divider className={classes.dividerSpacing} />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-              Reviews
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            
-          </Grid>
+          }
         </Grid>
-      </div>
-      }
-      </div>
+      </Grid>
     )
   } 
 }

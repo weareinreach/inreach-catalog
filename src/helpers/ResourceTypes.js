@@ -58,9 +58,13 @@ const resourceTypes = [
   /* AC Mail services Category */
   {category: 'Mail services', type: 'mail', odTag: 'Mail'},
   /* AC Sports and Entertainment Category */
-  {category: 'Mail services', type: 'sportsEntertainment', odTag: 'Recreational activities'},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Recreational activities'},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Art'},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Dance'},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Recreation'},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Sports & fitness'},
 ];
-
+//Art, dance, recreation, sports & fitness
 const groupResourceTypes = () => {
   let categorized = {}, index = [], final = [];
   resourceTypes.forEach((item) => {

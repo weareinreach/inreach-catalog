@@ -10,23 +10,27 @@ import {
 import { StickyContainer, Sticky } from 'react-sticky';
 
 import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
+import withWidth from './withWidth';
+import breakpoints from '../theme/breakpoints';
 import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
-import Resource from './Resource';
+import Resource from './resource/Resource';
 
 const styles = (theme) => ({
   searchArea: {
     padding: '2rem',
   },
-  container: {
-    minHeight: '500px',
-    paddingTop: '60px',
-    paddingBottom: '60px'
+  [theme.breakpoints.down('sm')]: {
+    containerMap: {
+      height: "calc(100% - 91px)",
+      overflowY: 'auto'
+    }
   }
 });
 
@@ -63,7 +67,6 @@ class MapContainer extends React.Component {
     this.clearErrors();
 
     window.addEventListener('popstate', this.reparseURL.bind(this));
-    //window.onpopstate = this.reparseURL.bind(this);
   }
   
   clearErrors() {
@@ -122,19 +125,11 @@ class MapContainer extends React.Component {
     this.clearErrors();
     
     if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
-      /*this.setState({
-        searchStatus: "error",
-        errorMessage: "Unable to find your location, please try entering your city, state in the box above."
-      });*/
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
     } 
 
     if(this.state.selectedResourceTypes.length == 0) {
-      /*this.setState({
-        searchStatus: "error",
-        errorMessage: "Please select at least one resource type from the dropdown"
-      });*/
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
     } 
@@ -211,87 +206,82 @@ class MapContainer extends React.Component {
   }
 
   Routes() {
-    return  (
-        <Switch>
-          <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
-            handlePlaceSelect={this.handlePlaceSelect} 
-            handlePlaceChange={this.handlePlaceChange}
-            handleSearchButtonClick={this.handleSearchButtonClick}
-            handleResourceTypeSelect={this.handleResourceTypeSelect}
-             />} />
-            }
-          <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
-            fetchSearchResults={this.fetchSearchResults}
-            clearSearchStatus={this.clearSearchStatus}
-            handlePlaceSelect={this.handlePlaceSelect} 
-            handlePlaceChange={this.handlePlaceChange}
-            handleSearchButtonClick={this.handleSearchButtonClick}
-            handleResourceTypeSelect={this.handleResourceTypeSelect}
-            session={this.props.session}
-            user={this.props.user}
-            />} />
-          <Route path="/resource/:id" render={ props => <Resource {...props} resource={(() => {
-            let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
-            return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
-        </Switch>
-    );
+    /*return  (
+        
+    );*/
   }
 
   render() {
-    //const { classes } = this.props
-    //const { searchArea } = classes;
-    const addedProps = this.state;
-    var mapProps = {};
+    this.mapProps = {};
     if(this.state.mapCenter) {
-      mapProps.center = this.state.mapCenter;
-      mapProps.zoom = 8;
+      this.mapProps.center = this.state.mapCenter;
+      this.mapProps.zoom = 8;
     }
     if(this.state.searchResults) {
-      mapProps.resources = this.state.searchResults;
+      this.mapProps.resources = this.state.searchResults;
     }
-    const { Routes } = this;
-    const align = this.props.match.path == '/' ? 'center' : 'flex-start' ; console.log(align);
+    const { Routes } = this; 
+    const isMobile = this.props.width < breakpoints['sm'];
 
+    const map = (props) => (
+      <div style={props.style}>
+        <AsylumConnectMap {...this.props} 
+          mapProps={this.mapProps} classes={null}
+          loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
+          containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
+          mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
+        />
+      </div>
+    );
     return (
       <Router>
-      <div className="container--map"> 
-        {/* TODO: Adjust this to the Material UI Tab Components for Mobile */}
-        <Grid container spacing={0}>
-          <Grid item xs={12} md={8}>
-            <div className="container--search">
-              <Grid container alignItems={align} justify='center' spacing={0} className={this.props.classes.container}>
-                <Grid item md={10} lg={9} sm={12}>
-                  <Routes />
-                </Grid>
+        <div className={"container--map "+this.props.classes.containerMap}> 
+          <Grid container spacing={0}>
+            <Grid item xs={12} sm={8}>
+              <div className="container--search">
+                <Switch>
+                  <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
+                    handlePlaceSelect={this.handlePlaceSelect} 
+                    handlePlaceChange={this.handlePlaceChange}
+                    handleSearchButtonClick={this.handleSearchButtonClick}
+                    handleResourceTypeSelect={this.handleResourceTypeSelect}
+                     />} />
+                    }
+                  <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
+                    mapProps={this.mapProps}
+                    fetchSearchResults={this.fetchSearchResults}
+                    clearSearchStatus={this.clearSearchStatus}
+                    handlePlaceSelect={this.handlePlaceSelect} 
+                    handlePlaceChange={this.handlePlaceChange}
+                    handleSearchButtonClick={this.handleSearchButtonClick}
+                    handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    session={this.props.session}
+                    user={this.props.user}
+                    />} />
+                  <Route path="/resource/:id" render={ props => <Resource {...props} mapProps={this.mapProps} resource={(() => {
+                    let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
+                    return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
+                </Switch>
+              </div>
+            </Grid>
+            {isMobile ? null :
+            <StickyContainer style={{ /* if the map width changes these must be updated to follow suit */
+              flexBasis: "33.3333%",
+              flexGrow: "0",
+              flexShrink: "0",
+              maxWidth:"33.3333%"
+            }}>
+              <Grid item xs={12} sm={12}>
+                <Sticky>
+                  {map}
+                </Sticky>          
               </Grid>
-            </div>
-          </Grid>
-          <StickyContainer style={{ /* if the map width changes these must be updated to follow suit */
-            flexBasis: "33.3333%",
-            flexGrow: "0",
-            flexShrink: "0",
-            maxWidth:"33.3333%"
-          }}>
-          <Grid item xs={12} md={4}>
-            <Sticky>
-              {(props) => (
-                <div style={props.style}>
-                  <AsylumConnectMap {...this.props} 
-                    mapProps={mapProps} classes={null}
-                    loadingElement={<div style={{ width:window.innerWidth/3+"px", height: window.innerHeight+"px" }} />}
-                    containerElement={<div style={{ width:window.innerWidth/3+"px",height: window.innerHeight+"px" }} />}
-                    mapElement={<div style={{ width:window.innerWidth/3+"px",height: window.innerHeight+"px" }} />} 
-                  />
-                </div>
-              )}
-            </Sticky>          
-          </Grid>
-          </StickyContainer> 
-        </Grid>
-      </div>
+            </StickyContainer>}
+          </Grid> 
+        </div>
       </Router>
     );
   }
 };
 
-export default withStyles(styles)(MapContainer);
+export default withWidth(withStyles(styles)(MapContainer));

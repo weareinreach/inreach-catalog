@@ -19,6 +19,7 @@ class OneDegreeResourceQuery {
         'titles_only': 'true'
       },
       'organizations': {
+        extended: 'true'
       }
     };
   }
