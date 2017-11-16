@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import ResourceListItem from '../resource/ResourceListItem';
 
-const ListResources = ({ handleRemoveFavorite, resources }) => (
+const ListResources = ({ handleListRemoveFavorite, resources }) => (
   <div>
     {resources.map(resource =>
       <ResourceListItem
         isOnFavoritesList={true}
-        handleRemoveFavorite={handleRemoveFavorite}
+        handleListRemoveFavorite={handleListRemoveFavorite}
         key={resource.id}
         resource={resource}
       />
@@ -17,7 +17,7 @@ const ListResources = ({ handleRemoveFavorite, resources }) => (
 );
 
 ListResources.propTypes = {
-  handleRemoveFavorite: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

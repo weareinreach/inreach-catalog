@@ -9,17 +9,12 @@ class ListResourcesContainer extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
-  }
-
-  handleRemoveFavorite(resourceId) {
-    console.log(resourceId);
   }
 
   render() {
     return (
       <ListResources
-        handleRemoveFavorite={this.handleRemoveFavorite}
+        handleListRemoveFavorite={this.props.handleListRemoveFavorite}
         resources={this.props.resources}
       />
     );

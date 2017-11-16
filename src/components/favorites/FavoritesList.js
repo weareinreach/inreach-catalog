@@ -55,6 +55,7 @@ const FavoritesList = ({
   handleDialogClose,
   handleListNew,
   handleListSelect,
+  handleListRemoveFavorite,
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
@@ -106,7 +107,10 @@ const FavoritesList = ({
           </AsylumConnectButton>
         </div>
       </Grid>
-      <ListResourcesContainer resources={resources} />
+      <ListResourcesContainer
+        handleListRemoveFavorite={handleListRemoveFavorite}
+        resources={resources}
+      />
     </Grid>
 
     <Grid
@@ -192,6 +196,7 @@ FavoritesList.propTypes = {
   handleDialogClose: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleListSelect: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,

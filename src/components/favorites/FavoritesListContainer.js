@@ -25,8 +25,9 @@ class FavoritesListContainer extends React.Component {
     this.fetchResources = this.fetchResources.bind(this);
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
-    this.handleListSelect = this.handleListSelect.bind(this);
     this.handleListNew = this.handleListNew.bind(this);
+    this.handleListSelect = this.handleListSelect.bind(this);
+    this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
   }
@@ -77,6 +78,10 @@ class FavoritesListContainer extends React.Component {
     this.setState(prevState => ({lists: [...prevState.lists, list]}));
   }
 
+  handleListRemoveFavorite(resourceId) {
+    console.log(resourceId);
+  }
+
   handleListSelect(list) {
     const {history, user} = this.props;
     history.push(`/favorites/${user}/${list.id}`);
@@ -105,6 +110,7 @@ class FavoritesListContainer extends React.Component {
         handleDialogClose={this.handleDialogClose}
         handleListNew={this.handleListNew}
         handleListSelect={this.handleListSelect}
+        handleListRemoveFavorite={this.handleListRemoveFavorite}
         handleMenuOpen={this.handleMenuOpen}
         handleMenuClose={this.handleMenuClose}
       />

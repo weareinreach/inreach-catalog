@@ -6,6 +6,7 @@ import Fa from 'react-fontawesome';
 import {
   Link
 } from 'react-router-dom';
+import IconButton from 'material-ui/IconButton';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -67,7 +68,6 @@ class ResourceListItem extends React.Component {
       format,
       resource,
       classes,
-      handleRemoveFavorite,
       handleListAddFavorite,
       handleListRemoveFavorite,
       handleListNew,
@@ -111,7 +111,9 @@ class ResourceListItem extends React.Component {
                   />
                 )}
                 {isOnFavoritesList && (
-                  <Fa name="times" onClick={() => handleRemoveFavorite(resource.id)}/>
+                  <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
+                    <Fa name="times"/>
+                  </IconButton>
                 )}
               </Grid>
             </Grid>
@@ -184,7 +186,6 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
-  handleRemoveFavorite: PropTypes.func,
   handleListAddFavorite: PropTypes.func,
   handleListNew: PropTypes.func,
   handleListRemoveFavorite: PropTypes.func,
@@ -197,7 +198,6 @@ ResourceListItem.propTypes = {
 
 ResourceListItem.defaultProps = {
   format: 'search',
-  handleRemoveFavorite: null,
   handleListAddFavorite: null,
   handleListNew: null,
   handleListRemoveFavorite: null,
