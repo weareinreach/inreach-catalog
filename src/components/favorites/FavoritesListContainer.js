@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
 import fetchUserLists from '../../helpers/fetchUserLists';
+import deleteListFavorite from '../../helpers/deleteListFavorite';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
@@ -79,7 +80,14 @@ class FavoritesListContainer extends React.Component {
   }
 
   handleListRemoveFavorite(resourceId) {
-    console.log(resourceId);
+    const { match, session } = this.props;
+    deleteListFavorite(match.params.listId, resourceId, session)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.warn(error);
+      })
   }
 
   handleListSelect(list) {
