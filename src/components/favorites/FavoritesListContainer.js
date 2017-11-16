@@ -38,7 +38,6 @@ class FavoritesListContainer extends React.Component {
     if (session) {
       this.fetchLists(session);
     }
-    this.fetchResources([1369]);
   }
 
   fetchLists(session) {
@@ -52,6 +51,15 @@ class FavoritesListContainer extends React.Component {
       })
       .then(data => {
         this.setState({lists: data.collections});
+        const { listId } = this.props.match.params;
+        if (listId) {
+          const list = data.collections.find(collection => (
+            collection.id == listId
+          ));
+          if (list) {
+            this.fetchResources(list.fetchable_list_items);
+          }
+        }
       })
       .catch(response => {
         console.warn(response);
@@ -61,7 +69,7 @@ class FavoritesListContainer extends React.Component {
   fetchResources(resources) {
     this.queryOneDegree = new OneDegreeResourceQuery();
     this.queryOneDegree
-      .setIds(resources)
+      .setIds(resources.map(resource => resource.fetchable_id))
       .fetch({type: 'organizations', callback: data => {
         this.setState({ resources: data.organizations });
       }});
