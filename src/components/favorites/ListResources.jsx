@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ResourceListItem from '../ResourceListItem';
+import ResourceListItem from '../resource/ResourceListItem';
 
 const ListResources = ({ handleRemoveFavorite, resources }) => (
   <div>
