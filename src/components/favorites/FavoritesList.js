@@ -182,7 +182,8 @@ const FavoritesList = ({
       anchorOrigin={{vertical: 'bottom'}}
       getContentAnchorEl={null}
       open={open}
-      onRequestClose={handleMenuClose}>
+      onRequestClose={handleMenuClose}
+      PaperProps={{style: {maxHeight: '300px'}}}>
       {lists.map(list => (
         <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
           {list.title}
