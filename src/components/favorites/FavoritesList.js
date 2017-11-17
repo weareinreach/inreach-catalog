@@ -111,14 +111,23 @@ const FavoritesList = ({
           </AsylumConnectButton>
         </div>
       </Grid>
-      {loadingResources ? (
-        <Fa name="spinner" spin />
-      ) : (
-        <ListResourcesContainer
-          handleListRemoveFavorite={handleListRemoveFavorite}
-          resources={resources}
-        />
-      )}
+      <Grid container justify="center">
+        <div>
+          {loadingResources ? (
+            <Fa name="spinner" spin />
+          ) : (
+            <ListResourcesContainer
+              handleListRemoveFavorite={handleListRemoveFavorite}
+              resources={resources}
+            />
+          )}
+          {!loadingResources && list && resources.length === 0 && (
+              <Typography type="body1">
+                You haven't added any resources to this list yet.
+              </Typography>
+          )}
+        </div>
+      </Grid>
     </Grid>
 
     <Grid
