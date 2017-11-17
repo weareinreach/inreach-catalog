@@ -18,6 +18,7 @@ class FavoritesListContainer extends React.Component {
       anchorEl: null,
       dialog: 'none',
       lists: [],
+      loadingResources: this.props.match.params.listId ? true : false,
       open: false,
       resources: [],
     };
@@ -50,7 +51,7 @@ class FavoritesListContainer extends React.Component {
         }
       })
       .then(data => {
-        this.setState({lists: data.collections});
+        this.setState({ lists: data.collections });
         const { listId } = this.props.match.params;
         if (listId) {
           const list = data.collections.find(collection => (
@@ -71,7 +72,10 @@ class FavoritesListContainer extends React.Component {
     this.queryOneDegree
       .setIds(resources.map(resource => resource.fetchable_id))
       .fetch({type: 'organizations', callback: data => {
-        this.setState({ resources: data.organizations });
+        this.setState({
+          loadingResources: false,
+          resources: data.organizations
+        });
       }});
   }
 

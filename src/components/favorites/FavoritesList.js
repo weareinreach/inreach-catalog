@@ -48,9 +48,6 @@ const FavoritesList = ({
   anchorEl,
   classes,
   dialog,
-  list,
-  lists,
-  match,
   handleDialogOpen,
   handleDialogClose,
   handleListNew,
@@ -59,6 +56,10 @@ const FavoritesList = ({
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  loadingResources,
+  list,
+  lists,
+  match,
   open,
   resources,
   session,
@@ -107,10 +108,14 @@ const FavoritesList = ({
           </AsylumConnectButton>
         </div>
       </Grid>
-      <ListResourcesContainer
-        handleListRemoveFavorite={handleListRemoveFavorite}
-        resources={resources}
-      />
+      {loadingResources
+        ? <Fa name="spinner" spin />
+        : (
+          <ListResourcesContainer
+            handleListRemoveFavorite={handleListRemoveFavorite}
+            resources={resources}
+          />
+      )}
     </Grid>
 
     <Grid
@@ -190,8 +195,6 @@ FavoritesList.propTypes = {
   anchorEl: PropTypes.object,
   classes: PropTypes.object.isRequired,
   dialog: PropTypes.string.isRequired,
-  list: PropTypes.object,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleDialogOpen: PropTypes.func.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
@@ -200,6 +203,9 @@ FavoritesList.propTypes = {
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
+  loadingResources: PropTypes.bool.isRequired,
+  list: PropTypes.object,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
