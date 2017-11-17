@@ -3,6 +3,7 @@ require('dotenv').load();
 const crypto = require('crypto');
 const fetch = require('node-fetch');
 const config = require('../src/config/config');
+const mailgun = require("mailgun.js");
 
 
 module.exports = {
@@ -55,5 +56,56 @@ module.exports = {
         signature: signature
       }
     });*/
+  },
+
+  /**
+   * [share description]
+   * @param  {[type]} req [description]
+   * @param  {[type]} res [description]
+   * @return {[type]}     [description]
+   *
+   * @apiParam {string} senderName       name of the sender
+   * @apiParam {string} senderEmail      email address of the sender
+   * @apiParam {string} recipients       email address of the recipient
+   * @apiParam {string} subject          subject line of the email
+   * @apiParam {string} message          plaintext message
+   */
+  share: function(req, res) {
+
+    let email = {
+      sender: req.body.senderName + "<" + req.body.senderEmail + ">",
+      recipients: req.body.recipients.split(","),
+      subject: req.body.subject,
+      message: req.body.message,
+    }
+    email.messageHtml = "<h1>"+email.message+"</h1>";
+    let data = {};
+
+    send(email)
+      .then(msg => {
+        res.json(msg);
+      })
+
+
+    function send(email){
+      return new Promise((resolve, reject) => {
+        var mg = mailgun.client({username: 'api', key: config[process.env.NODE_ENV].mailgun.apiKey});
+        mg.messages.create(config[process.env.NODE_ENV].mailgun.domain, {
+            from: email.sender,
+            to: email.recipients,
+            subject: email.subject,
+            text: email.message,
+            html: email.messageHtml
+          })
+          .then(msg => {
+            resolve(msg);
+          })
+          .catch(err => {
+            data.error = err
+            resolve(msg);
+          })        
+      })
+
+    }
   }
 }

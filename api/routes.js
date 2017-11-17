@@ -9,5 +9,8 @@ module.exports = function(app) {
 
   // Submission Routes
   app.route('/api/submissions')
-    .post(localAPI.handler)
+    .post(localAPI.handler);
+
+  app.route('/api/share')
+  	.post(localAPI.share)
 };

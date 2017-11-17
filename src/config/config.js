@@ -2,7 +2,11 @@ const config = {
   development: {
     odrs: "http://demo-odrs.1degree.org/v1/",
     odas: "http://demo.1degree.org/",
-    odApiKey: "116a982084a50135de470e09a2d30796"
+    odApiKey: "116a982084a50135de470e09a2d30796",
+    mailgun:{
+      apiKey: "key-87a9f61957b37b2281094b647eb4d34e",
+      domain: "email.asylumconnectcatalog.org"
+    },
   },
   production: {
     odrs: "https://data.1degree.org/v1/",
