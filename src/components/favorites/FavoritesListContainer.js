@@ -119,7 +119,7 @@ class FavoritesListContainer extends React.Component {
         if (response.status === 200) {
           this.setState(prevState => ({
             resources: prevState.resources.filter(
-              resource => resource.id === resourceId,
+              resource => resource.id !== resourceId,
             ),
           }));
         }
