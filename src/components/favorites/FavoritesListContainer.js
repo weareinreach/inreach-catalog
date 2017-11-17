@@ -57,8 +57,10 @@ class FavoritesListContainer extends React.Component {
           const list = data.collections.find(
             collection => collection.id == listId,
           );
-          if (list) {
+          if (list && list.fetchable_list_items.length) {
             this.fetchResources(list.fetchable_list_items);
+          } else {
+            this.setState({ loadingResources: false });
           }
         }
       })
