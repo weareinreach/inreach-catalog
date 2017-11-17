@@ -41,7 +41,11 @@ class ListNewFormContainer extends React.Component {
       })
       .then(data => {
         const {handleListNew, handleRequestClose, history} = this.props;
-        handleListNew(Object.assign({}, payload, data.collection, { fetchable_list_items: []}));
+        handleListNew(
+          Object.assign({}, payload, data.collection, {
+            fetchable_list_items: [],
+          }),
+        );
         history.push(`/favorites/${user}/${data.collection.id}`);
         handleRequestClose();
       })
