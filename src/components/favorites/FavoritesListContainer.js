@@ -24,6 +24,7 @@ class FavoritesListContainer extends React.Component {
     };
 
     this.fetchLists = this.fetchLists.bind(this);
+    this.fetchListResources = this.fetchListResources.bind(this);
     this.fetchResources = this.fetchResources.bind(this);
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
@@ -41,6 +42,14 @@ class FavoritesListContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.listId !== nextProps.match.params.listId) {
+      console.log('change');
+      this.setState({ loadingResources: true });
+      this.fetchListResources(nextProps.match.params.listId);
+    }
+  }
+
   fetchLists(session) {
     fetchUserLists(session)
       .then(response => {
@@ -52,21 +61,28 @@ class FavoritesListContainer extends React.Component {
       })
       .then(data => {
         this.setState({lists: data.collections});
-        const {listId} = this.props.match.params;
+        const { listId } = this.props.match.params;
         if (listId) {
-          const list = data.collections.find(
-            collection => collection.id == listId,
-          );
-          if (list && list.fetchable_list_items.length) {
-            this.fetchResources(list.fetchable_list_items);
-          } else {
-            this.setState({ loadingResources: false });
-          }
+          this.fetchListResources(listId);
         }
       })
       .catch(response => {
         console.warn(response);
       });
+  }
+
+  fetchListResources(listId) {
+    const list = this.state.lists.find(
+      collection => collection.id == listId,
+    );
+    if (list && list.fetchable_list_items.length) {
+      this.fetchResources(list.fetchable_list_items);
+    } else {
+      this.setState({
+        loadingResources: false,
+        resources: [],
+      });
+    }
   }
 
   fetchResources(resources) {
