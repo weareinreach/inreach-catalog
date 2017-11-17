@@ -65,7 +65,11 @@ const FavoritesList = ({
   session,
   user,
 }) => (
-  <Grid container className={classes.marginBottom} direction="column" alignItems="center">
+  <Grid
+    container
+    className={classes.marginBottom}
+    direction="column"
+    alignItems="center">
     <Typography className={classes.marginTop} type="display1">
       Favorites
     </Typography>
@@ -83,20 +87,19 @@ const FavoritesList = ({
           aria-owns={open ? 'favorites-menu' : null}
           aria-haspopup="true"
           onClick={handleMenuOpen}>
-          { list ? list.title : 'Select A List' }
+          {list ? list.title : 'Select A List'}
           {` `}
           <Fa className={classes.marginLeft} name="chevron-down" />
         </Button>
         <div>
-          { list && (
+          {list && (
             <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
           )}
-          { list && (
+          {list && (
             <AsylumConnectButton
               className={classes.marginLeft}
               onClick={() => handleDialogOpen('share')}
-              variant="primary"
-            >
+              variant="primary">
               Share
             </AsylumConnectButton>
           )}
@@ -108,13 +111,13 @@ const FavoritesList = ({
           </AsylumConnectButton>
         </div>
       </Grid>
-      {loadingResources
-        ? <Fa name="spinner" spin />
-        : (
-          <ListResourcesContainer
-            handleListRemoveFavorite={handleListRemoveFavorite}
-            resources={resources}
-          />
+      {loadingResources ? (
+        <Fa name="spinner" spin />
+      ) : (
+        <ListResourcesContainer
+          handleListRemoveFavorite={handleListRemoveFavorite}
+          resources={resources}
+        />
       )}
     </Grid>
 
@@ -135,8 +138,7 @@ const FavoritesList = ({
         <AsylumConnectButton
           className={classes.marginLeft}
           onClick={() => handleDialogOpen('share')}
-          variant="primary"
-        >
+          variant="primary">
           Share
         </AsylumConnectButton>
       </Grid>
@@ -144,24 +146,24 @@ const FavoritesList = ({
 
     <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
       <div className={classes.dialogBody}>
-      {dialog === 'new' &&
-        <ListNewDialog
-          handleMessageNew={handleMessageNew}
-          handleListNew={handleListNew}
-          handleRequestClose={handleDialogClose}
-          session={session}
-          user={user}
-        />
-      }
-      {dialog === 'share' &&
-        <ListShareDialog
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleDialogClose}
-          session={session}
-          listId={list.id}
-          listTitle={list.title}
-        />
-      }
+        {dialog === 'new' && (
+          <ListNewDialog
+            handleMessageNew={handleMessageNew}
+            handleListNew={handleListNew}
+            handleRequestClose={handleDialogClose}
+            session={session}
+            user={user}
+          />
+        )}
+        {dialog === 'share' && (
+          <ListShareDialog
+            handleMessageNew={handleMessageNew}
+            handleRequestClose={handleDialogClose}
+            session={session}
+            listId={list.id}
+            listTitle={list.title}
+          />
+        )}
       </div>
     </Dialog>
 
@@ -172,14 +174,11 @@ const FavoritesList = ({
       getContentAnchorEl={null}
       open={open}
       onRequestClose={handleMenuClose}>
-      {lists.map(list =>
-        <MenuItem
-          key={list.id}
-          onClick={() => handleListSelect(list)}
-        >
+      {lists.map(list => (
+        <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
           {list.title}
         </MenuItem>
-      )}
+      ))}
     </Menu>
   </Grid>
 );

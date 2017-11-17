@@ -51,12 +51,12 @@ class FavoritesListContainer extends React.Component {
         }
       })
       .then(data => {
-        this.setState({ lists: data.collections });
-        const { listId } = this.props.match.params;
+        this.setState({lists: data.collections});
+        const {listId} = this.props.match.params;
         if (listId) {
-          const list = data.collections.find(collection => (
-            collection.id == listId
-          ));
+          const list = data.collections.find(
+            collection => collection.id == listId,
+          );
           if (list) {
             this.fetchResources(list.fetchable_list_items);
           }
@@ -71,12 +71,15 @@ class FavoritesListContainer extends React.Component {
     this.queryOneDegree = new OneDegreeResourceQuery();
     this.queryOneDegree
       .setIds(resources.map(resource => resource.fetchable_id))
-      .fetch({type: 'organizations', callback: data => {
-        this.setState({
-          loadingResources: false,
-          resources: data.organizations
-        });
-      }});
+      .fetch({
+        type: 'organizations',
+        callback: data => {
+          this.setState({
+            loadingResources: false,
+            resources: data.organizations,
+          });
+        },
+      });
   }
 
   handleDialogOpen(dialog) {
@@ -92,20 +95,20 @@ class FavoritesListContainer extends React.Component {
   }
 
   handleListRemoveFavorite(resourceId) {
-    const { match, session } = this.props;
+    const {match, session} = this.props;
     deleteListFavorite(match.params.listId, resourceId, session)
       .then(response => {
         if (response.status === 200) {
           this.setState(prevState => ({
-            resources: prevState.resources.filter(resource => (
-              resource.id === resourceId
-            ))
+            resources: prevState.resources.filter(
+              resource => resource.id === resourceId,
+            ),
           }));
         }
       })
       .catch(error => {
         console.warn(error);
-      })
+      });
   }
 
   handleListSelect(list) {
