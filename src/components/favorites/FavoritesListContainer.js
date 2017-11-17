@@ -91,7 +91,13 @@ class FavoritesListContainer extends React.Component {
     const { match, session } = this.props;
     deleteListFavorite(match.params.listId, resourceId, session)
       .then(response => {
-        console.log(response);
+        if (response.status === 200) {
+          this.setState(prevState => ({
+            resources: prevState.resources.filter(resource => (
+              resource.id === resourceId
+            ))
+          }));
+        }
       })
       .catch(error => {
         console.warn(error);
