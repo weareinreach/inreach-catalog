@@ -8,7 +8,9 @@ import deleteListFavorite from '../../helpers/deleteListFavorite';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
+import ListNewFormContainer from './ListNewFormContainer';
 import FavoritesList from './FavoritesList';
+import FavoritesListMobile from './FavoritesListMobile';
 
 class FavoritesListContainer extends React.Component {
   constructor(props) {
@@ -44,7 +46,6 @@ class FavoritesListContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
-      console.log('change');
       this.setState({ loadingResources: true });
       this.fetchListResources(nextProps.match.params.listId);
     }
@@ -148,20 +149,39 @@ class FavoritesListContainer extends React.Component {
       list => list.id == this.props.match.params.listId,
     );
     const isMobile = this.props.width < breakpoints['sm'];
-    return (
-      <FavoritesList
-        {...this.state}
-        {...this.props}
-        list={currentList}
-        handleDialogOpen={this.handleDialogOpen}
-        handleDialogClose={this.handleDialogClose}
-        handleListNew={this.handleListNew}
-        handleListSelect={this.handleListSelect}
-        handleListRemoveFavorite={this.handleListRemoveFavorite}
-        handleMenuOpen={this.handleMenuOpen}
-        handleMenuClose={this.handleMenuClose}
-      />
-    );
+    if (isMobile && this.state.dialog === 'new') {
+      return <ListNewFormContainer />;
+    } else if (isMobile) {
+      return (
+        <FavoritesListMobile
+          {...this.state}
+          {...this.props}
+          list={currentList}
+          handleDialogOpen={this.handleDialogOpen}
+          handleDialogClose={this.handleDialogClose}
+          handleListNew={this.handleListNew}
+          handleListSelect={this.handleListSelect}
+          handleListRemoveFavorite={this.handleListRemoveFavorite}
+          handleMenuOpen={this.handleMenuOpen}
+          handleMenuClose={this.handleMenuClose}
+        />
+      );
+    } else {
+      return (
+        <FavoritesList
+          {...this.state}
+          {...this.props}
+          list={currentList}
+          handleDialogOpen={this.handleDialogOpen}
+          handleDialogClose={this.handleDialogClose}
+          handleListNew={this.handleListNew}
+          handleListSelect={this.handleListSelect}
+          handleListRemoveFavorite={this.handleListRemoveFavorite}
+          handleMenuOpen={this.handleMenuOpen}
+          handleMenuClose={this.handleMenuClose}
+        />
+      );
+    }
   }
 }
 
