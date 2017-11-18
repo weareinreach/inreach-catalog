@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 
 import config from '../../config/config.js';
 
@@ -42,7 +42,7 @@ class ListShareFormContainer extends React.Component {
       });
     const options = {
       method: 'POST',
-      'Content-Type': 'application/json',
+      headers: {'Content-Type': 'application/json'},
       body: payload
     };
 
