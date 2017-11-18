@@ -10,8 +10,9 @@ import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
 
 const styles = theme => ({
   dialogBody: {
-    padding: '5.5rem',
+    minWidth: '600px',
     overflowY: 'auto',
+    padding: '5.5rem',
   },
 });
 

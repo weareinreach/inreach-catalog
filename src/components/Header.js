@@ -8,7 +8,16 @@ import NavTablet from './navigation/NavTablet';
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';
 
-const Header = ({handleRequestOpen, handleLogOut, session, width}) => {
+const Header = ({
+  handleRequestOpen,
+  handleLogOut,
+  session,
+  user,
+  width,
+  location,
+  history,
+  match
+}) => {
   const isMobile = width < breakpoints['sm'];
   const isTablet = width < breakpoints['md'];
   if (isMobile) {
@@ -17,6 +26,9 @@ const Header = ({handleRequestOpen, handleLogOut, session, width}) => {
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
         session={session}
+        location={location}
+        history={history}
+        match={match}
       />
     );
   } else if (isTablet) {
@@ -25,6 +37,7 @@ const Header = ({handleRequestOpen, handleLogOut, session, width}) => {
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
         session={session}
+        user={user}
       />
     );
   } else {
@@ -33,15 +46,22 @@ const Header = ({handleRequestOpen, handleLogOut, session, width}) => {
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
         session={session}
+        user={user}
       />
     );
   }
+};
+
+Header.defaultProps = {
+  session: null,
+  user: null,
 };
 
 Header.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
+  user: PropTypes.number,
   width: PropTypes.number.isRequired,
 };
 

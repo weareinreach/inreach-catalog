@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  BrowserRouter as Router,
+  Link
+} from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
@@ -16,10 +20,12 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justify: 'space-between',
+    height: 'auto'
   },
   BottomNavBar: {
     position:'fixed',
-    bottom:'30'
+    bottom:'0',
+    zIndex: '100'
   },
   NavButton: {
     minWidth: '20%',
@@ -42,12 +48,24 @@ class NavMobile extends React.Component {
   handleChange(event, value) {
     const { handleRequestOpen } = this.props;
     this.setState({ value });
-    if (value === 3)
-      handleRequestOpen('login');
-    else if (value === 4)
-      handleRequestOpen('privacy');
-    else
-      this.props.handleRequestOpen('none');
+    switch(value) {
+      case 0:
+        this.props.history.push('/');
+        this.props.handleRequestOpen('none');
+      break;
+      case 1:
+        this.props.handleRequestOpen('none');
+      break;
+      case 2:
+
+      break;
+      case 3:
+        handleRequestOpen('login');
+      break;
+      case 4:
+        handleRequestOpen('privacy');
+      break;
+    }
   };
   iconColor(position){
     if (position === null) {

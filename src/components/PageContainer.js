@@ -7,6 +7,8 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import FavoritesListContainer from './favorites/FavoritesListContainer';
+
 const NewFavoritesListPage = ( props ) => (
   <FavoritesListPage {...props} newList={true} />
 );
@@ -14,6 +16,7 @@ const NewFavoritesListPage = ( props ) => (
 const FavoritesListPage = ( {match, newList} ) => (
   <div>
     <h2>{newList ? "New " : ""}{match.params.id ? "Favorites page for id:"+match.params.id : "Favorite page for non-logged in user"}</h2>
+    <FavoritesListContainer />
   </div>
 );
 const AccountPage = ( {match} ) => (
@@ -22,23 +25,21 @@ const AccountPage = ( {match} ) => (
   </div>
 );
 
-
 class PageContainer extends React.Component {
   render() {
+    const { handleMessageNew, session, user } = this.props;
     return (
       <div className="page-container"> 
-        <Router>
           <Switch>
             <Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>
-            <Route path="/favorites/:id/new" component={NewFavoritesListPage}/>
-            <Route path="/favorites/:id/:listId" component={FavoritesListPage}/>
-            <Route path="/favorites/:id/" component={FavoritesListPage}/>
-            <Route path="/favorites/:id" component={FavoritesListPage}/>
-            <Route path="/favorites/" component={FavoritesListPage}/>
+            <Route path="/favorites/:id/new" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/:id/:listId" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/:id/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/:id" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route path="/favorites/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
             <Route path="/account/:id" component={AccountPage}/>
             <Redirect from="/account" to="/" />
           </Switch>
-        </Router>
       </div>
     );
   }

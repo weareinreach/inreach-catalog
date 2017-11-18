@@ -7,5 +7,19 @@ export const searchInput = theme => ({
   width: '100%',
   marginBottom: '1.5rem',
   height: '3.4rem',
-  color: theme.palette.common.lightBlack
+  color: theme.palette.common.lightBlack,
+  backgroundColor: theme.palette.common.white,
+  borderRadius: '0.1px'
+});
+export const searchInputMobile = theme => ({
+  padding: '1.0rem',
+  height: '3.0rem',
+  marginBottom: '1.0rem'
+});
+export const bodyLink = theme => ({
+  color: theme.palette.primary[500]
+});
+export const mobilePadding = theme => ({
+  paddingLeft: "20px",
+  paddingRight: "20px"
 });

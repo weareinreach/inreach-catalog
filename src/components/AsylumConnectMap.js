@@ -33,7 +33,7 @@ class AsylumConnectMap extends React.Component {
       >
       {
         resources && resources.length ?
-        resources.map((resource) => { console.log(resource);
+        resources.map((resource) => {
 
           var points = resource.locations.length ? resource.locations : [{lat: resource.lat, lng: resource.lng, region: resource.region}];
 
