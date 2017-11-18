@@ -80,7 +80,7 @@ class Language extends React.Component {
     super();
     this.state = {
       open: false,
-      selectedLang: 'Language'
+      selectedLang: window.localStorage.getItem('lang')? window.localStorage.getItem('lang') : 'Language'
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
@@ -92,8 +92,15 @@ class Language extends React.Component {
   handleRequestCloseAfterSelect(langCode, langName) {
     this.setState({ open: false, selectedLang: langName });
     window.location.hash = "#googtrans("+langCode+")";
+    window.localStorage.setItem('lang', langName)
     location.reload();
   };
+
+  componentWillMount(){
+    if(window.location.hash.length == 0) {
+      window.localStorage.setItem('lang', '')
+    }
+  }
 
   render() {
     const classes = this.props.classes;
@@ -105,7 +112,7 @@ class Language extends React.Component {
             aria-owns={this.state.open ? 'simple-menu' : null}
             aria-haspopup="true"
             type="body1"
-            className={classes.centerTextAlign}>
+            className={[classes.centerTextAlign,'skiptranslate'].join(' ')}>
           {this.state.selectedLang}
           <ChevronIcon width={'18px'}/>
           </Typography>
