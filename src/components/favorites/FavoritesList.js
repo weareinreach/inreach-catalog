@@ -13,9 +13,9 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
-import ListResourcesContainer from './ListResourcesContainer';
 import ListNewDialog from './ListNewDialog';
 import ListShareDialog from './ListShareDialog';
+import ResourceListItem from '../resource/ResourceListItem';
 
 const styles = theme => ({
   container: {
@@ -116,10 +116,16 @@ const FavoritesList = ({
           {loadingResources ? (
             <Fa name="spinner" spin />
           ) : (
-            <ListResourcesContainer
-              handleListRemoveFavorite={handleListRemoveFavorite}
-              resources={resources}
-            />
+            <div>
+              {resources.map(resource =>
+                <ResourceListItem
+                  isOnFavoritesList={true}
+                  handleListRemoveFavorite={handleListRemoveFavorite}
+                  key={resource.id}
+                  resource={resource}
+                />
+              )}
+            </div>
           )}
           {!loadingResources && list && resources.length === 0 && (
               <Typography type="body1">
