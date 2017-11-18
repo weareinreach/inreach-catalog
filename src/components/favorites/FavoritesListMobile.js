@@ -39,6 +39,7 @@ const FavoritesListMobile = ({
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  history,
   loadingResources,
   list,
   lists,
@@ -51,7 +52,7 @@ const FavoritesListMobile = ({
   <Grid container className={classes.container} direction="column">
     <IconButton
       onClick={
-        dialog === 'none' ? () => console.log('back') : handleDialogClose
+        dialog === 'none' ? () => history.push('/') : handleDialogClose
       }>
       <Fa name="arrow-left" />
     </IconButton>
