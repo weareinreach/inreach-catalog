@@ -10,16 +10,21 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
-import { bodyLink } from '../../theme/sharedClasses';
+import {bodyLink} from '../../theme/sharedClasses';
 
 import ListNewFormContainer from './ListNewFormContainer';
 
 const styles = theme => ({
   bodyLink: bodyLink(theme),
   container: {
-    marginLeft: '5%',
-    maxWidth: '90%',
+    marginLeft: '10%',
+    maxWidth: '80%',
+    marginTop: '1rem',
   },
+  textCenter: {textAlign: 'center'},
+  spacingBottom: {marginBottom: '1rem'},
+  spacingLeft: {marginLeft: '1rem'},
+  spacingTop: {marginTop: '1rem'},
 });
 
 const FavoritesListMobile = ({
@@ -43,16 +48,13 @@ const FavoritesListMobile = ({
   session,
   user,
 }) => (
-  <Grid
-    container
-    className={classes.container}
-    direction="column"
-    alignItems="center">
-    {dialog !== 'none' && (
-      <IconButton onClick={handleDialogClose}>
-        <Fa name="arrow-left"/>
-      </IconButton>
-    )}
+  <Grid container className={classes.container} direction="column">
+    <IconButton
+      onClick={
+        dialog === 'none' ? () => console.log('back') : handleDialogClose
+      }>
+      <Fa name="arrow-left" />
+    </IconButton>
     {dialog === 'new' && (
       <ListNewFormContainer
         handleListNew={handleListNew}
@@ -63,15 +65,11 @@ const FavoritesListMobile = ({
       />
     )}
     {dialog === 'none' && (
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-      >
-        <Typography className={classes.marginTop} type="display1">
-           Your Favorites
+      <div>
+        <Typography className={classes.textCenter} type="display1">
+          Your Favorites
         </Typography>
-        <Typography type="body1">
+        <Typography className={classes.spacingTop} type="body1">
           Select one of your favorites lists or{` `}
           <a
             className={classes.bodyLink}
@@ -82,16 +80,34 @@ const FavoritesListMobile = ({
         <Button
           aria-owns={open ? 'favorites-menu' : null}
           aria-haspopup="true"
+          className={classes.spacingTop}
           onClick={handleMenuOpen}>
           {list ? list.title : 'Select A List'}
           {` `}
-          <Fa className={classes.marginLeft} name="chevron-down" />
+          <Fa className={classes.spacingLeft} name="chevron-down" />
         </Button>
-        {resources.map(resource => (
-          <Typography key={resource.id} type="display3">
-            {resource.name}
-          </Typography>
-        ))}
+        <div className={classes.spacingTop}>
+          <div>
+            {loadingResources ? (
+              <Fa name="spinner" spin />
+            ) : (
+              <div>
+                {resources.map(resource => (
+                  <Typography key={resource.id} type="display3">
+                    {resource.name}
+                  </Typography>
+                ))}
+              </div>
+            )}
+            {!loadingResources &&
+              list &&
+              resources.length === 0 && (
+                <Typography type="body1">
+                  You haven't added any resources to this list yet.
+                </Typography>
+              )}
+          </div>
+        </div>
         <Menu
           id="favorites-menu"
           anchorEl={anchorEl}
@@ -106,7 +122,7 @@ const FavoritesListMobile = ({
             </MenuItem>
           ))}
         </Menu>
-      </Grid>
+      </div>
     )}
   </Grid>
 );
