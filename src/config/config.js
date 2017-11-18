@@ -3,6 +3,7 @@ const config = {
     odrs: "http://demo-odrs.1degree.org/v1/",
     odas: "http://demo.1degree.org/",
     odApiKey: "116a982084a50135de470e09a2d30796",
+    basicAuth: "Basic ZGVtbzoxNm1pc3Npb24=",
     mailgun:{
       apiKey: "key-87a9f61957b37b2281094b647eb4d34e",
       domain: "email.asylumconnectcatalog.org"

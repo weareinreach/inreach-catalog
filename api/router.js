@@ -81,31 +81,106 @@ module.exports = {
     email.messageHtml = "<h1>"+email.message+"</h1>";
     let data = {};
 
-    send(email)
-      .then(msg => {
-        res.json(msg);
-      })
-
-
-    function send(email){
-      return new Promise((resolve, reject) => {
-        var mg = mailgun.client({username: 'api', key: config[process.env.NODE_ENV].mailgun.apiKey});
-        mg.messages.create(config[process.env.NODE_ENV].mailgun.domain, {
-            from: email.sender,
-            to: email.recipients,
-            subject: email.subject,
-            text: email.message,
-            html: email.messageHtml
-          })
+    confirmLogin(req.body.jwt)
+      .then(response => {
+        send(email)
           .then(msg => {
-            resolve(msg);
+            msg.status = "success";
+            res.json(msg);
           })
-          .catch(err => {
-            data.error = err
-            resolve(msg);
-          })        
+          .catch(msg => {
+            msg.status = "error";
+            res.json(msg);
+          })
+
+      })
+      .catch(err => {
+        res.json({
+          status: "error",
+          message: err
+        })
       })
 
-    }
+
+
   }
+}
+
+/**
+ * Makes a request to 1Degree to confirm that the authToken belongs to a logged-in user.
+ * Returns a promise which is resolved if the token belongs to a logged-in user, rejected otherwise
+ * @param  {[type]} authToken [description]
+ * @return {[type]}           [description]
+ */
+function confirmLogin(authToken){
+  return new Promise((resolve, reject) => {
+    let url = config[process.env.NODE_ENV].odas+"api/user";
+
+    var options = { 
+      method: 'GET',
+      headers: 
+        { 
+        'content-type': 'application/json',
+        'onedegreesource': 'asylumconnect',
+        } 
+      };
+
+    if(typeof config[process.env.NODE_ENV].basicAuth !== "undefined"){
+      options.headers.authorization = config[process.env.NODE_ENV].basicAuth;
+      options.headers['demo-authorization'] = 'Bearer '+authToken;
+    }
+    else{
+      options.headers.authorization = 'Bearer '+authToken;
+    }
+
+    fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if(typeof response.message !== "undefined"){
+          reject(response.message);
+        }
+        else if(typeof response.user !== "object"){
+          reject("No user given"); //this will probably never fire, but left as a catch
+        }
+        else if(response.user.active){
+          resolve();
+        }
+        else{
+          reject("Unknown error")
+        }
+      })
+      .catch((response) => {
+        reject("User not found");
+      })
+
+  })
+
+}
+
+/**
+ * Construct an email and pass it to Mailgun
+ * @param  {[type]} email [description]
+ * @return {[type]}       [description]
+ */
+function send(email){
+  return new Promise((resolve, reject) => {
+    var mg = mailgun.client({username: 'api', key: config[process.env.NODE_ENV].mailgun.apiKey});
+    mg.messages.create(config[process.env.NODE_ENV].mailgun.domain, {
+        from: email.sender,
+        to: email.recipients,
+        subject: email.subject,
+        text: email.message,
+        html: email.messageHtml
+      })
+      .then(msg => {
+        resolve(msg);
+      })
+      .catch(err => {
+        data.error = err
+        reject(msg);
+      })        
+  })
+
 }
