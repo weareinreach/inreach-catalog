@@ -87,15 +87,20 @@ const FavoritesListMobile = ({
           <Fa className={classes.spacingLeft} name="chevron-down" />
         </Button>
         <div className={classes.spacingTop}>
-          <div>
+          <Grid item>
             {loadingResources ? (
               <Fa name="spinner" spin />
             ) : (
               <div>
                 {resources.map(resource => (
-                  <Typography key={resource.id} type="display3">
-                    {resource.name}
-                  </Typography>
+                  <div>
+                    <Typography type="display3">
+                      {resource.name}
+                    </Typography>
+                    <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
+                      <Fa name="times"/>
+                    </IconButton>
+                  </div>
                 ))}
               </div>
             )}
@@ -106,7 +111,7 @@ const FavoritesListMobile = ({
                   You haven't added any resources to this list yet.
                 </Typography>
               )}
-          </div>
+          </Grid>
         </div>
         <Menu
           id="favorites-menu"
