@@ -149,9 +149,7 @@ class FavoritesListContainer extends React.Component {
       list => list.id == this.props.match.params.listId,
     );
     const isMobile = this.props.width < breakpoints['sm'];
-    if (isMobile && this.state.dialog === 'new') {
-      return <ListNewFormContainer />;
-    } else if (isMobile) {
+    if (isMobile) {
       return (
         <FavoritesListMobile
           {...this.state}

@@ -72,6 +72,7 @@ ListNewFormContainer.defaultProps = {
 };
 
 ListNewFormContainer.propTypes = {
+  handleListNew: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   session: PropTypes.string,
