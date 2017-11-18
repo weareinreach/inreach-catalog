@@ -12,8 +12,9 @@ import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
-import ResourceListItem from '../resource/ResourceListItem';
+import SearchRefinementControls from './SearchRefinementControls';
 import SearchStatusHandler from './SearchStatusHandler';
+import ResourceListItem from '../resource/ResourceListItem';
 import {mobilePadding} from '../../theme/sharedClasses';
 
 const styles = theme => ({
@@ -168,6 +169,7 @@ class SearchResultsContainer extends React.Component {
         <div className={containerSearchForm}>
           <SearchStatusHandler {...this.props} />
           <SearchBar {...this.props} classes={null} />
+          <SearchRefinementControls onFilterChange={this.props.onFilterChange} onSortChange={this.props.onSortChange} selectedFilters={this.props.selectedFilters} />
           <Grid container spacing={0}>
             <Grid item xs={12} className={formRow}>
               <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >

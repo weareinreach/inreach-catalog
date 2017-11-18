@@ -89,7 +89,7 @@ class ResourceListItem extends React.Component {
     return (
       <div>
         <Divider className={dividerSpacing} />
-        <Grid container spacing={0}>
+        <Grid container spacing={0} className={dividerSpacing}>
           <Grid item xs={12} >
             <Grid container alignItems="center" justify="space-between" spacing={0}>
               <Grid item xs md lg xl >

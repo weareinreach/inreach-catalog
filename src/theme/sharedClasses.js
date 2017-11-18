@@ -11,6 +11,18 @@ export const searchInput = theme => ({
   backgroundColor: theme.palette.common.white,
   borderRadius: '0.1px'
 });
+export const selectInput = theme => ({
+  border: 'none',
+  padding: '1.2rem',
+  fontFamily: theme.typography.fontFamily,
+  fontSize: theme.typography.fontSize,
+  width: '100%',
+  marginBottom: '1.5rem',
+  height: '3.4rem',
+  color: theme.palette.common.lightBlack,
+  backgroundColor: theme.palette.common.white,
+  borderRadius: '0.1px'
+});
 export const searchInputMobile = theme => ({
   padding: '1.0rem',
   height: '3.0rem',
