@@ -67,22 +67,53 @@ module.exports = {
    * @apiParam {string} senderName       name of the sender
    * @apiParam {string} senderEmail      email address of the sender
    * @apiParam {string} recipients       email address of the recipient
-   * @apiParam {string} subject          subject line of the email
+   * @apiParam {string} subject          subject line of the email. If not set, check for a defaultSender property in the config
    * @apiParam {string} message          plaintext message
    */
   share: function(req, res) {
+    //are we supposed to get the email address through 1D?
+
+    console.log(req);
+
+    let subject = req.body.subject;
+    if(!subject){
+      let defaultSubject = config[process.env.NODE_ENV].mailgun.defaultSubject;
+      subject = typeof defaultSubject === "function" ? defaultSubject(req.body) : defaultSubject;
+    }
+
+    let message = "";
+    if(typeof req.body.shareType !== "undefined"){
+      message += req.body.shareType;
+    }
+    if(typeof req.body.shareUrl !== "undefined"){
+      message += req.body.shareUrl;
+    }
 
     let email = {
-      sender: req.body.senderName + "<" + req.body.senderEmail + ">",
+      // sender: req.body.senderName + "<" + req.body.senderEmail + ">",
       recipients: req.body.recipients.split(","),
-      subject: req.body.subject,
-      message: req.body.message,
+      subject: subject,
+      message: message,
     }
     email.messageHtml = "<h1>"+email.message+"</h1>";
     let data = {};
 
     confirmLogin(req.body.jwt)
-      .then(response => {
+      .then(userData => {
+
+        let sender = [];
+        if(userData.first_name){
+          sender.push(userData.first_name);
+        }
+        if(userData.last_name){
+          sender.push(userData.last_name);
+        }
+        if(userData.email){
+          sender.push("<" + userData.email + ">");
+        }
+
+        email.sender = sender.join(" ");
+
         send(email)
           .then(msg => {
             msg.status = "success";
@@ -92,7 +123,6 @@ module.exports = {
             msg.status = "error";
             res.json(msg);
           })
-
       })
       .catch(err => {
         res.json({
@@ -145,7 +175,7 @@ function confirmLogin(authToken){
           reject("No user given"); //this will probably never fire, but left as a catch
         }
         else if(response.user.active){
-          resolve();
+          resolve(response.user);
         }
         else{
           reject("Unknown error")
@@ -179,7 +209,7 @@ function send(email){
       })
       .catch(err => {
         data.error = err
-        reject(msg);
+        reject(data);
       })        
   })
 
