@@ -80,7 +80,8 @@ class Language extends React.Component {
     super();
     this.state = {
       open: false,
-      selectedLang: window.localStorage.getItem('lang')? window.localStorage.getItem('lang') : 'Language'
+      initialLangsList: ValidLanguageList.all(),
+      selectedLang: 'Language'
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
@@ -98,13 +99,17 @@ class Language extends React.Component {
 
   componentWillMount(){
     if(window.location.hash.length == 0) {
-      window.localStorage.setItem('lang', '')
+      this.setState({selectedLang: 'Language'})
+    } else {
+      let langCode = window.location.hash.substring(window.location.hash.indexOf("(") + 1).slice(0, -1).toLowerCase()
+      let currentLang = ValidLanguageList.byCode(langCode)
+      this.setState({selectedLang: currentLang})
     }
   }
 
   render() {
     const classes = this.props.classes;
-    const langsList = ValidLanguageList.all();
+    const {open, selectedLang, initialLangsList} = this.state;
     return (
       <div className={classes.root}>
         <div className={classes.languageLink} onClick={this.handleClick}>
@@ -113,11 +118,11 @@ class Language extends React.Component {
             aria-haspopup="true"
             type="body1"
             className={[classes.centerTextAlign,'skiptranslate'].join(' ')}>
-          {this.state.selectedLang}
+          {selectedLang}
           <ChevronIcon width={'18px'}/>
           </Typography>
         </div>
-        {this.state.open &&
+        {open &&
           <List className={[classes.languageList, 'skiptranslate'].join(' ')}>
             <ListSubheader className={classes.poweredByGoogle}>
               <span>Powered By</span>
@@ -126,8 +131,8 @@ class Language extends React.Component {
                 <span className={classes.blackTranslateColor}>Translate</span>
               </a>
             </ListSubheader>
-            { langsList.map((lang,index) =>  
-              <LangMenuItem key={index} langName={lang.name} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
+            { initialLangsList.map((lang,index) =>  
+              <LangMenuItem key={index} langName={lang.local} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
             )}
           </List>
         }
