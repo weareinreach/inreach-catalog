@@ -9,10 +9,13 @@ import Dimensions from 'react-dimensions';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
-import { searchInput } from '../../theme/sharedClasses';
+import { searchInput, searchInputMobile } from '../../theme/sharedClasses';
 
 const styles = theme => ({
   searchInput: searchInput(theme),
+  [theme.breakpoints.down('sm')]: {
+    searchInput: searchInputMobile(theme)
+  },
   searchInputContainer: {
     position: 'relative'
   },
@@ -100,7 +103,7 @@ class SearchBar extends React.Component {
           />
         </Grid>
         <Grid item sm={4} xs={12}>
-          <ResourceTypeSelector containerWidth={this.props.containerWidth} onChange={this.props.handleResourceTypeSelect} selectedResources={this.props.selectedResources} />
+          <ResourceTypeSelector containerWidth={this.props.containerWidth} onChange={this.props.handleResourceTypeSelect} selectedResourceTypes={this.props.selectedResourceTypes} />
         </Grid>
       </Grid>
     );

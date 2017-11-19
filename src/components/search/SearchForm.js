@@ -16,17 +16,24 @@ import Slide from 'material-ui/transitions/Slide';
 import AsylumConnectButton from '../AsylumConnectButton';
 import SearchBar from './SearchBar';
 import SearchStatusHandler from './SearchStatusHandler';
+import withWidth from '../withWidth';
+import breakpoints from '../../theme/breakpoints';
 
 const styles = theme => ({
   formRow: {
     marginBottom: '2.5rem'
   },
+  [theme.breakpoints.down('sm')]: {
+    searchButton: {
+      textAlign: "center"
+    }
+  }
 });
 
 class SearchForm extends React.Component {
   render() {
-    const { formRow } = this.props.classes;
-
+    const { formRow, searchButton } = this.props.classes;
+    const variant = this.props.width < breakpoints['sm'] ? "primary" : "secondary";
     return (
       <div>
         <SearchStatusHandler {...this.props} />
@@ -43,8 +50,8 @@ class SearchForm extends React.Component {
             className={formRow}
             />*/}
           </Grid>
-          <Grid item xs={12}>
-            <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
+          <Grid item xs={12} className={searchButton}>
+            <AsylumConnectButton variant={variant} onClick={this.props.handleSearchButtonClick} >
               Search
             </AsylumConnectButton>
           </Grid>
@@ -55,4 +62,4 @@ class SearchForm extends React.Component {
   }
 };
 
-export default withStyles(styles)(SearchForm);
+export default withWidth(withStyles(styles)(SearchForm));

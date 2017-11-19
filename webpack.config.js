@@ -5,6 +5,7 @@ var express = require('express');
 
 var config = {
   entry: [
+    'whatwg-fetch',
     './src/index.js'
   ],
   output: {

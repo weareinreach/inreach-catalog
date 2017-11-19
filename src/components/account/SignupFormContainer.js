@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import fetchJsonp from 'fetch-jsonp';
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import debounce from 'lodash/debounce';
 
 import config from '../../config/config.js';

@@ -1,14 +1,12 @@
 import React from 'react';
-
-import { withStyles } from 'material-ui/styles';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
-import classNames from 'classnames';
+import { withStyles } from 'material-ui/styles';
 
 import Typography from 'material-ui/Typography';
 
 import RedHeartIcon from './icons/RedHeartIcon';
 
-// Define a custom style for button
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
@@ -20,32 +18,23 @@ const styles = theme => ({
   }
 });
 
-// Custom Button component with variant property
-function FavoritesLink(props) {
-  const { children, classes, className, variant, onClick} = props;
+const FavoritesLink = ({ classes, user }) => (
+  <Link to={`/favorites${user ? `/${user}` : ''}`} >
+    <Typography
+      type='display4'
+      className={classes.viewYourFavoritesText}
+    >
+      View Your Favorites
+      <RedHeartIcon width={'38px'}/>
+    </Typography>
+  </Link>
+);
 
-  return (
-    <a href=''>
-      <Typography type='display4'
-                  className=
-                  {classNames(
-                    classes.viewYourFavoritesText,
-                    className,
-                  )}
-                  onClick={onClick}
-      >
-        {children}
-        <RedHeartIcon width={'38px'}/>
-      </Typography>
-    </a>
-  );
-}
+FavoritesLink.defaultProps = { user: null };
 
 FavoritesLink.propTypes = {
-  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string
+  user: PropTypes.number,
 };
 
-// Inject style to Custom Button component
 export default withStyles(styles)(FavoritesLink);
