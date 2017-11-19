@@ -12,7 +12,7 @@ class ListShareFormContainer extends React.Component {
 
     this.state = {
       email: '',
-      shareType: 'list',
+      shareType: 'collection',
       shareUrl: window.location.href
     };
 
@@ -29,8 +29,13 @@ class ListShareFormContainer extends React.Component {
     const {handleMessageNew, handleRequestClose} = this.props;
     event.preventDefault()
 
-    if(!this.state.email || !this.state.shareType || this.state.shareUrl){
+    if(
+      !this.state.email 
+      || !this.state.shareType 
+      || !this.state.shareUrl
+      ){
       handleMessageNew("Invalid request");
+      return;
     }
 
     let url = window.location.origin + '/api/share';
@@ -46,11 +51,10 @@ class ListShareFormContainer extends React.Component {
       body: payload
     };
 
-    console.log("fetch options", options);
-
     fetch(url, options)
       .then(response => {
-        if (response.status === 201) {
+        console.log("response", response);
+        if (response.status === 200) {
           handleRequestClose();
           handleMessageNew('Email sent!');
         }

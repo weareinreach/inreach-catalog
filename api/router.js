@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const fetch = require('node-fetch');
 const config = require('../src/config/config');
 const mailgun = require("mailgun.js");
+const striptags = require("striptags");
 
 
 module.exports = {
@@ -73,56 +74,24 @@ module.exports = {
   share: function(req, res) {
     //are we supposed to get the email address through 1D?
 
-    console.log(req);
 
-    let subject = req.body.subject;
-    if(!subject){
-      let defaultSubject = config[process.env.NODE_ENV].mailgun.defaultSubject;
-      subject = typeof defaultSubject === "function" ? defaultSubject(req.body) : defaultSubject;
-    }
 
-    let message = "";
-    if(typeof req.body.shareType !== "undefined"){
-      message += req.body.shareType;
-    }
-    if(typeof req.body.shareUrl !== "undefined"){
-      message += req.body.shareUrl;
-    }
+    // let message = "";
+    // if(typeof req.body.shareType !== "undefined"){
+    //   message += req.body.shareType;
+    // }
+    // if(typeof req.body.shareUrl !== "undefined"){
+    //   message += req.body.shareUrl;
+    // }
 
-    let email = {
-      // sender: req.body.senderName + "<" + req.body.senderEmail + ">",
-      recipients: req.body.recipients.split(","),
-      subject: subject,
-      message: message,
-    }
-    email.messageHtml = "<h1>"+email.message+"</h1>";
-    let data = {};
-
+    // let data = {};
+    
     confirmLogin(req.body.jwt)
-      .then(userData => {
-
-        let sender = [];
-        if(userData.first_name){
-          sender.push(userData.first_name);
-        }
-        if(userData.last_name){
-          sender.push(userData.last_name);
-        }
-        if(userData.email){
-          sender.push("<" + userData.email + ">");
-        }
-
-        email.sender = sender.join(" ");
-
-        send(email)
-          .then(msg => {
-            msg.status = "success";
-            res.json(msg);
-          })
-          .catch(msg => {
-            msg.status = "error";
-            res.json(msg);
-          })
+      .then(userData => makeEmail(req, res, userData))
+      .then(email => send(email))
+      .then(msg => {
+        msg.status = "success";
+        res.json(msg);
       })
       .catch(err => {
         res.json({
@@ -169,7 +138,7 @@ function confirmLogin(authToken){
       })
       .then((response) => {
         if(typeof response.message !== "undefined"){
-          reject(response.message);
+          reject("Authorization error: "+ response.message);
         }
         else if(typeof response.user !== "object"){
           reject("No user given"); //this will probably never fire, but left as a catch
@@ -207,10 +176,65 @@ function send(email){
       .then(msg => {
         resolve(msg);
       })
-      .catch(err => {
-        data.error = err
-        reject(data);
+      .catch(err => { 
+        if(!err){
+          err = "The email could not be sent";
+        }
+        reject(err);
       })        
   })
+}
 
+/**
+ * [makeEmail description]
+ * @param  {[type]} req      [description]
+ * @param  {[type]} res      [description]
+ * @param  {[type]} userData [description]
+ * @return {[type]}          [description]
+ */
+async function makeEmail(req, res, userData){
+  let subject = req.body.subject;
+  if(!subject){
+    let defaultSubject = config[process.env.NODE_ENV].mailgun.defaultSubject;
+    subject = typeof defaultSubject === "function" ? defaultSubject(req.body) : defaultSubject;
+  }
+
+  let email = {
+    // sender: req.body.senderName + "<" + req.body.senderEmail + ">",
+    recipients: req.body.recipients.split(","),
+    subject: subject,
+    // message: message,
+  }
+
+  let sender = [];
+  if(userData.first_name){
+    sender.push(userData.first_name);
+  }
+  if(userData.last_name){
+    sender.push(userData.last_name);
+  }
+  if(userData.email){
+    sender.push("<" + userData.email + ">");
+  }
+
+  email.sender = sender.join(" ");
+
+  return new Promise(function(resolve, reject){
+
+    res.render("litmus-slate-stationery.ejs", {
+      request: req.body,
+      user: userData
+    },
+    function(err, html){
+      if(err){
+        reject("Email could not be made");
+      }
+      else{
+        email.messageHtml = html;
+        email.message = striptags(html);
+        resolve(email);
+      }
+    });
+
+  })
 }
