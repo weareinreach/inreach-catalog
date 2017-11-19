@@ -17,7 +17,6 @@ export const selectInput = theme => ({
   fontFamily: theme.typography.fontFamily,
   fontSize: theme.typography.fontSize,
   width: '100%',
-  marginBottom: '1.5rem',
   height: '3.4rem',
   color: theme.palette.common.lightBlack,
   backgroundColor: theme.palette.common.white,

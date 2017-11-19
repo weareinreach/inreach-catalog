@@ -38,7 +38,7 @@ class MapContainer extends React.Component {
     super(props, context)
     //this.state = { dialog: 'none' };
     //
-    let { nearLatLng, selectedResourceTypes } = this.parseParams(props.match.params);
+    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
     this.state = {
       nearAddress: '',
       nearLatLng,
@@ -46,8 +46,8 @@ class MapContainer extends React.Component {
       searchStatus: null,
       errorMessage: false,
       selectedResourceTypes,
-      selectedFilters: [],
-      selectedSort: 'default',
+      selectedFilters,
+      selectedSort,
       searching: false,
       searchResults: [],
       searchResultsIndex: [],
@@ -141,24 +141,10 @@ class MapContainer extends React.Component {
     }
   }
 
-  handleSortSelect(event, checked) { 
-    var index;
-    const target = event.target;
-    var selectedResourceTypes = this.state.selectedResourceTypes.slice();
-    
-    /*if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
-      selectedResourceTypes.push(target.value)
-      this.setState({
-        selectedResourceTypes: selectedResourceTypes,
-        searchStatus: null
-      });
-    } else if(!checked && (index = selectedResourceTypes.indexOf(target.value)) >= 0) {
-      selectedResourceTypes.splice(index, 1)
-      this.setState({
-        selectedResourceTypes: selectedResourceTypes,
-        searchStatus: null
-      });
-    }*/
+  handleSortSelect(event, value) {
+    this.setState({
+      selectedSort: event.target.value,
+    });
   }
 
   handleSearchButtonClick() {
@@ -175,9 +161,15 @@ class MapContainer extends React.Component {
     } 
     
     this.setState({
-      searchStatus: 'redirect',
-      mapCenter: this.state.nearLatLng
+      mapCenter: this.state.nearLatLng,
+      searchStatus: 'refresh'
     });
+
+    var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+    var latLng = encodeURIComponent(this.state.nearLatLng.lat + ',' + this.state.nearLatLng.lng);
+    var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
+    var sort = encodeURIComponent(this.state.selectedSort);
+    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
   }
 
   fetchSearchResults() {
@@ -221,7 +213,7 @@ class MapContainer extends React.Component {
   }
 
   parseParams(params) {
-    var nearLatLng = null, selectedResourceTypes = [];
+    var nearLatLng = null, selectedResourceTypes = [], selectedFilters = [], selectedSort = 'best';
     if(params.near) {
       var latLng = decodeURIComponent(params.near).split(',')
       nearLatLng = {
@@ -234,7 +226,17 @@ class MapContainer extends React.Component {
       selectedResourceTypes = decodeURIComponent(params.for).split(',');
     }
 
-    return {selectedResourceTypes, nearLatLng};
+    if(params.filter) {
+      if(params.filter !== "all") {
+        selectedFilters = decodeURIComponent(params.filter).split(',');
+      }
+    }
+
+    if(params.sort) {
+      selectedSort = params.sort
+    }
+
+    return {selectedResourceTypes, nearLatLng, selectedFilters, selectedSort};
   }
 
   reparseURL(ev) {

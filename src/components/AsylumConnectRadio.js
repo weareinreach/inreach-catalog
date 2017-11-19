@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 import { FormControlLabel } from 'material-ui/Form';
-import Checkbox from 'material-ui/Checkbox';
+import Radio from 'material-ui/Radio';
 import CheckCircleIcon from 'material-ui-icons/CheckCircle';
 import RadioUncheckedIcon from 'material-ui-icons/RadioButtonUnchecked';
 
@@ -35,7 +35,7 @@ const styles = (theme) => ({
   }
 });
 
-const AsylumConnectCheckbox = (props) => {
+const AsylumConnectRadio = (props) => {
   const classes = Object.assign(props.classes, props.overrideClasses);
 
   const rootClass = classNames(
@@ -56,10 +56,11 @@ const AsylumConnectCheckbox = (props) => {
   return (
     <FormControlLabel
       control={
-        <Checkbox
+        <Radio
           value={props.value}
           icon={<RadioUncheckedIcon style={iconSize} />}
           checkedIcon={<CheckCircleIcon style={iconSize}/>}
+          name={props.name}
           checked={props.checked}
           classes={{
             default: checkboxDefault,
@@ -76,11 +77,12 @@ const AsylumConnectCheckbox = (props) => {
   );
 }
 
-AsylumConnectCheckbox.propTypes = {
+AsylumConnectRadio.propTypes = {
   onChange: PropTypes.func.isRequired,
   checked: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(AsylumConnectCheckbox);
+export default withStyles(styles)(AsylumConnectRadio);

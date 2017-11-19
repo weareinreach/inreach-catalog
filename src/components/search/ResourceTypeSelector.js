@@ -1,16 +1,12 @@
 import React from 'react';
 
 import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';
-import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
-import Icon from 'material-ui/Icon';
 
+import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
-import AsylumConnectIndicator from '../AsylumConnectIndicator';
 import ACBadge from '../Badge';
 import { searchInput, searchInputMobile } from '../../theme/sharedClasses';
 import ResourceTypes from '../../helpers/ResourceTypes';
@@ -43,35 +39,11 @@ const styles = theme => ({
   subfilterSpacing: {
     marginTop: '1rem'
   },
-  toggledResource: {
-    backgroundColor: theme.palette.common.darkGrey
-  },
   resourceList: {
-    width: '100%',
     padding: '2rem',
-    top: '100%',
     right: '0',
-    position: 'absolute',
-    zIndex: '50',
     maxHeight: '420px',
-    overflowY: 'scroll',
-  },
-  arrow: {
-    width: '18px', 
-    height: '18px',
-    color: theme.palette.primary[500],
-    float: "right"
-  },
-  relative: {
-    position: 'relative'
-  },
-  resourceListItem: {
-    color: theme.palette.common.lightBlack,
-    '&:hover': {
-      color: theme.palette.primary[500]
-    }
   }
-
 });
 
 const FilterCollection = (props) => (
@@ -103,58 +75,26 @@ const FilterCollection = (props) => (
 );
 
 class ResourceTypeSelector extends React.Component {
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      open: false,
-    }
-
-    this.handleToggleRequest = this.handleToggleRequest.bind(this)
-    this.handleOutsideClick = this.handleOutsideClick.bind(this)
-  }
-
-  handleOutsideClick(event) {
-    var watch = document.querySelectorAll('.resource-type-selector');
-    if(watch.length) {
-      if(!watch[0].contains(event.target)) {
-        this.handleToggleRequest();
-      } 
-    }
-    
-  }
-
-  handleToggleRequest() {
-    if(!this.state.open) {
-      document.addEventListener('click', this.handleOutsideClick);
-    } else {
-      document.removeEventListener('click', this.handleOutsideClick);
-    }
-
-    this.setState({
-      open: !this.state.open
-    })
-    
-  }
-
   render() {
-    const { 
-      arrow, 
-      searchInput, 
-      toggledResource, 
-      resourceList, 
+    const {
+      searchInput,
       sectionHeader, 
       sectionTitle, 
       subfilterSpacing, 
       dividerSpacing,
-      relative
+      resourceList
     } = this.props.classes;
     const { onChange, selectedResourceTypes }= this.props;
-    const containerClasses = (this.state.open ? toggledResource + ' ' : '') + searchInput;
     const isMobile = this.props.width < breakpoints['sm'];
     const containerWidth = (isMobile ? '100%' : this.props.containerWidth+'px');
 
     return (
-      <div className={relative}>
+      <AsylumConnectSelector label="Resource Type" selected={selectedResourceTypes} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
+        {resourceTypes.map((filter, i) => (
+            <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
+          )
+        )}
+        {/*<div className={relative}>
         <div className={containerClasses+" container--resource-type-selector"} onClick={this.handleToggleRequest} >
           <div>
             <span>
@@ -167,13 +107,12 @@ class ResourceTypeSelector extends React.Component {
         </div>
         {this.state.open ? 
           <Paper className={resourceList+" resource-type-selector"} style={{width: containerWidth}}>
-            {resourceTypes.map((filter, i) => (
-                <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
-              )
-            )}
+            
           </Paper>
         : null }
-      </div>
+      </div>*/}
+      </AsylumConnectSelector>
+      
     );
   }
 };
