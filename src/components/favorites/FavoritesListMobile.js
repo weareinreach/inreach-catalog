@@ -4,7 +4,9 @@ import classNames from 'classnames';
 
 import Fa from 'react-fontawesome';
 import Button from 'material-ui/Button';
+import Close from 'material-ui-icons/Close';
 import IconButton from 'material-ui/IconButton';
+import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -54,7 +56,7 @@ const FavoritesListMobile = ({
       onClick={
         dialog === 'none' ? () => history.push('/') : handleDialogClose
       }>
-      <Fa name="arrow-left" />
+      <KeyboardArrowLeft />
     </IconButton>
     {dialog === 'new' && (
       <ListNewFormContainer
@@ -99,7 +101,7 @@ const FavoritesListMobile = ({
                       {resource.name}
                     </Typography>
                     <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
-                      <Fa name="times"/>
+                      <Close />
                     </IconButton>
                   </div>
                 ))}
