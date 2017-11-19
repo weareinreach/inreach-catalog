@@ -74,67 +74,73 @@ const FavoritesList = ({
       Favorites
     </Typography>
     <Typography type="body1">
-      Your favorites lists are only visible to you and anyone you share them
-      with.
+      {session
+        ? 'Your favorites lists are only visible to you and anyone you share them with.'
+        : 'You must be logged in use favorites.'
+      }
     </Typography>
     <Grid
       container
       className={classes.container}
       direction="row"
       justify="space-between">
-      <Grid container className={classes.mainRow} justify="space-between">
-        <Button
-          aria-owns={open ? 'favorites-menu' : null}
-          aria-haspopup="true"
-          onClick={handleMenuOpen}>
-          {list ? list.title : 'Select A List'}
-          {` `}
-          <Fa className={classes.marginLeft} name="chevron-down" />
-        </Button>
+      {session && (
         <div>
-          {list && (
-            <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
-          )}
-          {list && (
-            <AsylumConnectButton
-              className={classes.marginLeft}
-              onClick={() => handleDialogOpen('share')}
-              variant="primary">
-              Share
-            </AsylumConnectButton>
-          )}
-          <AsylumConnectButton
-            className={classes.marginLeft}
-            onClick={() => handleDialogOpen('new')}
-            variant="primary">
-            <Fa className={classes.marginRight} name="plus" /> Create New List
-          </AsylumConnectButton>
-        </div>
-      </Grid>
-      <Grid container justify="center">
-        <div>
-          {loadingResources ? (
-            <Fa name="spinner" spin />
-          ) : (
+          <Grid container className={classes.mainRow} justify="space-between">
+            <Button
+              aria-owns={open ? 'favorites-menu' : null}
+              aria-haspopup="true"
+              onClick={handleMenuOpen}>
+              {list ? list.title : 'Select A List'}
+              {` `}
+              <Fa className={classes.marginLeft} name="chevron-down" />
+            </Button>
             <div>
-              {resources.map(resource =>
-                <ResourceListItem
-                  isOnFavoritesList={true}
-                  handleListRemoveFavorite={handleListRemoveFavorite}
-                  handleMessageNew={handleMessageNew}
-                  key={resource.id}
-                  resource={resource}
-                />
+              {list && (
+                <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
+              )}
+              {list && (
+                <AsylumConnectButton
+                  className={classes.marginLeft}
+                  onClick={() => handleDialogOpen('share')}
+                  variant="primary">
+                  Share
+                </AsylumConnectButton>
+              )}
+              <AsylumConnectButton
+                className={classes.marginLeft}
+                onClick={() => handleDialogOpen('new')}
+                variant="primary">
+                <Fa className={classes.marginRight} name="plus" /> Create New List
+              </AsylumConnectButton>
+            </div>
+          </Grid>
+          <Grid container justify="center">
+            <div>
+              {loadingResources ? (
+                <Fa name="spinner" spin />
+              ) : (
+                <div>
+                  {resources.map(resource =>
+                    <ResourceListItem
+                      isOnFavoritesList={true}
+                      handleListRemoveFavorite={handleListRemoveFavorite}
+                      handleMessageNew={handleMessageNew}
+                      key={resource.id}
+                      resource={resource}
+                    />
+                  )}
+                </div>
+              )}
+              {!loadingResources && list && resources.length === 0 && (
+                <Typography type="body1">
+                  You haven't added any resources to this list yet.
+                </Typography>
               )}
             </div>
-          )}
-          {!loadingResources && list && resources.length === 0 && (
-            <Typography type="body1">
-              You haven't added any resources to this list yet.
-            </Typography>
-          )}
+          </Grid>
         </div>
-      </Grid>
+      )}
     </Grid>
 
     <Grid
