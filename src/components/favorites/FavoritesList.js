@@ -121,6 +121,7 @@ const FavoritesList = ({
                 <ResourceListItem
                   isOnFavoritesList={true}
                   handleListRemoveFavorite={handleListRemoveFavorite}
+                  handleMessageNew={handleMessageNew}
                   key={resource.id}
                   resource={resource}
                 />
@@ -128,9 +129,9 @@ const FavoritesList = ({
             </div>
           )}
           {!loadingResources && list && resources.length === 0 && (
-              <Typography type="body1">
-                You haven't added any resources to this list yet.
-              </Typography>
+            <Typography type="body1">
+              You haven't added any resources to this list yet.
+            </Typography>
           )}
         </div>
       </Grid>

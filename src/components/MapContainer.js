@@ -249,6 +249,7 @@ class MapContainer extends React.Component {
                     mapProps={this.mapProps}
                     fetchSearchResults={this.fetchSearchResults}
                     clearSearchStatus={this.clearSearchStatus}
+                    handleMessageNew={this.props.handleMessageNew}
                     handlePlaceSelect={this.handlePlaceSelect} 
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}

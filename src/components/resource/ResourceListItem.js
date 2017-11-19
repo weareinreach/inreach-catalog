@@ -99,11 +99,12 @@ class ResourceListItem extends React.Component {
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
               <Grid item xs={3} container alignItems="flex-start" justify="flex-end">
-                {session && (
+                {!isOnFavoritesList && (
                   <SaveToFavoritesButton
                     handleListAddFavorite={handleListAddFavorite}
                     handleListRemoveFavorite={handleListRemoveFavorite}
                     handleListNew={handleListNew}
+                    handleMessageNew={this.props.handleMessageNew}
                     lists={lists}
                     resourceId={resource.id}
                     session={session}
@@ -186,6 +187,7 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
+  handleMessageNew: PropTypes.func,
   handleListAddFavorite: PropTypes.func,
   handleListNew: PropTypes.func,
   handleListRemoveFavorite: PropTypes.func,
@@ -198,6 +200,7 @@ ResourceListItem.propTypes = {
 
 ResourceListItem.defaultProps = {
   format: 'search',
+  handleMessageNew: null,
   handleListAddFavorite: null,
   handleListNew: null,
   handleListRemoveFavorite: null,

@@ -209,6 +209,7 @@ class SearchResultsContainer extends React.Component {
                     handleListAddFavorite={this.handleListAddFavorite}
                     handleListRemoveFavorite={this.handleListRemoveFavorite}
                     handleListNew={this.handleListNew}
+                    handleMessageNew={this.props.handleMessageNew}
                     key={organization.id}
                     lists={this.state.lists}
                     resource={organization}
