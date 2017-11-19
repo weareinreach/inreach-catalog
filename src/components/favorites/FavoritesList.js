@@ -79,92 +79,92 @@ const FavoritesList = ({
         : 'You must be logged in use favorites.'
       }
     </Typography>
-    <Grid
-      container
-      className={classes.container}
-      direction="row"
-      justify="space-between">
-      {session && (
-        <div>
-          <Grid container className={classes.mainRow} justify="space-between">
-            <Button
-              aria-owns={open ? 'favorites-menu' : null}
-              aria-haspopup="true"
-              onClick={handleMenuOpen}>
-              {list ? list.title : 'Select A List'}
-              {` `}
-              <Fa className={classes.marginLeft} name="chevron-down" />
-            </Button>
-            <div>
-              {list && (
-                <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
-              )}
-              {list && (
-                <AsylumConnectButton
-                  className={classes.marginLeft}
-                  onClick={() => handleDialogOpen('share')}
-                  variant="primary">
-                  Share
-                </AsylumConnectButton>
-              )}
+    {session && (
+      <Grid
+        container
+        className={classes.container}
+        direction="row"
+        justify="space-between">
+        <Grid container className={classes.mainRow} justify="space-between">
+          <Button
+            aria-owns={open ? 'favorites-menu' : null}
+            aria-haspopup="true"
+            onClick={handleMenuOpen}>
+            {list ? list.title : 'Select A List'}
+            {` `}
+            <Fa className={classes.marginLeft} name="chevron-down" />
+          </Button>
+          <div>
+            {list && (
+              <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
+            )}
+            {list && (
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => handleDialogOpen('new')}
+                onClick={() => handleDialogOpen('share')}
                 variant="primary">
-                <Fa className={classes.marginRight} name="plus" /> Create New List
+                Share
               </AsylumConnectButton>
-            </div>
-          </Grid>
-          <Grid container justify="center">
-            <div>
-              {loadingResources ? (
-                <Fa name="spinner" spin />
-              ) : (
-                <div>
-                  {resources.map(resource =>
-                    <ResourceListItem
-                      isOnFavoritesList={true}
-                      handleListRemoveFavorite={handleListRemoveFavorite}
-                      handleMessageNew={handleMessageNew}
-                      key={resource.id}
-                      resource={resource}
-                    />
-                  )}
-                </div>
-              )}
-              {!loadingResources && list && resources.length === 0 && (
-                <Typography type="body1">
-                  You haven't added any resources to this list yet.
-                </Typography>
-              )}
-            </div>
-          </Grid>
-        </div>
-      )}
-    </Grid>
-
-    <Grid
-      container
-      className={classes.footer}
-      direction="column"
-      alignItems="center">
-      <Typography
-        className={classNames(classes.marginBottom, classes.textWhite)}
-        type="display2">
-        Share "My List" Favorites List
-      </Typography>
-      <Grid container justify="center">
-        <AsylumConnectButton className={classes.marginRight} variant="primary">
-          Print
-        </AsylumConnectButton>
-        <AsylumConnectButton
-          className={classes.marginLeft}
-          onClick={() => handleDialogOpen('share')}
-          variant="primary">
-          Share
-        </AsylumConnectButton>
+            )}
+            <AsylumConnectButton
+              className={classes.marginLeft}
+              onClick={() => handleDialogOpen('new')}
+              variant="primary">
+              <Fa className={classes.marginRight} name="plus" /> Create New List
+            </AsylumConnectButton>
+          </div>
+        </Grid>
+        <Grid container justify="center">
+          <div>
+            {loadingResources ? (
+              <Fa name="spinner" spin />
+            ) : (
+              <div>
+                {resources.map(resource =>
+                  <ResourceListItem
+                    isOnFavoritesList={true}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleMessageNew={handleMessageNew}
+                    key={resource.id}
+                    resource={resource}
+                  />
+                )}
+              </div>
+            )}
+            {!loadingResources && list && resources.length === 0 && (
+              <Typography type="body1">
+                You haven't added any resources to this list yet.
+              </Typography>
+            )}
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    )}
+
+    {list && (
+      <Grid
+        container
+        className={classes.footer}
+        direction="column"
+        alignItems="center">
+        <Typography
+          className={classNames(classes.marginBottom, classes.textWhite)}
+          type="display2">
+          {`Share "${list.title}" Favorites List`}
+        </Typography>
+        <Grid container justify="center">
+          <AsylumConnectButton className={classes.marginRight} variant="primary">
+            Print
+          </AsylumConnectButton>
+          <AsylumConnectButton
+            className={classes.marginLeft}
+            onClick={() => handleDialogOpen('share')}
+            variant="primary">
+            Share
+          </AsylumConnectButton>
+        </Grid>
+      </Grid>
+    )}
 
     <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
       <div className={classes.dialogBody}>
