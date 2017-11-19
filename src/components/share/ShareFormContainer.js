@@ -4,15 +4,14 @@ import 'whatwg-fetch';
 
 import config from '../../config/config.js';
 
-import ListShareForm from './ListShareForm';
+import ShareForm from './ShareForm';
 
-class ListShareFormContainer extends React.Component {
+class ShareFormContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: '',
-      shareType: 'collection',
       shareUrl: window.location.href
     };
 
@@ -31,7 +30,6 @@ class ListShareFormContainer extends React.Component {
 
     if(
       !this.state.email 
-      || !this.state.shareType 
       || !this.state.shareUrl
       ){
       handleMessageNew("Invalid request");
@@ -41,7 +39,7 @@ class ListShareFormContainer extends React.Component {
     let url = window.location.origin + '/api/share';
     let payload = JSON.stringify({
         recipients: this.state.email,
-        shareType: this.state.shareType,
+        shareType: this.props.shareType,
         shareUrl: this.state.shareUrl, 
         jwt: window.localStorage.getItem("jwt")
       });
@@ -53,10 +51,18 @@ class ListShareFormContainer extends React.Component {
 
     fetch(url, options)
       .then(response => {
-        console.log("response", response);
         if (response.status === 200) {
-          handleRequestClose();
-          handleMessageNew('Email sent!');
+
+          response.json()
+            .then((responseData) => {
+              if(responseData.status === "success"){
+                handleRequestClose();
+                handleMessageNew('Email sent!');
+              }
+              else{
+                handleMessageNew(responseData.message);
+              }
+            })
         }
       })
       .catch(error => {
@@ -67,7 +73,7 @@ class ListShareFormContainer extends React.Component {
 
   render() {
     return (
-      <ListShareForm
+      <ShareForm
         {...this.props}
         {...this.state}
         handleChange={this.handleChange}
@@ -77,11 +83,12 @@ class ListShareFormContainer extends React.Component {
   }
 }
 
-ListShareFormContainer.propTypes = {
+ShareFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   listId: PropTypes.number.isRequired,
-  session: PropTypes.string.isRequired,
+  // session: PropTypes.string.isRequired,
+  shareType: PropTypes.string.isRequired
 };
 
-export default ListShareFormContainer;
+export default ShareFormContainer;

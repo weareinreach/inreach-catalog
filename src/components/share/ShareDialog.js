@@ -2,32 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {DialogTitle} from '../dialog';
-import ListShareFormContainer from './ListShareFormContainer';
+import ShareFormContainer from './ShareFormContainer';
 
-const ListShareDialog = ({
+const ShareDialog = ({
   handleMessageNew,
   handleRequestClose,
   listId,
   listTitle,
   session,
+  shareType
 }) => (
   <div>
     <DialogTitle>Share "{listTitle}"</DialogTitle>
-    <ListShareFormContainer
+    <ShareFormContainer
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
       session={session}
       listId={listId}
+      shareType={shareType}
     />
   </div>
 );
 
-ListShareDialog.propTypes = {
+ShareDialog.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   listId: PropTypes.number.isRequired,
   listTitle: PropTypes.string.isRequired,
-  session: PropTypes.string.isRequired,
+  // session: PropTypes.string.isRequired,
 };
 
-export default ListShareDialog;
+export default ShareDialog;
