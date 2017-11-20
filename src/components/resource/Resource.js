@@ -10,6 +10,7 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import { CircularProgress } from 'material-ui/Progress';
 import { withStyles } from 'material-ui/styles';
+import Dialog from 'material-ui/Dialog';
 
 import { Element, scroller } from 'react-scroll';
 
@@ -24,6 +25,7 @@ import propertyMap from '../../helpers/OneDegreePropertyMap';
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 
 import {bodyLink} from '../../theme/sharedClasses';
+import ShareDialog from '../share/ShareDialog';
 
 let resourceIndex = resourceTypes.getTagIndex();
 
@@ -251,13 +253,16 @@ class Resource extends React.Component {
       orgLoading: true,
       oppLoading: true,
       reviewLoading: true,
-      reviewList: []
+      reviewList: [],
+      dialog: 'none'
     };
 
     this.handleTabClick = this.handleTabClick.bind(this);
     this.handleResourceRequest = this.handleResourceRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleReviewRequest = this.handleReviewRequest.bind(this);
+    this.handleDialogOpen = this.handleDialogOpen.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   componentDidMount() {
@@ -318,6 +323,14 @@ class Resource extends React.Component {
     }
   }
 
+  handleDialogOpen(dialog) {
+    this.setState({dialog});
+  }
+
+  handleDialogClose() {
+    this.setState({dialog: 'none'});
+  }
+
   getOpportunityReviews() {
     if(this.resource.opportunity_comments.length) {
       //loop through opportunites and request comments
@@ -336,7 +349,7 @@ class Resource extends React.Component {
   }
 
   render() {
-    const { classes, session } = this.props;
+    const { classes, session, handleMessageNew } = this.props;
     const { resource } = this;
     const languages = (this.resourceProperties && this.resourceProperties.length ? 
                         this.resourceProperties
@@ -346,6 +359,7 @@ class Resource extends React.Component {
                         this.resourceProperties
                           .filter((item) => ( item.slug.indexOf('community') === 0))
                       : null);
+
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
         <Grid item md={10} lg={9} xs={12}>
@@ -374,7 +388,11 @@ class Resource extends React.Component {
                   <FavoritesLink>save to favorites</FavoritesLink> 
                 </div>
                 <div className={classes.separator + " center-align"} ></div>
-                <AsylumConnectButton variant="secondary" className="center-align">share</AsylumConnectButton> 
+                <AsylumConnectButton 
+                  variant="secondary"
+                  className="center-align"
+                  onClick={() => this.handleDialogOpen('share')}
+                  >share</AsylumConnectButton> 
               </Grid>
             </Grid>
             <Grid container spacing={0} alignItems='center'>
@@ -472,9 +490,27 @@ class Resource extends React.Component {
           </div>
           }
         </Grid>
+        <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
+          <div className={classes.dialogBody}>
+          {this.state.dialog === 'share' &&
+            <ShareDialog
+              handleMessageNew={handleMessageNew}
+              handleRequestClose={this.handleDialogClose}
+              // session={session}
+              listId={resource.id}
+              listTitle={resource.name}
+              shareType="resource"
+            />
+          }
+          </div>
+        </Dialog>        
       </Grid>
     )
   } 
+}
+
+Resource.propTypes = {
+  handleMessageNew: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(Resource);

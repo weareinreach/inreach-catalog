@@ -57,12 +57,13 @@ class AccountPage extends React.Component {
   }
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew} = this.props;
+    const {handleMessageNew, handleLogout} = this.props;
     
     if (!jwt) {
+      this.props.history.push('/');
       handleMessageNew('You need to log in to view your account.')
     } else {
-      const apiDomain = config[process.env.NODE_ENV].odas;
+      const apiDomain = config[process.env.OD_API_ENV].odas;
       const url = `${apiDomain}api/user`;    
       const options = {
         method: 'GET',
@@ -80,6 +81,7 @@ class AccountPage extends React.Component {
           });
         } else {
           this.setState({ isAuthenticated: false })
+          handleLogout()
           handleMessageNew('Sorry, please try logging in again');
         }
       })

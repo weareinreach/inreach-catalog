@@ -41,12 +41,13 @@ class NavMobile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
+      value: ''
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event, value) {
-    const { handleRequestOpen } = this.props;
+    const { handleRequestOpen, session } = this.props;
     this.setState({ value });
     switch(value) {
       case 0:
@@ -61,7 +62,12 @@ class NavMobile extends React.Component {
 
       break;
       case 3:
-        handleRequestOpen('login');
+        if(session) {
+          handleRequestOpen('none');
+        } else {
+          handleRequestOpen('login');
+        }
+        this.props.history.push('/account');
       break;
       case 4:
         handleRequestOpen('privacy');

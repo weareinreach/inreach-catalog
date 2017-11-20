@@ -3,6 +3,8 @@ require('dotenv').load();
 const crypto = require('crypto');
 const fetch = require('node-fetch');
 const config = require('../src/config/config');
+const mailgun = require("mailgun.js");
+const striptags = require("striptags");
 
 
 module.exports = {
@@ -55,5 +57,184 @@ module.exports = {
         signature: signature
       }
     });*/
+  },
+
+  /**
+   * [share description]
+   * @param  {[type]} req [description]
+   * @param  {[type]} res [description]
+   * @return {[type]}     [description]
+   *
+   * @apiParam {string} senderName       name of the sender
+   * @apiParam {string} senderEmail      email address of the sender
+   * @apiParam {string} recipients       email address of the recipient
+   * @apiParam {string} subject          subject line of the email. If not set, check for a defaultSender property in the config
+   * @apiParam {string} message          plaintext message
+   */
+  share: function(req, res) {
+    //are we supposed to get the email address through 1D?
+
+
+
+    // let message = "";
+    // if(typeof req.body.shareType !== "undefined"){
+    //   message += req.body.shareType;
+    // }
+    // if(typeof req.body.shareUrl !== "undefined"){
+    //   message += req.body.shareUrl;
+    // }
+
+    // let data = {};
+    
+    confirmLogin(req.body.jwt)
+      .then(userData => makeEmail(req, res, userData))
+      .then(email => send(email))
+      .then(msg => {
+        msg.status = "success";
+        res.json(msg);
+      })
+      .catch(err => {
+        res.json({
+          status: "error",
+          message: err
+        })
+      })
+
+
+
   }
+}
+
+/**
+ * Makes a request to 1Degree to confirm that the authToken belongs to a logged-in user.
+ * Returns a promise which is resolved if the token belongs to a logged-in user, rejected otherwise
+ * @param  {[type]} authToken [description]
+ * @return {[type]}           [description]
+ */
+function confirmLogin(authToken){
+  return new Promise((resolve, reject) => {
+    let url = config[process.env.NODE_ENV].odas+"api/user";
+
+    var options = { 
+      method: 'GET',
+      headers: 
+        { 
+        'content-type': 'application/json',
+        'onedegreesource': 'asylumconnect',
+        } 
+      };
+
+    if(typeof config[process.env.NODE_ENV].basicAuth !== "undefined"){
+      options.headers.authorization = config[process.env.NODE_ENV].basicAuth;
+      options.headers['demo-authorization'] = 'Bearer '+authToken;
+    }
+    else{
+      options.headers.authorization = 'Bearer '+authToken;
+    }
+
+    fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if(typeof response.message !== "undefined"){
+          reject("Authorization error: "+ response.message);
+        }
+        else if(typeof response.user !== "object"){
+          reject("No user given"); //this will probably never fire, but left as a catch
+        }
+        else if(response.user.active){
+          resolve(response.user);
+        }
+        else{
+          reject("Unknown error")
+        }
+      })
+      .catch((response) => {
+        reject("User not found");
+      })
+
+  })
+
+}
+
+/**
+ * Construct an email and pass it to Mailgun
+ * @param  {[type]} email [description]
+ * @return {[type]}       [description]
+ */
+function send(email){
+  return new Promise((resolve, reject) => {
+    var mg = mailgun.client({username: 'api', key: config[process.env.NODE_ENV].mailgun.apiKey});
+    mg.messages.create(config[process.env.NODE_ENV].mailgun.domain, {
+        from: email.sender,
+        to: email.recipients,
+        subject: email.subject,
+        text: email.message,
+        html: email.messageHtml
+      })
+      .then(msg => {
+        resolve(msg);
+      })
+      .catch(err => { 
+        if(!err){
+          err = "The email could not be sent";
+        }
+        reject(err);
+      })        
+  })
+}
+
+/**
+ * [makeEmail description]
+ * @param  {[type]} req      [description]
+ * @param  {[type]} res      [description]
+ * @param  {[type]} userData [description]
+ * @return {[type]}          [description]
+ */
+async function makeEmail(req, res, userData){
+  let subject = req.body.subject;
+  if(!subject){
+    let defaultSubject = config[process.env.NODE_ENV].mailgun.defaultSubject;
+    subject = typeof defaultSubject === "function" ? defaultSubject(req.body) : defaultSubject;
+  }
+
+  let email = {
+    // sender: req.body.senderName + "<" + req.body.senderEmail + ">",
+    recipients: req.body.recipients.split(","),
+    subject: subject,
+    // message: message,
+  }
+
+  let sender = [];
+  if(userData.first_name){
+    sender.push(userData.first_name);
+  }
+  if(userData.last_name){
+    sender.push(userData.last_name);
+  }
+  if(userData.email){
+    sender.push("<" + userData.email + ">");
+  }
+
+  email.sender = sender.join(" ");
+
+  return new Promise(function(resolve, reject){
+
+    res.render("litmus-slate-stationery.ejs", {
+      request: req.body,
+      user: userData
+    },
+    function(err, html){
+      if(err){
+        reject("Email could not be made");
+      }
+      else{
+        email.messageHtml = html;
+        email.message = striptags(html);
+        resolve(email);
+      }
+    });
+
+  })
 }

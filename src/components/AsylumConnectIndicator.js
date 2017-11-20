@@ -6,7 +6,7 @@ const styles = (theme) => ({
   primary: {
     backgroundColor: theme.palette.primary[500], //fix this for non-resource-type checkboxes
     '&:hover': {
-      color: theme.palette.primary[500]
+      color: theme.palette.common.white
     }
   },
   secondary: {

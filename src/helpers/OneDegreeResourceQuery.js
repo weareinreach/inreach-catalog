@@ -51,6 +51,16 @@ class OneDegreeResourceQuery {
     return this;
   }
 
+  setFilters(filters) {
+    //this.filters.query.properties
+    return this;
+  }
+
+  setOrder(order) {
+    this.filters.query.order = order;
+    return this;
+  }
+
   nextPage() {
     this.filters.page++;
     return this;
