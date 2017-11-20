@@ -81,7 +81,7 @@ class Language extends React.Component {
     this.state = {
       open: false,
       initialLangsList: ValidLanguageList.all(),
-      selectedLang: 'Language'
+      selectedLang: 'English'
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
@@ -98,12 +98,14 @@ class Language extends React.Component {
   };
 
   componentWillMount(){
-    if(window.location.hash.length == 0) {
-      this.setState({selectedLang: 'Language'})
-    } else {
+    var currentLang = window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
+    if(window.location.hash.length !== 0) {
       let langCode = window.location.hash.substring(window.location.hash.indexOf("(") + 1).slice(0, -1).toLowerCase()
-      let currentLang = ValidLanguageList.byCode(langCode)
-      this.setState({selectedLang: currentLang})
+      currentLang = ValidLanguageList.byCode(langCode)
+    }
+    this.setState({selectedLang: currentLang})
+    if(currentLang === "English") {
+      document.cookie = "googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     }
   }
 
