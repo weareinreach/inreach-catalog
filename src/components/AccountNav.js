@@ -35,15 +35,15 @@ const AccountNav = ({
       <div className={classes.root}>
         <a
           className={[classes.divider, classes.accountLinks].join(' ')}
-          href='#'
+          href='/account'
         >
           <Typography type='body1' className={classes.lowercaseText}>
-            Account Settings
+             Account Settings
           </Typography>
         </a>
         <a
           className={classes.accountLinks}
-          href='#'
+          href='/'
           onClick={handleLogOut}
         >
           <Typography type='body1' className={classes.lowercaseText} >
@@ -57,7 +57,6 @@ const AccountNav = ({
       <div className={classes.root}>
         <a
           className={[classes.divider, classes.accountLinks].join(' ')}
-          href='#'
           onClick={() => handleRequestOpen('login')}
         >
           <Typography type='body1' className={classes.lowercaseText}>
@@ -66,7 +65,6 @@ const AccountNav = ({
         </a>
         <a
           className={classes.accountLinks}
-          href='#'
           onClick={() => handleRequestOpen('signup')}
         >
           <Typography type='body1' className={classes.lowercaseText} >

@@ -34,11 +34,11 @@ class PageContainer extends React.Component {
             <Route path="/favorites/:id/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
             <Route path="/favorites/:id" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
             <Route path="/favorites/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
-            <Route path="/account/" render={()=>(
+            <Route path="/account" render={()=>(
               <AccountPage handleMessageNew={handleMessageNew} />
             )}
             />
-            <Redirect from="/account" to="/" />
+            {/* <Redirect from="/account" to="/" /> */}
           </Switch>
       </div>
     );
