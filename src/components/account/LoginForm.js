@@ -68,6 +68,11 @@ const LoginForm = ({
         <span className={classes.link}>Forgot Password?</span>
       </Typography>
     </div>
+    <div onClick={() => handleRequestOpen('signup')}>
+      <Typography type="body1">
+        <span className={classes.link}>Don't have an account?</span>
+      </Typography>
+    </div>
   </form>
 );
 

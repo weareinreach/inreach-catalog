@@ -54,6 +54,7 @@ class NavMobile extends React.Component {
         this.props.handleRequestOpen('none');
       break;
       case 1:
+        this.props.history.push('/favorites');
         this.props.handleRequestOpen('none');
       break;
       case 2:

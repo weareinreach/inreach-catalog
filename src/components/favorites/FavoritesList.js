@@ -13,14 +13,14 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
-
 import ListNewDialog from './ListNewDialog';
 import ListShareDialog from './ListShareDialog';
+import ResourceListItem from '../resource/ResourceListItem';
 
 const styles = theme => ({
   container: {
     maxWidth: '720px',
-    margin: '3rem 0 1rem 0',
+    margin: '3rem 0 5rem 0',
   },
   dialogBody: {
     minWidth: '600px',
@@ -48,109 +48,144 @@ const FavoritesList = ({
   anchorEl,
   classes,
   dialog,
-  list,
-  lists,
-  match,
   handleDialogOpen,
   handleDialogClose,
   handleListNew,
   handleListSelect,
+  handleListRemoveFavorite,
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  loadingResources,
+  list,
+  lists,
+  match,
   open,
+  resources,
   session,
   user,
 }) => (
-  <Grid container direction="column" alignItems="center">
+  <Grid
+    container
+    className={classes.marginBottom}
+    direction="column"
+    alignItems="center">
     <Typography className={classes.marginTop} type="display1">
       Favorites
     </Typography>
     <Typography type="body1">
-      Your favorites lists are only visible to you and anyone you share them
-      with.
+      {session
+        ? 'Your favorites lists are only visible to you and anyone you share them with.'
+        : 'You must be logged in use favorites.'
+      }
     </Typography>
-    <Grid
-      container
-      className={classes.container}
-      direction="row"
-      justify="space-between">
-      <Grid container className={classes.mainRow} justify="space-between">
-        <Button
-          aria-owns={open ? 'favorites-menu' : null}
-          aria-haspopup="true"
-          onClick={handleMenuOpen}>
-          { list ? list.title : 'Select A List' }
-          {` `}
-          <Fa className={classes.marginLeft} name="chevron-down" />
-        </Button>
-        <div>
-          { list && (
-            <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
-          )}
-          { list && (
+    {session && (
+      <Grid
+        container
+        className={classes.container}
+        direction="row"
+        justify="space-between">
+        <Grid container className={classes.mainRow} justify="space-between">
+          <Button
+            aria-owns={open ? 'favorites-menu' : null}
+            aria-haspopup="true"
+            onClick={handleMenuOpen}>
+            {list ? list.title : 'Select A List'}
+            {` `}
+            <Fa className={classes.marginLeft} name="chevron-down" />
+          </Button>
+          <div>
+            {list && (
+              <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
+            )}
+            {list && (
+              <AsylumConnectButton
+                className={classes.marginLeft}
+                onClick={() => handleDialogOpen('share')}
+                variant="primary">
+                Share
+              </AsylumConnectButton>
+            )}
             <AsylumConnectButton
               className={classes.marginLeft}
-              onClick={() => handleDialogOpen('share')}
-              variant="primary"
-            >
-              Share
+              onClick={() => handleDialogOpen('new')}
+              variant="primary">
+              <Fa className={classes.marginRight} name="plus" /> Create New List
             </AsylumConnectButton>
-          )}
+          </div>
+        </Grid>
+        <Grid container justify="center">
+          <div>
+            {loadingResources ? (
+              <Fa name="spinner" spin />
+            ) : (
+              <div>
+                {resources.map(resource =>
+                  <ResourceListItem
+                    isOnFavoritesList={true}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleMessageNew={handleMessageNew}
+                    key={resource.id}
+                    resource={resource}
+                  />
+                )}
+              </div>
+            )}
+            {!loadingResources && list && resources.length === 0 && (
+              <Typography type="body1">
+                You haven't added any resources to this list yet.
+              </Typography>
+            )}
+          </div>
+        </Grid>
+      </Grid>
+    )}
+
+    {list && (
+      <Grid
+        container
+        className={classes.footer}
+        direction="column"
+        alignItems="center">
+        <Typography
+          className={classNames(classes.marginBottom, classes.textWhite)}
+          type="display2">
+          {`Share "${list.title}" Favorites List`}
+        </Typography>
+        <Grid container justify="center">
+          <AsylumConnectButton className={classes.marginRight} variant="primary">
+            Print
+          </AsylumConnectButton>
           <AsylumConnectButton
             className={classes.marginLeft}
-            onClick={() => handleDialogOpen('new')}
+            onClick={() => handleDialogOpen('share')}
             variant="primary">
-            <Fa className={classes.marginRight} name="plus" /> Create New List
+            Share
           </AsylumConnectButton>
-        </div>
+        </Grid>
       </Grid>
-      <Divider />
-    </Grid>
-    <Grid
-      container
-      className={classes.footer}
-      direction="column"
-      alignItems="center">
-      <Typography
-        className={classNames(classes.marginBottom, classes.textWhite)}
-        type="display2">
-        Share "My List" Favorites List
-      </Typography>
-      <Grid container justify="center">
-        <AsylumConnectButton className={classes.marginRight} variant="primary">
-          Print
-        </AsylumConnectButton>
-        <AsylumConnectButton
-          className={classes.marginLeft}
-          onClick={() => handleDialogOpen('share')}
-          variant="primary"
-        >
-          Share
-        </AsylumConnectButton>
-      </Grid>
-    </Grid>
+    )}
 
     <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
       <div className={classes.dialogBody}>
-      {dialog === 'new' &&
-        <ListNewDialog
-          handleMessageNew={handleMessageNew}
-          handleListNew={handleListNew}
-          handleRequestClose={handleDialogClose}
-          session={session}
-          user={user}
-        />
-      }
-      {dialog === 'share' &&
-        <ListShareDialog
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleDialogClose}
-          session={session}
-          listId={list.id}
-          listTitle={list.title}
-        />
-      }
+        {dialog === 'new' && (
+          <ListNewDialog
+            handleMessageNew={handleMessageNew}
+            handleListNew={handleListNew}
+            handleRequestClose={handleDialogClose}
+            session={session}
+            user={user}
+          />
+        )}
+        {dialog === 'share' && (
+          <ListShareDialog
+            handleMessageNew={handleMessageNew}
+            handleRequestClose={handleDialogClose}
+            session={session}
+            listId={list.id}
+            listTitle={list.title}
+          />
+        )}
       </div>
     </Dialog>
 
@@ -160,15 +195,13 @@ const FavoritesList = ({
       anchorOrigin={{vertical: 'bottom'}}
       getContentAnchorEl={null}
       open={open}
-      onRequestClose={handleMenuClose}>
-      {lists.map(list =>
-        <MenuItem
-          key={list.id}
-          onClick={() => handleListSelect(list)}
-        >
+      onRequestClose={handleMenuClose}
+      PaperProps={{style: {maxHeight: '300px'}}}>
+      {lists.map(list => (
+        <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
           {list.title}
         </MenuItem>
-      )}
+      ))}
     </Menu>
   </Grid>
 );
@@ -184,16 +217,19 @@ FavoritesList.propTypes = {
   anchorEl: PropTypes.object,
   classes: PropTypes.object.isRequired,
   dialog: PropTypes.string.isRequired,
-  list: PropTypes.object,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleDialogOpen: PropTypes.func.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleListSelect: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
+  loadingResources: PropTypes.bool.isRequired,
+  list: PropTypes.object,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
   user: PropTypes.number,
 };

@@ -41,6 +41,9 @@ class SaveToFavoritesButton extends React.Component {
   }
 
   handleCreateList(listId) {
+    if (!this.props.session) {
+      return this.props.handleMessageNew('You must be logged in to save favorites');
+    }
     const payload = {
       created_by_user_id: this.props.user,
       title: 'My List',
@@ -190,11 +193,17 @@ class SaveToFavoritesButton extends React.Component {
   }
 }
 
+SaveToFavoritesButton.defaultProps = {
+  session: null,
+  user: null,
+};
+
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListRemoveFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -202,8 +211,8 @@ SaveToFavoritesButton.propTypes = {
     }),
   ).isRequired,
   resourceId: PropTypes.number.isRequired,
-  session: PropTypes.string.isRequired,
-  user: PropTypes.number.isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(SaveToFavoritesButton);
