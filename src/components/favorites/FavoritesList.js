@@ -14,8 +14,8 @@ import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 import ListNewDialog from './ListNewDialog';
-import ListShareDialog from './ListShareDialog';
 import ResourceListItem from '../resource/ResourceListItem';
+import ShareDialog from '../share/ShareDialog';
 
 const styles = theme => ({
   container: {
@@ -168,24 +168,25 @@ const FavoritesList = ({
 
     <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
       <div className={classes.dialogBody}>
-        {dialog === 'new' && (
-          <ListNewDialog
-            handleMessageNew={handleMessageNew}
-            handleListNew={handleListNew}
-            handleRequestClose={handleDialogClose}
-            session={session}
-            user={user}
-          />
-        )}
-        {dialog === 'share' && (
-          <ListShareDialog
-            handleMessageNew={handleMessageNew}
-            handleRequestClose={handleDialogClose}
-            session={session}
-            listId={list.id}
-            listTitle={list.title}
-          />
-        )}
+      {dialog === 'new' &&
+        <ListNewDialog
+          handleMessageNew={handleMessageNew}
+          handleListNew={handleListNew}
+          handleRequestClose={handleDialogClose}
+          session={session}
+          user={user}
+        />
+      }
+      {dialog === 'share' &&
+        <ShareDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleDialogClose}
+          session={session}
+          listId={list.id}
+          listTitle={list.title}
+          shareType="collection"
+        />
+      }
       </div>
     </Dialog>
 

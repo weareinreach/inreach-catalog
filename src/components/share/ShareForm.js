@@ -17,7 +17,7 @@ const styles = theme => ({
   spacingAbove: {marginTop: '3rem'},
 });
 
-const ListShareForm = ({classes, email, handleChange, handleSubmit}) => (
+const ShareForm = ({classes, email, handleChange, handleSubmit}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <TextField
       id="email"
@@ -35,11 +35,11 @@ const ListShareForm = ({classes, email, handleChange, handleSubmit}) => (
   </form>
 );
 
-ListShareForm.propTypes = {
+ShareForm.propTypes = {
   classes: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ListShareForm);
+export default withStyles(styles)(ShareForm);

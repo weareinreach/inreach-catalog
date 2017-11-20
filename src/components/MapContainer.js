@@ -293,7 +293,7 @@ class MapContainer extends React.Component {
                     session={this.props.session}
                     user={this.props.user}
                     />} />
-                  <Route path="/resource/:id" render={ props => <Resource {...props} mapProps={this.mapProps} resource={(() => {
+                  <Route path="/resource/:id" render={ props => <Resource {...props} mapProps={this.mapProps} handleMessageNew={this.props.handleMessageNew} resource={(() => {
                     let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
                     return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
                 </Switch>
