@@ -110,7 +110,7 @@ class OrgSettingsInfo extends React.Component {
             placeholder='Hint text'
             onChange={this.handleChange}
           />
-          <TextField
+          {/* <TextField
             className={classes.inputLabel}
             label='Who it helps:'
             name='target'
@@ -119,7 +119,7 @@ class OrgSettingsInfo extends React.Component {
             }}
             placeholder='Population'
             onChange={this.handleChange}
-          />
+          /> */}
           <TextField
             className={classes.inputLabel}
             label='Websites:'
