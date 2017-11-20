@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
+
 import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
@@ -57,9 +59,11 @@ const NavDesktop = ({
     <a href="http://www.asylumconnect.org/contact-us/">
       <Typography type="display4">contact us</Typography>
     </a>
-    <AsylumConnectButton variant="primary">
-      find resources
-    </AsylumConnectButton>
+    <Link to='/'>
+      <AsylumConnectButton variant="primary">
+        find resources
+      </AsylumConnectButton>
+    </Link>
     <Language />
     <AccountNav
       handleLogOut={handleLogOut}
