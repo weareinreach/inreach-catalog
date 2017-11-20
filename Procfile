@@ -1,1 +1,1 @@
-web: node --debug=5858 server.js
+web: node --inspect=5858 server.js
