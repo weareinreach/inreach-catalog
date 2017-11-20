@@ -13,7 +13,6 @@ import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
-import SearchStatusHandler from './SearchStatusHandler';
 import ResourceListItem from '../resource/ResourceListItem';
 import {mobilePadding} from '../../theme/sharedClasses';
 
@@ -107,7 +106,7 @@ class SearchResultsContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.searchStatus === "redirect"  && prevProps.searchStatus === null) {
+    if (this.props.searchStatus === "refresh"  && prevProps.searchStatus === null) {
       this.doSearch()
     }
   }
@@ -198,9 +197,13 @@ class SearchResultsContainer extends React.Component {
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={container}>
         <Grid item md={10} lg={9} xs={12}>
         <div className={containerSearchForm}>
-          <SearchStatusHandler {...this.props} />
           <SearchBar {...this.props} classes={null} />
-          <SearchRefinementControls onFilterChange={this.props.onFilterChange} onSortChange={this.props.onSortChange} selectedFilters={this.props.selectedFilters} />
+          <SearchRefinementControls 
+            clearSearchFilters={this.props.clearSearchFilters}
+            handleFilterSelect={this.props.handleFilterSelect} 
+            handleSortSelect={this.props.handleSortSelect} 
+            selectedFilters={this.props.selectedFilters} 
+            selectedSort={this.props.selectedSort}  />
           <Grid container spacing={0}>
             <Grid item xs={12} className={formRow}>
               <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >

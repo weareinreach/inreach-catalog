@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 import { FormControlLabel } from 'material-ui/Form';
-import Checkbox from 'material-ui/Checkbox';
-import CheckCircleIcon from 'material-ui-icons/CheckCircle';
-import RadioUncheckedIcon from 'material-ui-icons/RadioButtonUnchecked';
+import Switch from 'material-ui/Switch';
 
 const relativeSize = 1;
 
@@ -21,21 +19,19 @@ const styles = (theme) => ({
     color: theme.palette.common.lightBlack, //fix this for non-resource-type checkboxes
     '&:hover': {
       color: theme.palette.primary[500]
-    }
+    },
   },
-  checkboxDefault: {
-    color: 'inherit',
-    width: relativeSize*2+'rem',
-    height: relativeSize*2+'rem'
-  },
+  checkboxDefault: {},
+  bar: {},
   checkboxChecked: {
-    color: theme.palette.primary[500],
-    width: relativeSize*2+'rem',
-    height: relativeSize*2+'rem'
+    color: theme.palette.secondary[500],
+    '& + $bar': {
+      backgroundColor: theme.palette.secondary[500],
+    }
   }
 });
 
-const AsylumConnectCheckbox = (props) => {
+const AsylumConnectSwitch = (props) => {
   const classes = Object.assign(props.classes, props.overrideClasses);
 
   const rootClass = classNames(
@@ -51,36 +47,45 @@ const AsylumConnectCheckbox = (props) => {
     props.additionalClasses ? props.additionalClasses.checkboxChecked : null
   );
 
+  const checkboxBar = classNames(
+    classes.bar,
+    props.additionalClasses ? props.additionalClasses.checkboxBar : null
+  );
+
   const iconSize = Object.assign(defaultIconSize, props.iconSize);
+  const labelClass = classNames(
+    classes.label,
+    props.additionalClasses ? props.additionalClasses.label : null
+  );
 
   return (
     <FormControlLabel
       control={
-        <Checkbox
+        <Switch
           value={props.value}
-          icon={<RadioUncheckedIcon style={iconSize} />}
-          checkedIcon={<CheckCircleIcon style={iconSize}/>}
           checked={props.checked}
           classes={{
             default: checkboxDefault,
-            checked: checkboxChecked
+            checked: checkboxChecked,
+            bar: checkboxBar
           }}
           onChange={props.onChange}
         />
       }
       label={props.label}
       classes={{
-        root: rootClass
+        root: rootClass,
+        label: labelClass
       }}
     />
   );
 }
 
-AsylumConnectCheckbox.propTypes = {
+AsylumConnectSwitch.propTypes = {
   onChange: PropTypes.func.isRequired,
   checked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(AsylumConnectCheckbox);
+export default withStyles(styles)(AsylumConnectSwitch);

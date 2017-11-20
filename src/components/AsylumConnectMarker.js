@@ -2,7 +2,7 @@ import React from 'react';
 import { Marker } from "react-google-maps";
 
 class AsylumConnectMarker extends React.Component {
-  constructor(props, context) { console.log(props);
+  constructor(props, context) { //console.log(props);
     super(props, context)
     this.state = {
       open: false
