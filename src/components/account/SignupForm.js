@@ -134,7 +134,7 @@ const SignupForm = ({
     {selection === '' && (
       <div onClick={() => handleRequestOpen('login')}>
         <Typography type="body1">
-          <span className={classes.link}>Don't have an account?</span>
+          <span className={classes.link}>Already have an account?</span>
         </Typography>
       </div>
     )}
