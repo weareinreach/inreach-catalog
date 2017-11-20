@@ -15,6 +15,8 @@ import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
+import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
+
 function TextMaskCustom(props) {
   return (
     <MaskedInput
@@ -163,7 +165,7 @@ class OrgSettingsHour extends React.Component {
                   <Radio
                     name='tuesday'
                     checked={this.state.tuesday}
-                    value={this.state.monday?'on':'off'}
+                    value={this.state.tuesday?'on':'off'}
                     onClick={this.handleToggleDay}
                   />
                 }
@@ -180,9 +182,9 @@ class OrgSettingsHour extends React.Component {
               <FormControlLabel
                 control={
                   <Radio
-                    name='Wednesday'
+                    name='wednesday'
                     checked={this.state.wednesday}
-                    value={this.state.monday?'on':'off'}
+                    value={this.state.wednesday?'on':'off'}
                     onClick={this.handleToggleDay}
                   />
                 }
@@ -201,7 +203,7 @@ class OrgSettingsHour extends React.Component {
                   <Radio
                     name='thursday'
                     checked={this.state.thursday}
-                    value={this.state.monday?'on':'off'}
+                    value={this.state.thursday?'on':'off'}
                     onClick={this.handleToggleDay}
                   />
                 }
@@ -220,7 +222,7 @@ class OrgSettingsHour extends React.Component {
                   <Radio
                     name='friday'
                     checked={this.state.friday}
-                    value={this.state.monday?'on':'off'}
+                    value={this.state.friday?'on':'off'}
                     onClick={this.handleToggleDay}
                   />
                 }
@@ -239,7 +241,7 @@ class OrgSettingsHour extends React.Component {
                   <Radio
                     name='saturday'
                     checked={this.state.saturday}
-                    value={this.state.monday?'on':'off'}
+                    value={this.state.saturday?'on':'off'}
                     onClick={this.handleToggleDay}
                   />
                 }
@@ -258,7 +260,7 @@ class OrgSettingsHour extends React.Component {
                   <Radio
                     name='sunday'
                     checked={this.state.sunday}
-                    value={this.state.monday?'on':'off'}
+                    value={this.state.sunday?'on':'off'}
                     onClick={this.handleToggleDay}
                   />
                 }

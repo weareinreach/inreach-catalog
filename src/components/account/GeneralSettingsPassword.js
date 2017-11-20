@@ -115,35 +115,50 @@ class GeneralSettingsPassword extends React.Component {
             <TextField
               className={classes.inputLabel}
               name='currentPassword'
-              label='*Enter Old Password:'
+              label='Enter Old Password:'
+              type='password'
+              error={currentPassword.length > 0 && currentPassword.length < 8}
+              helperText={currentPassword.length > 0 && currentPassword.length < 8 ? 'Password must be at least 8 characters.' : null}
+              
               value={currentPassword}
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'
+              placeholder='Password must be at least 8 characters.'
               onChange={this.handleChange}
+              required
             />
             <TextField
               className={classes.inputLabel}
               name='newPassword'
-              label='*Enter New Password:'
+              label='Enter New Password:'
+              type='password'
+              error={newPassword.length > 0 && newPassword.length < 8}
+              helperText={newPassword.length > 0 && newPassword.length < 8 ? 'Password must be at least 8 characters.' : null}
+              
               value={newPassword}
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'
+              placeholder='Password must be at least 8 characters.'
               onChange={this.handleChange}
+              required
             />
             <TextField
               className={classes.inputLabel}
               name='confirmedPassword'
-              label='*Confirm New Password:'
+              label='Confirm New Password:'
+              type='password'
+              error={confirmedPassword.length > 0 && confirmedPassword.length < 8}
+              helperText={confirmedPassword.length > 0 && confirmedPassword.length < 8 ? 'Password must be at least 8 characters.' : null}
+              
               value={confirmedPassword}
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'
+              placeholder='Password must be at least 8 characters.'
               onChange={this.handleChange}
+              required
             />
             <div><AsylumConnectButton variant="primary">Change Password</AsylumConnectButton></div>
           </form>

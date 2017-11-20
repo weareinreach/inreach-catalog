@@ -121,8 +121,9 @@ class GeneralSettingsEmail extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'
+              placeholder='old_example@email.org'
               onChange={this.handleChange}
+              required
             />
             <TextField
               className={classes.inputLabel}
@@ -133,8 +134,9 @@ class GeneralSettingsEmail extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'              
+              placeholder='new_example@email.org'              
               onChange={this.handleChange}
+              required
             />
             <TextField
               className={classes.inputLabel}
@@ -145,8 +147,9 @@ class GeneralSettingsEmail extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'              
+              placeholder='new_example@email.org'              
               onChange={this.handleChange}
+              required
             />
             <div><AsylumConnectButton variant="primary">Change Email Address</AsylumConnectButton></div>
           </form>
