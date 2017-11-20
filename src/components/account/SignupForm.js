@@ -27,6 +27,7 @@ const styles = theme => ({
   paddingVertical: {padding: '2.5rem 6rem'},
   marginBottom: {marginBottom: '2rem'},
   marginBottomLg: {marginBottom: '3rem'},
+  spacingTop: {marginTop: '1rem'},
 });
 
 const SignupForm = ({
@@ -130,7 +131,15 @@ const SignupForm = ({
         <AsylumConnectButton variant="secondary">Sign Up</AsylumConnectButton>
       </form>
     )}
+    {selection === '' && (
+      <div onClick={() => handleRequestOpen('login')}>
+        <Typography type="body1">
+          <span className={classes.link}>Already have an account?</span>
+        </Typography>
+      </div>
+    )}
     <MobileStepper
+      className={classes.spacingTop}
       type="dots"
       steps={2}
       position="static"

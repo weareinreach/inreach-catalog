@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
-  Redirect
+  Link
 } from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
@@ -20,11 +20,12 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justify: 'space-between',
+    height: 'auto'
   },
   BottomNavBar: {
     position:'fixed',
     bottom:'0',
-    zIndex: '1'
+    zIndex: '100'
   },
   NavButton: {
     minWidth: '20%',
@@ -40,8 +41,7 @@ class NavMobile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
-      redirect: false
+      value: ''
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -49,20 +49,30 @@ class NavMobile extends React.Component {
   handleChange(event, value) {
     const { handleRequestOpen, session } = this.props;
     this.setState({ value });
-    if (value === 3) {
-      if(session) {
-        this.setState({
-          redirect: '/account/1'
-        });
-        handleRequestOpen('none');
-      } else {
-        handleRequestOpen('login');
-      }
+    switch(value) {
+      case 0:
+        this.props.history.push('/');
+        this.props.handleRequestOpen('none');
+      break;
+      case 1:
+        this.props.history.push('/favorites');
+        this.props.handleRequestOpen('none');
+      break;
+      case 2:
+
+      break;
+      case 3:
+        if(session) {
+          handleRequestOpen('none');
+        } else {
+          handleRequestOpen('login');
+        }
+        this.props.history.push('/account');
+      break;
+      case 4:
+        handleRequestOpen('privacy');
+      break;
     }
-    else if (value === 4)
-      handleRequestOpen('privacy');
-    else
-      this.props.handleRequestOpen('none');
   };
   iconColor(position){
     if (position === null) {
@@ -80,7 +90,6 @@ class NavMobile extends React.Component {
     const { value } = this.state;
     return (
       <div className={classes.BottomNavBar}>
-        { this.state.redirect !== false ? <Router><Redirect to={this.state.redirect} push={true} /></Router> : null }
         <BottomNavigation
           value={value}
           onChange={this.handleChange}

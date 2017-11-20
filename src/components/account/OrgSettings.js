@@ -49,6 +49,11 @@ const styles = theme => ({
     alignItems: 'center',
     cursor: 'pointer'
   },
+  note: {
+    backgroundColor: '#fff3c6',
+    padding: '10px',
+    marginTop: '10px'
+  }
 });
 
 class OrgSettings extends React.Component {
@@ -59,6 +64,7 @@ class OrgSettings extends React.Component {
       isScheduleRequested: false,
       isInfoRequested: false,
       isAdditionalRequested: false,
+      isPendingSubmission: false,
       orgData: null,
       schedule: null,
       info: null,
@@ -69,7 +75,7 @@ class OrgSettings extends React.Component {
     this.collectInfoData = this.collectInfoData.bind(this)
     this.submitOrgData = this.submitOrgData.bind(this)
   }
-  // to-do: load initial Org settings data. Work with Jeremy implement making API call from Node
+
   componentDidMount(){    
     var jwt = localStorage.getItem("jwt");
     const { user } = this.props;
@@ -80,6 +86,8 @@ class OrgSettings extends React.Component {
     fetchJsonp(url + apiKeyParam)
       .then(response => response.json())
       .then(orgData => {
+        console.log(orgData)
+        let isPendingSubmission = orgData.has_pending_submission
         let info = {
           name: orgData.name,
           description: orgData.description,
@@ -88,11 +96,10 @@ class OrgSettings extends React.Component {
           phone: orgData.phone ? orgData.phone.digits : '(  )   -   ',
         };
         let schedule = orgData.locations? orgData.locations[0].schedule : '';
-        console.log(schedule)
         let additional = {
           resource: orgData.tag
         }
-        this.setState({ orgData, info, schedule, additional})
+        this.setState({ orgData, isPendingSubmission, info, schedule, additional})
       })
       .then(error => {
         console.log(error)
@@ -104,8 +111,6 @@ class OrgSettings extends React.Component {
     this.setState({isInitial: false, isScheduleRequested: true, isInfoRequested: true})    
   }
   collectHourData(schedule){
-    console.log("Schedule: ")
-    console.log(schedule)
     this.setState({schedule})    
   }
   collectInfoData(info){
@@ -123,11 +128,9 @@ class OrgSettings extends React.Component {
               !this.state.isInfoRequested && 
               !this.state.isAdditionalRequested &&
               !this.state.isInitial) {
-                console.log("submiting")
       this.submitOrgData();
     }
   }
-  // to-do: matching body content with required body from doc
   submitOrgData(){
     const {orgData, info, schedule, additional} = this.state;
     const {user} = this.props;
@@ -215,15 +218,16 @@ class OrgSettings extends React.Component {
     console.log('let s fetch')
     this.setState({isInitial: true})
   }
-  // to-do: make sure each OrgSetting component can serve both parent Suggestion and OrgSetting
-  // Suggestion does not have initial data to load
-  // OrgSetting does have initial data to load
   render() {
     const { classes } = this.props;
-    const { isInfoRequested, isScheduleRequested , isAdditionalRequested, info, schedule, additional } = this.state;
+    const { isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional } = this.state;
+    console.log(isPendingSubmission)
     return (
       <div className={classes.root}>
-        <Typography type="display3" className={classes.formType}>Your Organization</Typography>    
+        <Typography type="display3" className={classes.formType}>Your Organization</Typography>
+        {isPendingSubmission? (
+          <div className={classes.note}><Typography type='body1'>We are still reviewing your recent edits. Below reflects your latest changes, and once we confirm them, they will be live on the site in 1-3 days.</Typography></div>
+        ):('')}
         {info? (
           <OrgSettingsInfo initialData={info} isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
           ):(' ')

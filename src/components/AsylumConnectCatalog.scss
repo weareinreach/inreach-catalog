@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  top: 0px !important;
   a { text-decoration: none; }
 }
 .content {
@@ -16,4 +17,12 @@ body {
 .center-align {
   vertical-align: middle;
   display: inline-block !important;
+}
+
+.pull-right {
+  text-align: right;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
 }

@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import config from '../config/config.js';
 
@@ -19,6 +19,7 @@ class OneDegreeResourceQuery {
         'titles_only': 'true'
       },
       'organizations': {
+        extended: 'true'
       }
     };
   }
@@ -36,6 +37,7 @@ class OneDegreeResourceQuery {
 
   setIds(ids) {
     this.filters.query.ids = ids.join(',');
+    return this;
   }
 
   setLocation(latLng) {

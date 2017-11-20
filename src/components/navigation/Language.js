@@ -64,7 +64,7 @@ class LangMenuItem extends React.Component {
   }
   
   handleSelectLang() {
-    this.props.handleSelectLang(this.props.langCode);
+    this.props.handleSelectLang(this.props.langCode, this.props.langName);
   }
   render() {
     return (
@@ -79,29 +79,39 @@ class Language extends React.Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
+      initialLangsList: ValidLanguageList.all(),
+      selectedLang: 'English'
     }
     this.handleClick = this.handleClick.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
   }
   handleClick(event) {
     this.setState({ open: !this.state.open });
   };
   
-  handleRequestClose() {
-    this.setState({ open: false });
-  };
-  
-  handleRequestCloseAfterSelect(langCode) {
-    this.setState({ open: false });
+  handleRequestCloseAfterSelect(langCode, langName) {
+    this.setState({ open: false, selectedLang: langName });
     window.location.hash = "#googtrans("+langCode+")";
+    window.localStorage.setItem('lang', langName)
     location.reload();
   };
 
+  componentWillMount(){
+    var currentLang = window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
+    if(window.location.hash.length !== 0) {
+      let langCode = window.location.hash.substring(window.location.hash.indexOf("(") + 1).slice(0, -1).toLowerCase()
+      currentLang = ValidLanguageList.byCode(langCode)
+    }
+    this.setState({selectedLang: currentLang})
+    if(currentLang === "English") {
+      document.cookie = "googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    }
+  }
+
   render() {
     const classes = this.props.classes;
-    const langsList = ValidLanguageList.all();
+    const {open, selectedLang, initialLangsList} = this.state;
     return (
       <div className={classes.root}>
         <div className={classes.languageLink} onClick={this.handleClick}>
@@ -109,13 +119,13 @@ class Language extends React.Component {
             aria-owns={this.state.open ? 'simple-menu' : null}
             aria-haspopup="true"
             type="body1"
-            className={classes.centerTextAlign}>
-          Language
+            className={[classes.centerTextAlign,'skiptranslate'].join(' ')}>
+          {selectedLang}
           <ChevronIcon width={'18px'}/>
           </Typography>
         </div>
-        {this.state.open &&
-          <List className={classes.languageList}>
+        {open &&
+          <List className={[classes.languageList, 'skiptranslate'].join(' ')}>
             <ListSubheader className={classes.poweredByGoogle}>
               <span>Powered By</span>
               <a className={classes.gooLogoLink} href="https://translate.google.com" target="_blank">
@@ -123,8 +133,8 @@ class Language extends React.Component {
                 <span className={classes.blackTranslateColor}>Translate</span>
               </a>
             </ListSubheader>
-            { langsList.map((lang,index) =>  
-              <LangMenuItem key={index} langName={lang.name} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
+            { initialLangsList.map((lang,index) =>  
+              <LangMenuItem key={index} langName={lang.local} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
             )}
           </List>
         }

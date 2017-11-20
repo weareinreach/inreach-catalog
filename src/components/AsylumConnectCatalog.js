@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog, { DialogActions,
   DialogContent,
   DialogContentText,
@@ -11,7 +12,8 @@ import {
   Switch,
   Link
 } from 'react-router-dom';
-import fetch from 'node-fetch';
+
+import {withStyles} from 'material-ui/styles';
 
 import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';
@@ -36,6 +38,14 @@ import withWidth from './withWidth';
 import Message from './Message';
 
 import breakpoints from '../theme/breakpoints';
+
+const styles = (theme) => ({
+  [theme.breakpoints.down('sm')]: {
+    navPadding: {
+      paddingBottom: "91px"
+    }
+  }
+});
 
 class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
@@ -75,16 +85,20 @@ class AsylumConnectCatalog extends React.Component {
 
   render() {
     const {dialog, message, messageOpen} = this.state;
-    const {handleLogIn, handleLogOut, session} = this.props;
+    const {handleLogIn, handleLogOut, session, user, location, history, match} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
     return (
-      <div>
-        <Header
-          handleLogOut={handleLogOut}
-          handleRequestOpen={handleRequestOpen}
-          session={session}
-        />
+        <div>
+          <Header
+            handleLogOut={handleLogOut}
+            handleRequestOpen={handleRequestOpen}
+            session={session}
+            user={user}
+            location={location}
+            history={history}
+            match={match}
+          />
         {isMobile ? (
           <div>
             {['disclaimer', 'privacy'].includes(dialog) && (
@@ -117,23 +131,27 @@ class AsylumConnectCatalog extends React.Component {
           </div>
         )}
         { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup'].includes(dialog)) || !isMobile ?
-        <Router>
-          <div className="content" >
+          <div className={"content "+this.props.classes.navPadding} >
             <Switch>
-              <Route exact path="/" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} />)}/>
-              <Route path="/resource/:id" component={MapContainer}/>
-              <Route path="/search/:near/:for/:filter/:sort" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} />)}/>
+              <Route path="/resource/:id" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} />)}/>
+              <Route exact path="/" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
+              <Route path="/search/:near/:for/:filter/:sort" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
               <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
               <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
               <Redirect from="/search" to="/"/>
               <Redirect from="/resource" to="/"/>
-              <Route render={() => (
-                <PageContainer handleMessageNew={handleMessageNew} handleLogOut={handleLogOut} />
+              <Route render={(props) => (
+                <PageContainer
+                    {...this.state}
+                    {...this.props}
+                    {...props}
+                    handleMessageNew={handleMessageNew}
+                    handleLogOut={handleLogOut}
+                  />
                 )}
               />
             </Switch>
           </div>
-        </Router>
         : null }
         { isMobile ? null : <Footer /> }
         <Message
@@ -146,4 +164,17 @@ class AsylumConnectCatalog extends React.Component {
   }
 };
 
-export default withSession(withWidth(AsylumConnectCatalog));
+AsylumConnectDialog.defaultProps = {
+  session: null,
+  user: null,
+};
+
+AsylumConnectCatalog.propTypes = {
+  handleLogIn: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
+  width: PropTypes.number.isRequired,
+};
+
+export default withSession(withWidth(withStyles(styles)(AsylumConnectCatalog)));

@@ -47,7 +47,8 @@ const styles = theme => ({
     fontWeight: 700,
     fontFamily: "\"Open Sans\", sans-serif",
     letterSpacing: "-.02em",
-    color: theme.palette.primary[500]
+    color: theme.palette.primary[500],
+    cursor: 'pointer'
   },
 });
 
@@ -65,8 +66,33 @@ class GeneralSettings extends React.Component {
     this.updatePassword = this.updatePassword.bind(this)
   }
   
-  handleDelete() {
-    return "Delete"
+  handleDelete() {    
+    var jwt = localStorage.getItem("jwt");
+    const {handleMessageNew, user} = this.props;
+    const apiDomain = config[process.env.NODE_ENV].odas;
+    const url = `${apiDomain}api/user`;
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
+        'Demo-Authorization': 'Bearer '+jwt,
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      },
+    };
+    fetch(url, options)
+      .then(response => {
+        if (response.status === 200) {
+          response.json().then((res) => {
+            console.log(res)
+            if (res.message === 'User deleted') {
+              handleMessageNew('Your account has been deleted.');
+            }
+          });
+        } else {
+          handleMessageNew('Oops! Something went wrong. Error 401.');
+        }
+      })
   }
 
   updateEmail(newEmail){
