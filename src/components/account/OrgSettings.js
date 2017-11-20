@@ -56,6 +56,16 @@ const styles = theme => ({
   }
 });
 
+const defaultSchedule = {
+  monday_start: '', monday_end: '',
+  tuesday_start: '', tuesday_end: '',
+  wednesday_start: '', wednesday_end: '',
+  thursday_start: '', thursday_end: '',
+  friday_start: '', friday_end: '',
+  saturday_start: '', saturday_end: '',
+  sunday_start: '', sunday_end: '',
+}
+
 class OrgSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -92,10 +102,13 @@ class OrgSettings extends React.Component {
           name: orgData.name,
           description: orgData.description,
           website: orgData.website,
-          address: orgData.address,
-          phone: orgData.phone ? orgData.phone.digits : '(  )   -   ',
+          address: orgData.locations ? orgData.locations[0].address:'',
+          region: orgData.region,
+          city: orgData.locations? orgData.locations[0].city:'',
+          state: orgData.locations? orgData.locations[0].state:'',
+          phone: orgData.phones ? orgData.phones[0].digits : '',
         };
-        let schedule = orgData.locations? orgData.locations[0].schedule : '';
+        let schedule = orgData.locations && orgData.locations[0].schedule ? orgData.locations[0].schedule : defaultSchedule;
         let additional = {
           resource: orgData.tag
         }
@@ -111,10 +124,12 @@ class OrgSettings extends React.Component {
     this.setState({isInitial: false, isScheduleRequested: true, isInfoRequested: true})    
   }
   collectHourData(schedule){
-    this.setState({schedule})    
+    this.setState({schedule})
+    this.setState({isScheduleRequested:false})
   }
   collectInfoData(info){
-    this.setState({info})    
+    this.setState({info})
+    this.setState({isInfoRequested:false})
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.schedule !== this.state.schedule && prevState.isScheduleRequested){  
@@ -196,8 +211,6 @@ class OrgSettings extends React.Component {
         "submitter_type": "PublicForm"  // Arbitrary
       }
     }
-    console.log(content)
-    console.log(payload)
     fetch(window.location.origin+'/api/submissions', 
     {
       method: 'POST',
@@ -208,6 +221,7 @@ class OrgSettings extends React.Component {
     })
     .then(response => {
       if (response.status === 200) {
+        console.log('Submitted')
         return response.json()
       }      
     }).then(data => {
@@ -215,13 +229,11 @@ class OrgSettings extends React.Component {
     }).catch(error => {
       console.log(error)
     })
-    console.log('let s fetch')
     this.setState({isInitial: true})
   }
   render() {
     const { classes } = this.props;
     const { isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional } = this.state;
-    console.log(isPendingSubmission)
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Organization</Typography>
