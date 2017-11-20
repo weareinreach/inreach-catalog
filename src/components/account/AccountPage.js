@@ -63,7 +63,7 @@ class AccountPage extends React.Component {
       this.props.history.push('/');
       handleMessageNew('You need to log in to view your account.')
     } else {
-      const apiDomain = config[process.env.NODE_ENV].odas;
+      const apiDomain = config[process.env.OD_API_ENV].odas;
       const url = `${apiDomain}api/user`;    
       const options = {
         method: 'GET',

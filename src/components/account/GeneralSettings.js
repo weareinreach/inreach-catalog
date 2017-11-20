@@ -69,7 +69,7 @@ class GeneralSettings extends React.Component {
   handleDelete() {    
     var jwt = localStorage.getItem("jwt");
     const {handleMessageNew, user} = this.props;
-    const apiDomain = config[process.env.NODE_ENV].odas;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/user`;
     const options = {
       method: 'DELETE',
@@ -99,7 +99,7 @@ class GeneralSettings extends React.Component {
     var jwt = localStorage.getItem("jwt");
     const {handleMessageNew} = this.props;
     
-    const apiDomain = config[process.env.NODE_ENV].odas;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/user`;
     const { user } = this.state;
     user.email = newEmail;
@@ -135,7 +135,7 @@ class GeneralSettings extends React.Component {
     var jwt = localStorage.getItem("jwt");
     const {handleMessageNew} = this.props;
 
-    const apiDomain = config[process.env.NODE_ENV].odas;
+    const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/passwords/change_password`;
     const payload = JSON.stringify({
       "change_password": {

@@ -30,7 +30,7 @@ export default function withSession(WrappedComponent) {
     }
 
     fetchUser(jwt) {
-      const apiDomain = config[process.env.NODE_ENV].odas;
+      const apiDomain = config[process.env.OD_API_ENV].odas;
       const url = `${apiDomain}api/user`;
       const options = {
         headers: {

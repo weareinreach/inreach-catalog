@@ -65,7 +65,7 @@ class OrgSettings extends React.Component {
     // if user already signed in
     if (jwt) {
       // get affiliation
-      const apiDomain = config[process.env.NODE_ENV].odas;
+      const apiDomain = config[process.env.OD_API_ENV].odas;
       const url = `${apiDomain}api/user`;    
       const options = {
         method: 'GET',
