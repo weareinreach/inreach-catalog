@@ -391,6 +391,12 @@ export default createMuiTheme({
       shadow4: {
         boxShadow: '0px 1px 0px 0px rgba(0, 0, 0, 0.2)'
       }
+    },
+    MuiTextarea: {
+      root: {
+        width: '100%',
+        marginTop: '0px'
+      }
     }
   }
 });

@@ -36,7 +36,7 @@ const styles = theme => ({
   },
   inputLabel: {
     '& label': theme.custom.inputLabel,
-    '& div': {
+    '&>div': {
       marginTop: '20px'
     },
     '& input': theme.custom.inputText
@@ -46,17 +46,17 @@ const styles = theme => ({
 class OrgSettingsInfo extends React.Component {
   constructor(props) {
     super(props);
-    //const { phone, description, address, website, name, target } = this.props.initialData;
+    const { initialData } = this.props;
     this.state = {
-      phone: this.props.initialData && this.props.initialData.phone? this.props.initialData.phone : '(  )   -   ',
-      description: this.props.initialData && this.props.initialData.description? this.props.initialData.description : '',
-      address: this.props.initialData && this.props.initialData.address? this.props.initialData.address : '', 
-      website: this.props.initialData && this.props.initialData.website? this.props.initialData.website : '',
-      name: this.props.initialData && this.props.initialData.name? this.props.initialData.name : '',
-      region: this.props.initialData && this.props.initialData.region? this.props.initialData.region : '',
-      city: this.props.initialData && this.props.initialData.city? this.props.initialData.city : '', 
-      state: this.props.initialData && this.props.initialData.state? this.props.initialData.state : '', 
-      zip_code: this.props.initialData && this.props.initialData.zip_code? this.props.initialData.zip_code : '',
+      phone: initialData && initialData.phone? initialData.phone : '(  )   -   ',
+      description: initialData && initialData.description? initialData.description : '',
+      address: initialData && initialData.address? initialData.address : '', 
+      website: initialData && initialData.website? initialData.website : '',
+      name: initialData && initialData.name? initialData.name : '',
+      region: initialData && initialData.region? initialData.region : '',
+      city: initialData && initialData.city? initialData.city : '', 
+      state: initialData && initialData.state? initialData.state : '', 
+      zip_code: initialData && initialData.zip_code? initialData.zip_code : '',
       target: '',
     };
     this.handleChange = this.handleChange.bind(this)
@@ -103,6 +103,7 @@ class OrgSettingsInfo extends React.Component {
             label='About:'
             name='description'
             value={description}
+            multiline={true}
             InputLabelProps={{
               shrink: true,
             }}
