@@ -97,6 +97,7 @@ class AccountPage extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     let settings;
     if (isAuthenticated && user.affiliation) {
+      console.log(user.affiliation)
       settings = isMobile ? (
         <div>
           <AppBar position="static">
