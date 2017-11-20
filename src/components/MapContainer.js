@@ -70,6 +70,10 @@ class MapContainer extends React.Component {
 
     window.addEventListener('popstate', this.reparseURL.bind(this));
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('popstate', this.reparseURL.bind(this))
+  }
   
   clearErrors() {
     this.setState({

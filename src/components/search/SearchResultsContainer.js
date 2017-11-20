@@ -97,6 +97,10 @@ class SearchResultsContainer extends React.Component {
 
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('popstate', this.doSearch.bind(this));
+  }
+
   doSearch() {
     this.props.clearSearchStatus();
     this.props.fetchSearchResults();
