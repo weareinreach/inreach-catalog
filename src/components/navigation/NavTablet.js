@@ -29,7 +29,7 @@ const NavTablet = ({
 }) => { 
   return (
     <Grid container spacing={0}
-          align='center'
+          alignItems='center'
           direction='row'
           justify='space-around'
           className={classes.root}>

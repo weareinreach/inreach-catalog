@@ -55,6 +55,7 @@
     "react-sticky": "^6.0.1",
     "react-swipeable-views": "^0.12.10",
     "react-truncate": "^2.2.2",
+    "react-text-mask": "^5.0.2",
     "sass-loader": "^6.0.6",
     "striptags": "^3.1.0",
     "style-loader": "^0.18.2",
@@ -66,6 +67,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
+    "react-addons-update": "^15.6.2",
     "request": "^2.81.0",
     "tape": "^4.7.0",
     "webpack-dev-server": "^2.7.1"
