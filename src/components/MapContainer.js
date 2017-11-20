@@ -36,8 +36,7 @@ const styles = (theme) => ({
 class MapContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
-    //this.state = { dialog: 'none' };
-    //
+
     let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
     this.state = {
       nearAddress: '',

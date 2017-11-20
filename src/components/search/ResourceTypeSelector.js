@@ -94,23 +94,6 @@ class ResourceTypeSelector extends React.Component {
             <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
           )
         )}
-        {/*<div className={relative}>
-        <div className={containerClasses+" container--resource-type-selector"} onClick={this.handleToggleRequest} >
-          <div>
-            <span>
-              Resource Type
-            </span>
-            {this.props.selectedResourceTypes && this.props.selectedResourceTypes.length ? 
-              <AsylumConnectIndicator>{this.props.selectedResourceTypes.length}</AsylumConnectIndicator> : null}
-            {this.state.open ? <KeyboardArrowUpIcon className={arrow} /> : <KeyboardArrowDownIcon className={arrow} />}
-          </div>
-        </div>
-        {this.state.open ? 
-          <Paper className={resourceList+" resource-type-selector"} style={{width: containerWidth}}>
-            
-          </Paper>
-        : null }
-      </div>*/}
       </AsylumConnectSelector>
       
     );
