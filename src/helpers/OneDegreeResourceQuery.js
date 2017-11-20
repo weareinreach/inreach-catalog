@@ -37,6 +37,7 @@ class OneDegreeResourceQuery {
 
   setIds(ids) {
     this.filters.query.ids = ids.join(',');
+    return this;
   }
 
   setLocation(latLng) {

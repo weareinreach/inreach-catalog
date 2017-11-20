@@ -12,8 +12,9 @@ import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
-import ResourceListItem from '../resource/ResourceListItem';
+import SearchRefinementControls from './SearchRefinementControls';
 import SearchStatusHandler from './SearchStatusHandler';
+import ResourceListItem from '../resource/ResourceListItem';
 import {mobilePadding} from '../../theme/sharedClasses';
 
 const styles = theme => ({
@@ -49,11 +50,26 @@ const styles = theme => ({
   }
 });
 
-const Results = (props) => {
-
-
+const ResultsContainer = (props) => {
+  const { containerSearchResults, searching, searchResults } = props;
+  return (
+    <div className={containerSearchResults}>
+      { searching ?
+        <Grid container spacing={0}>
+          <Grid item xs={12} style={{textAlign: "center"}}>
+            <CircularProgress />
+          </Grid>
+        </Grid>
+      :
+        searchResults.map((organization) => {
+          return (
+            <ResourceListItem key = {organization.id} resource={organization} {...props} />
+          )
+        })
+      }
+    </div>
+  );
 }
-
 class SearchResultsContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -161,6 +177,18 @@ class SearchResultsContainer extends React.Component {
       formRow, 
       containerSearchForm, 
       containerSearchResults } = this.props.classes;
+    const searchResultsProps = {
+      containerSearchResults: containerSearchResults,
+      handleListAddFavorite: this.handleListAddFavorite,
+      handleListRemoveFavorite: this.handleListRemoveFavorite,
+      handleListNew: this.handleListNew,
+      handleMessageNew: this.props.handleMessageNew,
+      lists: this.state.lists,
+      session: this.props.session,
+      searchResults: this.props.searchResults,
+      searching: this.props.searching,
+      user: this.props.user
+    }
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={container}>
@@ -168,6 +196,7 @@ class SearchResultsContainer extends React.Component {
         <div className={containerSearchForm}>
           <SearchStatusHandler {...this.props} />
           <SearchBar {...this.props} classes={null} />
+          <SearchRefinementControls onFilterChange={this.props.onFilterChange} onSortChange={this.props.onSortChange} selectedFilters={this.props.selectedFilters} />
           <Grid container spacing={0}>
             <Grid item xs={12} className={formRow}>
               <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
@@ -177,59 +206,37 @@ class SearchResultsContainer extends React.Component {
           </Grid>
         </div>
         {isMobile ? 
-          <Tabs
-            value={this.state.tab}
-            onChange={this.handleTabChange}
-            indicatorColor="white"
-            textColor="white"
-            centered
-            classes={{
-              flexContainer: tabContainer
-            }}
-          >
-            <Tab label="List" />
-            <Tab label="Map" />
-          </Tabs>
-        : null}
-        <SwipeableViews
-          index={this.state.tab}
-          onChangeIndex={this.handleSwipeChange}
-        >
-          <div className={containerSearchResults}>
-          { this.props.searching ?
-              <Grid container spacing={0}>
-                <Grid item xs={12} style={{textAlign: "center"}}>
-                  <CircularProgress />
-                </Grid>
-              </Grid>
-            :
-              this.props.searchResults.map((organization) => {
-                return (
-                  <ResourceListItem
-                    handleListAddFavorite={this.handleListAddFavorite}
-                    handleListRemoveFavorite={this.handleListRemoveFavorite}
-                    handleListNew={this.handleListNew}
-                    key={organization.id}
-                    lists={this.state.lists}
-                    resource={organization}
-                    session={this.props.session}
-                    user={this.props.user}
-                  />
-                )
-              })
-            }
-          </div>
-        {isMobile ?
           <div>
-            <AsylumConnectMap {...this.props} 
-              mapProps={this.props.mapProps} classes={null}
-              loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
-              containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
-              mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
-            />
+            <Tabs
+              value={this.state.tab}
+              onChange={this.handleTabChange}
+              indicatorColor="white"
+              textColor="white"
+              centered
+              classes={{
+                flexContainer: tabContainer
+              }}
+            >
+              <Tab label="List" />
+              <Tab label="Map" />
+            </Tabs>
+            <SwipeableViews
+              index={this.state.tab}
+              onChangeIndex={this.handleSwipeChange}
+            >
+              <ResultsContainer {...searchResultsProps}/>
+              <div>
+                <AsylumConnectMap {...this.props} 
+                mapProps={this.props.mapProps} classes={null}
+                  loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
+                  containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
+                  mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
+                />
+              </div>
+            </SwipeableViews>
           </div>
-        : null}
-        </SwipeableViews>
+          : <ResultsContainer {...searchResultsProps} /> 
+          }
         </Grid>
       </Grid>
     );

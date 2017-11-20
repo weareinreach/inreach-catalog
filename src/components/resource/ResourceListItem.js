@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Truncate from 'react-truncate';
 
+import Fa from 'react-fontawesome';
 import {
   Link
 } from 'react-router-dom';
+import IconButton from 'material-ui/IconButton';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -69,6 +71,7 @@ class ResourceListItem extends React.Component {
       handleListAddFavorite,
       handleListRemoveFavorite,
       handleListNew,
+      isOnFavoritesList,
       lists,
       session,
       user
@@ -89,27 +92,31 @@ class ResourceListItem extends React.Component {
     return (
       <div>
         <Divider className={dividerSpacing} />
-        <Grid container spacing={0}>
+        <Grid container spacing={0} className={dividerSpacing}>
           <Grid item xs={12} >
             <Grid container alignItems="center" justify="space-between" spacing={0}>
-              <Grid item xs md lg xl >
+              <Grid item xs={9} md lg xl >
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
-              {format === 'search' ? 
-              <Grid item xs={3} >
-                {session && (
+              <Grid item xs={3} container alignItems="flex-start" justify="flex-end">
+                {!isOnFavoritesList && (
                   <SaveToFavoritesButton
                     handleListAddFavorite={handleListAddFavorite}
                     handleListRemoveFavorite={handleListRemoveFavorite}
                     handleListNew={handleListNew}
+                    handleMessageNew={this.props.handleMessageNew}
                     lists={lists}
                     resourceId={resource.id}
                     session={session}
                     user={user}
                   />
                 )}
-              </Grid> 
-              : null }
+                {isOnFavoritesList && (
+                  <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
+                    <Fa name="times"/>
+                  </IconButton>
+                )}
+              </Grid>
             </Grid>
           </Grid>
           {format == 'search' ? 
@@ -180,17 +187,25 @@ class ResourceListItem extends React.Component {
 
 ResourceListItem.propTypes = {
   format: PropTypes.string,
-  handleListAddFavorite: PropTypes.func.isRequired,
-  handleListRemoveFavorite: PropTypes.func.isRequired,
-  handleListNew: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func,
+  handleListAddFavorite: PropTypes.func,
+  handleListNew: PropTypes.func,
+  handleListRemoveFavorite: PropTypes.func,
+  isOnFavoritesList: PropTypes.bool,
   resource: PropTypes.object.isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  lists: PropTypes.arrayOf(PropTypes.object),
   session: PropTypes.string,
   user: PropTypes.number,
 };
 
 ResourceListItem.defaultProps = {
   format: 'search',
+  handleMessageNew: null,
+  handleListAddFavorite: null,
+  handleListNew: null,
+  handleListRemoveFavorite: null,
+  isOnFavoritesList: false,
+  lists: [],
   session: null,
   user: null,
 };

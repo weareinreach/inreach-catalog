@@ -46,6 +46,8 @@ class MapContainer extends React.Component {
       searchStatus: null,
       errorMessage: false,
       selectedResourceTypes,
+      selectedFilters: [],
+      selectedSort: 'default',
       searching: false,
       searchResults: [],
       searchResultsIndex: [],
@@ -54,12 +56,13 @@ class MapContainer extends React.Component {
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
+    this.handleFilterSelect = this.handleFilterSelect.bind(this)
+    this.handleSortSelect = this.handleSortSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
-    this.Routes = this.Routes.bind(this)
   }
 
   componentWillMount() {
@@ -118,6 +121,44 @@ class MapContainer extends React.Component {
         searchStatus: null
       });
     }
+  }
+
+  handleFilterSelect(event, checked) { 
+    var index;
+    const target = event.target;
+    var selectedFilters = this.state.selectedFilters.slice();
+    
+    if(checked && selectedFilters.indexOf(target.value) < 0) {
+      selectedFilters.push(target.value)
+      this.setState({
+        selectedFilters: selectedFilters
+      });
+    } else if(!checked && (index = selectedFilters.indexOf(target.value)) >= 0) {
+      selectedFilters.splice(index, 1)
+      this.setState({
+        selectedFilters: selectedFilters,
+      });
+    }
+  }
+
+  handleSortSelect(event, checked) { 
+    var index;
+    const target = event.target;
+    var selectedResourceTypes = this.state.selectedResourceTypes.slice();
+    
+    /*if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
+      selectedResourceTypes.push(target.value)
+      this.setState({
+        selectedResourceTypes: selectedResourceTypes,
+        searchStatus: null
+      });
+    } else if(!checked && (index = selectedResourceTypes.indexOf(target.value)) >= 0) {
+      selectedResourceTypes.splice(index, 1)
+      this.setState({
+        selectedResourceTypes: selectedResourceTypes,
+        searchStatus: null
+      });
+    }*/
   }
 
   handleSearchButtonClick() {
@@ -204,12 +245,6 @@ class MapContainer extends React.Component {
     });
   }
 
-  Routes() {
-    /*return  (
-        
-    );*/
-  }
-
   render() {
     this.mapProps = {};
     if(this.state.mapCenter) {
@@ -219,7 +254,6 @@ class MapContainer extends React.Component {
     if(this.state.searchResults) {
       this.mapProps.resources = this.state.searchResults;
     }
-    const { Routes } = this; 
     const isMobile = this.props.width < breakpoints['sm'];
 
     const map = (props) => (
@@ -249,10 +283,13 @@ class MapContainer extends React.Component {
                     mapProps={this.mapProps}
                     fetchSearchResults={this.fetchSearchResults}
                     clearSearchStatus={this.clearSearchStatus}
+                    handleMessageNew={this.props.handleMessageNew}
                     handlePlaceSelect={this.handlePlaceSelect} 
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    handleFilterSelect={this.handleFilterSelect}
+                    handleSortSelect={this.handleSortSelect}
                     session={this.props.session}
                     user={this.props.user}
                     />} />
