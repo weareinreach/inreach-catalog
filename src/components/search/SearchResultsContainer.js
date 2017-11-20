@@ -167,7 +167,12 @@ class SearchResultsContainer extends React.Component {
         <Grid item md={10} lg={9} xs={12}>
         <div className={containerSearchForm}>
           <SearchBar {...this.props} classes={null} />
-          <SearchRefinementControls handleFilterSelect={this.props.handleFilterSelect} handleSortSelect={this.props.handleSortSelect} selectedFilters={this.props.selectedFilters} selectedSort={this.props.selectedSort} />
+          <SearchRefinementControls 
+            clearSearchFilters={this.props.clearSearchFilters}
+            handleFilterSelect={this.props.handleFilterSelect} 
+            handleSortSelect={this.props.handleSortSelect} 
+            selectedFilters={this.props.selectedFilters} 
+            selectedSort={this.props.selectedSort}  />
           <Grid container spacing={0}>
             <Grid item xs={12} className={formRow}>
               <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >

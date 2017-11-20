@@ -10,6 +10,7 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 import Typography from 'material-ui/Typography';
+import Badge from 'material-ui/Badge';
 
 import SearchFilterSelector from './SearchFilterSelector';
 import SearchFilters from './SearchFilters';
@@ -56,6 +57,9 @@ const styles = theme => ({
   buttonRoot: {
     minWidth: '0',
     padding: '0'
+  },
+  badgeColorAccent: {
+    color: theme.palette.common.white
   }
 })
 
@@ -76,25 +80,31 @@ class SearchRefinementControls extends React.Component {
   }
 
   render() {
-    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot } = this.props.classes;
+    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent } = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div>
         {isMobile ?
           <div>
+            
             <Button fab aria-label="filters" onClick={this.handleFilterOpen} className={fixedFab}>
-              <div className={fabContent}>
-                <FiltersIcon height="30px" width="30px" />
-                Filters
-              </div>
+              <Badge badgeContent={this.props.selectedFilters.length} color={this.props.selectedFilters.length ? "accent" : "primary"}
+                classes={{
+                  colorAccent: badgeColorAccent
+                }}>
+                <div className={fabContent}>
+                  <FiltersIcon height="30px" width="30px" />
+                  Filters
+                </div>
+              </Badge>
             </Button>
             {this.state.open ?
               <Paper className={fixedFilters}>
                 <Toolbar classes={{ root: toolbarRoot, gutters: toolbarGutters }}>
-                  <Button color="contrast" classes={{root: buttonRoot}} >
+                  <Button color="contrast" classes={{root: buttonRoot}} onClick={this.handleFilterOpen}>
                     <ArrowBackIcon />
                   </Button>
-                  <Button color="contrast" classes={{root: buttonRoot}}>Clear Filters</Button>
+                  <Button color="contrast" classes={{root: buttonRoot}} onClick={this.props.clearSearchFilters}>Clear Filters</Button>
                 </Toolbar>
                 <SearchFilters onChange={this.props.handleFilterSelect} selectedFilters={this.props.selectedFilters} />
                 <Grid container spacing={0}>

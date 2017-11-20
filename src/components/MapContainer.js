@@ -43,7 +43,6 @@ class MapContainer extends React.Component {
       nearLatLng,
       mapCenter: nearLatLng,
       searchStatus: null,
-      errorMessage: false,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
@@ -61,25 +60,24 @@ class MapContainer extends React.Component {
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
+    this.clearSearchFilters = this.clearSearchFilters.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
   }
 
   componentWillMount() {
-    this.clearErrors();
-
     window.addEventListener('popstate', this.reparseURL.bind(this));
-  }
-  
-  clearErrors() {
-    this.setState({
-      errorMessage: false
-    });
   }
 
   clearSearchStatus() {
     this.setState({
       searchStatus: null
     });
+  }
+
+  clearSearchFilters() { 
+    this.setState({
+      selectedFilters: []
+    })
   }
 
   handlePlaceSelect(address) {
@@ -146,9 +144,7 @@ class MapContainer extends React.Component {
     });
   }
 
-  handleSearchButtonClick() {
-    this.clearErrors();
-    
+  handleSearchButtonClick() {    
     if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
@@ -181,6 +177,7 @@ class MapContainer extends React.Component {
     this.queryOneDegree
       .addTags(this.state.selectedResourceTypes)
       .setLocation(this.state.nearLatLng)
+      .setOrder(this.state.selectedSort)
       .fetchOrganizations({
         callback: this.processSearchResults
       });
@@ -283,6 +280,7 @@ class MapContainer extends React.Component {
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
                     mapProps={this.mapProps}
                     fetchSearchResults={this.fetchSearchResults}
+                    clearSearchFilters={this.clearSearchFilters}
                     clearSearchStatus={this.clearSearchStatus}
                     handlePlaceSelect={this.handlePlaceSelect} 
                     handlePlaceChange={this.handlePlaceChange}
