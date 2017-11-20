@@ -60,6 +60,7 @@ class AccountPage extends React.Component {
     const {handleMessageNew, handleLogout} = this.props;
     
     if (!jwt) {
+      this.props.history.push('/');
       handleMessageNew('You need to log in to view your account.')
     } else {
       const apiDomain = config[process.env.NODE_ENV].odas;
