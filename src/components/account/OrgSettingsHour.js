@@ -21,7 +21,7 @@ function TextMaskCustom(props) {
   return (
     <MaskedInput
       {...props}
-      mask={[/[0-1]/,/[0-9]/, ':', /[0-5]/, /[0-9]/ ,' ', '-', ' ',/[0-1]/,/[0-9]/, ':', /[0-5]/, /[0-9]/ ]}
+      mask={[/[0-1]/,/[0-9]/,':',/[0-5]/, /[0-9]/ ,'-',/[0-1]/,/[0-9]/,':',/[0-5]/, /[0-9]/ ]}
       placeholderChar={'\u2000'}
       showMask
     />
@@ -74,23 +74,25 @@ const styles = theme => ({
 class OrgSettingsHour extends React.Component {
   constructor(props) {
     super(props);
+    const {initialData} = this.props
     this.state = {
       open: true,
-      monday: false,
-      tuesday: false,
-      wednesday: false,
-      thursday: false,
-      friday: false,
-      saturday: false,
-      sunday: false,
+      monday: (initialData && (initialData.monday_start || initialData.monday_end))? true:false,
+      tuesday: (initialData && (initialData.tuesday_start || initialData.tuesday_end))? true:false,
+      wednesday: (initialData && (initialData.wednesday_start || initialData.wednesday_end))? true:false,
+      thursday: (initialData && (initialData.thursday_start || initialData.thursday_end))? true:false,
+      friday: (initialData && (initialData.friday_start || initialData.friday_end))? true:false,
+      saturday: (initialData && (initialData.saturday_start || initialData.saturday_end))? true:false,
+      sunday: (initialData && (initialData.sunday_start || initialData.sunday_end))? true:false,
+      hourTextMask: '  :  -  :  ',
       hourData: {        
-        monday: this.props.initialData ? (this.props.initialData.monday_start + this.props.initialData.monday_end) : '  :   -   :  ',        
-        tuesday: this.props.initialData ? (this.props.initialData.tuesday_start + this.props.initialData.tuesday_end) : '  :   -   :  ',        
-        wednesday: this.props.initialData ? (this.props.initialData.wednesday_start + this.props.initialData.wednesday_end) : '  :   -   :  ',        
-        thursday: this.props.initialData ? (this.props.initialData.thursday_start + this.props.initialData.thursday_end) : '  :   -   :  ',        
-        friday: this.props.initialData ? (this.props.initialData.friday_start + this.props.initialData.friday_end) : '  :   -   :  ',        
-        saturday: this.props.initialData ? (this.props.initialData.saturday_start + this.props.initialData.saturday_end) : '  :   -   :  ',        
-        sunday: this.props.initialData ? (this.props.initialData.sunday_start + this.props.initialData.sunday_end) : '  :   -   :  ',
+        monday: initialData.monday_start + initialData.monday_end,        
+        tuesday:  initialData.tuesday_start + initialData.tuesday_end ,        
+        wednesday:  initialData.wednesday_start + initialData.wednesday_end ,  
+        thursday:  initialData.thursday_start + initialData.thursday_end ,   
+        friday:  initialData.friday_start + initialData.friday_end ,        
+        saturday:  initialData.saturday_start + initialData.saturday_end ,  
+        sunday:  initialData.sunday_start + initialData.sunday_end ,
       }      
     };
     this.handleChange = this.handleChange.bind(this)
@@ -101,20 +103,26 @@ class OrgSettingsHour extends React.Component {
     this.setState({ open: !this.state.open });
   }
   handleToggleDay(e) {
-    const { name } = e.target;
+    const { value } = e.target;
+    console.log(e.target)
     this.setState({
-      [name]: !this.state[name],
+      [value]: !this.state[value],
     })
   }
   handleChange(e) {
     const { name, value } = e.target;
-    const newHourData = update(this.state.hourData, {$merge:{[name]: value}});
+    const newHourData = update(this.state.hourData, {$merge:{[name]: value.replace(/[-]/g,'')}});
     this.setState({hourData: newHourData})
+    if(value=='  :  -  :  '){
+      this.setState({[name]: false})
+    } else {
+      this.setState({[name]: true})
+    }
   }
   componentWillReceiveProps(nextProps){
     if (nextProps.isRequested) {
       let schedule = {'note':''};
-      const currentHourData = this.state.hourData;
+      let currentHourData = this.state.hourData;
       for (let eachDay in currentHourData) {
         if(typeof currentHourData[eachDay] == 'string'){
           currentHourData[eachDay] = currentHourData[eachDay].split('-')
@@ -132,6 +140,14 @@ class OrgSettingsHour extends React.Component {
   }
   render() {
     const { classes } = this.props;
+    const { hourData, hourTextMask } = this.state;
+    for(let eachDay in hourData){
+      if (hourData.hasOwnProperty(eachDay)){
+        if (Array.isArray(hourData[eachDay])){
+          hourData[eachDay] = hourData[eachDay][0]
+        }        
+      } 
+    }
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
@@ -140,139 +156,69 @@ class OrgSettingsHour extends React.Component {
         </div>
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
           <form className={classes.form}>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='monday'
-                    checked={this.state.monday}
-                    value={this.state.monday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Monday'
-              />
+            <div className={classes.formControl}>
+              <AsylumConnectCheckbox label='Monday' value='monday' onChange={this.handleToggleDay} checked={this.state.monday} />
               <Input
                 name='monday'
-                value={this.state.hourTextMask}
+                value={hourData.monday? hourData.monday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='tuesday'
-                    checked={this.state.tuesday}
-                    value={this.state.tuesday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Tuesday'
-              />
+            </div>
+            <div className={classes.formControl}>
+              <AsylumConnectCheckbox label='Tuesday' value='tuesday' onChange={this.handleToggleDay} checked={this.state.tuesday} />
               <Input
                 name='tuesday'
-                value={this.state.hourTextMask}
+                value={hourData.tuesday? hourData.tuesday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='wednesday'
-                    checked={this.state.wednesday}
-                    value={this.state.wednesday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Wednesday'
-              />
+            </div>
+            <div className={classes.formControl}>
+              <AsylumConnectCheckbox label='Wednesday' value='wednesday' onChange={this.handleToggleDay} checked={this.state.wednesday} />
               <Input
                 name='wednesday'
-                value={this.state.hourTextMask}
+                value={hourData.wednesday? hourData.wednesday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='thursday'
-                    checked={this.state.thursday}
-                    value={this.state.thursday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Thursday'
-              />
+            </div>
+            <div className={classes.formControl}>
+            <AsylumConnectCheckbox label='Thursday' value='thursday' onChange={this.handleToggleDay} checked={this.state.thursday} />
               <Input
                 name='thursday'
-                value={this.state.hourTextMask}
+                value={hourData.thursday? hourData.thursday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='friday'
-                    checked={this.state.friday}
-                    value={this.state.friday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Friday'
-              />
+            </div>
+            <div className={classes.formControl}>
+            <AsylumConnectCheckbox label='Friday' value='friday' onChange={this.handleToggleDay} checked={this.state.friday} />
               <Input
                 name='friday'
-                value={this.state.hourTextMask}
+                value={hourData.friday? hourData.friday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='saturday'
-                    checked={this.state.saturday}
-                    value={this.state.saturday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Saturday'
-              />
+            </div>
+            <div className={classes.formControl}>
+            <AsylumConnectCheckbox label='Saturday' value='saturday' onChange={this.handleToggleDay} checked={this.state.saturday} />
               <Input
                 name='saturday'
-                value={this.state.hourTextMask}
+                value={hourData.saturday? hourData.saturday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <FormControlLabel
-                control={
-                  <Radio
-                    name='sunday'
-                    checked={this.state.sunday}
-                    value={this.state.sunday?'on':'off'}
-                    onClick={this.handleToggleDay}
-                  />
-                }
-                label='Sunday'
-              />
+            </div>
+            <div className={classes.formControl}>
+            <AsylumConnectCheckbox label='Sunday' value='sunday' onChange={this.handleToggleDay} checked={this.state.sunday} />
               <Input
                 name='sunday'
-                value={this.state.hourTextMask}
+                value={hourData.sunday? hourData.sunday: hourTextMask}
                 inputComponent={TextMaskCustom}
                 onChange={this.handleChange}
               />
-            </FormControl>
+            </div>
           </form>
         </Collapse>
       </div>

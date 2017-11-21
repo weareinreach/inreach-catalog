@@ -84,13 +84,12 @@ class GeneralSettings extends React.Component {
       .then(response => {
         if (response.status === 200) {
           response.json().then((res) => {
-            console.log(res)
             if (res.message === 'User deleted') {
               handleMessageNew('Your account has been deleted.');
             }
           });
         } else {
-          handleMessageNew('Oops! Something went wrong. Error 401.');
+          handleMessageNew('Oops! Something went wrong');
         }
       })
   }
