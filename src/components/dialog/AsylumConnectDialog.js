@@ -7,6 +7,7 @@ import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
 import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
+import DeleteAccountDialog from '../account/DeleteAccountDialog';
 
 const styles = theme => ({
   dialogBody: {
@@ -20,6 +21,7 @@ const AsylumConnectDialog = ({
   classes,
   dialog,
   handleLogIn,
+  handleDeleteAccount,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
@@ -46,6 +48,13 @@ const AsylumConnectDialog = ({
       {dialog === 'signup' &&
         <SignupDialog
           handleLogIn={handleLogIn}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />}
+      {dialog === 'deleteAccount' &&
+        <DeleteAccountDialog
+          handleDeleteAccount={handleDeleteAccount}
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
