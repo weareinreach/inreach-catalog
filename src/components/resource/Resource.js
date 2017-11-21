@@ -8,23 +8,26 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import { CircularProgress } from 'material-ui/Progress';
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
 
 import { Element, scroller } from 'react-scroll';
 
 import AsylumConnectButton from '../AsylumConnectButton';
+import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import ACBadge from '../Badge';
 import FavoritesLink from '../FavoritesLink';
+import RatingControl from './RatingControl';
 import RatingAndReviews from './RatingAndReviews';
+import Reviews from './Reviews';
+import Loading from '../Loading';
 
 import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 import resourceTypes from '../../helpers/ResourceTypes';
 import propertyMap from '../../helpers/OneDegreePropertyMap';
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 
-import {bodyLink} from '../../theme/sharedClasses';
+import {bodyLink, boldFont, dividerSpacing} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
 
 let resourceIndex = resourceTypes.getTagIndex();
@@ -71,19 +74,14 @@ const styles = (theme) => ({
   sectionSpacing: {
     marginBottom: "1.7rem"
   },
-  dividerSpacing: {
-    marginBottom: "2rem"
-  },
+  dividerSpacing: dividerSpacing(theme),
   orgName: {
     fontSize: "21px"
   },
-  boldFont: {
-    fontWeight: "600",
-  },
-  moreInfo: {
-    fontWeight: "600",
+  boldFont: boldFont(theme),
+  moreInfo: Object.assign({
     color: theme.palette.primary[500]
-  },
+  }, boldFont(theme)),
   bodyLink: bodyLink(theme),
   listLink: {
     '& + &:before': {
@@ -99,26 +97,47 @@ const styles = (theme) => ({
   }
 });
 
+
+
+const ReviewForm = ({classes}) => (
+  <Grid container spacing={0}>
+    <Grid item xs={12}>
+      <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+        Leave a review
+      </Typography>
+    </Grid>
+    <Grid item xs={12}>
+      <div>
+      </div>
+    </Grid>
+    <Grid item xs={12}>
+      <Divider className={classes.dividerSpacing} />
+    </Grid>
+  </Grid>
+);
+
 const Communities = (props) => (
-  <Grid item xs={12} className={props.classes.sectionSpacing}>
-    <Grid container spacing={0}>
-      <Grid item xs={12}>
-        <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
-          Who this resource serves
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-      {props.list && props.list.length ? 
-        <Typography type="body2" className={props.classes.bottomSpacing} > 
-          { props.list.map((item) => {
-                if(typeof propertyMap['community'][item.slug] !== 'undefined') {
-                  return propertyMap['community'][item.slug];
-                }
-              })
-              .join(', ')
-          }
-        </Typography>
-      : null }
+  <Grid container spacing={0}>
+    <Grid item xs={12} className={props.classes.sectionSpacing}>
+      <Grid container spacing={0}>
+        <Grid item xs={12}>
+          <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
+            Who this resource serves
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+        {props.list && props.list.length ? 
+          <Typography type="body2" className={props.classes.bottomSpacing} > 
+            { props.list.map((item) => {
+                  if(typeof propertyMap['community'][item.slug] !== 'undefined') {
+                    return propertyMap['community'][item.slug];
+                  }
+                })
+                .join(', ')
+            }
+          </Typography>
+        : null }
+        </Grid>
       </Grid>
     </Grid>
   </Grid>
@@ -159,36 +178,38 @@ const Languages = (props) => (
 
 const Services = (props) => {
   return (
-     <Grid item xs={12} className={props.classes.sectionSpacing}>
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
-            Services
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          {(props.list && props.list ?
-            props.list.map((item) => {
-              return (
-                <Typography key={item.id} type="body2" >
-                  {item.tags && item.tags.length ?
-                    (() => {
-                      let badges = [];
-                      return item.tags.map((tag) => {
-                        if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
-                          badges.push(resourceIndex[tag].type);
-                          return (
-                            <ACBadge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
-                          )
-                        }
-                      })
-                    })()
-                  : null}
-                  {item.title}
-                </Typography>
-              )
-            })
-          : null)}
+    <Grid container spacing={0}>
+       <Grid item xs={12} className={props.classes.sectionSpacing}>
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
+            <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
+              Services
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            {(props.list && props.list ?
+              props.list.map((item) => {
+                return (
+                  <Typography key={item.id} type="body2" >
+                    {item.tags && item.tags.length ?
+                      (() => {
+                        let badges = [];
+                        return item.tags.map((tag) => {
+                          if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
+                            badges.push(resourceIndex[tag].type);
+                            return (
+                              <ACBadge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                            )
+                          }
+                        })
+                      })()
+                    : null}
+                    {item.title}
+                  </Typography>
+                )
+              })
+            : null)}
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
@@ -196,7 +217,7 @@ const Services = (props) => {
 }
 
 const About = (props) => (
-  <div>
+  <Grid container spacing={0}>
     <Grid item xs={12} className={props.classes.contentSpacing}>
       <Grid container spacing={0}>
         <Typography type="body2" className={props.classes.bottomSpacing+' '+props.classes.lineSpacing}>
@@ -207,21 +228,117 @@ const About = (props) => (
     <Grid item xs={12}>
       <Divider className={props.classes.dividerSpacing} /><Element name="about"></Element>
     </Grid>
-    {props.communities && props.communities.length ? <Communities list={props.communities} classes={props.classes} /> : null}
-    {props.resource.opportunities && props.resource.opportunities.length ? <Services list={props.resource.opportunities} classes={props.classes} /> : null}
-    {props.languages && props.languages.length ? <Languages list={props.languages} classes={props.classes} /> : null}
+    <Grid item xs={12}>
+      {props.communities && props.communities.length ? <Communities list={props.communities} classes={props.classes} /> : null}
+      {props.resource.opportunities && props.resource.opportunities.length ? <Services list={props.resource.opportunities} classes={props.classes} /> : null}
+      {props.languages && props.languages.length ? <Languages list={props.languages} classes={props.classes} /> : null}
+    </Grid>
     {/*<Grid item xs={12}>
       <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
         Additional Information
       </Typography>
     </Grid>*/}
-  </div>
+  </Grid>
 );
 
-const Loading = (props) => (
+const Visit = ({resource, classes}) => (
   <Grid container spacing={0}>
-    <Grid item xs={12} style={{textAlign: "center"}}>
-      <CircularProgress />
+    <Grid item xs={12}>
+      <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+        How to visit this resource
+      </Typography>
+    </Grid>
+     <Grid item xs={12} className={classes.dividerSpacing}>
+      <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{resource.website}</a> : null}</Typography>
+      {resource.emails && resource.emails.length ? 
+        <Typography type="body2" className={classes.lineSpacing} >
+          <strong className={classes.boldFont}>Email: </strong>{resource.emails.map((email) => {
+            let name = trim(
+              (email.title ? email.title : '')+ ' '
+              (email.first_name ? email.first_name : '')+ ' '
+              (email.last_name ? email.last_name : '')
+            );
+            return (
+            <a href={"mailto:"+email.email} key={email.id} className={classes.bodyLink+' '+classes.listLink}>
+              {email.email} 
+              {name ? "("+name+")" : ''}
+            </a>
+        )})}
+      </Typography> : null}
+      {resource.phones && resource.phones.length ? 
+      <Typography type="body2" className={classes.lineSpacing} >
+        <strong className={classes.boldFont}>Phone number(s): </strong>{resource.phones.map((phone) => (
+          <Phone key={phone.id} phone={phone} classes={classes} />
+        )
+      )}
+      </Typography> : null }
+      {resource.locations && resource.locations.length ? 
+        resource.locations.map((location) => (
+          <Typography key={location.id} type="body2" className={classes.lineSpacing} >
+            <strong className={classes.boldFont}>Location: </strong>
+            {addressParser({address: location})}
+          </Typography>
+        ))
+      : null}
+      {resource.schedule && Object.keys(resource.schedule).length > 1 ?
+        <Typography type="body2" className={classes.lineSpacing} >
+          {scheduleParser({schedule: resource.schedule})}
+        </Typography>
+      : null}
+      {/*<Typography type="body2" className={classes.lineSpacing} >
+        <strong className={classes.boldFont}>Public transportation: </strong>
+      </Typography>*/}
+    </Grid>
+  </Grid>
+);
+
+const OrgHeader = ({classes, resource}) => (
+  <Grid container spacing={0} alignItems='center'>
+    <Grid item xs={12} >
+      <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
+        <Grid item xs md lg xl >
+          <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
+        </Grid>
+        <Grid item xs={5} className="pull-right">
+          <RatingAndReviews total={resource.opportunity_comments.length} rating={resource.rating} />
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid item xs={12} >
+      <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
+        {resource.website} {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
+      </Typography>
+    </Grid>
+  </Grid>
+);
+
+const Tools = (props) => (
+  <Grid container spacing={0} alignItems='center' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
+    <Grid item xs={12} sm={5} md={5} lg={5}>
+      <Tabs
+        value={props.tab}
+        onChange={props.handleTabClick}
+        indicatorColor="primary"
+        textColor="black"
+        fullWidth={true}
+        scrollable={false}
+        indicatorClassName={props.classes.tabIndicator}
+      >
+        <Tab value="about" label="ABOUT" classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />
+        <Tab value="visit" label="VISIT" classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />
+        <Tab value="reviews" label="REVIEWS" classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />
+      </Tabs>
+    </Grid>
+    <Grid item xs={12} sm={7} className="pull-right">
+      <div className="center-align">
+        <FavoritesLink>save to favorites</FavoritesLink> 
+      </div>
+      <div className={props.classes.separator + " center-align"} ></div>
+      <AsylumConnectButton 
+        variant="secondary"
+        className="center-align"
+        onClick={() => props.handleDialogOpen('share')}
+        >share</AsylumConnectButton> 
     </Grid>
   </Grid>
 );
@@ -253,8 +370,12 @@ class Resource extends React.Component {
       orgLoading: true,
       oppLoading: true,
       reviewLoading: true,
-      reviewList: [],
-      dialog: 'none'
+      reviewList: {
+        organization: false,
+        opportunities: false
+      },
+      dialog: 'none',
+      acFilter: false
     };
 
     this.handleTabClick = this.handleTabClick.bind(this);
@@ -263,6 +384,9 @@ class Resource extends React.Component {
     this.handleReviewRequest = this.handleReviewRequest.bind(this);
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleReviewRequest = this.handleReviewRequest.bind(this);
+    this.handleCommentRequest = this.handleCommentRequest.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
   componentDidMount() {
@@ -332,9 +456,51 @@ class Resource extends React.Component {
   }
 
   getOpportunityReviews() {
-    if(this.resource.opportunity_comments.length) {
-      //loop through opportunites and request comments
+    const { handleCommentRequest } = this;
+    if(this.resource.opportunity_comment_count) {
+      this.odClient.getCommentsFromOrganizationId({
+        resourceType: 'opportunities',
+        id: this.resource.id,
+        per_page: this.resource.opportunity_comment_count,
+        callback: (response) => { handleCommentRequest('opportunities', response) }
+      })
+    } else {
+      this.setState({
+        reviewList: {
+          opportunities: [],
+          organization: this.state.reviewList.organization
+        }
+      });
     }
+
+    if(this.resource.comment_count) {
+      this.odClient.getCommentsFromOrganizationId({
+        resourceType: 'organization',
+        id: this.resource.id,
+        per_page: this.resource.comment_count,
+        callback: (response) => { handleCommentRequest('organization', response) }
+      })
+    } else {
+      this.setState({
+        reviewList: {
+          opportunities: this.state.reviewList.opportunities,
+          organization: []
+        }
+      });
+    }
+  }
+
+  handleCommentRequest(type, response) {
+    let list = this.state.reviewList;
+    list[type] = response.comments;
+    console.log(list);
+    this.setState({
+      reviewList: list
+    });
+  }
+
+  handleFilterChange(event, acFilter) {
+    this.setState({acFilter});
   }
 
   handleTabClick (e, tab) {
@@ -363,147 +529,73 @@ class Resource extends React.Component {
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
         <Grid item md={10} lg={9} xs={12}>
-          { this.state.orgLoading ?
-            <Loading />
-          :
+          { this.state.orgLoading ? <Loading /> :
           <div>
-            <Grid container spacing={0} alignItems='center' justify='center' className={classes.header+' '+classes.dividerSpacing}>
-              <Grid item xs={12} sm={5} md={5} lg={5}>
-                <Tabs
-                  value={this.state.tab}
-                  onChange={this.handleTabClick}
-                  indicatorColor="primary"
-                  textColor="black"
-                  fullWidth={true}
-                  scrollable={false}
-                  indicatorClassName={classes.tabIndicator}
-                >
-                  <Tab value="about" label="ABOUT" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
-                  <Tab value="visit" label="VISIT" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
-                  <Tab value="reviews" label="REVIEWS" classes={{root: classes.tabRoot, label: classes.tabLabel, labelContainer: classes.tabLabelContainer}} />
-                </Tabs>
-              </Grid>
-              <Grid item xs={12} sm={7} className="pull-right">
-                <div className="center-align">
-                  <FavoritesLink>save to favorites</FavoritesLink> 
-                </div>
-                <div className={classes.separator + " center-align"} ></div>
-                <AsylumConnectButton 
-                  variant="secondary"
-                  className="center-align"
-                  onClick={() => this.handleDialogOpen('share')}
-                  >share</AsylumConnectButton> 
-              </Grid>
-            </Grid>
-            <Grid container spacing={0} alignItems='center'>
-              <Grid item xs={12} >
-                <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
-                  <Grid item xs md lg xl >
-                    <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
-                  </Grid>
-                  <Grid item xs={5} className="pull-right">
-                    <RatingAndReviews total={resource.opportunity_comments.length} rating={resource.rating} />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} >
-                <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
-                  {resource.website} {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
-                </Typography>
-              </Grid>
-              {this.state.oppLoading ? 
-                <Loading />
-              : <About communities={communities} languages={languages} classes={classes} resource={resource} />}
+            {/*isMobile ?  
+             {/* Appbar }
+              <OrgHeader 
+                classes={classes}
+                resource={resource}
+              />
+              <
+            :*/}  
+            <Tools 
+              classes={classes} 
+              handleTabClick={this.handleTabClick}
+              handleDialogOpen={this.handleDialogOpen}
+              tab={this.state.tab}
+            />
+            <OrgHeader 
+              classes={classes}
+              resource={resource}
+            />
+            {this.state.oppLoading ? 
+              <Loading />
+            : 
+              <About communities={communities} languages={languages} classes={classes} resource={resource} />
+            }
+            <Grid container spacing={0}>
               <Grid item xs={12}>
                 <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
               </Grid>
-              <Grid item xs={12}>
-                <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-                  How to visit this resource
-                </Typography>
-              </Grid>
-               <Grid item xs={12} className={classes.dividerSpacing}>
-                <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{resource.website}</a> : null}</Typography>
-                {resource.emails && resource.emails.length ? 
-                  <Typography type="body2" className={classes.lineSpacing} >
-                    <strong className={classes.boldFont}>Email: </strong>{resource.emails.map((email) => {
-                      let name = trim(
-                        (email.title ? email.title : '')+ ' '
-                        (email.first_name ? email.first_name : '')+ ' '
-                        (email.last_name ? email.last_name : '')
-                      );
-                      return (
-                      <a href={"mailto:"+email.email} key={email.id} className={classes.bodyLink+' '+classes.listLink}>
-                        {email.email} 
-                        {name ? "("+name+")" : ''}
-                      </a>
-                  )})}
-                </Typography> : null}
-                {resource.phones && resource.phones.length ? 
-                <Typography type="body2" className={classes.lineSpacing} >
-                  <strong className={classes.boldFont}>Phone number(s): </strong>{resource.phones.map((phone) => (
-                    <Phone key={phone.id} phone={phone} classes={classes} />
-                  )
-                )}
-                </Typography> : null }
-                {resource.locations && resource.locations.length ? 
-                  resource.locations.map((location) => (
-                    <Typography key={location.id} type="body2" className={classes.lineSpacing} >
-                      <strong className={classes.boldFont}>Location: </strong>
-                      {addressParser({address: location})}
-                    </Typography>
-                  ))
-                : null}
-                {resource.schedule && Object.keys(resource.schedule).length > 1 ?
-                  <Typography type="body2" className={classes.lineSpacing} >
-                    {scheduleParser({schedule: resource.schedule})}
-                  </Typography>
-                : null}
-                {/*<Typography type="body2" className={classes.lineSpacing} >
-                  <strong className={classes.boldFont}>Public transportation: </strong>
-                </Typography>*/}
-              </Grid>
-              {session ? 
-              <div>
+            </Grid>
+            <Visit 
+              classes={classes}
+              resource={resource}
+            />
+            <Grid container spacing={0}>
               <Grid item xs={12}>
                 <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
               </Grid>
-              
-              <Grid item xs={12}>
-                <div>
-                </div>
-              </Grid>
-              </div>
-              : null }
-              <Grid item xs={12}>
-                <Divider className={classes.dividerSpacing} />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-                  Reviews
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                
-              </Grid>
             </Grid>
-          </div>
-          }
-        </Grid>
-        <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
-          <div className={classes.dialogBody}>
-          {this.state.dialog === 'share' &&
-            <ShareDialog
-              handleMessageNew={handleMessageNew}
-              handleRequestClose={this.handleDialogClose}
-              // session={session}
-              listId={resource.id}
-              listTitle={resource.name}
-              shareType="resource"
+            {session ? 
+              <ReviewForm 
+                classes={classes}
+              />
+            : null}
+            <Reviews
+              orgReviews={this.state.reviewList.organization}
+              oppReviews={this.state.reviewList.opportunities}
+              acFilter={this.state.acFilter}
+              handleFilterChange={this.handleFilterChange}
             />
-          }
+            <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
+              <div className={classes.dialogBody}>
+              {this.state.dialog === 'share' &&
+                <ShareDialog
+                  handleMessageNew={handleMessageNew}
+                  handleRequestClose={this.handleDialogClose}
+                  // session={session}
+                  listId={resource.id}
+                  listTitle={resource.name}
+                  shareType="resource"
+                />
+              }
+              </div>
+            </Dialog> 
           </div>
-        </Dialog>        
+          }
+        </Grid>       
       </Grid>
     )
   } 

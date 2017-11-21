@@ -13,6 +13,7 @@ export { default as LegalIcon } from './LegalIcon';
 export { default as MailIcon } from './MailIcon';
 export { default as MedicalIcon } from './MedicalIcon';
 export { default as MentalHealthIcon } from './MentalHealthIcon';
+export { default as MiscIcon } from './MiscIcon';
 export { default as PinpointIcon } from './PinpointIcon';
 export { default as PrivacyIcon } from './PrivacyIcon';
 export { default as RecommendedStarIcon } from './RecommendedStarIcon';
