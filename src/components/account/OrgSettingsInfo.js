@@ -93,7 +93,7 @@ class OrgSettingsInfo extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder='Hint text'
+              placeholder='Organization Name'
               onChange={this.handleChange}
             />
           )
@@ -107,7 +107,7 @@ class OrgSettingsInfo extends React.Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder='Hint text'
+            placeholder='Organization Description'
             onChange={this.handleChange}
           />
           {/* <TextField
