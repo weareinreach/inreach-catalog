@@ -200,10 +200,17 @@ const Services = (props) => {
                       (() => {
                         let badges = [];
                         return item.tags.map((tag) => {
-                          if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
+                          if(badges.length) {
+                            return null
+                          } else if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
                             badges.push(resourceIndex[tag].type);
                             return (
                               <ACBadge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                            )
+                          } else if(badges.indexOf('misc') === -1) {
+                            badges.push('misc');
+                            return (
+                              <ACBadge key='misc' type='misc' width='45px' height='45px' />
                             )
                           }
                         })
@@ -259,8 +266,8 @@ const Visit = ({resource, classes}) => (
         <Typography type="body2" className={classes.lineSpacing} >
           <strong className={classes.boldFont}>Email: </strong>{resource.emails.map((email) => {
             let name = trim(
-              (email.title ? email.title : '')+ ' '
-              (email.first_name ? email.first_name : '')+ ' '
+              (email.title ? email.title : '')+ ' ' +
+              (email.first_name ? email.first_name : '')+ ' ' +
               (email.last_name ? email.last_name : '')
             );
             return (

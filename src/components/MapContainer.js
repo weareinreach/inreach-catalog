@@ -238,7 +238,7 @@ class MapContainer extends React.Component {
     return {selectedResourceTypes, nearLatLng, selectedFilters, selectedSort};
   }
 
-  reparseURL(ev) {
+  reparseURL(ev) { console.log('re-parsing');
     let { nearLatLng, selectedResourceTypes } = this.parseParams(this.props.match.params);
     this.setState({
       nearLatLng,
