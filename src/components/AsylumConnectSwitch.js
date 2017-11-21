@@ -21,6 +21,7 @@ const styles = (theme) => ({
       color: theme.palette.primary[500]
     },
   },
+  switchRoot: {},
   checkboxDefault: {},
   bar: {},
   checkboxChecked: {

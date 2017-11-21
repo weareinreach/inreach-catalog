@@ -15,6 +15,7 @@ import {
   MailIcon,
   MedicalIcon,
   MentalHealthIcon,
+  MiscIcon,
   SportsEntertainmentIcon,
 } from './icons';
 
@@ -65,6 +66,10 @@ const Badge = ({ classes, type, height, width }) => {
       label: 'Mental Health',
       icon: <MentalHealthIcon />,
     },
+    misc: {
+      label: 'Other Services',
+      icon: <MiscIcon />,
+    },
     sportsEntertainment: {
       label: 'Sports / Entertainment',
       icon: <SportsEntertainmentIcon />,
@@ -99,6 +104,7 @@ Badge.propTypes = {
     'mail',
     'medical',
     'mentalHealth',
+    'misc',
     'sportsEntertainment',
   ]).isRequired
 };
