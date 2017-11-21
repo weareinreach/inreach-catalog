@@ -36,7 +36,8 @@ const styles = theme => ({
   },
   gooLogoImg: {
     paddingRight: '4px',
-    paddingLeft: '4px'
+    paddingLeft: '4px',
+    width: 'auto'
   },
   blackTranslateColor: {
     display: 'inline',

@@ -1,4 +1,5 @@
 import React from 'react';
+import theWidth from './theWidth';
 
 export default function withWidth(WrappedComponent) {
   return class extends React.Component {
@@ -18,7 +19,7 @@ export default function withWidth(WrappedComponent) {
     }
 
     handleWindowSizeChange() {
-      this.setState({ width: window.innerWidth });
+      this.setState({ width: theWidth() });
     }
 
     render() {

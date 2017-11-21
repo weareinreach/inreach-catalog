@@ -9,9 +9,18 @@ import ForgotFormContainer from './ForgotFormContainer';
 import LoginFormContainer from './LoginFormContainer';
 import SignupFormContainer from './SignupFormContainer';
 
-const TabContainer = ({children}) => (
-  <div style={{padding: '2.5rem'}}>{children}</div>
-);
+import breakpoints from '../../theme/breakpoints';
+import theWidth from '../theWidth';
+
+
+const TabContainer = ({children}) => {
+  const isMobile = theWidth() < breakpoints['sm'];
+  const tabPadding = isMobile ? '.5rem 1.5rem' : '2.5rem';
+
+  return(
+    <div style={{padding: tabPadding}}>{children}</div>
+  );
+};
 
 TabContainer.propTypes = {children: PropTypes.node.isRequired};
 
