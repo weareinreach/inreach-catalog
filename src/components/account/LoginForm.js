@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
+import breakpoints from '../../theme/breakpoints';
 
 import config from '../../config/config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
@@ -20,6 +21,11 @@ const styles = theme => ({
   },
   paddingAbove: {paddingTop: '2.5rem'},
   paddingVertical: {padding: '2.5rem 6rem'},
+  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+    paddingVertical: {
+      padding: '1.5rem 0',
+    }
+  }
 });
 
 const LoginForm = ({
