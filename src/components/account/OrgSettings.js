@@ -96,21 +96,20 @@ class OrgSettings extends React.Component {
     fetchJsonp(url + apiKeyParam)
       .then(response => response.json())
       .then(orgData => {
-        console.log(orgData)
         let isPendingSubmission = orgData.has_pending_submission
         let info = {
           name: orgData.name,
-          description: orgData.description,
-          website: orgData.website,
+          description: orgData.description? orgData.description:'',
+          website: orgData.website? orgData.website:'',
           address: orgData.locations ? orgData.locations[0].address:'',
-          region: orgData.region,
+          region: orgData.region? orgData.region:'',
           city: orgData.locations? orgData.locations[0].city:'',
           state: orgData.locations? orgData.locations[0].state:'',
-          phone: orgData.phones ? orgData.phones[0].digits : '',
+          phone: orgData.phones && orgData.phones[0]? orgData.phones[0].digits : '',
         };
         let schedule = orgData.locations && orgData.locations[0].schedule ? orgData.locations[0].schedule : defaultSchedule;
         let additional = {
-          resource: orgData.tag
+          resource: orgData.tag? orgData.tag:''
         }
         this.setState({ orgData, isPendingSubmission, info, schedule, additional})
       })
@@ -148,7 +147,7 @@ class OrgSettings extends React.Component {
   }
   submitOrgData(){
     const {orgData, info, schedule, additional} = this.state;
-    const {user} = this.props;
+    const {user, handleMessageNew} = this.props;
     const content = {
       "name": orgData.name,
       "website": info.website,
@@ -221,13 +220,10 @@ class OrgSettings extends React.Component {
     })
     .then(response => {
       if (response.status === 200) {
-        console.log('Submitted')
-        return response.json()
-      }      
-    }).then(data => {
-      console.log(data);
-    }).catch(error => {
-      console.log(error)
+            handleMessageNew('Your information has been submitted for reviewing.');
+      } else {
+        handleMessageNew('Oops! Something went wrong.');
+      }
     })
     this.setState({isInitial: true})
   }
