@@ -12,7 +12,7 @@ const styles = theme => ({
   dialogBody: {
     minWidth: '600px',
     overflowY: 'auto',
-    padding: '5.5rem',
+    padding: '4.5rem 5.5rem',
   },
 });
 

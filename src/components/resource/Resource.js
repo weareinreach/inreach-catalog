@@ -94,7 +94,12 @@ const styles = (theme) => ({
       paddingTop: '0px',
       paddingBottom: '0px'
     }
-  }
+  },
+  dialogBody: {
+    minWidth: '600px',
+    overflowY: 'auto',
+    padding: '5.5rem',
+  },
 });
 
 

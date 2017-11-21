@@ -10,7 +10,24 @@ const styles = (theme) => ({
     padding: '2rem 0',
     textAlign: 'center',
   },
-  pointer: { cursor: 'pointer' },
+  pointer: { 
+    cursor: 'pointer', 
+    display: 'inline-block',
+    position: 'relative'
+  },
+  pointerText: {
+    textShadow: "2px 0 #6988c1, -2px 0 #6988c1"
+  },
+  underline: {
+    position: "absolute",
+    width: "100%",
+    display: "block",
+    margin: "0",
+    border: "none",
+    height: "1px",
+    background: "white",
+    bottom: ".2em"
+  },
   textWhite: { color: theme.palette.common.darkWhite },
 });
 
@@ -25,14 +42,16 @@ const Announcement = ({ classes, handleRequestOpen }) => (
         className={classes.pointer}
         onClick={() => handleRequestOpen('disclaimer')}
       >
-        Disclaimer
+        <i className={classes.underline} />
+        <span className={classes.pointerText}>Disclaimer</span>
       </strong>
       <span> and </span>
       <strong
         className={classes.pointer}
         onClick={() => handleRequestOpen('privacy')}
       >
-        User Privacy Statement
+        <i className={classes.underline} />
+        <span className={classes.pointerText}>User Privacy Statement</span>
       </strong>
       <span> before using our catalog.</span>
     </Typography>
