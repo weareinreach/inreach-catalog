@@ -122,7 +122,7 @@ class Language extends React.Component {
             type="body1"
             className={[classes.centerTextAlign,'skiptranslate'].join(' ')}>
           {selectedLang}
-          <ChevronIcon width={'18px'}/>
+          <ChevronIcon width={'18px'} direction={this.state.open ? 'up' : 'down'}/>
           </Typography>
         </div>
         {open &&
