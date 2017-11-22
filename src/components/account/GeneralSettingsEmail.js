@@ -116,7 +116,7 @@ class GeneralSettingsEmail extends React.Component {
               className={classes.inputLabel}
               name="currentEmail"
               type="email"
-              label='*Enter Old Email Address:'
+              label='Enter Old Email Address:'
               value={currentEmail}
               InputLabelProps={{
                 shrink: true,
@@ -129,7 +129,7 @@ class GeneralSettingsEmail extends React.Component {
               className={classes.inputLabel}
               name="newEmail"
               type="email"
-              label='*Enter New Email Address:'
+              label='Enter New Email Address:'
               value={newEmail}
               InputLabelProps={{
                 shrink: true,
@@ -142,7 +142,7 @@ class GeneralSettingsEmail extends React.Component {
               className={classes.inputLabel}
               name="confirmedEmail"
               type="email"
-              label='*Confirm New Email Address:'
+              label='Confirm New Email Address:'
               value={confirmedEmail}
               InputLabelProps={{
                 shrink: true,

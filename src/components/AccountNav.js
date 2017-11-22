@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {Link} from 'react-router-dom';
+
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
@@ -37,23 +39,22 @@ const AccountNav = ({
 
     {session && (
       <div className={classes.root}>
-        <a
+        <Link
           className={[classes.divider, classes.accountLinks].join(' ')}
-          href='/account'
+          to='/account'
         >
           <Typography type='body1' className={classes.lowercaseText}>
              Account Settings
           </Typography>
-        </a>
-        <a
+        </Link>
+        <Link to='/'
           className={classes.accountLinks}
-          href='/'
           onClick={handleLogOut}
         >
           <Typography type='body1' className={classes.lowercaseText} >
             Log Out
           </Typography>
-        </a>
+        </Link>
       </div>
     )}
 

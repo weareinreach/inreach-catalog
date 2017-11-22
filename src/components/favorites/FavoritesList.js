@@ -77,7 +77,7 @@ const FavoritesList = ({
     <Typography type="body1">
       {session
         ? 'Your favorites lists are only visible to you and anyone you share them with.'
-        : 'You must be logged in use favorites.'
+        : 'You must be logged in to use favorites.'
       }
     </Typography>
     {session && (
