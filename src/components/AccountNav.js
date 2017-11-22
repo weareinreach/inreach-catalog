@@ -21,6 +21,9 @@ const styles = theme => ({
   lowercaseText: {
     textTransform: 'capitalize',
     'cursor': 'pointer'
+  },
+  cursor: {
+    cursor: 'pointer'
   }
 });
 
@@ -57,7 +60,7 @@ const AccountNav = ({
     {!session && (
       <div className={classes.root}>
         <a
-          className={[classes.divider, classes.accountLinks].join(' ')}
+          className={[classes.divider, classes.accountLinks, classes.cursor].join(' ')}
           onClick={() => handleRequestOpen('login')}
         >
           <Typography type='body1' className={classes.lowercaseText}>
@@ -65,7 +68,7 @@ const AccountNav = ({
           </Typography>
         </a>
         <a
-          className={classes.accountLinks}
+          className={[classes.accountLinks, classes.cursor].join(' ')}
           onClick={() => handleRequestOpen('signup')}
         >
           <Typography type='body1' className={classes.lowercaseText} >
