@@ -20,6 +20,7 @@ import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
 import RatingAndReviews from './RatingAndReviews';
 import Reviews from './Reviews';
+import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
 
 import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
@@ -343,7 +344,16 @@ const Tools = (props) => (
     </Grid>
     <Grid item xs={12} sm={7} className="pull-right">
       <div className="center-align">
-        <FavoritesLink>save to favorites</FavoritesLink> 
+        <SaveToFavoritesButton
+          handleListAddFavorite={props.handleListAddFavorite}
+          handleListRemoveFavorite={props.handleListRemoveFavorite}
+          handleListNew={props.handleListNew}
+          handleMessageNew={props.handleMessageNew}
+          lists={props.lists}
+          resourceId={props.resourceId}
+          session={props.session}
+          user={props.user}
+        />
       </div>
       <div className={props.classes.separator + " center-align"} ></div>
       <AsylumConnectButton 
@@ -555,7 +565,9 @@ class Resource extends React.Component {
               classes={classes} 
               handleTabClick={this.handleTabClick}
               handleDialogOpen={this.handleDialogOpen}
+              resourceId={this.resource.id}
               tab={this.state.tab}
+              {...this.props}
             />
             <OrgHeader 
               classes={classes}
