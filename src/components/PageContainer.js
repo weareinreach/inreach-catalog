@@ -21,7 +21,7 @@ class PageContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       lists: this.props.lists,
       session: this.props.session,
-      user: this.propsuser,
+      user: this.props.user,
     };
     return (
       <div className="page-container"> 

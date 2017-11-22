@@ -33,13 +33,6 @@ class FavoritesListContainer extends React.Component {
     this.handleMenuClose = this.handleMenuClose.bind(this);
   }
 
-  componentDidMount() {
-    const {session} = this.props;
-    if (session) {
-      this.fetchLists(session);
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
@@ -48,7 +41,7 @@ class FavoritesListContainer extends React.Component {
   }
 
   fetchListResources(listId) {
-    const list = this.state.lists.find(
+    const list = this.props.lists.find(
       collection => collection.id == listId,
     );
     if (list && list.fetchable_list_items.length) {
@@ -99,7 +92,7 @@ class FavoritesListContainer extends React.Component {
   }
 
   render() {
-    const currentList = this.state.lists.find(
+    const currentList = this.props.lists.find(
       list => list.id == this.props.match.params.listId,
     );
     const isMobile = this.props.width < breakpoints['sm'];
@@ -111,9 +104,9 @@ class FavoritesListContainer extends React.Component {
           list={currentList}
           handleDialogOpen={this.handleDialogOpen}
           handleDialogClose={this.handleDialogClose}
-          handleListNew={this.handleListNew}
+          handleListNew={this.props.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.handleListRemoveFavorite}
+          handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
         />
@@ -126,9 +119,9 @@ class FavoritesListContainer extends React.Component {
           list={currentList}
           handleDialogOpen={this.handleDialogOpen}
           handleDialogClose={this.handleDialogClose}
-          handleListNew={this.handleListNew}
+          handleListNew={this.props.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.handleListRemoveFavorite}
+          handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
         />
