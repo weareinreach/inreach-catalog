@@ -71,6 +71,8 @@ class ResourceListItem extends React.Component {
       handleListAddFavorite,
       handleListRemoveFavorite,
       handleListNew,
+      handleMessageNew,
+      handleRequestOpen,
       isOnFavoritesList,
       lists,
       session,
@@ -104,7 +106,8 @@ class ResourceListItem extends React.Component {
                     handleListAddFavorite={handleListAddFavorite}
                     handleListRemoveFavorite={handleListRemoveFavorite}
                     handleListNew={handleListNew}
-                    handleMessageNew={this.props.handleMessageNew}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestOpen={handleRequestOpen}
                     lists={lists}
                     resourceId={resource.id}
                     session={session}

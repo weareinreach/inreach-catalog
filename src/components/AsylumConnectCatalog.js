@@ -135,10 +135,14 @@ class AsylumConnectCatalog extends React.Component {
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
               dialog={dialog}
+              handleListAddFavorite={handleListAddFavorite}
+              handleListNew={handleListNew}
               handleLogIn={handleLogIn}
               handleMessageNew={handleMessageNew}
               handleRequestClose={handleRequestClose}
               handleRequestOpen={handleRequestOpen}
+              session={session}
+              user={user}
             />
           </div>
         )}
@@ -152,6 +156,7 @@ class AsylumConnectCatalog extends React.Component {
                   handleListRemoveFavorite={handleListRemoveFavorite}
                   handleListNew={handleListNew}
                   handleMessageNew={handleMessageNew}
+                  handleRequestOpen={handleRequestOpen}
                   lists={lists}
                   session={session}
                   user={user}
@@ -164,6 +169,7 @@ class AsylumConnectCatalog extends React.Component {
                 handleListRemoveFavorite={handleListRemoveFavorite}
                 handleListNew={handleListNew}
                 handleMessageNew={handleMessageNew}
+                handleRequestOpen={handleRequestOpen}
                 lists={lists}
                 session={session}
                 user={user}
@@ -178,6 +184,7 @@ class AsylumConnectCatalog extends React.Component {
                 handleListRemoveFavorite={handleListRemoveFavorite}
                 handleListNew={handleListNew}
                 handleMessageNew={handleMessageNew}
+                handleRequestOpen={handleRequestOpen}
                 lists={lists}
                 session={session}
                 user={user}

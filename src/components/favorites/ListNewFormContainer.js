@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import createList from '../../helpers/createList';
+import createListFavorite from '../../helpers/createListFavorite';
 
 import ListNewForm from './ListNewForm';
 
@@ -40,13 +41,34 @@ class ListNewFormContainer extends React.Component {
         }
       })
       .then(data => {
-        const {handleListNew, handleRequestClose, history} = this.props;
+        const {
+          handleListAddFavorite,
+          handleListNew,
+          handleRequestClose,
+          history,
+          origin,
+          originList,
+        } = this.props;
         handleListNew(
           Object.assign({}, payload, data.collection, {
             fetchable_list_items: [],
           }),
         );
-        history.push(`/favorites/${user}/${data.collection.id}`);
+        if (origin === 'saveToFavorites') {
+          createListFavorite(data.collection.id, originList, session)
+            .then(response => {
+              if (response.status === 200) {
+                handleListAddFavorite(data.collection.id, parseInt(originList));
+              } else {
+                Promise.reject(response);
+              }
+            })
+            .catch(error => {
+              console.warn(error);
+            });
+        } else if (origin === 'favoritesList') {
+          history.push(`/favorites/${user}/${data.collection.id}`);
+        }
         handleRequestClose();
       })
       .catch(error => {
@@ -67,14 +89,18 @@ class ListNewFormContainer extends React.Component {
 }
 
 ListNewFormContainer.defaultProps = {
+  originList: null,
   session: null,
   user: null,
 };
 
 ListNewFormContainer.propTypes = {
+  handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
+  origin: PropTypes.oneOf(['favoritesList', 'saveToFavorites']).isRequired,
+  originList: PropTypes.string,
   session: PropTypes.string,
   user: PropTypes.number,
 };

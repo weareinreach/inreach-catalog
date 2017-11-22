@@ -360,6 +360,7 @@ const Tools = (props) => (
           handleListRemoveFavorite={props.handleListRemoveFavorite}
           handleListNew={props.handleListNew}
           handleMessageNew={props.handleMessageNew}
+          handleRequestOpen={props.handleRequestOpen}
           lists={props.lists}
           resourceId={props.resourceId}
           session={props.session}
