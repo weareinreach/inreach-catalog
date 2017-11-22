@@ -12,7 +12,7 @@ module.exports = {
     
     //build signature
     const secret = process.env.OD_SECRET;
-    const body = JSON.stringify(Object.assign({}, req.body, {api_key: config[process.env.NODE_ENV].odApiKey}));
+    const body = JSON.stringify(Object.assign({}, req.body, {api_key: config[process.env.OD_API_ENV].odApiKey}));
     const today = new Date();
 
     const signed_params = crypto.createHmac('sha256', secret)
@@ -26,7 +26,7 @@ module.exports = {
                         .digest('hex');
     
     //build fetch request
-    fetch(config[process.env.NODE_ENV].odrs+req.path.replace(/^\/api\//i, ''), 
+    fetch(config[process.env.OD_API_ENV].odrs+req.path.replace(/^\/api\//i, ''), 
       {
         method: req.method,
         headers: {
@@ -113,7 +113,7 @@ module.exports = {
  */
 function confirmLogin(authToken){
   return new Promise((resolve, reject) => {
-    let url = config[process.env.NODE_ENV].odas+"api/user";
+    let url = config[process.env.OD_API_ENV].odas+"api/user";
 
     var options = { 
       method: 'GET',
@@ -124,8 +124,8 @@ function confirmLogin(authToken){
         } 
       };
 
-    if(typeof config[process.env.NODE_ENV].basicAuth !== "undefined"){
-      options.headers.authorization = config[process.env.NODE_ENV].basicAuth;
+    if(typeof config[process.env.OD_API_ENV].basicAuth !== "undefined"){
+      options.headers.authorization = config[process.env.OD_API_ENV].basicAuth;
       options.headers['demo-authorization'] = 'Bearer '+authToken;
     }
     else{
@@ -165,8 +165,8 @@ function confirmLogin(authToken){
  */
 function send(email){
   return new Promise((resolve, reject) => {
-    var mg = mailgun.client({username: 'api', key: config[process.env.NODE_ENV].mailgun.apiKey});
-    mg.messages.create(config[process.env.NODE_ENV].mailgun.domain, {
+    var mg = mailgun.client({username: 'api', key: config[process.env.OD_API_ENV].mailgun.apiKey});
+    mg.messages.create(config[process.env.OD_API_ENV].mailgun.domain, {
         from: email.sender,
         to: email.recipients,
         subject: email.subject,
@@ -195,7 +195,7 @@ function send(email){
 async function makeEmail(req, res, userData){
   let subject = req.body.subject;
   if(!subject){
-    let defaultSubject = config[process.env.NODE_ENV].mailgun.defaultSubject;
+    let defaultSubject = config[process.env.OD_API_ENV].mailgun.defaultSubject;
     subject = typeof defaultSubject === "function" ? defaultSubject(req.body) : defaultSubject;
   }
 
