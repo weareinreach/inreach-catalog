@@ -206,7 +206,7 @@ const FavoritesList = ({
         <MenuItem
           key={listOption.id}
           onClick={() => handleListSelect(listOption)}
-          selected={listOption.id === list.id}
+          selected={list && listOption.id === list.id}
         >
           {listOption.title}
         </MenuItem>

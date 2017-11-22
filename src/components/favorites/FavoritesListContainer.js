@@ -35,12 +35,21 @@ class FavoritesListContainer extends React.Component {
 
   componentDidMount() {
     const { listId } = this.props.match.params;
+    const { lists, user } = this.props;
+
+    if (lists.length && !listId) {
+      this.props.history.push(`/favorites/${user}/${lists[0].id}`);
+    }
     if (listId) {
       this.fetchListResources(listId);
     }
   }
 
+
   componentWillReceiveProps(nextProps) {
+    if (nextProps.lists.length && !nextProps.match.params.listId) {
+      this.props.history.push(`/favorites/${nextProps.user}/${nextProps.lists[0].id}`);
+    }
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
       this.fetchListResources(nextProps.match.params.listId);
