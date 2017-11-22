@@ -329,7 +329,7 @@ const OrgHeader = ({classes, resource}) => (
     </Grid>
     <Grid item xs={12} >
       <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
-        {resource.website} {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
+        <a href="{resource.website}" className={classes.bodyLink}>{resource.website}</a> {resource.phones && resource.phones.length ? "| "+resource.phones[0].digits : null}
       </Typography>
     </Grid>
   </Grid>

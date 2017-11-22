@@ -42,11 +42,12 @@ const NavDesktop = ({
   user,
 }) => (
   <div className={classes.root}>
-    <IconButton
-      className={classes.IconButton}
-      href="http://www.asylumconnect.org">
-      <img src={LogoImg} className={classes.LogoFitHeight} />
-    </IconButton>
+    <Link to='/'>
+      <IconButton
+        className={classes.IconButton}>
+        <img src={LogoImg} className={classes.LogoFitHeight} />
+      </IconButton>
+    </Link>
     <a href="http://www.asylumconnect.org/our-organization/">
       <Typography type="display4">about us</Typography>
     </a>
