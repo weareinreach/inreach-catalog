@@ -202,9 +202,13 @@ const FavoritesList = ({
       open={open}
       onRequestClose={handleMenuClose}
       PaperProps={{style: {maxHeight: '300px'}}}>
-      {lists.map(list => (
-        <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
-          {list.title}
+      {lists.map(listOption => (
+        <MenuItem
+          key={listOption.id}
+          onClick={() => handleListSelect(listOption)}
+          selected={listOption.id === list.id}
+        >
+          {listOption.title}
         </MenuItem>
       ))}
     </Menu>
