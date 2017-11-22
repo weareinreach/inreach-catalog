@@ -7,6 +7,7 @@ import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
 import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
+import ActionButton from '../ActionButton';
 
 const styles = theme => ({
   dialogBody: {
@@ -26,6 +27,9 @@ const AsylumConnectDialog = ({
 }) =>
   <Dialog open={dialog !== 'none'} onRequestClose={handleRequestClose}>
     <div className={classes.dialogBody}>
+      <ActionButton
+        onClick={handleRequestClose}
+        >&times;</ActionButton>
       {dialog === 'disclaimer' &&
         <DisclaimerDialog handleRequestClose={handleRequestClose} />}
       {dialog === 'forgot' &&
