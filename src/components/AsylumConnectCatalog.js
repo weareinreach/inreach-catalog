@@ -201,6 +201,7 @@ class AsylumConnectCatalog extends React.Component {
                     {...props}
                     handleMessageNew={handleMessageNew}
                     handleLogOut={handleLogOut}
+                    handleRequestOpen={handleRequestOpen}
                   />
                 )}
               />
