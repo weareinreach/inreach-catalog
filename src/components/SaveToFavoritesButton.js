@@ -43,10 +43,7 @@ class SaveToFavoritesButton extends React.Component {
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
   }
 
-  handleCreateList(listId) {
-    if (!this.props.session) {
-      return this.props.handleMessageNew('You must be logged in to save favorites');
-    }
+  handleCreateList(currentTarget) {
     const payload = {
       created_by_user_id: this.props.user,
       title: 'My List',
@@ -66,6 +63,7 @@ class SaveToFavoritesButton extends React.Component {
           }),
         );
         this.handleSaveToFavorites(data.collection.id);
+        this.setState({open: true, anchorEl: currentTarget});
       })
       .catch(error => {
         console.warn(error);
@@ -73,7 +71,14 @@ class SaveToFavoritesButton extends React.Component {
   }
 
   handleMenuOpen(event) {
-    this.setState({open: true, anchorEl: event.currentTarget});
+    const { currentTarget } = event;
+    if (!this.props.session) {
+      return this.props.handleMessageNew('You must be logged in to save favorites');
+    } else if (this.props.lists.length < 1) {
+      this.handleCreateList(currentTarget);
+    } else {
+      this.setState({open: true, anchorEl: currentTarget});
+    }
   }
 
   handleMenuClose() {
@@ -136,7 +141,7 @@ class SaveToFavoritesButton extends React.Component {
     );
     return (
       <div>
-        <Button onClick={lists.length ? handleMenuOpen : handleCreateList}>
+        <Button onClick={handleMenuOpen}>
           <Typography type="display4" className={classes.viewYourFavoritesText}>
             Save To Favorites
             <RedHeartIcon width={'38px'} fill={isFavorite} />
