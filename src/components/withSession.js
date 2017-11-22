@@ -125,6 +125,7 @@ export default function withSession(WrappedComponent) {
 
     handleLogOut() {
       window.localStorage.removeItem('jwt');
+      this.setState({ lists: [] });
       this.handleStorageChange();
     }
 
