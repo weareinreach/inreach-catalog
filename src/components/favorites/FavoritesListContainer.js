@@ -33,6 +33,13 @@ class FavoritesListContainer extends React.Component {
     this.handleMenuClose = this.handleMenuClose.bind(this);
   }
 
+  componentDidMount() {
+    const { listId } = this.props.match.params;
+    if (listId) {
+      this.fetchListResources(listId);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
