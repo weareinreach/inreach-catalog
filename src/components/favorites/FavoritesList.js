@@ -16,6 +16,7 @@ import AsylumConnectButton from '../AsylumConnectButton';
 import ListNewDialog from './ListNewDialog';
 import ResourceListItem from '../resource/ResourceListItem';
 import ShareDialog from '../share/ShareDialog';
+import ActionButton from '../ActionButton';
 
 const styles = theme => ({
   container: {
@@ -168,6 +169,9 @@ const FavoritesList = ({
 
     <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
       <div className={classes.dialogBody}>
+        <ActionButton
+          onClick={handleDialogClose}
+          >&times;</ActionButton>
       {dialog === 'new' &&
         <ListNewDialog
           handleMessageNew={handleMessageNew}

@@ -29,6 +29,7 @@ import { scheduleParser, addressParser } from '../../helpers/Parser';
 
 import {bodyLink, boldFont, dividerSpacing} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
+import ActionButton from '../ActionButton';
 
 let resourceIndex = resourceTypes.getTagIndex();
 
@@ -77,6 +78,16 @@ const styles = (theme) => ({
   dividerSpacing: dividerSpacing(theme),
   orgName: {
     fontSize: "21px"
+  },
+  serviceBadge: {
+    position: "absolute"
+  },
+  serviceText: {
+    paddingLeft:"45px",
+    paddingTop:"10px"
+  },
+  serviceTooltip: {
+    top: "6px"
   },
   boldFont: boldFont(theme),
   moreInfo: Object.assign({
@@ -184,7 +195,7 @@ const Languages = (props) => (
 const Services = (props) => {
   return (
     <Grid container spacing={0}>
-       <Grid item xs={12} className={props.classes.sectionSpacing}>
+      <Grid item xs={12} className={props.classes.sectionSpacing}>
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
@@ -205,18 +216,18 @@ const Services = (props) => {
                           } else if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
                             badges.push(resourceIndex[tag].type);
                             return (
-                              <ACBadge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                              <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
                             )
                           } else if(badges.indexOf('misc') === -1) {
                             badges.push('misc');
                             return (
-                              <ACBadge key='misc' type='misc' width='45px' height='45px' />
+                              <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />
                             )
                           }
                         })
                       })()
                     : null}
-                    {item.title}
+                    <p className={props.classes.serviceText}>{item.title}</p>
                   </Typography>
                 )
               })
@@ -593,6 +604,9 @@ class Resource extends React.Component {
             />
             <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
               <div className={classes.dialogBody}>
+                <ActionButton
+                  onClick={this.handleDialogClose}
+                  >&times;</ActionButton>              
               {this.state.dialog === 'share' &&
                 <ShareDialog
                   handleMessageNew={handleMessageNew}
