@@ -155,10 +155,34 @@ class AsylumConnectCatalog extends React.Component {
                   lists={lists}
                   session={session}
                   user={user}
-                />
-              )}/>
-              <Route exact path="/" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
-              <Route path="/search/:near/:for/:filter/:sort" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
+                />)}
+              />
+            <Route exact path="/" render={(props) => (
+              <MapContainer
+                {...props}
+                handleListAddFavorite={handleListAddFavorite}
+                handleListRemoveFavorite={handleListRemoveFavorite}
+                handleListNew={handleListNew}
+                handleMessageNew={handleMessageNew}
+                lists={lists}
+                session={session}
+                user={user}
+              />)}
+            />
+          <Route
+            path="/search/:near/:for/:filter/:sort"
+            render={(props) => (
+              <MapContainer
+                {...props}
+                handleListAddFavorite={handleListAddFavorite}
+                handleListRemoveFavorite={handleListRemoveFavorite}
+                handleListNew={handleListNew}
+                handleMessageNew={handleMessageNew}
+                lists={lists}
+                session={session}
+                user={user}
+              />)}
+            />
               <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
               <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
               <Redirect from="/search" to="/"/>

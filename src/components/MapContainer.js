@@ -280,21 +280,27 @@ class MapContainer extends React.Component {
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
                      />} />
                     }
-                  <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
-                    mapProps={this.mapProps}
-                    fetchSearchResults={this.fetchSearchResults}
-                    clearSearchFilters={this.clearSearchFilters}
-                    clearSearchStatus={this.clearSearchStatus}
-                    handleMessageNew={this.props.handleMessageNew}
-                    handlePlaceSelect={this.handlePlaceSelect} 
-                    handlePlaceChange={this.handlePlaceChange}
-                    handleSearchButtonClick={this.handleSearchButtonClick}
-                    handleResourceTypeSelect={this.handleResourceTypeSelect}
-                    handleFilterSelect={this.handleFilterSelect}
-                    handleSortSelect={this.handleSortSelect}
-                    session={this.props.session}
-                    user={this.props.user}
-                    />} />
+                  <Route path="/search/:near/:for/:filter/:sort" render={ props => (
+                    <SearchResultsContainer {...props} {...this.state}
+                      mapProps={this.mapProps}
+                      fetchSearchResults={this.fetchSearchResults}
+                      clearSearchFilters={this.clearSearchFilters}
+                      clearSearchStatus={this.clearSearchStatus}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handlePlaceSelect={this.handlePlaceSelect} 
+                      handlePlaceChange={this.handlePlaceChange}
+                      handleSearchButtonClick={this.handleSearchButtonClick}
+                      handleResourceTypeSelect={this.handleResourceTypeSelect}
+                      handleFilterSelect={this.handleFilterSelect}
+                      handleSortSelect={this.handleSortSelect}
+                      lists={this.props.lists}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
                   <Route path="/resource/:id" render={ props => (
                     <Resource {...props}
                       handleListAddFavorite={this.props.handleListAddFavorite}

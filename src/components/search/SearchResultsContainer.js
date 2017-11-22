@@ -75,22 +75,13 @@ class SearchResultsContainer extends React.Component {
     //this.props.clearSearchStatus();
     //this.props.fetchSearchResults();
 
-    this.state = { lists: [], tab: 0 };
+    this.state = { tab: 0 };
 
-    this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
-    this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
-    this.handleListNew = this.handleListNew.bind(this);
     this.handleSwipeChange = this.handleSwipeChange.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
-    this.fetchLists = this.fetchLists.bind(this);
   }
 
   componentDidMount() {
-    const { session } = this.props;
-    if (session) {
-      this.fetchLists(session);
-    }
-
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
 
@@ -111,39 +102,6 @@ class SearchResultsContainer extends React.Component {
     }
   }
 
-  handleListNew(list) {
-    this.setState(prevState => ({ lists: [...prevState.lists, list]}));
-  };
-
-  handleListAddFavorite(listId, favorite) {
-    this.setState(prevState => ({ lists: prevState.lists.map(list => (
-      list.id === listId
-        ? Object.assign(
-            {},
-            list,
-            {fetchable_list_items: [
-              ...list.fetchable_list_items,
-              { fetchable_id: favorite}
-            ]},
-          )
-        : list
-    ))}));
-  };
-
-  handleListRemoveFavorite(listId, favorite) {
-    this.setState(prevState => ({ lists: prevState.lists.map(list => (
-      list.id === listId
-        ? Object.assign(
-            {},
-            list,
-            {fetchable_list_items: list.fetchable_list_items.filter(item =>
-              item.fetchable_id !== favorite
-            )},
-          )
-        : list
-    ))}));
-  }
-
   handleTabChange(event, value) {
     this.setState({
       tab: value
@@ -156,23 +114,6 @@ class SearchResultsContainer extends React.Component {
     });
   }
 
-  fetchLists(session) {
-    fetchUserLists(session)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
-      .then(data => {
-        this.setState({lists: data.collections});
-      })
-      .catch(response => {
-        console.warn(response);
-      });
-  }
-
   render() {
     const { 
       tabContainer,
@@ -182,16 +123,16 @@ class SearchResultsContainer extends React.Component {
       containerSearchResults } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
-      handleListAddFavorite: this.handleListAddFavorite,
-      handleListRemoveFavorite: this.handleListRemoveFavorite,
-      handleListNew: this.handleListNew,
+      handleListAddFavorite: this.props.handleListAddFavorite,
+      handleListRemoveFavorite: this.props.handleListRemoveFavorite,
+      handleListNew: this.props.handleListNew,
       handleMessageNew: this.props.handleMessageNew,
-      lists: this.state.lists,
+      lists: this.props.lists,
       session: this.props.session,
       searchResults: this.props.searchResults,
       searching: this.props.searching,
       user: this.props.user
-    }
+    };
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={container}>

@@ -11,19 +11,38 @@ import {
   Switch,
 } from 'react-router-dom';
 
-
-
 class PageContainer extends React.Component {
   render() {
     const { handleMessageNew, session, user, handleLogout, history } = this.props;
+    const sessionListProps = {
+      handleListAddFavorite: this.props.handleListAddFavorite,
+      handleListRemoveFavorite: this.props.handleListRemoveFavorite,
+      handleListNew: this.props.handleListNew,
+      handleMessageNew: this.props.handleMessageNew,
+      lists: this.props.lists,
+      session: this.props.session,
+      user: this.propsuser,
+    };
     return (
       <div className="page-container"> 
           <Switch>
             {/*<Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>*/}
-            <Route path="/favorites/:id/:listId" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
-            <Route path="/favorites/:id/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
-            <Route path="/favorites/:id" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
-            <Route path="/favorites/" render={() => <FavoritesListContainer handleMessageNew={handleMessageNew} session={session} user={user}/>}/>
+            <Route
+              path="/favorites/:id/:listId"
+              render={() => <FavoritesListContainer {...sessionListProps} />}
+            />
+            <Route
+              path="/favorites/:id/"
+              render={() => <FavoritesListContainer {...sessionListProps} />}
+            />
+            <Route
+              path="/favorites/:id"
+              render={() => <FavoritesListContainer {...sessionListProps} />}
+            />
+            <Route
+              path="/favorites/"
+              render={() => <FavoritesListContainer {...sessionListProps} />}
+            />
             <Route path="/account" render={()=>(
               <AccountPage handleMessageNew={handleMessageNew} handleLogout={handleLogout} history={history} />
             )}
