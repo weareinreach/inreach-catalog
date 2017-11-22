@@ -26,6 +26,7 @@ import { scheduleParser, addressParser } from '../../helpers/Parser';
 
 import {bodyLink} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
+import ActionButton from '../ActionButton';
 
 let resourceIndex = resourceTypes.getTagIndex();
 
@@ -79,6 +80,16 @@ const styles = (theme) => ({
   },
   boldFont: {
     fontWeight: "600",
+  },
+  serviceBadge: {
+    position: "absolute"
+  },
+  serviceText: {
+    paddingLeft:"45px",
+    paddingTop:"10px"
+  },
+  serviceTooltip: {
+    top: "6px"
   },
   moreInfo: {
     fontWeight: "600",
@@ -183,13 +194,13 @@ const Services = (props) => {
                         if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
                           badges.push(resourceIndex[tag].type);
                           return (
-                            <ACBadge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                            <ACBadge extraClasses={{icon: props.classes.serviceBadge, tooltip: props.classes.serviceTooltip}} key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
                           )
                         }
                       })
                     })()
                   : null}
-                  {item.title}
+                  <p className={props.classes.serviceText}>{item.title}</p>
                 </Typography>
               )
             })
@@ -497,6 +508,9 @@ class Resource extends React.Component {
         </Grid>
         <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
           <div className={classes.dialogBody}>
+            <ActionButton
+              onClick={this.handleDialogClose}
+              >&times;</ActionButton>
           {this.state.dialog === 'share' &&
             <ShareDialog
               handleMessageNew={handleMessageNew}

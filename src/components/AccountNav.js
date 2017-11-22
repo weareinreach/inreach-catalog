@@ -19,7 +19,8 @@ const styles = theme => ({
     borderColor: theme.palette.text.divider
   },
   lowercaseText: {
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
+    'cursor': 'pointer'
   }
 });
 
