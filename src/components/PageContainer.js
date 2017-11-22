@@ -36,10 +36,6 @@ class PageContainer extends React.Component {
               render={() => <FavoritesListContainer {...sessionListProps} />}
             />
             <Route
-              path="/favorites/:id"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
-            />
-            <Route
               path="/favorites/"
               render={() => <FavoritesListContainer {...sessionListProps} />}
             />
