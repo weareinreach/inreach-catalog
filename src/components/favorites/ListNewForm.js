@@ -14,20 +14,23 @@ const styles = theme => ({
     flexDirection: 'column',
     textAlign: 'center',
   },
+  helperText:{
+    lineHeight: "1.54"
+  },
   spacingAbove: {marginTop: '3rem'},
 });
 
 const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <Typography type="body1">
-      Your favorites lists are only visible to you and anyone you share them
-      with.
+      Your favorites lists are only visible to you and anyone you share them&nbsp;with.
     </Typography>
     <TextField
       id="name"
       label="List name"
       margin="normal"
       helperText="You could name your list by category, by day of the week, or by the name of whoever this list is for."
+      helperTextClassName={classes.helperText}
       name="name"
       onChange={handleChange}
       required

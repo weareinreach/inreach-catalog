@@ -14,7 +14,7 @@ const styles = theme => ({
     padding: '0 5 0'
   },
   accountLinks: {
-    padding: '5 5 5'
+    padding: '5px 10px'
   },
   divider: {
     borderRight: "1px solid",

@@ -29,6 +29,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[500],
     justifyContent: 'space-evenly'
   },
+  [theme.breakpoints.up('sm')]: {
+    filterContainer: {
+      marginTop: "-0.8rem"
+    }
+  },
   [theme.breakpoints.down('sm')]: {
     container: {
       height: "100%",
@@ -120,7 +125,9 @@ class SearchResultsContainer extends React.Component {
       container, 
       formRow, 
       containerSearchForm, 
-      containerSearchResults } = this.props.classes;
+      containerSearchResults,
+      filterContainer
+      } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
       handleListAddFavorite: this.props.handleListAddFavorite,
@@ -139,17 +146,19 @@ class SearchResultsContainer extends React.Component {
         <Grid item md={10} lg={9} xs={12}>
         <div className={containerSearchForm}>
           <SearchBar {...this.props} classes={null} />
-          <SearchRefinementControls 
-            clearSearchFilters={this.props.clearSearchFilters}
-            handleFilterSelect={this.props.handleFilterSelect} 
-            handleSortSelect={this.props.handleSortSelect} 
-            selectedFilters={this.props.selectedFilters} 
-            selectedSort={this.props.selectedSort}  />
           <Grid container spacing={0}>
-            <Grid item xs={12} className={formRow}>
+            <Grid item xs={12} md={3} className={formRow}>
               <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
                 Search
               </AsylumConnectButton>
+            </Grid>
+            <Grid item xs={12} md={9} className={filterContainer}>
+              <SearchRefinementControls 
+                clearSearchFilters={this.props.clearSearchFilters}
+                handleFilterSelect={this.props.handleFilterSelect} 
+                handleSortSelect={this.props.handleSortSelect} 
+                selectedFilters={this.props.selectedFilters} 
+                selectedSort={this.props.selectedSort}  />
             </Grid>
           </Grid>
         </div>
