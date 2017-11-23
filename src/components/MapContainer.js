@@ -180,6 +180,7 @@ class MapContainer extends React.Component {
     this.queryOneDegree
       .addTags(this.state.selectedResourceTypes)
       .setLocation(this.state.nearLatLng)
+      .setFilters(this.state.selectedFilters)
       .setOrder(this.state.selectedSort)
       .fetchOrganizations({
         callback: this.processSearchResults

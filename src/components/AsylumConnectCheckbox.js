@@ -7,6 +7,9 @@ import { FormControlLabel } from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
 import CheckCircleIcon from 'material-ui-icons/CheckCircle';
 import RadioUncheckedIcon from 'material-ui-icons/RadioButtonUnchecked';
+import CheckBoxIcon from 'material-ui-icons/CheckBox';
+import CheckBoxOutlineBlankIcon from 'material-ui-icons/CheckBoxOutlineBlank';
+
 
 const relativeSize = 1;
 
@@ -58,8 +61,8 @@ const AsylumConnectCheckbox = (props) => {
       control={
         <Checkbox
           value={props.value}
-          icon={<RadioUncheckedIcon style={iconSize} />}
-          checkedIcon={<CheckCircleIcon style={iconSize}/>}
+          icon={<CheckBoxOutlineBlankIcon style={iconSize} />}
+          checkedIcon={<CheckBoxIcon style={iconSize}/>}
           checked={props.checked}
           classes={{
             default: checkboxDefault,
