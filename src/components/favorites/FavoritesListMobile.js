@@ -14,6 +14,7 @@ import {withStyles} from 'material-ui/styles';
 
 import {bodyLink} from '../../theme/sharedClasses';
 
+import ResourceListItem from '../resource/ResourceListItem';
 import ListNewFormContainer from './ListNewFormContainer';
 
 const styles = theme => ({
@@ -98,14 +99,16 @@ const FavoritesListMobile = ({
             ) : (
               <div>
                 {resources.map(resource => (
-                  <div>
-                    <Typography type="display3">
-                      {resource.name}
-                    </Typography>
-                    <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
-                      <Close />
-                    </IconButton>
-                  </div>
+                  <ResourceListItem
+                    format={'favoritesMobile'}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleMessageNew={handleMessageNew}
+                    isOnFavoritesList
+                    key={resource.id}
+                    resource={resource}
+                    session={session}
+                    user={user}
+                  />
                 ))}
               </div>
             )}
