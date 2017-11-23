@@ -134,6 +134,7 @@ class SearchResultsContainer extends React.Component {
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
       handleMessageNew: this.props.handleMessageNew,
+      handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
       session: this.props.session,
       searchResults: this.props.searchResults,
