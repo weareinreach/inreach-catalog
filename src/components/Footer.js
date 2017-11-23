@@ -66,7 +66,7 @@ const Footer = ({ classes }) => {
               icon="linkedin"
             />
             <ContactLink
-              link="mailto:katie@asylumconnect.org"
+              link="mailto:catalog@asylumconnect.org"
               icon="envelope-o"
             />
             <ContactLink

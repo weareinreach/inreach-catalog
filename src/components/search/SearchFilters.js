@@ -58,12 +58,12 @@ const filterCollection = [
     //{label: 'Has service in my language', name: 'lang-'},
   ],
   [
-    {label: 'Photo ID', name: 'photo-id-not-required'},
-    {label: 'Proof of income', name: 'proof-of-income-not-required'},
-    {label: 'Proof of age', name: 'proof-of-age-not-required'},
-    {label: 'Medical insurance', name: 'medical-insurance-not-required'},
-    {label: 'Proof of residence', name: 'proof-of-residence-not-required'},
-    {label: 'A referral', name: 'referral-not-required'}
+    {label: 'Photo ID', name: 'not-req-photo-id'},
+    {label: 'Proof of income', name: 'not-req-proof-of-income'},
+    {label: 'Proof of age', name: 'not-req-proof-of-age'},
+    {label: 'Medical insurance', name: 'not-req-medical-insurance'},
+    {label: 'Proof of residence', name: 'not-req-proof-of-residence'},
+    {label: 'A referral', name: 'not-req-referral'}
   ],
   [
     {label: 'Exclude resources that are "at capacity (i.e. currently unable to take new clients)"' , name: 'at-capacity'}
