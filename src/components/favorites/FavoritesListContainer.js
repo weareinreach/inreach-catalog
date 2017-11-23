@@ -36,8 +36,7 @@ class FavoritesListContainer extends React.Component {
 
     if (lists.length && !listId) {
       this.props.history.push(`/favorites/${user}/${lists[0].id}`);
-    }
-    if (listId) {
+    } else if (lists.legth && listId) {
       this.fetchListResources(listId);
     }
   }
@@ -49,6 +48,17 @@ class FavoritesListContainer extends React.Component {
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
       this.fetchListResources(nextProps.match.params.listId);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.loadingResources &&
+      this.props.match.params.listId &&
+      !prevProps.lists.length &&
+      this.props.lists.length
+    ) {
+      this.fetchListResources(this.props.match.params.listId);
     }
   }
 
