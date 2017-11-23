@@ -17,7 +17,7 @@ const styles = theme => ({
   spacingAbove: {marginTop: '3rem'},
 });
 
-const ShareForm = ({classes, email, handleChange, handleSubmit}) => (
+const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <TextField
       id="email"
@@ -30,7 +30,7 @@ const ShareForm = ({classes, email, handleChange, handleSubmit}) => (
       value={email}
     />
     <AsylumConnectButton className={classes.spacingAbove} variant="secondary">
-      Share List
+      Share {shareType === "collection" ? "List" : "Resource"}
     </AsylumConnectButton>
   </form>
 );

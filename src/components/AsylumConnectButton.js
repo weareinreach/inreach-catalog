@@ -11,9 +11,10 @@ import Button from 'material-ui/Button';
 const styles = theme => ({
   button: {
     border: '1.7px solid',
-    padding: '0 20',
+    padding: '0px 40px',
     'border-radius': '50px',
-    minHeight: '30px'
+    minHeight: '30px',
+    alignSelf: "center"
   },
   primary: {
     color: theme.palette.primary[500],

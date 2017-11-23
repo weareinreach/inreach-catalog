@@ -68,7 +68,7 @@ const FavoritesList = ({
 }) => (
   <Grid
     container
-    className={classes.marginBottom}
+    className={null}
     direction="column"
     alignItems="center">
     <Typography className={classes.marginTop} type="display1">

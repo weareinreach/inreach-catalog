@@ -12,7 +12,7 @@ import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
-import LogoImg from '../../images/AC-logo.png';
+import LogoImg from '../../images/asylum-connect.svg';
 
 const styles = theme => ({
   root: {
