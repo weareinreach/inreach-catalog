@@ -280,24 +280,43 @@ class MapContainer extends React.Component {
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
                      />} />
                     }
-                  <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
-                    mapProps={this.mapProps}
-                    fetchSearchResults={this.fetchSearchResults}
-                    clearSearchFilters={this.clearSearchFilters}
-                    clearSearchStatus={this.clearSearchStatus}
-                    handleMessageNew={this.props.handleMessageNew}
-                    handlePlaceSelect={this.handlePlaceSelect} 
-                    handlePlaceChange={this.handlePlaceChange}
-                    handleSearchButtonClick={this.handleSearchButtonClick}
-                    handleResourceTypeSelect={this.handleResourceTypeSelect}
-                    handleFilterSelect={this.handleFilterSelect}
-                    handleSortSelect={this.handleSortSelect}
-                    session={this.props.session}
-                    user={this.props.user}
-                    />} />
-                  <Route path="/resource/:id" render={ props => <Resource {...props} mapProps={this.mapProps} handleMessageNew={this.props.handleMessageNew} resource={(() => {
-                    let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
-                    return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
+                  <Route path="/search/:near/:for/:filter/:sort" render={ props => (
+                    <SearchResultsContainer {...props} {...this.state}
+                      mapProps={this.mapProps}
+                      fetchSearchResults={this.fetchSearchResults}
+                      clearSearchFilters={this.clearSearchFilters}
+                      clearSearchStatus={this.clearSearchStatus}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handlePlaceSelect={this.handlePlaceSelect} 
+                      handlePlaceChange={this.handlePlaceChange}
+                      handleSearchButtonClick={this.handleSearchButtonClick}
+                      handleResourceTypeSelect={this.handleResourceTypeSelect}
+                      handleFilterSelect={this.handleFilterSelect}
+                      handleSortSelect={this.handleSortSelect}
+                      lists={this.props.lists}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
+                  <Route path="/resource/:id" render={ props => (
+                    <Resource {...props}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleMessageNew={this.props.handleMessageNew}
+                      lists={this.props.lists}
+                      mapProps={this.mapProps}
+                      resource={(() => {
+                        let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
+                        return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })()
+                      }
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
                 </Switch>
               </div>
             </Grid>
