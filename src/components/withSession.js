@@ -15,9 +15,12 @@ export default function withSession(WrappedComponent) {
         user: null
       };
 
-      this.handleStorageChange = this.handleStorageChange.bind(this);
+      this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
+      this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
+      this.handleListNew = this.handleListNew.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
+      this.handleStorageChange = this.handleStorageChange.bind(this);
     }
 
     componentDidMount() {
@@ -28,10 +31,6 @@ export default function withSession(WrappedComponent) {
         this.fetchUser(session);
         this.fetchLists(session);
       };
-
-      this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
-      this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
-      this.handleListNew = this.handleListNew.bind(this);
     }
 
     componentWillUnmount() {

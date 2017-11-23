@@ -84,8 +84,10 @@ class ResourceListItem extends React.Component {
       handleListRemoveFavorite,
       handleListNew,
       handleMessageNew,
+      handleRemoveFavorite,
       handleRequestOpen,
       isOnFavoritesList,
+      listId,
       lists,
       session,
       user
@@ -127,7 +129,7 @@ class ResourceListItem extends React.Component {
                   />
                 )}
                 {isOnFavoritesList && (
-                  <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
+                  <IconButton onClick={() => handleRemoveFavorite(resource.id)}>
                     <Fa name="times"/>
                   </IconButton>
                 )}
@@ -222,9 +224,11 @@ ResourceListItem.propTypes = {
   handleListAddFavorite: PropTypes.func,
   handleListNew: PropTypes.func,
   handleListRemoveFavorite: PropTypes.func,
+  handleRemoveFavorite: PropTypes.func,
   isOnFavoritesList: PropTypes.bool,
-  resource: PropTypes.object.isRequired,
+  listId: PropTypes.number,
   lists: PropTypes.arrayOf(PropTypes.object),
+  resource: PropTypes.object.isRequired,
   session: PropTypes.string,
   user: PropTypes.number,
 };
@@ -235,7 +239,9 @@ ResourceListItem.defaultProps = {
   handleListAddFavorite: null,
   handleListNew: null,
   handleListRemoveFavorite: null,
+  handleRemoveFavorite: null,
   isOnFavoritesList: false,
+  listId: null,
   lists: [],
   session: null,
   user: null,

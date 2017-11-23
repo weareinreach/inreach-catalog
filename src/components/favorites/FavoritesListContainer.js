@@ -28,6 +28,7 @@ class FavoritesListContainer extends React.Component {
     this.handleListSelect = this.handleListSelect.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
+    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -105,6 +106,26 @@ class FavoritesListContainer extends React.Component {
     this.setState({open: false});
   }
 
+  handleRemoveFavorite(resourceId) {
+    const { listId } = this.props.match.params;
+    const {session} = this.props;
+
+    deleteListFavorite(listId, resourceId, session)
+      .then(response => {
+        if (response.status === 200) {
+          this.setState(prevState => ({
+            resources: prevState.resources.filter(resource => resource.id !== resourceId)
+          }))
+          this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
+        } else {
+          Promise.reject(response);
+        }
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  }
+
   render() {
     const currentList = this.props.lists.find(
       list => list.id == this.props.match.params.listId,
@@ -116,11 +137,10 @@ class FavoritesListContainer extends React.Component {
           {...this.state}
           {...this.props}
           list={currentList}
-          handleListNew={this.props.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
+          handleRemoveFavorite={this.handleRemoveFavorite}
         />
       );
     } else {
@@ -129,11 +149,10 @@ class FavoritesListContainer extends React.Component {
           {...this.state}
           {...this.props}
           list={currentList}
-          handleListNew={this.props.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
+          handleRemoveFavorite={this.handleRemoveFavorite}
         />
       );
     }

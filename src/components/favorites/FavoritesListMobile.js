@@ -37,10 +37,10 @@ const FavoritesListMobile = ({
   handleListAddFavorite,
   handleListNew,
   handleListSelect,
-  handleListRemoveFavorite,
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  handleRemoveFavorite,
   handleRequestOpen,
   history,
   loadingResources,
@@ -113,8 +113,8 @@ const FavoritesListMobile = ({
                     {resources.map(resource => (
                       <ResourceListItem
                         format={'favoritesMobile'}
-                        handleListRemoveFavorite={handleListRemoveFavorite}
                         handleMessageNew={handleMessageNew}
+                        handleRemoveFavorite={handleRemoveFavorite}
                         isOnFavoritesList
                         key={resource.id}
                         resource={resource}
@@ -167,11 +167,11 @@ FavoritesListMobile.propTypes = {
   dialog: PropTypes.string.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleListSelect: PropTypes.func.isRequired,
-  handleListRemoveFavorite: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  handleRemoveFavorite: PropTypes.func.isRequired,
   loadingResources: PropTypes.bool.isRequired,
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,

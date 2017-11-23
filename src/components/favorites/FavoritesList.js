@@ -41,10 +41,10 @@ const FavoritesList = ({
   classes,
   handleListNew,
   handleListSelect,
-  handleListRemoveFavorite,
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  handleRemoveFavorite,
   handleRequestOpen,
   loadingResources,
   list,
@@ -113,9 +113,10 @@ const FavoritesList = ({
                 {resources.map(resource =>
                   <ResourceListItem
                     isOnFavoritesList={true}
-                    handleListRemoveFavorite={handleListRemoveFavorite}
                     handleMessageNew={handleMessageNew}
+                    handleRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
+                    listId={list.id}
                     resource={resource}
                   />
                 )}
@@ -189,11 +190,11 @@ FavoritesList.propTypes = {
   classes: PropTypes.object.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleListSelect: PropTypes.func.isRequired,
-  handleListRemoveFavorite: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  handleRemoveFavorite: PropTypes.func.isRequired,
   loadingResources: PropTypes.bool.isRequired,
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
