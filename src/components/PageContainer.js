@@ -15,6 +15,7 @@ class PageContainer extends React.Component {
   render() {
     const { handleMessageNew, session, user, handleLogout, history } = this.props;
     const sessionListProps = {
+      dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,

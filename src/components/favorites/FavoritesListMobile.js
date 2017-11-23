@@ -33,14 +33,14 @@ const FavoritesListMobile = ({
   anchorEl,
   classes,
   dialog,
-  handleDialogOpen,
-  handleDialogClose,
+  handleListAddFavorite,
   handleListNew,
   handleListSelect,
   handleListRemoveFavorite,
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  handleRequestOpen,
   history,
   loadingResources,
   list,
@@ -54,15 +54,17 @@ const FavoritesListMobile = ({
   <Grid container className={classes.container} direction="column">
     <IconButton
       onClick={
-        dialog === 'none' ? () => history.push('/') : handleDialogClose
+        dialog === 'none' ? () => history.push('/') : () => handleRequestOpen('none')
       }>
       <KeyboardArrowLeft />
     </IconButton>
-    {dialog === 'new' && (
+    {/^listNew/.test(dialog) && (
       <ListNewFormContainer
+        handleListAddFavorite={handleListAddFavorite}
         handleListNew={handleListNew}
         handleMessageNew={handleMessageNew}
-        handleRequestClose={handleDialogClose}
+        handleRequestClose={() => handleRequestOpen('none')}
+        origin={'favoritesList'}
         session={session}
         user={user}
       />
@@ -76,8 +78,8 @@ const FavoritesListMobile = ({
           Select one of your favorites lists or{` `}
           <a
             className={classes.bodyLink}
-            onClick={() => handleDialogOpen('new')}>
-            create a new list
+            onClick={() => handleRequestOpen('listNew/favoritesList')}>
+            create a new list.
           </a>
         </Typography>
         <Button
@@ -146,14 +148,13 @@ FavoritesListMobile.propTypes = {
   anchorEl: PropTypes.object,
   classes: PropTypes.object.isRequired,
   dialog: PropTypes.string.isRequired,
-  handleDialogOpen: PropTypes.func.isRequired,
-  handleDialogClose: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleListSelect: PropTypes.func.isRequired,
   handleListRemoveFavorite: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
   loadingResources: PropTypes.bool.isRequired,
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,

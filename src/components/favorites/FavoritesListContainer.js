@@ -111,7 +111,6 @@ class FavoritesListContainer extends React.Component {
           handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
-          handleRequestOpen={this.handleRequestOpen}
         />
       );
     } else {
