@@ -12,6 +12,7 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 import Typography from 'material-ui/Typography';
 import Badge from 'material-ui/Badge';
 
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import SearchFilterSelector from './SearchFilterSelector';
 import SearchFilters from './SearchFilters';
 import FiltersIcon from '../icons/FiltersIcon';
@@ -52,10 +53,6 @@ const styles = theme => ({
     justifyContent: 'space-between'
   },
   toolbarGutters: {
-    padding: '0'
-  },
-  buttonRoot: {
-    minWidth: '0',
     padding: '0'
   },
   badgeColorAccent: {
@@ -105,9 +102,7 @@ class SearchRefinementControls extends React.Component {
             </Button>
             {this.state.open ?
               <Paper className={fixedFilters}>
-                <Button color="contrast" classes={{root: buttonRoot}} onClick={this.handleFilterOpen}>
-                  <ArrowBackIcon />
-                </Button>
+                <AsylumConnectBackButton color="contrast" onClick={this.handleFilterOpen} />
                 <Toolbar classes={{ root: toolbarRoot, gutters: toolbarGutters }}>
                   <h2 className={refinementTitle}>Filters</h2>
                   <Button color="contrast" classes={{root: buttonRoot}} onClick={this.props.clearSearchFilters}>Clear Filters</Button>
