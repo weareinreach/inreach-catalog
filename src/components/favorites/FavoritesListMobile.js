@@ -59,82 +59,96 @@ const FavoritesListMobile = ({
       }>
       <KeyboardArrowLeft />
     </IconButton>
-    {/^listNew/.test(dialog) && (
-      <ListNewFormContainer
-        handleListAddFavorite={handleListAddFavorite}
-        handleListNew={handleListNew}
-        handleMessageNew={handleMessageNew}
-        handleRequestClose={() => handleRequestOpen('none')}
-        origin={'favoritesList'}
-        session={session}
-        user={user}
-      />
-    )}
-    {dialog === 'none' && (
+    {!session && (
       <div>
         <Typography className={classes.textCenter} type="display1">
           Your Favorites
         </Typography>
-        <Typography className={classes.spacingTop} type="body1">
-          Select one of your favorites lists or{` `}
-          <a
-            className={classes.bodyLink}
-            onClick={() => handleRequestOpen('listNew/favoritesList')}>
-            create a new list.
-          </a>
+        <Typography className={classNames(classes.spacingTop, classes.textCenter)} type="body1">
+          You must be logged in use favorites.
         </Typography>
-        <Button
-          aria-owns={open ? 'favorites-menu' : null}
-          aria-haspopup="true"
-          className={classes.spacingTop}
-          onClick={handleMenuOpen}>
-          {list ? list.title : 'Select A List'}
-          {` `}
-          <Fa className={classes.spacingLeft} name="chevron-down" />
-        </Button>
-        <div className={classes.spacingTop}>
-          <Grid item>
-            {loadingResources ? (
-              <Fa name="spinner" spin />
-            ) : (
-              <div>
-                {resources.map(resource => (
-                  <ResourceListItem
-                    format={'favoritesMobile'}
-                    handleListRemoveFavorite={handleListRemoveFavorite}
-                    handleMessageNew={handleMessageNew}
-                    isOnFavoritesList
-                    key={resource.id}
-                    resource={resource}
-                    session={session}
-                    user={user}
-                  />
-                ))}
-              </div>
-            )}
-            {!loadingResources &&
-              list &&
-              resources.length === 0 && (
-                <Typography type="body1">
-                  You haven't added any resources to this list yet.
-                </Typography>
-              )}
-          </Grid>
-        </div>
-        <Menu
-          id="favorites-menu"
-          anchorEl={anchorEl}
-          anchorOrigin={{vertical: 'bottom'}}
-          getContentAnchorEl={null}
-          open={open}
-          onRequestClose={handleMenuClose}
-          PaperProps={{style: {maxHeight: '300px'}}}>
-          {lists.map(list => (
-            <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
-              {list.title}
-            </MenuItem>
-          ))}
-        </Menu>
+      </div>
+    )}
+    {session && (
+      <div>
+        {/^listNew/.test(dialog) && (
+          <ListNewFormContainer
+            handleListAddFavorite={handleListAddFavorite}
+            handleListNew={handleListNew}
+            handleMessageNew={handleMessageNew}
+            handleRequestClose={() => handleRequestOpen('none')}
+            origin={'favoritesList'}
+            session={session}
+            user={user}
+          />
+        )}
+        {dialog === 'none' && (
+          <div>
+            <Typography className={classes.textCenter} type="display1">
+              Your Favorites
+            </Typography>
+            <Typography className={classes.spacingTop} type="body1">
+              Select one of your favorites lists or{` `}
+              <a
+                className={classes.bodyLink}
+                onClick={() => handleRequestOpen('listNew/favoritesList')}>
+                create a new list.
+              </a>
+            </Typography>
+            <Button
+              aria-owns={open ? 'favorites-menu' : null}
+              aria-haspopup="true"
+              className={classes.spacingTop}
+              onClick={handleMenuOpen}>
+              {list ? list.title : 'Select A List'}
+              {` `}
+              <Fa className={classes.spacingLeft} name="chevron-down" />
+            </Button>
+            <div className={classes.spacingTop}>
+              <Grid item>
+                {loadingResources ? (
+                  <Fa name="spinner" spin />
+                ) : (
+                  <div>
+                    {resources.map(resource => (
+                      <ResourceListItem
+                        format={'favoritesMobile'}
+                        handleListRemoveFavorite={handleListRemoveFavorite}
+                        handleMessageNew={handleMessageNew}
+                        isOnFavoritesList
+                        key={resource.id}
+                        resource={resource}
+                        session={session}
+                        user={user}
+                      />
+                    ))}
+                  </div>
+                )}
+                {!loadingResources &&
+                  list &&
+                  resources.length === 0 && (
+                    <Typography type="body1">
+                      You haven't added any resources to this list yet.
+                    </Typography>
+                  )}
+              </Grid>
+            </div>
+            <Menu
+              id="favorites-menu"
+              anchorEl={anchorEl}
+              anchorOrigin={{vertical: 'bottom'}}
+              getContentAnchorEl={null}
+              open={open}
+              onRequestClose={handleMenuClose}
+              PaperProps={{style: {maxHeight: '300px'}}}>
+              {lists.map(list => (
+                <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
+                  {list.title}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
+        )}
       </div>
     )}
   </Grid>
