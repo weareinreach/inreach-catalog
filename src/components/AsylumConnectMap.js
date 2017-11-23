@@ -16,7 +16,8 @@ const styles = (theme) => ({
     fontWeight: '600'
   },
   infoWindow: {
-    lineHeight: '1.4rem'
+    lineHeight: '1.4rem',
+    cursor: 'pointer'
   }
 });
 
@@ -24,7 +25,7 @@ class AsylumConnectMap extends React.Component {
 
   render() { //console.log(this.props);
     const { resources } = this.props.mapProps;
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     return (
       <GoogleMap
         defaultZoom={4}
@@ -41,28 +42,29 @@ class AsylumConnectMap extends React.Component {
             return (
               <AsylumConnectMarker key={location.id} position={{lat: location.lat, lng: location.long ? location.long : location.lng}} >
                 <InfoWindow>
-                  <Link to={'/resource/'+resource.slug} style={{display: "block"}}>
-                    <Typography type="body2" className={classes.infoWindow}>
-                      <strong style={{fontWeight: "600"}}>{location.name ? location.name : resource.name}</strong>
-                      {location.region ? 
-                        <span>
+                  <Typography type="body2" className={classes.infoWindow} onClick={(ev) => {history.push('/resource/'+resource.slug)}}>
+                    <strong style={{fontWeight: "600"}}>{location.name ? location.name : resource.name}</strong>
+                    {location.region ? 
+                      <span>
+                        <br />
+                        {location.region}
+                      </span>
+                    : <span>
                           <br />
-                          {location.region}
+                          {location.address}
+                          <br />
+                          {location.city ? location.city+", " : null}
+                          {location.state ? location.state+" " : null}
+                          {location.zip_code ? location.zip_code :  null}
                         </span>
-                      : <span>
-                            <br />
-                            {location.address}
-                            <br />
-                            {location.city ? location.city+", " : null}
-                            {location.state ? location.state+" " : null}
-                            {location.zip_code ? location.zip_code :  null}
-                          </span>
-                      }
-                      <br />
-                      {/*<Link to={"#"} className={classes.link}>Directions to here</Link>*/}
+                    }
+                    <br />
+                    {location.address ? 
+                      <a href={"https://maps.google.com?daddr="+location.address+','+(location.city ? location.city+", " : '')+(location.state ? location.state+" " : '')+(location.zip_code ? location.zip_code : '')} target="_blank" className={classes.link} onClick={(ev) => {ev.stopPropagation()}}>Directions to here</a>
+                    : null}
+                    
 
-                    </Typography>
-                  </Link>
+                  </Typography>
                 </InfoWindow>
               </AsylumConnectMarker>
             )

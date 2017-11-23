@@ -6,7 +6,9 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
-import { StickyContainer, Sticky } from 'react-sticky';
+//import { StickyContainer, Sticky } from 'react-sticky';
+
+import Sticky from 'react-sticky-state';
 
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -32,6 +34,10 @@ const styles = (theme) => ({
     }
   }
 });
+
+/*const Map = (props) => (
+  
+);*/
 
 class MapContainer extends React.Component {
   constructor(props, context) {
@@ -248,29 +254,19 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    this.mapProps = {};
+    const mapProps = {};
     if(this.state.mapCenter) {
-      this.mapProps.center = this.state.mapCenter;
-      this.mapProps.zoom = 8;
+      mapProps.center = this.state.mapCenter;
+      mapProps.zoom = 8;
     }
     if(this.state.searchResults) {
-      this.mapProps.resources = this.state.searchResults;
+      mapProps.resources = this.state.searchResults;
     }
     const isMobile = this.props.width < breakpoints['sm'];
 
-    const map = (props) => (
-      <div style={props.style}>
-        <AsylumConnectMap {...this.props} 
-          mapProps={this.mapProps} classes={null}
-          loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
-          containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
-          mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
-        />
-      </div>
-    );
     return (
         <div className={"container--map "+this.props.classes.containerMap}> 
-          <Grid container spacing={0}>
+          <Grid container spacing={0} alignItems='stretch'>
             <Grid item xs={12} sm={8}>
               <div className="container--search">
                 <Switch>
@@ -283,7 +279,7 @@ class MapContainer extends React.Component {
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (
                     <SearchResultsContainer {...props} {...this.state}
-                      mapProps={this.mapProps}
+                      mapProps={mapProps}
                       fetchSearchResults={this.fetchSearchResults}
                       clearSearchFilters={this.clearSearchFilters}
                       clearSearchStatus={this.clearSearchStatus}
@@ -309,7 +305,7 @@ class MapContainer extends React.Component {
                       handleListNew={this.props.handleListNew}
                       handleMessageNew={this.props.handleMessageNew}
                       lists={this.props.lists}
-                      mapProps={this.mapProps}
+                      mapProps={mapProps}
                       resource={(() => {
                         let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
                         return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })()
@@ -322,18 +318,18 @@ class MapContainer extends React.Component {
               </div>
             </Grid>
             {isMobile ? null :
-            <StickyContainer style={{ /* if the map width changes these must be updated to follow suit */
-              flexBasis: "33.3333%",
-              flexGrow: "0",
-              flexShrink: "0",
-              maxWidth:"33.3333%"
-            }}>
-              <Grid item xs={12} sm={12}>
-                <Sticky>
-                  {map}
-                </Sticky>          
-              </Grid>
-            </StickyContainer>}
+            <Grid item xs={12} sm={4}>
+              <Sticky>
+                <div>
+                  <AsylumConnectMap {...this.props} 
+                    mapProps={mapProps} classes={null}
+                    loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
+                    containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
+                    mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
+                  />
+                </div>
+              </Sticky>          
+            </Grid>}
           </Grid> 
         </div>
     );
