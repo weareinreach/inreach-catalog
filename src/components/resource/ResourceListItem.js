@@ -66,6 +66,7 @@ const resourceFieldsByFormat = {
     {fieldName: 'emails', label: 'Email'},
     {fieldName: 'locations', label: 'Address'},
     {fieldName: 'schedule', label: 'Hours'},
+    {fieldName: 'additional', label: 'Additional Information'},
   ],
 }
 
@@ -155,6 +156,8 @@ class ResourceListItem extends React.Component {
                 text = (resource.locations && resource.locations.length) ? addressParser({ address: resource.locations[0] }) : null;
               } else if (format === 'favoritesMobile' && item.fieldName === 'schedule') {
                 text = resource.schedule ? scheduleParser({schedule: resource.schedule}) : null;
+              } else if (format === 'favoritesMobile' && item.fieldName === 'additional') {
+                text = (resource.schedule && resource.schedule.note) ? resource.schedule.note : null;
               }
               else if (isMobile) {
                 text = (
