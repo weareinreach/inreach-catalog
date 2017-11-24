@@ -18,7 +18,6 @@ class FavoritesListContainer extends React.Component {
 
     this.state = {
       anchorEl: null,
-      dialog: 'none',
       loadingResources: this.props.match.params.listId ? true : false,
       open: false,
       resources: [],
@@ -26,24 +25,41 @@ class FavoritesListContainer extends React.Component {
 
     this.fetchListResources = this.fetchListResources.bind(this);
     this.fetchResources = this.fetchResources.bind(this);
-    this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleListSelect = this.handleListSelect.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
+    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
 
   componentDidMount() {
     const { listId } = this.props.match.params;
-    if (listId) {
+    const { lists, user } = this.props;
+
+    if (lists.length && !listId) {
+      this.props.history.push(`/favorites/${user}/${lists[0].id}`);
+    } else if (lists.legth && listId) {
       this.fetchListResources(listId);
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.lists.length && !nextProps.match.params.listId) {
+      this.props.history.push(`/favorites/${nextProps.user}/${nextProps.lists[0].id}`);
+    }
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
       this.fetchListResources(nextProps.match.params.listId);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.loadingResources &&
+      this.props.match.params.listId &&
+      !prevProps.lists.length &&
+      this.props.lists.length
+    ) {
+      this.fetchListResources(this.props.match.params.listId);
     }
   }
 
@@ -76,14 +92,6 @@ class FavoritesListContainer extends React.Component {
       });
   }
 
-  handleDialogOpen(dialog) {
-    this.setState({dialog});
-  }
-
-  handleDialogClose() {
-    this.setState({dialog: 'none'});
-  }
-
   handleListSelect(list) {
     const {history, user} = this.props;
     history.push(`/favorites/${user}/${list.id}`);
@@ -98,6 +106,26 @@ class FavoritesListContainer extends React.Component {
     this.setState({open: false});
   }
 
+  handleRemoveFavorite(resourceId) {
+    const { listId } = this.props.match.params;
+    const {session} = this.props;
+
+    deleteListFavorite(listId, resourceId, session)
+      .then(response => {
+        if (response.status === 200) {
+          this.setState(prevState => ({
+            resources: prevState.resources.filter(resource => resource.id !== resourceId)
+          }))
+          this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
+        } else {
+          Promise.reject(response);
+        }
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  }
+
   render() {
     const currentList = this.props.lists.find(
       list => list.id == this.props.match.params.listId,
@@ -109,13 +137,10 @@ class FavoritesListContainer extends React.Component {
           {...this.state}
           {...this.props}
           list={currentList}
-          handleDialogOpen={this.handleDialogOpen}
-          handleDialogClose={this.handleDialogClose}
-          handleListNew={this.props.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
+          handleRemoveFavorite={this.handleRemoveFavorite}
         />
       );
     } else {
@@ -124,13 +149,10 @@ class FavoritesListContainer extends React.Component {
           {...this.state}
           {...this.props}
           list={currentList}
-          handleDialogOpen={this.handleDialogOpen}
-          handleDialogClose={this.handleDialogClose}
-          handleListNew={this.props.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.props.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
+          handleRemoveFavorite={this.handleRemoveFavorite}
         />
       );
     }
@@ -139,10 +161,18 @@ class FavoritesListContainer extends React.Component {
 
 FavoritesListContainer.defaultProps = {
   session: null,
+  user: null,
 };
 
 FavoritesListContainer.propTypes = {
+  handleListAddFavorite: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
+  handleListNew: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withRouter(withWidth(FavoritesListContainer));

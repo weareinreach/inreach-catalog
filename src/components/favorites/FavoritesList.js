@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Fa from 'react-fontawesome';
-import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
@@ -13,20 +12,12 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
-import ListNewDialog from './ListNewDialog';
 import ResourceListItem from '../resource/ResourceListItem';
-import ShareDialog from '../share/ShareDialog';
-import ActionButton from '../ActionButton';
 
 const styles = theme => ({
   container: {
     maxWidth: '720px',
     margin: '3rem 0 5rem 0',
-  },
-  dialogBody: {
-    minWidth: '600px',
-    overflowY: 'auto',
-    padding: '5.5rem',
   },
   footer: {
     backgroundColor: theme.palette.common.blue,
@@ -48,15 +39,13 @@ const styles = theme => ({
 const FavoritesList = ({
   anchorEl,
   classes,
-  dialog,
-  handleDialogOpen,
-  handleDialogClose,
   handleListNew,
   handleListSelect,
-  handleListRemoveFavorite,
   handleMenuOpen,
   handleMenuClose,
   handleMessageNew,
+  handleRemoveFavorite,
+  handleRequestOpen,
   loadingResources,
   list,
   lists,
@@ -102,14 +91,14 @@ const FavoritesList = ({
             {list && (
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => handleDialogOpen('share')}
+                onClick={() => handleRequestOpen('listShare')}
                 variant="primary">
                 Share
               </AsylumConnectButton>
             )}
             <AsylumConnectButton
               className={classes.marginLeft}
-              onClick={() => handleDialogOpen('new')}
+              onClick={() => handleRequestOpen('listNew/favoritesList')}
               variant="primary">
               <Fa className={classes.marginRight} name="plus" /> Create New List
             </AsylumConnectButton>
@@ -124,9 +113,10 @@ const FavoritesList = ({
                 {resources.map(resource =>
                   <ResourceListItem
                     isOnFavoritesList={true}
-                    handleListRemoveFavorite={handleListRemoveFavorite}
                     handleMessageNew={handleMessageNew}
+                    handleRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
+                    listId={list.id}
                     resource={resource}
                   />
                 )}
@@ -159,40 +149,13 @@ const FavoritesList = ({
           </AsylumConnectButton>
           <AsylumConnectButton
             className={classes.marginLeft}
-            onClick={() => handleDialogOpen('share')}
+            onClick={() => handleRequestOpen('listShare')}
             variant="primary">
             Share
           </AsylumConnectButton>
         </Grid>
       </Grid>
     )}
-
-    <Dialog open={dialog !== 'none'} onRequestClose={handleDialogClose}>
-      <div className={classes.dialogBody}>
-        <ActionButton
-          onClick={handleDialogClose}
-          >&times;</ActionButton>
-      {dialog === 'new' &&
-        <ListNewDialog
-          handleMessageNew={handleMessageNew}
-          handleListNew={handleListNew}
-          handleRequestClose={handleDialogClose}
-          session={session}
-          user={user}
-        />
-      }
-      {dialog === 'share' &&
-        <ShareDialog
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleDialogClose}
-          session={session}
-          listId={list.id}
-          listTitle={list.title}
-          shareType="collection"
-        />
-      }
-      </div>
-    </Dialog>
 
     <Menu
       id="favorites-menu"
@@ -202,9 +165,13 @@ const FavoritesList = ({
       open={open}
       onRequestClose={handleMenuClose}
       PaperProps={{style: {maxHeight: '300px'}}}>
-      {lists.map(list => (
-        <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
-          {list.title}
+      {lists.map(listOption => (
+        <MenuItem
+          key={listOption.id}
+          onClick={() => handleListSelect(listOption)}
+          selected={list && listOption.id === list.id}
+        >
+          {listOption.title}
         </MenuItem>
       ))}
     </Menu>
@@ -221,15 +188,13 @@ FavoritesList.defaultProps = {
 FavoritesList.propTypes = {
   anchorEl: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  dialog: PropTypes.string.isRequired,
-  handleDialogOpen: PropTypes.func.isRequired,
-  handleDialogClose: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleListSelect: PropTypes.func.isRequired,
-  handleListRemoveFavorite: PropTypes.func.isRequired,
   handleMenuOpen: PropTypes.func.isRequired,
   handleMenuClose: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  handleRemoveFavorite: PropTypes.func.isRequired,
   loadingResources: PropTypes.bool.isRequired,
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,

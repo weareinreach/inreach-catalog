@@ -295,6 +295,7 @@ class MapContainer extends React.Component {
                       handlePlaceChange={this.handlePlaceChange}
                       handleSearchButtonClick={this.handleSearchButtonClick}
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
+                      handleRequestOpen={this.props.handleRequestOpen}
                       handleFilterSelect={this.handleFilterSelect}
                       handleSortSelect={this.handleSortSelect}
                       lists={this.props.lists}
@@ -308,6 +309,7 @@ class MapContainer extends React.Component {
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
                       handleMessageNew={this.props.handleMessageNew}
+                      handleRequestOpen={this.props.handleRequestOpen}
                       lists={this.props.lists}
                       mapProps={this.mapProps}
                       resource={(() => {

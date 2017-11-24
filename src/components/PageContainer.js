@@ -15,10 +15,12 @@ class PageContainer extends React.Component {
   render() {
     const { handleMessageNew, session, user, handleLogout, history } = this.props;
     const sessionListProps = {
+      dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
       handleMessageNew: this.props.handleMessageNew,
+      handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
       session: this.props.session,
       user: this.props.user,
@@ -33,10 +35,6 @@ class PageContainer extends React.Component {
             />
             <Route
               path="/favorites/:id/"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
-            />
-            <Route
-              path="/favorites/:id"
               render={() => <FavoritesListContainer {...sessionListProps} />}
             />
             <Route
