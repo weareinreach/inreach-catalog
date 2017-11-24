@@ -366,6 +366,7 @@ class MapContainer extends React.Component {
                       handleMessageNew={this.props.handleMessageNew}
                       handleRequestOpen={this.props.handleRequestOpen}
                       lists={this.props.lists}
+                      mapResources={mapResources}
                       resource={this.getCachedResource(props.match.params.id)}
                       setSelectedResource={this.setSelectedResource}
                       session={this.props.session}

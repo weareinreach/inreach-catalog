@@ -121,7 +121,7 @@ class OneDegreeResourceQuery {
         tags: []
       },
       page: 1,
-      per_page: 2
+      per_page: 10
     }
     this.removeAtCapacity = false;
     this.allResultsReturned = false;
