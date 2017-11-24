@@ -25,17 +25,24 @@ const styles = theme => ({
   BottomNavBar: {
     position:'fixed',
     bottom:'0',
-    zIndex: '100'
+    zIndex: '100',
+    borderTop: "1px solid "+theme.palette.common.faintBlack 
   },
   NavButton: {
     minWidth: '20%',
     textTransform: 'uppercase',
     fontWeight: 'bold',
+    paddingTop: '8px',
     '&:hover': {
       color: theme.palette.secondary[500]
     }
   },
 });
+
+const buttonStyles = {
+  label: "nav-bottom-label",
+  selectedLabel: "nav-bottom-selectedLabel"
+}
 
 class NavMobile extends React.Component {
   constructor(props) {
@@ -96,11 +103,11 @@ class NavMobile extends React.Component {
           showLabels
           className={classes.root}
         >
-          <BottomNavigationButton className={classes.NavButton} label="search" icon={<SearchIcon width="60px" color={this.iconColor(0)}/>} />
-          <BottomNavigationButton className={classes.NavButton} label="favorites" icon={<FavoritesIcon width="60px" color={this.iconColor(1)}/>} />
-          <BottomNavigationButton className={classes.NavButton} label="language" icon={<LanguageIcon width="60px" color={this.iconColor(2)} />} />
-          <BottomNavigationButton className={classes.NavButton} label="account" icon={<AccountIcon width="60px" color={this.iconColor(3)} />} />
-          <BottomNavigationButton className={classes.NavButton} label="privacy" icon={<PrivacyIcon width="60px" color={this.iconColor(4)}/>} />
+          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="search" icon={<SearchIcon width="60px" color={this.iconColor(0)}/>} />
+          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="favorites" icon={<FavoritesIcon width="60px" color={this.iconColor(1)}/>} />
+          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="language" icon={<LanguageIcon width="60px" color={this.iconColor(2)} />} />
+          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="account" icon={<AccountIcon width="60px" color={this.iconColor(3)} />} />
+          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="privacy" icon={<PrivacyIcon width="60px" color={this.iconColor(4)}/>} />
         </BottomNavigation>
       </div>
     )

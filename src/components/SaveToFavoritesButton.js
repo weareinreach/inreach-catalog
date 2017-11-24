@@ -13,6 +13,9 @@ import Typography from 'material-ui/Typography';
 
 import RedHeartIcon from './icons/RedHeartIcon';
 
+import breakpoints from '../theme/breakpoints';
+import theWidth from './theWidth';
+
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
@@ -155,11 +158,14 @@ class SaveToFavoritesButton extends React.Component {
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
     );
+
+    const buttonLabel = theWidth() < breakpoints['sm'] ? "" : "Save to Favorites"
+
     return (
       <div>
         <Button onClick={lists.length ? handleMenuOpen : handleCreateList}>
           <Typography type="display4" className={classes.viewYourFavoritesText}>
-            Save To Favorites
+            {buttonLabel}
             <RedHeartIcon width={'38px'} fill={isFavorite} />
           </Typography>
         </Button>

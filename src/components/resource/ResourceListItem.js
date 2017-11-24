@@ -95,10 +95,10 @@ class ResourceListItem extends React.Component {
         <Grid container spacing={0} className={dividerSpacing}>
           <Grid item xs={12} >
             <Grid container alignItems="center" justify="space-between" spacing={0}>
-              <Grid item xs={9} md lg xl >
+              <Grid item xs={8} md lg xl >
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
-              <Grid item xs={3} container alignItems="flex-start" justify="flex-end">
+              <Grid item xs={4} container alignItems="flex-start" justify="flex-end">
                 {!isOnFavoritesList && (
                   <SaveToFavoritesButton
                     handleListAddFavorite={handleListAddFavorite}

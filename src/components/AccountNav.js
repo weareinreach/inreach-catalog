@@ -9,9 +9,8 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({
   root: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '0 5 0'
+    padding: '0 5 0',
+    flex: "0 0 200px"
   },
   accountLinks: {
     padding: '5px 10px'

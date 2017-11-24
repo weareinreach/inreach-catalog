@@ -35,3 +35,17 @@ a{
   margin: 0;
   position: relative;
 }
+
+.nav-bottom-selectedLabel{
+  color: #f26f6f;
+}
+
+input[class*="inputSingleline"] {
+    height: 1.2em;
+}
+
+@media screen and (max-width: 400px){
+  .nav-bottom-label{
+    font-size: 10px !important;
+  }
+}
