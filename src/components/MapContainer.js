@@ -29,7 +29,6 @@ const styles = (theme) => ({
   },
   [theme.breakpoints.down('sm')]: {
     containerMap: {
-      height: "calc(100% - 91px)",
       overflowY: 'auto'
     }
   }

@@ -37,7 +37,6 @@ const styles = theme => ({
   },
   [theme.breakpoints.down('sm')]: {
     container: {
-      height: "100%",
       paddingTop: '0px',
       paddingBottom: '0px'
     },
