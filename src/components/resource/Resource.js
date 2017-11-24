@@ -108,9 +108,10 @@ const styles = (theme) => ({
   },
   [theme.breakpoints.down('sm')]: {
     container: Object.assign(mobilePadding(theme), {
-      height: "100%",
+      /*height: "100%",*/
       paddingTop: '0px',
-      marginBottom: '91px'
+      paddingBottom: '0px'
+      /*marginBottom: '91px'*/
     }),
     orgName: {
       textAlign: 'center'
@@ -420,6 +421,7 @@ class Resource extends React.Component {
                     handleListAddFavorite={props.handleListAddFavorite}
                     handleListRemoveFavorite={props.handleListRemoveFavorite}
                     handleListNew={props.handleListNew}
+                    handleRequestOpen={props.handleRequestOpen}
                     handleMessageNew={props.handleMessageNew}
                     lists={props.lists}
                     resourceId={resource.id}
