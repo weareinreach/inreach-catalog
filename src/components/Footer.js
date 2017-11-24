@@ -21,6 +21,10 @@ const styles = theme => ({
   paddingBelow: { paddingBottom: '0.5rem' },
   paddingBelowLarge: { paddingBottom: '2rem' },
   paddingVertical: { padding: '1.5rem 0' },
+  centerColumn: {
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
+  },
   textBlack: { color: theme.palette.common.darkBlack },
   textCenter: { textAlign: 'center' },
 });
@@ -34,6 +38,7 @@ const Footer = ({ classes }) => {
     paddingVertical,
     textBlack,
     textCenter,
+    centerColumn
   } = classes;
 
   const ContactLink = ({ link, icon }) => (
@@ -45,8 +50,8 @@ const Footer = ({ classes }) => {
   );
 
   return (
-    <footer className={textCenter}>
-      <Grid container spacing={0} className={classNames(bgDarkGrey, paddingVertical)}>
+    <footer className={classNames(textCenter, bgDarkGrey)}>
+      <Grid container spacing={0} className={classNames(centerColumn, paddingVertical)}>
 
         <Grid item xs={12} md={6} className={paddingBelowLarge}>
           <Typography type="display3" className={paddingBelow}>
