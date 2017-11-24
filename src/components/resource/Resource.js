@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import url from 'url';
 
-import langs from 'langs';
-import trim from 'trim';
-
 import Toolbar from 'material-ui/Toolbar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Grid from 'material-ui/Grid';
@@ -78,6 +75,7 @@ const styles = (theme) => ({
   bottomSpacing: {
     marginBottom: "0.9rem"
   },
+  mobileSpacing: {},
   lineSpacing: {
     lineHeight: "1.4rem"
   },
@@ -119,6 +117,9 @@ const styles = (theme) => ({
     },
     moreInfo: {
       textAlign: 'center'
+    },
+    mobileSpacing: {
+      marginTop: "1.5rem"
     }
   },
   dialogBody: {
@@ -188,7 +189,7 @@ const HeaderTabs = (props) => (
     indicatorClassName={props.classes.tabIndicator}
   >
     {props.tabs.map((tab) => 
-      (<Tab key={tab.value} label={tab.label} classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />)
+      (<Tab key={tab.value} label={props.isMobile && tab.mobileLabel ? tab.mobileLabel : tab.label} classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />)
     )}
   </Tabs>
 );
@@ -240,7 +241,7 @@ class Resource extends React.Component {
 
     this.tabs = [
       {label: "ABOUT", value: "about"},
-      {label: "VISIT", value: "visit"},
+      {label: "VISIT", mobileLabel: "VISIT (MAP)", value: "visit"},
       {label: "REVIEWS", value: "reviews"}
     ]
 
@@ -257,7 +258,8 @@ class Resource extends React.Component {
     this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    window.scroll(0,0);
     if(this.props.resource == null) {
       this.setState({
         orgLoading: true,
@@ -282,6 +284,7 @@ class Resource extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.setSelectedResource(null);
   }
 
   handleResourceRequest(response) {
@@ -295,6 +298,7 @@ class Resource extends React.Component {
         orgLoading: false,
         oppLoading: false
       });
+      this.props.setSelectedResource(response);
     }
   }
 
@@ -432,6 +436,7 @@ class Resource extends React.Component {
                   tab={this.state.tab}
                   classes={classes}
                   handleTabClick={this.handleTabClickMobile}
+                  isMobile={isMobile}
                 />
                 <Divider />
                 <SwipeableViews
@@ -445,13 +450,14 @@ class Resource extends React.Component {
                     <About communities={communities} languages={languages} classes={classes} resource={resource} />
                   }
                   </div>
-                  <div>
+                  <div className={classes.mobileSpacing}>
                     <Visit 
                       classes={classes}
                       resource={resource}
+                      isMobile={isMobile}
                     />
                   </div>
-                  <div>
+                  <div className={classes.mobileSpacing}>
                     {session ? 
                       <ReviewForm 
                         classes={classes}
@@ -462,6 +468,7 @@ class Resource extends React.Component {
                       oppReviews={this.state.reviewList.opportunities}
                       acFilter={this.state.acFilter}
                       handleFilterChange={this.handleFilterChange}
+                      isMobile={isMobile}
                     />
                   </div>
                 </SwipeableViews>

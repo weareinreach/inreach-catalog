@@ -91,7 +91,7 @@ export const addressParser = ({ address, format = 'inline' } = { }) => {
     }
   }
 
-  addr = addr.replace(/(^|\s)\[\w+\]/g, '').replace(/(^|\s),(\s|$)/g, '');
+  addr = addr.replace(/(^|\s)\[\w+\],?/g, '');
 
   let final = addr.split('\n');
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import url from 'url';
+import trim from 'trim';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -7,7 +9,7 @@ import Divider from 'material-ui/Divider';
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 import Phone from './Phone';
 
-const Visit = ({resource, classes}) => (
+const Visit = ({resource, classes, isMobile}) => (
   <Grid container spacing={0}>
     <Grid item xs={12}>
       <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
@@ -15,7 +17,7 @@ const Visit = ({resource, classes}) => (
       </Typography>
     </Grid>
      <Grid item xs={12} className={classes.dividerSpacing}>
-      <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{resource.website}</a> : null}</Typography>
+      <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{isMobile ? url.parse(resource.website).hostname : resource.website}</a> : null}</Typography>
       {resource.emails && resource.emails.length ? 
         <Typography type="body2" className={classes.lineSpacing} >
           <strong className={classes.boldFont}>Email: </strong>{resource.emails.map((email) => {

@@ -22,15 +22,59 @@ const styles = (theme) => ({
 });
 
 class AsylumConnectMap extends React.Component {
+  constructor(props, context) {
+    super(props, context);
 
-  render() { //console.log(this.props);
-    const { resources } = this.props.mapProps;
-    const { classes, history } = this.props;
+    this.updateBounds = this.updateBounds.bind(this);
+    this.onMapMounted = this.onMapMounted.bind(this);
+  }
+
+  componentWillUpdate(nextProps) {
+    /*if(typeof nextProps.mapProps.center == "undefined" 
+        && nextProps.resources.length) {
+      this.updateBounds(nextProps.resources);
+    }*/
+  }
+
+
+  onMapMounted(ref) {
+    this.map = ref;
+
+    /*google.maps.event.addListener(ref, 'zoom_changed', function() {
+      
+    });*/
+
+  }
+
+  updateBounds(resources) {
+    const bounds = new google.maps.LatLngBounds();
+    resources.map((resource) => {
+      let points = resource.locations.length ? resource.locations : [{lat: resource.lat, lng: resource.lng, region: resource.region}];
+      points.map((location) => {
+        bounds.extend({lat: location.lat, lng: location.long ? location.long : location.lng});
+        bounds.extend({lat: location.lat-0.1, lng: location.long ? location.long-0.1 : location.lng-0.1});
+        bounds.extend({lat: location.lat+0.1, lng: location.long ? location.long+0.1 : location.lng+0.1});
+      })
+    });
+    if(this.map) {
+      this.map.fitBounds(bounds);
+    }
+  }
+
+
+  render() {
+    const { classes, history, resources } = this.props;
+    var { mapProps } = this.props;
+    if(resources.length) {
+      this.updateBounds(resources);
+    }
+
     return (
       <GoogleMap
         defaultZoom={4}
         defaultCenter={{ lat: 39.8333333, lng: -98.585522 }}
-        {...this.props.mapProps}
+        ref={this.onMapMounted}
+        {...mapProps}
       >
       {
         resources && resources.length ?

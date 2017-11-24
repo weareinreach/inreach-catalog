@@ -55,7 +55,9 @@ class MapContainer extends React.Component {
       searching: false,
       searchResults: [],
       searchResultsIndex: [],
-      searchResultSlugs: []
+      searchResultSlugs: [],
+      selectedResource: null,
+      lastSearch: null
     }
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
@@ -66,15 +68,36 @@ class MapContainer extends React.Component {
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
+    this.setSelectedResource = this.setSelectedResource.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
   }
 
   componentWillMount() {
-    window.addEventListener('popstate', this.reparseURL.bind(this));
+    //window.addEventListener('popstate', this.reparseURL.bind(this));
   }
   componentWillUnmount() {
-    window.removeEventListener('popstate', this.reparseURL.bind(this))
+    //window.removeEventListener('popstate', this.reparseURL.bind(this))
+  }
+  componentWillUpdate(nextProps, nextState) {
+    if(nextProps.match.path == '/resource/:id' && 
+      (this.props.match.path != '/resource/:id'
+        || (this.props.match.params 
+            && nextProps.match.params
+            && this.props.match.params.id != nextProps.match.params.id
+            && this.props.match.path == '/resource/:id'
+            ))
+    ) {
+      this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
+    }
+  }
+
+  getCachedResource(slug) {
+    let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
+    if(resourceIndex > -1) {
+      return this.state.searchResults[resourceIndex];
+    } 
+    return null 
   }
 
   clearSearchStatus() {
@@ -177,27 +200,41 @@ class MapContainer extends React.Component {
   }
 
   fetchSearchResults() {
-    this.setState({
-      searching: true,
-      searchResultsIndex: [],
-      searchResults: []
-    });
-    this.queryOneDegree = new OneDegreeResourceQuery();
-    this.queryOneDegree
-      .addTags(this.state.selectedResourceTypes)
-      .setLocation(this.state.nearLatLng)
-      .setFilters(this.state.selectedFilters)
-      .setOrder(this.state.selectedSort)
-      .fetchOrganizations({
-        callback: this.processSearchResults
+    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
+    if(updated && nearLatLng !== null) {
+      this.setState({
+        nearLatLng,
+        selectedResourceTypes,
+        selectedFilters,
+        selectedSort,
+        searching: true,
+        searchResultsIndex: [],
+        searchResults: [],
+        lastSearch: stringified
       });
+
+      this.queryOneDegree = new OneDegreeResourceQuery();
+      this.queryOneDegree
+        .addTags(selectedResourceTypes)
+        .setLocation(nearLatLng)
+        .setFilters(selectedFilters)
+        .setOrder(selectedSort)
+        .fetchOrganizations({
+          callback: this.processSearchResults
+        });
+    }
   }
 
-  fetchNextSearchResultsPage() {
-    this.queryOneDegree.nextPage();
-    this.queryOneDegree.fetchOrganizations({
-      callback: this.processSearchResults
-    });
+  fetchNextSearchResultsPage() { console.log(this.queryOneDegree.areAllResultsReturned());
+    if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
+      this.queryOneDegree.nextPage();
+      this.setState({
+        searching: true
+      });
+      this.queryOneDegree.fetchOrganizations({
+        callback: this.processSearchResults
+      });
+    }
   }
 
   processSearchResults(data) {
@@ -215,6 +252,12 @@ class MapContainer extends React.Component {
       searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
       searchResults: this.state.searchResults.concat(newOrgs),
       searching: false
+    });
+  }
+
+  setSelectedResource(resource) { console.log('setting resource');
+    this.setState({
+      selectedResource: resource
     });
   }
 
@@ -245,22 +288,38 @@ class MapContainer extends React.Component {
     return {selectedResourceTypes, nearLatLng, selectedFilters, selectedSort};
   }
 
-  reparseURL(ev) { console.log('re-parsing');
-    let { nearLatLng, selectedResourceTypes } = this.parseParams(this.props.match.params);
-    this.setState({
+  checkForURLUpdates(ev) { 
+    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(this.props.match.params);
+    let updated = false;
+    let stringified = JSON.stringify({
       nearLatLng,
-      selectedResourceTypes
+      selectedResourceTypes,
+      selectedFilters,
+      selectedSort
     });
+    if(stringified !== this.state.lastSearch
+    ) {
+      updated = true;
+    }
+    return { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified };
   }
 
   render() {
     const mapProps = {};
-    if(this.state.mapCenter) {
+    /*if(this.state.mapCenter) {
       mapProps.center = this.state.mapCenter;
       mapProps.zoom = 8;
-    }
-    if(this.state.searchResults) {
-      mapProps.resources = this.state.searchResults;
+    }*/
+    var mapResources = [];
+    if(this.state.searchResults || this.state.selectedResource) {
+      switch(this.props.match.path) {
+        case '/resource/:id':
+          mapResources = (this.state.selectedResource ? [this.state.selectedResource] : [])
+        break;
+        default:
+          mapResources = this.state.searchResults;
+        break;
+      }
     }
     const isMobile = this.props.width < breakpoints['sm'];
 
@@ -279,10 +338,11 @@ class MapContainer extends React.Component {
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (
                     <SearchResultsContainer {...props} {...this.state}
-                      mapProps={mapProps}
+                      mapResources={mapResources}
                       fetchSearchResults={this.fetchSearchResults}
                       clearSearchFilters={this.clearSearchFilters}
                       clearSearchStatus={this.clearSearchStatus}
+                      fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
@@ -305,11 +365,8 @@ class MapContainer extends React.Component {
                       handleListNew={this.props.handleListNew}
                       handleMessageNew={this.props.handleMessageNew}
                       lists={this.props.lists}
-                      mapProps={mapProps}
-                      resource={(() => {
-                        let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
-                        return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })()
-                      }
+                      resource={this.getCachedResource(props.match.params.id)}
+                      setSelectedResource={this.setSelectedResource}
                       session={this.props.session}
                       user={this.props.user}
                     />)}
@@ -321,8 +378,8 @@ class MapContainer extends React.Component {
             <Grid item xs={12} sm={4}>
               <Sticky>
                 <div>
-                  <AsylumConnectMap {...this.props} 
-                    mapProps={mapProps} classes={null}
+                  <AsylumConnectMap
+                    resources={mapResources}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 

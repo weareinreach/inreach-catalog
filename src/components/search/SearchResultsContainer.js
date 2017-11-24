@@ -10,6 +10,7 @@ import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
+import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
@@ -53,19 +54,12 @@ const ResultsContainer = (props) => {
   const { containerSearchResults, searching, searchResults } = props;
   return (
     <div className={containerSearchResults}>
-      { searching ?
-        <Grid container spacing={0}>
-          <Grid item xs={12} style={{textAlign: "center"}}>
-            <CircularProgress />
-          </Grid>
-        </Grid>
-      :
-        searchResults.map((organization) => {
-          return (
-            <ResourceListItem key = {organization.id} resource={organization} {...props} />
-          )
-        })
-      }
+      {searchResults.map((organization) => {
+        return (
+          <ResourceListItem key = {organization.id} resource={organization} {...props} />
+        )
+      })}
+      { searching ? <Loading /> : null }
     </div>
   );
 }
@@ -84,16 +78,28 @@ class SearchResultsContainer extends React.Component {
   componentDidMount() {
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
-
+    console.log('add scroll?')
+    window.addEventListener('scroll', this.addPage.bind(this));
   }
 
   componentWillUnmount() {
     window.removeEventListener('popstate', this.doSearch.bind(this));
+    console.log('remove scroll?')
+    window.removeEventListener('scroll', this.addPage.bind(this));
   }
 
-  doSearch() {
+  doSearch(ev) {
     this.props.clearSearchStatus();
     this.props.fetchSearchResults();
+  }
+
+  addPage(ev) { console.log(ev);
+    let searchContainer = document.querySelectorAll('.container--search'); 
+    console.log(searchContainer, window.innerHeight + window.scrollY, searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
+    if (searchContainer.length && (window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight)) {
+        console.log('addPage should fetch results');
+        this.props.fetchNextSearchResultsPage();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -174,8 +180,8 @@ class SearchResultsContainer extends React.Component {
             >
               <ResultsContainer {...searchResultsProps}/>
               <div>
-                <AsylumConnectMap {...this.props} 
-                mapProps={this.props.mapProps} classes={null}
+                <AsylumConnectMap
+                  resources={this.props.mapResources}
                   loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
                   containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
                   mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
