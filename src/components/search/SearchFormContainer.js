@@ -67,7 +67,7 @@ class SearchFormContainer extends React.Component {
     const { container, title, subheading, backButton, backButtonLabel, containerSearchForm } = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
-      <Grid container alignItems='center' justify='flex-start' spacing={0} className={container}>
+      <Grid container alignItems='center' justify='center' spacing={0} className={container}>
         <Grid item md={10} lg={10} xs={12}>
           <Grid container spacing={0} className={containerSearchForm} >
             {isMobile ? 
