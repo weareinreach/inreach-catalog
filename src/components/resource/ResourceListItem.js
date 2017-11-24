@@ -207,7 +207,7 @@ class ResourceListItem extends React.Component {
                 : null}
               </Grid>
               <Grid item xs={12} md={6} className={"pull-right "+pullLeft}>
-                <RatingAndReviews rating={ resource.rating ? resource.rating : resource.opportunity_aggregate_ratings} total={resource.opportunity_comment_count} />
+                <RatingAndReviews rating={ resource.rating ? resource.rating : resource.opportunity_aggregate_ratings} total={resource.opportunity_comment_count + resource.comment_count} />
               </Grid>
             </Grid>
           </Grid>

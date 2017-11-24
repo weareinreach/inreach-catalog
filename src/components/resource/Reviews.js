@@ -18,7 +18,8 @@ const styles = (theme) => ({
     marginBottom: "0.9rem"
   },
   boldFont: boldFont(theme),
-  dividerSpacing: dividerSpacing(theme),
+  dividerSpacing: Object.assign(dividerSpacing(theme),
+    {marginTop: dividerSpacing(theme).marginBottom}),
   switchInputRoot: {
     flexDirection: 'row-reverse',
     width: '100%',
@@ -81,14 +82,16 @@ const ReviewList = ({title, classes, list, acOnly}) => (
   
 );
 
-const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange }) => (
+const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange, isMobile }) => (
   <Grid container spacing={0} >
+    {isMobile ? null :
     <Grid item xs={12} md={3}>
       <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
         Reviews
       </Typography>
     </Grid>
-    <Grid item xs={12} sm md lg xl className="pull-right">
+    }
+    <Grid item xs={12} sm md lg xl className={isMobile ? classes.bottomSpacing : "pull-right"}>
       <AsylumConnectSwitch label="Only view reviews written by/for LGBTQ asylum seekers" value="ac-only" onChange={handleFilterChange}checked={acFilter} additionalClasses={{
           checkboxDefault: classes.switchRoot,
           root: classes.switchInputRoot
@@ -102,6 +105,13 @@ const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange 
           <ReviewList title='Organizational Reviews' list={orgReviews} classes={classes} acOnly={acFilter} />
         }
         </Grid>
+        {isMobile ? 
+          <Grid container spacing={0}>
+            <Grid item xs={12}>
+              <Divider className={classes.dividerSpacing} />
+            </Grid>
+          </Grid>
+        : null}
         <Grid item xs={12} md={6}>
         {oppReviews === false ? <Loading />
         :
