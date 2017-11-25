@@ -90,6 +90,7 @@ class MapContainer extends React.Component {
   }
   componentWillUnmount() {
     //window.removeEventListener('popstate', this.reparseURL.bind(this))
+    window.removeEventListener('resize', this.resizeMap.bind(this));
   }
   componentWillUpdate(nextProps, nextState) {
     if(nextProps.match.path == '/resource/:id' && 
@@ -215,8 +216,7 @@ class MapContainer extends React.Component {
 
     const node = ReactDOM.findDOMNode(this.ACMap);
     const nodeDimensions = node.getBoundingClientRect();
-
-    let width = window.outerWidth - nodeDimensions.x;
+    let width = document.body.clientWidth - nodeDimensions.x;
     this.setState({mapWidth: width + "px"});
   }
 
