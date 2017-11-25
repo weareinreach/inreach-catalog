@@ -2,12 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import fetch from 'node-fetch';
-
-import config from '../config/config.js';
-import createList from '../helpers/createList';
-import createListFavorite from '../helpers/createListFavorite';
-import deleteListFavorite from '../helpers/deleteListFavorite';
 
 import Button from 'material-ui/Button';
 import Menu, {MenuItem} from 'material-ui/Menu';
@@ -17,6 +11,11 @@ import RedHeartIcon from './icons/RedHeartIcon';
 
 import breakpoints from '../theme/breakpoints';
 import theWidth from './theWidth';
+import {
+  createList,
+  createListFavorite,
+  deleteListFavorite
+} from '../helpers/odasRequests';
 
 const styles = theme => ({
   viewYourFavoritesText: {

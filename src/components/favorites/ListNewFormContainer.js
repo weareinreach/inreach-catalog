@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import createList from '../../helpers/createList';
-import createListFavorite from '../../helpers/createListFavorite';
+import {
+  createList,
+  createListFavorite,
+} from '../../helpers/odasRequests';
 
 import ListNewForm from './ListNewForm';
 

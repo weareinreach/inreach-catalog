@@ -8,7 +8,6 @@ import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
-import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
 import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';

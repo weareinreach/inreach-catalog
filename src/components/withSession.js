@@ -1,7 +1,7 @@
 import React from 'react';
 import fetch from 'node-fetch';
 import config from '../config/config.js';
-import fetchUserLists from '../helpers/fetchUserLists';
+import {fetchUserLists} from '../helpers/odasRequests';
 
 export default function withSession(WrappedComponent) {
   return class extends React.Component {

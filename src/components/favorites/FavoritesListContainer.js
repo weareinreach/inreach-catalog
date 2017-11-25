@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
-import fetchUserLists from '../../helpers/fetchUserLists';
-import deleteListFavorite from '../../helpers/deleteListFavorite';
+import {fetchUserLists, deleteListFavorite} from '../../helpers/odasRequests';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 

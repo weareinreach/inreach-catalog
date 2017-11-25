@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
 import config from '../../config/config.js';
-import confirmSession from '../../helpers/confirmSession';
+import {confirmSession} from '../../helpers/odasRequests';
 
 import PasswordForm from './PasswordForm';
 
