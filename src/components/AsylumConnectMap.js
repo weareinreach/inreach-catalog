@@ -74,6 +74,7 @@ class AsylumConnectMap extends React.Component {
         defaultZoom={4}
         defaultCenter={{ lat: 39.8333333, lng: -98.585522 }}
         ref={this.onMapMounted}
+        options={{fullscreenControl: false}}
         {...mapProps}
       >
       {

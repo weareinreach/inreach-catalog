@@ -18,9 +18,11 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10 2% 10 4%',
+    padding: '10px 0',
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
   },
   displayInherit: {
     display: 'inherit',

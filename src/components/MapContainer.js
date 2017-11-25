@@ -14,6 +14,7 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import ReactDOM from 'react-dom';
 
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';
@@ -26,6 +27,10 @@ import Resource from './resource/Resource';
 const styles = (theme) => ({
   searchArea: {
     padding: '2rem',
+  },
+  containerMap: {
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
   },
   [theme.breakpoints.down('sm')]: {
     containerMap: {
@@ -43,10 +48,12 @@ class MapContainer extends React.Component {
     super(props, context)
 
     let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
+    let ACMap = null;
     this.state = {
       nearAddress: '',
       nearLatLng,
       mapCenter: nearLatLng,
+      mapWidth: "100%",
       searchStatus: null,
       selectedResourceTypes,
       selectedFilters,
@@ -72,11 +79,18 @@ class MapContainer extends React.Component {
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.resizeMap.bind(this));
+
+    this.resizeMap();
+  }
+
   componentWillMount() {
     //window.addEventListener('popstate', this.reparseURL.bind(this));
   }
   componentWillUnmount() {
     //window.removeEventListener('popstate', this.reparseURL.bind(this))
+    window.removeEventListener('resize', this.resizeMap.bind(this));
   }
   componentWillUpdate(nextProps, nextState) {
     if(nextProps.match.path == '/resource/:id' && 
@@ -198,6 +212,14 @@ class MapContainer extends React.Component {
     this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
   }
 
+  resizeMap(){
+
+    const node = ReactDOM.findDOMNode(this.ACMap);
+    const nodeDimensions = node.getBoundingClientRect();
+    let width = document.body.clientWidth - nodeDimensions.x;
+    this.setState({mapWidth: width + "px"});
+  }
+
   fetchSearchResults() {
     let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
     if(updated && nearLatLng !== null) {
@@ -304,11 +326,6 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const mapProps = {};
-    /*if(this.state.mapCenter) {
-      mapProps.center = this.state.mapCenter;
-      mapProps.zoom = 8;
-    }*/
     var mapResources = [];
     if(this.state.searchResults || this.state.selectedResource) {
       switch(this.props.match.path) {
@@ -366,6 +383,7 @@ class MapContainer extends React.Component {
                       handleMessageNew={this.props.handleMessageNew}
                       handleRequestOpen={this.props.handleRequestOpen}
                       lists={this.props.lists}
+                      mapResources={mapResources}
                       resource={this.getCachedResource(props.match.params.id)}
                       setSelectedResource={this.setSelectedResource}
                       session={this.props.session}
@@ -382,8 +400,9 @@ class MapContainer extends React.Component {
                   <AsylumConnectMap
                     resources={mapResources}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
-                    containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
-                    mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
+                    containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
+                    mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
+                    ref={(el) => this.ACMap = el}
                   />
                 </div>
               </Sticky>          

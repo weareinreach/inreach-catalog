@@ -18,6 +18,7 @@ import breakpoints from '../../theme/breakpoints';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
+import AsylumConnectMap from '../AsylumConnectMap';
 import ACBadge from '../Badge';
 
 import FavoritesLink from '../FavoritesLink';
@@ -147,8 +148,15 @@ const ReviewForm = ({classes}) => (
       </Typography>
     </Grid>
     <Grid item xs={12}>
-      <div>
-      </div>
+      <RatingControl mode="interactive" className={classes.bottomSpacing}/>
+      <Typography type="body2" className={"center-align "+classes.bottomSpacing}>
+        <span className={classes.boldFont}>Rate this resource </span> (your rating will not be recorded until you hit "submit" below)
+      </Typography>
+    </Grid>
+    <Grid item xs={12}>
+      <Typography type="body2" className={classes.italicFont+' '+classes.bottomSpacing}>
+        Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.
+      </Typography>
     </Grid>
     <Grid item xs={12}>
       <Divider className={classes.dividerSpacing} />
@@ -363,7 +371,7 @@ class Resource extends React.Component {
   handleCommentRequest(type, response) {
     let list = this.state.reviewList;
     list[type] = response.comments;
-    console.log(list);
+    //console.log(list);
     this.setState({
       reviewList: list
     });
@@ -459,6 +467,12 @@ class Resource extends React.Component {
                       resource={resource}
                       isMobile={isMobile}
                     />
+                    <AsylumConnectMap
+                      resources={this.props.mapResources}
+                      loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}
+                      containerElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />}
+                      mapElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />} 
+                    />
                   </div>
                   <div className={classes.mobileSpacing}>
                     {session ? 
@@ -510,7 +524,7 @@ class Resource extends React.Component {
                   <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
                 </Grid>
               </Grid>
-              {session ? 
+              {session || true ? 
                 <ReviewForm 
                   classes={classes}
                 />
