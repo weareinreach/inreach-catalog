@@ -34,3 +34,9 @@ export const mobilePadding = theme => ({
   paddingLeft: "20px",
   paddingRight: "20px"
 });
+export const boldFont = theme =>({
+  fontWeight: "600"
+})
+export const dividerSpacing = theme =>({
+  marginBottom: "2rem"
+})

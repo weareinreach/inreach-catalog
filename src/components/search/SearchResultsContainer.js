@@ -10,6 +10,7 @@ import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
+import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
@@ -29,9 +30,13 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[500],
     justifyContent: 'space-evenly'
   },
+  [theme.breakpoints.up('sm')]: {
+    filterContainer: {
+      marginTop: "-0.8rem"
+    }
+  },
   [theme.breakpoints.down('sm')]: {
     container: {
-      height: "100%",
       paddingTop: '0px',
       paddingBottom: '0px'
     },
@@ -53,19 +58,12 @@ const ResultsContainer = (props) => {
   const { containerSearchResults, searching, searchResults } = props;
   return (
     <div className={containerSearchResults}>
-      { searching ?
-        <Grid container spacing={0}>
-          <Grid item xs={12} style={{textAlign: "center"}}>
-            <CircularProgress />
-          </Grid>
-        </Grid>
-      :
-        searchResults.map((organization) => {
-          return (
-            <ResourceListItem key = {organization.id} resource={organization} {...props} />
-          )
-        })
-      }
+      {searchResults.map((organization) => {
+        return (
+          <ResourceListItem key = {organization.id} resource={organization} {...props} />
+        )
+      })}
+      { searching ? <Loading /> : null }
     </div>
   );
 }
@@ -75,73 +73,43 @@ class SearchResultsContainer extends React.Component {
     //this.props.clearSearchStatus();
     //this.props.fetchSearchResults();
 
-    this.state = { lists: [], tab: 0 };
+    this.state = { tab: 0 };
 
-    this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
-    this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
-    this.handleListNew = this.handleListNew.bind(this);
     this.handleSwipeChange = this.handleSwipeChange.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
-    this.fetchLists = this.fetchLists.bind(this);
   }
 
   componentDidMount() {
-    const { session } = this.props;
-    if (session) {
-      this.fetchLists(session);
-    }
-
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
-
+    console.log('add scroll?')
+    window.addEventListener('scroll', this.addPage.bind(this));
   }
 
   componentWillUnmount() {
     window.removeEventListener('popstate', this.doSearch.bind(this));
+    console.log('remove scroll?')
+    window.removeEventListener('scroll', this.addPage.bind(this));
   }
 
-  doSearch() {
+  doSearch(ev) {
     this.props.clearSearchStatus();
     this.props.fetchSearchResults();
+  }
+
+  addPage(ev) { console.log(ev);
+    let searchContainer = document.querySelectorAll('.container--search'); 
+    console.log(searchContainer, window.innerHeight + window.scrollY, searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
+    if (searchContainer.length && (window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight)) {
+        console.log('addPage should fetch results');
+        this.props.fetchNextSearchResultsPage();
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.searchStatus === "refresh"  && prevProps.searchStatus === null) {
       this.doSearch()
     }
-  }
-
-  handleListNew(list) {
-    this.setState(prevState => ({ lists: [...prevState.lists, list]}));
-  };
-
-  handleListAddFavorite(listId, favorite) {
-    this.setState(prevState => ({ lists: prevState.lists.map(list => (
-      list.id === listId
-        ? Object.assign(
-            {},
-            list,
-            {fetchable_list_items: [
-              ...list.fetchable_list_items,
-              { fetchable_id: favorite}
-            ]},
-          )
-        : list
-    ))}));
-  };
-
-  handleListRemoveFavorite(listId, favorite) {
-    this.setState(prevState => ({ lists: prevState.lists.map(list => (
-      list.id === listId
-        ? Object.assign(
-            {},
-            list,
-            {fetchable_list_items: list.fetchable_list_items.filter(item =>
-              item.fetchable_id !== favorite
-            )},
-          )
-        : list
-    ))}));
   }
 
   handleTabChange(event, value) {
@@ -156,59 +124,47 @@ class SearchResultsContainer extends React.Component {
     });
   }
 
-  fetchLists(session) {
-    fetchUserLists(session)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
-      .then(data => {
-        this.setState({lists: data.collections});
-      })
-      .catch(response => {
-        console.warn(response);
-      });
-  }
-
   render() {
     const { 
       tabContainer,
       container, 
       formRow, 
       containerSearchForm, 
-      containerSearchResults } = this.props.classes;
+      containerSearchResults,
+      filterContainer
+      } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
-      handleListAddFavorite: this.handleListAddFavorite,
-      handleListRemoveFavorite: this.handleListRemoveFavorite,
-      handleListNew: this.handleListNew,
+      handleListAddFavorite: this.props.handleListAddFavorite,
+      handleListRemoveFavorite: this.props.handleListRemoveFavorite,
+      handleListNew: this.props.handleListNew,
       handleMessageNew: this.props.handleMessageNew,
-      lists: this.state.lists,
+      handleRequestOpen: this.props.handleRequestOpen,
+      lists: this.props.lists,
       session: this.props.session,
       searchResults: this.props.searchResults,
       searching: this.props.searching,
       user: this.props.user
-    }
+    };
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={container}>
         <Grid item md={10} lg={9} xs={12}>
         <div className={containerSearchForm}>
           <SearchBar {...this.props} classes={null} />
-          <SearchRefinementControls 
-            clearSearchFilters={this.props.clearSearchFilters}
-            handleFilterSelect={this.props.handleFilterSelect} 
-            handleSortSelect={this.props.handleSortSelect} 
-            selectedFilters={this.props.selectedFilters} 
-            selectedSort={this.props.selectedSort}  />
           <Grid container spacing={0}>
-            <Grid item xs={12} className={formRow}>
+            <Grid item xs={12} md={3} className={formRow}>
               <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
                 Search
               </AsylumConnectButton>
+            </Grid>
+            <Grid item xs={12} md={9} className={filterContainer}>
+              <SearchRefinementControls 
+                clearSearchFilters={this.props.clearSearchFilters}
+                handleFilterSelect={this.props.handleFilterSelect} 
+                handleSortSelect={this.props.handleSortSelect} 
+                selectedFilters={this.props.selectedFilters} 
+                selectedSort={this.props.selectedSort}  />
             </Grid>
           </Grid>
         </div>
@@ -233,8 +189,8 @@ class SearchResultsContainer extends React.Component {
             >
               <ResultsContainer {...searchResultsProps}/>
               <div>
-                <AsylumConnectMap {...this.props} 
-                mapProps={this.props.mapProps} classes={null}
+                <AsylumConnectMap
+                  resources={this.props.mapResources}
                   loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
                   containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
                   mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 

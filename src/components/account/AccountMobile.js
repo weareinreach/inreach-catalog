@@ -25,7 +25,13 @@ const TabContainer = ({children}) => {
 TabContainer.propTypes = {children: PropTypes.node.isRequired};
 
 const styles = theme => ({
-  root: {flexGrow: 1},
+  root: {
+    flexGrow: 1,
+    marginLeft: "2.5em",
+    marginRight: "2.5em",
+    borderBottom: "1px solid "+theme.palette.common.faintBlack,
+    boxShadow: "none"
+  },
   textCenter: {textAlign: 'center'},
 });
 

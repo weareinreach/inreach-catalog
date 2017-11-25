@@ -6,7 +6,9 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
-import { StickyContainer, Sticky } from 'react-sticky';
+//import { StickyContainer, Sticky } from 'react-sticky';
+
+import Sticky from 'react-sticky-state';
 
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -27,11 +29,14 @@ const styles = (theme) => ({
   },
   [theme.breakpoints.down('sm')]: {
     containerMap: {
-      height: "calc(100% - 91px)",
       overflowY: 'auto'
     }
   }
 });
+
+/*const Map = (props) => (
+  
+);*/
 
 class MapContainer extends React.Component {
   constructor(props, context) {
@@ -49,7 +54,9 @@ class MapContainer extends React.Component {
       searching: false,
       searchResults: [],
       searchResultsIndex: [],
-      searchResultSlugs: []
+      searchResultSlugs: [],
+      selectedResource: null,
+      lastSearch: null
     }
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
@@ -60,15 +67,36 @@ class MapContainer extends React.Component {
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
+    this.setSelectedResource = this.setSelectedResource.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
   }
 
   componentWillMount() {
-    window.addEventListener('popstate', this.reparseURL.bind(this));
+    //window.addEventListener('popstate', this.reparseURL.bind(this));
   }
   componentWillUnmount() {
-    window.removeEventListener('popstate', this.reparseURL.bind(this))
+    //window.removeEventListener('popstate', this.reparseURL.bind(this))
+  }
+  componentWillUpdate(nextProps, nextState) {
+    if(nextProps.match.path == '/resource/:id' && 
+      (this.props.match.path != '/resource/:id'
+        || (this.props.match.params 
+            && nextProps.match.params
+            && this.props.match.params.id != nextProps.match.params.id
+            && this.props.match.path == '/resource/:id'
+            ))
+    ) {
+      this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
+    }
+  }
+
+  getCachedResource(slug) {
+    let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
+    if(resourceIndex > -1) {
+      return this.state.searchResults[resourceIndex];
+    } 
+    return null 
   }
 
   clearSearchStatus() {
@@ -171,26 +199,41 @@ class MapContainer extends React.Component {
   }
 
   fetchSearchResults() {
-    this.setState({
-      searching: true,
-      searchResultsIndex: [],
-      searchResults: []
-    });
-    this.queryOneDegree = new OneDegreeResourceQuery();
-    this.queryOneDegree
-      .addTags(this.state.selectedResourceTypes)
-      .setLocation(this.state.nearLatLng)
-      .setOrder(this.state.selectedSort)
-      .fetchOrganizations({
-        callback: this.processSearchResults
+    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
+    if(updated && nearLatLng !== null) {
+      this.setState({
+        nearLatLng,
+        selectedResourceTypes,
+        selectedFilters,
+        selectedSort,
+        searching: true,
+        searchResultsIndex: [],
+        searchResults: [],
+        lastSearch: stringified
       });
+
+      this.queryOneDegree = new OneDegreeResourceQuery();
+      this.queryOneDegree
+        .addTags(selectedResourceTypes)
+        .setLocation(nearLatLng)
+        .setFilters(selectedFilters)
+        .setOrder(selectedSort)
+        .fetchOrganizations({
+          callback: this.processSearchResults
+        });
+    }
   }
 
-  fetchNextSearchResultsPage() {
-    this.queryOneDegree.nextPage();
-    this.queryOneDegree.fetchOrganizations({
-      callback: this.processSearchResults
-    });
+  fetchNextSearchResultsPage() { console.log(this.queryOneDegree.areAllResultsReturned());
+    if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
+      this.queryOneDegree.nextPage();
+      this.setState({
+        searching: true
+      });
+      this.queryOneDegree.fetchOrganizations({
+        callback: this.processSearchResults
+      });
+    }
   }
 
   processSearchResults(data) {
@@ -208,6 +251,12 @@ class MapContainer extends React.Component {
       searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
       searchResults: this.state.searchResults.concat(newOrgs),
       searching: false
+    });
+  }
+
+  setSelectedResource(resource) { console.log('setting resource');
+    this.setState({
+      selectedResource: resource
     });
   }
 
@@ -238,38 +287,44 @@ class MapContainer extends React.Component {
     return {selectedResourceTypes, nearLatLng, selectedFilters, selectedSort};
   }
 
-  reparseURL(ev) {
-    let { nearLatLng, selectedResourceTypes } = this.parseParams(this.props.match.params);
-    this.setState({
+  checkForURLUpdates(ev) { 
+    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(this.props.match.params);
+    let updated = false;
+    let stringified = JSON.stringify({
       nearLatLng,
-      selectedResourceTypes
+      selectedResourceTypes,
+      selectedFilters,
+      selectedSort
     });
+    if(stringified !== this.state.lastSearch
+    ) {
+      updated = true;
+    }
+    return { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified };
   }
 
   render() {
-    this.mapProps = {};
-    if(this.state.mapCenter) {
-      this.mapProps.center = this.state.mapCenter;
-      this.mapProps.zoom = 8;
-    }
-    if(this.state.searchResults) {
-      this.mapProps.resources = this.state.searchResults;
+    const mapProps = {};
+    /*if(this.state.mapCenter) {
+      mapProps.center = this.state.mapCenter;
+      mapProps.zoom = 8;
+    }*/
+    var mapResources = [];
+    if(this.state.searchResults || this.state.selectedResource) {
+      switch(this.props.match.path) {
+        case '/resource/:id':
+          mapResources = (this.state.selectedResource ? [this.state.selectedResource] : [])
+        break;
+        default:
+          mapResources = this.state.searchResults;
+        break;
+      }
     }
     const isMobile = this.props.width < breakpoints['sm'];
 
-    const map = (props) => (
-      <div style={props.style}>
-        <AsylumConnectMap {...this.props} 
-          mapProps={this.mapProps} classes={null}
-          loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
-          containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
-          mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
-        />
-      </div>
-    );
     return (
         <div className={"container--map "+this.props.classes.containerMap}> 
-          <Grid container spacing={0}>
+          <Grid container spacing={0} alignItems='stretch'>
             <Grid item xs={12} sm={8}>
               <div className="container--search">
                 <Switch>
@@ -280,40 +335,59 @@ class MapContainer extends React.Component {
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
                      />} />
                     }
-                  <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
-                    mapProps={this.mapProps}
-                    fetchSearchResults={this.fetchSearchResults}
-                    clearSearchFilters={this.clearSearchFilters}
-                    clearSearchStatus={this.clearSearchStatus}
-                    handleMessageNew={this.props.handleMessageNew}
-                    handlePlaceSelect={this.handlePlaceSelect} 
-                    handlePlaceChange={this.handlePlaceChange}
-                    handleSearchButtonClick={this.handleSearchButtonClick}
-                    handleResourceTypeSelect={this.handleResourceTypeSelect}
-                    handleFilterSelect={this.handleFilterSelect}
-                    handleSortSelect={this.handleSortSelect}
-                    session={this.props.session}
-                    user={this.props.user}
-                    />} />
-                  <Route path="/resource/:id" render={ props => <Resource {...props} mapProps={this.mapProps} handleMessageNew={this.props.handleMessageNew} resource={(() => {
-                    let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
-                    return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
+                  <Route path="/search/:near/:for/:filter/:sort" render={ props => (
+                    <SearchResultsContainer {...props} {...this.state}
+                      mapResources={mapResources}
+                      fetchSearchResults={this.fetchSearchResults}
+                      clearSearchFilters={this.clearSearchFilters}
+                      clearSearchStatus={this.clearSearchStatus}
+                      fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handlePlaceSelect={this.handlePlaceSelect} 
+                      handlePlaceChange={this.handlePlaceChange}
+                      handleSearchButtonClick={this.handleSearchButtonClick}
+                      handleResourceTypeSelect={this.handleResourceTypeSelect}
+                      handleRequestOpen={this.props.handleRequestOpen}
+                      handleFilterSelect={this.handleFilterSelect}
+                      handleSortSelect={this.handleSortSelect}
+                      lists={this.props.lists}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
+                  <Route path="/resource/:id" render={ props => (
+                    <Resource {...props}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handleRequestOpen={this.props.handleRequestOpen}
+                      lists={this.props.lists}
+                      resource={this.getCachedResource(props.match.params.id)}
+                      setSelectedResource={this.setSelectedResource}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
                 </Switch>
               </div>
             </Grid>
             {isMobile ? null :
-            <StickyContainer style={{ /* if the map width changes these must be updated to follow suit */
-              flexBasis: "33.3333%",
-              flexGrow: "0",
-              flexShrink: "0",
-              maxWidth:"33.3333%"
-            }}>
-              <Grid item xs={12} sm={12}>
-                <Sticky>
-                  {map}
-                </Sticky>          
-              </Grid>
-            </StickyContainer>}
+            <Grid item xs={12} sm={4}>
+              <Sticky>
+                <div>
+                  <AsylumConnectMap
+                    resources={mapResources}
+                    loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
+                    containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
+                    mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
+                  />
+                </div>
+              </Sticky>          
+            </Grid>}
           </Grid> 
         </div>
     );

@@ -136,7 +136,6 @@ class AccountPage extends React.Component {
           </div>
         ):(
         <div>
-          <Typography type="display2" className={classes.textAlignCenter}>Organization</Typography>
           <div className={classes.formRow}>
             <GeneralSettings handleMessageNew={handleMessageNew} user={user}/>
           </div>

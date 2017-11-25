@@ -9,7 +9,7 @@ const styles = (theme) => ({
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '4rem',
+    marginTop: '2rem',
   },
 });
 

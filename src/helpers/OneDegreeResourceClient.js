@@ -60,7 +60,7 @@ class OneDegreeResourceClient {
 
   getOpportunities({idType = 'organization', id = null, per_page = 20, callback = (data) => {} } = {}) {
     if(id == null) {
-      console.error('[OneDegreeResourceClient] No resource ID passed');
+      console.error('[OneDegreeResourceClient::getOpportunities] No resource ID passed');
       return false;
     }
 
@@ -81,8 +81,33 @@ class OneDegreeResourceClient {
     });
   }
 
+  getCommentsFromOrganizationId({resourceType = 'organization', id = null, per_page =20, callback = (data) => {} } = {}) {
+    if(id == null) {
+      console.error('[OneDegreeResourceClient::getComments] No resource ID passed');
+      return false;
+    }
+
+    let url = "organizations/" + id + '/comments';
+
+    switch(resourceType) {
+      case 'organization':
+        url = url;
+        break;
+      case 'opportunities':
+        url = url + '/' + resourceType;
+        break;
+    }
+
+    this.fetch({
+      url: url,
+      per_page: per_page,
+      callback: callback
+    });
+
+  }
+
   fetch( {url = '', per_page = 20, callback = (data) => {} } = {} ) {
-    fetchJsonp(this.baseURL + url + '.jsonp?api_key=' + config[process.env.OD_API_ENV].odApiKey + '&per_page=' + per_page)
+    fetchJsonp(this.baseURL + url + '.jsonp?api_key=' + config[process.env.OD_API_ENV].odApiKey + '&per_page=' + per_page + '&extended=true')
       .then(function(res) {
         return res.json();
       }).then(callback);

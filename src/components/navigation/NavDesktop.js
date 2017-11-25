@@ -12,7 +12,7 @@ import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
-import LogoImg from '../../images/AC-logo.png';
+import LogoImg from '../../images/asylum-connect.svg';
 
 const styles = theme => ({
   root: {
@@ -42,11 +42,12 @@ const NavDesktop = ({
   user,
 }) => (
   <div className={classes.root}>
-    <IconButton
-      className={classes.IconButton}
-      href="http://www.asylumconnect.org">
-      <img src={LogoImg} className={classes.LogoFitHeight} />
-    </IconButton>
+    <Link to='/'>
+      <IconButton
+        className={classes.IconButton}>
+        <img src={LogoImg} className={classes.LogoFitHeight} />
+      </IconButton>
+    </Link>
     <a href="http://www.asylumconnect.org/our-organization/">
       <Typography type="display4">about us</Typography>
     </a>

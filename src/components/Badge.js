@@ -15,6 +15,7 @@ import {
   MailIcon,
   MedicalIcon,
   MentalHealthIcon,
+  MiscIcon,
   SportsEntertainmentIcon,
 } from './icons';
 
@@ -23,7 +24,7 @@ const styles = theme => ({
   icon: { display: 'inline-block', verticalAlign: 'middle' },
 });
 
-const Badge = ({ classes, type, height, width }) => {
+const Badge = ({ classes, type, height, width, extraClasses }) => {
   const typeMapping = {
     communitySupport: {
       label: 'Community Support',
@@ -65,6 +66,10 @@ const Badge = ({ classes, type, height, width }) => {
       label: 'Mental Health',
       icon: <MentalHealthIcon />,
     },
+    misc: {
+      label: 'Other Services',
+      icon: <MiscIcon />,
+    },
     sportsEntertainment: {
       label: 'Sports / Entertainment',
       icon: <SportsEntertainmentIcon />,
@@ -74,13 +79,21 @@ const Badge = ({ classes, type, height, width }) => {
   const iconWidth = (width ? width : '75px');
   const iconHeight = (height ? height : '75px');
 
+  let iconClassList = [classes.icon];
+  let tooltipClassList = [classes.tooltip];
+  if(extraClasses){
+    iconClassList.push(extraClasses.icon);
+    tooltipClassList.push(extraClasses.tooltip);
+  }
+
   return (
     <Tooltip
       className={classes.tooltip}
+      classes={{tooltipTop:"badge-tooltipTop"}}
       title={typeMapping[type].label}
       placement="top"
     >
-      <div className={classes.icon} style={ {width: iconWidth, height: iconHeight} }>
+      <div className={iconClassList.join(" ")} style={ {width: iconWidth, height: iconHeight} }>
         { typeMapping[type].icon }
       </div>
     </Tooltip>
@@ -99,6 +112,7 @@ Badge.propTypes = {
     'mail',
     'medical',
     'mentalHealth',
+    'misc',
     'sportsEntertainment',
   ]).isRequired
 };

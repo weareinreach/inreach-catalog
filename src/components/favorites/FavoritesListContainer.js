@@ -18,62 +18,53 @@ class FavoritesListContainer extends React.Component {
 
     this.state = {
       anchorEl: null,
-      dialog: 'none',
-      lists: [],
       loadingResources: this.props.match.params.listId ? true : false,
       open: false,
       resources: [],
     };
 
-    this.fetchLists = this.fetchLists.bind(this);
     this.fetchListResources = this.fetchListResources.bind(this);
     this.fetchResources = this.fetchResources.bind(this);
-    this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
-    this.handleListNew = this.handleListNew.bind(this);
     this.handleListSelect = this.handleListSelect.bind(this);
-    this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
+    this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
 
   componentDidMount() {
-    const {session} = this.props;
-    if (session) {
-      this.fetchLists(session);
+    const { listId } = this.props.match.params;
+    const { lists, user } = this.props;
+
+    if (lists.length && !listId) {
+      this.props.history.push(`/favorites/${user}/${lists[0].id}`);
+    } else if (lists.legth && listId) {
+      this.fetchListResources(listId);
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.lists.length && !nextProps.match.params.listId) {
+      this.props.history.push(`/favorites/${nextProps.user}/${nextProps.lists[0].id}`);
+    }
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
       this.fetchListResources(nextProps.match.params.listId);
     }
   }
 
-  fetchLists(session) {
-    fetchUserLists(session)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
-      .then(data => {
-        this.setState({lists: data.collections});
-        const { listId } = this.props.match.params;
-        if (listId) {
-          this.fetchListResources(listId);
-        }
-      })
-      .catch(response => {
-        console.warn(response);
-      });
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.loadingResources &&
+      this.props.match.params.listId &&
+      !prevProps.lists.length &&
+      this.props.lists.length
+    ) {
+      this.fetchListResources(this.props.match.params.listId);
+    }
   }
 
   fetchListResources(listId) {
-    const list = this.state.lists.find(
+    const list = this.props.lists.find(
       collection => collection.id == listId,
     );
     if (list && list.fetchable_list_items.length) {
@@ -101,35 +92,6 @@ class FavoritesListContainer extends React.Component {
       });
   }
 
-  handleDialogOpen(dialog) {
-    this.setState({dialog});
-  }
-
-  handleDialogClose() {
-    this.setState({dialog: 'none'});
-  }
-
-  handleListNew(list) {
-    this.setState(prevState => ({lists: [...prevState.lists, list]}));
-  }
-
-  handleListRemoveFavorite(resourceId) {
-    const {match, session} = this.props;
-    deleteListFavorite(match.params.listId, resourceId, session)
-      .then(response => {
-        if (response.status === 200) {
-          this.setState(prevState => ({
-            resources: prevState.resources.filter(
-              resource => resource.id !== resourceId,
-            ),
-          }));
-        }
-      })
-      .catch(error => {
-        console.warn(error);
-      });
-  }
-
   handleListSelect(list) {
     const {history, user} = this.props;
     history.push(`/favorites/${user}/${list.id}`);
@@ -144,8 +106,28 @@ class FavoritesListContainer extends React.Component {
     this.setState({open: false});
   }
 
+  handleRemoveFavorite(resourceId) {
+    const { listId } = this.props.match.params;
+    const {session} = this.props;
+
+    deleteListFavorite(listId, resourceId, session)
+      .then(response => {
+        if (response.status === 200) {
+          this.setState(prevState => ({
+            resources: prevState.resources.filter(resource => resource.id !== resourceId)
+          }))
+          this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
+        } else {
+          Promise.reject(response);
+        }
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  }
+
   render() {
-    const currentList = this.state.lists.find(
+    const currentList = this.props.lists.find(
       list => list.id == this.props.match.params.listId,
     );
     const isMobile = this.props.width < breakpoints['sm'];
@@ -155,13 +137,10 @@ class FavoritesListContainer extends React.Component {
           {...this.state}
           {...this.props}
           list={currentList}
-          handleDialogOpen={this.handleDialogOpen}
-          handleDialogClose={this.handleDialogClose}
-          handleListNew={this.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
+          handleRemoveFavorite={this.handleRemoveFavorite}
         />
       );
     } else {
@@ -170,13 +149,10 @@ class FavoritesListContainer extends React.Component {
           {...this.state}
           {...this.props}
           list={currentList}
-          handleDialogOpen={this.handleDialogOpen}
-          handleDialogClose={this.handleDialogClose}
-          handleListNew={this.handleListNew}
           handleListSelect={this.handleListSelect}
-          handleListRemoveFavorite={this.handleListRemoveFavorite}
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
+          handleRemoveFavorite={this.handleRemoveFavorite}
         />
       );
     }
@@ -185,10 +161,18 @@ class FavoritesListContainer extends React.Component {
 
 FavoritesListContainer.defaultProps = {
   session: null,
+  user: null,
 };
 
 FavoritesListContainer.propTypes = {
+  handleListAddFavorite: PropTypes.func.isRequired,
+  handleListRemoveFavorite: PropTypes.func.isRequired,
+  handleListNew: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withRouter(withWidth(FavoritesListContainer));

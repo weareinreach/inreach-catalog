@@ -8,15 +8,18 @@ class OneDegreeResourceQuery {
   constructor() {
     this.resetFilters();
     this.baseURL = config[process.env.OD_API_ENV].odrs;
+    this.allResultsReturned = false;
+    this.removeAtCapacity = false;
     this.requiredFilters = {
       'opportunities': {
         query: {
           properties: {
-            'approval-asylumconnect': 'true'
+            'community-asylum-seeker': 'true',
+            'community-lgbt': 'true'
+            //'approval-asylumconnect': 'true'
           },
-          match: 'by_type'
-        },
-        'titles_only': 'true'
+          match: 'properties'
+        }
       },
       'organizations': {
         extended: 'true'
@@ -33,6 +36,10 @@ class OneDegreeResourceQuery {
       this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
     });
     return this;
+  }
+
+  areAllResultsReturned() {
+    return this.allResultsReturned;
   }
 
   setIds(ids) {
@@ -52,7 +59,15 @@ class OneDegreeResourceQuery {
   }
 
   setFilters(filters) {
-    //this.filters.query.properties
+    if(filters.indexOf('at-capacity') !== -1) {
+      filters.splice(filters.indexOf('at-capacity'), 1);
+      this.removeAtCapacity = true;
+    }
+    var properties = {}
+    filters.forEach((filter) => {
+      properties[filter] = 'true';
+    });
+    this.filters.query.properties = properties;
     return this;
   }
 
@@ -64,6 +79,18 @@ class OneDegreeResourceQuery {
   nextPage() {
     this.filters.page++;
     return this;
+  }
+
+  filterAtCapacity(resources) {
+    if(resources.length) {
+      return resources.filter((resource) => (
+        typeof resource.properties == 'undefined' 
+        || typeof resource.properties['at-capacity'] == 'undefined'
+        || resource.properties['at-capacity'] !== 'true'
+      ));
+    } else {
+      return resources;
+    }
   }
 
   serialize(obj, prefix) {
@@ -80,6 +107,9 @@ class OneDegreeResourceQuery {
   }
 
   buildFilters(type = 'opportunities') {
+    if(!this.removeAtCapacity) {
+      this.filters.query.titles_only = 'true';
+    }
     return [this.serialize(this.requiredFilters[type]), this.serialize(this.filters)].filter((item) => item!=='').join("&");
   }
 
@@ -88,10 +118,13 @@ class OneDegreeResourceQuery {
       api_key: config[process.env.OD_API_ENV].odApiKey,
       query: {
         properties: {},
-        tags: [],
-        page: 1
+        tags: []
       },
+      page: 1,
+      per_page: 2
     }
+    this.removeAtCapacity = false;
+    this.allResultsReturned = false;
     return this;
   }
 
@@ -99,9 +132,11 @@ class OneDegreeResourceQuery {
     var self = this;
     this.fetch({
       callback: (data) => {
-        let ids = [];
+        let ids = [], filtered;
 
-        data.opportunities.forEach((opportunity, index) => {
+        filtered = this.removeAtCapacity ? self.filterAtCapacity(data.opportunities) : data.opportunities;
+
+        filtered.forEach((opportunity, index) => {
           if(ids.indexOf(opportunity.organization.id) === -1) {
             ids.push(opportunity.organization.id);
           }
@@ -109,8 +144,14 @@ class OneDegreeResourceQuery {
         if(ids.length === 0) {
           ids.push(0);
         }
+        console.log(data, data.paging.current_page == data.paging.total_pages, self.allResultsReturned);
+        self.allResultsReturned = data.paging.current_page == data.paging.total_pages;
+
         var orgsSearch = new OneDegreeResourceQuery();
         orgsSearch.setIds(ids);
+        if(self.filters && self.filters.query && self.filters.query.order) {
+          orgsSearch.setOrder(self.filters.query.order);
+        }
         orgsSearch.fetch({
           type: 'organizations',
           callback: callback
