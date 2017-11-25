@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
 import config from '../../config/config.js';
+import confirmSession from '../../helpers/confirmSession';
 
 import PasswordForm from './PasswordForm';
 
@@ -25,7 +26,22 @@ class PasswordFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('submit');
+    const {handleMessageNew, handleRequestClose, session} = this.props;
+    confirmSession(this.state.password, session)
+      .then(response => {
+        if (response.status === 200) {
+          handleMessageNew('Password Confirmed');
+          handleRequestClose();
+        } else if (response.status === 401) {
+          handleMessageNew('The password you entered was incorrect.');
+        } else {
+          return Promise.reject(response);
+        }
+      })
+      .catch(error => {
+        handleMessageNew('Oops! Something went wrong.');
+        console.warn(error);
+      });
   }
 
   render() {
@@ -43,6 +59,7 @@ class PasswordFormContainer extends React.Component {
 PasswordFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
+  session: PropTypes.string.isRequired,
 };
 
 export default PasswordFormContainer;
