@@ -70,8 +70,6 @@ const ResultsContainer = (props) => {
 class SearchResultsContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
-    //this.props.clearSearchStatus();
-    //this.props.fetchSearchResults();
 
     this.state = { tab: 0 };
 
@@ -82,13 +80,11 @@ class SearchResultsContainer extends React.Component {
   componentDidMount() {
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
-    console.log('add scroll?')
     window.addEventListener('scroll', this.addPage.bind(this));
   }
 
   componentWillUnmount() {
     window.removeEventListener('popstate', this.doSearch.bind(this));
-    console.log('remove scroll?')
     window.removeEventListener('scroll', this.addPage.bind(this));
   }
 
@@ -99,9 +95,7 @@ class SearchResultsContainer extends React.Component {
 
   addPage(ev) { console.log(ev);
     let searchContainer = document.querySelectorAll('.container--search'); 
-    console.log(searchContainer, window.innerHeight + window.scrollY, searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
     if (searchContainer.length && (window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight)) {
-        console.log('addPage should fetch results');
         this.props.fetchNextSearchResultsPage();
     }
   }

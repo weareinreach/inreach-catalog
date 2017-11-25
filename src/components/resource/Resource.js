@@ -4,6 +4,7 @@ import url from 'url';
 
 import Toolbar from 'material-ui/Toolbar';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -35,7 +36,7 @@ import Reviews from './Reviews';
 import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 
 
-import {bodyLink, boldFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
+import {bodyLink, boldFont, italicFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
 import ActionButton from '../ActionButton';
 
@@ -97,7 +98,18 @@ const styles = (theme) => ({
   serviceTooltip: {
     top: "6px"
   },
+  ratingSpacing: {
+    marginRight: "1rem"
+  },
+  reviewField: {
+    width: "100%",
+    padding: "1rem",
+    fontSize: "0.9rem",
+    height: "25%",
+    border: "1px solid "+theme.palette.common.darkGrey
+  },
   boldFont: boldFont(theme),
+  italicFont: italicFont(theme),
   moreInfo: Object.assign({
     color: theme.palette.primary[500]
   }, boldFont(theme)),
@@ -140,7 +152,7 @@ const styles = (theme) => ({
 
 
 
-const ReviewForm = ({classes}) => (
+const ReviewForm = ({classes, isMobile}) => (
   <Grid container spacing={0}>
     <Grid item xs={12}>
       <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
@@ -148,15 +160,25 @@ const ReviewForm = ({classes}) => (
       </Typography>
     </Grid>
     <Grid item xs={12}>
-      <RatingControl mode="interactive" className={classes.bottomSpacing}/>
+      <RatingControl mode="interactive" className={classes.bottomSpacing+' '+classes.ratingSpacing}/>
       <Typography type="body2" className={"center-align "+classes.bottomSpacing}>
-        <span className={classes.boldFont}>Rate this resource </span> (your rating will not be recorded until you hit "submit" below)
+        <span className={classes.boldFont}>Rate this resource </span> {isMobile ? null : '(your rating will not be recorded until you hit "submit" below)'}
       </Typography>
     </Grid>
+    {isMobile ? null : 
     <Grid item xs={12}>
       <Typography type="body2" className={classes.italicFont+' '+classes.bottomSpacing}>
         Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.
       </Typography>
+    </Grid>
+    }
+    <Grid item xs={12}>
+      <textarea className={classes.reviewField+' '+classes.bottomSpacing} placeholder="Start typing your review..." name="comment" />
+    </Grid>
+    <Grid item xs={12} className={classes.dividerSpacing}>
+      <AsylumConnectButton variant="primary" onClick={() => {}} >
+        Submit
+      </AsylumConnectButton>
     </Grid>
     <Grid item xs={12}>
       <Divider className={classes.dividerSpacing} />
@@ -475,9 +497,10 @@ class Resource extends React.Component {
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
-                    {session ? 
+                    {session || true ? 
                       <ReviewForm 
                         classes={classes}
+                        isMobile={isMobile}
                       />
                     : null}
                     <Reviews

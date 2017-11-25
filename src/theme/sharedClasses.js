@@ -37,6 +37,9 @@ export const mobilePadding = theme => ({
 export const boldFont = theme =>({
   fontWeight: "600"
 })
+export const italicFont = theme =>({
+  fontStyle: "italic"
+})
 export const dividerSpacing = theme =>({
   marginBottom: "2rem"
 })
