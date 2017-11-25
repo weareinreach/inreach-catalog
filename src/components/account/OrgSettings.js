@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import breakpoints from '../../theme/breakpoints';
 import Typography from 'material-ui/Typography';
 
+import Loading from '../Loading'
 import OrgSettingsInfo from './OrgSettingsInfo';
 import OrgSettingsHour from './OrgSettingsHour';
 import OrgSettingsAdditional from './OrgSettingsAdditional';
@@ -71,6 +72,7 @@ class OrgSettings extends React.Component {
     super(props);
     this.state = {
       isInitial: true,
+      isLoading: true,
       isScheduleRequested: false,
       isInfoRequested: false,
       isAdditionalRequested: false,
@@ -89,34 +91,41 @@ class OrgSettings extends React.Component {
 
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
-    const { user } = this.props;
+    const { user, handleMessageNew } = this.props;
     const apiDomain = config[process.env.OD_API_ENV].odrs;
     const url = `${apiDomain}organizations/${user.affiliation.fetchable_id}.jsonp?`;
     const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
     
     fetchJsonp(url + apiKeyParam)
-      .then(response => response.json())
-      .then(orgData => {
-        let isPendingSubmission = orgData.has_pending_submission
-        let info = {
-          name: orgData.name,
-          description: orgData.description? orgData.description:'',
-          website: orgData.website? orgData.website:'',
-          address: orgData.locations ? orgData.locations[0].address:'',
-          region: orgData.region? orgData.region:'',
-          city: orgData.locations? orgData.locations[0].city:'',
-          state: orgData.locations? orgData.locations[0].state:'',
-          phone: orgData.phones && orgData.phones[0]? orgData.phones[0].digits : '',
-        };
-        let schedule = orgData.locations && orgData.locations[0].schedule ? orgData.locations[0].schedule : defaultSchedule;
-        let additional = {
-          resource: orgData.tag? orgData.tag:''
-        }
-        this.setState({ orgData, isPendingSubmission, info, schedule, additional})
-      })
-      .then(error => {
-        console.log(error)
-      })
+    .then(response => {
+      if (response.ok) {
+        response.json()
+        .then((orgData) => {
+          let isPendingSubmission = orgData.has_pending_submission
+          let info = {
+            name: orgData.name,
+            description: orgData.description? orgData.description:'',
+            website: orgData.website? orgData.website:'',
+            address: orgData.locations ? orgData.locations[0].address:'',
+            region: orgData.region? orgData.region:'',
+            city: orgData.locations? orgData.locations[0].city:'',
+            state: orgData.locations? orgData.locations[0].state:'',
+            phone: orgData.phones && orgData.phones[0]? orgData.phones[0].digits : '',
+          };
+          let schedule = orgData.locations && orgData.locations[0].schedule ? orgData.locations[0].schedule : defaultSchedule;
+          let additional = {
+            resource: orgData.tag? orgData.tag:''
+          }
+          this.setState({ orgData, isPendingSubmission, info, schedule, additional})
+          this.setState({isLoading: false})
+        })        
+      } else {
+        handleMessageNew('Sorry, please try logging in again');
+      }
+    })
+    .catch(error => {
+      handleMessageNew('Oops! Something went wrong. Error:' + error);
+    })    
   }
 
   handleClick(){
@@ -231,31 +240,35 @@ class OrgSettings extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const { isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional, isSent } = this.state;
+    const { isLoading, isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional, isSent } = this.state;
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Organization</Typography>
-        {isPendingSubmission? (
-          <div className={classes.note}><Typography type='body1'>We are still reviewing your recent edits. Below reflects the current live data on the site, and once we confirm your requested changes, they will be live on the site in 1-3 days.</Typography></div>
-        ):('')}
-        {info? (
-          <OrgSettingsInfo initialData={info} isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
-          ):(' ')
-        }
-        {schedule? (
-          <OrgSettingsHour initialData={schedule} isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
-          ):(' ')
-        }
-        {!isSent? (
+        {isLoading? (<Loading />):(
           <div>
-            <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
-            <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
+            {isPendingSubmission? (
+              <div className={classes.note}><Typography type='body1'>We are still reviewing your recent edits. Below reflects the current live data on the site, and once we confirm your requested changes, they will be live on the site in 1-3 days.</Typography></div>
+            ):('')}
+            {info? (
+              <OrgSettingsInfo initialData={info} isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
+              ):(' ')
+            }
+            {schedule? (
+              <OrgSettingsHour initialData={schedule} isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
+              ):(' ')
+            }
+            {!isSent? (
+              <div>
+                <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
+                <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
+              </div>
+            ):(
+              <div className={classes.settingsTypeFont}>
+                <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <Typography type='body1'><strong>catalog@asylumconnect.org</strong></Typography>.</span>
+              </div>
+            )}
           </div>
-        ):(
-          <div className={classes.settingsTypeFont}>
-            <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <Typography type='body1'><strong>catalog@asylumconnect.org</strong></Typography>.</span>
-          </div>
-        )}        
+        )}
       </div>
     )
   }
