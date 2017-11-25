@@ -363,7 +363,7 @@ class Resource extends React.Component {
   handleCommentRequest(type, response) {
     let list = this.state.reviewList;
     list[type] = response.comments;
-    console.log(list);
+    //console.log(list);
     this.setState({
       reviewList: list
     });
