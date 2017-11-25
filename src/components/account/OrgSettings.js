@@ -74,10 +74,19 @@ class OrgSettings extends React.Component {
       isLoading: true,
       isSent: false,
       orgData: {},
+      selectedDays: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+      }
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.submitOrgData = this.submitOrgData.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
   componentDidMount(){
@@ -92,6 +101,7 @@ class OrgSettings extends React.Component {
       if (response.ok) {
         response.json()
         .then((orgData) => {
+          // Add properties array as submission requirement
           orgData.properties = [
             {
                 "name": "approval-asylumconnect",
@@ -110,8 +120,15 @@ class OrgSettings extends React.Component {
                 "value": "true"
             }
           ]
-          this.setState({ orgData })
-          this.setState({isLoading: false})
+          this.setState({ orgData, isLoading: false })
+          // Capture selected day
+          if (orgData.locations && orgData.locations[0] && orgData.locations[0].schedule) {
+            const { schedule } = orgData.locations[0]
+            for (let day in schedule){
+              const selectedDays = update(this.state.selectedDays, {$merge: { [day.split('_')[0]]: true}})
+              this.setState({selectedDays})
+            }
+          }          
         })        
       } else {
         handleMessageNew('Sorry, please try logging in again');
@@ -122,30 +139,56 @@ class OrgSettings extends React.Component {
     })    
   }
   handleChange(parent, name, value){
-    const { orgData } = this.state
-    let updatedOrgData
+    const { orgData } = this.state;
+    let updatedOrgData;
     if (parent === 'schedule') {
       updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge:{[name]: value}} }}})
+      this.setState({ orgData: updatedOrgData })
     } else if (parent === 'address') {
       updatedOrgData = update(orgData, {locations: { 0: {$merge:{[name]: value}} }})
+      this.setState({ orgData: updatedOrgData })
     } else if (parent === 'phones'){
       updatedOrgData = update(orgData, {locations: { 0: {phones: { 0: {$merge:{[name]: value}} }}}})
+      this.setState({ orgData: updatedOrgData })
     } else {
       updatedOrgData = update(orgData,{$merge:{[name]: value}})
+      this.setState({ orgData: updatedOrgData })
+      console.log(orgData)
     }
-    console.log(updatedOrgData)
-    this.setState({ orgData: updatedOrgData })
+  }
+  handleSelect(select, value, startValue, endValue) {
+    const { selectedDays } = this.state;
+    let updatedSelectedDays;
+    if (select === 'select') {
+      updatedSelectedDays = update(selectedDays,{$merge:{[value]: !selectedDays[value]}})
+    } else {
+      updatedSelectedDays = update(selectedDays,{$merge:{[value.split('_')[0]]: true}})
+    }
+    this.setState({ selectedDays: updatedSelectedDays})
   }
   handleClick(){
-    const {orgData} = this.state;
+    const {orgData, selectedDays} = this.state;
     const {user, handleMessageNew} = this.props;
+
+    // Remove unselected time in schedule object
+    let { schedule } = orgData.locations[0]
+    let updatedOrgData;
+    for (let timeKey in schedule ) {
+      let day = timeKey.split('_')[0]
+      if (!selectedDays[day]){
+        delete(schedule[timeKey])
+      }
+    }
+    updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge: schedule} }}})
+    console.log(updatedOrgData)
+    // Submit
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
       "submission": {
-        "resource_id": orgData.id,
+        "resource_id": updatedOrgData.id,
         "resource_type": "Organization",
         "client_user_id": user.id,
-        "content": JSON.stringify(orgData),
+        "content": JSON.stringify(updatedOrgData),
         "submitter_type": "PublicForm"
       }
     }
@@ -168,7 +211,7 @@ class OrgSettings extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const { orgData, isLoading, isSent } = this.state;
+    const { orgData, selectedDays, isLoading, isSent } = this.state;
     let schedule = (orgData && orgData.locations && orgData.locations[0]) ? orgData.locations[0].schedule : {}
     let name = (orgData && orgData.name) ? orgData.name:''
     let website = (orgData && orgData.website) ? orgData.website:''
@@ -193,8 +236,11 @@ class OrgSettings extends React.Component {
               onChange={this.handleChange}/>
 
             <OrgSettingsHour 
-              schedule={schedule} 
-              onChange={this.handleChange}/>
+              schedule={schedule}
+              selectedDays={selectedDays}
+              onChange={this.handleChange}
+              onSelect={this.handleSelect}
+              />
             
             {!isSent? (
               <div>
