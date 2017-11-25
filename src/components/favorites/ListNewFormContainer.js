@@ -35,13 +35,6 @@ class ListNewFormContainer extends React.Component {
       title: name,
     };
     createList(payload, session)
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
       .then(data => {
         const {
           handleListAddFavorite,
@@ -58,12 +51,8 @@ class ListNewFormContainer extends React.Component {
         );
         if (origin === 'saveToFavorites') {
           createListFavorite(data.collection.id, originList, session)
-            .then(response => {
-              if (response.status === 200) {
-                handleListAddFavorite(data.collection.id, parseInt(originList));
-              } else {
-                Promise.reject(response);
-              }
+            .then(() => {
+              handleListAddFavorite(data.collection.id, parseInt(originList));
             })
             .catch(error => {
               console.warn(error);

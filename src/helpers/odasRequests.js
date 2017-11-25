@@ -2,6 +2,12 @@ import config from '../config/config.js';
 import 'whatwg-fetch';
 
 // One Degree Application Server
+
+// IMPORTANT NOTE:
+// All requests using session authorization must check for response status 403,
+// which indicates that the session token must be reconfirmed with
+// the confirmSession function through the PasswordForm component
+
 const odas = config[process.env.OD_API_ENV].odas;
 
 const headers = (session = null) => ({
@@ -9,6 +15,32 @@ const headers = (session = null) => ({
   'Content-Type': 'application/json',
   OneDegreeSource: 'asylumconnect',
 });
+
+function checkStatus(response) {
+  if ( response.status >= 200 && response.status < 300) {
+    return response
+  } else {
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
+  }
+}
+
+function parseJSON(response) {
+  return (
+    response.headers.get('content-type') &&
+    response.headers.get('content-type').includes('application/json')
+  ) ? response.json()
+    : null;
+}
+
+function handleFetch(url, options) {
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(data => data)
+    .catch(error => { throw error; })
+}
 
 export const confirmSession = (password, session) => {
   const url = `${odas}api/session/confirm`;
@@ -18,13 +50,13 @@ export const confirmSession = (password, session) => {
     headers: headers(session),
     body: JSON.stringify(payload),
   };
-  return fetch(url, options);
+  return handleFetch(url, options);
 };
 
 export const fetchUserLists = session => {
   const url = `${odas}api/account/collections/all`;
   const options = {headers: headers(session)};
-  return fetch(url, options);
+  return handleFetch(url, options);
 };
 
 export const createList = (payload, session) => {
@@ -39,7 +71,7 @@ export const createList = (payload, session) => {
       }),
     ),
   };
-  return fetch(url, options);
+  return handleFetch(url, options);
 };
 
 export const createListFavorite = (listId, resourceId, session) => {
@@ -53,7 +85,7 @@ export const createListFavorite = (listId, resourceId, session) => {
     headers: headers(session),
     body: JSON.stringify(payload),
   };
-  return fetch(url, options);
+  return handleFetch(url, options);
 };
 
 export const deleteListFavorite = (listId, resourceId, session) => {
@@ -62,5 +94,5 @@ export const deleteListFavorite = (listId, resourceId, session) => {
     method: 'DELETE',
     headers: headers(session),
   };
-  return fetch(url, options);
+  return handleFetch(url, options);
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
-import {fetchUserLists, deleteListFavorite} from '../../helpers/odasRequests';
+import {deleteListFavorite} from '../../helpers/odasRequests';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
@@ -110,15 +110,13 @@ class FavoritesListContainer extends React.Component {
     const {session} = this.props;
 
     deleteListFavorite(listId, resourceId, session)
-      .then(response => {
-        if (response.status === 200) {
-          this.setState(prevState => ({
-            resources: prevState.resources.filter(resource => resource.id !== resourceId)
-          }))
-          this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
-        } else {
-          Promise.reject(response);
-        }
+      .then(() => {
+        this.setState(prevState => ({
+          resources: prevState.resources.filter(
+            resource => resource.id !== resourceId
+          )
+        }))
+        this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
       })
       .catch(error => {
         console.warn(error);

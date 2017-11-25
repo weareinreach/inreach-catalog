@@ -72,18 +72,11 @@ export default function withSession(WrappedComponent) {
 
     fetchLists(session) {
       fetchUserLists(session)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(response);
-          }
-        })
         .then(data => {
-          this.setState({lists: data.collections});
+          this.setState({lists: data ? data.collections : []});
         })
-        .catch(response => {
-          console.warn(response);
+        .catch(error => {
+          this.handleLogOut();
         });
     }
 

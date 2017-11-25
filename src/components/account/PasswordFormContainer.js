@@ -29,19 +29,16 @@ class PasswordFormContainer extends React.Component {
     const {handleMessageNew, handleRequestClose, session} = this.props;
     confirmSession(this.state.password, session)
       .then(response => {
-        if (response.status === 200) {
-          handleMessageNew('Password Confirmed');
-          handleRequestClose();
-        } else if (response.status === 401) {
-          handleMessageNew('The password you entered was incorrect.');
-        } else {
-          return Promise.reject(response);
-        }
+        handleMessageNew('Password Confirmed');
+        handleRequestClose();
       })
       .catch(error => {
-        handleMessageNew('Oops! Something went wrong.');
-        console.warn(error);
-      });
+        if (response.error.status === 401) {
+          handleMessageNew('The password you entered was incorrect.');
+        } else {
+          handleMessageNew('Oops! Something went wrong.');
+        }
+      })
   }
 
   render() {

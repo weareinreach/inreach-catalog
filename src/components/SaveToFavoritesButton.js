@@ -46,18 +46,12 @@ class SaveToFavoritesButton extends React.Component {
   }
 
   handleCreateList(currentTarget) {
+    const {session, user} = this.props;
     const payload = {
-      created_by_user_id: this.props.user,
+      created_by_user_id: user,
       title: 'My List',
     };
-    createList(payload, this.props.session)
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
+    createList(payload, session)
       .then(data => {
         this.props.handleListNew(
           Object.assign({}, payload, data.collection, {
@@ -68,7 +62,11 @@ class SaveToFavoritesButton extends React.Component {
         this.setState({open: true, anchorEl: currentTarget});
       })
       .catch(error => {
-        console.warn(error);
+        if (error.response && error.response.status === 403) {
+          this.handleRequestOpen('password');
+        } else {
+          console.warn(error);
+        }
       });
   }
 
@@ -89,14 +87,10 @@ class SaveToFavoritesButton extends React.Component {
 
   handleRemoveFavorite(listId) {
     this.handleMenuClose();
-    const {resourceId, session} = this.props;
+    const {handleListRemoveFavorite, resourceId, session} = this.props;
     deleteListFavorite(listId, resourceId, session)
-      .then(response => {
-        if (response.status === 200) {
-          this.props.handleListRemoveFavorite(listId, resourceId);
-        } else {
-          Promise.reject(response);
-        }
+      .then(() => {
+        handleListRemoveFavorite(listId, resourceId);
       })
       .catch(error => {
         console.warn(error);
@@ -107,12 +101,8 @@ class SaveToFavoritesButton extends React.Component {
     this.handleMenuClose();
     const {resourceId, session} = this.props;
     createListFavorite(listId, resourceId, session)
-      .then(response => {
-        if (response.status === 200) {
-          this.props.handleListAddFavorite(listId, this.props.resourceId);
-        } else {
-          Promise.reject(response);
-        }
+      .then(() => {
+        this.props.handleListAddFavorite(listId, this.props.resourceId);
       })
       .catch(error => {
         console.warn(error);
