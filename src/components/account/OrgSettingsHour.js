@@ -106,13 +106,13 @@ class OrgSettingsHour extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
     this.handleToggleDay = this.handleToggleDay.bind(this)
+    this.autoSelect = this.autoSelect.bind(this)
   }
   handleToggleDropDown() {
     this.setState({ open: !this.state.open });
   }
   handleToggleDay(e) {
     const { value } = e.target;
-    console.log(e.target)
     this.setState({
       [value]: !this.state[value],
     })
@@ -120,13 +120,12 @@ class OrgSettingsHour extends React.Component {
   handleChange(e) {
     const { name, value } = e.target;
     const newHourData = update(this.state.hourData, {$merge:{[name]: value}});
-    console.log(newHourData)
     this.setState({hourData: newHourData})
-    if(value=='  :  -  :  '){
-      this.setState({[name]: false})
-    } else {
-      this.setState({[name]: true})
-    }
+  }
+  autoSelect(e) {
+    const { name, value } = e.target;
+    const checkbox = name.split('_')[0]
+    this.setState({[checkbox]: true})
   }
   componentWillReceiveProps(nextProps){
     if (nextProps.isRequested) {
@@ -148,22 +147,24 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox label='Monday' value='monday' onChange={this.handleToggleDay} checked={this.state.monday} />
               <div className={classes.textField}>
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="monday_start"
                   defaultValue={hourData.monday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="monday_end"
                   defaultValue={hourData.monday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
               </div>
             </div>
@@ -171,91 +172,99 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox label='Tuesday' value='tuesday' onChange={this.handleToggleDay} checked={this.state.tuesday} />
               <div className={classes.textField}>
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="tuesday_start"
                   defaultValue={hourData.tuesday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="tuesday_end"
                   defaultValue={hourData.tuesday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
               </div>
             </div>
             <div className={classes.formControl}>
               <AsylumConnectCheckbox label='Wednesday' value='wednesday' onChange={this.handleToggleDay} checked={this.state.wednesday} />
               <div className={classes.textField}>
-              <TextField
-                type="time"
-                name="wednesday_start"
-                defaultValue={hourData.wednesday_start}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={this.handleChange}
-              />
-              <TextField
-                type="time"
-                name="wednesday_end"
-                defaultValue={hourData.wednesday_end}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={this.handleChange}
-              />
+                <TextField
+                  type= 'time'
+                  name="wednesday_start"
+                  defaultValue={hourData.wednesday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
+                />
+                <TextField
+                  type= 'time'
+                  name="wednesday_end"
+                  defaultValue={hourData.wednesday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
+                />
             </div>
             </div>
             <div className={classes.formControl}>
-            <AsylumConnectCheckbox label='Thursday' value='thursday' onChange={this.handleToggleDay} checked={this.state.thursday} />
-            <div className={classes.textField}>
-            <TextField
-              type="time"
-              name="thursday_start"
-              defaultValue={hourData.thursday_start}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={this.handleChange}
-            />
-            <TextField
-              type="time"
-              name="thursday_end"
-              defaultValue={hourData.thursday_end}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={this.handleChange}
-            />
-          </div>
+              <AsylumConnectCheckbox label='Thursday' value='thursday' onChange={this.handleToggleDay} checked={this.state.thursday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="thursday_start"
+                  defaultValue={hourData.thursday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
+                />
+                <TextField
+                  type= 'time'
+                  name="thursday_end"
+                  defaultValue={hourData.thursday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
+                />
+              </div>
             </div>
             <div className={classes.formControl}>
               <AsylumConnectCheckbox label='Friday' value='friday' onChange={this.handleToggleDay} checked={this.state.friday} />
               <div className={classes.textField}>
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="friday_start"
                   defaultValue={hourData.friday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="friday_end"
                   defaultValue={hourData.friday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
               </div>
             </div>
@@ -263,22 +272,24 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox label='Saturday' value='saturday' onChange={this.handleToggleDay} checked={this.state.saturday} />
               <div className={classes.textField}>
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="saturday_start"
                   defaultValue={hourData.saturday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="saturday_end"
                   defaultValue={hourData.saturday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
               </div>
             </div>
@@ -286,16 +297,17 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox label='Sunday' value='sunday' onChange={this.handleToggleDay} checked={this.state.sunday} />
               <div className={classes.textField}>
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="sunday_start"
                   defaultValue={hourData.sunday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={this.handleChange}
+                  onKeyUp={this.autoSelect}
                 />
                 <TextField
-                  type="time"
+                  type= 'time'
                   name="sunday_end"
                   defaultValue={hourData.sunday_end}
                   InputLabelProps={{

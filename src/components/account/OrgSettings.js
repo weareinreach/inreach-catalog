@@ -75,6 +75,7 @@ class OrgSettings extends React.Component {
       isInfoRequested: false,
       isAdditionalRequested: false,
       isPendingSubmission: false,
+      isSent: false,
       orgData: null,
       schedule: null,
       info: null,
@@ -86,7 +87,7 @@ class OrgSettings extends React.Component {
     this.submitOrgData = this.submitOrgData.bind(this)
   }
 
-  componentDidMount(){    
+  componentDidMount(){
     var jwt = localStorage.getItem("jwt");
     const { user } = this.props;
     const apiDomain = config[process.env.OD_API_ENV].odrs;
@@ -205,9 +206,9 @@ class OrgSettings extends React.Component {
       "submission": {
         "resource_id": orgData.id,
         "resource_type": "Organization",
-        "client_user_id": user.id, // Arbitrary
+        "client_user_id": user.id,
         "content": JSON.stringify(content),
-        "submitter_type": "PublicForm"  // Arbitrary
+        "submitter_type": "PublicForm"
       }
     }
     fetch(window.location.origin+'/api/submissions', 
@@ -220,7 +221,8 @@ class OrgSettings extends React.Component {
     })
     .then(response => {
       if (response.status === 200) {
-            handleMessageNew('Your information has been submitted for reviewing.');
+        this.setState({isSent: true})
+        handleMessageNew('Your information has been submitted for reviewing.');
       } else {
         handleMessageNew('Oops! Something went wrong.');
       }
@@ -229,12 +231,12 @@ class OrgSettings extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const { isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional } = this.state;
+    const { isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional, isSent } = this.state;
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Organization</Typography>
         {isPendingSubmission? (
-          <div className={classes.note}><Typography type='body1'>We are still reviewing your recent edits. Below reflects your latest changes, and once we confirm them, they will be live on the site in 1-3 days.</Typography></div>
+          <div className={classes.note}><Typography type='body1'>We are still reviewing your recent edits. Below reflects the current live data on the site, and once we confirm your requested changes, they will be live on the site in 1-3 days.</Typography></div>
         ):('')}
         {info? (
           <OrgSettingsInfo initialData={info} isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
@@ -244,11 +246,16 @@ class OrgSettings extends React.Component {
           <OrgSettingsHour initialData={schedule} isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
           ):(' ')
         }
-        <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
-        <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
-        <div className={classes.settingsTypeFont}>
-          <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a>catalog@asylumconnect.org</a>.</span>
-        </div>
+        {!isSent? (
+          <div>
+            <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
+            <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
+          </div>
+        ):(
+          <div className={classes.settingsTypeFont}>
+            <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <Typography type='body1'><strong>catalog@asylumconnect.org</strong></Typography>.</span>
+          </div>
+        )}        
       </div>
     )
   }
