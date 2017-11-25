@@ -7,10 +7,13 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
+  accountNav: {
+    display: "flex",
+    flex: "0 0 200px"
+  },
   root: {
     display: 'flex',
-    padding: '0 5 0',
-    flex: "0 0 200px"
+    padding: '0 5px 0',
   },
   accountLinks: {
     padding: '5px 10px'
@@ -34,8 +37,9 @@ const AccountNav = ({
   handleLogOut,
   handleRequestOpen,
 }) => (
-  <div>
-
+  <div
+    className={classes.accountNav}
+    >
     {session && (
       <div className={classes.root}>
         <Link
