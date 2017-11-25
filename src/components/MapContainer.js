@@ -326,11 +326,6 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const mapProps = {};
-    /*if(this.state.mapCenter) {
-      mapProps.center = this.state.mapCenter;
-      mapProps.zoom = 8;
-    }*/
     var mapResources = [];
     if(this.state.searchResults || this.state.selectedResource) {
       switch(this.props.match.path) {
