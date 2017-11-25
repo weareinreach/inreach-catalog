@@ -1,5 +1,7 @@
 import React from 'react';
 
+import detectPrint from "react-detect-print";
+
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
@@ -147,6 +149,7 @@ class SearchResultsContainer extends React.Component {
       user: this.props.user
     };
     const isMobile = this.props.width < breakpoints['sm'];
+    console.log(this.props.printing);
     return (
       <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
         <Grid item md={11} lg={11} xs={12}>
@@ -208,4 +211,4 @@ class SearchResultsContainer extends React.Component {
 }
 
 
-export default withWidth(withStyles(styles)(SearchResultsContainer));
+export default detectPrint(withWidth(withStyles(styles)(SearchResultsContainer)));
