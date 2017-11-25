@@ -22,19 +22,63 @@ const styles = (theme) => ({
 class RatingControl extends React.Component {
   constructor(props, context) {
     super(props, context)
-    this.ratingArray = [];
-    for(let i = 1; i <= maxRating; i++) {
-      this.ratingArray.push(this.props.rating >= i);
+
+    this.state = {
+      rating: this.updateIcons(props.rating),
+      selectedRating: props.rating
+    };
+
+    this.handleStarHover = this.handleStarHover.bind(this);
+    this.handleStarOut = this.handleStarOut.bind(this);
+  }
+
+  handleStarHover(index) {
+    if(this.props.mode !== 'interactive') return;
+    this.setState({
+      rating: this.updateIcons(index+1)
+    })
+  }
+
+  handleStarOut(index) {
+    if(this.props.mode !== 'interactive') return;
+    this.setState({
+      rating: this.updateIcons(this.state.selectedRating)
+    })
+  }
+
+  handleStarSelect(index) {
+    if(this.props.mode !== 'interactive') return;
+    this.setState({
+      rating: this.updateIcons(index+1),
+      selectedRating: index+1
+    });
+    
+    if(typeof this.props.onClick === 'function') {
+      this.props.onClick(index+1);
     }
   }
+
+  updateIcons(rating) {
+    let ratingArray = []
+    for(let i = 1; i <= maxRating; i++) {
+      ratingArray.push(rating >= i);
+    }
+    return ratingArray;
+  }
+
 
   render() {
     const { classes, mode, className } = this.props;
     return (
       <span className={className + " center-align"}>
-        {this.ratingArray.map((item, index) => {
+        {this.state.rating.map((item, index) => {
           return (
-            <StarRateIcon key={index} className={(item ? classes[mode] : classes.unfilled)} />
+            <StarRateIcon 
+              key={index} 
+              onMouseOver={(ev) => {this.handleStarHover(index)}} 
+              onMouseOut={(ev) => {this.handleStarOut(index)}} 
+              onClick={(ev) => {this.handleStarSelect(index)}}
+              className={(item ? classes[mode] : classes.unfilled)} />
           );
         })}
       </span>

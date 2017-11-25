@@ -24,6 +24,7 @@ import ACBadge from '../Badge';
 
 import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
+import ReviewForm from './ReviewForm';
 import RatingAndReviews from './RatingAndReviews';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
@@ -98,16 +99,6 @@ const styles = (theme) => ({
   serviceTooltip: {
     top: "6px"
   },
-  ratingSpacing: {
-    marginRight: "1rem"
-  },
-  reviewField: {
-    width: "100%",
-    padding: "1rem",
-    fontSize: "0.9rem",
-    height: "25%",
-    border: "1px solid "+theme.palette.common.darkGrey
-  },
   boldFont: boldFont(theme),
   italicFont: italicFont(theme),
   moreInfo: Object.assign({
@@ -134,6 +125,9 @@ const styles = (theme) => ({
     },
     mobileSpacing: {
       marginTop: "1.5rem"
+    },
+    reviewField: {
+      height: "15%"
     }
   },
   dialogBody: {
@@ -149,44 +143,6 @@ const styles = (theme) => ({
     paddingRight: '0',
   }
 });
-
-
-
-const ReviewForm = ({classes, isMobile}) => (
-  <Grid container spacing={0}>
-    <Grid item xs={12}>
-      <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-        Leave a review
-      </Typography>
-    </Grid>
-    <Grid item xs={12}>
-      <RatingControl mode="interactive" className={classes.bottomSpacing+' '+classes.ratingSpacing}/>
-      <Typography type="body2" className={"center-align "+classes.bottomSpacing}>
-        <span className={classes.boldFont}>Rate this resource </span> {isMobile ? null : '(your rating will not be recorded until you hit "submit" below)'}
-      </Typography>
-    </Grid>
-    {isMobile ? null : 
-    <Grid item xs={12}>
-      <Typography type="body2" className={classes.italicFont+' '+classes.bottomSpacing}>
-        Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.
-      </Typography>
-    </Grid>
-    }
-    <Grid item xs={12}>
-      <textarea className={classes.reviewField+' '+classes.bottomSpacing} placeholder="Start typing your review..." name="comment" />
-    </Grid>
-    <Grid item xs={12} className={classes.dividerSpacing}>
-      <AsylumConnectButton variant="primary" onClick={() => {}} >
-        Submit
-      </AsylumConnectButton>
-    </Grid>
-    <Grid item xs={12}>
-      <Divider className={classes.dividerSpacing} />
-    </Grid>
-  </Grid>
-);
-
-
 
 const ResourceHeader = ({classes, resource, isMobile}) => (
   <Grid container spacing={0} alignItems='center'>
@@ -227,10 +183,10 @@ const HeaderTabs = (props) => (
 
 const Tools = (props) => (
   <Grid container spacing={0} alignItems='center' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
-    <Grid item xs={12} sm={5} md={5} lg={5}>
+    <Grid item xs={12} sm={12} md={5} lg={5}>
       <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
     </Grid>
-    <Grid item xs={12} sm={7} className="pull-right">
+    <Grid item xs={12} sm={12} md={7} className="pull-right">
       <div className="center-align">
         <SaveToFavoritesButton
           handleListAddFavorite={props.handleListAddFavorite}
@@ -440,7 +396,7 @@ class Resource extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
-        <Grid item md={10} lg={9} xs={12}>
+        <Grid item xs={12} sm={10} md={10} lg={9} >
           { this.state.orgLoading ? <Loading /> :
           <div> {/******* MOBILE *******/}
             {isMobile ?
@@ -498,10 +454,7 @@ class Resource extends React.Component {
                   </div>
                   <div className={classes.mobileSpacing}>
                     {session || true ? 
-                      <ReviewForm 
-                        classes={classes}
-                        isMobile={isMobile}
-                      />
+                      <ReviewForm />
                     : null}
                     <Reviews
                       orgReviews={this.state.reviewList.organization}
@@ -548,9 +501,7 @@ class Resource extends React.Component {
                 </Grid>
               </Grid>
               {session || true ? 
-                <ReviewForm 
-                  classes={classes}
-                />
+                <ReviewForm />
               : null}
               <Reviews
                 orgReviews={this.state.reviewList.organization}
