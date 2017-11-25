@@ -64,21 +64,18 @@ class OrgSettingsInfo extends React.Component {
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  componentWillReceiveProps(nextProps){
-    if (nextProps.isRequested) {
-      const { phone, name, description, address, website,  city, state, zip_code, region } = this.state;
-      let data = {phone: phone == '(  )   -   '? '':phone, name, description, address, website, city, state, zip_code, region};
-      this.props.handleCollectInfoData(data)
+    if (['name','website','description','region'].includes(name)) {
+      this.props.onChange('info', name, value)
+    } else if (name === 'digits'){
+      this.props.onChange('phones', name, value)
+    } else {
+      this.props.onChange('address', name, value)
     }
-  }
+    
+  };
   render() {
-    const { classes, isSuggestion } = this.props;
-    const { phone, description, address, website, name, target, region, city, state, zip_code } = this.state;
+    const { classes, isSuggestion, name, website, region, description, address } = this.props;
+    const { digits } = address.phones && address.phones[0] ? address.phones[0]: '(   )   -   '
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -136,8 +133,8 @@ class OrgSettingsInfo extends React.Component {
               children='Phone number:'
               shrink />
             <Input
-              name='phone'
-              value={phone}
+              name='digits'
+              value={digits}
               inputComponent={TextMaskCustom}
               onChange={this.handleChange}
             />
@@ -146,7 +143,7 @@ class OrgSettingsInfo extends React.Component {
             className={classes.inputLabel}
             label='Address:'
             name='address'
-            value={address}
+            value={address.address}
             InputLabelProps={{
               shrink: true,
             }}
@@ -168,7 +165,7 @@ class OrgSettingsInfo extends React.Component {
             className={classes.inputLabel}
             label='City:'
             name='city'
-            value={city}
+            value={address.city?address.city:''}
             InputLabelProps={{
               shrink: true,
             }}
@@ -179,7 +176,7 @@ class OrgSettingsInfo extends React.Component {
             className={classes.inputLabel}
             label='State:'
             name='state'
-            value={state}
+            value={address.state?address.state:''}
             InputLabelProps={{
               shrink: true,
             }}
@@ -190,7 +187,7 @@ class OrgSettingsInfo extends React.Component {
             className={classes.inputLabel}
             label='Zip code:'
             name='zip_code'
-            value={zip_code}
+            value={address.zip_code?address.zip_code:''}
             InputLabelProps={{
               shrink: true,
             }}

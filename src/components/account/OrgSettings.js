@@ -71,21 +71,12 @@ class OrgSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isInitial: true,
       isLoading: true,
-      isScheduleRequested: false,
-      isInfoRequested: false,
-      isAdditionalRequested: false,
-      isPendingSubmission: false,
       isSent: false,
-      orgData: null,
-      schedule: null,
-      info: null,
-      additional: null
+      orgData: {},
     }
+    this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.collectHourData = this.collectHourData.bind(this)
-    this.collectInfoData = this.collectInfoData.bind(this)
     this.submitOrgData = this.submitOrgData.bind(this)
   }
 
@@ -101,22 +92,25 @@ class OrgSettings extends React.Component {
       if (response.ok) {
         response.json()
         .then((orgData) => {
-          let isPendingSubmission = orgData.has_pending_submission
-          let info = {
-            name: orgData.name,
-            description: orgData.description? orgData.description:'',
-            website: orgData.website? orgData.website:'',
-            address: orgData.locations ? orgData.locations[0].address:'',
-            region: orgData.region? orgData.region:'',
-            city: orgData.locations? orgData.locations[0].city:'',
-            state: orgData.locations? orgData.locations[0].state:'',
-            phone: orgData.phones && orgData.phones[0]? orgData.phones[0].digits : '',
-          };
-          let schedule = orgData.locations && orgData.locations[0].schedule ? orgData.locations[0].schedule : defaultSchedule;
-          let additional = {
-            resource: orgData.tag? orgData.tag:''
-          }
-          this.setState({ orgData, isPendingSubmission, info, schedule, additional})
+          orgData.properties = [
+            {
+                "name": "approval-asylumconnect",
+                "value": "false"
+            },
+            {
+                "name": "source-name",
+                "value": "asylumconnect"
+            },
+            {
+                "name": "community-asylum-seeker",
+                "value": "true"
+            },
+            {
+                "name": "community-lgbt",
+                "value": "true"
+            }
+          ]
+          this.setState({ orgData })
           this.setState({isLoading: false})
         })        
       } else {
@@ -127,96 +121,31 @@ class OrgSettings extends React.Component {
       handleMessageNew('Oops! Something went wrong. Error:' + error);
     })    
   }
-
-  handleClick(){
-    // start collecting data
-    this.setState({isInitial: false, isScheduleRequested: true, isInfoRequested: true})    
-  }
-  collectHourData(schedule){
-    this.setState({schedule})
-    this.setState({isScheduleRequested:false})
-  }
-  collectInfoData(info){
-    this.setState({info})
-    this.setState({isInfoRequested:false})
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.schedule !== this.state.schedule && prevState.isScheduleRequested){  
-      this.setState({isScheduleRequested:false})
-    } else if (prevState.info !== this.state.info && prevState.isInfoRequested){  
-      this.setState({isInfoRequested:false})
-    } else if (prevState.additional !== this.state.additional && prevState.isAdditionalRequested){  
-      this.setState({isAdditionalRequested:false})
-    } else if(
-              !this.state.isScheduleRequested && 
-              !this.state.isInfoRequested && 
-              !this.state.isAdditionalRequested &&
-              !this.state.isInitial) {
-      this.submitOrgData();
+  handleChange(parent, name, value){
+    const { orgData } = this.state
+    let updatedOrgData
+    if (parent === 'schedule') {
+      updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge:{[name]: value}} }}})
+    } else if (parent === 'address') {
+      updatedOrgData = update(orgData, {locations: { 0: {$merge:{[name]: value}} }})
+    } else if (parent === 'phones'){
+      updatedOrgData = update(orgData, {locations: { 0: {phones: { 0: {$merge:{[name]: value}} }}}})
+    } else {
+      updatedOrgData = update(orgData,{$merge:{[name]: value}})
     }
+    console.log(updatedOrgData)
+    this.setState({ orgData: updatedOrgData })
   }
-  submitOrgData(){
-    const {orgData, info, schedule, additional} = this.state;
+  handleClick(){
+    const {orgData} = this.state;
     const {user, handleMessageNew} = this.props;
-    const content = {
-      "name": orgData.name,
-      "website": info.website,
-      "region": info.region,
-      "description": info.description,
-      "tags": [
-      ],
-      "properties": [
-        {
-            "name": "approval-asylumconnect",
-            "value": "false"
-        },
-        {
-            "name": "source-name",
-            "value": "asylumconnect"
-        },
-        {
-            "name": "community-asylum-seeker",
-            "value": "true"
-        },
-        {
-            "name": "community-lgbt",
-            "value": "true"
-        }
-      ],
-      "locations": [
-          {
-              "name": "Primary Location",
-              "address": info.address,
-              "unit": orgData.locations[0].unit,
-              "city": info.city,
-              "state": info.state,
-              "zip_code": info.zip_code,
-              "is_primary": true,
-              "phones": [
-                  {
-                      "digits": info.phone,
-                      "phone_type": "Office",
-                      "is_primary": true
-                  }
-              ],
-              "schedule": schedule
-          }
-      ],
-      "phones": [
-          {
-              "digits": info.phone,
-              "phone_type": "Office",
-              "is_primary": true
-          }
-      ]
-    }        
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
       "submission": {
         "resource_id": orgData.id,
         "resource_type": "Organization",
         "client_user_id": user.id,
-        "content": JSON.stringify(content),
+        "content": JSON.stringify(orgData),
         "submitter_type": "PublicForm"
       }
     }
@@ -236,27 +165,37 @@ class OrgSettings extends React.Component {
         handleMessageNew('Oops! Something went wrong.');
       }
     })
-    this.setState({isInitial: true})
   }
   render() {
     const { classes } = this.props;
-    const { isLoading, isInfoRequested, isScheduleRequested , isAdditionalRequested, isPendingSubmission, info, schedule, additional, isSent } = this.state;
+    const { orgData, isLoading, isSent } = this.state;
+    let schedule = (orgData && orgData.locations && orgData.locations[0]) ? orgData.locations[0].schedule : {}
+    let name = (orgData && orgData.name) ? orgData.name:''
+    let website = (orgData && orgData.website) ? orgData.website:''
+    let region = (orgData && orgData.region) ? orgData.region:''
+    let description = (orgData && orgData.description) ? orgData.description:''
+    let address = (orgData && orgData.locations && orgData.locations[0]) ? orgData.locations[0]: {}
     return (
       <div className={classes.root}>
         <Typography type="display3" className={classes.formType}>Your Organization</Typography>
         {isLoading? (<Loading />):(
           <div>
-            {isPendingSubmission? (
+            {orgData.has_pending_submission? (
               <div className={classes.note}><Typography type='body1'>We are still reviewing your recent edits. Below reflects the current live data on the site, and once we confirm your requested changes, they will be live on the site in 1-3 days.</Typography></div>
             ):('')}
-            {info? (
-              <OrgSettingsInfo initialData={info} isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData}/>
-              ):(' ')
-            }
-            {schedule? (
-              <OrgSettingsHour initialData={schedule} isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
-              ):(' ')
-            }
+
+            <OrgSettingsInfo 
+              name={name} 
+              website={website}
+              region={region}
+              description={description}
+              address={address}
+              onChange={this.handleChange}/>
+
+            <OrgSettingsHour 
+              schedule={schedule} 
+              onChange={this.handleChange}/>
+            
             {!isSent? (
               <div>
                 <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
@@ -279,9 +218,3 @@ OrgSettings.propTypes = {
 };
 
 export default withStyles(styles)(OrgSettings);
-
-// 
-// {additional? (
-//   <OrgSettingsAdditional isRequested={isAdditionalRequested}  handleCollectAdditionalData={this.collectAdditionaldata}/>
-// ):(' ')
-// } 

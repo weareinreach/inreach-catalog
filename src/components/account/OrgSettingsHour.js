@@ -75,33 +75,16 @@ const styles = theme => ({
 class OrgSettingsHour extends React.Component {
   constructor(props) {
     super(props);
-    const {initialData} = this.props
+    const {schedule} = this.props
     this.state = {
       open: true,
-      monday: (initialData && (initialData.monday_start || initialData.monday_end))? true:false,
-      tuesday: (initialData && (initialData.tuesday_start || initialData.tuesday_end))? true:false,
-      wednesday: (initialData && (initialData.wednesday_start || initialData.wednesday_end))? true:false,
-      thursday: (initialData && (initialData.thursday_start || initialData.thursday_end))? true:false,
-      friday: (initialData && (initialData.friday_start || initialData.friday_end))? true:false,
-      saturday: (initialData && (initialData.saturday_start || initialData.saturday_end))? true:false,
-      sunday: (initialData && (initialData.sunday_start || initialData.sunday_end))? true:false,
-      hourData: {        
-        monday_start: initialData.monday_start, 
-        monday_end: initialData.monday_end,        
-        tuesday_start:  initialData.tuesday_start,
-        tuesday_end: initialData.tuesday_end ,        
-        wednesday_start:  initialData.wednesday_start,
-        wednesday_end: initialData.wednesday_end ,  
-        thursday_start:  initialData.thursday_start,
-        thursday_end: initialData.thursday_end ,   
-        friday_start:  initialData.friday_start,
-        friday_end: initialData.friday_end ,        
-        saturday_start:  initialData.saturday_start,
-        saturday_end: initialData.saturday_end ,  
-        sunday_start:  initialData.sunday_start,
-        sunday_end: initialData.sunday_end ,
-        notes: initialData && initialData.notes ? initialData.notes:'',
-      }      
+      monday: (schedule && (schedule.monday_start || schedule.monday_end))? true:false,
+      tuesday: (schedule && (schedule.tuesday_start || schedule.tuesday_end))? true:false,
+      wednesday: (schedule && (schedule.wednesday_start || schedule.wednesday_end))? true:false,
+      thursday: (schedule && (schedule.thursday_start || schedule.thursday_end))? true:false,
+      friday: (schedule && (schedule.friday_start || schedule.friday_end))? true:false,
+      saturday: (schedule && (schedule.saturday_start || schedule.saturday_end))? true:false,
+      sunday: (schedule && (schedule.sunday_start || schedule.sunday_end))? true:false,
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
@@ -119,21 +102,16 @@ class OrgSettingsHour extends React.Component {
   }
   handleChange(e) {
     const { name, value } = e.target;
-    const newHourData = update(this.state.hourData, {$merge:{[name]: value}});
-    this.setState({hourData: newHourData})
+    const day = name.split('_')[0];
+    this.props.onChange('schedule', name, value)
   }
   autoSelect(e) {
     const { name, value } = e.target;
     const checkbox = name.split('_')[0]
     this.setState({[checkbox]: true})
   }
-  componentWillReceiveProps(nextProps){
-    if (nextProps.isRequested) {
-      this.props.handleCollectHourData(this.state.hourData)
-    }
-  }
   render() {
-    const { classes } = this.props;
+    const { classes, schedule } = this.props;
     const { hourData } = this.state;
     return (
       <div className={classes.root}>
@@ -149,7 +127,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="monday_start"
-                  defaultValue={hourData.monday_start}
+                  defaultValue={schedule.monday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -159,7 +137,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="monday_end"
-                  defaultValue={hourData.monday_end}
+                  defaultValue={schedule.monday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -174,7 +152,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="tuesday_start"
-                  defaultValue={hourData.tuesday_start}
+                  defaultValue={schedule.tuesday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -184,7 +162,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="tuesday_end"
-                  defaultValue={hourData.tuesday_end}
+                  defaultValue={schedule.tuesday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -199,7 +177,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="wednesday_start"
-                  defaultValue={hourData.wednesday_start}
+                  defaultValue={schedule.wednesday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -209,7 +187,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="wednesday_end"
-                  defaultValue={hourData.wednesday_end}
+                  defaultValue={schedule.wednesday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -224,7 +202,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="thursday_start"
-                  defaultValue={hourData.thursday_start}
+                  defaultValue={schedule.thursday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -234,7 +212,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="thursday_end"
-                  defaultValue={hourData.thursday_end}
+                  defaultValue={schedule.thursday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -249,7 +227,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="friday_start"
-                  defaultValue={hourData.friday_start}
+                  defaultValue={schedule.friday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -259,7 +237,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="friday_end"
-                  defaultValue={hourData.friday_end}
+                  defaultValue={schedule.friday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -274,7 +252,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="saturday_start"
-                  defaultValue={hourData.saturday_start}
+                  defaultValue={schedule.saturday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -284,7 +262,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="saturday_end"
-                  defaultValue={hourData.saturday_end}
+                  defaultValue={schedule.saturday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -299,7 +277,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="sunday_start"
-                  defaultValue={hourData.sunday_start}
+                  defaultValue={schedule.sunday_start}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -309,7 +287,7 @@ class OrgSettingsHour extends React.Component {
                 <TextField
                   type= 'time'
                   name="sunday_end"
-                  defaultValue={hourData.sunday_end}
+                  defaultValue={schedule.sunday_end}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -320,7 +298,7 @@ class OrgSettingsHour extends React.Component {
             <TextField
               className={classes.inputLabel}
               label='Additional Information:'
-              defaultValue={hourData.notes}
+              defaultValue={schedule.notes}
               multiline={true}
               name='notes'
               InputLabelProps={{
