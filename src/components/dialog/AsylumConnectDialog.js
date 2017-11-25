@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
-import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
+import {ForgotDialog, LoginDialog, PasswordDialog, SignupDialog} from '../account';
 import ActionButton from '../ActionButton';
 import {ListNewDialog, ListShareDialog} from '../favorites';
 
