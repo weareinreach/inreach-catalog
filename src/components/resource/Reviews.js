@@ -62,7 +62,7 @@ const ReviewList = ({title, classes, list, acOnly}) => (
     </Typography>
     {list.filter(({client_id})=>(!acOnly || client_id==clientId)).length ? 
       list.filter(({client_id})=>(!acOnly || client_id==clientId)).map((review) => (
-        <Grid key={review.id} container spacing={0} className={classes.bottomSpacing}>
+        <Grid key={review.client_user_id} container spacing={0} className={classes.bottomSpacing}>
           <Grid item xs={12}>
             <ReviewType type={review.client_id == clientId ? 'AC' : 'OD' } classes={classes} />
           </Grid>

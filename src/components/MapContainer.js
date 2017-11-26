@@ -46,17 +46,17 @@ class MapContainer extends React.Component {
     this.state = {
       nearAddress: '',
       nearLatLng,
-      mapCenter: nearLatLng,
       searchStatus: null,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
       searching: false,
+      searchDisabled: false,
       searchResults: [],
       searchResultsIndex: [],
       searchResultSlugs: [],
       selectedResource: null,
-      lastSearch: null
+      lastSearch: null,
     }
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
@@ -112,15 +112,10 @@ class MapContainer extends React.Component {
   }
 
   handlePlaceSelect(address) {
-
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({
-        nearAddress: address,
-        nearLatLng: latLng
-      }))
-      .catch(error => console.error('Error', error))
-
+    this.setState({
+      nearAddress: address,
+      nearLatLng: null
+    });
   }
 
   handlePlaceChange(address) {
@@ -176,26 +171,51 @@ class MapContainer extends React.Component {
   }
 
   handleSearchButtonClick() {    
-    if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
+    /*if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
-    } 
+    } */
 
-    if(this.state.selectedResourceTypes.length == 0) {
+    /*if(this.state.selectedResourceTypes.length == 0) {
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
-    } 
-    
+    } */
+
     this.setState({
-      mapCenter: this.state.nearLatLng,
-      searchStatus: 'refresh'
+      searchDisabled: true
     });
 
-    var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+    geocodeByAddress(this.state.nearAddress)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        this.setState({
+          searchStatus: 'refresh',
+          nearLatLng: latLng,
+          searchDisabled: false
+        })
+        var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+        var latLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
+        var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
+        var sort = encodeURIComponent(this.state.selectedSort);
+        this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+
+      })
+      .catch(error => {
+        this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
+        console.error('Error', error)
+        this.setState({
+          searchDisabled: false
+        });
+        
+      })
+    
+    
+
+    /*var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
     var latLng = encodeURIComponent(this.state.nearLatLng.lat + ',' + this.state.nearLatLng.lng);
     var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
     var sort = encodeURIComponent(this.state.selectedSort);
-    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);*/
   }
 
   fetchSearchResults() {
@@ -270,14 +290,12 @@ class MapContainer extends React.Component {
       }
     }
 
-    if(params.for) {
+    if(params.for && params.for !== "any") {
       selectedResourceTypes = decodeURIComponent(params.for).split(',');
     }
 
-    if(params.filter) {
-      if(params.filter !== "all") {
-        selectedFilters = decodeURIComponent(params.filter).split(',');
-      }
+    if(params.filter && params.filter !== "all") {
+      selectedFilters = decodeURIComponent(params.filter).split(',');
     }
 
     if(params.sort) {
@@ -333,6 +351,7 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    searchDisabled={this.state.searchDisabled}
                      />} />
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (

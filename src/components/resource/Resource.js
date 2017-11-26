@@ -240,6 +240,7 @@ class Resource extends React.Component {
     this.handleResourceRequest = this.handleResourceRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleCommentRequest = this.handleCommentRequest.bind(this);
+    this.handleNewReview = this.handleNewReview.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
 
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
@@ -309,6 +310,14 @@ class Resource extends React.Component {
 
   handleDialogClose() {
     this.setState({dialog: 'none'});
+  }
+
+  handleNewReview({resourceType = 'organization', type, data } = {}) {
+    let reviewList = this.state.reviewList
+    reviewList[resourceType] = [data].concat(reviewList[resourceType].filter(comment => comment.client_user_id !== data.client_user_id));
+    this.setState({
+      reviewList: reviewList
+    });
   }
 
   getOpportunityReviews() {
@@ -453,8 +462,13 @@ class Resource extends React.Component {
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
-                    {session || true ? 
-                      <ReviewForm />
+                    {session ? 
+                      <ReviewForm 
+                        resource={resource}
+                        session={props.session}
+                        user={props.user}
+                        onSubmit={this.handleNewReview}
+                      />
                     : null}
                     <Reviews
                       orgReviews={this.state.reviewList.organization}
@@ -500,8 +514,13 @@ class Resource extends React.Component {
                   <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
                 </Grid>
               </Grid>
-              {session || true ? 
-                <ReviewForm />
+              {session ? 
+                <ReviewForm 
+                  resource={resource}
+                  session={props.session}
+                  user={props.user}
+                  onSubmit={this.handleNewReview}
+                />
               : null}
               <Reviews
                 orgReviews={this.state.reviewList.organization}

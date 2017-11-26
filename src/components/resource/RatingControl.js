@@ -10,6 +10,9 @@ const styles = (theme) => ({
   static: {
     color: theme.palette.primary[500]
   },
+  user: {
+    color: theme.palette.common.gold,
+  },
   interactive: {
     color: theme.palette.common.gold,
     cursor: 'pointer'

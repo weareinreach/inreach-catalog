@@ -61,6 +61,7 @@ const AsylumConnectCheckbox = (props) => {
       control={
         <Checkbox
           value={props.value}
+          name={props.name ? props.name : props.label}
           icon={<CheckBoxOutlineBlankIcon style={iconSize} />}
           checkedIcon={<CheckBoxIcon style={iconSize}/>}
           checked={props.checked}
@@ -83,6 +84,7 @@ AsylumConnectCheckbox.propTypes = {
   onChange: PropTypes.func.isRequired,
   checked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
+  name: PropTypes.string,
   value: PropTypes.string.isRequired
 };
 

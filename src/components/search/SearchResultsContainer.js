@@ -3,6 +3,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -15,7 +16,7 @@ import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
 import ResourceListItem from '../resource/ResourceListItem';
-import {mobilePadding} from '../../theme/sharedClasses';
+import {mobilePadding, boldFont} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   formRow: {
@@ -30,6 +31,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[500],
     justifyContent: 'space-evenly'
   },
+  noResults: Object.assign(boldFont(theme), {
+    textAlign: "center"
+  }),
   [theme.breakpoints.up('sm')]: {
     filterContainer: {
       marginTop: "-0.8rem"
@@ -55,18 +59,26 @@ const styles = theme => ({
 });
 
 const ResultsContainer = (props) => {
-  const { containerSearchResults, searching, searchResults } = props;
+  const { containerSearchResults, searching, searchResults, noResults } = props;
   return (
     <div className={containerSearchResults}>
-      {searchResults.map((organization) => {
-        return (
-          <ResourceListItem key = {organization.id} resource={organization} {...props} />
-        )
-      })}
-      { searching ? <Loading /> : null }
+      {searchResults.length ? 
+        searchResults.map((organization) => {
+          return (
+            <ResourceListItem key = {organization.id} resource={organization} {...props} />
+          )
+        })
+      : null }
+      { searching ? <Loading /> : 
+        searchResults.length ? null :
+        <Typography type="body2" className={noResults}>
+          No resources have been verified in this location, yet.
+        </Typography>
+      }
     </div>
   );
 }
+
 class SearchResultsContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -125,7 +137,8 @@ class SearchResultsContainer extends React.Component {
       formRow, 
       containerSearchForm, 
       containerSearchResults,
-      filterContainer
+      filterContainer,
+      noResults
       } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
@@ -135,6 +148,7 @@ class SearchResultsContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
+      noResults: noResults,
       session: this.props.session,
       searchResults: this.props.searchResults,
       searching: this.props.searching,
