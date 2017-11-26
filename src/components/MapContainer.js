@@ -145,7 +145,7 @@ class MapContainer extends React.Component {
     var selectedResourceTypes = this.state.selectedResourceTypes.slice();
     
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
-      selectedResourceTypes.push(target.value)
+      selectedResourceTypes.push(target.value).sort();
       this.setState({
         selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
@@ -165,7 +165,7 @@ class MapContainer extends React.Component {
     var selectedFilters = this.state.selectedFilters.slice();
     
     if(checked && selectedFilters.indexOf(target.value) < 0) {
-      selectedFilters.push(target.value)
+      selectedFilters.push(target.value).sort();
       this.setState({
         selectedFilters: selectedFilters
       });
@@ -318,10 +318,12 @@ class MapContainer extends React.Component {
 
     if(params.for && params.for !== "any") {
       selectedResourceTypes = decodeURIComponent(params.for).split(',');
+      selectedResourceTypes.sort();
     }
 
     if(params.filter && params.filter !== "all") {
       selectedFilters = decodeURIComponent(params.filter).split(',');
+      selectedFilters.sort();
     }
 
     if(params.sort) {
