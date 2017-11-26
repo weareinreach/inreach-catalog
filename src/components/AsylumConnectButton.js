@@ -34,14 +34,26 @@ const styles = theme => ({
       borderColor: theme.palette.secondary[600],
     },
   },
+  disabled: {
+    color: theme.palette.common.lightGrey,
+    backgroundColor: theme.palette.common.faintBlack,
+    borderColor: "transparent",
+    '&:active': {
+      backgroundColor: theme.palette.common.faintBlack,
+      borderColor: "transparent",
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.common.faintBlack,
+      borderColor: "transparent",
+    },
+  }
 });
 
 // Custom Button component with variant property
 function AsylumConnectButton(props) {
-  const { children, classes, className, variant, onClick} = props;
-
+  const { children, classes, className, variant, onClick, disabled } = props;
   return (
-    <Button className={classNames(
+    <Button disabled={disabled} className={classNames(
         classes.button,
         {
           [classes.primary]: variant === 'primary',
@@ -51,6 +63,9 @@ function AsylumConnectButton(props) {
       )}
       onClick={onClick}
       type="submit"
+      classes={{
+        disabled: classes.disabled
+      }}
     >
       {children}
     </Button>

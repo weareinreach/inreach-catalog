@@ -6,6 +6,8 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import Fa from 'react-fontawesome';
+
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import { FormControlLabel } from 'material-ui/Form';
@@ -49,8 +51,9 @@ class SearchForm extends React.Component {
             />*/}
           </Grid>
           <Grid item xs={12} className={searchButton}>
-            <AsylumConnectButton variant={variant} onClick={this.props.handleSearchButtonClick} >
+            <AsylumConnectButton variant={variant} onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
               Search
+              {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
             </AsylumConnectButton>
           </Grid>
         </Grid>

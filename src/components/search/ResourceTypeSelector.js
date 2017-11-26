@@ -13,7 +13,7 @@ import ResourceTypes from '../../helpers/ResourceTypes';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 
-const resourceTypes = ResourceTypes.groupResourceTypes()
+const resourceTypes = ResourceTypes.resourceTypesByGroup;
 
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {
@@ -55,7 +55,7 @@ const FilterCollection = (props) => (
       </span>
       {typeof props.value !== 'undefined' ? 
       <span className={props.classes.sectionTitle}>
-        <AsylumConnectCheckbox label='' value={props.value} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(props.value) >= 0)} />
+        <AsylumConnectCheckbox label='' value={props.category} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(props.category) >= 0)} />
       </span>
       : null}
     </Typography>
@@ -64,7 +64,7 @@ const FilterCollection = (props) => (
       <Grid container spacing={0} className={props.classes.subfilterSpacing} >
       {props.children.map((filter, i) => (
         <Grid item key={i} xs={12} sm={6} md={4}>
-          <AsylumConnectCheckbox label={filter.title} value={filter.value} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(filter.value) >= 0)} />
+          <AsylumConnectCheckbox label={filter.title} value={filter.title} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(filter.title) >= 0)} />
         </Grid>
       ))}
       </Grid>

@@ -4,6 +4,7 @@ import url from 'url';
 
 import Toolbar from 'material-ui/Toolbar';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -23,6 +24,7 @@ import ACBadge from '../Badge';
 
 import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
+import ReviewForm from './ReviewForm';
 import RatingAndReviews from './RatingAndReviews';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
@@ -35,7 +37,7 @@ import Reviews from './Reviews';
 import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 
 
-import {bodyLink, boldFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
+import {bodyLink, boldFont, italicFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
 import ActionButton from '../ActionButton';
 
@@ -98,6 +100,7 @@ const styles = (theme) => ({
     top: "6px"
   },
   boldFont: boldFont(theme),
+  italicFont: italicFont(theme),
   moreInfo: Object.assign({
     color: theme.palette.primary[500]
   }, boldFont(theme)),
@@ -122,6 +125,9 @@ const styles = (theme) => ({
     },
     mobileSpacing: {
       marginTop: "1.5rem"
+    },
+    reviewField: {
+      height: "15%"
     }
   },
   dialogBody: {
@@ -137,34 +143,6 @@ const styles = (theme) => ({
     paddingRight: '0',
   }
 });
-
-
-
-const ReviewForm = ({classes}) => (
-  <Grid container spacing={0}>
-    <Grid item xs={12}>
-      <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-        Leave a review
-      </Typography>
-    </Grid>
-    <Grid item xs={12}>
-      <RatingControl mode="interactive" className={classes.bottomSpacing}/>
-      <Typography type="body2" className={"center-align "+classes.bottomSpacing}>
-        <span className={classes.boldFont}>Rate this resource </span> (your rating will not be recorded until you hit "submit" below)
-      </Typography>
-    </Grid>
-    <Grid item xs={12}>
-      <Typography type="body2" className={classes.italicFont+' '+classes.bottomSpacing}>
-        Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.
-      </Typography>
-    </Grid>
-    <Grid item xs={12}>
-      <Divider className={classes.dividerSpacing} />
-    </Grid>
-  </Grid>
-);
-
-
 
 const ResourceHeader = ({classes, resource, isMobile}) => (
   <Grid container spacing={0} alignItems='center'>
@@ -205,10 +183,10 @@ const HeaderTabs = (props) => (
 
 const Tools = (props) => (
   <Grid container spacing={0} alignItems='center' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
-    <Grid item xs={12} sm={5} md={5} lg={5}>
+    <Grid item xs={12} sm={12} md={5} lg={5}>
       <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
     </Grid>
-    <Grid item xs={12} sm={7} className="pull-right">
+    <Grid item xs={12} sm={12} md={7} className="pull-right">
       <div className="center-align">
         <SaveToFavoritesButton
           handleListAddFavorite={props.handleListAddFavorite}
@@ -262,6 +240,7 @@ class Resource extends React.Component {
     this.handleResourceRequest = this.handleResourceRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleCommentRequest = this.handleCommentRequest.bind(this);
+    this.handleNewReview = this.handleNewReview.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
 
     this.handleDialogOpen = this.handleDialogOpen.bind(this);
@@ -331,6 +310,14 @@ class Resource extends React.Component {
 
   handleDialogClose() {
     this.setState({dialog: 'none'});
+  }
+
+  handleNewReview({resourceType = 'organization', type, data } = {}) {
+    let reviewList = this.state.reviewList
+    reviewList[resourceType] = [data].concat(reviewList[resourceType].filter(comment => comment.client_user_id !== data.client_user_id));
+    this.setState({
+      reviewList: reviewList
+    });
   }
 
   getOpportunityReviews() {
@@ -418,7 +405,7 @@ class Resource extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
-        <Grid item md={10} lg={9} xs={12}>
+        <Grid item xs={12} sm={10} md={10} lg={9} >
           { this.state.orgLoading ? <Loading /> :
           <div> {/******* MOBILE *******/}
             {isMobile ?
@@ -477,7 +464,10 @@ class Resource extends React.Component {
                   <div className={classes.mobileSpacing}>
                     {session ? 
                       <ReviewForm 
-                        classes={classes}
+                        resource={resource}
+                        session={props.session}
+                        user={props.user}
+                        onSubmit={this.handleNewReview}
                       />
                     : null}
                     <Reviews
@@ -524,9 +514,12 @@ class Resource extends React.Component {
                   <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
                 </Grid>
               </Grid>
-              {session || true ? 
+              {session ? 
                 <ReviewForm 
-                  classes={classes}
+                  resource={resource}
+                  session={props.session}
+                  user={props.user}
+                  onSubmit={this.handleNewReview}
                 />
               : null}
               <Reviews
