@@ -8,29 +8,32 @@ import 'whatwg-fetch';
 // which indicates that the session token must be reconfirmed with
 // the confirmSession function through the PasswordForm component
 
-const odas = config[process.env.OD_API_ENV].odas;
+const {basicAuth, odas} = config[process.env.OD_API_ENV];
 
-const headers = (session = null) => ({
-  Authorization: session ? session : null,
-  'Content-Type': 'application/json',
-  OneDegreeSource: 'asylumconnect',
-});
+const headers = session =>
+  Object.assign(
+    {
+      'Content-Type': 'application/json',
+      OneDegreeSource: 'asylumconnect',
+    },
+    session ? {Authorization: basicAuth ? basicAuth : session} : null,
+    basicAuth ? {'Demo-Authorization': session} : null,
+  );
 
 function checkStatus(response) {
-  if ( response.status >= 200 && response.status < 300) {
-    return response
+  if (response.status >= 200 && response.status < 300) {
+    return response;
   } else {
-    var error = new Error(response.statusText)
-    error.response = response
-    throw error
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
   }
 }
 
 function parseJSON(response) {
-  return (
-    response.headers.get('content-type') &&
+  return response.headers.get('content-type') &&
     response.headers.get('content-type').includes('application/json')
-  ) ? response.json()
+    ? response.json()
     : null;
 }
 
@@ -39,7 +42,9 @@ function handleFetch(url, options) {
     .then(checkStatus)
     .then(parseJSON)
     .then(data => data)
-    .catch(error => { throw error; })
+    .catch(error => {
+      throw error;
+    });
 }
 
 export const confirmSession = (password, session) => {
@@ -50,6 +55,12 @@ export const confirmSession = (password, session) => {
     headers: headers(session),
     body: JSON.stringify(payload),
   };
+  return handleFetch(url, options);
+};
+
+export const fetchUser = session => {
+  const url = `${odas}api/user`;
+  const options = {headers: headers(session)};
   return handleFetch(url, options);
 };
 
@@ -93,6 +104,35 @@ export const deleteListFavorite = (listId, resourceId, session) => {
   const options = {
     method: 'DELETE',
     headers: headers(session),
+  };
+  return handleFetch(url, options);
+};
+
+export const deleteUser = session => {
+  const url = `${odas}api/user`;
+  const options = {
+    method: 'DELETE',
+    headers: headers(session),
+  };
+  return handleFetch(url, options);
+};
+
+export const updateUserEmail = (payload, session) => {
+  const url = `${odas}api/user`;
+  const options = {
+    method: 'PUT',
+    headers: headers(session),
+    body: JSON.stringify(payload),
+  };
+  return handleFetch(url, options);
+};
+
+export const updateUserPassword = (payload, session) => {
+  const url = `${odas}api/passwords/change_password`;
+  const options = {
+    method: 'PUT',
+    headers: headers(session),
+    body: JSON.stringify(payload),
   };
   return handleFetch(url, options);
 };
