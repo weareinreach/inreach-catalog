@@ -14,11 +14,12 @@ import {
 class PageContainer extends React.Component {
   render() {
     const { handleMessageNew, session, user, handleLogout, history } = this.props;
-    const sessionListProps = {
+    const favoritesListProps = {
       dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
+      handleLogOut: this.props.handleLogOut,
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
@@ -31,15 +32,15 @@ class PageContainer extends React.Component {
             {/*<Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>*/}
             <Route
               path="/favorites/:id/:listId"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
+              render={() => <FavoritesListContainer {...favoritesListProps} />}
             />
             <Route
               path="/favorites/:id/"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
+              render={() => <FavoritesListContainer {...favoritesListProps} />}
             />
             <Route
               path="/favorites/"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
+              render={() => <FavoritesListContainer {...favoritesListProps} />}
             />
             <Route path="/account" render={()=>(
               <AccountPage handleMessageNew={handleMessageNew} handleLogout={handleLogout} history={history} />

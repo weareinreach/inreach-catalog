@@ -50,20 +50,35 @@ class ListNewFormContainer extends React.Component {
           }),
         );
         if (origin === 'saveToFavorites') {
-          createListFavorite(data.collection.id, originList, session)
-            .then(() => {
-              handleListAddFavorite(data.collection.id, parseInt(originList));
-            })
-            .catch(error => {
-              console.warn(error);
-            });
+          createListFavorite(
+            data.collection.id,
+            originList,
+            session,
+          ).then(() => {
+            handleListAddFavorite(data.collection.id, parseInt(originList));
+          });
         } else if (origin === 'favoritesList') {
           history.push(`/favorites/${user}/${data.collection.id}`);
         }
         handleRequestClose();
       })
       .catch(error => {
-        console.log(error);
+        const {
+          handleLogOut,
+          handleMessageNew,
+          handleRequestClose,
+          handleRequestOpen,
+        } = this.props;
+        if (error.response && error.response.status === 401) {
+          handleMessageNew('Your session has expired. Please log in again.');
+          handleLogOut();
+          handleRequestClose();
+        } else if (error.response && error.response.status === 403) {
+          handleRequestOpen('password');
+        } else {
+          handleMessageNew('Oops! Something went wrong.');
+          handleRequestClose();
+        }
       });
   }
 
@@ -86,6 +101,7 @@ ListNewFormContainer.defaultProps = {
 };
 
 ListNewFormContainer.propTypes = {
+  handleLogOut: PropTypes.func.isRequired,
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,

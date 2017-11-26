@@ -7,6 +7,7 @@ import ListNewFormContainer from './ListNewFormContainer';
 const ListNewDialog = ({
   handleListAddFavorite,
   handleListNew,
+  handleLogOut,
   handleMessageNew,
   handleRequestClose,
   origin,
@@ -19,6 +20,7 @@ const ListNewDialog = ({
     <ListNewFormContainer
       handleListAddFavorite={handleListAddFavorite}
       handleListNew={handleListNew}
+      handleLogOut={handleLogOut}
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
       origin={origin}
@@ -38,6 +40,7 @@ ListNewDialog.defaultProps = {
 ListNewDialog.propTypes = {
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   origin: PropTypes.string.isRequired,

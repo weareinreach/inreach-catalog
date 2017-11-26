@@ -24,6 +24,7 @@ const AsylumConnectDialog = ({
   handleListAddFavorite,
   handleListNew,
   handleLogIn,
+  handleLogOut,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
@@ -48,6 +49,7 @@ const AsylumConnectDialog = ({
         // listnew should be in the pattern listNew/{origin}/{originList}
         <ListNewDialog
           handleListAddFavorite={handleListAddFavorite}
+          handleLogOut={handleLogOut}
           handleListNew={handleListNew}
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
@@ -104,6 +106,7 @@ AsylumConnectDialog.propTypes = {
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleLogIn: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,

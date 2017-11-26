@@ -14,7 +14,7 @@ import theWidth from './theWidth';
 import {
   createList,
   createListFavorite,
-  deleteListFavorite
+  deleteListFavorite,
 } from '../helpers/odasRequests';
 
 const styles = theme => ({
@@ -26,7 +26,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textBlue: { color: theme.palette.common.blue },
+  textBlue: {color: theme.palette.common.blue},
 });
 
 class SaveToFavoritesButton extends React.Component {
@@ -39,6 +39,7 @@ class SaveToFavoritesButton extends React.Component {
     };
 
     this.handleCreateList = this.handleCreateList.bind(this);
+    this.handleFetchError = this.handleFetchError.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
@@ -61,19 +62,27 @@ class SaveToFavoritesButton extends React.Component {
         this.handleSaveToFavorites(data.collection.id);
         this.setState({open: true, anchorEl: currentTarget});
       })
-      .catch(error => {
-        if (error.response && error.response.status === 403) {
-          this.handleRequestOpen('password');
-        } else {
-          console.warn(error);
-        }
-      });
+      .catch(this.handleFetchError);
+  }
+
+  handleFetchError(error) {
+    const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
+    if (error.response && error.response.status === 401) {
+      handleMessageNew('Your session has expired. Please log in again.');
+      handleLogOut();
+    } else if (error.response && error.response.status === 403) {
+      handleRequestOpen('password');
+    } else {
+      handleMessageNew('Oops! Something went wrong.');
+    }
   }
 
   handleMenuOpen(event) {
-    const { currentTarget } = event;
+    const {currentTarget} = event;
     if (!this.props.session) {
-      return this.props.handleMessageNew('You must be logged in to save favorites');
+      return this.props.handleMessageNew(
+        'You must be logged in to save favorites',
+      );
     } else if (this.props.lists.length < 1) {
       this.handleCreateList(currentTarget);
     } else {
@@ -87,14 +96,15 @@ class SaveToFavoritesButton extends React.Component {
 
   handleRemoveFavorite(listId) {
     this.handleMenuClose();
-    const {handleListRemoveFavorite, resourceId, session} = this.props;
-    deleteListFavorite(listId, resourceId, session)
-      .then(() => {
-        handleListRemoveFavorite(listId, resourceId);
-      })
-      .catch(error => {
-        console.warn(error);
-      });
+    const {
+      handleListRemoveFavorite,
+      handleMessageNew,
+      resourceId,
+      session,
+    } = this.props;
+    deleteListFavorite(listId, resourceId, session).then(() => {
+      handleListRemoveFavorite(listId, resourceId);
+    });
   }
 
   handleSaveToFavorites(listId) {
@@ -104,9 +114,7 @@ class SaveToFavoritesButton extends React.Component {
       .then(() => {
         this.props.handleListAddFavorite(listId, this.props.resourceId);
       })
-      .catch(error => {
-        console.warn(error);
-      });
+      .catch(this.handleFetchError);
   }
 
   render() {
@@ -132,7 +140,8 @@ class SaveToFavoritesButton extends React.Component {
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
     );
 
-    const buttonLabel = theWidth() < breakpoints['sm'] ? "" : "Save to Favorites"
+    const buttonLabel =
+      theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
 
     return (
       <div>
@@ -169,14 +178,10 @@ class SaveToFavoritesButton extends React.Component {
           <MenuItem
             className={classes.textBlue}
             onClick={() =>
-                this.props.handleRequestOpen(
-                  `listNew/saveToFavorites/${resourceId}`
-                )
-            }
-          >
-            <span className={classes.textBlue}>
-              Create New List
-            </span>
+              this.props.handleRequestOpen(
+                `listNew/saveToFavorites/${resourceId}`,
+              )}>
+            <span className={classes.textBlue}>Create New List</span>
           </MenuItem>
         </Menu>
       </div>
@@ -191,6 +196,7 @@ SaveToFavoritesButton.defaultProps = {
 
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListRemoveFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,

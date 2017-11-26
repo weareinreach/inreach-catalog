@@ -119,7 +119,19 @@ class FavoritesListContainer extends React.Component {
         this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
       })
       .catch(error => {
-        console.warn(error);
+        const {
+          handleLogOut,
+          handleMessageNew,
+          handleRequestOpen,
+        } = this.props;
+        if (error.response && error.response.status === 401) {
+          handleMessageNew('Your session has expired. Please log in again.');
+          handleLogOut();
+        } else if (error.response && error.response.status === 403) {
+          handleRequestOpen('password');
+        } else {
+          handleMessageNew('Oops! Something went wrong.');
+        }
       });
   }
 
@@ -165,6 +177,7 @@ FavoritesListContainer.propTypes = {
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListRemoveFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
