@@ -105,7 +105,7 @@ class SearchResultsContainer extends React.Component {
     this.props.fetchSearchResults();
   }
 
-  addPage(ev) { console.log(ev);
+  addPage(ev) {
     let searchContainer = document.querySelectorAll('.container--search'); 
     if (searchContainer.length && (window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight)) {
         this.props.fetchNextSearchResultsPage();

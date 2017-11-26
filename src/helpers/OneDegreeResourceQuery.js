@@ -150,7 +150,6 @@ class OneDegreeResourceQuery {
         if(ids.length === 0) {
           ids.push(0);
         }
-        console.log(data, data.paging.current_page == data.paging.total_pages, self.allResultsReturned);
         self.allResultsReturned = data.paging.current_page == data.paging.total_pages;
 
         var orgsSearch = new OneDegreeResourceQuery();

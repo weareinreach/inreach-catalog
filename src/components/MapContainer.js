@@ -135,8 +135,7 @@ class MapContainer extends React.Component {
   handlePlaceChange(address) {
     this.setState({
       nearAddress: address,
-      nearLatLng: null,
-      searchStatus: null
+      nearLatLng: null
     });
   }
 
@@ -199,29 +198,34 @@ class MapContainer extends React.Component {
       searchDisabled: true
     });
 
-    geocodeByAddress(this.state.nearAddress)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        this.setState({
-          searchStatus: 'refresh',
-          nearLatLng: latLng,
-          searchDisabled: false
-        })
-        var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
-        var latLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
-        var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
-        var sort = encodeURIComponent(this.state.selectedSort);
-        this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+    const redirect = (latLng) => {
+      var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+      var nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
+      var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
+      var sort = encodeURIComponent(this.state.selectedSort);
+      this.props.history.push('/search/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+      this.setState({
+        searchStatus: 'refresh',
+        nearLatLng: latLng,
+        searchDisabled: false
+      });
+    }
 
-      })
-      .catch(error => {
-        this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-        console.error('Error', error)
-        this.setState({
-          searchDisabled: false
-        });
-        
-      })
+    if(this.state.nearLatLng == null) {
+      geocodeByAddress(this.state.nearAddress)
+        .then(results => getLatLng(results[0]))
+        .then(redirect)
+        .catch(error => {
+          this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
+          console.error('Error', error)
+          this.setState({
+            searchDisabled: false
+          });
+          
+        })
+    } else {
+      redirect(this.state.nearLatLng)
+    }
     
     
 
@@ -266,7 +270,7 @@ class MapContainer extends React.Component {
     }
   }
 
-  fetchNextSearchResultsPage() { console.log(this.queryOneDegree.areAllResultsReturned());
+  fetchNextSearchResultsPage() {
     if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
       this.queryOneDegree.nextPage();
       this.setState({
@@ -296,7 +300,7 @@ class MapContainer extends React.Component {
     });
   }
 
-  setSelectedResource(resource) { console.log('setting resource');
+  setSelectedResource(resource) {
     this.setState({
       selectedResource: resource
     });
