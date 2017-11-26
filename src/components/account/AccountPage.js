@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import config from '../../config/config.js';
 
 import breakpoints from '../../theme/breakpoints';

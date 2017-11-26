@@ -13,9 +13,10 @@ import OrgSettingsAdditional from './OrgSettingsAdditional';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import config from '../../config/config.js';
 import fetchJsonp from 'fetch-jsonp';
+import {boldFont} from '../../theme/sharedClasses'
 
 const styles = theme => ({
   root: {
@@ -48,13 +49,13 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    cursor: 'pointer'
   },
   note: {
     backgroundColor: '#fff3c6',
     padding: '10px',
     marginTop: '10px'
-  }
+  },
+  boldFont: boldFont(theme)
 });
 
 const defaultSchedule = {
@@ -102,7 +103,7 @@ class OrgSettings extends React.Component {
         response.json()
         .then((orgData) => {
           // Add properties array as submission requirement
-          orgData.properties = [
+          /*orgData.properties = [
             {
                 "name": "approval-asylumconnect",
                 "value": "false"
@@ -119,7 +120,7 @@ class OrgSettings extends React.Component {
                 "name": "community-lgbt",
                 "value": "true"
             }
-          ]
+          ]*/
           this.setState({ orgData, isLoading: false })
           // Capture selected day
           if (orgData.locations && orgData.locations[0] && orgData.locations[0].schedule) {
@@ -153,7 +154,7 @@ class OrgSettings extends React.Component {
     } else {
       updatedOrgData = update(orgData,{$merge:{[name]: value}})
       this.setState({ orgData: updatedOrgData })
-      console.log(orgData)
+      //console.log(orgData)
     }
   }
   handleSelect(select, value, startValue, endValue) {
@@ -180,7 +181,7 @@ class OrgSettings extends React.Component {
       }
     }
     updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge: schedule} }}})
-    console.log(updatedOrgData)
+    //console.log(updatedOrgData)
     // Submit
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
@@ -242,14 +243,14 @@ class OrgSettings extends React.Component {
               onSelect={this.handleSelect}
               />
             
-            {!isSent? (
+            {!isSent && !orgData.has_pending_submission ? (
               <div>
                 <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
                 <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
               </div>
             ):(
               <div className={classes.settingsTypeFont}>
-                <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <Typography type='body1'><strong>catalog@asylumconnect.org</strong></Typography>.</span>
+                <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a href="mailto:catalog@asylumconnect.org" className={classes.boldFont}>catalog@asylumconnect.org</a>.</span>
               </div>
             )}
           </div>

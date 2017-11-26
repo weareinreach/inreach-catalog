@@ -10,7 +10,7 @@ import OrgSettingsAdditional from './OrgSettingsAdditional';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import config from '../../config/config.js';
 
 const styles = theme => ({
