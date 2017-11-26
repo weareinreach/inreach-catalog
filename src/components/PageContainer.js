@@ -13,7 +13,7 @@ import {
 
 class PageContainer extends React.Component {
   render() {
-    const { handleMessageNew, session, user, handleLogout, history } = this.props;
+    const { handleMessageNew, session, user, handleLogOut, history } = this.props;
     const sessionListProps = {
       dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
@@ -42,7 +42,7 @@ class PageContainer extends React.Component {
               render={() => <FavoritesListContainer {...sessionListProps} />}
             />
             <Route path="/account" render={()=>(
-              <AccountPage handleMessageNew={handleMessageNew} handleLogout={handleLogout} history={history} />
+              <AccountPage handleMessageNew={handleMessageNew} handleLogOut={handleLogOut} history={history} />
             )}
             />
           </Switch>

@@ -1,5 +1,4 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask';
 import update from 'react-addons-update';
 
 import { withStyles } from 'material-ui/styles';
@@ -17,17 +16,6 @@ import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 
-function TextMaskCustom(props) {
-  return (
-    <MaskedInput
-      {...props}
-      mask={[/[0-1]/,/[0-9]/,':',/[0-5]/, /[0-9]/ ,'-',/[0-1]/,/[0-9]/,':',/[0-5]/, /[0-9]/ ]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  );
-}
-
 const styles = theme => ({
   root: {
   },
@@ -38,9 +26,7 @@ const styles = theme => ({
     '& > div': {
       margin: '15px 0 15px 0',
     },
-    '& label': {
-      width: '30%'
-    }
+    
   },
   formType: {
     margin: '10% 0 10% 0'
@@ -49,12 +35,12 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     '& label': theme.custom.inputLabel,
-    '& div': {
-      marginTop: 0,
-      width: '70%',
-      '& input': theme.custom.inputText
+    '&>div': {
+      width: '70%'      
     },
-    
+    '& label': {
+      width: '30%'
+    }
   },
   settingsTypeFont: {
     padding: '15px 0 25px 0',
@@ -68,86 +54,43 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     cursor: 'pointer'
-  }
+  },
+  textField: {
+    display: 'flex',
+    flexDirection: 'row',
+    '& div': {
+      flex: 1
+    },
+    '& input': theme.custom.inputText
+  },
+  inputLabel: {
+    '& label': theme.custom.inputLabel,
+    '& div': {
+      marginTop: '20px'
+    },
+    '& input': theme.custom.inputText
+  },
 });
 
 class OrgSettingsHour extends React.Component {
   constructor(props) {
     super(props);
-    const {initialData} = this.props
+    const {schedule} = this.props
     this.state = {
       open: true,
-      monday: (initialData && (initialData.monday_start || initialData.monday_end))? true:false,
-      tuesday: (initialData && (initialData.tuesday_start || initialData.tuesday_end))? true:false,
-      wednesday: (initialData && (initialData.wednesday_start || initialData.wednesday_end))? true:false,
-      thursday: (initialData && (initialData.thursday_start || initialData.thursday_end))? true:false,
-      friday: (initialData && (initialData.friday_start || initialData.friday_end))? true:false,
-      saturday: (initialData && (initialData.saturday_start || initialData.saturday_end))? true:false,
-      sunday: (initialData && (initialData.sunday_start || initialData.sunday_end))? true:false,
-      hourTextMask: '  :  -  :  ',
-      hourData: {        
-        monday: initialData.monday_start + initialData.monday_end,        
-        tuesday:  initialData.tuesday_start + initialData.tuesday_end ,        
-        wednesday:  initialData.wednesday_start + initialData.wednesday_end ,  
-        thursday:  initialData.thursday_start + initialData.thursday_end ,   
-        friday:  initialData.friday_start + initialData.friday_end ,        
-        saturday:  initialData.saturday_start + initialData.saturday_end ,  
-        sunday:  initialData.sunday_start + initialData.sunday_end ,
-      }      
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
-    this.handleToggleDay = this.handleToggleDay.bind(this)
   }
   handleToggleDropDown() {
     this.setState({ open: !this.state.open });
   }
-  handleToggleDay(e) {
-    const { value } = e.target;
-    console.log(e.target)
-    this.setState({
-      [value]: !this.state[value],
-    })
-  }
   handleChange(e) {
     const { name, value } = e.target;
-    const newHourData = update(this.state.hourData, {$merge:{[name]: value.replace(/[-]/g,'')}});
-    this.setState({hourData: newHourData})
-    if(value=='  :  -  :  '){
-      this.setState({[name]: false})
-    } else {
-      this.setState({[name]: true})
-    }
-  }
-  componentWillReceiveProps(nextProps){
-    if (nextProps.isRequested) {
-      let schedule = {'note':''};
-      let currentHourData = this.state.hourData;
-      for (let eachDay in currentHourData) {
-        if(typeof currentHourData[eachDay] == 'string'){
-          currentHourData[eachDay] = currentHourData[eachDay].split('-')
-        }
-        if (currentHourData.hasOwnProperty(eachDay) && currentHourData[eachDay][0] && currentHourData[eachDay][1]) {      
-          schedule[`${eachDay}_start`] = currentHourData[eachDay][0].trim();
-          schedule[`${eachDay}_end`] = currentHourData[eachDay][1].trim();
-        } else {
-          schedule[`${eachDay}_start`] = '';
-          schedule[`${eachDay}_end`] = '';
-        }
-      }
-      this.props.handleCollectHourData(schedule)
-    }
+    this.props.onChange('schedule', name, value)
   }
   render() {
-    const { classes } = this.props;
-    const { hourData, hourTextMask } = this.state;
-    for(let eachDay in hourData){
-      if (hourData.hasOwnProperty(eachDay)){
-        if (Array.isArray(hourData[eachDay])){
-          hourData[eachDay] = hourData[eachDay][0]
-        }        
-      } 
-    }
+    const { classes, schedule, selectedDays, onSelect } = this.props;
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
@@ -157,68 +100,220 @@ class OrgSettingsHour extends React.Component {
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
           <form className={classes.form}>
             <div className={classes.formControl}>
-              <AsylumConnectCheckbox label='Monday' value='monday' onChange={this.handleToggleDay} checked={this.state.monday} />
-              <Input
-                name='monday'
-                value={hourData.monday? hourData.monday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Monday' 
+                value='monday'
+                onChange={ref => onSelect('select', ref.target.value, schedule.monday_start, schedule.monday_end)} 
+                checked={selectedDays.monday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="monday_start"
+                  defaultValue={schedule.monday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect', ref.target.name, schedule.monday_start, schedule.monday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="monday_end"
+                  defaultValue={schedule.monday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect', ref.target.name, schedule.monday_start, schedule.monday_end)}
+                />
+              </div>
             </div>
             <div className={classes.formControl}>
-              <AsylumConnectCheckbox label='Tuesday' value='tuesday' onChange={this.handleToggleDay} checked={this.state.tuesday} />
-              <Input
-                name='tuesday'
-                value={hourData.tuesday? hourData.tuesday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Tuesday'
+                value='tuesday'
+                onChange={ref => onSelect('select', ref.target.value, schedule.tuesday_start, schedule.tuesday_end)} 
+                checked={selectedDays.tuesday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="tuesday_start"
+                  defaultValue={schedule.tuesday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.tuesday_start, schedule.tuesday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="tuesday_end"
+                  defaultValue={schedule.tuesday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.tuesday_start, schedule.tuesday_end)}
+                />
+              </div>
             </div>
             <div className={classes.formControl}>
-              <AsylumConnectCheckbox label='Wednesday' value='wednesday' onChange={this.handleToggleDay} checked={this.state.wednesday} />
-              <Input
-                name='wednesday'
-                value={hourData.wednesday? hourData.wednesday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Wednesday'
+                value='wednesday'
+                onChange={ref => onSelect('select', ref.target.value, schedule.wednesday_start, schedule.wednesday_end)} 
+                checked={selectedDays.wednesday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="wednesday_start"
+                  defaultValue={schedule.wednesday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.wednesday_start, schedule.wednesday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="wednesday_end"
+                  defaultValue={schedule.wednesday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.wednesday_start, schedule.wednesday_end)}
+                />
+            </div>
             </div>
             <div className={classes.formControl}>
-            <AsylumConnectCheckbox label='Thursday' value='thursday' onChange={this.handleToggleDay} checked={this.state.thursday} />
-              <Input
-                name='thursday'
-                value={hourData.thursday? hourData.thursday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Thursday'
+                value='thursday'
+                onChange={ref => onSelect('select', ref.target.value, schedule.thursday_start, schedule.thursday_end)} 
+                checked={selectedDays.thursday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="thursday_start"
+                  defaultValue={schedule.thursday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.thursday_start, schedule.thursday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="thursday_end"
+                  defaultValue={schedule.thursday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.thursday_start, schedule.thursday_end)}
+                />
+              </div>
             </div>
             <div className={classes.formControl}>
-            <AsylumConnectCheckbox label='Friday' value='friday' onChange={this.handleToggleDay} checked={this.state.friday} />
-              <Input
-                name='friday'
-                value={hourData.friday? hourData.friday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Friday'
+                value='friday'
+                onChange={ref => onSelect('select', ref.target.value, schedule.friday_start, schedule.friday_end)} 
+                checked={selectedDays.friday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="friday_start"
+                  defaultValue={schedule.friday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.friday_start, schedule.friday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="friday_end"
+                  defaultValue={schedule.friday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.friday_start, schedule.friday_end)}
+                />
+              </div>
             </div>
             <div className={classes.formControl}>
-            <AsylumConnectCheckbox label='Saturday' value='saturday' onChange={this.handleToggleDay} checked={this.state.saturday} />
-              <Input
-                name='saturday'
-                value={hourData.saturday? hourData.saturday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Saturday'
+                value='saturday'
+                onChange={ref => onSelect('select', ref.target.value, schedule.saturday_start, schedule.saturday_end)} 
+                checked={selectedDays.saturday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="saturday_start"
+                  defaultValue={schedule.saturday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect', ref.target.name, schedule.saturday_start, schedule.saturday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="saturday_end"
+                  defaultValue={schedule.saturday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.saturday_start, schedule.saturday_end)}
+                />
+              </div>
             </div>
             <div className={classes.formControl}>
-            <AsylumConnectCheckbox label='Sunday' value='sunday' onChange={this.handleToggleDay} checked={this.state.sunday} />
-              <Input
-                name='sunday'
-                value={hourData.sunday? hourData.sunday: hourTextMask}
-                inputComponent={TextMaskCustom}
-                onChange={this.handleChange}
-              />
+              <AsylumConnectCheckbox 
+                label='Sunday'
+                value='sunday'
+                onChange={ref => onSelect('select',ref.target.name, schedule.sunday_start, schedule.sunday_end)} 
+                checked={selectedDays.sunday} />
+              <div className={classes.textField}>
+                <TextField
+                  type= 'time'
+                  name="sunday_start"
+                  defaultValue={schedule.sunday_start}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.sunday_start, schedule.sunday_end)}
+                />
+                <TextField
+                  type= 'time'
+                  name="sunday_end"
+                  defaultValue={schedule.sunday_end}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleChange}
+                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.sunday_start, schedule.sunday_end)}
+                />
+              </div>
             </div>
+            <TextField
+              className={classes.inputLabel}
+              label='Additional Information:'
+              defaultValue={schedule.notes}
+              multiline={true}
+              name='notes'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={this.handleChange}
+              placeholder='i.e: closed on holidays.'
+            />
           </form>
         </Collapse>
       </div>
@@ -228,7 +323,6 @@ class OrgSettingsHour extends React.Component {
 
 OrgSettingsHour.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleCollectHourData: React.PropTypes.func
 };
 
 export default withStyles(styles)(OrgSettingsHour);

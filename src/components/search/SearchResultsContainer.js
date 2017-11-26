@@ -3,6 +3,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -15,7 +16,7 @@ import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
 import ResourceListItem from '../resource/ResourceListItem';
-import {mobilePadding} from '../../theme/sharedClasses';
+import {mobilePadding, boldFont} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   formRow: {
@@ -30,6 +31,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[500],
     justifyContent: 'space-evenly'
   },
+  noResults: Object.assign(boldFont(theme), {
+    textAlign: "center"
+  }),
   [theme.breakpoints.up('sm')]: {
     filterContainer: {
       marginTop: "-0.8rem"
@@ -55,23 +59,29 @@ const styles = theme => ({
 });
 
 const ResultsContainer = (props) => {
-  const { containerSearchResults, searching, searchResults } = props;
+  const { containerSearchResults, searching, searchResults, noResults } = props;
   return (
     <div className={containerSearchResults}>
-      {searchResults.map((organization) => {
-        return (
-          <ResourceListItem key = {organization.id} resource={organization} {...props} />
-        )
-      })}
-      { searching ? <Loading /> : null }
+      {searchResults.length ? 
+        searchResults.map((organization) => {
+          return (
+            <ResourceListItem key = {organization.id} resource={organization} {...props} />
+          )
+        })
+      : null }
+      { searching ? <Loading /> : 
+        searchResults.length ? null :
+        <Typography type="body2" className={noResults}>
+          No resources have been verified in this location, yet.
+        </Typography>
+      }
     </div>
   );
 }
+
 class SearchResultsContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
-    //this.props.clearSearchStatus();
-    //this.props.fetchSearchResults();
 
     this.state = { tab: 0 };
 
@@ -82,13 +92,11 @@ class SearchResultsContainer extends React.Component {
   componentDidMount() {
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
-    console.log('add scroll?')
     window.addEventListener('scroll', this.addPage.bind(this));
   }
 
   componentWillUnmount() {
     window.removeEventListener('popstate', this.doSearch.bind(this));
-    console.log('remove scroll?')
     window.removeEventListener('scroll', this.addPage.bind(this));
   }
 
@@ -97,11 +105,9 @@ class SearchResultsContainer extends React.Component {
     this.props.fetchSearchResults();
   }
 
-  addPage(ev) { console.log(ev);
+  addPage(ev) {
     let searchContainer = document.querySelectorAll('.container--search'); 
-    console.log(searchContainer, window.innerHeight + window.scrollY, searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
     if (searchContainer.length && (window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight)) {
-        console.log('addPage should fetch results');
         this.props.fetchNextSearchResultsPage();
     }
   }
@@ -131,7 +137,8 @@ class SearchResultsContainer extends React.Component {
       formRow, 
       containerSearchForm, 
       containerSearchResults,
-      filterContainer
+      filterContainer,
+      noResults
       } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
@@ -141,6 +148,7 @@ class SearchResultsContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
+      noResults: noResults,
       session: this.props.session,
       searchResults: this.props.searchResults,
       searching: this.props.searching,
@@ -150,7 +158,7 @@ class SearchResultsContainer extends React.Component {
     console.log(this.props.printing);
     return (
       <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
-        <Grid item md={11} lg={11} xs={12}>
+        <Grid item md={10} lg={10} xl={11} xs={12}>
         <div className={containerSearchForm}>
           <SearchBar {...this.props} classes={null} />
           <Grid container spacing={0}>

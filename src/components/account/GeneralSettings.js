@@ -10,7 +10,7 @@ import breakpoints from '../../theme/breakpoints';
 
 import Typography from 'material-ui/Typography';
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import config from '../../config/config.js';
 
 function TextMaskCustom(props) {

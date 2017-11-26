@@ -52,18 +52,18 @@ class MapContainer extends React.Component {
     this.state = {
       nearAddress: '',
       nearLatLng,
-      mapCenter: nearLatLng,
       mapWidth: "100%",
       searchStatus: null,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
       searching: false,
+      searchDisabled: false,
       searchResults: [],
       searchResultsIndex: [],
       searchResultSlugs: [],
       selectedResource: null,
-      lastSearch: null
+      lastSearch: null,
     }
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
@@ -126,22 +126,16 @@ class MapContainer extends React.Component {
   }
 
   handlePlaceSelect(address) {
-
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({
-        nearAddress: address,
-        nearLatLng: latLng
-      }))
-      .catch(error => console.error('Error', error))
-
+    this.setState({
+      nearAddress: address,
+      nearLatLng: null
+    });
   }
 
   handlePlaceChange(address) {
     this.setState({
       nearAddress: address,
-      nearLatLng: null,
-      searchStatus: null
+      nearLatLng: null
     });
   }
 
@@ -151,7 +145,7 @@ class MapContainer extends React.Component {
     var selectedResourceTypes = this.state.selectedResourceTypes.slice();
     
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
-      selectedResourceTypes.push(target.value)
+      selectedResourceTypes.push(target.value).sort();
       this.setState({
         selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
@@ -171,7 +165,7 @@ class MapContainer extends React.Component {
     var selectedFilters = this.state.selectedFilters.slice();
     
     if(checked && selectedFilters.indexOf(target.value) < 0) {
-      selectedFilters.push(target.value)
+      selectedFilters.push(target.value).sort();
       this.setState({
         selectedFilters: selectedFilters
       });
@@ -190,26 +184,56 @@ class MapContainer extends React.Component {
   }
 
   handleSearchButtonClick() {    
-    if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
+    /*if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
-    } 
+    } */
 
-    if(this.state.selectedResourceTypes.length == 0) {
+    /*if(this.state.selectedResourceTypes.length == 0) {
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
       return;
-    } 
-    
+    } */
+
     this.setState({
-      mapCenter: this.state.nearLatLng,
-      searchStatus: 'refresh'
+      searchDisabled: true
     });
 
-    var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+    const redirect = (latLng) => {
+      var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+      var nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
+      var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
+      var sort = encodeURIComponent(this.state.selectedSort);
+      this.props.history.push('/search/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+      this.setState({
+        searchStatus: 'refresh',
+        nearLatLng: latLng,
+        searchDisabled: false
+      });
+    }
+
+    if(this.state.nearLatLng == null) {
+      geocodeByAddress(this.state.nearAddress)
+        .then(results => getLatLng(results[0]))
+        .then(redirect)
+        .catch(error => {
+          this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
+          console.error('Error', error)
+          this.setState({
+            searchDisabled: false
+          });
+          
+        })
+    } else {
+      redirect(this.state.nearLatLng)
+    }
+    
+    
+
+    /*var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
     var latLng = encodeURIComponent(this.state.nearLatLng.lat + ',' + this.state.nearLatLng.lng);
     var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
     var sort = encodeURIComponent(this.state.selectedSort);
-    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);*/
   }
 
   resizeMap(){
@@ -246,7 +270,7 @@ class MapContainer extends React.Component {
     }
   }
 
-  fetchNextSearchResultsPage() { console.log(this.queryOneDegree.areAllResultsReturned());
+  fetchNextSearchResultsPage() {
     if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
       this.queryOneDegree.nextPage();
       this.setState({
@@ -276,7 +300,7 @@ class MapContainer extends React.Component {
     });
   }
 
-  setSelectedResource(resource) { console.log('setting resource');
+  setSelectedResource(resource) {
     this.setState({
       selectedResource: resource
     });
@@ -292,14 +316,14 @@ class MapContainer extends React.Component {
       }
     }
 
-    if(params.for) {
+    if(params.for && params.for !== "any") {
       selectedResourceTypes = decodeURIComponent(params.for).split(',');
+      selectedResourceTypes.sort();
     }
 
-    if(params.filter) {
-      if(params.filter !== "all") {
-        selectedFilters = decodeURIComponent(params.filter).split(',');
-      }
+    if(params.filter && params.filter !== "all") {
+      selectedFilters = decodeURIComponent(params.filter).split(',');
+      selectedFilters.sort();
     }
 
     if(params.sort) {
@@ -350,6 +374,7 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    searchDisabled={this.state.searchDisabled}
                      />} />
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (

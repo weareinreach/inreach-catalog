@@ -104,6 +104,8 @@ const groupResourceTypes = () => {
   return final;
 }
 
+const resourceTypesByGroup = groupResourceTypes();
+
 const getTagIndex = () => {
   let index = {};
   resourceTypes.forEach((item) => {
@@ -150,6 +152,6 @@ const getTagIndex = () => {
 
 export default {
   types: resourceTypes,
-  groupResourceTypes,
+  resourceTypesByGroup,
   getTagIndex
 };

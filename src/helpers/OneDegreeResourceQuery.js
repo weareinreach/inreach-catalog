@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import config from '../config/config.js';
+import ResourceTypes from './ResourceTypes';
 
 class OneDegreeResourceQuery {
   
@@ -32,9 +33,14 @@ class OneDegreeResourceQuery {
    * @param {[Array]} tags an array of tags
    */
   addTags(tags) {
-    tags.forEach((tag) => {
-      this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
+    ResourceTypes.types.forEach((tag) => {
+      if((tag.title && tags.indexOf(tag.title) >= 0) || tags.indexOf(tag.category) >= 0) {
+        this.filters.query.tags.push(tag.odTag)
+      }
     });
+    /*tags.forEach((tag) => {
+      this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
+    });*/
     return this;
   }
 
@@ -144,7 +150,6 @@ class OneDegreeResourceQuery {
         if(ids.length === 0) {
           ids.push(0);
         }
-        console.log(data, data.paging.current_page == data.paging.total_pages, self.allResultsReturned);
         self.allResultsReturned = data.paging.current_page == data.paging.total_pages;
 
         var orgsSearch = new OneDegreeResourceQuery();
