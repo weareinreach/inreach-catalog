@@ -1,7 +1,5 @@
 import React from 'react';
 
-import detectPrint from "react-detect-print";
-
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
@@ -211,4 +209,4 @@ class SearchResultsContainer extends React.Component {
 }
 
 
-export default detectPrint(withWidth(withStyles(styles)(SearchResultsContainer)));
+export default withWidth(withStyles(styles)(SearchResultsContainer));

@@ -394,7 +394,7 @@ class MapContainer extends React.Component {
               </div>
             </Grid>
             {isMobile ? null :
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} className="hide--on-print">
               <Sticky>
                 <div>
                   <AsylumConnectMap

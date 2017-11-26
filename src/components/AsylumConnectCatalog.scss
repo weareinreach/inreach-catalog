@@ -76,3 +76,27 @@ input[class*="inputSingleline"] {
 .sticky.sticky-fixed.is-absolute{
   position: absolute;
 }
+
+@media screen {
+  .hide--on-screen {
+    display: none !important;
+  }
+}
+
+@media print {
+  .hide--on-print {
+    display: none !important;
+  }
+
+  .page-break-after--avoid {
+    page-break-after: avoid;
+  }
+
+  .page-break-after--force {
+    page-break-after: always;
+  }
+
+  .page-break-inside--avoid {
+    page-break-inside: avoid;
+  }
+}
