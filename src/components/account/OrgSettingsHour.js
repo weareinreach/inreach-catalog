@@ -91,6 +91,7 @@ class OrgSettingsHour extends React.Component {
   }
   render() {
     const { classes, schedule, selectedDays, onSelect } = this.props;
+    console.log(selectedDays)
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
