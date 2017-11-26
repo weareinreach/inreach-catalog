@@ -57,7 +57,7 @@ class AccountPage extends React.Component {
   }
   componentDidMount(){
     var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew, handleLogout} = this.props;
+    const {handleMessageNew, handleLogOut, history} = this.props;
     
     const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/user`;    
@@ -77,7 +77,8 @@ class AccountPage extends React.Component {
         });
       } else {
         this.setState({ isAuthenticated: false })
-        handleLogout()
+        handleLogOut()
+        history.push('/');
         handleMessageNew('Sorry, please try logging in again');
       }
     })

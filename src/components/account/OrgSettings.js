@@ -243,7 +243,7 @@ class OrgSettings extends React.Component {
               onSelect={this.handleSelect}
               />
             
-            {!isSent && !orgData.has_pending_submission ? (
+            {!isSent  ? (
               <div>
                 <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
                 <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
