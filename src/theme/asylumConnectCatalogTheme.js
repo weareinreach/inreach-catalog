@@ -365,7 +365,6 @@ export default createMuiTheme({
       "fontSize": 13,
       "fontWeight": 400,
       "fontFamily": "\"Open Sans\", sans-serif",
-      "lineHeight": 20,
       "color": "rgba(0, 0, 0, 0.90)",
     }
   },

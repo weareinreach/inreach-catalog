@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import config from '../../config/config.js';
 
 import breakpoints from '../../theme/breakpoints';
@@ -59,36 +59,31 @@ class AccountPage extends React.Component {
     var jwt = localStorage.getItem("jwt");
     const {handleMessageNew, handleLogout} = this.props;
     
-    if (!jwt) {
-      this.props.history.push('/');
-      handleMessageNew('You need to log in to view your account.')
-    } else {
-      const apiDomain = config[process.env.OD_API_ENV].odas;
-      const url = `${apiDomain}api/user`;    
-      const options = {
-        method: 'GET',
-        headers: {
-          Authorization: jwt,
-          'Content-Type': 'application/json',
-          OneDegreeSource: 'asylumconnect',
-        }
-      };
-      fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {          
-          response.json().then(({user}) => {
-            this.setState({ isAuthenticated: true, user: user });
-          });
-        } else {
-          this.setState({ isAuthenticated: false })
-          handleLogout()
-          handleMessageNew('Sorry, please try logging in again');
-        }
-      })
-      .catch(error => {
-        handleMessageNew('Oops! Something went wrong. Error:' + error);
-      });
-    }   
+    const apiDomain = config[process.env.OD_API_ENV].odas;
+    const url = `${apiDomain}api/user`;    
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: jwt,
+        'Content-Type': 'application/json',
+        OneDegreeSource: 'asylumconnect',
+      }
+    };
+    fetch(url, options)
+    .then(response => {
+      if (response.status === 200) {          
+        response.json().then(({user}) => {
+          this.setState({ isAuthenticated: true, user: user });
+        });
+      } else {
+        this.setState({ isAuthenticated: false })
+        handleLogout()
+        handleMessageNew('Sorry, please try logging in again');
+      }
+    })
+    .catch(error => {
+      handleMessageNew('Oops! Something went wrong. Error:' + error);
+    });
   }
   handleChange(event, value){
     this.setState({ value });
@@ -143,9 +138,7 @@ class AccountPage extends React.Component {
         )
       )
     } else {
-      settings = (
-        <div>Hello! You need to log in and refresh the page.</div>
-      )
+      settings = ('')
     }
     return (
       <div className={classes.root}>
