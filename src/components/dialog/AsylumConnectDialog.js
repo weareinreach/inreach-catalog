@@ -36,7 +36,7 @@ const AsylumConnectDialog = ({
       <ActionButton
         onClick={handleRequestClose}
         >&times;</ActionButton>
-      {dialog === 'disclaimer!' &&
+      {dialog === 'disclaimer' &&
         <DisclaimerDialog handleRequestClose={handleRequestClose} />}
       {dialog === 'forgot' &&
         <ForgotDialog
@@ -76,7 +76,7 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
         />}
-      {dialog === 'disclaimer' &&
+      {dialog === 'password' &&
         <PasswordDialog
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
