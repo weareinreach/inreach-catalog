@@ -77,7 +77,7 @@ class SuggestHour extends React.Component {
     super(props);
     const {schedule} = this.props
     this.state = {
-      open: true,
+      open: false,
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
@@ -91,7 +91,6 @@ class SuggestHour extends React.Component {
   }
   render() {
     const { classes, schedule, selectedDays, onSelect } = this.props;
-    console.log(schedule)
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>

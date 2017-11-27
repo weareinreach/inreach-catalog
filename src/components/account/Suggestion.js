@@ -15,7 +15,7 @@ import config from '../../config/config.js';
 
 const styles = theme => ({
   root: {
-    padding: '0 5% 0 5%'
+    padding: '0 15% 0 15%'
   },
   formType: {
     margin: '5% 0 5% 0'
