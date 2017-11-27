@@ -54,7 +54,7 @@ class AccountPage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount(){
-    const {handleMessageNew, handleLogout, session} = this.props;
+    const {handleMessageNew, handleLogOut, session} = this.props;
     if (!session) {
       this.props.history.push('/');
       handleMessageNew('You need to log in to view your account.')
@@ -64,7 +64,8 @@ class AccountPage extends React.Component {
           this.setState({ isAuthenticated: true, user: data.user });
         })
         .catch(error => {
-          handleLogout();
+          handleLogOut();
+          this.props.history.push('/');
           handleMessageNew('Oops! Something went wrong. Error:' + error);
         });
     }

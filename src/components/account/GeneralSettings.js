@@ -14,7 +14,6 @@ import Typography from 'material-ui/Typography';
 import 'whatwg-fetch';
 import config from '../../config/config.js';
 import {
-  deleteUser,
   updateUserEmail,
   updateUserPassword,
 } from '../../helpers/odasRequests';
@@ -72,10 +71,10 @@ class GeneralSettings extends React.Component {
     this.handleOdasError = this.handleOdasError.bind(this)
     this.updateEmail = this.updateEmail.bind(this)
     this.updatePassword = this.updatePassword.bind(this)
-    this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
+    //this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
     this.handleLogIn = this.handleLogIn.bind(this)
     this.handleRequestOpen = this.handleRequestOpen.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
+    //this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
   handleOdasError(error) {
@@ -123,47 +122,12 @@ class GeneralSettings extends React.Component {
   }
 
   handleRequestOpen() {
-    this.setState({dialog:'deleteAccount'});
+    this.props.handleRequestOpen('deleteAccount')
+    //this.setState({dialog:'deleteAccount'});
   }
 
   handleRequestClose() {
-    this.setState({dialog:'none'})
-  }
-
-  handleDeleteAccount(pw){
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew, history} = this.props;
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/user`;
-    const body = JSON.stringify({'password': pw})
-    console.log(body)
-    const options = {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
-        'Demo-Authorization': 'Bearer '+jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body: body
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          response.json().then((res) => {
-            if (res.message === 'User deleted') {
-              history.push('/');
-              handleMessageNew('Your account has been deleted.');
-            } else {
-              handleMessageNew('Your password is incorrect.');
-            }
-          });
-        } else {
-          handleMessageNew('Oops! Something went wrong. Error 401.');
-        }
-      }).catch(error => {
-        handleMessageNew('Oops! Something went wrong. Error: '+ error);
-      });
+    //this.setState({dialog:'none'})
   }
 
   handleLogIn(){
@@ -193,14 +157,14 @@ class GeneralSettings extends React.Component {
             <span>Delete Account</span>
           </div></div>
         </div>
-        <AsylumConnectDialog
+        {/*<AsylumConnectDialog
           dialog={dialog}
           handleDeleteAccount={this.handleDeleteAccount}
           handleLogIn={this.handleLogIn}
           handleMessageNew={handleMessageNew}
           handleRequestClose={this.handleRequestClose}
           handleRequestOpen={this.handleRequestOpen}
-        />
+        />*/}
       </div>
     )
   }

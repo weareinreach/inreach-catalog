@@ -108,11 +108,15 @@ export const deleteListFavorite = (listId, resourceId, session) => {
   return handleFetch(url, options);
 };
 
-export const deleteUser = session => {
+export const deleteUser = (pw, session) => {
   const url = `${odas}api/user`;
+  const payload = {
+    password: pw
+  };
   const options = {
     method: 'DELETE',
     headers: headers(session),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };

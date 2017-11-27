@@ -150,6 +150,7 @@ class AsylumConnectCatalog extends React.Component {
               handleMessageNew={handleMessageNew}
               handleRequestClose={handleRequestClose}
               handleRequestOpen={handleRequestOpen}
+              history={history}
               session={session}
               user={user}
             />
@@ -218,6 +219,7 @@ class AsylumConnectCatalog extends React.Component {
                     {...this.state}
                     {...this.props}
                     {...props}
+                    session={session}
                     handleMessageNew={handleMessageNew}
                     handleRequestOpen={handleRequestOpen}
                   />
