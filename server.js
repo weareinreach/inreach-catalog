@@ -25,7 +25,7 @@ app.use(function(req,res,next) {
     && (!req.cookies.sneakpeek || req.cookies.sneakpeek !== 'yup')
     ) {
       res.redirect(302, process.env.REDIRECT);
-  } else if(!req.secure && process.env.OD_API_ENV == 'production') {
+  } else if(req.headers['x-forwarded-proto'] != 'https' && process.env.OD_API_ENV == 'production') {
     res.redirect(`https://${req.header('host')}${req.url}`);
   } else {
     next();
