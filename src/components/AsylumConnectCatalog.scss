@@ -99,4 +99,8 @@ input[class*="inputSingleline"] {
   .page-break-inside--avoid {
     page-break-inside: avoid;
   }
+
+  .no-background {
+    background: none !important;
+  }
 }

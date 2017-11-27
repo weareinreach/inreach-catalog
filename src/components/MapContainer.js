@@ -59,6 +59,7 @@ class MapContainer extends React.Component {
       selectedSort,
       searching: false,
       searchDisabled: false,
+      printDisabled: false,
       searchResults: [],
       searchResultsIndex: [],
       searchResultSlugs: [],
@@ -73,6 +74,7 @@ class MapContainer extends React.Component {
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
+    this.handlePrintClick = this.handlePrintClick.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
     this.setSelectedResource = this.setSelectedResource.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
@@ -183,6 +185,30 @@ class MapContainer extends React.Component {
     });
   }
 
+  handlePrintClick() {
+    var self = this;
+    if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
+      this.queryOneDegree.nextPage();
+      this.setState({
+        searching: true,
+        searchDisabled: true,
+        printDisabled: true
+      });
+      this.queryOneDegree.fetchOrganizations({
+        callback: (results) => {
+          self.processSearchResults(results)
+          window.print();
+          this.setState({
+            searchDisabled: false,
+            printDisabled: false
+          });
+        }
+      });
+    } else {
+      window.print();
+    }
+  }
+
   handleSearchButtonClick() {    
     /*if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
       this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
@@ -274,6 +300,8 @@ class MapContainer extends React.Component {
     if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
       this.queryOneDegree.nextPage();
       this.setState({
+        searchDisabled: true,
+        printDisabled: true,
         searching: true
       });
       this.queryOneDegree.fetchOrganizations({
@@ -296,6 +324,8 @@ class MapContainer extends React.Component {
       searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
       searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
       searchResults: this.state.searchResults.concat(newOrgs),
+      searchDisabled: false,
+      printDisabled: false,
       searching: false
     });
   }
@@ -379,23 +409,26 @@ class MapContainer extends React.Component {
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (
                     <SearchResultsContainer {...props} {...this.state}
-                      mapResources={mapResources}
-                      fetchSearchResults={this.fetchSearchResults}
                       clearSearchFilters={this.clearSearchFilters}
                       clearSearchStatus={this.clearSearchStatus}
                       fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
+                      fetchSearchResults={this.fetchSearchResults}
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
                       handleMessageNew={this.props.handleMessageNew}
                       handlePlaceSelect={this.handlePlaceSelect} 
                       handlePlaceChange={this.handlePlaceChange}
+                      handlePrintClick={this.handlePrintClick}
                       handleSearchButtonClick={this.handleSearchButtonClick}
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
                       handleRequestOpen={this.props.handleRequestOpen}
                       handleFilterSelect={this.handleFilterSelect}
                       handleSortSelect={this.handleSortSelect}
                       lists={this.props.lists}
+                      mapResources={mapResources}
+                      printDisabled={this.state.printDisabled}
+                      searchDisabled={this.state.searchDisabled}
                       session={this.props.session}
                       user={this.props.user}
                     />)}

@@ -99,7 +99,7 @@ const FavoritesList = ({
             {list && (
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => handleRequestOpen('listShare')}
+                onClick={() => handleRequestOpen('share/collection/'+list.id+'/'+list.title)}
                 variant="primary">
                 Share
               </AsylumConnectButton>
@@ -124,8 +124,9 @@ const FavoritesList = ({
                     handleMessageNew={handleMessageNew}
                     handleRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
-                    listId={list.id}
+                    listId={list.slug}
                     resource={resource}
+                    format='favorites'
                   />
                 )}
               </div>

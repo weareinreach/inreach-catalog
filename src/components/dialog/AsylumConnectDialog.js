@@ -8,7 +8,7 @@ import {withStyles} from 'material-ui/styles';
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
 import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
 import ActionButton from '../ActionButton';
-import {ListNewDialog, ListShareDialog} from '../favorites';
+import {ListNewDialog, ShareDialog} from '../favorites';
 
 const styles = theme => ({
   dialogBody: {
@@ -57,14 +57,15 @@ const AsylumConnectDialog = ({
           user={user}
         />
       }
-      {dialog === 'listShare' &&
+      {/^share/.test(dialog) &&
+        // share should be in the pattern share/{type}/{id}/{title}
         <ShareDialog
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           session={session}
-          listId={list.id}
-          listTitle={list.title}
-          shareType="collection"
+          listId={dialog.split('/')[2]}
+          listTitle={dialog.split('/')[3]}
+          shareType={dialog.split('/')[1]}
         />
       }
       {dialog === 'login' &&

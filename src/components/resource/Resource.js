@@ -195,7 +195,7 @@ const Tools = (props) => (
           handleMessageNew={props.handleMessageNew}
           handleRequestOpen={props.handleRequestOpen}
           lists={props.lists}
-          resourceId={props.resourceId}
+          resourceId={props.resource.id}
           session={props.session}
           user={props.user}
         />
@@ -204,7 +204,7 @@ const Tools = (props) => (
       <AsylumConnectButton 
         variant="secondary"
         className="center-align"
-        onClick={() => props.handleDialogOpen('share')}
+        onClick={() => props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name)}
         >share</AsylumConnectButton> 
     </Grid>
   </Grid>
@@ -223,7 +223,7 @@ class Resource extends React.Component {
         organization: false,
         opportunities: false
       },
-      dialog: 'none',
+      resource: props.resource,
       acFilter: false
     };
 
@@ -243,11 +243,11 @@ class Resource extends React.Component {
     this.handleNewReview = this.handleNewReview.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
 
-    this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
+    /*this.handleDialogOpen = this.handleDialogOpen.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);*/
   }
 
-  componentWillMount() {
+  componentWillMount() { console.log(this.props.resource);
     window.scroll(0,0);
     if(this.props.resource == null) {
       this.setState({
@@ -259,16 +259,15 @@ class Resource extends React.Component {
         callback: this.handleResourceRequest
       });
     } else {
-      this.resource = this.props.resource
+      this.odClient.getOpportunities({
+        id: this.state.resource.id,
+        per_page: this.state.resource.opportunity_count,
+        callback: this.handleOpportunityRequest
+      })
       this.setState({
         orgLoading: false,
         oppLoading: true
       });
-      this.odClient.getOpportunities({
-        id: this.resource.id,
-        per_page: this.resource.opportunity_count,
-        callback: this.handleOpportunityRequest
-      })
     }
   }
 
@@ -280,14 +279,14 @@ class Resource extends React.Component {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
-      this.resource = response;
-      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities);
-      this.getOpportunityReviews();
+      this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
+      this.getOpportunityReviews(response);
+      this.props.setSelectedResource(response);
       this.setState({
+        resource: response,
         orgLoading: false,
         oppLoading: false
       });
-      this.props.setSelectedResource(response);
     }
   }
 
@@ -296,21 +295,22 @@ class Resource extends React.Component {
       //redirect
     } else {
       this.resource.opportunities = response.opportunities;
-      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities);
-      this.getOpportunityReviews();
-      this.setState({
+      this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
+      this.getOpportunityReviews(this.state.resource);
+      this.setState(prevState => ({
+        resource: Object.assign(prevState.resource, {opportunities: response.opportunities}),
         oppLoading: false
-      })
+      }))
     }
   }
 
-  handleDialogOpen(dialog) {
+  /*handleDialogOpen(dialog) {
     this.setState({dialog});
   }
 
   handleDialogClose() {
     this.setState({dialog: 'none'});
-  }
+  }*/
 
   handleNewReview({resourceType = 'organization', type, data } = {}) {
     let reviewList = this.state.reviewList
@@ -320,13 +320,13 @@ class Resource extends React.Component {
     });
   }
 
-  getOpportunityReviews() {
+  getOpportunityReviews(resource) {
     const { handleCommentRequest } = this;
-    if(this.resource.opportunity_comment_count) {
+    if(resource.opportunity_comment_count) {
       this.odClient.getCommentsFromOrganizationId({
         resourceType: 'opportunities',
-        id: this.resource.id,
-        per_page: this.resource.opportunity_comment_count,
+        id: resource.id,
+        per_page: resource.opportunity_comment_count,
         callback: (response) => { handleCommentRequest('opportunities', response) }
       })
     } else {
@@ -338,11 +338,11 @@ class Resource extends React.Component {
       });
     }
 
-    if(this.resource.comment_count) {
+    if(resource.comment_count) {
       this.odClient.getCommentsFromOrganizationId({
         resourceType: 'organization',
-        id: this.resource.id,
-        per_page: this.resource.comment_count,
+        id: resource.id,
+        per_page: resource.comment_count,
         callback: (response) => { handleCommentRequest('organization', response) }
       })
     } else {
@@ -393,7 +393,8 @@ class Resource extends React.Component {
 
   render() {
     const { classes, session, handleMessageNew, history } = this.props;
-    const { resource, props } = this;
+    const { props } = this;
+    const { resource } = this.state;
     const languages = (this.resourceProperties && this.resourceProperties.length ? 
                         this.resourceProperties
                           .filter((item) => ( item.slug.indexOf('lang') === 0))
@@ -450,7 +451,6 @@ class Resource extends React.Component {
                   </div>
                   <div className={classes.mobileSpacing}>
                     <Visit 
-                      classes={classes}
                       resource={resource}
                       isMobile={isMobile}
                     />
@@ -483,13 +483,13 @@ class Resource extends React.Component {
             : 
             <div> {/******* DESKTOP *******/}
               <Tools 
+                {...props}
                 classes={classes} 
                 handleTabClick={this.handleTabClickDesktop}
-                handleDialogOpen={this.handleDialogOpen}
-                resourceId={this.resource.id}
+                handleRequestOpen={this.props.handleRequestOpen}
+                resource={resource}
                 tab={this.state.tab}
                 tabs={this.tabs}
-                {...this.props}
               />
               <ResourceHeader 
                 classes={classes}
@@ -506,7 +506,6 @@ class Resource extends React.Component {
                 </Grid>
               </Grid>
               <Visit 
-                classes={classes}
                 resource={resource}
               />
               <Grid container spacing={0}>
@@ -528,23 +527,6 @@ class Resource extends React.Component {
                 acFilter={this.state.acFilter}
                 handleFilterChange={this.handleFilterChange}
               />
-              <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
-                <div className={classes.dialogBody}>
-                  <ActionButton
-                    onClick={this.handleDialogClose}
-                    >&times;</ActionButton>              
-                {this.state.dialog === 'share' &&
-                  <ShareDialog
-                    handleMessageNew={handleMessageNew}
-                    handleRequestClose={this.handleDialogClose}
-                    // session={session}
-                    listId={resource.id}
-                    listTitle={resource.name}
-                    shareType="resource"
-                  />
-                }
-                </div>
-              </Dialog> 
             </div>}
           </div>
           }

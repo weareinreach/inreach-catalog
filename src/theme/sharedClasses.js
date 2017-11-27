@@ -30,6 +30,11 @@ export const searchInputMobile = theme => ({
 export const bodyLink = theme => ({
   color: theme.palette.primary[500]
 });
+export const listLink = theme =>({
+  '& + &:before': {
+    content: '\", \"'
+  }
+});
 export const mobilePadding = theme => ({
   paddingLeft: "20px",
   paddingRight: "20px"

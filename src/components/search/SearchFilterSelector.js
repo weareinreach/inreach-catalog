@@ -21,7 +21,7 @@ const styles = theme => ({
     minWidth: '420px'
   },
   rootClass: {
-    display: 'inline-block'
+    display: 'block'
   }
 
 });
@@ -37,7 +37,7 @@ class SearchFilterSelector extends React.Component {
     const containerWidth = "auto";
 
     return (
-      <AsylumConnectSelector label="Additional Filters" selected={selectedFilters} rootClass={rootClass} containerWidth={containerWidth} containerClass={selectInput} listContainerClass={filterList} >
+      <AsylumConnectSelector label="Additional Filters" selected={selectedFilters} rootClass={rootClass} containerClass={selectInput} listContainerClass={filterList} >
         <SearchFilters selectedFilters={selectedFilters} onChange={onChange} />
       </AsylumConnectSelector>
       
