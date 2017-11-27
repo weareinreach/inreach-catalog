@@ -98,15 +98,16 @@ class SuggestAdditional extends React.Component {
     super(props);
     const {schedule} = this.props
     this.state = {
-      open: true,
+      openFeature: true,
+      openRequirement: true,
       selectedResources: []
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
   }
-  handleToggleDropDown() {
-    this.setState({ open: !this.state.open });
+  handleToggleDropDown(menu) {
+    this.setState({ [menu]: !this.state[menu]});
   }
   handleChange(e) {
     const { name, value } = e.target;
@@ -137,11 +138,11 @@ class SuggestAdditional extends React.Component {
     return (
       <div className={classes.root}>
         <form className={classes.form}>
-          <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
+          <div onClick={ref=> this.handleToggleDropDown('openFeature')} className={classes.settingsTypeFont}>
               <span>Feature</span>
-              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+              {this.state.openFeature ? <ExpandLess /> : <ExpandMore />}
           </div>
-          <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
+          <Collapse in={this.state.openFeature} transitionDuration="auto" unmountOnExit>
             <div>
               <AsylumConnectCheckbox 
                 label='Has A Confidentiality Policy' 
@@ -165,11 +166,11 @@ class SuggestAdditional extends React.Component {
                 checked={false} />
             </div>
           </Collapse>
-          <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
+          <div onClick={ref=> this.handleToggleDropDown('openRequirement')} className={classes.settingsTypeFont}>
               <span>Requirement</span>
-              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+              {this.state.openRequirement ? <ExpandLess /> : <ExpandMore />}
           </div>
-          <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
+          <Collapse in={this.state.openRequirement} transitionDuration="auto" unmountOnExit>
             <div>
               <AsylumConnectCheckbox 
                 label='Photo ID' 
