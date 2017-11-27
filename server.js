@@ -18,8 +18,14 @@ if(typeof process.env.AUTHORIZE !== 'undefined') {
   app.use(auth.connect(basic));
 }
 
+//handle redirect first
 app.use(function(req,res,next) {
-  if(false && !req.secure && process.env.OD_API_ENV == 'production') {
+  if(typeof process.env.REDIRECT !== 'undefined' 
+    && (!req.query.sneakpeek || req.query.sneakpeek !== 'yup')
+    && (!req.cookies.sneakpeek || req.cookies.sneakpeek === 'yup')
+    ) {
+      res.redirect(302, process.env.REDIRECT);
+  } else if(!req.secure && process.env.OD_API_ENV == 'production') {
     res.redirect(`https://${req.header('host')}${req.url}`);
   } else {
     next();
@@ -28,26 +34,12 @@ app.use(function(req,res,next) {
 })
 
 app.use(function(req, res, next) {
-  if(typeof process.env.REDIRECT === 'undefined' 
-      || (req.query.sneakpeek && req.query.sneakpeek === 'yup')
-      || (req.cookies.sneakpeek && req.cookies.sneakpeek === 'yup')) {
     res.cookie('sneakpeek', 'yup');
     return (express.static(__dirname + '/public/'))(req, res, next);
-  } else {
-    next()
-  }
-
 });
 
 app.get('*', (req, res) => {
-  if(typeof process.env.REDIRECT === 'undefined' 
-    || (req.query.sneakpeek && req.query.sneakpeek === 'yup')
-    || (req.cookies.sneakpeek && req.cookies.sneakpeek === 'yup')
-    ) {
-      res.sendFile(__dirname + '/public/index.html');
-  } else {
-    res.redirect(302, process.env.REDIRECT);
-  }
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 app.listen(process.env.PORT || 8080);
