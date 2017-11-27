@@ -91,6 +91,7 @@ class OrgSettingsHour extends React.Component {
   }
   render() {
     const { classes, schedule, selectedDays, onSelect } = this.props;
+    console.log(selectedDays)
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
@@ -277,7 +278,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Sunday'
                 value='sunday'
-                onChange={ref => onSelect('select',ref.target.name, schedule.sunday_start, schedule.sunday_end)} 
+                onChange={ref => onSelect('select',ref.target.value, schedule.sunday_start, schedule.sunday_end)} 
                 checked={selectedDays.sunday} />
               <div className={classes.textField}>
                 <TextField

@@ -58,16 +58,6 @@ const styles = theme => ({
   boldFont: boldFont(theme)
 });
 
-const defaultSchedule = {
-  monday_start: '', monday_end: '',
-  tuesday_start: '', tuesday_end: '',
-  wednesday_start: '', wednesday_end: '',
-  thursday_start: '', thursday_end: '',
-  friday_start: '', friday_end: '',
-  saturday_start: '', saturday_end: '',
-  sunday_start: '', sunday_end: '',
-}
-
 class OrgSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -124,11 +114,17 @@ class OrgSettings extends React.Component {
           this.setState({ orgData, isLoading: false })
           // Capture selected day
           if (orgData.locations && orgData.locations[0] && orgData.locations[0].schedule) {
+            let selectedDays;
             const { schedule } = orgData.locations[0]
             for (let day in schedule){
-              const selectedDays = update(this.state.selectedDays, {$merge: { [day.split('_')[0]]: true}})
-              this.setState({selectedDays})
+              // if initial hour field is empty, checkbox of the day will be unchecked initially
+              if (schedule[day]) {
+                selectedDays = update(this.state.selectedDays, {$merge: { [day.split('_')[0]]: true}})
+              } else {
+                selectedDays = update(this.state.selectedDays, {$merge: { [day.split('_')[0]]: false}})
+              }              
             }
+            this.setState({selectedDays})
           }          
         })        
       } else {
@@ -154,7 +150,6 @@ class OrgSettings extends React.Component {
     } else {
       updatedOrgData = update(orgData,{$merge:{[name]: value}})
       this.setState({ orgData: updatedOrgData })
-      //console.log(orgData)
     }
   }
   handleSelect(select, value, startValue, endValue) {
@@ -170,18 +165,17 @@ class OrgSettings extends React.Component {
   handleClick(){
     const {orgData, selectedDays} = this.state;
     const {user, handleMessageNew} = this.props;
-
     // Remove unselected time in schedule object
     let { schedule } = orgData.locations[0]
     let updatedOrgData;
     for (let timeKey in schedule ) {
       let day = timeKey.split('_')[0]
       if (!selectedDays[day]){
-        delete(schedule[timeKey])
+        schedule = update(schedule,{$merge:{[timeKey]: ''}})
       }
     }
     updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge: schedule} }}})
-    //console.log(updatedOrgData)
+    console.log(updatedOrgData)
     // Submit
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
