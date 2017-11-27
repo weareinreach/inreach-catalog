@@ -1,7 +1,7 @@
 import React from 'react';
 import fetch from 'node-fetch';
 import config from '../config/config.js';
-import fetchUserLists from '../helpers/fetchUserLists';
+import {fetchUser, fetchUserLists} from '../helpers/odasRequests';
 
 export default function withSession(WrappedComponent) {
   return class extends React.Component {
@@ -15,6 +15,7 @@ export default function withSession(WrappedComponent) {
         user: null
       };
 
+      this.handleFetchUser = this.handleFetchUser.bind(this);
       this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
       this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
       this.handleListNew = this.handleListNew.bind(this);
@@ -28,7 +29,7 @@ export default function withSession(WrappedComponent) {
 
       const { session } = this.state;
       if (session) {
-        this.fetchUser(session);
+        this.handleFetchUser(session);
         this.fetchLists(session);
       };
     }
@@ -72,43 +73,18 @@ export default function withSession(WrappedComponent) {
 
     fetchLists(session) {
       fetchUserLists(session)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(response);
-          }
-        })
         .then(data => {
-          this.setState({lists: data.collections});
+          this.setState({lists: data ? data.collections : []});
         })
-        .catch(response => {
-          console.warn(response);
-        });
-    }
-
-    fetchUser(jwt) {
-      const apiDomain = config[process.env.OD_API_ENV].odas;
-      const url = `${apiDomain}api/user`;
-      const options = {
-        headers: {
-          Authorization: jwt,
-          'Content-Type': 'application/json',
-          OneDegreeSource: 'asylumconnect',
-        },
-      };
-      fetch(url, options)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(response);
-          }
-        })
-        .then(data => this.setState({ user: data.user.id }))
         .catch(error => {
           this.handleLogOut();
         });
+    }
+
+    handleFetchUser(session) {
+      fetchUser(session)
+        .then(data => this.setState({ user: data.user.id }))
+        .catch(error => this.handleLogOut());
     }
 
     handleStorageChange() {
@@ -118,14 +94,14 @@ export default function withSession(WrappedComponent) {
     handleLogIn(jwt) {
       window.localStorage.setItem('jwt', jwt);
       this.handleStorageChange();
-      this.fetchUser(jwt);
+      this.handleFetchUser(jwt);
       this.fetchLists(jwt);
     }
 
     handleLogOut() {
       window.localStorage.removeItem('jwt');
-      this.setState({ lists: [], user: null, });
       this.handleStorageChange();
+      this.setState({ lists: [], user: null, });
     }
 
     render() {

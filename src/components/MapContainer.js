@@ -413,6 +413,7 @@ class MapContainer extends React.Component {
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
+                      handleLogOut={this.props.handleLogOut}
                       handleMessageNew={this.props.handleMessageNew}
                       handlePlaceSelect={this.handlePlaceSelect} 
                       handlePlaceChange={this.handlePlaceChange}

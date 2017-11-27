@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
-import fetchUserLists from '../../helpers/fetchUserLists';
-import deleteListFavorite from '../../helpers/deleteListFavorite';
+import {deleteListFavorite} from '../../helpers/odasRequests';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
@@ -111,18 +110,28 @@ class FavoritesListContainer extends React.Component {
     const {session} = this.props;
 
     deleteListFavorite(listId, resourceId, session)
-      .then(response => {
-        if (response.status === 200) {
-          this.setState(prevState => ({
-            resources: prevState.resources.filter(resource => resource.id !== resourceId)
-          }))
-          this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
-        } else {
-          Promise.reject(response);
-        }
+      .then(() => {
+        this.setState(prevState => ({
+          resources: prevState.resources.filter(
+            resource => resource.id !== resourceId
+          )
+        }))
+        this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
       })
       .catch(error => {
-        console.warn(error);
+        const {
+          handleLogOut,
+          handleMessageNew,
+          handleRequestOpen,
+        } = this.props;
+        if (error.response && error.response.status === 401) {
+          handleMessageNew('Your session has expired. Please log in again.');
+          handleLogOut();
+        } else if (error.response && error.response.status === 403) {
+          handleRequestOpen('password');
+        } else {
+          handleMessageNew('Oops! Something went wrong.');
+        }
       });
   }
 
@@ -168,6 +177,7 @@ FavoritesListContainer.propTypes = {
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListRemoveFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,

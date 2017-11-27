@@ -13,12 +13,20 @@ import {
 
 class PageContainer extends React.Component {
   render() {
-    const { handleMessageNew, session, user, handleLogOut, history } = this.props;
-    const sessionListProps = {
+    const {
+      handleLogOut,
+      handleMessageNew,
+      handleRequestOpen,
+      history,
+      session,
+      user,
+    } = this.props;
+    const favoritesListProps = {
       dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
+      handleLogOut: this.props.handleLogOut,
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
@@ -28,21 +36,22 @@ class PageContainer extends React.Component {
     return (
       <div className="page-container"> 
           <Switch>
-            {/*<Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>*/}
-            {/*<Route
-              path="/favorites/:id/:listId"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
-            />*/}
             <Route
               path="/favorites/:listId"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
+              render={() => <FavoritesListContainer {...favoritesListProps} />}
             />
             <Route
               path="/favorites"
-              render={() => <FavoritesListContainer {...sessionListProps} />}
+              render={() => <FavoritesListContainer {...favoritesListProps} />}
             />
             <Route path="/account" render={()=>(
-              <AccountPage handleMessageNew={handleMessageNew} handleLogOut={handleLogOut} history={history} />
+              <AccountPage
+                handleMessageNew={handleMessageNew}
+                handleLogOut={handleLogOut}
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+                session={session}
+              />
             )}
             />
           </Switch>

@@ -154,7 +154,6 @@ class SignupFormContainer extends React.Component {
     const options = {
       method: 'POST',
       headers: {
-        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
         'Content-Type': 'application/json',
         OneDegreeSource: 'asylumconnect',
       },

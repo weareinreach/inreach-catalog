@@ -146,6 +146,7 @@ class AsylumConnectCatalog extends React.Component {
               handleListAddFavorite={handleListAddFavorite}
               handleListNew={handleListNew}
               handleLogIn={handleLogIn}
+              handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
               handleRequestClose={handleRequestClose}
               handleRequestOpen={handleRequestOpen}
@@ -164,6 +165,7 @@ class AsylumConnectCatalog extends React.Component {
                   handleListAddFavorite={handleListAddFavorite}
                   handleListRemoveFavorite={handleListRemoveFavorite}
                   handleListNew={handleListNew}
+                  handleLogOut={handleLogOut}
                   handleMessageNew={handleMessageNew}
                   handleRequestOpen={handleRequestOpen}
                   lists={lists}
@@ -179,6 +181,7 @@ class AsylumConnectCatalog extends React.Component {
                 handleListAddFavorite={handleListAddFavorite}
                 handleListRemoveFavorite={handleListRemoveFavorite}
                 handleListNew={handleListNew}
+                handleLogOut={handleLogOut}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 lists={lists}
@@ -196,6 +199,7 @@ class AsylumConnectCatalog extends React.Component {
                 handleListAddFavorite={handleListAddFavorite}
                 handleListRemoveFavorite={handleListRemoveFavorite}
                 handleListNew={handleListNew}
+                handleLogOut={handleLogOut}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 lists={lists}
@@ -215,7 +219,6 @@ class AsylumConnectCatalog extends React.Component {
                     {...this.props}
                     {...props}
                     handleMessageNew={handleMessageNew}
-                    handleLogOut={handleLogOut}
                     handleRequestOpen={handleRequestOpen}
                   />
                 )}
