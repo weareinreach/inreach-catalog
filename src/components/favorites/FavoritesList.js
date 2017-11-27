@@ -68,7 +68,7 @@ const FavoritesList = ({
     </Typography>
     <Typography type="body1">
       {session
-        ? 'Your favorites lists are only visible to you and anyone you share them with.'
+        ? 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'
         : 'You must be logged in to use favorites.'
       }
     </Typography>
