@@ -29,7 +29,7 @@ class AsylumConnectMarker extends React.Component {
     const { children } = this.props;
     return (
       <Marker {...this.props} icon={{
-          url: "http://asylum-connect-catalog-staging.herokuapp.com/img/icon-pinpoint.png",
+          url: "https://asylum-connect-catalog-staging.herokuapp.com/img/icon-pinpoint.png",
           anchor: new google.maps.Point(11,32),
           scaledSize: new google.maps.Size(22,32),
       }} onClick={this.handleMarkerClick} >
