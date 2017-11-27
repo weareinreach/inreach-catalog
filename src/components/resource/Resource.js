@@ -405,7 +405,7 @@ class Resource extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
-        <Grid item xs={12} sm={10} md={10} lg={9} >
+        <Grid item xs={12} sm={11} md={10} lg={10} xl={11} >
           { this.state.orgLoading ? <Loading /> :
           <div> {/******* MOBILE *******/}
             {isMobile ?
