@@ -192,6 +192,7 @@ const Tools = (props) => (
           handleListAddFavorite={props.handleListAddFavorite}
           handleListRemoveFavorite={props.handleListRemoveFavorite}
           handleListNew={props.handleListNew}
+          handleLogOut={props.handleLogOut}
           handleMessageNew={props.handleMessageNew}
           handleRequestOpen={props.handleRequestOpen}
           lists={props.lists}
@@ -416,6 +417,7 @@ class Resource extends React.Component {
                     handleListAddFavorite={props.handleListAddFavorite}
                     handleListRemoveFavorite={props.handleListRemoveFavorite}
                     handleListNew={props.handleListNew}
+                    handleLogOut={props.handleLogOut}
                     handleRequestOpen={props.handleRequestOpen}
                     handleMessageNew={props.handleMessageNew}
                     lists={props.lists}
