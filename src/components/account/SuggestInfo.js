@@ -8,12 +8,14 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
+import { searchInput, searchInputMobile } from '../../theme/sharedClasses';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 function TextMaskCustom(props) {
   return (
@@ -59,47 +61,81 @@ const styles = theme => ({
     alignItems: 'center',
     cursor: 'pointer'
   },
+  inputAddressLabel: {
+    '& label': theme.custom.inputLabel,
+    '&>div': {
+      marginTop: '40px'
+    },
+  },
+  searchInput: searchInput(theme),
+  [theme.breakpoints.down('sm')]: {
+    searchInput: searchInputMobile(theme)
+  },
+  searchInputContainer: {
+    position: 'relative',
+  },
+  placesContainer: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[2],
+    position: 'absolute',
+    zIndex: '20',
+    top: 'calc(100% - 1.5rem)',
+    width: '100%',
+    right: '0',
+    left: '0',
+    '& div': theme.custom.inputText
+  }
 });
 
 class SuggestInfo extends React.Component {
   constructor(props) {
     super(props);
-    const { initialData } = this.props;
     this.state = {
       open: true,
-      phone: initialData && initialData.phone? initialData.phone : '(  )   -   ',
-      description: initialData && initialData.description? initialData.description : '',
-      address: initialData && initialData.address? initialData.address : '', 
-      website: initialData && initialData.website? initialData.website : '',
-      name: initialData && initialData.name? initialData.name : '',
-      region: initialData && initialData.region? initialData.region : '',
-      city: initialData && initialData.city? initialData.city : '', 
-      state: initialData && initialData.state? initialData.state : '', 
-      zip_code: initialData && initialData.zip_code? initialData.zip_code : '',
-      target: '',
+      digits: '(  )   -   ',
+      description: '',
+      address: '', 
+      website: '',
+      name: '',
+      email: '',
+      notes: '',
+      nonEngServices: ''
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
+    this.handleChangeAutoAddress = this.handleChangeAutoAddress.bind(this)
   }
   handleChange(e) {
     const { name, value } = e.target;
-    if (['name','website','description','region'].includes(name)) {
-      this.props.onChange('info', name, value)
-    } else if (name === 'digits'){
-      this.props.onChange('phones', name, value)
-    } else {
-      this.props.onChange('address', name, value)
-    }
+    this.setState({ [name]: value })
   };
+  handleChangeAutoAddress(address){
+    this.setState({address})
+  }
   handleToggleDropDown() {
     this.setState({ open: !this.state.open });
   };
+  handlePlaceSelect(address) {
+    this.setState({address})
+  }
   render() {
-    const { classes, isSuggestion, name, website, region, description, address } = this.props;
-    const { digits } = address.phones && address.phones[0] ? address.phones[0]: '(   )   -   '
-    const nonEngServices = ''
-    const email = ''
-    const notes = ''
+    const { classes } = this.props;
+    const { name, website, description, address, email, notes, nonEngServices, digits } = this.state;
+    const inputPropsAutoAddress = {
+      value: address,
+      onChange: this.handleChangeAutoAddress,
+      type: 'text',
+      autoFocus: true,
+      placeholder: "Start typing address, city or zip code in the US…",
+      name: 'search--near',
+      id: "search--near",
+    }
+    const cssClasses = {
+      root: classes.searchInputContainer,
+      input: classes.searchInput,
+      autocompleteContainer: classes.placesContainer,
+    }
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -114,17 +150,17 @@ class SuggestInfo extends React.Component {
             placeholder='Resource Name'
             onChange={this.handleChange}
           />
-          <TextField
-            className={classes.inputLabel}
-            label='Address:'
-            name='address'
-            value={address.address}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder='Start typing address, city or zip code in the U.S.'
-            onChange={this.handleChange}
-          />
+          <FormControl className={classes.inputAddressLabel}>
+            <InputLabel 
+              children='Address:'
+              shrink />
+            <PlacesAutocomplete
+              onSelect={this.handlePlaceSelect}
+              onEnterKeyDown={this.handlePlaceSelect}
+              inputProps={inputPropsAutoAddress}
+              classNames={cssClasses}
+            />
+          </FormControl>
           <TextField
             className={classes.inputLabel}
             label='About:'

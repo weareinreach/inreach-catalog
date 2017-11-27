@@ -189,13 +189,7 @@ class Suggestion extends React.Component {
           <Typography type='body1'>
             Thank you for your interest in contributing to the AsylumConnect resource catalog! Use this form to suggest a resource you think should be included. It's ok if you do not have all of the information the form asks for - just fill in what you know, and we'll do the rest! We appreciate your submission and thank you for helping to connect asylum seekers to helpful services. All suggested resources are subject to review by AsylumConnect staff before being published.
           </Typography>
-          <SuggestInfo 
-            name={''} 
-            website={''}
-            region={''}
-            description={''}
-            address={''}
-            onChange={this.handleChange}/>
+          <SuggestInfo onChange={this.handleChange}/>
 
           <SuggestHour 
             schedule={defaultSchedule}
