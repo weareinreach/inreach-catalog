@@ -22,7 +22,7 @@ if(typeof process.env.AUTHORIZE !== 'undefined') {
 app.use(function(req,res,next) {
   if(typeof process.env.REDIRECT !== 'undefined' 
     && (!req.query.sneakpeek || req.query.sneakpeek !== 'yup')
-    && (!req.cookies.sneakpeek || req.cookies.sneakpeek === 'yup')
+    && (!req.cookies.sneakpeek || req.cookies.sneakpeek !== 'yup')
     ) {
       res.redirect(302, process.env.REDIRECT);
   } else if(!req.secure && process.env.OD_API_ENV == 'production') {
