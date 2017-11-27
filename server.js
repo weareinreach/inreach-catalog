@@ -19,7 +19,7 @@ if(typeof process.env.AUTHORIZE !== 'undefined') {
 }
 
 app.use(function(req,res,next) {
-  if(!req.secure && process.env.OD_API_ENV == 'production') {
+  if(false && !req.secure && process.env.OD_API_ENV == 'production') {
     res.redirect(`https://${req.header('host')}${req.url}`);
   } else {
     next();
