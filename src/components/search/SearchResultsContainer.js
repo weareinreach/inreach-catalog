@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Fa from 'react-fontawesome';
+
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
@@ -158,15 +160,28 @@ class SearchResultsContainer extends React.Component {
     return (
       <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
         <Grid item md={10} lg={10} xl={11} xs={12}>
-        <div className={containerSearchForm}>
+        <div className={containerSearchForm+' no-background'}>
           <SearchBar {...this.props} classes={null} />
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={3} className={formRow}>
-              <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
-                Search
-              </AsylumConnectButton>
+          <Grid container spacing={0} alignItems='flex-start'>
+            <Grid item xs={12} md={8} className={formRow}>
+              <Grid container spacing={0} justify='space-between'>
+                <Grid item xs>
+                  <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
+                    Search
+                    {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
+                  </AsylumConnectButton>
+                </Grid>
+                {isMobile ? null : 
+                <Grid item xs className='pull-right'>
+                  <AsylumConnectButton variant="secondary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                    Print
+                    {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
+                  </AsylumConnectButton>
+                </Grid>
+                }
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={9} className={filterContainer}>
+            <Grid item xs={12} md={4} className={filterContainer}>
               <SearchRefinementControls 
                 clearSearchFilters={this.props.clearSearchFilters}
                 handleFilterSelect={this.props.handleFilterSelect} 

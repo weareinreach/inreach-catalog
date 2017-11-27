@@ -67,7 +67,7 @@ class ListNewFormContainer extends React.Component {
               console.warn(error);
             });
         } else if (origin === 'favoritesList') {
-          history.push(`/favorites/${user}/${data.collection.id}`);
+          history.push(`/favorites/${data.collection.slug}`);
         }
         handleRequestClose();
       })

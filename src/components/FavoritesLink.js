@@ -19,7 +19,7 @@ const styles = theme => ({
 });
 
 const FavoritesLink = ({ classes, user }) => (
-  <Link to={`/favorites${user ? `/${user}` : ''}`} >
+  <Link to={`/favorites`}  className="hide--on-print">
     <Typography
       type='display4'
       className={classes.viewYourFavoritesText}

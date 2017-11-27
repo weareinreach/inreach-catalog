@@ -36,7 +36,7 @@ class FavoritesListContainer extends React.Component {
     const { lists, user } = this.props;
 
     if (lists.length && !listId) {
-      this.props.history.push(`/favorites/${user}/${lists[0].id}`);
+      this.props.history.replace(`/favorites/${lists[0].slug}`);
     } else if (lists.legth && listId) {
       this.fetchListResources(listId);
     }
@@ -44,7 +44,7 @@ class FavoritesListContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.lists.length && !nextProps.match.params.listId) {
-      this.props.history.push(`/favorites/${nextProps.user}/${nextProps.lists[0].id}`);
+      this.props.history.replace(`/favorites/${nextProps.lists[0].slug}`);
     }
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });
@@ -65,7 +65,7 @@ class FavoritesListContainer extends React.Component {
 
   fetchListResources(listId) {
     const list = this.props.lists.find(
-      collection => collection.id == listId,
+      collection => collection.slug == listId,
     );
     if (list && list.fetchable_list_items.length) {
       this.fetchResources(list.fetchable_list_items);
@@ -94,7 +94,7 @@ class FavoritesListContainer extends React.Component {
 
   handleListSelect(list) {
     const {history, user} = this.props;
-    history.push(`/favorites/${user}/${list.id}`);
+    history.push(`/favorites/${list.slug}`);
     this.handleMenuClose();
   }
 
@@ -128,7 +128,7 @@ class FavoritesListContainer extends React.Component {
 
   render() {
     const currentList = this.props.lists.find(
-      list => list.id == this.props.match.params.listId,
+      list => list.slug == this.props.match.params.listId,
     );
     const isMobile = this.props.width < breakpoints['sm'];
     if (isMobile) {

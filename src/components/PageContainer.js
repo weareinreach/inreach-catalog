@@ -29,16 +29,16 @@ class PageContainer extends React.Component {
       <div className="page-container"> 
           <Switch>
             {/*<Route path="/favorites/:id/:listId/share" component={FavoritesListPage}/>*/}
-            <Route
+            {/*<Route
               path="/favorites/:id/:listId"
               render={() => <FavoritesListContainer {...sessionListProps} />}
-            />
+            />*/}
             <Route
-              path="/favorites/:id/"
+              path="/favorites/:listId"
               render={() => <FavoritesListContainer {...sessionListProps} />}
             />
             <Route
-              path="/favorites/"
+              path="/favorites"
               render={() => <FavoritesListContainer {...sessionListProps} />}
             />
             <Route path="/account" render={()=>(

@@ -50,19 +50,22 @@ const NavDesktop = ({
         <img src={LogoImg} className={classes.LogoFitHeight} />
       </IconButton>
     </Link>
-    <a href="http://www.asylumconnect.org/our-organization/">
+    <a className="hide--on-screen" href="#">
+      <Typography type="headline">AsylumConnect Catalog</Typography>
+    </a>
+    <a className="hide--on-print" href="http://www.asylumconnect.org/about-us">
       <Typography type="display4">about us</Typography>
     </a>
-    <a href="">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/take-action">
       <Typography type="display4">take action</Typography>
     </a>
-    <a href="">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/get-help">
       <Typography type="display4">get help</Typography>
     </a>
-    <a href="http://www.asylumconnect.org/contact-us/">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/contact-us">
       <Typography type="display4">contact us</Typography>
     </a>
-    <Link to='/'>
+    <Link className="hide--on-print" to='/'>
       <AsylumConnectButton variant="primary">
         find resources
       </AsylumConnectButton>

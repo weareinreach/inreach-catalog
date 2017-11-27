@@ -2,20 +2,37 @@ import React from 'react';
 import url from 'url';
 import trim from 'trim';
 
+import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 import Phone from './Phone';
+import {boldFont, bodyLink, listLink, dividerSpacing} from '../../theme/sharedClasses';
 
-const Visit = ({resource, classes, isMobile}) => (
-  <Grid container spacing={0}>
+const styles = theme => ({
+  boldFont: boldFont(theme),
+  bodyLink: bodyLink(theme),
+  listLink: listLink(theme),
+  dividerSpacing: dividerSpacing(theme),
+  bottomSpacing: {
+    marginBottom: "0.9rem"
+  },
+  lineSpacing: {
+    lineHeight: "1.4rem"
+  }
+});
+
+const Visit = ({resource, classes, isMobile, hideTitle, className}) => (
+  <Grid container spacing={0} className={className}>
+    {hideTitle ? null :
     <Grid item xs={12}>
       <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
         How to visit this resource
       </Typography>
     </Grid>
+    }
      <Grid item xs={12} className={classes.dividerSpacing}>
       <Typography type="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{resource.website ? <a href={resource.website} target="_blank" className={classes.bodyLink}>{isMobile ? url.parse(resource.website).hostname : resource.website}</a> : null}</Typography>
       {resource.emails && resource.emails.length ? 
@@ -60,4 +77,4 @@ const Visit = ({resource, classes, isMobile}) => (
   </Grid>
 );
 
-export default Visit;
+export default withStyles(styles)(Visit);

@@ -86,7 +86,7 @@ class ShareFormContainer extends React.Component {
 ShareFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  listId: PropTypes.number.isRequired,
+  listId: PropTypes.string.isRequired,
   // session: PropTypes.string.isRequired,
   shareType: PropTypes.string.isRequired
 };

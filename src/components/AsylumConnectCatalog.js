@@ -55,12 +55,14 @@ class AsylumConnectCatalog extends React.Component {
       dialog: 'none',
       message: '',
       messageOpen: false,
+      nearAddress: ''
     };
 
     this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleMessageNew = this.handleMessageNew.bind(this);
     this.handleMessageClose = this.handleMessageClose.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
   }
 
   handleMessageNew(message) {
@@ -83,6 +85,12 @@ class AsylumConnectCatalog extends React.Component {
     this.setState({dialog: 'none'});
   }
 
+  handleAddressChange(address) {
+    this.setState({
+      nearAddress: address
+    })
+  }
+
   render() {
     const {dialog, message, messageOpen} = this.state;
     const {
@@ -99,7 +107,7 @@ class AsylumConnectCatalog extends React.Component {
       match
     } = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
-    const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
+    const {handleMessageNew, handleRequestClose, handleRequestOpen, handleAddressChange} = this;
     return (
         <div>
           <Header
@@ -158,6 +166,7 @@ class AsylumConnectCatalog extends React.Component {
                   handleMessageNew={handleMessageNew}
                   handleRequestOpen={handleRequestOpen}
                   lists={lists}
+                  nearAddress={this.state.nearAddress}
                   session={session}
                   user={user}
                 />)}
@@ -165,12 +174,14 @@ class AsylumConnectCatalog extends React.Component {
             <Route exact path="/" render={(props) => (
               <MapContainer
                 {...props}
+                handleAddressChange={handleAddressChange}
                 handleListAddFavorite={handleListAddFavorite}
                 handleListRemoveFavorite={handleListRemoveFavorite}
                 handleListNew={handleListNew}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 lists={lists}
+                nearAddress={this.state.nearAddress}
                 session={session}
                 user={user}
               />)}
@@ -180,12 +191,14 @@ class AsylumConnectCatalog extends React.Component {
             render={(props) => (
               <MapContainer
                 {...props}
+                handleAddressChange={handleAddressChange}
                 handleListAddFavorite={handleListAddFavorite}
                 handleListRemoveFavorite={handleListRemoveFavorite}
                 handleListNew={handleListNew}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 lists={lists}
+                nearAddress={this.state.nearAddress}
                 session={session}
                 user={user}
               />)}
