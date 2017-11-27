@@ -2,16 +2,20 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import fetch from 'node-fetch';
-
-import config from '../config/config.js';
-import createList from '../helpers/createList';
 
 import Button from 'material-ui/Button';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 
 import RedHeartIcon from './icons/RedHeartIcon';
+
+import breakpoints from '../theme/breakpoints';
+import theWidth from './theWidth';
+import {
+  createList,
+  createListFavorite,
+  deleteListFavorite,
+} from '../helpers/odasRequests';
 
 const styles = theme => ({
   viewYourFavoritesText: {
@@ -22,6 +26,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  textBlue: {color: theme.palette.common.blue},
 });
 
 class SaveToFavoritesButton extends React.Component {
@@ -34,28 +39,20 @@ class SaveToFavoritesButton extends React.Component {
     };
 
     this.handleCreateList = this.handleCreateList.bind(this);
+    this.handleFetchError = this.handleFetchError.bind(this);
     this.handleMenuOpen = this.handleMenuOpen.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
   }
 
-  handleCreateList(listId) {
-    if (!this.props.session) {
-      return this.props.handleMessageNew('You must be logged in to save favorites');
-    }
+  handleCreateList(currentTarget) {
+    const {session, user} = this.props;
     const payload = {
-      created_by_user_id: this.props.user,
+      created_by_user_id: user,
       title: 'My List',
     };
-    createList(payload, this.props.session)
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
+    createList(payload, session)
       .then(data => {
         this.props.handleListNew(
           Object.assign({}, payload, data.collection, {
@@ -63,14 +60,34 @@ class SaveToFavoritesButton extends React.Component {
           }),
         );
         this.handleSaveToFavorites(data.collection.id);
+        this.setState({open: true, anchorEl: currentTarget});
       })
-      .catch(error => {
-        console.warn(error);
-      });
+      .catch(this.handleFetchError);
+  }
+
+  handleFetchError(error) {
+    const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
+    if (error.response && error.response.status === 401) {
+      handleMessageNew('Your session has expired. Please log in again.');
+      handleLogOut();
+    } else if (error.response && error.response.status === 403) {
+      handleRequestOpen('password');
+    } else {
+      handleMessageNew('Oops! Something went wrong.');
+    }
   }
 
   handleMenuOpen(event) {
-    this.setState({open: true, anchorEl: event.currentTarget});
+    const {currentTarget} = event;
+    if (!this.props.session) {
+      return this.props.handleMessageNew(
+        'You must be logged in to save favorites',
+      );
+    } else if (this.props.lists.length < 1) {
+      this.handleCreateList(currentTarget);
+    } else {
+      this.setState({open: true, anchorEl: currentTarget});
+    }
   }
 
   handleMenuClose() {
@@ -79,58 +96,25 @@ class SaveToFavoritesButton extends React.Component {
 
   handleRemoveFavorite(listId) {
     this.handleMenuClose();
-    const {resourceId} = this.props;
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/collections/${listId}/items/${resourceId}?fetchable_type=Opportunity`;
-    const options = {
-      method: 'DELETE',
-      headers: {
-        Authorization: this.props.session,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          this.props.handleListRemoveFavorite(listId, resourceId);
-        } else {
-          Promise.reject(response);
-        }
-      })
-      .catch(error => {
-        console.warn(error);
-      });
+    const {
+      handleListRemoveFavorite,
+      handleMessageNew,
+      resourceId,
+      session,
+    } = this.props;
+    deleteListFavorite(listId, resourceId, session).then(() => {
+      handleListRemoveFavorite(listId, resourceId);
+    });
   }
 
   handleSaveToFavorites(listId) {
     this.handleMenuClose();
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/collections/${listId}/items`;
-    const payload = JSON.stringify({
-      fetchable_id: this.props.resourceId,
-      fetchable_type: 'Opportunity',
-    });
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: this.props.session,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body: payload,
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          this.props.handleListAddFavorite(listId, this.props.resourceId);
-        } else {
-          Promise.reject(response);
-        }
+    const {resourceId, session} = this.props;
+    createListFavorite(listId, resourceId, session)
+      .then(() => {
+        this.props.handleListAddFavorite(listId, this.props.resourceId);
       })
-      .catch(error => {
-        console.warn(error);
-      });
+      .catch(this.handleFetchError);
   }
 
   render() {
@@ -155,11 +139,15 @@ class SaveToFavoritesButton extends React.Component {
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
     );
+
+    const buttonLabel =
+      theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
+
     return (
       <div>
-        <Button onClick={lists.length ? handleMenuOpen : handleCreateList}>
+        <Button onClick={handleMenuOpen}>
           <Typography type="display4" className={classes.viewYourFavoritesText}>
-            Save To Favorites
+            {buttonLabel}
             <RedHeartIcon width={'38px'} fill={isFavorite} />
           </Typography>
         </Button>
@@ -187,6 +175,14 @@ class SaveToFavoritesButton extends React.Component {
               </MenuItem>
             );
           })}
+          <MenuItem
+            className={classes.textBlue}
+            onClick={() =>
+              this.props.handleRequestOpen(
+                `listNew/saveToFavorites/${resourceId}`,
+              )}>
+            <span className={classes.textBlue}>Create New List</span>
+          </MenuItem>
         </Menu>
       </div>
     );
@@ -200,10 +196,12 @@ SaveToFavoritesButton.defaultProps = {
 
 SaveToFavoritesButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListRemoveFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,

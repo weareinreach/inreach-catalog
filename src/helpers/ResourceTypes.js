@@ -51,8 +51,8 @@ const resourceTypes = [
   {category: 'Community support', type: 'communitySupport', odTag: 'LGBTQ centers', title: 'LGBTQ centers'},
   {category: 'Community support', type: 'communitySupport', odTag: 'Cultural centers', title: 'Cultural centers'},
   /* AC Mental health Category */
-  {category: 'Mental health', type: 'mentalHealth', odTag: 'Support groups', title: 'Support Groups'},
-  {category: 'Mental health', type: 'mentalHealth', odTag: 'Peer support', title: 'Support Groups'},
+  {category: 'Mental health', type: 'mentalHealth', odTag: 'Support groups', title: 'Support groups'},
+  {category: 'Mental health', type: 'mentalHealth', odTag: 'Peer support', title: 'Support groups'},
   {category: 'Mental health', type: 'mentalHealth', odTag: 'Counseling & therapy', title: 'Private Counseling'},
   {category: 'Mental health', type: 'mentalHealth', odTag: 'Psychiatry', title: 'Psychiatry'},
   /* AC Mail services Category */
@@ -104,6 +104,8 @@ const groupResourceTypes = () => {
   return final;
 }
 
+const resourceTypesByGroup = groupResourceTypes();
+
 const getTagIndex = () => {
   let index = {};
   resourceTypes.forEach((item) => {
@@ -150,6 +152,6 @@ const getTagIndex = () => {
 
 export default {
   types: resourceTypes,
-  groupResourceTypes,
+  resourceTypesByGroup,
   getTagIndex
 };

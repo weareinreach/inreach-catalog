@@ -13,6 +13,9 @@ body {
     min-width: 88px;
   }
 }
+a{
+  color: #6988c1;
+}
 
 .center-align {
   vertical-align: middle;
@@ -25,4 +28,79 @@ body {
 
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
+}
+
+.badge-tooltipTop{
+  top: 18px;
+  margin: 0;
+  position: relative;
+}
+
+.nav-bottom-selectedLabel{
+  color: #f26f6f;
+}
+
+input[class*="inputSingleline"] {
+    height: 1.2em;
+}
+
+@media screen and (max-width: 400px){
+  .nav-bottom-label{
+    font-size: 10px !important;
+  }
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+
+.sticky.sticky-fixed.is-sticky {
+  margin-top: 0;
+  margin-bottom: 0;
+  position: fixed;
+  -webkit-backface-visibility: hidden;
+          -moz-backface-visibility: hidden;
+       backface-visibility: hidden;
+}
+
+.sticky.sticky-fixed.is-sticky:not([style*="margin-top"]) {
+  margin-top: 0 !important;
+}
+.sticky.sticky-fixed.is-sticky:not([style*="margin-bottom"]) {
+  margin-bottom: 0 !important;
+}
+
+
+.sticky.sticky-fixed.is-absolute{
+  position: absolute;
+}
+
+@media screen {
+  .hide--on-screen {
+    display: none !important;
+  }
+}
+
+@media print {
+  .hide--on-print {
+    display: none !important;
+  }
+
+  .page-break-after--avoid {
+    page-break-after: avoid;
+  }
+
+  .page-break-after--force {
+    page-break-after: always;
+  }
+
+  .page-break-inside--avoid {
+    page-break-inside: avoid;
+  }
+
+  .no-background {
+    background: none !important;
+  }
 }

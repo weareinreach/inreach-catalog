@@ -12,15 +12,17 @@ import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
-import LogoImg from '../../images/AC-logo.png';
+import LogoImg from '../../images/asylum-connect.svg';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10 2% 10 4%',
+    padding: '10px 0',
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
   },
   displayInherit: {
     display: 'inherit',
@@ -42,24 +44,28 @@ const NavDesktop = ({
   user,
 }) => (
   <div className={classes.root}>
-    <IconButton
-      className={classes.IconButton}
-      href="http://www.asylumconnect.org">
-      <img src={LogoImg} className={classes.LogoFitHeight} />
-    </IconButton>
-    <a href="http://www.asylumconnect.org/our-organization/">
+    <Link to='/'>
+      <IconButton
+        className={classes.IconButton}>
+        <img src={LogoImg} className={classes.LogoFitHeight} />
+      </IconButton>
+    </Link>
+    <a className="hide--on-screen" href="#">
+      <Typography type="headline">AsylumConnect Catalog</Typography>
+    </a>
+    <a className="hide--on-print" href="http://www.asylumconnect.org/about-us">
       <Typography type="display4">about us</Typography>
     </a>
-    <a href="">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/take-action">
       <Typography type="display4">take action</Typography>
     </a>
-    <a href="">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/seek-lgbtq-asylum">
       <Typography type="display4">get help</Typography>
     </a>
-    <a href="http://www.asylumconnect.org/contact-us/">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/contact-us">
       <Typography type="display4">contact us</Typography>
     </a>
-    <Link to='/'>
+    <Link className="hide--on-print" to='/'>
       <AsylumConnectButton variant="primary">
         find resources
       </AsylumConnectButton>

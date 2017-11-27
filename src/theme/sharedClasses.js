@@ -30,7 +30,21 @@ export const searchInputMobile = theme => ({
 export const bodyLink = theme => ({
   color: theme.palette.primary[500]
 });
+export const listLink = theme =>({
+  '& + &:before': {
+    content: '\", \"'
+  }
+});
 export const mobilePadding = theme => ({
   paddingLeft: "20px",
   paddingRight: "20px"
 });
+export const boldFont = theme =>({
+  fontWeight: "600"
+})
+export const italicFont = theme =>({
+  fontStyle: "italic"
+})
+export const dividerSpacing = theme =>({
+  marginBottom: "2rem"
+})

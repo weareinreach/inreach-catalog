@@ -114,7 +114,7 @@ class Language extends React.Component {
     const classes = this.props.classes;
     const {open, selectedLang, initialLangsList} = this.state;
     return (
-      <div className={classes.root}>
+      <div className={classes.root + ' hide--on-print' }>
         <div className={classes.languageLink} onClick={this.handleClick}>
           <Typography
             aria-owns={this.state.open ? 'simple-menu' : null}
@@ -122,7 +122,7 @@ class Language extends React.Component {
             type="body1"
             className={[classes.centerTextAlign,'skiptranslate'].join(' ')}>
           {selectedLang}
-          <ChevronIcon width={'18px'}/>
+          <ChevronIcon width={'18px'} direction={this.state.open ? 'up' : 'down'}/>
           </Typography>
         </div>
         {open &&

@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import config from '../config/config.js';
+import ResourceTypes from './ResourceTypes';
 
 class OneDegreeResourceQuery {
   
@@ -8,15 +9,19 @@ class OneDegreeResourceQuery {
   constructor() {
     this.resetFilters();
     this.baseURL = config[process.env.OD_API_ENV].odrs;
+    //this.allResultsReturned = false;
+    this.removeAtCapacity = false;
+    this.pagingData = {};
     this.requiredFilters = {
       'opportunities': {
         query: {
           properties: {
-            'approval-asylumconnect': 'true'
+            'community-asylum-seeker': 'true',
+            'community-lgbt': 'true'
+            //'approval-asylumconnect': 'true'
           },
-          match: 'by_type'
-        },
-        'titles_only': 'true'
+          match: 'properties'
+        }
       },
       'organizations': {
         extended: 'true'
@@ -29,10 +34,19 @@ class OneDegreeResourceQuery {
    * @param {[Array]} tags an array of tags
    */
   addTags(tags) {
-    tags.forEach((tag) => {
-      this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
+    ResourceTypes.types.forEach((tag) => {
+      if((tag.title && tags.indexOf(tag.title) >= 0) || tags.indexOf(tag.category) >= 0) {
+        this.filters.query.tags.push(tag.odTag)
+      }
     });
+    /*tags.forEach((tag) => {
+      this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
+    });*/
     return this;
+  }
+
+  areAllResultsReturned() {
+    return this.pagingData.current_page == this.pagingData.total_pages;
   }
 
   setIds(ids) {
@@ -52,7 +66,15 @@ class OneDegreeResourceQuery {
   }
 
   setFilters(filters) {
-    //this.filters.query.properties
+    if(filters.indexOf('at-capacity') !== -1) {
+      filters.splice(filters.indexOf('at-capacity'), 1);
+      this.removeAtCapacity = true;
+    }
+    var properties = {}
+    filters.forEach((filter) => {
+      properties[filter] = 'true';
+    });
+    this.filters.query.properties = properties;
     return this;
   }
 
@@ -61,9 +83,34 @@ class OneDegreeResourceQuery {
     return this;
   }
 
-  nextPage() {
-    this.filters.page++;
+  setPerPage(perPage) {
+    this.filters.per_page = perPage;
     return this;
+  }
+
+  setPerPageToAllResults() {
+    return this.setPerPage(this.pagingData.total_count);
+  }
+
+  nextPage() {
+    if(this.filters.page < this.pagingData.total_pages) {
+      this.filters.page++;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  filterAtCapacity(resources) {
+    if(resources.length) {
+      return resources.filter((resource) => (
+        typeof resource.properties == 'undefined' 
+        || typeof resource.properties['at-capacity'] == 'undefined'
+        || resource.properties['at-capacity'] !== 'true'
+      ));
+    } else {
+      return resources;
+    }
   }
 
   serialize(obj, prefix) {
@@ -80,6 +127,9 @@ class OneDegreeResourceQuery {
   }
 
   buildFilters(type = 'opportunities') {
+    if(!this.removeAtCapacity) {
+      this.filters.query.titles_only = 'true';
+    }
     return [this.serialize(this.requiredFilters[type]), this.serialize(this.filters)].filter((item) => item!=='').join("&");
   }
 
@@ -88,10 +138,13 @@ class OneDegreeResourceQuery {
       api_key: config[process.env.OD_API_ENV].odApiKey,
       query: {
         properties: {},
-        tags: [],
-        page: 1
+        tags: []
       },
+      page: 1,
+      per_page: 10
     }
+    this.removeAtCapacity = false;
+    this.pagingData = {};
     return this;
   }
 
@@ -99,9 +152,11 @@ class OneDegreeResourceQuery {
     var self = this;
     this.fetch({
       callback: (data) => {
-        let ids = [];
+        let ids = [], filtered;
 
-        data.opportunities.forEach((opportunity, index) => {
+        filtered = this.removeAtCapacity ? self.filterAtCapacity(data.opportunities) : data.opportunities;
+
+        filtered.forEach((opportunity, index) => {
           if(ids.indexOf(opportunity.organization.id) === -1) {
             ids.push(opportunity.organization.id);
           }
@@ -109,8 +164,15 @@ class OneDegreeResourceQuery {
         if(ids.length === 0) {
           ids.push(0);
         }
+        self.pagingData = data.paging;
+
         var orgsSearch = new OneDegreeResourceQuery();
-        orgsSearch.setIds(ids);
+        orgsSearch
+          .setIds(ids)
+          .setPerPage(ids.length);
+        if(self.filters && self.filters.query && self.filters.query.order) {
+          orgsSearch.setOrder(self.filters.query.order);
+        }
         orgsSearch.fetch({
           type: 'organizations',
           callback: callback

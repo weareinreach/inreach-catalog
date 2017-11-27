@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
@@ -21,6 +22,10 @@ const styles = theme => ({
   paddingBelow: { paddingBottom: '0.5rem' },
   paddingBelowLarge: { paddingBottom: '2rem' },
   paddingVertical: { padding: '1.5rem 0' },
+  centerColumn: {
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
+  },
   textBlack: { color: theme.palette.common.darkBlack },
   textCenter: { textAlign: 'center' },
 });
@@ -34,6 +39,7 @@ const Footer = ({ classes }) => {
     paddingVertical,
     textBlack,
     textCenter,
+    centerColumn
   } = classes;
 
   const ContactLink = ({ link, icon }) => (
@@ -45,8 +51,8 @@ const Footer = ({ classes }) => {
   );
 
   return (
-    <footer className={textCenter}>
-      <Grid container spacing={0} className={classNames(bgDarkGrey, paddingVertical)}>
+    <footer className={classNames(textCenter, bgDarkGrey)}>
+      <Grid container spacing={0} className={classNames(centerColumn, paddingVertical)}>
 
         <Grid item xs={12} md={6} className={paddingBelowLarge}>
           <Typography type="display3" className={paddingBelow}>
@@ -66,7 +72,7 @@ const Footer = ({ classes }) => {
               icon="linkedin"
             />
             <ContactLink
-              link="mailto:katie@asylumconnect.org"
+              link="mailto:catalog@asylumconnect.org"
               icon="envelope-o"
             />
             <ContactLink
@@ -81,12 +87,30 @@ const Footer = ({ classes }) => {
         </Grid>
 
         <Grid item xs={12} md={6}>
+          <div className={paddingBelow}>
+            <Link
+              to="/"
+            >
+              <AsylumConnectButton variant="primary">
+                Suggest a Resource
+              </AsylumConnectButton>
+            </Link>
+          </div>
+          <div className={paddingBelow}>
+            <a
+              href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+              className={paddingBelow}
+            >
+              <AsylumConnectButton variant="primary">
+                Share Feedback
+              </AsylumConnectButton>
+            </a>
+          </div>
           <Typography type="display3" className={paddingBelow}>
             Stay Updated on AsylumConnect's Lifesaving Initiatives
           </Typography>
           <a
-            href="http://www.asylumconnect.org/follow-us-subscribe/"
-            target="_blank"
+            href="http://www.asylumconnect.org/contact-us"
           >
             <AsylumConnectButton variant="primary">
               Subscribe to our newsletter

@@ -8,6 +8,7 @@ import breakpoints from './breakpoints';
  *  in a custom theme will default to these values.
  */
 export default createMuiTheme({
+  "maxColumnWidth": "1300px",
   "direction": "ltr",
   "palette": {
     "common": {
@@ -364,7 +365,6 @@ export default createMuiTheme({
       "fontSize": 13,
       "fontWeight": 400,
       "fontFamily": "\"Open Sans\", sans-serif",
-      "lineHeight": 20,
       "color": "rgba(0, 0, 0, 0.90)",
     }
   },

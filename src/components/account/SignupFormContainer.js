@@ -154,7 +154,6 @@ class SignupFormContainer extends React.Component {
     const options = {
       method: 'POST',
       headers: {
-        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
         'Content-Type': 'application/json',
         OneDegreeSource: 'asylumconnect',
       },
@@ -175,6 +174,10 @@ class SignupFormContainer extends React.Component {
       },
       body: payload,
     };
+    if(typeof config[process.env.OD_API_ENV].basicAuth !== "undefined") {
+      options.headers['Demo-Authorization'] = options.headers['Authorization'];
+      options.headers['Authorization'] = config[process.env.OD_API_ENV].basicAuth;
+    } 
     return fetch(url, options);
   }
 

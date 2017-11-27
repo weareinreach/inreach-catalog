@@ -55,12 +55,14 @@ class AsylumConnectCatalog extends React.Component {
       dialog: 'none',
       message: '',
       messageOpen: false,
+      nearAddress: ''
     };
 
     this.handleRequestOpen = this.handleRequestOpen.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleMessageNew = this.handleMessageNew.bind(this);
     this.handleMessageClose = this.handleMessageClose.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
   }
 
   handleMessageNew(message) {
@@ -83,11 +85,29 @@ class AsylumConnectCatalog extends React.Component {
     this.setState({dialog: 'none'});
   }
 
+  handleAddressChange(address) {
+    this.setState({
+      nearAddress: address
+    })
+  }
+
   render() {
     const {dialog, message, messageOpen} = this.state;
-    const {handleLogIn, handleLogOut, session, user, location, history, match} = this.props;
+    const {
+      handleListAddFavorite,
+      handleListRemoveFavorite,
+      handleListNew,
+      handleLogIn,
+      handleLogOut,
+      lists,
+      session,
+      user,
+      location,
+      history,
+      match
+    } = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
-    const {handleMessageNew, handleRequestClose, handleRequestOpen} = this;
+    const {handleMessageNew, handleRequestClose, handleRequestOpen, handleAddressChange} = this;
     return (
         <div>
           <Header
@@ -123,21 +143,74 @@ class AsylumConnectCatalog extends React.Component {
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
               dialog={dialog}
+              handleListAddFavorite={handleListAddFavorite}
+              handleListNew={handleListNew}
               handleLogIn={handleLogIn}
+              handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
               handleRequestClose={handleRequestClose}
               handleRequestOpen={handleRequestOpen}
+              session={session}
+              user={user}
             />
           </div>
         )}
         { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup'].includes(dialog)) || !isMobile ?
           <div className={"content "+this.props.classes.navPadding} >
             <Switch>
-              <Route path="/resource/:id" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} />)}/>
-              <Route exact path="/" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
-              <Route path="/search/:near/:for/:filter/:sort" render={(props) => (<MapContainer {...props} handleMessageNew={handleMessageNew} session={session} user={user}/>)}/>
-              <RedirectWithParams from={"/search/:near/:for/:filter"} to={"/search/:near/:for/:filter/default"} />
-              <RedirectWithParams from={"/search/:near/:for"} to={"/search/:near/:for/all/default"} />
+              <Route path="/resource/:id" render={(props) => (
+                <MapContainer
+                  {...props}
+                  handleAddressChange={handleAddressChange}
+                  handleListAddFavorite={handleListAddFavorite}
+                  handleListRemoveFavorite={handleListRemoveFavorite}
+                  handleListNew={handleListNew}
+                  handleLogOut={handleLogOut}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestOpen={handleRequestOpen}
+                  lists={lists}
+                  nearAddress={this.state.nearAddress}
+                  session={session}
+                  user={user}
+                />)}
+              />
+            <Route exact path="/" render={(props) => (
+              <MapContainer
+                {...props}
+                handleAddressChange={handleAddressChange}
+                handleListAddFavorite={handleListAddFavorite}
+                handleListRemoveFavorite={handleListRemoveFavorite}
+                handleListNew={handleListNew}
+                handleLogOut={handleLogOut}
+                handleMessageNew={handleMessageNew}
+                handleRequestOpen={handleRequestOpen}
+                lists={lists}
+                nearAddress={this.state.nearAddress}
+                session={session}
+                user={user}
+              />)}
+            />
+          <Route
+            path="/search/:place/:near/:for/:filter/:sort"
+            render={(props) => (
+              <MapContainer
+                {...props}
+                handleAddressChange={handleAddressChange}
+                handleListAddFavorite={handleListAddFavorite}
+                handleListRemoveFavorite={handleListRemoveFavorite}
+                handleListNew={handleListNew}
+                handleLogOut={handleLogOut}
+                handleMessageNew={handleMessageNew}
+                handleRequestOpen={handleRequestOpen}
+                lists={lists}
+                nearAddress={this.state.nearAddress}
+                session={session}
+                user={user}
+              />)}
+            />
+              <RedirectWithParams from={"/search/:place/:near/:for/:filter"} to={"/search/:place/:near/:for/:filter/default"} />
+              <RedirectWithParams from={"/search/:place/:near/:for"} to={"/search/:place/:near/:for/all/default"} />
+              <RedirectWithParams from={"/search/:place/:near/"} to={"/search/:place/:near/any/all/default"} />
               <Redirect from="/search" to="/"/>
               <Redirect from="/resource" to="/"/>
               <Route render={(props) => (
@@ -146,7 +219,7 @@ class AsylumConnectCatalog extends React.Component {
                     {...this.props}
                     {...props}
                     handleMessageNew={handleMessageNew}
-                    handleLogOut={handleLogOut}
+                    handleRequestOpen={handleRequestOpen}
                   />
                 )}
               />

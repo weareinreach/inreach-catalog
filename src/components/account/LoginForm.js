@@ -20,7 +20,7 @@ const styles = theme => ({
     cursor: 'pointer',
   },
   paddingAbove: {paddingTop: '2.5rem'},
-  paddingVertical: {padding: '2.5rem 6rem'},
+  paddingVertical: {padding: '2.5rem 5rem'},
   [`@media (max-width: ${breakpoints['sm']}px)`]:{
     paddingVertical: {
       padding: '1.5rem 0',
@@ -64,7 +64,7 @@ const LoginForm = ({
       </a>
       {` `}and{` `}
       <a href="https://www.1degree.org/terms-of-use" target="_blank">
-        Terms of Use
+        Terms of&nbsp;Use
       </a>
       .
     </Typography>

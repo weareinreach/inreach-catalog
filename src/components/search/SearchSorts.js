@@ -51,7 +51,7 @@ const sortCollection = [
   [
     {label: 'Sort by distance', name: 'distance'},
     {label: 'Sort by popularity', name: 'popularity'},
-    {label: 'Sory by newest', name: 'newest'},
+    {label: 'Sort by newest', name: 'newest'},
  ]
 ];
 

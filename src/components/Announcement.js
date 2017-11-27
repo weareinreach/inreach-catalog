@@ -28,13 +28,17 @@ const styles = (theme) => ({
     background: "white",
     bottom: ".2em"
   },
-  textWhite: { color: theme.palette.common.darkWhite },
+  textContent: { 
+    color: theme.palette.common.darkWhite,
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
+  },
 });
 
 const Announcement = ({ classes, handleRequestOpen }) => (
-  <div className={classes.announcement}>
+  <div className={classes.announcement + ' hide--on-print'}>
 
-    <Typography type="body1" className={classes.textWhite}>
+    <Typography type="body1" className={classes.textContent}>
       Asylum seekers contact service providers at their own risk.
       <br />
       <span>Please read our complete </span>

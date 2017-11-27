@@ -11,6 +11,7 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
+import {boldFont} from '../../theme/sharedClasses';
 import { withStyles } from 'material-ui/styles';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
@@ -18,11 +19,14 @@ import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import FavoritesLink from '../FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
 import Badge from '../Badge';
+import ResourceVisit from './ResourceVisit';
 import resourceTypes from '../../helpers/ResourceTypes';
+import { scheduleParser, addressParser } from '../../helpers/Parser';
 
 let resourceIndex = resourceTypes.getTagIndex();
 
 const styles = (theme) => ({
+  boldFont: boldFont(theme),
   contentSpacing: {
     margin: "1.5rem 0"
   },
@@ -52,11 +56,20 @@ const styles = (theme) => ({
   }
 });
 
-const resourceFieldsByFormat = {
+/*const resourceFieldsByFormat = {
   'search': [
     {fieldName: 'description', label: 'About'}
-  ]
-}
+  ],
+  'favoritesMobile': [
+    {fieldName: 'description', label: 'About'},
+    {fieldName: 'website', label: 'Website'},
+    {fieldName: 'phones', label: 'Phone'},
+    {fieldName: 'emails', label: 'Email'},
+    {fieldName: 'locations', label: 'Address'},
+    {fieldName: 'schedule', label: 'Hours'},
+    {fieldName: 'additional', label: 'Additional Information'},
+  ],
+}*/
 
 class ResourceListItem extends React.Component {
   constructor(props, context) {
@@ -71,7 +84,12 @@ class ResourceListItem extends React.Component {
       handleListAddFavorite,
       handleListRemoveFavorite,
       handleListNew,
+      handleLogOut,
+      handleMessageNew,
+      handleRemoveFavorite,
+      handleRequestOpen,
       isOnFavoritesList,
+      slug,
       lists,
       session,
       user
@@ -88,23 +106,38 @@ class ResourceListItem extends React.Component {
       pullLeft
     } = classes;
     const isMobile = this.props.width < breakpoints['sm'];
+
+    const displayData = [
+      {fieldName: 'description', label: 'About', value: resource.description},
+      /*{fieldName: 'website', label: 'Website', value: resource.website},
+      {fieldName: 'phones', label: 'Phone', value: },
+      {fieldName: 'emails', label: 'Email'},
+      {fieldName: 'locations', label: 'Address'},
+      {fieldName: 'schedule', label: 'Hours'},
+      {fieldName: 'additional', label: 'Additional Information'},*/
+    ];
+
+    const labelClass = format == 'search' ? 'hide--on-screen' : null;
+
     //this.props.fetchSearchResults();
     return (
-      <div>
+      <div className='page-break-inside--avoid'>
         <Divider className={dividerSpacing} />
         <Grid container spacing={0} className={dividerSpacing}>
           <Grid item xs={12} >
             <Grid container alignItems="center" justify="space-between" spacing={0}>
-              <Grid item xs={9} md lg xl >
+              <Grid item xs={8} md lg xl >
                 <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
-              <Grid item xs={3} container alignItems="flex-start" justify="flex-end">
+              <Grid item xs={4} container alignItems="flex-start" justify="flex-end">
                 {!isOnFavoritesList && (
                   <SaveToFavoritesButton
                     handleListAddFavorite={handleListAddFavorite}
                     handleListRemoveFavorite={handleListRemoveFavorite}
                     handleListNew={handleListNew}
-                    handleMessageNew={this.props.handleMessageNew}
+                    handleLogOut={handleLogOut}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestOpen={handleRequestOpen}
                     lists={lists}
                     resourceId={resource.id}
                     session={session}
@@ -112,7 +145,7 @@ class ResourceListItem extends React.Component {
                   />
                 )}
                 {isOnFavoritesList && (
-                  <IconButton onClick={() => handleListRemoveFavorite(resource.id)}>
+                  <IconButton onClick={() => handleRemoveFavorite(resource.id)}>
                     <Fa name="times"/>
                   </IconButton>
                 )}
@@ -130,30 +163,41 @@ class ResourceListItem extends React.Component {
           : null}
           <Grid item xs={12} className={contentSpacing}>
             <Grid container spacing={0}>
-            {resourceFieldsByFormat[format].map((item, index) => {
-              var Content;
-              var text = (isMobile ? 
-                <Truncate lines={3} ellipsis={<span>...<Link to={'/resource/'+resource.slug} className={moreInfo}>read more</Link></span>} >
-                  {resource[item.fieldName]}
-                </Truncate>
-              : resource[item.fieldName] );
-              switch(format) {
-                case 'search':
-                  Content = () => (<Typography type="body2" className={lineSpacing}>
-                    {text}
-                  </Typography>);
-                break;
-                default:
-                  Content = () => (<Typography type="body2" className={lineSpacing}>
-                    <strong>{item.label}:</strong> {text}
-                  </Typography>);
-                break;
+            {displayData.map((item, index) => {
+              var Content, className;
+              var text = '';
+              /*if (format === 'favoritesMobile' && item.fieldName === 'phones') {
+                text = resource.phones.length ? resource.phones[0].digits : null;
+              } else if (format === 'favoritesMobile' && item.fieldName === 'emails') {
+                text = (resource.emails && resource.emails.length) ? resource.emails[0].email : null;
+              } else if (format === 'favoritesMobile' && item.fieldName === 'locations') {
+                text = (resource.locations && resource.locations.length) ? addressParser({ address: resource.locations[0] }) : null;
+              } else if (format === 'favoritesMobile' && item.fieldName === 'schedule') {
+                text = resource.schedule ? scheduleParser({schedule: resource.schedule}) : null;
+              } else if (format === 'favoritesMobile' && item.fieldName === 'additional') {
+                text = (resource.schedule && resource.schedule.note) ? resource.schedule.note : null;
+              }*/
+              if (isMobile) {
+                text = (
+                  <Truncate lines={3} ellipsis={<span>...<Link to={'/resource/'+resource.slug} className={moreInfo}>read more</Link></span>} >
+                    {resource[item.fieldName]}
+                  </Truncate>
+                );
+              } else {
+                text = resource[item.fieldName];
               }
               return (
                 <Grid item xs={12} key={index} >
-                  <Content key={index} />
+                  <Typography type="body2" className={lineSpacing}>
+                    <strong className={classes.boldFont+' '+labelClass}>{item.label}:</strong> {text}
+                  </Typography>
                 </Grid>);
             })}
+            <ResourceVisit 
+              resource={resource}
+              className={labelClass}
+              hideTitle={true}
+            />
             </Grid>
           </Grid>
           <Grid item xs={12} >
@@ -174,7 +218,7 @@ class ResourceListItem extends React.Component {
                 : null}
               </Grid>
               <Grid item xs={12} md={6} className={"pull-right "+pullLeft}>
-                <RatingAndReviews rating={ resource.rating ? resource.rating : resource.opportunity_aggregate_ratings} total={resource.opportunity_comment_count} />
+                <RatingAndReviews rating={ resource.rating ? resource.rating : resource.opportunity_aggregate_ratings} total={resource.opportunity_comment_count + resource.comment_count} />
               </Grid>
             </Grid>
           </Grid>
@@ -191,9 +235,12 @@ ResourceListItem.propTypes = {
   handleListAddFavorite: PropTypes.func,
   handleListNew: PropTypes.func,
   handleListRemoveFavorite: PropTypes.func,
+  handleLogOut: PropTypes.func,
+  handleRemoveFavorite: PropTypes.func,
   isOnFavoritesList: PropTypes.bool,
-  resource: PropTypes.object.isRequired,
+  listId: PropTypes.string,
   lists: PropTypes.arrayOf(PropTypes.object),
+  resource: PropTypes.object.isRequired,
   session: PropTypes.string,
   user: PropTypes.number,
 };
@@ -204,7 +251,10 @@ ResourceListItem.defaultProps = {
   handleListAddFavorite: null,
   handleListNew: null,
   handleListRemoveFavorite: null,
+  handleLogOut: null,
+  handleRemoveFavorite: null,
   isOnFavoritesList: false,
+  listId: null,
   lists: [],
   session: null,
   user: null,

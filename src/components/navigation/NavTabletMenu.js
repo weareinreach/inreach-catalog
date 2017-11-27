@@ -65,7 +65,7 @@ class NavTabletMenu extends React.Component {
             <MenuItem onClick={this.handleRequestClose}><a href=''><Typography type='display4'>take action</Typography></a></MenuItem>
             <MenuItem onClick={this.handleRequestClose}><a href=''><Typography type='display4'>get help</Typography></a></MenuItem>
             <MenuItem onClick={this.handleRequestClose}><a href='http://www.asylumconnect.org/contact-us/'><Typography type='display4'>contact us</Typography></a></MenuItem>
-            <MenuItem onClick={this.handleRequestClose}><Link href='/'><Typography type='display4'>find resource</Typography></Link></MenuItem>
+            <MenuItem onClick={this.handleRequestClose}><Link to='/'><Typography type='display4'>find resource</Typography></Link></MenuItem>
         </Menu>
       </div>
     );

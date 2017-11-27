@@ -28,7 +28,7 @@ if (!window.Promise) {
  * Log Google Analytics Pageview
  * @return {[type]} [description]
  */
-const logPageView = () => { console.log('logging')
+const logPageView = () => {
   ReactGA.set({ page: window.location.pathname + window.location.search });
   ReactGA.pageview( window.location.pathname + window.location.search);
   return null;

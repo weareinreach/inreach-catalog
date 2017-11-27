@@ -6,8 +6,14 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
+<<<<<<< HEAD
 import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
 import DeleteAccountDialog from '../account/DeleteAccountDialog';
+=======
+import {ForgotDialog, LoginDialog, PasswordDialog, SignupDialog} from '../account';
+import ActionButton from '../ActionButton';
+import {ListNewDialog, ShareDialog} from '../favorites';
+>>>>>>> staging
 
 const styles = theme => ({
   dialogBody: {
@@ -20,14 +26,25 @@ const styles = theme => ({
 const AsylumConnectDialog = ({
   classes,
   dialog,
+  handleListAddFavorite,
+  handleListNew,
   handleLogIn,
+<<<<<<< HEAD
   handleDeleteAccount,
+=======
+  handleLogOut,
+>>>>>>> staging
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
+  session,
+  user,
 }) =>
   <Dialog open={dialog !== 'none'} onRequestClose={handleRequestClose}>
     <div className={classes.dialogBody}>
+      <ActionButton
+        onClick={handleRequestClose}
+        >&times;</ActionButton>
       {dialog === 'disclaimer' &&
         <DisclaimerDialog handleRequestClose={handleRequestClose} />}
       {dialog === 'forgot' &&
@@ -35,7 +52,33 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
-        />}
+        />
+      }
+      {/^listNew/.test(dialog) &&
+        // listnew should be in the pattern listNew/{origin}/{originList}
+        <ListNewDialog
+          handleListAddFavorite={handleListAddFavorite}
+          handleLogOut={handleLogOut}
+          handleListNew={handleListNew}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          origin={dialog.split('/')[1]}
+          originList={dialog.split('/')[2]}
+          session={session}
+          user={user}
+        />
+      }
+      {/^share/.test(dialog) &&
+        // share should be in the pattern share/{type}/{id}/{title}
+        <ShareDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          session={session}
+          listId={dialog.split('/')[2]}
+          listTitle={dialog.split('/')[3]}
+          shareType={dialog.split('/')[1]}
+        />
+      }
       {dialog === 'login' &&
         <LoginDialog
           handleLogIn={handleLogIn}
@@ -43,6 +86,13 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
         />}
+      {dialog === 'password' &&
+        <PasswordDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          session={session}
+        />
+        }
       {dialog === 'privacy' &&
         <PrivacyDialog handleRequestClose={handleRequestClose} />}
       {dialog === 'signup' &&
@@ -62,13 +112,23 @@ const AsylumConnectDialog = ({
     </div>
   </Dialog>;
 
+AsylumConnectDialog.defaultProps = {
+  session: null,
+  user: null,
+};
+
 AsylumConnectDialog.propTypes = {
   classes: PropTypes.shape({dialogBody: PropTypes.string}).isRequired,
   dialog: PropTypes.string.isRequired,
+  handleListAddFavorite: PropTypes.func.isRequired,
+  handleListNew: PropTypes.func.isRequired,
   handleLogIn: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string,
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(AsylumConnectDialog);

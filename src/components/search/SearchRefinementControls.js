@@ -12,6 +12,7 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 import Typography from 'material-ui/Typography';
 import Badge from 'material-ui/Badge';
 
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import SearchFilterSelector from './SearchFilterSelector';
 import SearchFilters from './SearchFilters';
 import FiltersIcon from '../icons/FiltersIcon';
@@ -54,12 +55,13 @@ const styles = theme => ({
   toolbarGutters: {
     padding: '0'
   },
-  buttonRoot: {
-    minWidth: '0',
-    padding: '0'
-  },
   badgeColorAccent: {
     color: theme.palette.common.white
+  },
+  refinementTitle: {
+    fontSize: "1.5em",
+    color: theme.palette.common.white,
+    fontFamily: theme.typography.title.fontFamily
   }
 })
 
@@ -80,10 +82,10 @@ class SearchRefinementControls extends React.Component {
   }
 
   render() {
-    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent } = this.props.classes;
+    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent, refinementTitle } = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
-      <div>
+      <div className="hide--on-print">
         {isMobile ?
           <div>
             
@@ -100,27 +102,27 @@ class SearchRefinementControls extends React.Component {
             </Button>
             {this.state.open ?
               <Paper className={fixedFilters}>
+                <AsylumConnectBackButton color="contrast" onClick={this.handleFilterOpen} />
                 <Toolbar classes={{ root: toolbarRoot, gutters: toolbarGutters }}>
-                  <Button color="contrast" classes={{root: buttonRoot}} onClick={this.handleFilterOpen}>
-                    <ArrowBackIcon />
-                  </Button>
+                  <h2 className={refinementTitle}>Filters</h2>
                   <Button color="contrast" classes={{root: buttonRoot}} onClick={this.props.clearSearchFilters}>Clear Filters</Button>
                 </Toolbar>
                 <SearchFilters onChange={this.props.handleFilterSelect} selectedFilters={this.props.selectedFilters} />
-                <Grid container spacing={0}>
+                {/*<Grid container spacing={0}>
                   <Grid item xs={12}>
                     <Divider className={dividerSpacing} />
+                    <h2 className={refinementTitle}>Sort</h2>
                   </Grid>
                 </Grid>
-                <SearchSorts onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />
+                <SearchSorts onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />*/}
               </Paper>
             : null}
           </div>
         : 
         <Grid container spacing={0} style={{marginBottom: '1.5rem'}}>
-          <Grid item xs={12} md={8} >
-            <SearchFilterSelector onChange={this.props.handleFilterSelect} selectedFilters={this.props.selectedFilters} />
-            <SearchSortSelector onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />
+          <Grid item xs={12} >
+            <SearchFilterSelector onChange={this.props.handleFilterSelect} containerWidth="100%" selectedFilters={this.props.selectedFilters} />
+            {/*<SearchSortSelector onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />*/}
           </Grid>
         </Grid>
       }

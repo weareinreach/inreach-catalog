@@ -11,9 +11,10 @@ import Button from 'material-ui/Button';
 const styles = theme => ({
   button: {
     border: '1.7px solid',
-    padding: '0 20',
+    padding: '0px 40px',
     'border-radius': '50px',
-    minHeight: '30px'
+    minHeight: '30px',
+    alignSelf: "center"
   },
   primary: {
     color: theme.palette.primary[500],
@@ -33,23 +34,39 @@ const styles = theme => ({
       borderColor: theme.palette.secondary[600],
     },
   },
+  disabled: {
+    color: theme.palette.common.lightGrey,
+    backgroundColor: theme.palette.common.faintBlack,
+    borderColor: "transparent",
+    '&:active': {
+      backgroundColor: theme.palette.common.faintBlack,
+      borderColor: "transparent",
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.common.faintBlack,
+      borderColor: "transparent",
+    },
+  }
 });
 
 // Custom Button component with variant property
 function AsylumConnectButton(props) {
-  const { children, classes, className, variant, onClick} = props;
-
+  const { children, classes, className, variant, onClick, disabled } = props;
   return (
-    <Button className={classNames(
+    <Button disabled={disabled} className={classNames(
         classes.button,
         {
           [classes.primary]: variant === 'primary',
           [classes.secondary]: variant === 'secondary',
         },
+        'hide--on-print',
         className,
       )}
       onClick={onClick}
       type="submit"
+      classes={{
+        disabled: classes.disabled
+      }}
     >
       {children}
     </Button>
@@ -60,6 +77,7 @@ AsylumConnectButton.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   variant: PropTypes.oneOf(['primary','secondary']),
 };
 

@@ -6,12 +6,15 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
-import { StickyContainer, Sticky } from 'react-sticky';
+//import { StickyContainer, Sticky } from 'react-sticky';
+
+import Sticky from 'react-sticky-state';
 
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import ReactDOM from 'react-dom';
 
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';
@@ -25,32 +28,45 @@ const styles = (theme) => ({
   searchArea: {
     padding: '2rem',
   },
+  containerMap: {
+    maxWidth: theme.maxColumnWidth,
+    margin: "0 auto"
+  },
   [theme.breakpoints.down('sm')]: {
     containerMap: {
-      height: "calc(100% - 91px)",
       overflowY: 'auto'
     }
   }
 });
 
+/*const Map = (props) => (
+  
+);*/
+
 class MapContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
 
-    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
+    let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
+    this.props.handleAddressChange(nearAddress);
+    let ACMap = null;
     this.state = {
-      nearAddress: '',
       nearLatLng,
-      mapCenter: nearLatLng,
+      mapWidth: "100%",
       searchStatus: null,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
       searching: false,
+      searchDisabled: false,
+      printDisabled: false,
       searchResults: [],
       searchResultsIndex: [],
-      searchResultSlugs: []
+      searchResultSlugs: [],
+      selectedResource: null,
+      lastSearch: null,
     }
+
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
@@ -59,16 +75,45 @@ class MapContainer extends React.Component {
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
+    this.handlePrintClick = this.handlePrintClick.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
+    this.setSelectedResource = this.setSelectedResource.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.resizeMap.bind(this));
+
+    this.resizeMap();
+  }
+
   componentWillMount() {
-    window.addEventListener('popstate', this.reparseURL.bind(this));
+    //window.addEventListener('popstate', this.reparseURL.bind(this));
   }
   componentWillUnmount() {
-    window.removeEventListener('popstate', this.reparseURL.bind(this))
+    //window.removeEventListener('popstate', this.reparseURL.bind(this))
+    window.removeEventListener('resize', this.resizeMap.bind(this));
+  }
+  componentWillUpdate(nextProps, nextState) {
+    if(nextProps.match.path == '/resource/:id' && 
+      (this.props.match.path != '/resource/:id'
+        || (this.props.match.params 
+            && nextProps.match.params
+            && this.props.match.params.id != nextProps.match.params.id
+            && this.props.match.path == '/resource/:id'
+            ))
+    ) {
+      this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
+    }
+  }
+
+  getCachedResource(slug) {
+    let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
+    if(resourceIndex > -1) {
+      return this.state.searchResults[resourceIndex];
+    } 
+    return null 
   }
 
   clearSearchStatus() {
@@ -84,23 +129,17 @@ class MapContainer extends React.Component {
   }
 
   handlePlaceSelect(address) {
-
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({
-        nearAddress: address,
-        nearLatLng: latLng
-      }))
-      .catch(error => console.error('Error', error))
-
+    this.setState({
+      nearLatLng: null
+    });
+    this.props.handleAddressChange(address)
   }
 
   handlePlaceChange(address) {
     this.setState({
-      nearAddress: address,
-      nearLatLng: null,
-      searchStatus: null
+      nearLatLng: null
     });
+    this.props.handleAddressChange(address)
   }
 
   handleResourceTypeSelect(event, checked) { 
@@ -109,7 +148,8 @@ class MapContainer extends React.Component {
     var selectedResourceTypes = this.state.selectedResourceTypes.slice();
     
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
-      selectedResourceTypes.push(target.value)
+      selectedResourceTypes.push(target.value);
+      selectedResourceTypes.sort();
       this.setState({
         selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
@@ -130,6 +170,7 @@ class MapContainer extends React.Component {
     
     if(checked && selectedFilters.indexOf(target.value) < 0) {
       selectedFilters.push(target.value)
+      selectedFilters.sort();
       this.setState({
         selectedFilters: selectedFilters
       });
@@ -147,50 +188,118 @@ class MapContainer extends React.Component {
     });
   }
 
-  handleSearchButtonClick() {    
-    if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
-      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-      return;
-    } 
+  handlePrintClick() {
+    var self = this;
+    if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
+      this.queryOneDegree.nextPage();
+      this.setState({
+        searching: true,
+        searchDisabled: true,
+        printDisabled: true
+      });
+      this.queryOneDegree.fetchOrganizations({
+        callback: (results) => {
+          self.processSearchResults(results)
+          window.print();
+          this.setState({
+            searchDisabled: false,
+            printDisabled: false
+          });
+        }
+      });
+    } else {
+      window.print();
+    }
+  }
 
-    if(this.state.selectedResourceTypes.length == 0) {
-      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-      return;
-    } 
-    
+  handleSearchButtonClick() {    
+
     this.setState({
-      mapCenter: this.state.nearLatLng,
-      searchStatus: 'refresh'
+      searchDisabled: true
     });
 
-    var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
-    var latLng = encodeURIComponent(this.state.nearLatLng.lat + ',' + this.state.nearLatLng.lng);
-    var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
-    var sort = encodeURIComponent(this.state.selectedSort);
-    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+    const redirect = (latLng) => {
+      var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+      var nearAddress = encodeURIComponent(this.props.nearAddress);
+      var nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
+      var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
+      var sort = encodeURIComponent(this.state.selectedSort);
+      this.props.history.push('/search/'+nearAddress+'/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+      this.setState({
+        searchStatus: 'refresh',
+        nearLatLng: latLng,
+        searchDisabled: false
+      });
+    }
+
+    if(this.state.nearLatLng == null) {
+      geocodeByAddress(this.props.nearAddress)
+        .then(results => getLatLng(results[0]))
+        .then(redirect)
+        .catch(error => {
+          this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
+          console.error('Error', error)
+          this.setState({
+            searchDisabled: false
+          });
+          
+        })
+    } else {
+      redirect(this.state.nearLatLng)
+    }
+  }
+
+  resizeMap(){
+
+    const node = ReactDOM.findDOMNode(this.ACMap);
+    if(node && node.getBoundingClientRect) {
+      const nodeDimensions = node.getBoundingClientRect();
+      let width = document.body.clientWidth - nodeDimensions.x;
+      this.setState({mapWidth: width + "px"});
+    }
   }
 
   fetchSearchResults() {
-    this.setState({
-      searching: true,
-      searchResultsIndex: [],
-      searchResults: []
-    });
-    this.queryOneDegree = new OneDegreeResourceQuery();
-    this.queryOneDegree
-      .addTags(this.state.selectedResourceTypes)
-      .setLocation(this.state.nearLatLng)
-      .setOrder(this.state.selectedSort)
-      .fetchOrganizations({
-        callback: this.processSearchResults
+    let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
+    if(updated && nearLatLng !== null) { console.log(nearAddress);
+      this.props.handleAddressChange(nearAddress);
+      this.setState({
+        nearLatLng,
+        selectedResourceTypes,
+        selectedFilters,
+        selectedSort,
+        searching: true,
+        searchResultsIndex: [],
+        searchResults: [],
+        lastSearch: stringified
       });
+      
+
+      this.queryOneDegree = new OneDegreeResourceQuery();
+      this.queryOneDegree
+        .addTags(selectedResourceTypes)
+        .setLocation(nearLatLng)
+        .setFilters(selectedFilters)
+        .setOrder(selectedSort)
+        .fetchOrganizations({
+          callback: this.processSearchResults
+        });
+    }
   }
 
   fetchNextSearchResultsPage() {
-    this.queryOneDegree.nextPage();
-    this.queryOneDegree.fetchOrganizations({
-      callback: this.processSearchResults
-    });
+    if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
+      if(this.queryOneDegree.nextPage()) {
+        this.setState({
+          searchDisabled: true,
+          printDisabled: true,
+          searching: true
+        });
+        this.queryOneDegree.fetchOrganizations({
+          callback: this.processSearchResults
+        });
+      }
+    }
   }
 
   processSearchResults(data) {
@@ -207,12 +316,24 @@ class MapContainer extends React.Component {
       searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
       searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
       searchResults: this.state.searchResults.concat(newOrgs),
+      searchDisabled: false,
+      printDisabled: false,
       searching: false
     });
   }
 
+  setSelectedResource(resource) {
+    this.setState({
+      selectedResource: resource
+    });
+  }
+
   parseParams(params) {
-    var nearLatLng = null, selectedResourceTypes = [], selectedFilters = [], selectedSort = 'best';
+    var nearAddress = '', nearLatLng = null, selectedResourceTypes = [], selectedFilters = [], selectedSort = 'best';
+    if(params.place) {
+      nearAddress = decodeURIComponent(params.place)
+    }
+
     if(params.near) {
       var latLng = decodeURIComponent(params.near).split(',')
       nearLatLng = {
@@ -221,55 +342,56 @@ class MapContainer extends React.Component {
       }
     }
 
-    if(params.for) {
+    if(params.for && params.for !== "any") {
       selectedResourceTypes = decodeURIComponent(params.for).split(',');
+      selectedResourceTypes.sort();
     }
 
-    if(params.filter) {
-      if(params.filter !== "all") {
-        selectedFilters = decodeURIComponent(params.filter).split(',');
-      }
+    if(params.filter && params.filter !== "all") {
+      selectedFilters = decodeURIComponent(params.filter).split(',');
+      selectedFilters.sort();
     }
 
     if(params.sort) {
       selectedSort = params.sort
     }
 
-    return {selectedResourceTypes, nearLatLng, selectedFilters, selectedSort};
+    return {selectedResourceTypes, nearAddress, nearLatLng, selectedFilters, selectedSort};
   }
 
-  reparseURL(ev) {
-    let { nearLatLng, selectedResourceTypes } = this.parseParams(this.props.match.params);
-    this.setState({
+  checkForURLUpdates(ev) { 
+    let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(this.props.match.params);
+    let updated = false;
+    let stringified = JSON.stringify({
       nearLatLng,
-      selectedResourceTypes
+      selectedResourceTypes,
+      selectedFilters,
+      selectedSort
     });
+    if(stringified !== this.state.lastSearch
+    ) {
+      updated = true;
+    }
+    return { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified };
   }
 
   render() {
-    this.mapProps = {};
-    if(this.state.mapCenter) {
-      this.mapProps.center = this.state.mapCenter;
-      this.mapProps.zoom = 8;
-    }
-    if(this.state.searchResults) {
-      this.mapProps.resources = this.state.searchResults;
+    var mapResources = [];
+    if(this.state.searchResults || this.state.selectedResource) {
+      switch(this.props.match.path) {
+        case '/resource/:id':
+          mapResources = (this.state.selectedResource ? [this.state.selectedResource] : [])
+        break;
+        default:
+          mapResources = this.state.searchResults;
+        break;
+      }
     }
     const isMobile = this.props.width < breakpoints['sm'];
 
-    const map = (props) => (
-      <div style={props.style}>
-        <AsylumConnectMap {...this.props} 
-          mapProps={this.mapProps} classes={null}
-          loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
-          containerElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />}
-          mapElement={<div style={{ width:"100%",height: window.innerHeight+"px" }} />} 
-        />
-      </div>
-    );
     return (
         <div className={"container--map "+this.props.classes.containerMap}> 
-          <Grid container spacing={0}>
+          <Grid container spacing={0} alignItems='stretch'>
             <Grid item xs={12} sm={8}>
               <div className="container--search">
                 <Switch>
@@ -278,42 +400,70 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    nearAddress={this.props.nearAddress}
+                    searchDisabled={this.state.searchDisabled}
                      />} />
                     }
-                  <Route path="/search/:near/:for/:filter/:sort" render={ props => <SearchResultsContainer {...props} {...this.state}
-                    mapProps={this.mapProps}
-                    fetchSearchResults={this.fetchSearchResults}
-                    clearSearchFilters={this.clearSearchFilters}
-                    clearSearchStatus={this.clearSearchStatus}
-                    handleMessageNew={this.props.handleMessageNew}
-                    handlePlaceSelect={this.handlePlaceSelect} 
-                    handlePlaceChange={this.handlePlaceChange}
-                    handleSearchButtonClick={this.handleSearchButtonClick}
-                    handleResourceTypeSelect={this.handleResourceTypeSelect}
-                    handleFilterSelect={this.handleFilterSelect}
-                    handleSortSelect={this.handleSortSelect}
-                    session={this.props.session}
-                    user={this.props.user}
-                    />} />
-                  <Route path="/resource/:id" render={ props => <Resource {...props} mapProps={this.mapProps} handleMessageNew={this.props.handleMessageNew} resource={(() => {
-                    let resourceIndex = this.state.searchResultSlugs.indexOf(props.match.params.id.toLowerCase());
-                    return resourceIndex > -1 ? this.state.searchResults[resourceIndex] : null })() } />} />
+                  <Route path="/search/:near/:for/:filter/:sort" render={ props => (
+                    <SearchResultsContainer {...props} {...this.state}
+                      clearSearchFilters={this.clearSearchFilters}
+                      clearSearchStatus={this.clearSearchStatus}
+                      fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
+                      fetchSearchResults={this.fetchSearchResults}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleLogOut={this.props.handleLogOut}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handlePlaceSelect={this.handlePlaceSelect} 
+                      handlePlaceChange={this.handlePlaceChange}
+                      handlePrintClick={this.handlePrintClick}
+                      handleSearchButtonClick={this.handleSearchButtonClick}
+                      handleResourceTypeSelect={this.handleResourceTypeSelect}
+                      handleRequestOpen={this.props.handleRequestOpen}
+                      handleFilterSelect={this.handleFilterSelect}
+                      handleSortSelect={this.handleSortSelect}
+                      lists={this.props.lists}
+                      mapResources={mapResources}
+                      nearAddress={this.props.nearAddress}
+                      printDisabled={this.state.printDisabled}
+                      searchDisabled={this.state.searchDisabled}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
+                  <Route path="/resource/:id" render={ props => (
+                    <Resource {...props}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handleRequestOpen={this.props.handleRequestOpen}
+                      lists={this.props.lists}
+                      mapResources={mapResources}
+                      resource={this.getCachedResource(props.match.params.id)}
+                      setSelectedResource={this.setSelectedResource}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
                 </Switch>
               </div>
             </Grid>
             {isMobile ? null :
-            <StickyContainer style={{ /* if the map width changes these must be updated to follow suit */
-              flexBasis: "33.3333%",
-              flexGrow: "0",
-              flexShrink: "0",
-              maxWidth:"33.3333%"
-            }}>
-              <Grid item xs={12} sm={12}>
-                <Sticky>
-                  {map}
-                </Sticky>          
-              </Grid>
-            </StickyContainer>}
+            <Grid item xs={12} sm={4} className="hide--on-print">
+              <Sticky>
+                <div>
+                  <AsylumConnectMap
+                    resources={mapResources}
+                    loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
+                    containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
+                    mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
+                    ref={(el) => this.ACMap = el}
+                  />
+                </div>
+              </Sticky>          
+            </Grid>}
           </Grid> 
         </div>
     );

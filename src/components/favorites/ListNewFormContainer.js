@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import createList from '../../helpers/createList';
+import {
+  createList,
+  createListFavorite,
+} from '../../helpers/odasRequests';
 
 import ListNewForm from './ListNewForm';
 
@@ -32,25 +35,50 @@ class ListNewFormContainer extends React.Component {
       title: name,
     };
     createList(payload, session)
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
       .then(data => {
-        const {handleListNew, handleRequestClose, history} = this.props;
+        const {
+          handleListAddFavorite,
+          handleListNew,
+          handleRequestClose,
+          history,
+          origin,
+          originList,
+        } = this.props;
         handleListNew(
           Object.assign({}, payload, data.collection, {
             fetchable_list_items: [],
           }),
         );
-        history.push(`/favorites/${user}/${data.collection.id}`);
+        if (origin === 'saveToFavorites') {
+          createListFavorite(
+            data.collection.id,
+            originList,
+            session,
+          ).then(() => {
+            handleListAddFavorite(data.collection.id, parseInt(originList));
+          });
+        } else if (origin === 'favoritesList') {
+          history.push(`/favorites/${data.collection.slug}`);
+        }
         handleRequestClose();
       })
       .catch(error => {
-        console.log(error);
+        const {
+          handleLogOut,
+          handleMessageNew,
+          handleRequestClose,
+          handleRequestOpen,
+        } = this.props;
+        if (error.response && error.response.status === 401) {
+          handleMessageNew('Your session has expired. Please log in again.');
+          handleLogOut();
+          handleRequestClose();
+        } else if (error.response && error.response.status === 403) {
+          handleRequestOpen('password');
+        } else {
+          handleMessageNew('Oops! Something went wrong.');
+          handleRequestClose();
+        }
       });
   }
 
@@ -67,14 +95,19 @@ class ListNewFormContainer extends React.Component {
 }
 
 ListNewFormContainer.defaultProps = {
+  originList: null,
   session: null,
   user: null,
 };
 
 ListNewFormContainer.propTypes = {
+  handleLogOut: PropTypes.func.isRequired,
+  handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
+  origin: PropTypes.oneOf(['favoritesList', 'saveToFavorites']).isRequired,
+  originList: PropTypes.string,
   session: PropTypes.string,
   user: PropTypes.number,
 };
