@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
-import OrgSettingsInfo from './OrgSettingsInfo';
-import OrgSettingsHour from './OrgSettingsHour';
-import OrgSettingsAdditional from './OrgSettingsAdditional';
+import SuggestInfo from './SuggestInfo';
+import SuggestHour from './SuggestHour';
+import SuggestAdditional from './SuggestAdditional';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
@@ -15,11 +15,10 @@ import config from '../../config/config.js';
 
 const styles = theme => ({
   root: {
-    width: '43%',
     padding: '0 5% 0 5%'
   },
   formType: {
-    margin: '10% 0 10% 0'
+    margin: '5% 0 5% 0'
   },
   extraMargin: {
     margin: '20px 0 20px 0'
@@ -39,32 +38,43 @@ const styles = theme => ({
   },
 });
 
-class OrgSettings extends React.Component {
+const defaultSchedule = {
+  monday_start: '',  monday_end: '',
+  tuesday_start: '',  tuesday_end: '',
+  wednesday_start: '',  wednesday_end: '',
+  thursday_start: '',  thursday_end: '',
+  friday_start: '',  friday_end: '',
+  saturday_start: '',  saturday_end: '',
+  sunday_start: '',  sunday_end: '',
+  notes:''
+}
+
+class Suggestion extends React.Component {
   constructor(props) {
     super(props);
     this.state={
       user:null,
       affiliation: null,
-      affiliation: null,
-      isInitial: true,
-      isScheduleRequested: false,
-      isInfoRequested: false,
-      isAdditionalRequested: false,
-      schedule: null,
-      info: null,
-      additional: null
+      isSent:false,
+      selectedDays: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+      }
     }
+    this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.collectHourData = this.collectHourData.bind(this)
-    this.collectInfoData = this.collectInfoData.bind(this)
-    this.submitOrgData = this.submitOrgData.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
   }
-  handleClick(){
+  componentDidMount(){
     const jwt = localStorage.getItem('jwt')
-    console.log(jwt)
-    // if user already signed in
+    const { handleMessageNew } = this.props
+    // detect if user is authorized
     if (jwt) {
-      // get affiliation
       const apiDomain = config[process.env.OD_API_ENV].odas;
       const url = `${apiDomain}api/user`;    
       const options = {
@@ -79,104 +89,63 @@ class OrgSettings extends React.Component {
         .then(response => {
           if (response.status === 200) {
             response.json().then(({user}) => {
-              // setState affiliation
-              
+              // user is authorized              
               this.setState({user: user, affiliation: user.affiliation})
             });
           } else {
-            console.log('Unauthorized');
+            handleMessageNew('Your email or password is incorrect.');
           }
         })
         .catch(error => {
           console.log('Oops! Something went wrong.');
         });
     } else {
-      // if user not sign in
+      // if user not sign in, redirect asking to sign in
       this.setState({user:null})
     }
-    // start collecting data
-    this.setState({isInitial: false, isScheduleRequested: true, isInfoRequested: true})
-    
   }
-  collectHourData(schedule){
-    this.setState({schedule})    
-  }
-  collectInfoData(info){
-    this.setState({info})    
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.schedule !== this.state.schedule && prevState.isScheduleRequested){  
-      this.setState({isScheduleRequested:false})
-    } else if (prevState.info !== this.state.info && prevState.isInfoRequested){  
-      this.setState({isInfoRequested:false})
-    } else if (prevState.additional !== this.state.additional && prevState.isAdditionalRequested){  
-      this.setState({isAdditionalRequested:false})
-    } else if(!this.state.isScheduleRequested && 
-              !this.state.isInfoRequested && 
-              !this.state.isAdditionalRequested &&
-              !this.state.isInitial) {
-      this.submitOrgData();
+  handleChange(parent, name, value){
+    const { orgData } = this.state;
+    let updatedOrgData;
+    if (parent === 'schedule') {
+      updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge:{[name]: value}} }}})
+      this.setState({ orgData: updatedOrgData })
+    } else if (parent === 'address') {
+      updatedOrgData = update(orgData, {locations: { 0: {$merge:{[name]: value}} }})
+      this.setState({ orgData: updatedOrgData })
+    } else if (parent === 'phones'){
+      updatedOrgData = update(orgData, {locations: { 0: {phones: { 0: {$merge:{[name]: value}} }}}})
+      this.setState({ orgData: updatedOrgData })
+    } else {
+      updatedOrgData = update(orgData,{$merge:{[name]: value}})
+      this.setState({ orgData: updatedOrgData })
     }
   }
-  submitOrgData(){
-    // if user signed in
-    const {user} = this.state;
-    console.log(this.state)
-    const client_user_id = user ? user.id : 0
-    const {info, schedule, additional} = this.state;
-    
-    const content = {
-      "name": info.name,
-      "website": info.website,
-      "region": info.region,
-      "description": info.description,
-      "tags": [
-      ],
-      "properties": [
-        {
-            "name": "approval-asylumconnect",
-            "value": "false"
-        },
-        {
-            "name": "source-name",
-            "value": "asylumconnect"
-        },
-        {
-            "name": "community-asylum-seeker",
-            "value": "true"
-        },
-        {
-            "name": "community-lgbt",
-            "value": "true"
-        }
-      ],
-      "locations": [
-          {
-              "name": "Primary Location",
-              "address": info.address,
-              "unit": '',
-              "city": info.city,
-              "state": info.state,
-              "zip_code": info.zip_code,
-              "is_primary": true,
-              "phones": [
-                  {
-                      "digits": info.phone,
-                      "phone_type": "Office",
-                      "is_primary": true
-                  }
-              ],
-              "schedule": schedule
-          }
-      ],
-      "phones": [
-          {
-              "digits": info.phone,
-              "phone_type": "Office",
-              "is_primary": true
-          }
-      ]
+  handleSelect(select, value, startValue, endValue) {
+    const { selectedDays } = this.state;
+    let updatedSelectedDays;
+    if (select === 'select') {
+      updatedSelectedDays = update(selectedDays,{$merge:{[value]: !selectedDays[value]}})
+    } else {
+      updatedSelectedDays = update(selectedDays,{$merge:{[value.split('_')[0]]: true}})
     }
+    this.setState({ selectedDays: updatedSelectedDays})
+  }
+  handleClick(){
+    const {orgData, selectedDays} = this.state;
+    const {user, handleMessageNew} = this.props;
+    // Remove unselected time in schedule object
+    let { schedule } = orgData.locations[0]
+    let updatedOrgData;
+    for (let timeKey in schedule ) {
+      let day = timeKey.split('_')[0]
+      if (!selectedDays[day]){
+        schedule = update(schedule,{$merge:{[timeKey]: ''}})
+      }
+    }
+    updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge: schedule} }}})
+    console.log(updatedOrgData)
+    // Submit
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
       "submission": {
@@ -187,8 +156,6 @@ class OrgSettings extends React.Component {
         "submitter_type": "PublicForm"
       }
     }
-    console.log(payload)
-    console.log(content)
     fetch(window.location.origin+'/api/submissions', 
     {
       method: 'POST',
@@ -199,38 +166,69 @@ class OrgSettings extends React.Component {
     })
     .then(response => {
       if (response.status === 200) {
-        return response.json()
-      }      
-    }).then(data => {
-      console.log(data);
-    }).catch(error => {
-      console.log(error)
+        this.setState({isSent: true})
+        handleMessageNew('Your information has been submitted for reviewing.');
+      } else {
+        handleMessageNew('Oops! Something went wrong.');
+      }
     })
-    console.log('let s fetch')
-    this.setState({isInitial: true})
-  } 
-  
+  }
+
   render() {
     const { classes } = this.props;
-    const { isInfoRequested, isScheduleRequested , isAdditionalRequested } = this.state;
+    const { user, selectedDays, isSent } = this.state;
+    const feature = ''
+    const requirement = ''
+    const additionalInfo = ''
+    console.log(defaultSchedule)
     return (
       <div className={classes.root}>
-        <Typography type='display3' className={classes.formType}>Your Organization</Typography>
-        <OrgSettingsInfo isRequested={isInfoRequested} handleCollectInfoData={this.collectInfoData} isSuggestion={true}/>
-        <OrgSettingsHour isRequested={isScheduleRequested} handleCollectHourData={this.collectHourData}/>
-        <OrgSettingsAdditional isRequested={isAdditionalRequested}  handleCollectAdditionalData={this.collectAdditionaldata}/>
-        <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
-        <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
-        <div className={classes.settingsTypeFont}>
-          <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a>catalog@asylumconnect.org</a>.</span>
+      {user? (
+        <div>
+          <Typography type="display2" className={classes.formType}>Suggest New Resource</Typography>
+          <Typography type='body1'>
+            Thank you for your interest in contributing to the AsylumConnect resource catalog! Use this form to suggest a resource you think should be included. It's ok if you do not have all of the information the form asks for - just fill in what you know, and we'll do the rest! We appreciate your submission and thank you for helping to connect asylum seekers to helpful services. All suggested resources are subject to review by AsylumConnect staff before being published.
+          </Typography>
+          <SuggestInfo 
+            name={''} 
+            website={''}
+            region={''}
+            description={''}
+            address={''}
+            onChange={this.handleChange}/>
+
+          <SuggestHour 
+            schedule={defaultSchedule}
+            selectedDays={selectedDays}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+            />
+
+          <SuggestAdditional
+            feature={feature}
+            requirement={requirement}
+            additionalInfo={additionalInfo}
+          />
+        
+        {!isSent  ? (
+          <div>
+            <AsylumConnectButton variant='primary' onClick={this.handleClick}>suggest resource</AsylumConnectButton>
+            <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
+          </div>
+        ):(
+          <div className={classes.settingsTypeFont}>
+            <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a href="mailto:catalog@asylumconnect.org" className={classes.boldFont}>catalog@asylumconnect.org</a>.</span>
+          </div>
+        )}
         </div>
+      ):('')}        
       </div>
     )
   }
 }
 
-OrgSettings.propTypes = {
+Suggestion.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OrgSettings);
+export default withStyles(styles)(Suggestion);

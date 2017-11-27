@@ -45,6 +45,10 @@ class PageContainer extends React.Component {
               <AccountPage handleMessageNew={handleMessageNew} handleLogOut={handleLogOut} history={history} />
             )}
             />
+            <Route path="/suggestion/new" render={()=>(
+              <Suggestion handleMessageNew={handleMessageNew} handleLogOut={handleLogOut} history={history} />
+            )}
+            />
           </Switch>
       </div>
     );
