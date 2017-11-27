@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
+import DeleteAccountDialog from '../account/DeleteAccountDialog';
 import {ForgotDialog, LoginDialog, PasswordDialog, SignupDialog} from '../account';
 import ActionButton from '../ActionButton';
 import {ListNewDialog, ShareDialog} from '../favorites';
@@ -24,10 +25,12 @@ const AsylumConnectDialog = ({
   handleListAddFavorite,
   handleListNew,
   handleLogIn,
+  handleDeleteAccount,
   handleLogOut,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
+  history,
   session,
   user,
 }) =>
@@ -92,6 +95,15 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
+        />}
+      {dialog === 'deleteAccount' &&
+        <DeleteAccountDialog
+          handleLogOut={handleLogOut}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+          history={history}
+          session={session}
         />}
     </div>
   </Dialog>;

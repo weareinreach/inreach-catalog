@@ -3,6 +3,7 @@ import MaskedInput from 'react-text-mask';
 
 import GeneralSettingsEmail from './GeneralSettingsEmail';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
+import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
@@ -13,7 +14,6 @@ import Typography from 'material-ui/Typography';
 import 'whatwg-fetch';
 import config from '../../config/config.js';
 import {
-  deleteUser,
   updateUserEmail,
   updateUserPassword,
 } from '../../helpers/odasRequests';
@@ -65,39 +65,16 @@ class GeneralSettings extends React.Component {
       errorMessage: '',
       isPasswordUpdated: null,
       isEmailUpdated: null,
+      dialog: 'none'
     }
-    this.handleDelete = this.handleDelete.bind(this)
+    //this.handleDelete = this.handleDelete.bind(this)
     this.handleOdasError = this.handleOdasError.bind(this)
     this.updateEmail = this.updateEmail.bind(this)
     this.updatePassword = this.updatePassword.bind(this)
-  }
-  
-  handleDelete() {    
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew, user} = this.props;
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/user`;
-    const options = {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
-        'Demo-Authorization': 'Bearer '+jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          response.json().then((res) => {
-            if (res.message === 'User deleted') {
-              handleMessageNew('Your account has been deleted.');
-            }
-          });
-        } else {
-          handleMessageNew('Oops! Something went wrong');
-        }
-      })
+    //this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
+    this.handleLogIn = this.handleLogIn.bind(this)
+    this.handleRequestOpen = this.handleRequestOpen.bind(this)
+    //this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
   handleOdasError(error) {
@@ -144,9 +121,22 @@ class GeneralSettings extends React.Component {
       .catch(error => this.handleOdasError(error));
   }
 
+  handleRequestOpen() {
+    this.props.handleRequestOpen('deleteAccount')
+    //this.setState({dialog:'deleteAccount'});
+  }
+
+  handleRequestClose() {
+    //this.setState({dialog:'none'})
+  }
+
+  handleLogIn(){
+    return 'login...'
+  }
+
   render() {
     const { classes, handleMessageNew, user } = this.props;
-    const { isPasswordUpdated, isEmailUpdated } = this.state;
+    const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
     let email = user? user.email:''
     return (
       <div className={classes.root}>
@@ -163,10 +153,18 @@ class GeneralSettings extends React.Component {
             isPasswordUpdated={isPasswordUpdated} 
             handleMessageNew={handleMessageNew}
           />
-          <div><div onClick={this.handleDelete} className={classes.settingsTypeFont}>
+          <div><div onClick={this.handleRequestOpen} className={classes.settingsTypeFont}>
             <span>Delete Account</span>
           </div></div>
         </div>
+        {/*<AsylumConnectDialog
+          dialog={dialog}
+          handleDeleteAccount={this.handleDeleteAccount}
+          handleLogIn={this.handleLogIn}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={this.handleRequestClose}
+          handleRequestOpen={this.handleRequestOpen}
+        />*/}
       </div>
     )
   }
