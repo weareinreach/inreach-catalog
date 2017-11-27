@@ -218,12 +218,16 @@ async function makeEmail(req, res, userData){
   }
 
   email.sender = sender.join(" ");
-
   return new Promise(function(resolve, reject){
-
-    res.render("litmus-slate-stationery.ejs", {
+    res.render("asylum-connect-stationary.ejs", {
       request: req.body,
-      user: userData
+      user: userData,
+      org: (userData.affiliation && userData.affiliation.organization_name ? userData.affiliation.organization_name : ''),
+      grammar: {
+        thisOrThese: (req.body.shareType == 'collection' ? 'These' : 'This'),
+        listOf: (req.body.shareType == 'collection' ? 'list of ' : ''),
+        resource: (req.body.shareType == 'collection' ? 'resources' : 'resource'),
+      }
     },
     function(err, html){
       if(err){

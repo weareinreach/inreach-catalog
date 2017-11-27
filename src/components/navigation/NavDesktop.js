@@ -59,7 +59,7 @@ const NavDesktop = ({
     <a className="hide--on-print" href="http://www.asylumconnect.org/take-action">
       <Typography type="display4">take action</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/get-help">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/seek-lgbtq-asylum">
       <Typography type="display4">get help</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/contact-us">
