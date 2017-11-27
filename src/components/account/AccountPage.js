@@ -132,7 +132,7 @@ class AccountPage extends React.Component {
                 <Tab label="Your Org" disabled />
               </Tabs>
             </AppBar>
-            {value === 0 && <TabContainer><GeneralSettings handleMessageNew={handleMessageNew} user={user}/></TabContainer>}
+            {value === 0 && <TabContainer><GeneralSettings handleMessageNew={handleMessageNew} user={user} history={this.props.history}/></TabContainer>}
           </div>
         ):(
         <div>

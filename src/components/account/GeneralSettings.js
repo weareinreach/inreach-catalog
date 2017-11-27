@@ -11,7 +11,7 @@ import breakpoints from '../../theme/breakpoints';
 
 import Typography from 'material-ui/Typography';
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 import config from '../../config/config.js';
 
 function TextMaskCustom(props) {
@@ -154,10 +154,10 @@ class GeneralSettings extends React.Component {
 
   handleDeleteAccount(pw){
     var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew} = this.props;
+    const {handleMessageNew, history} = this.props;
     const apiDomain = config[process.env.OD_API_ENV].odas;
     const url = `${apiDomain}api/user`;
-    const body = JSON.stringify({'password': [pw]})
+    const body = JSON.stringify({'password': pw})
     console.log(body)
     const options = {
       method: 'DELETE',
@@ -174,6 +174,7 @@ class GeneralSettings extends React.Component {
         if (response.status === 200) {
           response.json().then((res) => {
             if (res.message === 'User deleted') {
+              history.push('/');
               handleMessageNew('Your account has been deleted.');
             } else {
               handleMessageNew('Your password is incorrect.');
