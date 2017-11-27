@@ -294,7 +294,6 @@ class Resource extends React.Component {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
-      this.resource.opportunities = response.opportunities;
       this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
       this.getOpportunityReviews(this.state.resource);
       this.setState(prevState => ({

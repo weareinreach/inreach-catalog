@@ -94,7 +94,12 @@ const FavoritesList = ({
           </Button>
           <div>
             {list && (
-              <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
+              <AsylumConnectButton 
+                variant="secondary"
+                onClick={() => {window.print()}}
+              >
+                Print
+              </AsylumConnectButton>
             )}
             {list && (
               <AsylumConnectButton

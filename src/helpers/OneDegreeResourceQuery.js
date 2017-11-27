@@ -93,8 +93,12 @@ class OneDegreeResourceQuery {
   }
 
   nextPage() {
-    this.filters.page++;
-    return this;
+    if(this.filters.page < this.pagingData.total_pages) {
+      this.filters.page++;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   filterAtCapacity(resources) {

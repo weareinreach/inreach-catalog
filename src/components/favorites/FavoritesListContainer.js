@@ -36,7 +36,7 @@ class FavoritesListContainer extends React.Component {
     const { lists, user } = this.props;
 
     if (lists.length && !listId) {
-      this.props.history.push(`/favorites/${lists[0].slug}`);
+      this.props.history.replace(`/favorites/${lists[0].slug}`);
     } else if (lists.legth && listId) {
       this.fetchListResources(listId);
     }
@@ -44,7 +44,7 @@ class FavoritesListContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.lists.length && !nextProps.match.params.listId) {
-      this.props.history.push(`/favorites/${nextProps.lists[0].slug}`);
+      this.props.history.replace(`/favorites/${nextProps.lists[0].slug}`);
     }
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({ loadingResources: true });

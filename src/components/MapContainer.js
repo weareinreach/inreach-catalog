@@ -50,7 +50,6 @@ class MapContainer extends React.Component {
     let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
     let ACMap = null;
     this.state = {
-      nearAddress: '',
       nearLatLng,
       mapWidth: "100%",
       searchStatus: null,
@@ -129,16 +128,16 @@ class MapContainer extends React.Component {
 
   handlePlaceSelect(address) {
     this.setState({
-      nearAddress: address,
       nearLatLng: null
     });
+    this.props.handleAddressChange(address)
   }
 
   handlePlaceChange(address) {
     this.setState({
-      nearAddress: address,
       nearLatLng: null
     });
+    this.props.handleAddressChange(address)
   }
 
   handleResourceTypeSelect(event, checked) { 
@@ -147,7 +146,8 @@ class MapContainer extends React.Component {
     var selectedResourceTypes = this.state.selectedResourceTypes.slice();
     
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
-      selectedResourceTypes.push(target.value).sort();
+      selectedResourceTypes.push(target.value);
+      selectedResourceTypes.sort();
       this.setState({
         selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
@@ -167,7 +167,8 @@ class MapContainer extends React.Component {
     var selectedFilters = this.state.selectedFilters.slice();
     
     if(checked && selectedFilters.indexOf(target.value) < 0) {
-      selectedFilters.push(target.value).sort();
+      selectedFilters.push(target.value)
+      selectedFilters.sort();
       this.setState({
         selectedFilters: selectedFilters
       });
@@ -210,15 +211,6 @@ class MapContainer extends React.Component {
   }
 
   handleSearchButtonClick() {    
-    /*if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
-      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-      return;
-    } */
-
-    /*if(this.state.selectedResourceTypes.length == 0) {
-      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-      return;
-    } */
 
     this.setState({
       searchDisabled: true
@@ -238,7 +230,7 @@ class MapContainer extends React.Component {
     }
 
     if(this.state.nearLatLng == null) {
-      geocodeByAddress(this.state.nearAddress)
+      geocodeByAddress(this.props.nearAddress)
         .then(results => getLatLng(results[0]))
         .then(redirect)
         .catch(error => {
@@ -252,22 +244,16 @@ class MapContainer extends React.Component {
     } else {
       redirect(this.state.nearLatLng)
     }
-    
-    
-
-    /*var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
-    var latLng = encodeURIComponent(this.state.nearLatLng.lat + ',' + this.state.nearLatLng.lng);
-    var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
-    var sort = encodeURIComponent(this.state.selectedSort);
-    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);*/
   }
 
   resizeMap(){
 
     const node = ReactDOM.findDOMNode(this.ACMap);
-    const nodeDimensions = node.getBoundingClientRect();
-    let width = document.body.clientWidth - nodeDimensions.x;
-    this.setState({mapWidth: width + "px"});
+    if(node && node.getBoundingClientRect) {
+      const nodeDimensions = node.getBoundingClientRect();
+      let width = document.body.clientWidth - nodeDimensions.x;
+      this.setState({mapWidth: width + "px"});
+    }
   }
 
   fetchSearchResults() {
@@ -298,15 +284,16 @@ class MapContainer extends React.Component {
 
   fetchNextSearchResultsPage() {
     if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
-      this.queryOneDegree.nextPage();
-      this.setState({
-        searchDisabled: true,
-        printDisabled: true,
-        searching: true
-      });
-      this.queryOneDegree.fetchOrganizations({
-        callback: this.processSearchResults
-      });
+      if(this.queryOneDegree.nextPage()) {
+        this.setState({
+          searchDisabled: true,
+          printDisabled: true,
+          searching: true
+        });
+        this.queryOneDegree.fetchOrganizations({
+          callback: this.processSearchResults
+        });
+      }
     }
   }
 
@@ -404,6 +391,7 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    nearAddress={this.props.nearAddress}
                     searchDisabled={this.state.searchDisabled}
                      />} />
                     }
@@ -427,6 +415,7 @@ class MapContainer extends React.Component {
                       handleSortSelect={this.handleSortSelect}
                       lists={this.props.lists}
                       mapResources={mapResources}
+                      nearAddress={this.props.nearAddress}
                       printDisabled={this.state.printDisabled}
                       searchDisabled={this.state.searchDisabled}
                       session={this.props.session}
