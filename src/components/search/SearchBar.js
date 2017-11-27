@@ -46,6 +46,14 @@ class SearchBar extends React.Component {
     /*this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)*/
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.nearAddress && nextProps.nearAddress != this.state.address) {
+      this.setState({
+        address: nextProps.nearAddress
+      })
+    }
+  }
+
   handlePlaceSelect(address) {
     this.setState({
       address

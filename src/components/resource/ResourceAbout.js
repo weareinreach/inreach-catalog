@@ -90,18 +90,18 @@ const Services = (props) => {
                   <Typography key={item.id} type="body2" style={{position:'relative'}} >
                     {item.tags && item.tags.length ?
                       (() => {
-                        let badges = [];
-                        return item.tags.map((tag) => {
-                          if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
-                            badges.push(resourceIndex[tag].type);
-                            return (
-                              <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
-                            ) 
+                        let badge = 'misc';
+
+                        item.tags.forEach((tag) => {
+                          if(typeof resourceIndex[tag] !== 'undefined') {
+                            badge = resourceIndex[tag].type
                           }
-                          return null;
-                        }) || <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />
+                        })
+                        return (
+                          <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type={badge} width='45px' height='45px' />
+                        );
                       })()
-                    : null}
+                    : <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />}
                     <p className={props.classes.serviceText}>{item.title}</p>
                   </Typography>
                 )
