@@ -84,8 +84,9 @@ class AsylumConnectMap extends React.Component {
           var points = resource.locations.length ? resource.locations : [{lat: resource.lat, lng: resource.lng, region: resource.region}];
 
           return points.map((location) => {
+            if(!location.lat || (!location.lng && !location.long)) return null;
+
             return (
-            {location.lat && (location.lng || location.long) ?
               <AsylumConnectMarker key={location.id} position={{lat: location.lat, lng: location.long ? location.long : location.lng}} >
                 <InfoWindow>
                   <Typography type="body2" className={classes.infoWindow} onClick={(ev) => {history.push('/resource/'+resource.slug)}}>
@@ -113,7 +114,6 @@ class AsylumConnectMap extends React.Component {
                   </Typography>
                 </InfoWindow>
               </AsylumConnectMarker>
-            : null}
             )
           })
           
