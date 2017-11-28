@@ -97,7 +97,10 @@ const FavoritesList = ({
             onClick={handleMenuOpen}>
             {list ? list.title : 'Select A List'}
             {` `}
-            <Fa className={classes.marginLeft} name="chevron-down" />
+            <Fa
+              className={classes.marginLeft}
+              name={open ? 'chevron-up' : 'chevron-down'}
+            />
           </Button>
           <div>
             {list && (
