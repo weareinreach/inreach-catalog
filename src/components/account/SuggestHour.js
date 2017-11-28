@@ -90,7 +90,7 @@ class SuggestHour extends React.Component {
     this.props.handleChange(name, value)
   }
   render() {
-    const { classes, schedule, selectedDays, onSelect } = this.props;
+    const { classes, schedule, selectedDays, handleDaySelect } = this.props;
     return (
       <div className={classes.root}>
         <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
@@ -103,7 +103,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Monday' 
                 value='monday'
-                onChange={ref => onSelect('select', ref.target.value, schedule.monday_start, schedule.monday_end)} 
+                onChange={ref => handleDaySelect('select', ref.target.value, schedule.monday_start, schedule.monday_end)} 
                 checked={selectedDays.monday} />
               <div className={classes.textField}>
                 <TextField
@@ -114,7 +114,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect', ref.target.name, schedule.monday_start, schedule.monday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect', ref.target.name, schedule.monday_start, schedule.monday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -124,7 +124,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect', ref.target.name, schedule.monday_start, schedule.monday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect', ref.target.name, schedule.monday_start, schedule.monday_end)}
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Tuesday'
                 value='tuesday'
-                onChange={ref => onSelect('select', ref.target.value, schedule.tuesday_start, schedule.tuesday_end)} 
+                onChange={ref => handleDaySelect('select', ref.target.value, schedule.tuesday_start, schedule.tuesday_end)} 
                 checked={selectedDays.tuesday} />
               <div className={classes.textField}>
                 <TextField
@@ -143,7 +143,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.tuesday_start, schedule.tuesday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.tuesday_start, schedule.tuesday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -153,7 +153,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.tuesday_start, schedule.tuesday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.tuesday_start, schedule.tuesday_end)}
                 />
               </div>
             </div>
@@ -161,7 +161,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Wednesday'
                 value='wednesday'
-                onChange={ref => onSelect('select', ref.target.value, schedule.wednesday_start, schedule.wednesday_end)} 
+                onChange={ref => handleDaySelect('select', ref.target.value, schedule.wednesday_start, schedule.wednesday_end)} 
                 checked={selectedDays.wednesday} />
               <div className={classes.textField}>
                 <TextField
@@ -172,7 +172,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.wednesday_start, schedule.wednesday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.wednesday_start, schedule.wednesday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -182,7 +182,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.wednesday_start, schedule.wednesday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.wednesday_start, schedule.wednesday_end)}
                 />
             </div>
             </div>
@@ -190,7 +190,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Thursday'
                 value='thursday'
-                onChange={ref => onSelect('select', ref.target.value, schedule.thursday_start, schedule.thursday_end)} 
+                onChange={ref => handleDaySelect('select', ref.target.value, schedule.thursday_start, schedule.thursday_end)} 
                 checked={selectedDays.thursday} />
               <div className={classes.textField}>
                 <TextField
@@ -201,7 +201,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.thursday_start, schedule.thursday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.thursday_start, schedule.thursday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -211,7 +211,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.thursday_start, schedule.thursday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.thursday_start, schedule.thursday_end)}
                 />
               </div>
             </div>
@@ -219,7 +219,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Friday'
                 value='friday'
-                onChange={ref => onSelect('select', ref.target.value, schedule.friday_start, schedule.friday_end)} 
+                onChange={ref => handleDaySelect('select', ref.target.value, schedule.friday_start, schedule.friday_end)} 
                 checked={selectedDays.friday} />
               <div className={classes.textField}>
                 <TextField
@@ -230,7 +230,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.friday_start, schedule.friday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.friday_start, schedule.friday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -240,7 +240,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.friday_start, schedule.friday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.friday_start, schedule.friday_end)}
                 />
               </div>
             </div>
@@ -248,7 +248,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Saturday'
                 value='saturday'
-                onChange={ref => onSelect('select', ref.target.value, schedule.saturday_start, schedule.saturday_end)} 
+                onChange={ref => handleDaySelect('select', ref.target.value, schedule.saturday_start, schedule.saturday_end)} 
                 checked={selectedDays.saturday} />
               <div className={classes.textField}>
                 <TextField
@@ -259,7 +259,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect', ref.target.name, schedule.saturday_start, schedule.saturday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect', ref.target.name, schedule.saturday_start, schedule.saturday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -269,7 +269,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.saturday_start, schedule.saturday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.saturday_start, schedule.saturday_end)}
                 />
               </div>
             </div>
@@ -277,7 +277,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Sunday'
                 value='sunday'
-                onChange={ref => onSelect('select',ref.target.name, schedule.sunday_start, schedule.sunday_end)} 
+                onChange={ref => handleDaySelect('select',ref.target.name, schedule.sunday_start, schedule.sunday_end)} 
                 checked={selectedDays.sunday} />
               <div className={classes.textField}>
                 <TextField
@@ -288,7 +288,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.sunday_start, schedule.sunday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.sunday_start, schedule.sunday_end)}
                 />
                 <TextField
                   type= 'time'
@@ -298,7 +298,7 @@ class SuggestHour extends React.Component {
                     shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref => onSelect('autoSelect',ref.target.name, schedule.sunday_start, schedule.sunday_end)}
+                  onKeyUp={ref => handleDaySelect('autoSelect',ref.target.name, schedule.sunday_start, schedule.sunday_end)}
                 />
               </div>
             </div>

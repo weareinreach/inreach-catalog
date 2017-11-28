@@ -101,40 +101,21 @@ class SuggestAdditional extends React.Component {
       openFeature: true,
       openRequirement: true,
       openResourceTags: true,
-      selectedResources: []
     };
-    this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
-    this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
   }
   handleToggleDropDown(menu) {
     this.setState({ [menu]: !this.state[menu]});
   }
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.props.onChange('schedule', name, value)
-  }
-  handleResourceTypeSelect(event, checked) { 
-    var index;
-    const target = event.target;
-    var selectedResources = this.state.selectedResources.slice();
-    if(checked && selectedResources && selectedResources.indexOf(target.value) < 0) {
-      selectedResources.push(target.value)
-      this.setState({
-        selectedResources: selectedResources,
-        searchStatus: null
-      });
-    } else if(!checked && !selectedResources && (index = selectedResources.indexOf(target.value)) >= 0) {
-      selectedResources.splice(index, 1)
-      this.setState({
-        selectedResources: selectedResources,
-        searchStatus: null
-      });
-    }
-    
-  }
   render() {
-    const { classes, schedule, selectedDays, onSelect } = this.props;
+    const { classes,
+            handleRequirementSelect,
+            selectedRequirements,
+            handleFeatureSelect,
+            selectedFeatures,
+            handleTagSelect,
+            selectedTags } = this.props;
+            console.log(selectedFeatures)
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -145,31 +126,29 @@ class SuggestAdditional extends React.Component {
             </div>
             <Collapse in={this.state.openFeature} transitionDuration="auto" unmountOnExit>
               <div>
-                <AsylumConnectCheckbox 
-                  label='Has A Confidentiality Policy' 
-                  value='hasAConfidentialityPolicy'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Cost Free' 
-                  value='costFree'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
+                {selectedFeatures? selectedFeatures.map((feature) =>                  
+                  <AsylumConnectCheckbox
+                  key={feature.name}
+                  label={feature.label}
+                  value={feature.name}
+                  onChange={ handleFeatureSelect } 
+                  checked={ feature.value } />
+                ):('')}
                 {/* <AsylumConnectCheckbox 
                   label='Has Free Services' 
                   value='HasFreeServices'
                   onChange={(ref)=>{return ref}}
-                  checked={false} />
+                   checked={false} />
                 <AsylumConnectCheckbox 
                   label='Has Translation Services' 
                   value='HasTranslationServices'
                   onChange={(ref)=>{return ref}}
-                  checked={false} />
+                   checked={false} />
                 <AsylumConnectCheckbox 
                   label='Has Transportation Services' 
                   value='HasTransportationServices'
                   onChange={(ref)=>{return ref}}
-                  checked={false} /> */}
+                   checked={false} /> */}
               </div>
             </Collapse>
           </div>          
@@ -180,41 +159,21 @@ class SuggestAdditional extends React.Component {
             </div>
             <Collapse in={this.state.openRequirement} transitionDuration="auto" unmountOnExit>
               <div>
-                <AsylumConnectCheckbox 
-                  label='Photo ID not required' 
-                  value='not-req-photo-id'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Proof of age not required' 
-                  value='not-req-proof-of-age'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Proof of residence not required' 
-                  value='not-req-proof-of-residence'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Proof of income not required' 
-                  value='not-req-proof-of-income'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Medical insurance not required' 
-                  value='not-req-medical-insurance'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
-                <AsylumConnectCheckbox 
-                  label='A referral not required' 
-                  value='not-req-referral'
-                  onChange={(ref)=>{return ref}}
-                  checked={false} />
+                {selectedRequirements? selectedRequirements.map((requirement) => 
+                  <AsylumConnectCheckbox 
+                  key={requirement.name}
+                  label={requirement.label}
+                  value={requirement.name}
+                  onChange={ handleRequirementSelect} 
+                   checked={ requirement.value} />
+                  ):('')}
               </div>
             </Collapse>
           </div>          
           
-          <ResourceTagSelector onChange={this.props.handleTagSelect} selectedResourceTags={this.props.selectedTags} />
+          <ResourceTagSelector 
+            onChange={ handleTagSelect} 
+            selectedResourceTags={ selectedTags} />
           {/* <TextField
             className={classes.inputLabel}
             label='Additional Information:'

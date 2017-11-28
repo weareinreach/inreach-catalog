@@ -16,7 +16,7 @@ import config from '../../config/config.js';
 
 const styles = theme => ({
   root: {
-    padding: '0 15% 0 15%'
+    padding: '0 10% 10% 10%'
   },
   formType: {
     margin: '5% 0 5% 0'
@@ -68,7 +68,7 @@ const defaultResource = {
       {
           "name": "approval-asylumconnect",
           "value": "false"
-      }
+      },
   ],
   "locations": [
       {
@@ -133,17 +133,31 @@ class Suggestion extends React.Component {
       resourceData: defaultResource,
       nonEngServices: [],
       address: '',
-      feature: [],
-      requirement: []
+      features: [
+        { label: 'Has A Confidentiality Policy', name: 'has-a-confidentiality-policy', value: false },
+        { label: 'Cost Free', name: 'cost-free', value: false },
+      ],
+      requirements: [
+        {label: 'Photo ID not required', name: 'not-req-photo-id', value: false}, 
+        {label: 'Proof of income not required', name: 'not-req-proof-of-income', value: false}, 
+        {label: 'Proof of age not required', name: 'not-req-proof-of-age', value: false}, 
+        {label: 'Medical insurance not required', name: 'not-req-medical-insurance', value: false}, 
+        {label: 'Proof of residence not required', name: 'not-req-proof-of-residence', value: false}, 
+        {label: 'A referral not required', name: 'not-req-referral', value: false}
+      ],
+      tags:[]
     }
     this.handleChangeGeneralInfo = this.handleChangeGeneralInfo.bind(this)
     this.handleChangePhone = this.handleChangePhone.bind(this)
     this.handleSelectAddress = this.handleSelectAddress.bind(this)
     this.handleSelectNonEngServices = this.handleSelectNonEngServices.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
+    this.handleDaySelect = this.handleDaySelect.bind(this)
     this.handleChangeSchedule = this.handleChangeSchedule.bind(this)
+    this.handleRequirementSelect = this.handleRequirementSelect.bind(this)
+    this.handleFeatureSelect = this.handleFeatureSelect.bind(this)
     this.handleTagSelect = this.handleTagSelect.bind(this);
+    this.submitResource = this.submitResource.bind(this)
   }
   componentDidMount(){
     const jwt = localStorage.getItem('jwt')
@@ -248,7 +262,7 @@ class Suggestion extends React.Component {
     
     
   }
-  handleSelect(select, value, startValue, endValue) {
+  handleDaySelect(select, value, startValue, endValue) {
     const { selectedDays } = this.state;
     let updatedSelectedDays;
     if (select === 'select') {
@@ -259,14 +273,58 @@ class Suggestion extends React.Component {
     this.setState({ selectedDays: updatedSelectedDays})
   }
   handleChangeSchedule (name, value) {
-    const { resourceData } = this.state;
+    const { resourceData, selectedDays } = this.state;
     let updatedResourceData = update(resourceData, {locations: { 0: {schedule: {$merge: { [name]:value }}}}})
-    console.log(updatedResourceData)
     this.setState({ resourceData: updatedResourceData})
+  }
+  handleFeatureSelect(event, checked){
+    const { value } = event.target
+    const { features, resourceData } = this.state
+
+    // update current status of a feature
+    let index = features.findIndex((f) => f.name === value )
+    let updatedFeatures = update(features, {[index]: {$merge: {value: checked}}})
+    this.setState({features: updatedFeatures})
+
+    // add/remove feature to/from resourceData
+    let updatedResourceData;    
+    if (checked) {
+      let updatedFeature = { [value]: checked.toString() }
+      updatedResourceData = update(resourceData, {properties: {$push: [updatedFeature]}})
+    } else {
+      let indexResource = resourceData.properties.findIndex(p => Object.keys(p)[0] == value)
+      if (indexResource >= 0) {
+        updatedResourceData = update(resourceData, {properties: {$splice: [[1, indexResource]]}})
+      }      
+    }
+    this.setState({resourceData: updatedResourceData})
+  }
+  handleRequirementSelect(event, checked){
+    const { value } = event.target
+    const { requirements, resourceData } = this.state
+
+    // update current status of a requirement
+    const index = requirements.findIndex((f) => f.name === value )
+    let updatedRequirements = update(requirements, {[index]: {$merge: {value: checked}}})
+    this.setState({requirements: updatedRequirements})
+
+    // add/remove feature to/from resourceData
+    let updatedResourceData;    
+    if (checked) {
+      let updatedRequirement = { [value]: checked.toString() }
+      updatedResourceData = update(resourceData, {properties: {$push: [updatedRequirement]}})
+    } else {
+      let indexResource = resourceData.properties.findIndex(p => Object.keys(p)[0] == value)
+      if (indexResource >= 0) {
+        updatedResourceData = update(resourceData, {properties: {$splice: [[1, indexResource]]}})
+      }      
+    }
+    this.setState({resourceData: updatedResourceData})
   }
   handleTagSelect(event, checked) {
     var index;
     const target = event.target;
+    const { resourceData } = this.state;
     var selectedResourceTypes = this.state.tags.slice();
     
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
@@ -280,14 +338,17 @@ class Suggestion extends React.Component {
         tags: selectedResourceTypes
       });
     }
+
+    let updatedResourceData = update(resourceData, {tags: {$set: this.state.tags}})
+    this.setState({resourceData: updatedResourceData})
   }
 
   handleClick(){
-    const {resourceData, selectedDays} = this.state;
-    const {user, handleMessageNew} = this.props;
-    // Remove unselected time in schedule object
-    let { schedule } = resourceData.locations[0]
+    const {resourceData, selectedDays, features, requirements, tags} = this.state;
+    // Update/reformat resourceData 
     let updatedResourceData;
+    // 1: Remove unselected time in schedule object
+    let { schedule } = resourceData.locations[0]    
     for (let timeKey in schedule ) {
       let day = timeKey.split('_')[0]
       if (!selectedDays[day]){
@@ -295,14 +356,20 @@ class Suggestion extends React.Component {
       }
     }
     updatedResourceData = update(resourceData, {locations: { 0: {schedule: {$merge: schedule} }}})
-    // Submit
+    this.submitResource(updatedResourceData)
+  }
+
+  submitResource(data){
+    console.log(data)
+    const {user, handleMessageNew} = this.props;
+    const client_user_id = user ? user.id : 0
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
       "submission": {
         "resource_id": 0,
         "resource_type": "Organization",
         "client_user_id": client_user_id,
-        "content": JSON.stringify(updateResourceData),
+        "content": JSON.stringify(data),
         "submitter_type": "PublicForm"
       }
     }
@@ -326,9 +393,9 @@ class Suggestion extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { user, selectedDays, isSent, resourceData, nonEngServices, address, features, requirements } = this.state;
-    const { name, website, locations, description, emails, phones, properties, tags } = resourceData;
-    console.log(resourceData)
+    const { user, selectedDays, isSent, resourceData, nonEngServices, address, features, requirements, tags } = this.state;
+    const { name, website, locations, description, emails, phones, properties } = resourceData;
+    console.log(features)
     return (
       <div className={classes.root}>
       {user? (
@@ -354,12 +421,14 @@ class Suggestion extends React.Component {
             schedule={defaultSchedule}
             selectedDays={selectedDays}
             handleChange={this.handleChangeSchedule}
-            onSelect={this.handleSelect}
+            handleDaySelect={this.handleDaySelect}
             />
 
           <SuggestAdditional
-            features={features}
-            requirements={requirements}
+            handleRequirementSelect={this.handleRequirementSelect}
+            selectedRequirements={requirements}
+            handleFeatureSelect={this.handleFeatureSelect}
+            selectedFeatures={features}
             handleTagSelect={this.handleTagSelect}
             selectedTags={tags}
           />
