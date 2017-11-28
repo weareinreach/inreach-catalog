@@ -277,7 +277,7 @@ class SuggestHour extends React.Component {
               <AsylumConnectCheckbox 
                 label='Sunday'
                 value='sunday'
-                onChange={ref => handleDaySelect('select',ref.target.name, schedule.sunday_start, schedule.sunday_end)} 
+                onChange={ref => handleDaySelect('select',ref.target.value, schedule.sunday_start, schedule.sunday_end)} 
                 checked={selectedDays.sunday} />
               <div className={classes.textField}>
                 <TextField

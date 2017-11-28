@@ -354,7 +354,6 @@ class Suggestion extends React.Component {
     let updatedResourceData = update(resourceData, {tags: {$set: selectedResourceTypes}})
     this.setState({resourceData: updatedResourceData})
   }
-
   handleClick(){
     const {resourceData, selectedDays, features, requirements, tags} = this.state;
     // Update/reformat resourceData 
@@ -376,7 +375,6 @@ class Suggestion extends React.Component {
 
     this.submitResource(updatedResourceData2)
   }
-
   submitResource(data){
     const {user, handleMessageNew} = this.props;
     const client_user_id = user ? user.id : 0
