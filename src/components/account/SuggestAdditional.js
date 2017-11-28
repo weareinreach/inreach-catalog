@@ -117,7 +117,6 @@ class SuggestAdditional extends React.Component {
     var index;
     const target = event.target;
     var selectedResources = this.state.selectedResources.slice();
-    console.log(selectedResources)
     if(checked && selectedResources && selectedResources.indexOf(target.value) < 0) {
       selectedResources.push(target.value)
       this.setState({
@@ -138,72 +137,76 @@ class SuggestAdditional extends React.Component {
     return (
       <div className={classes.root}>
         <form className={classes.form}>
-          <div onClick={ref=> this.handleToggleDropDown('openFeature')} className={classes.settingsTypeFont}>
+          <div>
+            <div onClick={ref=> this.handleToggleDropDown('openFeature')} className={classes.settingsTypeFont}>
               <span>Feature</span>
               {this.state.openFeature ? <ExpandLess /> : <ExpandMore />}
-          </div>
-          <Collapse in={this.state.openFeature} transitionDuration="auto" unmountOnExit>
-            <div>
-              <AsylumConnectCheckbox 
-                label='Has A Confidentiality Policy' 
-                value='HasAConfidentialityPolicy'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='Has Free Services' 
-                value='HasFreeServices'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='Has Translation Services' 
-                value='HasTranslationServices'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='Has Transportation Services' 
-                value='HasTransportationServices'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
             </div>
-          </Collapse>
-          <div onClick={ref=> this.handleToggleDropDown('openRequirement')} className={classes.settingsTypeFont}>
+            <Collapse in={this.state.openFeature} transitionDuration="auto" unmountOnExit>
+              <div>
+                <AsylumConnectCheckbox 
+                  label='Has A Confidentiality Policy' 
+                  value='HasAConfidentialityPolicy'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Has Free Services' 
+                  value='HasFreeServices'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Has Translation Services' 
+                  value='HasTranslationServices'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Has Transportation Services' 
+                  value='HasTransportationServices'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+              </div>
+            </Collapse>
+          </div>          
+          <div>
+            <div onClick={ref=> this.handleToggleDropDown('openRequirement')} className={classes.settingsTypeFont}>
               <span>Requirement</span>
               {this.state.openRequirement ? <ExpandLess /> : <ExpandMore />}
-          </div>
-          <Collapse in={this.state.openRequirement} transitionDuration="auto" unmountOnExit>
-            <div>
-              <AsylumConnectCheckbox 
-                label='Photo ID' 
-                value='PhotoId'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='HProof of Age' 
-                value='ProofOfAge'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='Proof of Residence' 
-                value='ProofOfResidence'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='Proof of Income' 
-                value='ProofOfIncome'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='Medical Insurance' 
-                value='MedicalInsurance'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
-              <AsylumConnectCheckbox 
-                label='A Referral' 
-                value='Referral'
-                onChange={(ref)=>{return ref}}
-                checked={false} />
             </div>
-          </Collapse>
+            <Collapse in={this.state.openRequirement} transitionDuration="auto" unmountOnExit>
+              <div>
+                <AsylumConnectCheckbox 
+                  label='Photo ID' 
+                  value='PhotoId'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='HProof of Age' 
+                  value='ProofOfAge'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Proof of Residence' 
+                  value='ProofOfResidence'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Proof of Income' 
+                  value='ProofOfIncome'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Medical Insurance' 
+                  value='MedicalInsurance'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='A Referral' 
+                  value='Referral'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+              </div>
+            </Collapse>
+          </div>          
           <FormControl className={classes.modifiedSelector}>
             <ResourceTypeSelector onChange={this.handleResourceTypeSelect} selectedResources={this.state.selectedResources} />
           </FormControl>

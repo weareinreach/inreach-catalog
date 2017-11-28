@@ -1,5 +1,6 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
+import update from 'react-addons-update'; 
 
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
@@ -15,7 +16,8 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import SuggestInfoNonEngServices from './SuggestInfoNonEngServices';
 
 function TextMaskCustom(props) {
   return (
@@ -84,7 +86,30 @@ const styles = theme => ({
     right: '0',
     left: '0',
     '& div': theme.custom.inputText
-  }
+  },
+  container: {
+    flexGrow: 1,
+    position: 'relative',
+    height: 200,
+  },
+  suggestionsContainerOpen: {
+    position: 'absolute',
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
+    left: 0,
+    right: 0,
+  },
+  suggestion: {
+    display: 'block',
+  },
+  suggestionsList: {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none',
+  },
+  textField: {
+    width: '100%',
+  },
 });
 
 class SuggestInfo extends React.Component {
@@ -99,12 +124,14 @@ class SuggestInfo extends React.Component {
       name: '',
       email: '',
       notes: '',
-      nonEngServices: ''
+      nonEngServices: [],
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handleChangeAutoAddress = this.handleChangeAutoAddress.bind(this)
+    this.handleServiceSelect = this.handleServiceSelect.bind(this)
+    this.handleServiceDelete = this.handleServiceDelete.bind(this)
   }
   handleChange(e) {
     const { name, value } = e.target;
@@ -119,14 +146,26 @@ class SuggestInfo extends React.Component {
   handlePlaceSelect(address) {
     this.setState({address})
   }
+  handleServiceSelect(service) {
+    if (!this.state.nonEngServices.includes(service)) {
+      const nonEngServices = update(this.state.nonEngServices, {$push: [service]})
+      this.setState({nonEngServices})
+    }    
+  }
+  handleServiceDelete(service) {
+    const index = this.state.nonEngServices.findIndex(s => {return s == service})
+    if (index >= 0) {
+      const nonEngServices = update(this.state.nonEngServices, {$splice: [[index]]})
+      this.setState({nonEngServices})
+    }    
+  }
   render() {
     const { classes } = this.props;
-    const { name, website, description, address, email, notes, nonEngServices, digits } = this.state;
+    const { name, website, description, address, email, notes, digits, nonEngServices } = this.state;
     const inputPropsAutoAddress = {
       value: address,
       onChange: this.handleChangeAutoAddress,
       type: 'text',
-      autoFocus: true,
       placeholder: "Start typing address, city or zip code in the US…",
       name: 'search--near',
       id: "search--near",
@@ -173,7 +212,7 @@ class SuggestInfo extends React.Component {
             placeholder='Short description of resource'
             onChange={this.handleChange}
           />
-          <TextField
+          {/* <TextField
             className={classes.inputLabel}
             label='Who it helps:'
             name='target'
@@ -182,66 +221,67 @@ class SuggestInfo extends React.Component {
             }}
             placeholder='Population(s) served'
             onChange={this.handleChange}
-          />
-          <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
-            <span>Age range(s) served:</span>
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-          </div>
-          <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-            <div>
-            <AsylumConnectCheckbox 
-              label='Infants (0-3)' 
-              value='infants'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='Kids (4-12)' 
-              value='kids'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='Infants (0-3)' 
-              value='infants'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='Teens (13-17)' 
-              value='teens'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='Young Adults (18-24)' 
-              value='youth'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='Adults (25-64)' 
-              value='adult'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='Seniors (65+)' 
-              value='senior'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
-            <AsylumConnectCheckbox 
-              label='All Ages' 
-              value='all'
-              onChange={(ref)=>{return ref}}
-              checked={false} />
+          /> */}
+          {/* Age Range */}
+          {/* <div>
+            <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
+              <span>Age range(s) served:</span>
+              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            </div>
+            <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
+              <div>
+                <AsylumConnectCheckbox 
+                  label='Infants (0-3)' 
+                  value='infants'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Kids (4-12)' 
+                  value='kids'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Infants (0-3)' 
+                  value='infants'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Teens (13-17)' 
+                  value='teens'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Young Adults (18-24)' 
+                  value='youth'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Adults (25-64)' 
+                  value='adult'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='Seniors (65+)' 
+                  value='senior'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                <AsylumConnectCheckbox 
+                  label='All Ages' 
+                  value='all'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
               </div>
-          </Collapse>
-          <TextField
-            className={classes.inputLabel}
-            label='Non-English service(s):'
-            name='nonEngServices'
-            value={nonEngServices}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder='List any non-English service(s) offered '
-            onChange={this.handleChange}
-          />
+            </Collapse>
+          </div> */}
+          <FormControl className={classes.inputAddressLabel}>
+            <InputLabel 
+              children='Non-English Service(s):'
+              shrink />
+            <SuggestInfoNonEngServices 
+              services={nonEngServices} 
+              handleClick={this.handleServiceSelect}
+              handleDelete={this.handleServiceDelete}/>
+          </FormControl>
           <TextField
             className={classes.inputLabel}
             label='Websites:'
