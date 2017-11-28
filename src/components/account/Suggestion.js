@@ -64,11 +64,13 @@ class Suggestion extends React.Component {
         friday: false,
         saturday: false,
         sunday: false,
-      }
+      },
+      tags: []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleTagSelect = this.handleTagSelect.bind(this);
   }
   componentDidMount(){
     const jwt = localStorage.getItem('jwt')
@@ -131,6 +133,25 @@ class Suggestion extends React.Component {
     }
     this.setState({ selectedDays: updatedSelectedDays})
   }
+
+  handleTagSelect(event, checked) {
+    var index;
+    const target = event.target;
+    var selectedResourceTypes = this.state.tags.slice();
+    
+    if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
+      selectedResourceTypes.push(target.value)
+      this.setState({
+        tags: selectedResourceTypes
+      });
+    } else if(!checked && (index = selectedResourceTypes.indexOf(target.value)) >= 0) {
+      selectedResourceTypes.splice(index, 1)
+      this.setState({
+        tags: selectedResourceTypes
+      });
+    }
+  }
+
   handleClick(){
     const {orgData, selectedDays} = this.state;
     const {user, handleMessageNew} = this.props;
@@ -202,6 +223,8 @@ class Suggestion extends React.Component {
             feature={feature}
             requirement={requirement}
             additionalInfo={additionalInfo}
+            handleTagSelect={this.handleTagSelect}
+            selectedTags={this.state.tags}
           />
         
         {!isSent  ? (

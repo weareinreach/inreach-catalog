@@ -15,7 +15,7 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
-import ResourceTypeSelector from '../search/ResourceTypeSelector';
+import ResourceTagSelector from '../ResourceTagSelector';
 
 const styles = theme => ({
   root: {
@@ -100,6 +100,7 @@ class SuggestAdditional extends React.Component {
     this.state = {
       openFeature: true,
       openRequirement: true,
+      openResourceTags: true,
       selectedResources: []
     };
     this.handleChange = this.handleChange.bind(this)
@@ -207,9 +208,8 @@ class SuggestAdditional extends React.Component {
               </div>
             </Collapse>
           </div>          
-          <FormControl className={classes.modifiedSelector}>
-            <ResourceTypeSelector onChange={this.handleResourceTypeSelect} selectedResources={this.state.selectedResources} />
-          </FormControl>
+          
+          <ResourceTagSelector onChange={this.props.handleTagSelect} selectedResourceTags={this.props.selectedTags} />
           <TextField
             className={classes.inputLabel}
             label='Additional Information:'
