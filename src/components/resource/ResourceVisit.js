@@ -67,7 +67,18 @@ const Visit = ({resource, classes, isMobile, hideTitle, className}) => (
       : null}
       {resource.schedule && Object.keys(resource.schedule).length > 1 ?
         <Typography type="body2" className={classes.lineSpacing} >
+          <strong className={classes.boldFont}>Hours: </strong>
           {scheduleParser({schedule: resource.schedule})}
+        </Typography>
+      : null}
+      {resource.schedule 
+        && Object.keys(resource.schedule).length > 1 
+        && resource.schedule.note 
+        && trim(resource.schedule.note).length 
+      ?
+        <Typography type="body2" className={classes.lineSpacing} >
+          <strong className={classes.boldFont}>Additional Information: </strong>
+          {resource.schedule.note}
         </Typography>
       : null}
       {/*<Typography type="body2" className={classes.lineSpacing} >
