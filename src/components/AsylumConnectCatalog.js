@@ -32,6 +32,7 @@ import {
   PrivacyDialog,
   PrivacyMobile
 } from './privacy';
+import Language from './navigation/Language';
 import AsylumConnectButton from './AsylumConnectButton.js';
 import withSession from './withSession';
 import withWidth from './withWidth';
@@ -137,6 +138,12 @@ class AsylumConnectCatalog extends React.Component {
                 handleRequestOpen={handleRequestOpen}
               />
             )}
+            {['language'].includes(dialog) && (
+              <Language
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+              />
+            )}
           </div>
         ) : (
           <div>
@@ -156,7 +163,7 @@ class AsylumConnectCatalog extends React.Component {
             />
           </div>
         )}
-        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup'].includes(dialog)) || !isMobile ?
+        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language'].includes(dialog)) || !isMobile ?
           <div className={"content "+this.props.classes.navPadding} >
             <Switch>
               <Route path="/resource/:id" render={(props) => (

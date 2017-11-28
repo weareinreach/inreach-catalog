@@ -53,20 +53,43 @@ class NavMobile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) { console.log(nextProps);
+    if(nextProps.location) {
+      let value = this.state.value;
+      switch(nextProps.location.pathname) {
+        case '/':
+        case /^\/search/:
+        case /^\/resource/:
+          value = 0;
+        break;
+        case /^\/favorites/:
+          value = 1;
+        break;
+        case /^\/account/:
+          value = 4;
+        break;
+      }
+      if(value !== this.state.value) {
+        this.setState({
+          value
+        });
+      }
+    }
+  }
+
   handleChange(event, value) {
-    const { handleRequestOpen, session } = this.props;
-    this.setState({ value });
+    const { handleRequestOpen, session, history } = this.props;
     switch(value) {
       case 0:
-        this.props.history.push('/');
-        this.props.handleRequestOpen('none');
+        history.push('/');
+        handleRequestOpen('none');
       break;
       case 1:
-        this.props.history.push('/favorites');
-        this.props.handleRequestOpen('none');
+        history.push('/favorites');
+        handleRequestOpen('none');
       break;
       case 2:
-
+        handleRequestOpen('language');
       break;
       case 3:
         if(session) {
@@ -74,12 +97,13 @@ class NavMobile extends React.Component {
         } else {
           handleRequestOpen('login');
         }
-        this.props.history.push('/account');
+        history.push('/account');
       break;
       case 4:
         handleRequestOpen('privacy');
       break;
     }
+    this.setState({ value });
   };
   iconColor(position){
     if (position === null) {
