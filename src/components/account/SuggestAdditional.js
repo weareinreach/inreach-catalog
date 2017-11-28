@@ -115,7 +115,6 @@ class SuggestAdditional extends React.Component {
             selectedFeatures,
             handleTagSelect,
             selectedTags } = this.props;
-            console.log(selectedFeatures)
     return (
       <div className={classes.root}>
         <form className={classes.form}>

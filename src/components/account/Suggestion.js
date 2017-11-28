@@ -145,10 +145,12 @@ class Suggestion extends React.Component {
         {label: 'Proof of residence not required', name: 'not-req-proof-of-residence', value: false}, 
         {label: 'A referral not required', name: 'not-req-referral', value: false}
       ],
-      tags:[]
+      tags:[],
+      emails:[]
     }
     this.handleChangeGeneralInfo = this.handleChangeGeneralInfo.bind(this)
     this.handleChangePhone = this.handleChangePhone.bind(this)
+    this.handleChangeEmail = this.handleChangeEmail.bind(this)
     this.handleSelectAddress = this.handleSelectAddress.bind(this)
     this.handleSelectNonEngServices = this.handleSelectNonEngServices.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -186,7 +188,7 @@ class Suggestion extends React.Component {
           }
         })
         .catch(error => {
-          console.log('Oops! Something went wrong.');
+          handleMessageNew('Oops! Something went wrong.');
         });
     } else {
       // if user not sign in, redirect asking to sign in
@@ -200,13 +202,25 @@ class Suggestion extends React.Component {
     this.setState({ resourceData: updatedResourceData })
   }
   handleChangePhone(name, value){
-    console.log(name, value)
     const { resourceData } = this.state;
     let updatedResourceData1, updatedResourceData2;
     updatedResourceData1 = update(resourceData,{phones: {0: {$merge:{[name]: value}}}})
     updatedResourceData2 = update(updatedResourceData1,{locations: { 0: {phones: {0: {$merge:{[name]: value}}}}}})
-    console.log(updatedResourceData2)
     this.setState({ resourceData: updatedResourceData2 })
+  }
+  handleChangeEmail(name, value){
+    const { resourceData } = this.state;
+
+    // Update current list of email
+    let emailList = value.split(',')
+    if (emailList.length > 1) {
+      for (let i=0;i<emailList.length;i++){
+        emailList[i]=emailList[i].trim()
+      }
+    } else {
+      emailList[0] = value
+    }
+    this.setState({emails: emailList})
   }
   handleSelectAddress(address){
     const { resourceData } = this.state;
@@ -221,7 +235,6 @@ class Suggestion extends React.Component {
       locationItems[4] = stateZipcode[0]
       locationItems[5] = ''
     }
-    console.log(stateZipcode)
     updatedResourceData = update(resourceData, 
       {locations : 
         { 0: 
@@ -234,7 +247,6 @@ class Suggestion extends React.Component {
         }
       }
     )
-    console.log(updatedResourceData)
     this.setState({resourceData: updatedResourceData})
   }
   handleSelectNonEngServices(action, nonEngService, index){
@@ -339,14 +351,14 @@ class Suggestion extends React.Component {
       });
     }
 
-    let updatedResourceData = update(resourceData, {tags: {$set: this.state.tags}})
+    let updatedResourceData = update(resourceData, {tags: {$set: selectedResourceTypes}})
     this.setState({resourceData: updatedResourceData})
   }
 
   handleClick(){
     const {resourceData, selectedDays, features, requirements, tags} = this.state;
     // Update/reformat resourceData 
-    let updatedResourceData;
+    let updatedResourceData1, updatedEmailList, updatedResourceData2;
     // 1: Remove unselected time in schedule object
     let { schedule } = resourceData.locations[0]    
     for (let timeKey in schedule ) {
@@ -355,12 +367,17 @@ class Suggestion extends React.Component {
         schedule = update(schedule,{$merge:{[timeKey]: ''}})
       }
     }
-    updatedResourceData = update(resourceData, {locations: { 0: {schedule: {$merge: schedule} }}})
-    this.submitResource(updatedResourceData)
+    updatedResourceData1 = update(resourceData, {locations: { 0: {schedule: {$merge: schedule} }}})
+
+    // 2: Update current email list
+    updatedEmailList = this.state.emails.map(e => {return {title:'', first_name:'', last_name:'',email:e}})
+    updatedResourceData2 = update(updatedResourceData1, {emails: {$set: updatedEmailList}})
+    this.setState({resourceData: updatedResourceData2})
+
+    this.submitResource(updatedResourceData2)
   }
 
   submitResource(data){
-    console.log(data)
     const {user, handleMessageNew} = this.props;
     const client_user_id = user ? user.id : 0
     const payload = {
@@ -393,9 +410,8 @@ class Suggestion extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { user, selectedDays, isSent, resourceData, nonEngServices, address, features, requirements, tags } = this.state;
-    const { name, website, locations, description, emails, phones, properties } = resourceData;
-    console.log(features)
+    const { user, selectedDays, isSent, resourceData, nonEngServices, address, features, requirements, tags, emails } = this.state;
+    const { name, website, locations, description, phones, properties } = resourceData;
     return (
       <div className={classes.root}>
       {user? (
@@ -410,10 +426,11 @@ class Suggestion extends React.Component {
             address={address}
             website={website}
             name={name}
-            email={emails[0].email}
+            emails={emails}
             nonEngServices={nonEngServices}
             handleChangeGeneralInfo={this.handleChangeGeneralInfo}
             handleChangePhone={this.handleChangePhone}
+            handleChangeEmail={this.handleChangeEmail}
             handleSelectAddress={this.handleSelectAddress}
             handleSelectNonEngServices={this.handleSelectNonEngServices}/>
 

@@ -120,6 +120,7 @@ class SuggestInfo extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleChangePhone = this.handleChangePhone.bind(this)
+    this.handleChangeEmail = this.handleChangeEmail.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handleChangeAutoAddress = this.handleChangeAutoAddress.bind(this)
@@ -133,6 +134,10 @@ class SuggestInfo extends React.Component {
   handleChangePhone(e) {
     const { name, value } = e.target;
     this.props.handleChangePhone(name, value)
+  };
+  handleChangeEmail(e) {
+    const { name, value } = e.target;
+    this.props.handleChangeEmail(name, value)
   };
   handleChangeAutoAddress(address){
     this.props.handleSelectAddress(address)
@@ -155,7 +160,8 @@ class SuggestInfo extends React.Component {
     }    
   }
   render() {
-    const { classes, name, website, description, address, email, notes, digits, nonEngServices } = this.props;
+    const { classes, name, website, description, address, emails, notes, digits, nonEngServices } = this.props;
+
     const inputPropsAutoAddress = {
       value: address,
       onChange: this.handleChangeAutoAddress,
@@ -169,7 +175,6 @@ class SuggestInfo extends React.Component {
       input: classes.searchInput,
       autocompleteContainer: classes.placesContainer,
     }
-    console.log(digits)
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -303,13 +308,13 @@ class SuggestInfo extends React.Component {
             className={classes.inputLabel}
             label='Email:'
             name='email'
-            type='email'
-            value={email}
+            type='text'
+            value={emails.join(', ')}
             InputLabelProps={{
               shrink: true,
             }}
             placeholder='Contact email(s) for resource'
-            onChange={this.handleChange}
+            onChange={this.handleChangeEmail}
           />
         </form>
       </div>
