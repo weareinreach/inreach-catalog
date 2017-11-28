@@ -74,15 +74,14 @@ function renderSuggestionsContainer(options) {
     <Paper {...containerProps} square>
       {children}
       {query.length > 0 &&
-        children !== null && (
-          <a href="#">
-            <MenuItem component="div">
-              <span style={{fontWeight: 200}}>
-                Can't find it? Add a new organization here...
-              </span>
-            </MenuItem>
-          </a>
-        )}
+        <a href="#">
+          <MenuItem component="div">
+            <span style={{fontWeight: 200}}>
+              Can't find it? Add a new organization here...
+            </span>
+          </MenuItem>
+        </a>
+      }
     </Paper>
   );
 }
