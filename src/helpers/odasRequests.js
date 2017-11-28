@@ -131,6 +131,22 @@ export const resetPassword = (payload) => {
   return handleFetch(url, options);
 }
 
+export const updateListPermissions = (listId, newPermissions, session) => {
+  const url = `${odas}api/collections/${listId}`;
+  const payload = {
+    list: {
+      shared_status: newPermissions,
+      is_searchable: false
+    }
+  };
+  const options = {
+    method: 'PUT',
+    headers: headers(session),
+    body: JSON.stringify(payload),
+  };
+  return handleFetch(url, options);
+}
+
 export const updateUserEmail = (payload, session) => {
   const url = `${odas}api/user`;
   const options = {

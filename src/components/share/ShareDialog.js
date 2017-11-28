@@ -6,6 +6,7 @@ import ShareFormContainer from './ShareFormContainer';
 
 const ShareDialog = ({
   handleMessageNew,
+  handleRequestOpen,
   handleRequestClose,
   listId,
   listTitle,
@@ -17,6 +18,7 @@ const ShareDialog = ({
     <ShareFormContainer
       handleMessageNew={handleMessageNew}
       handleRequestClose={handleRequestClose}
+      handleRequestOpen={handleRequestOpen}
       session={session}
       listId={listId}
       shareType={shareType}
@@ -29,7 +31,7 @@ ShareDialog.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
   listTitle: PropTypes.string.isRequired,
-  // session: PropTypes.string.isRequired,
+  session: PropTypes.string.isRequired,
 };
 
 export default ShareDialog;

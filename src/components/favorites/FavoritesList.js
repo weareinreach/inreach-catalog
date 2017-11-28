@@ -114,7 +114,9 @@ const FavoritesList = ({
             {list && (
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => handleRequestOpen('share/collection/'+list.id+'/'+list.title)}
+                onClick={() => (session 
+                  ? handleRequestOpen('share/collection/'+list.id+'/'+list.title)
+                  : handleMessageNew('You must be logged in to share resources'))}
                 variant="primary">
                 Share
               </AsylumConnectButton>

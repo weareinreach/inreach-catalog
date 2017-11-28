@@ -4,6 +4,7 @@ import 'whatwg-fetch';
 
 import config from '../../config/config.js';
 
+import { updateListPermissions } from '../../helpers/odasRequests';
 import ShareForm from './ShareForm';
 
 class ShareFormContainer extends React.Component {
@@ -17,6 +18,7 @@ class ShareFormContainer extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
   }
 
   handleChange(event) {
@@ -24,24 +26,15 @@ class ShareFormContainer extends React.Component {
     this.setState({[name]: value});
   }
 
-  handleSubmit(event) {
-    const {handleMessageNew, handleRequestClose} = this.props;
-    event.preventDefault()
-
-    if(
-      !this.state.email 
-      || !this.state.shareUrl
-      ){
-      handleMessageNew("Invalid request");
-      return;
-    }
+  sendEmail() {
+    const {handleMessageNew, handleRequestClose, handleRequestOpen, session} = this.props;
 
     let url = window.location.origin + '/api/share';
     let payload = JSON.stringify({
         recipients: this.state.email,
         shareType: this.props.shareType,
         shareUrl: this.state.shareUrl, 
-        jwt: window.localStorage.getItem("jwt")
+        jwt: session
       });
     const options = {
       method: 'POST',
@@ -52,15 +45,21 @@ class ShareFormContainer extends React.Component {
     fetch(url, options)
       .then(response => {
         if (response.status === 200) {
-
           response.json()
             .then((responseData) => {
               if(responseData.status === "success"){
                 handleRequestClose();
                 handleMessageNew('Email sent!');
-              }
-              else{
-                handleMessageNew(responseData.message);
+              } else{
+                if (responseData.statusCode && responseData.statusCode === 401) {
+                  handleMessageNew('Your session has expired. Please log in again.');
+                  handleLogOut();
+                } else if(responseData.statusCode && responseData.statusCode === 403) {
+                  handleMessageNew('It looks like you\'ve been idle. Please re-confirm your password and try sharing again.');
+                  handleRequestOpen('password');
+                } else {
+                  handleMessageNew(responseData.message);
+                }
               }
             })
         }
@@ -69,6 +68,45 @@ class ShareFormContainer extends React.Component {
         // console.log(error);
         handleMessageNew('Oops! Something went wrong.');
       });
+
+  }
+
+  handleSubmit(event) {
+    const {handleMessageNew, handleRequestClose, handleRequestOpen, handleLogOut, listId, session} = this.props;
+    event.preventDefault()
+
+    if(
+      !this.state.email 
+      || !this.state.shareUrl
+      ){
+      handleMessageNew("Invalid request");
+      return;
+    }
+
+    if(this.props.shareType == 'collection') {
+      updateListPermissions(listId, 'public', session)
+        .then((response) => {
+          if(response.collection) {
+            this.sendEmail();
+          }
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 401) {
+            handleMessageNew('Your session has expired. Please log in again.');
+            handleLogOut();
+            handleRequestClose();
+          } else if (error.response && error.response.status === 403) {
+            handleRequestOpen('password');
+          } else {
+            handleMessageNew('Oops! Something went wrong.');
+            handleRequestClose();
+          }
+        });
+    } else {
+      this.sendEmail();
+    }
+
+    
   }
 
   render() {
@@ -87,7 +125,7 @@ ShareFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
-  // session: PropTypes.string.isRequired,
+  session: PropTypes.string.isRequired,
   shareType: PropTypes.string.isRequired
 };
 

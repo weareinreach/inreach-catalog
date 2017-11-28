@@ -205,7 +205,10 @@ const Tools = (props) => (
       <AsylumConnectButton 
         variant="secondary"
         className="center-align"
-        onClick={() => props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name)}
+        onClick={() => (
+          props.session 
+          ? props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name) 
+          : props.handleMessageNew('You must be logged in to share resources') )}
         >share</AsylumConnectButton> 
     </Grid>
   </Grid>

@@ -36,7 +36,7 @@ class FavoritesListContainer extends React.Component {
 
     if (lists.length && !listId) {
       this.props.history.replace(`/favorites/${lists[0].slug}`);
-    } else if (lists.legth && listId) {
+    } else if (lists.length && listId) {
       this.fetchListResources(listId);
     }
   }
