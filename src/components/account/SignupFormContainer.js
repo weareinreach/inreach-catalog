@@ -24,6 +24,7 @@ class SignupFormContainer extends React.Component {
     };
 
     this.debouncedLoadOrganizations = debounce(this.loadOrganizations, 1000);
+    this.handleBlurOrganizations = this.handleBlurOrganizations.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleOrganizationSearchChange = this.handleOrganizationSearchChange.bind(this);
     this.handleOrganizationSelect = this.handleOrganizationSelect.bind(this);
@@ -33,17 +34,37 @@ class SignupFormContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleBlurOrganizations(event) {
+    this.setState(prevState =>
+      Object.assign(
+        {},
+        {organizations: []},
+        {
+          organizationSearch: prevState.organizationSelection
+            ? prevState.organizationSelection.name
+            : '',
+        },
+      ),
+    );
+  }
+
   handleChange(event) {
     const {name, value} = event.target;
     this.setState({[name]: value});
   }
 
   handleOrganizationSearchChange(event, {newValue}) {
-    this.setState({organizationSearch: newValue});
+    this.setState({
+      organizationSearch: newValue,
+      organizationSelection: null,
+    });
   }
 
   handleOrganizationsFetchRequested() {
-    this.setState({isLoadingOrganizations: true});
+    this.setState({
+      isLoadingOrganizations: true,
+      organizationSelection: null,
+    });
     this.debouncedLoadOrganizations();
   }
 
@@ -52,7 +73,11 @@ class SignupFormContainer extends React.Component {
   }
 
   handleOrganizationSelect(event, {suggestion}) {
-    this.setState({organizationSelection: suggestion});
+    this.setState({
+      organizations: [],
+      organizationSearch: '',
+      organizationSelection: suggestion,
+    });
   }
 
   handleSelect(selection) {
@@ -79,11 +104,7 @@ class SignupFormContainer extends React.Component {
       handleMessageNew('The passwords you have entered do not match');
       return;
     }
-    if (
-      selection === 'provider' &&
-      (!organizationSelection ||
-        organizationSearch !== organizationSelection.name)
-    ) {
+    if (selection === 'provider' && !organizationSelection) {
       handleMessageNew('Please select an organization.');
       return;
     }
@@ -174,10 +195,11 @@ class SignupFormContainer extends React.Component {
       },
       body: payload,
     };
-    if(typeof config[process.env.OD_API_ENV].basicAuth !== "undefined") {
+    if (typeof config[process.env.OD_API_ENV].basicAuth !== 'undefined') {
       options.headers['Demo-Authorization'] = options.headers['Authorization'];
-      options.headers['Authorization'] = config[process.env.OD_API_ENV].basicAuth;
-    } 
+      options.headers['Authorization'] =
+        config[process.env.OD_API_ENV].basicAuth;
+    }
     return fetch(url, options);
   }
 
@@ -202,6 +224,7 @@ class SignupFormContainer extends React.Component {
       <SignupForm
         {...this.props}
         {...this.state}
+        handleBlurOrganizations={this.handleBlurOrganizations}
         handleChange={this.handleChange}
         handleOrganizationSearchChange={this.handleOrganizationSearchChange}
         handleOrganizationSelect={this.handleOrganizationSelect}

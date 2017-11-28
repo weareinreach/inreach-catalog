@@ -19,6 +19,7 @@ function renderInput(inputProps) {
       <InputLabel htmlFor="organization">Organization Name</InputLabel>
       <Input
         id="organization"
+        onBlur={inputProps.onBlurOrganizations}
         value={value}
         ref={ref}
         {...Object.assign({}, inputProps, {classes: null})}
@@ -52,16 +53,25 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
 
 function renderLoadingContainer(options) {
   const {containerProps, children} = options;
-  const style = {
-    display: 'flex',
-    height: '40px',
-    alignItems: 'center',
-    justifyContent: 'center',
+  const styles = {
+    container: {
+      marginTop: '8px',
+      marginBottom: '24px',
+      left: 0,
+      position: 'absolute',
+      right: 0,
+    },
+    spinner: {
+      display: 'flex',
+      height: '40px',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   };
   return (
-    <Paper {...containerProps} square>
+    <Paper {...containerProps} style={styles.container} square>
       {children}
-      <div style={style}>
+      <div style={styles.spinner}>
         <Fa name="spinner" spin />
       </div>
     </Paper>
@@ -70,8 +80,17 @@ function renderLoadingContainer(options) {
 
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
+  const styles = {
+    container: {
+      marginTop: '8px',
+      marginBottom: '24px',
+      left: 0,
+      position: 'absolute',
+      right: 0,
+    },
+  };
   return (
-    <Paper {...containerProps} square>
+    <Paper {...containerProps} style={styles.container} square>
       {children}
       {query.length > 0 &&
         <a href="#">
@@ -118,6 +137,7 @@ const styles = theme => ({
 
 const OrganizationAutocomplete = ({
   classes,
+  handleBlurOrganizations,
   handleOrganizationSearchChange,
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
@@ -125,6 +145,7 @@ const OrganizationAutocomplete = ({
   isLoadingOrganizations,
   organizations,
   organizationSearch,
+  organizationSelection,
 }) => (
   <Autosuggest
     theme={{
@@ -140,7 +161,7 @@ const OrganizationAutocomplete = ({
     renderSuggestionsContainer={
       isLoadingOrganizations
         ? renderLoadingContainer
-        : renderSuggestionsContainer
+        : !organizationSelection ? renderSuggestionsContainer : () => true
     }
     getSuggestionValue={getSuggestionValue}
     renderInputComponent={renderInput}
@@ -149,7 +170,12 @@ const OrganizationAutocomplete = ({
     inputProps={{
       classes,
       placeholder: 'Start typing...',
-      value: organizationSearch,
+      value:
+        organizationSearch ||
+        (organizationSelection && organizationSelection.name
+          ? organizationSelection.name
+          : ''),
+      onBlur: handleBlurOrganizations,
       onChange: handleOrganizationSearchChange,
     }}
   />
@@ -157,6 +183,7 @@ const OrganizationAutocomplete = ({
 
 OrganizationAutocomplete.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleBlurOrganizations: PropTypes.func.isRequired,
   handleOrganizationSearchChange: PropTypes.func.isRequired,
   handleOrganizationSelect: PropTypes.func.isRequired,
   handleOrganizationsFetchRequested: PropTypes.func.isRequired,

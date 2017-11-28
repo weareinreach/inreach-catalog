@@ -34,6 +34,7 @@ const styles = theme => ({
 const SignupForm = ({
   classes,
   email,
+  handleBlurOrganizations,
   handleChange,
   handleOrganizationSearchChange,
   handleOrganizationSelect,
@@ -45,6 +46,7 @@ const SignupForm = ({
   isLoadingOrganizations,
   organizations,
   organizationSearch,
+  organizationSelection,
   password,
   passwordConfirmation,
   selection,
@@ -73,6 +75,7 @@ const SignupForm = ({
       <form className={classes.container} onSubmit={handleSubmit}>
         {selection === 'provider' && (
           <OrganizationAutocomplete
+            handleBlurOrganizations={handleBlurOrganizations}
             handleOrganizationSearchChange={handleOrganizationSearchChange}
             handleOrganizationSelect={handleOrganizationSelect}
             handleOrganizationsFetchRequested={
@@ -83,6 +86,7 @@ const SignupForm = ({
             }
             isLoadingOrganizations={isLoadingOrganizations}
             organizationSearch={organizationSearch}
+            organizationSelection={organizationSelection}
             organizations={organizations}
           />
         )}
@@ -159,9 +163,14 @@ const SignupForm = ({
   </div>
 );
 
+SignupForm.defaultProps = {
+  organizationSelection: null,
+};
+
 SignupForm.propTypes = {
   classes: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
+  handleBlurOrganizations: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleOrganizationSearchChange: PropTypes.func.isRequired,
   handleOrganizationSelect: PropTypes.func.isRequired,
@@ -172,6 +181,7 @@ SignupForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
   organizationSearch: PropTypes.string.isRequired,
+  organizationSelection: PropTypes.object,
   password: PropTypes.string.isRequired,
   passwordConfirmation: PropTypes.string.isRequired,
   selection: PropTypes.string.isRequired,
