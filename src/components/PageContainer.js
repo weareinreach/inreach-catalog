@@ -2,6 +2,7 @@ import React from 'react';
 
 import FavoritesListContainer from './favorites/FavoritesListContainer';
 import AccountPage from './account/AccountPage';
+import ResetPasswordPage from './account/ResetPasswordPage';
 import Suggestion from './account/Suggestion';
 
 import {
@@ -18,6 +19,8 @@ class PageContainer extends React.Component {
       handleMessageNew,
       handleRequestOpen,
       history,
+      match,
+      location,
       session,
       user,
     } = this.props;
@@ -43,6 +46,18 @@ class PageContainer extends React.Component {
             <Route
               path="/favorites"
               render={() => <FavoritesListContainer {...favoritesListProps} />}
+            />
+            <Route path="/account/reset-password" render={()=>(
+              <ResetPasswordPage
+                handleMessageNew={handleMessageNew}
+                handleLogOut={handleLogOut}
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+                match={match}
+                location={location}
+                session={session}
+              />
+            )}
             />
             <Route path="/account" render={()=>(
               <AccountPage
