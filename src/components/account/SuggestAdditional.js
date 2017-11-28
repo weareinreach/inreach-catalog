@@ -147,10 +147,15 @@ class SuggestAdditional extends React.Component {
               <div>
                 <AsylumConnectCheckbox 
                   label='Has A Confidentiality Policy' 
-                  value='HasAConfidentialityPolicy'
+                  value='hasAConfidentialityPolicy'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
                 <AsylumConnectCheckbox 
+                  label='Cost Free' 
+                  value='costFree'
+                  onChange={(ref)=>{return ref}}
+                  checked={false} />
+                {/* <AsylumConnectCheckbox 
                   label='Has Free Services' 
                   value='HasFreeServices'
                   onChange={(ref)=>{return ref}}
@@ -164,7 +169,7 @@ class SuggestAdditional extends React.Component {
                   label='Has Transportation Services' 
                   value='HasTransportationServices'
                   onChange={(ref)=>{return ref}}
-                  checked={false} />
+                  checked={false} /> */}
               </div>
             </Collapse>
           </div>          
@@ -176,33 +181,33 @@ class SuggestAdditional extends React.Component {
             <Collapse in={this.state.openRequirement} transitionDuration="auto" unmountOnExit>
               <div>
                 <AsylumConnectCheckbox 
-                  label='Photo ID' 
-                  value='PhotoId'
+                  label='Photo ID not required' 
+                  value='not-req-photo-id'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
                 <AsylumConnectCheckbox 
-                  label='HProof of Age' 
-                  value='ProofOfAge'
+                  label='Proof of age not required' 
+                  value='not-req-proof-of-age'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
                 <AsylumConnectCheckbox 
-                  label='Proof of Residence' 
-                  value='ProofOfResidence'
+                  label='Proof of residence not required' 
+                  value='not-req-proof-of-residence'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
                 <AsylumConnectCheckbox 
-                  label='Proof of Income' 
-                  value='ProofOfIncome'
+                  label='Proof of income not required' 
+                  value='not-req-proof-of-income'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
                 <AsylumConnectCheckbox 
-                  label='Medical Insurance' 
-                  value='MedicalInsurance'
+                  label='Medical insurance not required' 
+                  value='not-req-medical-insurance'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
                 <AsylumConnectCheckbox 
-                  label='A Referral' 
-                  value='Referral'
+                  label='A referral not required' 
+                  value='not-req-referral'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
               </div>
@@ -210,7 +215,7 @@ class SuggestAdditional extends React.Component {
           </div>          
           
           <ResourceTagSelector onChange={this.props.handleTagSelect} selectedResourceTags={this.props.selectedTags} />
-          <TextField
+          {/* <TextField
             className={classes.inputLabel}
             label='Additional Information:'
             defaultValue={''}
@@ -221,7 +226,7 @@ class SuggestAdditional extends React.Component {
             }}
             onChange={this.handleChange}
             placeholder='List anything else you would like to share about this resource'
-          />
+          /> */}
         </form>
       </div>
     )

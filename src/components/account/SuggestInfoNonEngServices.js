@@ -101,8 +101,6 @@ function getSuggestions(value) {
         });
 }
 
-
-
 const styles = theme => ({
     container: {
         flexGrow: 1,

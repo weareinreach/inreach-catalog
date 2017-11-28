@@ -117,16 +117,9 @@ class SuggestInfo extends React.Component {
     super(props);
     this.state = {
       open: true,
-      digits: '(  )   -   ',
-      description: '',
-      address: '', 
-      website: '',
-      name: '',
-      email: '',
-      notes: '',
-      nonEngServices: [],
     };
     this.handleChange = this.handleChange.bind(this)
+    this.handleChangePhone = this.handleChangePhone.bind(this)
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handleChangeAutoAddress = this.handleChangeAutoAddress.bind(this)
@@ -135,33 +128,34 @@ class SuggestInfo extends React.Component {
   }
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value })
+    this.props.handleChangeGeneralInfo(name, value)
+  };
+  handleChangePhone(e) {
+    const { name, value } = e.target;
+    this.props.handleChangePhone(name, value)
   };
   handleChangeAutoAddress(address){
-    this.setState({address})
+    this.props.handleSelectAddress(address)
   }
   handleToggleDropDown() {
     this.setState({ open: !this.state.open });
   };
   handlePlaceSelect(address) {
-    this.setState({address})
+    this.props.handleSelectAddress(address)
   }
   handleServiceSelect(service) {
-    if (!this.state.nonEngServices.includes(service)) {
-      const nonEngServices = update(this.state.nonEngServices, {$push: [service]})
-      this.setState({nonEngServices})
+    if (!this.props.nonEngServices.includes(service)) {      
+      this.props.handleSelectNonEngServices('add', service, 0)
     }    
   }
   handleServiceDelete(service) {
-    const index = this.state.nonEngServices.findIndex(s => {return s == service})
-    if (index >= 0) {
-      const nonEngServices = update(this.state.nonEngServices, {$splice: [[index]]})
-      this.setState({nonEngServices})
+    const index = this.props.nonEngServices.findIndex(s => {return s == service})
+    if (index >= 0) {      
+      this.props.handleSelectNonEngServices('remove', service, index)
     }    
   }
   render() {
-    const { classes } = this.props;
-    const { name, website, description, address, email, notes, digits, nonEngServices } = this.state;
+    const { classes, name, website, description, address, email, notes, digits, nonEngServices } = this.props;
     const inputPropsAutoAddress = {
       value: address,
       onChange: this.handleChangeAutoAddress,
@@ -175,6 +169,7 @@ class SuggestInfo extends React.Component {
       input: classes.searchInput,
       autocompleteContainer: classes.placesContainer,
     }
+    console.log(digits)
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -301,7 +296,7 @@ class SuggestInfo extends React.Component {
               name='digits'
               value={digits}
               inputComponent={TextMaskCustom}
-              onChange={this.handleChange}
+              onChange={this.handleChangePhone}
             />
           </FormControl>
           <TextField

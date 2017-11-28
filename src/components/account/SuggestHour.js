@@ -87,7 +87,7 @@ class SuggestHour extends React.Component {
   }
   handleChange(e) {
     const { name, value } = e.target;
-    this.props.onChange('schedule', name, value)
+    this.props.handleChange(name, value)
   }
   render() {
     const { classes, schedule, selectedDays, onSelect } = this.props;
