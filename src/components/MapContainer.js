@@ -111,9 +111,9 @@ class MapContainer extends React.Component {
   getCachedResource(slug) {
     let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
     if(resourceIndex > -1) {
-      return this.state.searchResults[resourceIndex];
+      return this.findResource(slug);
     } 
-    return null 
+    return null;
   }
 
   clearSearchStatus() {
@@ -300,6 +300,16 @@ class MapContainer extends React.Component {
         });
       }
     }
+  }
+
+  findResource(slug) {
+    const searchResults = this.state.searchResults.slice();
+    for(let i = 0; i < this.state.searchResults.length; i ++) {
+      if(searchResults[i].slug == slug) {
+        return searchResults[i];
+      }
+    }
+    return null;
   }
 
   processSearchResults(data) {
