@@ -7,6 +7,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import IconButton from 'material-ui/IconButton';
 import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
@@ -174,10 +175,14 @@ class SearchResultsContainer extends React.Component {
                 </Grid>
                 {isMobile ? null : 
                 <Grid item xs className='pull-right'>
-                  <AsylumConnectButton variant="secondary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                  <IconButton color="primary" style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                    <Fa name="print" />
+                  </IconButton>
+                  
+                  {/*<AsylumConnectButton variant="secondary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
                     Print
                     {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
-                  </AsylumConnectButton>
+                  </AsylumConnectButton>*/}
                 </Grid>
                 }
               </Grid>

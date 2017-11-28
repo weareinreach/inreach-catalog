@@ -21,6 +21,7 @@ import RatingAndReviews from './RatingAndReviews';
 import Badge from '../Badge';
 import ResourceVisit from './ResourceVisit';
 import resourceTypes from '../../helpers/ResourceTypes';
+import propertyMap from '../../helpers/OneDegreePropertyMap';
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 
 let resourceIndex = resourceTypes.getTagIndex();
@@ -193,6 +194,20 @@ class ResourceListItem extends React.Component {
                   </Typography>
                 </Grid>);
             })}
+            {resource.opportunity_community_properties && resource.opportunity_community_properties.length ? 
+            <Grid item xs={12} >
+              <Typography type="body2" className={lineSpacing} > 
+                <strong className={classes.boldFont+' '+labelClass}>Who it serves: </strong>
+                { resource.opportunity_community_properties.map((item) => {
+                      if(typeof propertyMap['community'][item] !== 'undefined') {
+                        return propertyMap['community'][item];
+                      }
+                    })
+                    .join(', ')
+                }
+              </Typography>
+            </Grid>
+          : null }
             <ResourceVisit 
               resource={resource}
               className={labelClass}

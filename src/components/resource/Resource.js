@@ -280,7 +280,7 @@ class Resource extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.nextProps.user !== this.props.user) {
+    if(nextProps.user !== this.props.user) {
       //TODO: handle login while on the form
     }
   }
