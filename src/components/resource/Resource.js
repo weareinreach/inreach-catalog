@@ -225,7 +225,9 @@ class Resource extends React.Component {
         opportunities: false
       },
       resource: props.resource,
-      acFilter: false
+      acFilter: false,
+      userReview: null,
+      userComment: null
     };
 
     this.tabs = [
@@ -241,6 +243,7 @@ class Resource extends React.Component {
     this.handleResourceRequest = this.handleResourceRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleCommentRequest = this.handleCommentRequest.bind(this);
+    this.handleRatingRequest = this.handleRatingRequest.bind(this);
     this.handleNewReview = this.handleNewReview.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
 
@@ -276,12 +279,19 @@ class Resource extends React.Component {
     this.props.setSelectedResource(null);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.nextProps.user !== this.props.user) {
+      //TODO: handle login while on the form
+    }
+  }
+
   handleResourceRequest(response) {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
       this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
-      this.getOpportunityReviews(response);
+      this.getReviews(response);
+      this.getUserRating(response);
       this.props.setSelectedResource(response);
       this.setState({
         resource: response,
@@ -296,7 +306,8 @@ class Resource extends React.Component {
       //redirect
     } else {
       this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
-      this.getOpportunityReviews(this.state.resource);
+      this.getReviews(this.state.resource);
+      this.getUserRating(this.state.resource);
       this.setState(prevState => ({
         resource: Object.assign(prevState.resource, {opportunities: response.opportunities}),
         oppLoading: false
@@ -320,7 +331,7 @@ class Resource extends React.Component {
     });
   }
 
-  getOpportunityReviews(resource) {
+  getReviews(resource) {
     const { handleCommentRequest } = this;
     if(resource.opportunity_comment_count) {
       this.odClient.getCommentsFromOrganizationId({
@@ -355,12 +366,44 @@ class Resource extends React.Component {
     }
   }
 
+  getUserRating(resource) {
+    if(resource.rating && this.props.user) {
+      this.odClient.getOrganizationRatingByUserId({
+        resourceType: 'organization',
+        id: resource.id,
+        user_id: this.props.user,
+        callback: this.handleRatingRequest
+      })
+    }
+  }
+
   handleCommentRequest(type, response) {
+    //find user's comment
+    let userComment = false;
+    if(this.props.user && type=="organization") {
+      response.comments.forEach((comment) => {
+        if(comment.client_user_id == this.props.user.toString()) {
+          userComment = comment;
+        }
+      });
+    }
+
     let list = this.state.reviewList;
     list[type] = response.comments;
-    //console.log(list);
+
     this.setState({
-      reviewList: list
+      reviewList: list,
+      userComment
+    });
+  }
+
+  handleRatingRequest(response) {
+    let userReview = false;
+    if(response) {
+      userReview = response;
+    }
+    this.setState({
+      userReview
     });
   }
 
@@ -463,7 +506,9 @@ class Resource extends React.Component {
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
-                    {session ? 
+                    {session 
+                      && (this.state.userReview === false || this.state.userReview === null)
+                      && (this.state.userComment === false ||  this.state.userComment === null) ?
                       <ReviewForm 
                         resource={resource}
                         session={props.session}
@@ -514,7 +559,9 @@ class Resource extends React.Component {
                   <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
                 </Grid>
               </Grid>
-              {session ? 
+              {session 
+                && (this.state.userReview === false || this.state.userReview === null)
+                && (this.state.userComment === false ||  this.state.userComment === null) ?
                 <ReviewForm 
                   resource={resource}
                   session={props.session}
