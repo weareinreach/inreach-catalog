@@ -12,11 +12,8 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import {withStyles} from 'material-ui/styles';
 
-
 function renderInput(inputProps) {
-  const {classes, autoFocus, value, ref, isLoading} = inputProps;
-  delete inputProps['isLoading'];
-
+  const {classes, autoFocus, value, ref} = inputProps;
   return (
     <FormControl className={classes.textField}>
       <InputLabel htmlFor="organization">Organization Name</InputLabel>
@@ -24,14 +21,9 @@ function renderInput(inputProps) {
         id="organization"
         value={value}
         ref={ref}
-        {...Object.assign({}, inputProps, {classes: { inputAdorned: classes.inputAdorned }})}
-        endAdornment={
-          <InputAdornment
-            style={isLoading ? null : {visibility: 'hidden'}}
-            position="end">
-            <Fa name="spinner" spin />
-          </InputAdornment>
-        }
+        {...Object.assign({}, inputProps, {
+          classes: {inputAdorned: classes.inputAdorned},
+        })}
       />
     </FormControl>
   );
@@ -60,21 +52,39 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
   );
 }
 
-function renderSuggestionsContainer(options) {
-  const {containerProps, children, query} = options;
-
+function renderLoadingContainer(options) {
+  const {containerProps, children} = options;
+  const style = {
+    display: 'flex',
+    height: '40px',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
   return (
     <Paper {...containerProps} square>
       {children}
-      { query.length > 0 && children !== null && (
-        <a href="#">
-          <MenuItem component="div">
-            <span style={{fontWeight: 200}}>
-              Can't find it? Add a new organization here...
-            </span>
-          </MenuItem>
-        </a>
-      )}
+      <div style={style}>
+        <Fa name="spinner" spin />
+      </div>
+    </Paper>
+  );
+}
+
+function renderSuggestionsContainer(options) {
+  const {containerProps, children, query} = options;
+  return (
+    <Paper {...containerProps} square>
+      {children}
+      {query.length > 0 &&
+        children !== null && (
+          <a href="#">
+            <MenuItem component="div">
+              <span style={{fontWeight: 200}}>
+                Can't find it? Add a new organization here...
+              </span>
+            </MenuItem>
+          </a>
+        )}
     </Paper>
   );
 }
@@ -133,18 +143,20 @@ const OrganizationAutocomplete = ({
     onSuggestionsFetchRequested={handleOrganizationsFetchRequested}
     onSuggestionsClearRequested={handleOrganizationsClearRequested}
     onSuggestionSelected={handleOrganizationSelect}
-    renderSuggestionsContainer={renderSuggestionsContainer}
+    renderSuggestionsContainer={
+      isLoadingOrganizations
+        ? renderLoadingContainer
+        : renderSuggestionsContainer
+    }
     getSuggestionValue={getSuggestionValue}
     renderInputComponent={renderInput}
     renderSuggestion={renderSuggestion}
     focusInputOnSuggestionClick={false}
     inputProps={{
-      autoFocus: true,
       classes,
       placeholder: 'Start typing...',
       value: organizationSearch,
       onChange: handleOrganizationSearchChange,
-      isLoading: isLoadingOrganizations,
     }}
   />
 );
