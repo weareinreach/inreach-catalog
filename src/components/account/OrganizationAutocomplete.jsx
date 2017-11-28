@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
@@ -92,15 +93,15 @@ function renderSuggestionsContainer(options) {
   return (
     <Paper {...containerProps} style={styles.container} square>
       {children}
-      {query.length > 0 &&
-        <a href="#">
+      {query.length > 0 && (
+        <Link to="suggestions/new">
           <MenuItem component="div">
             <span style={{fontWeight: 200}}>
               Can't find it? Add a new organization here...
             </span>
           </MenuItem>
-        </a>
-      }
+        </Link>
+      )}
     </Paper>
   );
 }
