@@ -312,6 +312,14 @@ class MapContainer extends React.Component {
       }
     });
 
+    console.log(
+      newOrgIds,
+      newOrgSlugs,
+      newOrgs,
+      this.state.searchResultsIndex.concat(newOrgIds),
+      this.state.searchResultSlugs.concat(newOrgSlugs),
+      this.state.searchResults.concat(newOrgs))
+
     this.setState({
       searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
       searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
