@@ -119,7 +119,6 @@ class Suggestion extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      user:null,
       affiliation: null,
       isSent:false,
       selectedDays: {
@@ -161,42 +160,10 @@ class Suggestion extends React.Component {
     this.handleRequirementSelect = this.handleRequirementSelect.bind(this)
     this.handleFeatureSelect = this.handleFeatureSelect.bind(this)
     this.handleTagSelect = this.handleTagSelect.bind(this);
+    this.organizeData = this.organizeData.bind(this)
     this.submitResource = this.submitResource.bind(this)
   }
-  componentDidMount(){
-    const jwt = localStorage.getItem('jwt')
-    const { handleMessageNew } = this.props
-    // detect if user is authorized
-    if (jwt) {
-      const apiDomain = config[process.env.OD_API_ENV].odas;
-      const url = `${apiDomain}api/user`;    
-      const options = {
-        method: 'GET',
-        headers: {
-          Authorization: jwt,
-          'Content-Type': 'application/json',
-          OneDegreeSource: 'asylumconnect',
-        }
-      };
-      fetch(url, options)
-        .then(response => {
-          if (response.status === 200) {
-            response.json().then(({user}) => {
-              // user is authorized              
-              this.setState({user: user, affiliation: user.affiliation})
-            });
-          } else {
-            handleMessageNew('Your email or password is incorrect.');
-          }
-        })
-        .catch(error => {
-          handleMessageNew('Oops! Something went wrong.');
-        });
-    } else {
-      // if user not sign in, redirect asking to sign in
-      this.setState({user:null})
-    }
-  }
+  
   handleChangeGeneralInfo(name, value){
     const { resourceData } = this.state;
     let updatedResourceData;
@@ -360,10 +327,23 @@ class Suggestion extends React.Component {
     let updatedResourceData = update(resourceData, {tags: {$set: selectedResourceTypes}})
     this.setState({resourceData: updatedResourceData})
   }
-  handleClick(){
+  handleClick(){    
+    // Require authentication for submission
+    const {handleMessageNew, handleRequestOpen, handleLogOut, session} = this.props;
+    if (!session) {
+      handleRequestOpen('login');
+      handleMessageNew('You need to log in to view your account.')
+    } else {
+    // Organize resourceData ready for submiting request
+      this.organizeData()
+    }
+  }
+
+  organizeData() {
     const {resourceData, selectedDays, features, requirements, tags, location} = this.state;
+    let updatedResourceData1, updatedEmailList, updatedResourceData2, updatedResourceData3,
+    updatedResourceData4;
     // Update/reformat resourceData 
-    let updatedResourceData1, updatedEmailList, updatedResourceData2, updatedResourceData3, updatedResourceData4;
     // 1: Remove unselected time in schedule object
     let { schedule } = resourceData.locations[0]    
     for (let timeKey in schedule ) {
@@ -400,6 +380,7 @@ class Suggestion extends React.Component {
 
     this.submitResource(updatedResourceData4)
   }
+
   submitResource(data){
     const {user, handleMessageNew} = this.props;
     const client_user_id = user ? user.id : 0
@@ -433,11 +414,10 @@ class Suggestion extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { user, selectedDays, isSent, resourceData, nonEngServices, address, features, requirements, tags, emails } = this.state;
+    const { selectedDays, isSent, resourceData, nonEngServices, address, features, requirements, tags, emails } = this.state;
     const { name, website, locations, description, phones, properties } = resourceData;
     return (
       <div className={classes.root}>
-      {user? (
         <div>
           <Typography type="display2" className={classes.formType}>Suggest New Resource</Typography>
           <Typography type='body1'>
@@ -484,7 +464,6 @@ class Suggestion extends React.Component {
           </div>
         )}
         </div>
-      ):('')}        
       </div>
     )
   }
