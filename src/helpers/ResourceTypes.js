@@ -45,6 +45,7 @@ const resourceTypes = [
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Finding work', title: 'Career counseling'},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Unemployment', title: 'Career counseling'},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Job training & preparation', title: 'Career counseling'},
+  {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Career counseling', title: 'Career counseling'},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Libraries', title: 'Libraries'},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Scholarships', title: 'Scholarships'},
   /* AC Community support Category */
