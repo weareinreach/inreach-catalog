@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import update from 'react-addons-update'; 
+import update from 'react-addons-update';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
@@ -146,7 +147,8 @@ class Suggestion extends React.Component {
         {label: 'A referral not required', name: 'not-req-referral', value: false}
       ],
       tags:[],
-      emails:[]
+      emails:[],
+      location:{}
     }
     this.handleChangeGeneralInfo = this.handleChangeGeneralInfo.bind(this)
     this.handleChangePhone = this.handleChangePhone.bind(this)
@@ -224,30 +226,34 @@ class Suggestion extends React.Component {
   }
   handleSelectAddress(address){
     const { resourceData } = this.state;
-    let updatedResourceData;
+    let updatedResourceData, updatedAddress;
+    let updatedLocation = {};
     this.setState({address})
-    const locationItems = address.split(',')
-    const stateZipcode = locationItems[2] ? locationItems[2].trim().split(' '): ''
-    if (stateZipcode.length > 1) {
-      locationItems[4] = stateZipcode[0]
-      locationItems[5] = stateZipcode[1]
-    } else {
-      locationItems[4] = stateZipcode[0]
-      locationItems[5] = ''
-    }
-    updatedResourceData = update(resourceData, 
-      {locations : 
-        { 0: 
-          {
-            address: {$set: locationItems[0] ? locationItems[0].trim(): ''},
-            city: {$set: locationItems[1] ? locationItems[1].trim(): ''},
-            state: {$set: locationItems[4]},
-            zip_code: {$set: locationItems[5]}
-          },
-        }
+    
+    geocodeByAddress(address)
+    .then(results => {     
+      if(results.length && results[0].address_components) {
+        results[0].address_components.map((piece) => {
+          if(piece.types && piece.types.indexOf('administrative_area_level_1') >= 0) {
+            updatedLocation.state = piece.long_name;
+          } else if (piece.types && piece.types.indexOf("administrative_area_level_2") >= 0) {
+            updatedLocation.area = piece.long_name;
+          } else if (piece.types && piece.types.indexOf('postal_code') >= 0) {
+            updatedLocation.zip_code = piece.long_name;
+          } else if (piece.types && piece.types.indexOf('locality') >= 0) {
+            updatedLocation.city = piece.long_name;
+          } else if (piece.types && piece.types.indexOf('route') >= 0) {
+            updatedLocation.route = piece.long_name;
+          } else if (piece.types && piece.types.indexOf('street_number') >= 0) {
+            updatedLocation.street_number = piece.long_name;
+          }
+        });
       }
-    )
-    this.setState({resourceData: updatedResourceData})
+    })
+    .catch(error => {
+      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");      
+    })
+    this.setState({location: updatedLocation})
   }
   handleSelectNonEngServices(action, nonEngService, index){
     const { resourceData, nonEngServices } = this.state
@@ -355,9 +361,9 @@ class Suggestion extends React.Component {
     this.setState({resourceData: updatedResourceData})
   }
   handleClick(){
-    const {resourceData, selectedDays, features, requirements, tags} = this.state;
+    const {resourceData, selectedDays, features, requirements, tags, location} = this.state;
     // Update/reformat resourceData 
-    let updatedResourceData1, updatedEmailList, updatedResourceData2;
+    let updatedResourceData1, updatedEmailList, updatedResourceData2, updatedResourceData3, updatedResourceData4;
     // 1: Remove unselected time in schedule object
     let { schedule } = resourceData.locations[0]    
     for (let timeKey in schedule ) {
@@ -371,9 +377,28 @@ class Suggestion extends React.Component {
     // 2: Update current email list
     updatedEmailList = this.state.emails.map(e => {return {title:'', first_name:'', last_name:'',email:e}})
     updatedResourceData2 = update(updatedResourceData1, {emails: {$set: updatedEmailList}})
-    this.setState({resourceData: updatedResourceData2})
 
-    this.submitResource(updatedResourceData2)
+    // 3: Update locations object
+    updatedResourceData3 = update(updatedResourceData2, 
+      {locations : 
+        { 0: 
+          {
+            address: {$set: location ? location.street_number + ' ' + location.route : ''},
+            city: {$set: location ? location.city : ''},
+            state: {$set: location ? location.state: ''},
+            zip_code: {$set: location ? location.zip_code: ''}
+          },
+        }
+      }
+    )
+
+    // 4: Update region
+    updatedResourceData4 = update(updatedResourceData3, {region : {$set: location.area + ', '+ location.state }})
+
+    this.setState({resourceData: updatedResourceData4})
+
+
+    this.submitResource(updatedResourceData4)
   }
   submitResource(data){
     const {user, handleMessageNew} = this.props;
