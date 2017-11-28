@@ -21,9 +21,7 @@ function renderInput(inputProps) {
         id="organization"
         value={value}
         ref={ref}
-        {...Object.assign({}, inputProps, {
-          classes: {inputAdorned: classes.inputAdorned},
-        })}
+        {...inputProps}
       />
     </FormControl>
   );
@@ -116,9 +114,6 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
-  },
-  inputAdorned: {
-    width: '94%',
   },
 });
 
