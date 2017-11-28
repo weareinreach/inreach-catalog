@@ -21,7 +21,7 @@ function renderInput(inputProps) {
         id="organization"
         value={value}
         ref={ref}
-        {...inputProps}
+        {...Object.assign({}, inputProps, {classes: null})}
       />
     </FormControl>
   );
