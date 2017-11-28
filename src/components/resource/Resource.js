@@ -248,7 +248,7 @@ class Resource extends React.Component {
     this.handleDialogClose = this.handleDialogClose.bind(this);*/
   }
 
-  componentWillMount() { console.log(this.props.resource);
+  componentWillMount() {
     window.scroll(0,0);
     if(this.props.resource == null) {
       this.setState({

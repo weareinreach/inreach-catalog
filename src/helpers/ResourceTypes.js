@@ -26,6 +26,7 @@ const resourceTypes = [
   {category: 'Housing', type: 'housing', odTag: 'Homeless support'},
   /* AC Food Category */
   {category: 'Food', type: 'food', odTag: 'Food'},
+  {category: 'Food', type: 'food', odTag: 'Food pantries'},
   {category: 'Food', type: 'food', odTag: 'Prepared meals'},
   {category: 'Food', type: 'food', odTag: 'Groceries'},
   {category: 'Food', type: 'food', odTag: 'Food delivery'},

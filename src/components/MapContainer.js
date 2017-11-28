@@ -261,7 +261,7 @@ class MapContainer extends React.Component {
 
   fetchSearchResults() {
     let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
-    if(updated && nearLatLng !== null) { console.log(nearAddress);
+    if(updated && nearLatLng !== null) {
       this.props.handleAddressChange(nearAddress);
       this.setState({
         nearLatLng,
@@ -457,6 +457,7 @@ class MapContainer extends React.Component {
                 <div>
                   <AsylumConnectMap
                     resources={mapResources}
+                    history={this.props.history}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
