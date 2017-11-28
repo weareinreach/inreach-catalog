@@ -22,9 +22,11 @@ const styles = theme => ({
   footer: {
     backgroundColor: theme.palette.common.blue,
     color: theme.palette.common.darkWhite,
+    minHeight: '180px',
     padding: '3rem 0',
 
   },
+  minHeight350: { minHeight: '350px' },
   marginBottom: {marginBottom: '2rem'},
   marginLeft: {marginLeft: '1rem'},
   marginRight: {marginRight: '1rem'},
@@ -66,12 +68,17 @@ const FavoritesList = ({
     <Typography className={classes.marginTop} type="display1">
       Favorites
     </Typography>
-    <Typography type="body1">
-      {session
-        ? 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'
-        : 'You must be logged in to use favorites.'
-      }
-    </Typography>
+    {session
+      ? (
+        <Typography type="body1">
+          Your favorites lists are only visible to you and anyone you choose to share your lists with.
+        </Typography>
+      ) : (
+        <Typography className={classes.minHeight350} type="body1">
+          You must be logged in to use favorites.
+        </Typography>
+      )
+    }
     {session && (
       <Grid
         container
@@ -118,7 +125,7 @@ const FavoritesList = ({
           </div>
         </Grid>
         <Grid container justify="center">
-          <div>
+          <div className={classes.minHeight350}>
             {loadingResources ? (
               <Fa name="spinner" spin />
             ) : (
