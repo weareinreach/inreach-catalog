@@ -17,6 +17,8 @@ const resourceTypes = [
   {category: 'Medical', type: 'medical', odTag: 'Dental', title: 'Dental care'},
   /* AC Legal Category */
   {category: 'Legal', type: 'legal', odTag: 'Legal assistance', title: 'Legal aid'},
+  {category: 'Legal', type: 'legal', odTag: 'Legal services', title: 'Legal aid'},
+  {category: 'Legal', type: 'legal', odTag: 'Immigration law', title: 'Legal aid'},
   {category: 'Legal', type: 'legal', odTag: 'Documentation', title: 'Documentation'},
   /* AC Housing Category */
   {category: 'Housing', type: 'housing', odTag: 'Supportive housing'},
@@ -24,6 +26,7 @@ const resourceTypes = [
   {category: 'Housing', type: 'housing', odTag: 'Affordable housing'},
   {category: 'Housing', type: 'housing', odTag: 'Tenant resources'},
   {category: 'Housing', type: 'housing', odTag: 'Homeless support'},
+  {category: 'Housing', type: 'housing', odTag: 'Homeless support services'},
   /* AC Food Category */
   {category: 'Food', type: 'food', odTag: 'Food'},
   {category: 'Food', type: 'food', odTag: 'Food pantries'},

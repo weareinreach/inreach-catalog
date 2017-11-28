@@ -6,6 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Tooltip from 'material-ui/Tooltip';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 import SwipeableViews from 'react-swipeable-views';
@@ -24,6 +25,7 @@ const styles = theme => ({
   formRow: {
     marginBottom: '2.5rem'
   },
+  tooltip: { fontFamily: 'sans-serif' },
   container: {
     minHeight: '500px',
     paddingTop: '60px',
@@ -74,7 +76,7 @@ const ResultsContainer = (props) => {
       { searching ? <Loading /> : 
         searchResults.length ? null :
         <Typography type="body2" className={noResults}>
-          No resources have been verified in this location, yet.
+          We didn't currently find any verified resources within your search criteria.<br/>Try choosing different resource types or searching for a different location.
         </Typography>
       }
     </div>
@@ -140,7 +142,8 @@ class SearchResultsContainer extends React.Component {
       containerSearchForm, 
       containerSearchResults,
       filterContainer,
-      noResults
+      noResults,
+      tooltip
       } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
@@ -175,10 +178,16 @@ class SearchResultsContainer extends React.Component {
                 </Grid>
                 {isMobile ? null : 
                 <Grid item xs className='pull-right'>
-                  <IconButton color="primary" style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
-                    <Fa name="print" />
-                  </IconButton>
-                  
+                  <Tooltip
+                    className={tooltip}
+                    classes={{tooltipTop:"badge-tooltipTop"}}
+                    title='Print Results'
+                    placement="top"
+                  >
+                    <IconButton color="primary" style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                      <Fa name="print" />
+                    </IconButton>
+                  </Tooltip>                  
                   {/*<AsylumConnectButton variant="secondary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
                     Print
                     {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}

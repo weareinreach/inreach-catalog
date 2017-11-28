@@ -312,22 +312,22 @@ class MapContainer extends React.Component {
       }
     });
 
-    console.log(
+    /*console.log(
       newOrgIds,
       newOrgSlugs,
       newOrgs,
       this.state.searchResultsIndex.concat(newOrgIds),
       this.state.searchResultSlugs.concat(newOrgSlugs),
-      this.state.searchResults.concat(newOrgs))
+      this.state.searchResults.concat(newOrgs))*/
 
-    this.setState({
-      searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
-      searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
-      searchResults: this.state.searchResults.concat(newOrgs),
+    this.setState((prevState) => ({
+      searchResultsIndex: prevState.searchResultsIndex.concat(newOrgIds),
+      searchResultSlugs: prevState.searchResultSlugs.concat(newOrgSlugs),
+      searchResults: prevState.searchResults.concat(newOrgs),
       searchDisabled: false,
       printDisabled: false,
       searching: false
-    });
+    }));
   }
 
   setSelectedResource(resource) {

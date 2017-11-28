@@ -30,11 +30,15 @@ a{
   display: none !important;
 }
 
-.badge-tooltipTop{
-  top: 18px;
-  margin: 0;
+[data-placement="top"] .badge-tooltipTop{
+  top: 15px;
   position: relative;
 }
+
+[data-placement="bottom"] .badge-tooltipTop{
+  top: -10px;
+  position: relative;
+} 
 
 .nav-bottom-selectedLabel{
   color: #f26f6f;
