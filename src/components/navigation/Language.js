@@ -5,8 +5,12 @@ import ValidLanguageList from '../../helpers/ValidLanguageList';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 
 import ChevronIcon from '../icons/ChevronIcon';
+import withWidth from '../withWidth';
+import breakpoints from '../../theme/breakpoints';
+import {mobilePadding} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   root: {
@@ -55,6 +59,27 @@ const styles = theme => ({
     alignItems: 'center', 
     padding: '5 5 5',
     cursor: 'pointer'
+  },
+  textCenter: {
+    textAlign: 'center'
+  },
+  mobilePadding: {},
+  paddingTop:{},
+  [theme.breakpoints.down('sm')]: {
+    languageList: {
+      position: 'static',
+      width: '100%',
+      maxHeight: 'none',
+      height: 'auto',
+      boxShadow: 'none',
+      border: 'none',
+      borderRadius: '0px',
+      marginBottom: '91px' 
+    },
+    mobilePadding: mobilePadding(theme),
+    topPadding: {
+      paddingTop: '8px'
+    }
   }
 });
 
@@ -111,10 +136,13 @@ class Language extends React.Component {
   }
 
   render() {
-    const classes = this.props.classes;
+    const {classes, history, handleRequestOpen} = this.props;
     const {open, selectedLang, initialLangsList} = this.state;
+    const isMobile = this.props.width < breakpoints['sm'];
+
     return (
       <div className={classes.root + ' hide--on-print' }>
+        {!isMobile ?
         <div className={classes.languageLink} onClick={this.handleClick}>
           <Typography
             aria-owns={this.state.open ? 'simple-menu' : null}
@@ -125,8 +153,15 @@ class Language extends React.Component {
           <ChevronIcon width={'18px'} direction={this.state.open ? 'up' : 'down'}/>
           </Typography>
         </div>
-        {open &&
-          <List className={[classes.languageList, 'skiptranslate'].join(' ')}>
+        : 
+        <div className={classes.mobilePadding+' '+classes.topPadding}>
+          <AsylumConnectBackButton color="default" onClick={() => {handleRequestOpen('none'); history.push('/');}} />
+          <Typography className={classes.textCenter} type="display1">
+            Select Language
+          </Typography>
+        </div>}
+        {(open || isMobile) &&
+          <List className={[classes.languageList, 'skiptranslate', classes.mobilePadding].join(' ')}>
             <ListSubheader className={classes.poweredByGoogle}>
               <span>Powered By</span>
               <a className={classes.gooLogoLink} href="https://translate.google.com" target="_blank">
@@ -153,4 +188,4 @@ LangMenuItem.propTypes = {
   langCode: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(Language);
+export default withWidth(withStyles(styles)(Language));
