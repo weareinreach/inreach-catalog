@@ -111,9 +111,9 @@ class MapContainer extends React.Component {
   getCachedResource(slug) {
     let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
     if(resourceIndex > -1) {
-      return this.state.searchResults[resourceIndex];
+      return this.findResource(slug);
     } 
-    return null 
+    return null;
   }
 
   clearSearchStatus() {
@@ -302,6 +302,16 @@ class MapContainer extends React.Component {
     }
   }
 
+  findResource(slug) {
+    const searchResults = this.state.searchResults.slice();
+    for(let i = 0; i < this.state.searchResults.length; i ++) {
+      if(searchResults[i].slug == slug) {
+        return searchResults[i];
+      }
+    }
+    return null;
+  }
+
   processSearchResults(data) {
     var newOrgIds = [], newOrgs = [], newOrgSlugs =[];
     data.organizations.forEach((organization, index) => {
@@ -312,14 +322,22 @@ class MapContainer extends React.Component {
       }
     });
 
-    this.setState({
-      searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
-      searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
-      searchResults: this.state.searchResults.concat(newOrgs),
+    /*console.log(
+      newOrgIds,
+      newOrgSlugs,
+      newOrgs,
+      this.state.searchResultsIndex.concat(newOrgIds),
+      this.state.searchResultSlugs.concat(newOrgSlugs),
+      this.state.searchResults.concat(newOrgs))*/
+
+    this.setState((prevState) => ({
+      searchResultsIndex: prevState.searchResultsIndex.concat(newOrgIds),
+      searchResultSlugs: prevState.searchResultSlugs.concat(newOrgSlugs),
+      searchResults: prevState.searchResults.concat(newOrgs),
       searchDisabled: false,
       printDisabled: false,
       searching: false
-    });
+    }));
   }
 
   setSelectedResource(resource) {
