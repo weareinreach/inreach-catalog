@@ -38,7 +38,7 @@ const AccountNav = ({
   handleRequestOpen,
 }) => (
   <div
-    className={classes.accountNav}
+    className={classes.accountNav+' hide--on-print'}
     >
     {session && (
       <div className={classes.root}>

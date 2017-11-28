@@ -106,17 +106,24 @@ class OneDegreeResourceClient {
 
   }
 
-  /*getReviewByUserId({resourceType = 'organization', id = null, per_page =20, callback = (data) => {} } = {}) {
-    if(id == null) {
-      console.error('[OneDegreeResourceClient::getReviewByUserId] No resource ID passed');
+  getOrganizationRatingByUserId({resourceType = 'organization', id = null, user_id = null, callback = (data) => {} } = {}) {
+    if(id == null || user_id == null) {
+      console.error('[OneDegreeResourceClient::getOrganizationRatingByUserId] No resource or user ID passed');
       return false;
     }
 
+    let url = "organizations/" + id + '/ratings/overall';
 
-  }*/
+    this.fetch({
+      url: url,
+      user_id: user_id,
+      callback: callback
+    })
 
-  fetch( {url = '', per_page = 20, callback = (data) => {} } = {} ) {
-    fetchJsonp(this.baseURL + url + '.jsonp?api_key=' + config[process.env.OD_API_ENV].odApiKey + '&per_page=' + per_page + '&extended=true')
+  }
+
+  fetch( {url = '', per_page = 20, user_id = '', callback = (data) => {} } = {} ) {
+    fetchJsonp(this.baseURL + url + '.jsonp?api_key=' + config[process.env.OD_API_ENV].odApiKey + '&per_page=' + per_page + '&client_user_id=' + user_id + '&extended=true')
       .then(function(res) {
         return res.json();
       }).then(callback);

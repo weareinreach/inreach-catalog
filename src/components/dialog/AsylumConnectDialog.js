@@ -6,9 +6,10 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
-import {ForgotDialog, LoginDialog, SignupDialog} from '../account';
+import DeleteAccountDialog from '../account/DeleteAccountDialog';
+import {ForgotDialog, LoginDialog, PasswordDialog, SignupDialog} from '../account';
 import ActionButton from '../ActionButton';
-import {ListNewDialog, ListShareDialog} from '../favorites';
+import {ListNewDialog, ShareDialog} from '../favorites';
 
 const styles = theme => ({
   dialogBody: {
@@ -24,9 +25,12 @@ const AsylumConnectDialog = ({
   handleListAddFavorite,
   handleListNew,
   handleLogIn,
+  handleDeleteAccount,
+  handleLogOut,
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
+  history,
   session,
   user,
 }) =>
@@ -48,6 +52,7 @@ const AsylumConnectDialog = ({
         // listnew should be in the pattern listNew/{origin}/{originList}
         <ListNewDialog
           handleListAddFavorite={handleListAddFavorite}
+          handleLogOut={handleLogOut}
           handleListNew={handleListNew}
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
@@ -57,14 +62,15 @@ const AsylumConnectDialog = ({
           user={user}
         />
       }
-      {dialog === 'listShare' &&
+      {/^share/.test(dialog) &&
+        // share should be in the pattern share/{type}/{id}/{title}
         <ShareDialog
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           session={session}
-          listId={list.id}
-          listTitle={list.title}
-          shareType="collection"
+          listId={dialog.split('/')[2]}
+          listTitle={dialog.split('/')[3]}
+          shareType={dialog.split('/')[1]}
         />
       }
       {dialog === 'login' &&
@@ -74,6 +80,13 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
         />}
+      {dialog === 'password' &&
+        <PasswordDialog
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          session={session}
+        />
+        }
       {dialog === 'privacy' &&
         <PrivacyDialog handleRequestClose={handleRequestClose} />}
       {dialog === 'signup' &&
@@ -82,6 +95,15 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
+        />}
+      {dialog === 'deleteAccount' &&
+        <DeleteAccountDialog
+          handleLogOut={handleLogOut}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+          history={history}
+          session={session}
         />}
     </div>
   </Dialog>;
@@ -97,6 +119,7 @@ AsylumConnectDialog.propTypes = {
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleLogIn: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,

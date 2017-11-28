@@ -9,9 +9,7 @@ import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
-import 'whatwg-fetch';
-import config from '../../config/config.js';
-
+import {fetchUser} from '../../helpers/odasRequests';
 import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
 
@@ -56,41 +54,33 @@ class AccountPage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount(){
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew, handleLogOut, history} = this.props;
-    
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/user`;    
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      }
-    };
-    fetch(url, options)
-    .then(response => {
-      if (response.status === 200) {          
-        response.json().then(({user}) => {
-          this.setState({ isAuthenticated: true, user: user });
+    const {handleMessageNew, handleLogOut, session} = this.props;
+    if (!session) {
+      this.props.history.push('/');
+      handleMessageNew('You need to log in to view your account.')
+    } else {
+      fetchUser(session)
+        .then(data => {
+          this.setState({ isAuthenticated: true, user: data.user });
+        })
+        .catch(error => {
+          handleLogOut();
+          this.props.history.push('/');
+          handleMessageNew('Oops! Something went wrong. Error:' + error);
         });
-      } else {
-        this.setState({ isAuthenticated: false })
-        handleLogOut()
-        history.push('/');
-        handleMessageNew('Sorry, please try logging in again');
-      }
-    })
-    .catch(error => {
-      handleMessageNew('Oops! Something went wrong. Error:' + error);
-    });
+    }
   }
   handleChange(event, value){
     this.setState({ value });
   };
   render() {
-    const { classes, handleMessageNew } = this.props;
+    const {
+      classes,
+      handleLogOut,
+      handleMessageNew,
+      handleRequestOpen,
+      session
+    } = this.props;
     const { isAuthenticated, user, value } = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
     let settings;
@@ -104,7 +94,17 @@ class AccountPage extends React.Component {
               <Tab label="Your Org" />
             </Tabs>
           </AppBar>
-          {value === 0 && <TabContainer><GeneralSettings handleMessageNew={handleMessageNew} user={user}/></TabContainer>}
+          {value === 0 &&
+            <TabContainer>
+              <GeneralSettings
+                handleLogOut={handleLogOut}
+                handleMessageNew={handleMessageNew}
+                handleRequestOpen={handleRequestOpen}
+                session={session}
+                user={user}
+              />
+            </TabContainer>
+          }
           {value === 1 && <TabContainer><OrgSettings handleMessageNew={handleMessageNew} user={user}/></TabContainer>}
         </div>
       ):(
@@ -112,7 +112,13 @@ class AccountPage extends React.Component {
           <Typography type="display2" className={classes.textAlignCenter}>Organization</Typography>
           <div className={classes.formRow}>
             <OrgSettings handleMessageNew={handleMessageNew} user={user}/>
-            <GeneralSettings handleMessageNew={handleMessageNew} user={user}/>
+            <GeneralSettings
+              handleLogOut={handleLogOut}
+              handleMessageNew={handleMessageNew}
+              handleRequestOpen={handleRequestOpen}
+              session={session}
+              user={user}
+            />
           </div>
         </div>
       )
@@ -127,12 +133,29 @@ class AccountPage extends React.Component {
                 <Tab label="Your Org" disabled />
               </Tabs>
             </AppBar>
-            {value === 0 && <TabContainer><GeneralSettings handleMessageNew={handleMessageNew} user={user}/></TabContainer>}
+          {value === 0 &&
+            <TabContainer>
+              <GeneralSettings
+                handleLogOut={handleLogOut}
+                handleMessageNew={handleMessageNew}
+                handleRequestOpen={handleRequestOpen}
+                history={this.props.history}
+                session={session}
+                user={user}
+              />
+            </TabContainer>
+          }
           </div>
         ):(
         <div>
           <div className={classes.formRow}>
-            <GeneralSettings handleMessageNew={handleMessageNew} user={user}/>
+            <GeneralSettings
+              handleLogOut={handleLogOut}
+              handleMessageNew={handleMessageNew}
+              handleRequestOpen={handleRequestOpen}
+              session={session}
+              user={user}
+            />
           </div>
         </div>
         )
@@ -149,6 +172,10 @@ class AccountPage extends React.Component {
 }
 
 AccountPage.propTypes = {
+  handleLogOut: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(withWidth(AccountPage));

@@ -3,6 +3,7 @@ import MaskedInput from 'react-text-mask';
 
 import GeneralSettingsEmail from './GeneralSettingsEmail';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
+import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
@@ -12,6 +13,10 @@ import Typography from 'material-ui/Typography';
 
 import 'whatwg-fetch';
 import config from '../../config/config.js';
+import {
+  updateUserEmail,
+  updateUserPassword,
+} from '../../helpers/odasRequests';
 
 function TextMaskCustom(props) {
   return (
@@ -40,7 +45,7 @@ const styles = theme => ({
     formType: {
       margin: '2% 0 2% 0'
     }
-  },  
+  },
   settingsTypeFont: {
     padding: '15px 0 25px 0',
     fontSize: 13,
@@ -60,116 +65,78 @@ class GeneralSettings extends React.Component {
       errorMessage: '',
       isPasswordUpdated: null,
       isEmailUpdated: null,
+      dialog: 'none'
     }
-    this.handleDelete = this.handleDelete.bind(this)
+    //this.handleDelete = this.handleDelete.bind(this)
+    this.handleOdasError = this.handleOdasError.bind(this)
     this.updateEmail = this.updateEmail.bind(this)
     this.updatePassword = this.updatePassword.bind(this)
+    //this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
+    this.handleLogIn = this.handleLogIn.bind(this)
+    this.handleRequestOpen = this.handleRequestOpen.bind(this)
+    //this.handleRequestClose = this.handleRequestClose.bind(this)
   }
-  
-  handleDelete() {    
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew, user} = this.props;
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/user`;
-    const options = {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Basic ZGVtbzoxNm1pc3Npb24=',
-        'Demo-Authorization': 'Bearer '+jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          response.json().then((res) => {
-            if (res.message === 'User deleted') {
-              handleMessageNew('Your account has been deleted.');
-            }
-          });
-        } else {
-          handleMessageNew('Oops! Something went wrong');
-        }
-      })
+
+  handleOdasError(error) {
+    const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
+    if (error.response && error.response.status === 401) {
+      handleMessageNew('Your session has expired. Please log in again.');
+      handleLogOut();
+    } else if (error.response && error.response.status === 403) {
+      handleRequestOpen('password');
+    } else {
+      handleMessageNew('Oops! Something went wrong.');
+    }
   }
 
   updateEmail(newEmail){
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew} = this.props;
-    
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/user`;
-    const { user } = this.state;
-    user.email = newEmail;
-    const options = {
-      method: 'PUT',
-      headers: {
-        Authorization: jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body:  JSON.stringify({user})
-    };
-    fetch(url, options)
-      .then(response => {
-        if (response.status === 200) {
-          response.json().then((res) => {
-            if (res.message === 'User updated') {
-              this.setState({ user: res.user, isEmailUpdated:true })
-              handleMessageNew('Your email has been updated.');
-            }
-          });
-        } else {
-          this.setState({ user: res.user, isEmailUpdated: false })
-          handleMessageNew('The email you entered was incorrect.');
-        }
+    const {handleMessageNew, session} = this.props;
+    const payload = Object.assign(
+      {},
+      this.state.user,
+      {email: newEmail},
+    );
+    updateUserEmail(payload, session)
+      .then(data => {
+        this.setState({ user: data.user, isEmailUpdated:true })
+        handleMessageNew('Your email has been updated.');
       })
-      .catch(error => {
-        handleMessageNew('Oops! Something went wrong. Error: '+ error);
-      });
+      .catch(error => this.handleOdasError(error));
   }
 
   updatePassword(currentPassword, newPassword){
-    var jwt = localStorage.getItem("jwt");
-    const {handleMessageNew} = this.props;
-
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/passwords/change_password`;
-    const payload = JSON.stringify({
-      "change_password": {
-        "current_password": currentPassword,
-        "password": newPassword,
-        "password_confirmation": newPassword
+    const {handleMessageNew, session} = this.props;
+    const payload = {
+      'change_password': {
+        'current_password': currentPassword,
+        'password': newPassword,
+        'password_confirmation': newPassword,
       }
-    })
-    const options = {
-      method: 'PUT',
-      headers: {
-        Authorization: jwt,
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body: payload
     };
-    fetch(url, options)
-      .then((response) => {
-        if (response.status === 200) {
-          this.setState({ isPasswordUpdated: true })
-          handleMessageNew('Password has been updated.')
-        } else {
-          this.setState({ isPasswordUpdated: false })
-          handleMessageNew('The password you entered was incorrect.')
-        }
+    updateUserPassword(payload, session)
+      .then(data => {
+        this.setState({ isPasswordUpdated: true })
+        handleMessageNew('Password has been updated.')
       })
-      .catch(error => {
-        handleMessageNew('Oops! Something went wrong. Error: '+ error )
-      });
+      .catch(error => this.handleOdasError(error));
+  }
+
+  handleRequestOpen() {
+    this.props.handleRequestOpen('deleteAccount')
+    //this.setState({dialog:'deleteAccount'});
+  }
+
+  handleRequestClose() {
+    //this.setState({dialog:'none'})
+  }
+
+  handleLogIn(){
+    return 'login...'
   }
 
   render() {
     const { classes, handleMessageNew, user } = this.props;
-    const { isPasswordUpdated, isEmailUpdated } = this.state;
+    const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
     let email = user? user.email:''
     return (
       <div className={classes.root}>
@@ -186,10 +153,18 @@ class GeneralSettings extends React.Component {
             isPasswordUpdated={isPasswordUpdated} 
             handleMessageNew={handleMessageNew}
           />
-          <div><div onClick={this.handleDelete} className={classes.settingsTypeFont}>
+          <div><div onClick={this.handleRequestOpen} className={classes.settingsTypeFont}>
             <span>Delete Account</span>
           </div></div>
         </div>
+        {/*<AsylumConnectDialog
+          dialog={dialog}
+          handleDeleteAccount={this.handleDeleteAccount}
+          handleLogIn={this.handleLogIn}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={this.handleRequestClose}
+          handleRequestOpen={this.handleRequestOpen}
+        />*/}
       </div>
     )
   }
@@ -197,6 +172,10 @@ class GeneralSettings extends React.Component {
 
 GeneralSettings.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
+  handleMessageNew: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };
 

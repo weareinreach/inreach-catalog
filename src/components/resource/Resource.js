@@ -192,10 +192,11 @@ const Tools = (props) => (
           handleListAddFavorite={props.handleListAddFavorite}
           handleListRemoveFavorite={props.handleListRemoveFavorite}
           handleListNew={props.handleListNew}
+          handleLogOut={props.handleLogOut}
           handleMessageNew={props.handleMessageNew}
           handleRequestOpen={props.handleRequestOpen}
           lists={props.lists}
-          resourceId={props.resourceId}
+          resourceId={props.resource.id}
           session={props.session}
           user={props.user}
         />
@@ -204,7 +205,7 @@ const Tools = (props) => (
       <AsylumConnectButton 
         variant="secondary"
         className="center-align"
-        onClick={() => props.handleDialogOpen('share')}
+        onClick={() => props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name)}
         >share</AsylumConnectButton> 
     </Grid>
   </Grid>
@@ -223,8 +224,10 @@ class Resource extends React.Component {
         organization: false,
         opportunities: false
       },
-      dialog: 'none',
-      acFilter: false
+      resource: props.resource,
+      acFilter: false,
+      userReview: null,
+      userComment: null
     };
 
     this.tabs = [
@@ -240,11 +243,12 @@ class Resource extends React.Component {
     this.handleResourceRequest = this.handleResourceRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleCommentRequest = this.handleCommentRequest.bind(this);
+    this.handleRatingRequest = this.handleRatingRequest.bind(this);
     this.handleNewReview = this.handleNewReview.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
 
-    this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
+    /*this.handleDialogOpen = this.handleDialogOpen.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);*/
   }
 
   componentWillMount() {
@@ -259,16 +263,15 @@ class Resource extends React.Component {
         callback: this.handleResourceRequest
       });
     } else {
-      this.resource = this.props.resource
+      this.odClient.getOpportunities({
+        id: this.state.resource.id,
+        per_page: this.state.resource.opportunity_count,
+        callback: this.handleOpportunityRequest
+      })
       this.setState({
         orgLoading: false,
         oppLoading: true
       });
-      this.odClient.getOpportunities({
-        id: this.resource.id,
-        per_page: this.resource.opportunity_count,
-        callback: this.handleOpportunityRequest
-      })
     }
   }
 
@@ -276,18 +279,25 @@ class Resource extends React.Component {
     this.props.setSelectedResource(null);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.user !== this.props.user) {
+      //TODO: handle login while on the form
+    }
+  }
+
   handleResourceRequest(response) {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
-      this.resource = response;
-      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities);
-      this.getOpportunityReviews();
+      this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
+      this.getReviews(response);
+      this.getUserRating(response);
+      this.props.setSelectedResource(response);
       this.setState({
+        resource: response,
         orgLoading: false,
         oppLoading: false
       });
-      this.props.setSelectedResource(response);
     }
   }
 
@@ -295,22 +305,23 @@ class Resource extends React.Component {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
-      this.resource.opportunities = response.opportunities;
-      this.resourceProperties = this.odClient.collectOpportunityProperties(this.resource.opportunities);
-      this.getOpportunityReviews();
-      this.setState({
+      this.resourceProperties = this.odClient.collectOpportunityProperties(response.opportunities);
+      this.getReviews(this.state.resource);
+      this.getUserRating(this.state.resource);
+      this.setState(prevState => ({
+        resource: Object.assign(prevState.resource, {opportunities: response.opportunities}),
         oppLoading: false
-      })
+      }))
     }
   }
 
-  handleDialogOpen(dialog) {
+  /*handleDialogOpen(dialog) {
     this.setState({dialog});
   }
 
   handleDialogClose() {
     this.setState({dialog: 'none'});
-  }
+  }*/
 
   handleNewReview({resourceType = 'organization', type, data } = {}) {
     let reviewList = this.state.reviewList
@@ -320,13 +331,13 @@ class Resource extends React.Component {
     });
   }
 
-  getOpportunityReviews() {
+  getReviews(resource) {
     const { handleCommentRequest } = this;
-    if(this.resource.opportunity_comment_count) {
+    if(resource.opportunity_comment_count) {
       this.odClient.getCommentsFromOrganizationId({
         resourceType: 'opportunities',
-        id: this.resource.id,
-        per_page: this.resource.opportunity_comment_count,
+        id: resource.id,
+        per_page: resource.opportunity_comment_count,
         callback: (response) => { handleCommentRequest('opportunities', response) }
       })
     } else {
@@ -338,11 +349,11 @@ class Resource extends React.Component {
       });
     }
 
-    if(this.resource.comment_count) {
+    if(resource.comment_count) {
       this.odClient.getCommentsFromOrganizationId({
         resourceType: 'organization',
-        id: this.resource.id,
-        per_page: this.resource.comment_count,
+        id: resource.id,
+        per_page: resource.comment_count,
         callback: (response) => { handleCommentRequest('organization', response) }
       })
     } else {
@@ -355,12 +366,44 @@ class Resource extends React.Component {
     }
   }
 
+  getUserRating(resource) {
+    if(resource.rating && this.props.user) {
+      this.odClient.getOrganizationRatingByUserId({
+        resourceType: 'organization',
+        id: resource.id,
+        user_id: this.props.user,
+        callback: this.handleRatingRequest
+      })
+    }
+  }
+
   handleCommentRequest(type, response) {
+    //find user's comment
+    let userComment = false;
+    if(this.props.user && type=="organization") {
+      response.comments.forEach((comment) => {
+        if(comment.client_user_id == this.props.user.toString()) {
+          userComment = comment;
+        }
+      });
+    }
+
     let list = this.state.reviewList;
     list[type] = response.comments;
-    //console.log(list);
+
     this.setState({
-      reviewList: list
+      reviewList: list,
+      userComment
+    });
+  }
+
+  handleRatingRequest(response) {
+    let userReview = false;
+    if(response) {
+      userReview = response;
+    }
+    this.setState({
+      userReview
     });
   }
 
@@ -393,7 +436,8 @@ class Resource extends React.Component {
 
   render() {
     const { classes, session, handleMessageNew, history } = this.props;
-    const { resource, props } = this;
+    const { props } = this;
+    const { resource } = this.state;
     const languages = (this.resourceProperties && this.resourceProperties.length ? 
                         this.resourceProperties
                           .filter((item) => ( item.slug.indexOf('lang') === 0))
@@ -405,7 +449,7 @@ class Resource extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
-        <Grid item xs={12} sm={10} md={10} lg={9} >
+        <Grid item xs={12} sm={11} md={10} lg={10} xl={11} >
           { this.state.orgLoading ? <Loading /> :
           <div> {/******* MOBILE *******/}
             {isMobile ?
@@ -416,6 +460,7 @@ class Resource extends React.Component {
                     handleListAddFavorite={props.handleListAddFavorite}
                     handleListRemoveFavorite={props.handleListRemoveFavorite}
                     handleListNew={props.handleListNew}
+                    handleLogOut={props.handleLogOut}
                     handleRequestOpen={props.handleRequestOpen}
                     handleMessageNew={props.handleMessageNew}
                     lists={props.lists}
@@ -450,7 +495,6 @@ class Resource extends React.Component {
                   </div>
                   <div className={classes.mobileSpacing}>
                     <Visit 
-                      classes={classes}
                       resource={resource}
                       isMobile={isMobile}
                     />
@@ -462,7 +506,9 @@ class Resource extends React.Component {
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
-                    {session ? 
+                    {session 
+                      && (this.state.userReview === false || this.state.userReview === null)
+                      && (this.state.userComment === false ||  this.state.userComment === null) ?
                       <ReviewForm 
                         resource={resource}
                         session={props.session}
@@ -483,13 +529,13 @@ class Resource extends React.Component {
             : 
             <div> {/******* DESKTOP *******/}
               <Tools 
+                {...props}
                 classes={classes} 
                 handleTabClick={this.handleTabClickDesktop}
-                handleDialogOpen={this.handleDialogOpen}
-                resourceId={this.resource.id}
+                handleRequestOpen={this.props.handleRequestOpen}
+                resource={resource}
                 tab={this.state.tab}
                 tabs={this.tabs}
-                {...this.props}
               />
               <ResourceHeader 
                 classes={classes}
@@ -506,7 +552,6 @@ class Resource extends React.Component {
                 </Grid>
               </Grid>
               <Visit 
-                classes={classes}
                 resource={resource}
               />
               <Grid container spacing={0}>
@@ -514,7 +559,9 @@ class Resource extends React.Component {
                   <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
                 </Grid>
               </Grid>
-              {session ? 
+              {session 
+                && (this.state.userReview === false || this.state.userReview === null)
+                && (this.state.userComment === false ||  this.state.userComment === null) ?
                 <ReviewForm 
                   resource={resource}
                   session={props.session}
@@ -528,23 +575,6 @@ class Resource extends React.Component {
                 acFilter={this.state.acFilter}
                 handleFilterChange={this.handleFilterChange}
               />
-              <Dialog open={this.state.dialog !== 'none'} onRequestClose={this.handleDialogClose}>
-                <div className={classes.dialogBody}>
-                  <ActionButton
-                    onClick={this.handleDialogClose}
-                    >&times;</ActionButton>              
-                {this.state.dialog === 'share' &&
-                  <ShareDialog
-                    handleMessageNew={handleMessageNew}
-                    handleRequestClose={this.handleDialogClose}
-                    // session={session}
-                    listId={resource.id}
-                    listTitle={resource.name}
-                    shareType="resource"
-                  />
-                }
-                </div>
-              </Dialog> 
             </div>}
           </div>
           }

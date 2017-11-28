@@ -59,6 +59,7 @@ function AsylumConnectButton(props) {
           [classes.primary]: variant === 'primary',
           [classes.secondary]: variant === 'secondary',
         },
+        'hide--on-print',
         className,
       )}
       onClick={onClick}
@@ -76,6 +77,7 @@ AsylumConnectButton.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   variant: PropTypes.oneOf(['primary','secondary']),
 };
 

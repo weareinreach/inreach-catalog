@@ -46,6 +46,14 @@ class SearchBar extends React.Component {
     /*this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)*/
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.nearAddress && nextProps.nearAddress != this.state.address) {
+      this.setState({
+        address: nextProps.nearAddress
+      })
+    }
+  }
+
   handlePlaceSelect(address) {
     this.setState({
       address
@@ -102,7 +110,7 @@ class SearchBar extends React.Component {
             options={options}
           />
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={12} className="hide--on-print">
           <ResourceTypeSelector containerWidth={this.props.containerWidth} onChange={this.props.handleResourceTypeSelect} selectedResourceTypes={this.props.selectedResourceTypes} />
         </Grid>
       </Grid>

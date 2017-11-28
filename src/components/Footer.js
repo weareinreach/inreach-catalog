@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
@@ -86,12 +87,30 @@ const Footer = ({ classes }) => {
         </Grid>
 
         <Grid item xs={12} md={6}>
+          <div className={paddingBelow}>
+            <Link
+              to="/"
+            >
+              <AsylumConnectButton variant="primary">
+                Suggest a Resource
+              </AsylumConnectButton>
+            </Link>
+          </div>
+          <div className={paddingBelow}>
+            <a
+              href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+              className={paddingBelow}
+            >
+              <AsylumConnectButton variant="primary">
+                Share Feedback
+              </AsylumConnectButton>
+            </a>
+          </div>
           <Typography type="display3" className={paddingBelow}>
             Stay Updated on AsylumConnect's Lifesaving Initiatives
           </Typography>
           <a
-            href="http://www.asylumconnect.org/follow-us-subscribe/"
-            target="_blank"
+            href="http://www.asylumconnect.org/contact-us"
           >
             <AsylumConnectButton variant="primary">
               Subscribe to our newsletter

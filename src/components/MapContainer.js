@@ -47,10 +47,10 @@ class MapContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
 
-    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
+    let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(props.match.params);
+    this.props.handleAddressChange(nearAddress);
     let ACMap = null;
     this.state = {
-      nearAddress: '',
       nearLatLng,
       mapWidth: "100%",
       searchStatus: null,
@@ -59,12 +59,14 @@ class MapContainer extends React.Component {
       selectedSort,
       searching: false,
       searchDisabled: false,
+      printDisabled: false,
       searchResults: [],
       searchResultsIndex: [],
       searchResultSlugs: [],
       selectedResource: null,
       lastSearch: null,
     }
+
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
@@ -73,6 +75,7 @@ class MapContainer extends React.Component {
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(this)
+    this.handlePrintClick = this.handlePrintClick.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
     this.setSelectedResource = this.setSelectedResource.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
@@ -108,9 +111,9 @@ class MapContainer extends React.Component {
   getCachedResource(slug) {
     let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
     if(resourceIndex > -1) {
-      return this.state.searchResults[resourceIndex];
+      return this.findResource(slug);
     } 
-    return null 
+    return null;
   }
 
   clearSearchStatus() {
@@ -127,16 +130,16 @@ class MapContainer extends React.Component {
 
   handlePlaceSelect(address) {
     this.setState({
-      nearAddress: address,
       nearLatLng: null
     });
+    this.props.handleAddressChange(address)
   }
 
   handlePlaceChange(address) {
     this.setState({
-      nearAddress: address,
       nearLatLng: null
     });
+    this.props.handleAddressChange(address)
   }
 
   handleResourceTypeSelect(event, checked) { 
@@ -145,7 +148,8 @@ class MapContainer extends React.Component {
     var selectedResourceTypes = this.state.selectedResourceTypes.slice();
     
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
-      selectedResourceTypes.push(target.value)
+      selectedResourceTypes.push(target.value);
+      selectedResourceTypes.sort();
       this.setState({
         selectedResourceTypes: selectedResourceTypes,
         searchStatus: null
@@ -166,6 +170,7 @@ class MapContainer extends React.Component {
     
     if(checked && selectedFilters.indexOf(target.value) < 0) {
       selectedFilters.push(target.value)
+      selectedFilters.sort();
       this.setState({
         selectedFilters: selectedFilters
       });
@@ -183,16 +188,31 @@ class MapContainer extends React.Component {
     });
   }
 
-  handleSearchButtonClick() {    
-    /*if(this.state.nearLatLng == null || this.state.nearAddress == this.state.nearLatLng) {
-      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-      return;
-    } */
+  handlePrintClick() {
+    var self = this;
+    if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
+      this.queryOneDegree.nextPage();
+      this.setState({
+        searching: true,
+        searchDisabled: true,
+        printDisabled: true
+      });
+      this.queryOneDegree.fetchOrganizations({
+        callback: (results) => {
+          self.processSearchResults(results)
+          window.print();
+          this.setState({
+            searchDisabled: false,
+            printDisabled: false
+          });
+        }
+      });
+    } else {
+      window.print();
+    }
+  }
 
-    /*if(this.state.selectedResourceTypes.length == 0) {
-      this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-      return;
-    } */
+  handleSearchButtonClick() {    
 
     this.setState({
       searchDisabled: true
@@ -200,10 +220,11 @@ class MapContainer extends React.Component {
 
     const redirect = (latLng) => {
       var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
+      var nearAddress = encodeURIComponent(this.props.nearAddress);
       var nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
       var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
       var sort = encodeURIComponent(this.state.selectedSort);
-      this.props.history.push('/search/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+      this.props.history.push('/search/'+nearAddress+'/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
       this.setState({
         searchStatus: 'refresh',
         nearLatLng: latLng,
@@ -212,7 +233,7 @@ class MapContainer extends React.Component {
     }
 
     if(this.state.nearLatLng == null) {
-      geocodeByAddress(this.state.nearAddress)
+      geocodeByAddress(this.props.nearAddress)
         .then(results => getLatLng(results[0]))
         .then(redirect)
         .catch(error => {
@@ -226,27 +247,22 @@ class MapContainer extends React.Component {
     } else {
       redirect(this.state.nearLatLng)
     }
-    
-    
-
-    /*var resourceTypes = encodeURIComponent(this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes.join(',') : 'any');
-    var latLng = encodeURIComponent(this.state.nearLatLng.lat + ',' + this.state.nearLatLng.lng);
-    var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
-    var sort = encodeURIComponent(this.state.selectedSort);
-    this.props.history.push('/search/'+latLng+'/'+resourceTypes+'/'+filters+'/'+sort);*/
   }
 
   resizeMap(){
 
     const node = ReactDOM.findDOMNode(this.ACMap);
-    const nodeDimensions = node.getBoundingClientRect();
-    let width = document.body.clientWidth - nodeDimensions.x;
-    this.setState({mapWidth: width + "px"});
+    if(node && node.getBoundingClientRect) {
+      const nodeDimensions = node.getBoundingClientRect();
+      let width = document.body.clientWidth - nodeDimensions.x;
+      this.setState({mapWidth: width + "px"});
+    }
   }
 
   fetchSearchResults() {
-    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
+    let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified } = this.checkForURLUpdates();
     if(updated && nearLatLng !== null) {
+      this.props.handleAddressChange(nearAddress);
       this.setState({
         nearLatLng,
         selectedResourceTypes,
@@ -257,6 +273,7 @@ class MapContainer extends React.Component {
         searchResults: [],
         lastSearch: stringified
       });
+      
 
       this.queryOneDegree = new OneDegreeResourceQuery();
       this.queryOneDegree
@@ -272,14 +289,27 @@ class MapContainer extends React.Component {
 
   fetchNextSearchResultsPage() {
     if(typeof this.queryOneDegree !== 'undefined' && !this.state.searching && !this.queryOneDegree.areAllResultsReturned()) {
-      this.queryOneDegree.nextPage();
-      this.setState({
-        searching: true
-      });
-      this.queryOneDegree.fetchOrganizations({
-        callback: this.processSearchResults
-      });
+      if(this.queryOneDegree.nextPage()) {
+        this.setState({
+          searchDisabled: true,
+          printDisabled: true,
+          searching: true
+        });
+        this.queryOneDegree.fetchOrganizations({
+          callback: this.processSearchResults
+        });
+      }
     }
+  }
+
+  findResource(slug) {
+    const searchResults = this.state.searchResults.slice();
+    for(let i = 0; i < this.state.searchResults.length; i ++) {
+      if(searchResults[i].slug == slug) {
+        return searchResults[i];
+      }
+    }
+    return null;
   }
 
   processSearchResults(data) {
@@ -292,12 +322,22 @@ class MapContainer extends React.Component {
       }
     });
 
-    this.setState({
-      searchResultsIndex: this.state.searchResultsIndex.concat(newOrgIds),
-      searchResultSlugs: this.state.searchResultSlugs.concat(newOrgSlugs),
-      searchResults: this.state.searchResults.concat(newOrgs),
+    /*console.log(
+      newOrgIds,
+      newOrgSlugs,
+      newOrgs,
+      this.state.searchResultsIndex.concat(newOrgIds),
+      this.state.searchResultSlugs.concat(newOrgSlugs),
+      this.state.searchResults.concat(newOrgs))*/
+
+    this.setState((prevState) => ({
+      searchResultsIndex: prevState.searchResultsIndex.concat(newOrgIds),
+      searchResultSlugs: prevState.searchResultSlugs.concat(newOrgSlugs),
+      searchResults: prevState.searchResults.concat(newOrgs),
+      searchDisabled: false,
+      printDisabled: false,
       searching: false
-    });
+    }));
   }
 
   setSelectedResource(resource) {
@@ -307,7 +347,11 @@ class MapContainer extends React.Component {
   }
 
   parseParams(params) {
-    var nearLatLng = null, selectedResourceTypes = [], selectedFilters = [], selectedSort = 'best';
+    var nearAddress = '', nearLatLng = null, selectedResourceTypes = [], selectedFilters = [], selectedSort = 'best';
+    if(params.place) {
+      nearAddress = decodeURIComponent(params.place)
+    }
+
     if(params.near) {
       var latLng = decodeURIComponent(params.near).split(',')
       nearLatLng = {
@@ -318,21 +362,23 @@ class MapContainer extends React.Component {
 
     if(params.for && params.for !== "any") {
       selectedResourceTypes = decodeURIComponent(params.for).split(',');
+      selectedResourceTypes.sort();
     }
 
     if(params.filter && params.filter !== "all") {
       selectedFilters = decodeURIComponent(params.filter).split(',');
+      selectedFilters.sort();
     }
 
     if(params.sort) {
       selectedSort = params.sort
     }
 
-    return {selectedResourceTypes, nearLatLng, selectedFilters, selectedSort};
+    return {selectedResourceTypes, nearAddress, nearLatLng, selectedFilters, selectedSort};
   }
 
   checkForURLUpdates(ev) { 
-    let { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(this.props.match.params);
+    let { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(this.props.match.params);
     let updated = false;
     let stringified = JSON.stringify({
       nearLatLng,
@@ -344,7 +390,7 @@ class MapContainer extends React.Component {
     ) {
       updated = true;
     }
-    return { nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified };
+    return { nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort, updated, stringified };
   }
 
   render() {
@@ -372,28 +418,34 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    nearAddress={this.props.nearAddress}
                     searchDisabled={this.state.searchDisabled}
                      />} />
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (
                     <SearchResultsContainer {...props} {...this.state}
-                      mapResources={mapResources}
-                      fetchSearchResults={this.fetchSearchResults}
                       clearSearchFilters={this.clearSearchFilters}
                       clearSearchStatus={this.clearSearchStatus}
                       fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
+                      fetchSearchResults={this.fetchSearchResults}
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
+                      handleLogOut={this.props.handleLogOut}
                       handleMessageNew={this.props.handleMessageNew}
                       handlePlaceSelect={this.handlePlaceSelect} 
                       handlePlaceChange={this.handlePlaceChange}
+                      handlePrintClick={this.handlePrintClick}
                       handleSearchButtonClick={this.handleSearchButtonClick}
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
                       handleRequestOpen={this.props.handleRequestOpen}
                       handleFilterSelect={this.handleFilterSelect}
                       handleSortSelect={this.handleSortSelect}
                       lists={this.props.lists}
+                      mapResources={mapResources}
+                      nearAddress={this.props.nearAddress}
+                      printDisabled={this.state.printDisabled}
+                      searchDisabled={this.state.searchDisabled}
                       session={this.props.session}
                       user={this.props.user}
                     />)}
@@ -403,6 +455,7 @@ class MapContainer extends React.Component {
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
+                      handleLogOut={this.props.handleLogOut}
                       handleMessageNew={this.props.handleMessageNew}
                       handleRequestOpen={this.props.handleRequestOpen}
                       lists={this.props.lists}
@@ -417,11 +470,12 @@ class MapContainer extends React.Component {
               </div>
             </Grid>
             {isMobile ? null :
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} className="hide--on-print">
               <Sticky>
                 <div>
                   <AsylumConnectMap
                     resources={mapResources}
+                    history={this.props.history}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 

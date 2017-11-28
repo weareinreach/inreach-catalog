@@ -28,6 +28,7 @@ const styles = theme => ({
   marginBottom: {marginBottom: '2rem'},
   marginBottomLg: {marginBottom: '3rem'},
   spacingTop: {marginTop: '1rem'},
+  backgroundTransparent: {backgroundColor: 'transparent'}
 });
 
 const SignupForm = ({
@@ -139,7 +140,7 @@ const SignupForm = ({
       </div>
     )}
     <MobileStepper
-      className={classes.spacingTop}
+      className={classes.spacingTop+' '+classes.backgroundTransparent}
       type="dots"
       steps={2}
       position="static"

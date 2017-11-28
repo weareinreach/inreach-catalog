@@ -9,8 +9,9 @@ class OneDegreeResourceQuery {
   constructor() {
     this.resetFilters();
     this.baseURL = config[process.env.OD_API_ENV].odrs;
-    this.allResultsReturned = false;
+    //this.allResultsReturned = false;
     this.removeAtCapacity = false;
+    this.pagingData = {};
     this.requiredFilters = {
       'opportunities': {
         query: {
@@ -45,7 +46,7 @@ class OneDegreeResourceQuery {
   }
 
   areAllResultsReturned() {
-    return this.allResultsReturned;
+    return this.pagingData.current_page == this.pagingData.total_pages;
   }
 
   setIds(ids) {
@@ -82,9 +83,22 @@ class OneDegreeResourceQuery {
     return this;
   }
 
-  nextPage() {
-    this.filters.page++;
+  setPerPage(perPage) {
+    this.filters.per_page = perPage;
     return this;
+  }
+
+  setPerPageToAllResults() {
+    return this.setPerPage(this.pagingData.total_count);
+  }
+
+  nextPage() {
+    if(this.filters.page < this.pagingData.total_pages) {
+      this.filters.page++;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   filterAtCapacity(resources) {
@@ -130,7 +144,7 @@ class OneDegreeResourceQuery {
       per_page: 10
     }
     this.removeAtCapacity = false;
-    this.allResultsReturned = false;
+    this.pagingData = {};
     return this;
   }
 
@@ -150,10 +164,12 @@ class OneDegreeResourceQuery {
         if(ids.length === 0) {
           ids.push(0);
         }
-        self.allResultsReturned = data.paging.current_page == data.paging.total_pages;
+        self.pagingData = data.paging;
 
         var orgsSearch = new OneDegreeResourceQuery();
-        orgsSearch.setIds(ids);
+        orgsSearch
+          .setIds(ids)
+          .setPerPage(ids.length);
         if(self.filters && self.filters.query && self.filters.query.order) {
           orgsSearch.setOrder(self.filters.query.order);
         }

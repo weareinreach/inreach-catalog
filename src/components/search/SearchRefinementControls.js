@@ -85,7 +85,7 @@ class SearchRefinementControls extends React.Component {
     const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent, refinementTitle } = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
-      <div>
+      <div className="hide--on-print">
         {isMobile ?
           <div>
             
@@ -108,21 +108,21 @@ class SearchRefinementControls extends React.Component {
                   <Button color="contrast" classes={{root: buttonRoot}} onClick={this.props.clearSearchFilters}>Clear Filters</Button>
                 </Toolbar>
                 <SearchFilters onChange={this.props.handleFilterSelect} selectedFilters={this.props.selectedFilters} />
-                <Grid container spacing={0}>
+                {/*<Grid container spacing={0}>
                   <Grid item xs={12}>
                     <Divider className={dividerSpacing} />
                     <h2 className={refinementTitle}>Sort</h2>
                   </Grid>
                 </Grid>
-                <SearchSorts onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />
+                <SearchSorts onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />*/}
               </Paper>
             : null}
           </div>
         : 
         <Grid container spacing={0} style={{marginBottom: '1.5rem'}}>
-          <Grid item xs={12} md={8} >
-            <SearchFilterSelector onChange={this.props.handleFilterSelect} selectedFilters={this.props.selectedFilters} />
-            <SearchSortSelector onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />
+          <Grid item xs={12} >
+            <SearchFilterSelector onChange={this.props.handleFilterSelect} containerWidth="100%" selectedFilters={this.props.selectedFilters} />
+            {/*<SearchSortSelector onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />*/}
           </Grid>
         </Grid>
       }

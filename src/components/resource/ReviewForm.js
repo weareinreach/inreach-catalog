@@ -52,7 +52,6 @@ class ReviewForm extends React.Component {
       comment: false,
       complete: false
     }
-    console.log(props.resource);
 
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
     this.handleStarClick = this.handleStarClick.bind(this);

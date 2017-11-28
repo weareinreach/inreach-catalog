@@ -36,7 +36,7 @@ const styles = (theme) => ({
 });
 
 const Announcement = ({ classes, handleRequestOpen }) => (
-  <div className={classes.announcement}>
+  <div className={classes.announcement + ' hide--on-print'}>
 
     <Typography type="body1" className={classes.textContent}>
       Asylum seekers contact service providers at their own risk.

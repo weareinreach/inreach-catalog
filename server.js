@@ -18,27 +18,28 @@ if(typeof process.env.AUTHORIZE !== 'undefined') {
   app.use(auth.connect(basic));
 }
 
-app.use(function(req, res, next) {
-  if(typeof process.env.REDIRECT === 'undefined' 
-      || (req.query.sneakpeek && req.query.sneakpeek === 'yup')
-      || (req.cookies.sneakpeek && req.cookies.sneakpeek === 'yup')) {
-    res.cookie('sneakpeek', 'yup');
-    return (express.static(__dirname + '/public/'))(req, res, next);
+//handle redirect first
+app.use(function(req,res,next) {
+  if(typeof process.env.REDIRECT !== 'undefined' 
+    && (!req.query.sneakpeek || req.query.sneakpeek !== 'yup')
+    && (!req.cookies.sneakpeek || req.cookies.sneakpeek !== 'yup')
+    ) {
+      res.redirect(302, process.env.REDIRECT);
+  } else if(req.headers['x-forwarded-proto'] != 'https' && process.env.OD_API_ENV == 'production') {
+    res.redirect(`https://${req.header('host')}${req.url}`);
   } else {
-    next()
+    next();
   }
 
+})
+
+app.use(function(req, res, next) {
+    res.cookie('sneakpeek', 'yup');
+    return (express.static(__dirname + '/public/'))(req, res, next);
 });
 
 app.get('*', (req, res) => {
-  if(typeof process.env.REDIRECT === 'undefined' 
-    || (req.query.sneakpeek && req.query.sneakpeek === 'yup')
-    || (req.cookies.sneakpeek && req.cookies.sneakpeek === 'yup')
-    ) {
-    res.sendFile(__dirname + '/public/index.html');
-  } else {
-    res.redirect(302, process.env.REDIRECT);
-  }
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 app.listen(process.env.PORT || 8080);

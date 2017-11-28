@@ -1,15 +1,18 @@
 import React from 'react';
 
+import Fa from 'react-fontawesome';
+
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Tooltip from 'material-ui/Tooltip';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import IconButton from 'material-ui/IconButton';
 import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
-import fetchUserLists from '../../helpers/fetchUserLists';
 import AsylumConnectButton from '../AsylumConnectButton';
 import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
@@ -22,6 +25,7 @@ const styles = theme => ({
   formRow: {
     marginBottom: '2.5rem'
   },
+  tooltip: { fontFamily: 'sans-serif' },
   container: {
     minHeight: '500px',
     paddingTop: '60px',
@@ -72,7 +76,7 @@ const ResultsContainer = (props) => {
       { searching ? <Loading /> : 
         searchResults.length ? null :
         <Typography type="body2" className={noResults}>
-          No resources have been verified in this location, yet.
+          We didn't currently find any verified resources within your search criteria.<br/>Try choosing different resource types or searching for a different location.
         </Typography>
       }
     </div>
@@ -138,13 +142,16 @@ class SearchResultsContainer extends React.Component {
       containerSearchForm, 
       containerSearchResults,
       filterContainer,
-      noResults
+      noResults,
+      tooltip
       } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults: containerSearchResults,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
+      handleListNew: this.props.handleListNew,
+      handleLogOut: this.props.handleLogOut,
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
@@ -157,16 +164,39 @@ class SearchResultsContainer extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
-        <Grid item md={11} lg={11} xs={12}>
-        <div className={containerSearchForm}>
+        <Grid item xs={12} sm={11} md={10} lg={10} xl={11} >
+        <div className={containerSearchForm+' no-background'}>
           <SearchBar {...this.props} classes={null} />
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={3} className={formRow}>
-              <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} >
-                Search
-              </AsylumConnectButton>
+          <Grid container spacing={0} alignItems='flex-start'>
+            <Grid item xs={12} md={8} className={formRow}>
+              <Grid container spacing={0} justify='space-between'>
+                <Grid item xs>
+                  <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
+                    Search
+                    {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
+                  </AsylumConnectButton>
+                </Grid>
+                {isMobile ? null : 
+                <Grid item xs className='pull-right'>
+                  <Tooltip
+                    className={tooltip}
+                    classes={{tooltipTop:"badge-tooltipTop"}}
+                    title='Print Results'
+                    placement="top"
+                  >
+                    <IconButton color="primary" style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                      <Fa name="print" />
+                    </IconButton>
+                  </Tooltip>                  
+                  {/*<AsylumConnectButton variant="secondary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                    Print
+                    {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
+                  </AsylumConnectButton>*/}
+                </Grid>
+                }
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={9} className={filterContainer}>
+            <Grid item xs={12} md={4} className={filterContainer}>
               <SearchRefinementControls 
                 clearSearchFilters={this.props.clearSearchFilters}
                 handleFilterSelect={this.props.handleFilterSelect} 

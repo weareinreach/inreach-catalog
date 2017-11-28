@@ -68,7 +68,7 @@ const FavoritesList = ({
     </Typography>
     <Typography type="body1">
       {session
-        ? 'Your favorites lists are only visible to you and anyone you share them with.'
+        ? 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'
         : 'You must be logged in to use favorites.'
       }
     </Typography>
@@ -94,12 +94,17 @@ const FavoritesList = ({
           </Button>
           <div>
             {list && (
-              <AsylumConnectButton variant="secondary">Print</AsylumConnectButton>
+              <AsylumConnectButton 
+                variant="secondary"
+                onClick={() => {window.print()}}
+              >
+                Print
+              </AsylumConnectButton>
             )}
             {list && (
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => handleRequestOpen('listShare')}
+                onClick={() => handleRequestOpen('share/collection/'+list.id+'/'+list.title)}
                 variant="primary">
                 Share
               </AsylumConnectButton>
@@ -124,8 +129,9 @@ const FavoritesList = ({
                     handleMessageNew={handleMessageNew}
                     handleRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
-                    listId={list.id}
+                    listId={list.slug}
                     resource={resource}
+                    format='favorites'
                   />
                 )}
               </div>
