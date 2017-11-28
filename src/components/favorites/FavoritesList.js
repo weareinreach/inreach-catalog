@@ -127,7 +127,7 @@ const FavoritesList = ({
         <Grid container justify="center">
           <div className={classes.minHeight350}>
             {loadingResources ? (
-              <Fa name="spinner" spin />
+              <Fa className={classes.marginTop} name="spinner" spin />
             ) : (
               <div>
                 {resources.map(resource =>
@@ -144,7 +144,7 @@ const FavoritesList = ({
               </div>
             )}
             {!loadingResources && list && resources.length === 0 && (
-              <Typography type="body1">
+              <Typography className={classes.marginTop} type="body1">
                 You haven't added any resources to this list yet.
               </Typography>
             )}
