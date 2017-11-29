@@ -64,6 +64,12 @@ export const fetchUser = session => {
   return handleFetch(url, options);
 };
 
+export const fetchPublicList = slug => {
+  const url = `${odas}api/collections/${slug}`;
+  const options = {headers: headers()};
+  return handleFetch(url, options);
+};
+
 export const fetchUserLists = session => {
   const url = `${odas}api/account/collections/all`;
   const options = {headers: headers(session)};
@@ -126,6 +132,22 @@ export const resetPassword = (payload) => {
   const options = {
     method: 'PUT',
     headers: headers(),
+    body: JSON.stringify(payload),
+  };
+  return handleFetch(url, options);
+}
+
+export const updateListPermissions = (listId, newPermissions, session) => {
+  const url = `${odas}api/collections/${listId}`;
+  const payload = {
+    list: {
+      shared_status: newPermissions,
+      is_searchable: false
+    }
+  };
+  const options = {
+    method: 'PUT',
+    headers: headers(session),
     body: JSON.stringify(payload),
   };
   return handleFetch(url, options);

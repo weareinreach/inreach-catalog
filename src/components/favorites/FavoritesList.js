@@ -57,6 +57,7 @@ const FavoritesList = ({
   lists,
   match,
   open,
+  publicList,
   resources,
   session,
   user,
@@ -69,12 +70,12 @@ const FavoritesList = ({
     spacing={0}
     >
     <Typography className={classes.marginTop} type="display1">
-      Favorites
+      {publicList ? publicList : 'Favorites'}
     </Typography>
-    {session
+    {session || publicList
       ? (
         <Typography type="body1">
-          Your favorites lists are only visible to you and anyone you choose to share your lists with.
+          {!publicList && 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'}
         </Typography>
       ) : (
         <Typography className={classes.minHeight350} type="body1">
@@ -82,7 +83,7 @@ const FavoritesList = ({
         </Typography>
       )
     }
-    {session && (
+    {(session || publicList) && (
       <Grid
         container
         className={classes.container}
@@ -90,6 +91,7 @@ const FavoritesList = ({
         justify="space-between"
         spacing={0}
         >
+      {!publicList && (
         <Grid 
           container 
           className={classes.mainRow} 
@@ -121,21 +123,24 @@ const FavoritesList = ({
               </Tooltip>
             )}
             {list && (
+                <AsylumConnectButton
+                  className={classes.marginLeft}
+                  onClick={() => (session 
+                    ? handleRequestOpen('share/collection/'+list.id+'/'+list.title)
+                    : handleMessageNew('You must be logged in to share resources'))}
+                  variant="primary">
+                  Share
+                </AsylumConnectButton>
+              )}
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => handleRequestOpen('share/collection/'+list.id+'/'+list.title)}
+                onClick={() => handleRequestOpen('listNew/favoritesList')}
                 variant="primary">
-                Share
+                <Fa className={classes.marginRight} name="plus" /> Create New List
               </AsylumConnectButton>
-            )}
-            <AsylumConnectButton
-              className={classes.marginLeft}
-              onClick={() => handleRequestOpen('listNew/favoritesList')}
-              variant="primary">
-              <Fa className={classes.marginRight} name="plus" /> Create New List
-            </AsylumConnectButton>
-          </div>
-        </Grid>
+            </div>
+          </Grid>
+        )}
         <Grid container justify="center">
           <div className={classes.minHeight350}>
             {loadingResources ? (
@@ -145,10 +150,10 @@ const FavoritesList = ({
                 {resources.map(resource =>
                   <ResourceListItem
                     isOnFavoritesList={true}
+                    isOnPublicList={publicList}
                     handleMessageNew={handleMessageNew}
                     handleListRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
-                    listId={list.slug}
                     resource={resource}
                     format='favorites'
                   />
@@ -225,6 +230,7 @@ const FavoritesList = ({
 FavoritesList.defaultProps = {
   anchorEl: null,
   list: null,
+  publicList: null,
   session: null,
   user: null,
 };
@@ -243,6 +249,7 @@ FavoritesList.propTypes = {
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
+  publicList: PropTypes.string,
   resources: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
   user: PropTypes.number,
