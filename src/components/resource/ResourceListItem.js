@@ -6,7 +6,7 @@ import Fa from 'react-fontawesome';
 import {
   Link
 } from 'react-router-dom';
-import IconButton from 'material-ui/IconButton';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -146,9 +146,9 @@ class ResourceListItem extends React.Component {
                   />
                 )}
                 {isOnFavoritesList && (
-                  <IconButton onClick={() => handleRemoveFavorite(resource.id)}>
+                  <Button onClick={() => handleListRemoveFavorite(resource.id)}>
                     <Fa name="times"/>
-                  </IconButton>
+                  </Button>
                 )}
               </Grid>
             </Grid>
