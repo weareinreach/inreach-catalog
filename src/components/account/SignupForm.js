@@ -36,6 +36,7 @@ const SignupForm = ({
   email,
   handleBlurOrganizations,
   handleChange,
+  handleMessageNew,
   handleOrganizationSearchChange,
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
@@ -43,6 +44,7 @@ const SignupForm = ({
   handleRequestOpen,
   handleSelect,
   handleSubmit,
+  history,
   isLoadingOrganizations,
   organizations,
   organizationSearch,
@@ -76,6 +78,7 @@ const SignupForm = ({
         {selection === 'provider' && (
           <OrganizationAutocomplete
             handleBlurOrganizations={handleBlurOrganizations}
+            handleMessageNew={handleMessageNew}
             handleOrganizationSearchChange={handleOrganizationSearchChange}
             handleOrganizationSelect={handleOrganizationSelect}
             handleOrganizationsFetchRequested={
@@ -84,6 +87,7 @@ const SignupForm = ({
             handleOrganizationsClearRequested={
               handleOrganizationsClearRequested
             }
+            history={history}
             isLoadingOrganizations={isLoadingOrganizations}
             organizationSearch={organizationSearch}
             organizationSelection={organizationSelection}

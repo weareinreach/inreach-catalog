@@ -81,6 +81,7 @@ function renderLoadingContainer(options) {
 
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
+  const {history, handleMessageNew} = this;
   const styles = {
     container: {
       marginTop: '8px',
@@ -94,7 +95,10 @@ function renderSuggestionsContainer(options) {
     <Paper {...containerProps} style={styles.container} square>
       {children}
       {query.length > 0 && (
-        <Link to="suggestions/new">
+        <Link to="/suggestions/new" onMouseDown={(e) => { //prevent onBlur from hiding link before the click is registered
+          history.push('/suggestions/new')
+          handleMessageNew('Once you\'ve completed signing up, use the suggest a resource form to add your organization to our system')
+        }}>
           <MenuItem component="div">
             <span style={{fontWeight: 200}}>
               Can't find it? Add a new organization here...
@@ -139,10 +143,12 @@ const styles = theme => ({
 const OrganizationAutocomplete = ({
   classes,
   handleBlurOrganizations,
+  handleMessageNew,
   handleOrganizationSearchChange,
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
   handleOrganizationsClearRequested,
+  history,
   isLoadingOrganizations,
   organizations,
   organizationSearch,
@@ -162,7 +168,7 @@ const OrganizationAutocomplete = ({
     renderSuggestionsContainer={
       isLoadingOrganizations
         ? renderLoadingContainer
-        : !organizationSelection ? renderSuggestionsContainer : () => true
+        : !organizationSelection ? renderSuggestionsContainer.bind({history, handleMessageNew}) : () => true
     }
     getSuggestionValue={getSuggestionValue}
     renderInputComponent={renderInput}
