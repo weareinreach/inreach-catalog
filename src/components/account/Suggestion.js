@@ -275,7 +275,7 @@ class Suggestion extends React.Component {
     let updatedResourceData;    
     if (checked) {
       let updatedFeature = { [value]: checked.toString() }
-      updatedResourceData = update(resourceData, {properties: {$push: [updatedFeature]}})
+      updatedResourceData = update(resourceData, {properties: {$merge: updatedFeature}})
     } else {
       let indexResource = resourceData.properties.findIndex(p => Object.keys(p)[0] == value)
       if (indexResource >= 0) {
@@ -297,7 +297,7 @@ class Suggestion extends React.Component {
     let updatedResourceData;    
     if (checked) {
       let updatedRequirement = { [value]: checked.toString() }
-      updatedResourceData = update(resourceData, {properties: {$push: [updatedRequirement]}})
+      updatedResourceData = update(resourceData, {properties: {$merge: updatedRequirement}})
     } else {
       let indexResource = resourceData.properties.findIndex(p => Object.keys(p)[0] == value)
       if (indexResource >= 0) {
