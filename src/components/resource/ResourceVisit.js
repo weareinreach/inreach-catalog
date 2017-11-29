@@ -21,6 +21,10 @@ const styles = theme => ({
   },
   lineSpacing: {
     lineHeight: "1.4rem"
+  },
+  locationSpacing: {
+    marginTop: "0.3rem",
+    marginBottom: "0.3rem"
   }
 });
 
@@ -59,7 +63,7 @@ const Visit = ({resource, classes, isMobile, hideTitle, className}) => (
       </Typography> : null }
       {resource.locations && resource.locations.length ? 
         resource.locations.map((location) => (
-          <div key={location.id}>
+          <div key={location.id} className={resource.locations.length>1 ? classes.locationSpacing : null}>
             <Typography type="body2" className={classes.lineSpacing} >
               <strong className={classes.boldFont}>{location.name ? location.name : 'Location'}: </strong>
               {addressParser({address: location})}
