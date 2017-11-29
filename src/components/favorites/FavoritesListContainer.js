@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
-import {deleteListFavorite} from '../../helpers/odasRequests';
+import {deleteListFavorite, fetchPublicList} from '../../helpers/odasRequests';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
@@ -19,6 +19,7 @@ class FavoritesListContainer extends React.Component {
       anchorEl: null,
       loadingResources: this.props.match.params.listId ? true : false,
       open: false,
+      publicList: false,
       resources: [],
     };
 
@@ -68,11 +69,30 @@ class FavoritesListContainer extends React.Component {
     );
     if (list && list.fetchable_list_items.length) {
       this.fetchResources(list.fetchable_list_items);
-    } else {
+    } else if (list && !list.fetchable_list_items.length) {
       this.setState({
         loadingResources: false,
         resources: [],
       });
+    } else {
+      fetchPublicList(listId)
+        .then(data => {
+          if (data.collection.fetchable_list_items) {
+            this.fetchResources(data.collection.fetchable_list_items)
+          } else {
+            this.setState({
+              loadingResources: false,
+              resources: [],
+              publicList: true,
+            });
+          }
+        })
+        .catch(error => {
+          this.setState({
+            loadingResources: false,
+            resources: [],
+          });
+        });
     }
   }
 

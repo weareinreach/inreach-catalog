@@ -64,6 +64,12 @@ export const fetchUser = session => {
   return handleFetch(url, options);
 };
 
+export const fetchPublicList = slug => {
+  const url = `${odas}api/collections/${slug}`;
+  const options = {headers: headers()};
+  return handleFetch(url, options);
+};
+
 export const fetchUserLists = session => {
   const url = `${odas}api/account/collections/all`;
   const options = {headers: headers(session)};

@@ -141,7 +141,6 @@ const FavoritesList = ({
                     handleMessageNew={handleMessageNew}
                     handleListRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
-                    listId={list.slug}
                     resource={resource}
                     format='favorites'
                   />
