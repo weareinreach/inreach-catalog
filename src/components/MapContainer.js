@@ -78,6 +78,7 @@ class MapContainer extends React.Component {
     this.handlePrintClick = this.handlePrintClick.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
     this.setSelectedResource = this.setSelectedResource.bind(this)
+    this.clearResourceTypes = this.clearResourceTypes.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
   }
@@ -126,6 +127,16 @@ class MapContainer extends React.Component {
     this.setState({
       selectedFilters: []
     })
+  }
+
+  clearResourceTypes(ev) {
+    if(ev) {
+      ev.preventDefault();
+    }
+    
+    this.setState({
+      selectedResourceTypes: []
+    });
   }
 
   handlePlaceSelect(address) {
@@ -414,6 +425,7 @@ class MapContainer extends React.Component {
               <div className="container--search">
                 <Switch>
                   <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
+                    clearResourceTypes={this.clearResourceTypes}
                     handlePlaceSelect={this.handlePlaceSelect} 
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
@@ -424,6 +436,7 @@ class MapContainer extends React.Component {
                     }
                   <Route path="/search/:near/:for/:filter/:sort" render={ props => (
                     <SearchResultsContainer {...props} {...this.state}
+                      clearResourceTypes={this.clearResourceTypes}
                       clearSearchFilters={this.clearSearchFilters}
                       clearSearchStatus={this.clearSearchStatus}
                       fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
