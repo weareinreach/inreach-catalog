@@ -19,7 +19,7 @@ class FavoritesListContainer extends React.Component {
       anchorEl: null,
       loadingResources: this.props.match.params.listId ? true : false,
       open: false,
-      publicList: false,
+      publicList: null,
       resources: [],
     };
 
@@ -76,16 +76,16 @@ class FavoritesListContainer extends React.Component {
       });
     } else {
       fetchPublicList(listId)
-        .then(data => {
-          if (data.collection.fetchable_list_items) {
-            this.fetchResources(data.collection.fetchable_list_items)
+        .then(({collection}) => {
+          if (collection.fetchable_list_items) {
+            this.fetchResources(collection.fetchable_list_items)
           } else {
             this.setState({
               loadingResources: false,
               resources: [],
-              publicList: true,
             });
           }
+          this.setState({ publicList: collection.title });
         })
         .catch(error => {
           this.setState({

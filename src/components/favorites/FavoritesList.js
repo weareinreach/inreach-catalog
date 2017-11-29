@@ -54,6 +54,7 @@ const FavoritesList = ({
   lists,
   match,
   open,
+  publicList,
   resources,
   session,
   user,
@@ -66,12 +67,12 @@ const FavoritesList = ({
     spacing={0}
     >
     <Typography className={classes.marginTop} type="display1">
-      Favorites
+      {publicList ? publicList : 'Favorites'}
     </Typography>
     {session
       ? (
         <Typography type="body1">
-          Your favorites lists are only visible to you and anyone you choose to share your lists with.
+          {!publicList && 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'}
         </Typography>
       ) : (
         <Typography className={classes.minHeight350} type="body1">
@@ -86,49 +87,51 @@ const FavoritesList = ({
         direction="row"
         justify="space-between"
         >
-        <Grid 
-          container 
-          className={classes.mainRow} 
-          justify="space-between"
-          >
-          <Button
-            aria-owns={open ? 'favorites-menu' : null}
-            aria-haspopup="true"
-            onClick={handleMenuOpen}>
-            {list ? list.title : 'Select A List'}
-            {` `}
-            <Fa
-              className={classes.marginLeft}
-              name={open ? 'chevron-up' : 'chevron-down'}
-            />
-          </Button>
-          <div>
-            {list && (
-              <AsylumConnectButton 
-                variant="secondary"
-                onClick={() => {window.print()}}
-              >
-                Print
-              </AsylumConnectButton>
-            )}
-            {list && (
+        {!publicList && (
+          <Grid 
+            container 
+            className={classes.mainRow} 
+            justify="space-between"
+            >
+            <Button
+              aria-owns={open ? 'favorites-menu' : null}
+              aria-haspopup="true"
+              onClick={handleMenuOpen}>
+              {list ? list.title : 'Select A List'}
+              {` `}
+              <Fa
+                className={classes.marginLeft}
+                name={open ? 'chevron-up' : 'chevron-down'}
+              />
+            </Button>
+            <div>
+              {list && (
+                <AsylumConnectButton 
+                  variant="secondary"
+                  onClick={() => {window.print()}}
+                >
+                  Print
+                </AsylumConnectButton>
+              )}
+              {list && (
+                <AsylumConnectButton
+                  className={classes.marginLeft}
+                  onClick={() => (session 
+                    ? handleRequestOpen('share/collection/'+list.id+'/'+list.title)
+                    : handleMessageNew('You must be logged in to share resources'))}
+                  variant="primary">
+                  Share
+                </AsylumConnectButton>
+              )}
               <AsylumConnectButton
                 className={classes.marginLeft}
-                onClick={() => (session 
-                  ? handleRequestOpen('share/collection/'+list.id+'/'+list.title)
-                  : handleMessageNew('You must be logged in to share resources'))}
+                onClick={() => handleRequestOpen('listNew/favoritesList')}
                 variant="primary">
-                Share
+                <Fa className={classes.marginRight} name="plus" /> Create New List
               </AsylumConnectButton>
-            )}
-            <AsylumConnectButton
-              className={classes.marginLeft}
-              onClick={() => handleRequestOpen('listNew/favoritesList')}
-              variant="primary">
-              <Fa className={classes.marginRight} name="plus" /> Create New List
-            </AsylumConnectButton>
-          </div>
-        </Grid>
+            </div>
+          </Grid>
+        )}
         <Grid container justify="center">
           <div className={classes.minHeight350}>
             {loadingResources ? (
@@ -217,6 +220,7 @@ const FavoritesList = ({
 FavoritesList.defaultProps = {
   anchorEl: null,
   list: null,
+  publicList: null,
   session: null,
   user: null,
 };
@@ -235,6 +239,7 @@ FavoritesList.propTypes = {
   list: PropTypes.object,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   open: PropTypes.bool.isRequired,
+  publicList: PropTypes.string,
   resources: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
   user: PropTypes.number,
