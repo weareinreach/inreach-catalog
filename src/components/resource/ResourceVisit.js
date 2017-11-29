@@ -59,28 +59,35 @@ const Visit = ({resource, classes, isMobile, hideTitle, className}) => (
       </Typography> : null }
       {resource.locations && resource.locations.length ? 
         resource.locations.map((location) => (
-          <Typography key={location.id} type="body2" className={classes.lineSpacing} >
-            <strong className={classes.boldFont}>Location: </strong>
-            {addressParser({address: location})}
-          </Typography>
+          <div key={location.id}>
+            <Typography type="body2" className={classes.lineSpacing} >
+              <strong className={classes.boldFont}>{location.name ? location.name : 'Location'}: </strong>
+              {addressParser({address: location})}
+            </Typography>
+            {location.schedule && Object.keys(location.schedule).length > 1 
+            ?
+              <Typography type="body2" className={classes.lineSpacing} >
+                <strong className={classes.boldFont}>Hours: </strong>
+                {scheduleParser({schedule: location.schedule}).map((sch) => {
+                  return sch.days+' '+sch.time;
+                }).join(', ')}
+              </Typography>
+            : null}
+            {location.schedule 
+              && Object.keys(location.schedule).length > 1 
+              && location.schedule.notes 
+              && trim(location.schedule.notes).length 
+            ?
+              <Typography type="body2" className={classes.lineSpacing} >
+                <strong className={classes.boldFont}>Additional Information: </strong>
+                {location.schedule.notes}
+              </Typography>
+            : null}
+          </div>
         ))
       : null}
-      {resource.schedule && Object.keys(resource.schedule).length > 1 ?
-        <Typography type="body2" className={classes.lineSpacing} >
-          <strong className={classes.boldFont}>Hours: </strong>
-          {scheduleParser({schedule: resource.schedule})}
-        </Typography>
-      : null}
-      {resource.schedule 
-        && Object.keys(resource.schedule).length > 1 
-        && resource.schedule.note 
-        && trim(resource.schedule.note).length 
-      ?
-        <Typography type="body2" className={classes.lineSpacing} >
-          <strong className={classes.boldFont}>Additional Information: </strong>
-          {resource.schedule.note}
-        </Typography>
-      : null}
+      
+      
       {/*<Typography type="body2" className={classes.lineSpacing} >
         <strong className={classes.boldFont}>Public transportation: </strong>
       </Typography>*/}

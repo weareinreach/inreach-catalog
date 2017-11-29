@@ -46,10 +46,10 @@ export const scheduleParser = ({ schedule, format = 'condensed' } = { }) => {
         if(i == 0 || openHours[i].times !== openHours[i-1].times) {
           final.push({
             start: openHours[i].name,
-            time: openHours[i].time
+            time: openHours[i].times  
           });
         } else if(openHours[i].times === openHours[i-1].times) {
-          final[final.length-1].end = openHours[i].openHours[i].name;
+          final[final.length-1].end = openHours[i].name;
         }
         if(i+1 == openHours.length) {
           final = final.map((item) => {
@@ -59,9 +59,6 @@ export const scheduleParser = ({ schedule, format = 'condensed' } = { }) => {
               return {days: item.start, time: item.time};
             }
           })
-          if(final.length == 1 && final.times == "Closed") {
-            final = [];
-          }
         }
       break;
       case 'expanded':
@@ -69,6 +66,9 @@ export const scheduleParser = ({ schedule, format = 'condensed' } = { }) => {
       case 'minimal':
       break;
     }
+  }
+  if(final.length == 1 && final.time == "Closed") {
+    final = [];
   }
   return final;
 }
