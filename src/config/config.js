@@ -8,7 +8,7 @@ const config = {
     mailgun:{
       apiKey: "key-87a9f61957b37b2281094b647eb4d34e",
       domain: "email.asylumconnectcatalog.org",
-      defaultSubject: "This is a test message from Asylum Connect"
+      defaultSubject: "This is a test message from AsylumConnect"
     },
   },
   production: {
@@ -19,7 +19,7 @@ const config = {
     mailgun: {
       apiKey: "key-87a9f61957b37b2281094b647eb4d34e",
       domain: "email.asylumconnectcatalog.org",
-      defaultSubject: "Someone shared something with you on the Asylum Connect Catalog"
+      defaultSubject: "Someone shared something with you on the AsylumConnect Catalog"
     }
   }
 };
