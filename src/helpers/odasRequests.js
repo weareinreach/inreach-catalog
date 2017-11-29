@@ -153,16 +153,6 @@ export const updateListPermissions = (listId, newPermissions, session) => {
   return handleFetch(url, options);
 }
 
-export const resetPassword = (payload) => {
-  const url = `${odas}api/passwords`;
-  const options = {
-    method: 'PUT',
-    headers: headers(),
-    body: JSON.stringify(payload),
-  };
-  return handleFetch(url, options);
-}
-
 export const updateUserEmail = (payload, session) => {
   const url = `${odas}api/user`;
   const options = {
