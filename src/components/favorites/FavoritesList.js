@@ -137,7 +137,7 @@ const FavoritesList = ({
                   <ResourceListItem
                     isOnFavoritesList={true}
                     handleMessageNew={handleMessageNew}
-                    handleRemoveFavorite={handleRemoveFavorite}
+                    handleListRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
                     listId={list.slug}
                     resource={resource}
