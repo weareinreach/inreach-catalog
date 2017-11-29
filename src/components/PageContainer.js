@@ -69,6 +69,18 @@ class PageContainer extends React.Component {
               />
             )}
             />
+            <Route path="/suggestions/new" render={()=>(
+              <Suggestion 
+                handleMessageNew={handleMessageNew} 
+                handleLogOut={handleLogOut} 
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+                session={session}
+                user={user}
+                session={session}
+                />
+            )}
+            />
           </Switch>
       </div>
     );

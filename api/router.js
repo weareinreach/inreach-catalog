@@ -96,7 +96,8 @@ module.exports = {
       .catch(err => {
         res.json({
           status: "error",
-          message: err
+          statusCode: err.status,
+          message: err.message
         })
       })
 
@@ -131,27 +132,34 @@ function confirmLogin(authToken){
     else{
       options.headers.authorization = 'Bearer '+authToken;
     }
-
+    
     fetch(url, options)
-      .then((response) => {
-        return response.json();
+      .then((response) => { 
+        if (response.status >= 200 && response.status < 300) {
+          return response;
+        } else {
+          var error = new Error(response.statusText);
+          error.response = response;
+          throw error;
+        }
       })
+      .then((response) => (response.json()))
       .then((response) => {
         if(typeof response.message !== "undefined"){
-          reject("Authorization error: "+ response.message);
+          reject({message:"Authorization error: "+ response.message});
         }
         else if(typeof response.user !== "object"){
-          reject("No user given"); //this will probably never fire, but left as a catch
+          reject({message:"No user given"}); //this will probably never fire, but left as a catch
         }
         else if(response.user.active){
           resolve(response.user);
         }
         else{
-          reject("Unknown error")
+          reject({message:"Unknown error"})
         }
       })
-      .catch((response) => {
-        reject("User not found");
+      .catch((error) => {
+        reject({message:"Authentication failed", status: error.response.status});
       })
 
   })

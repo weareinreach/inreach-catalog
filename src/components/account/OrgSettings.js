@@ -175,7 +175,6 @@ class OrgSettings extends React.Component {
       }
     }
     updatedOrgData = update(orgData, {locations: { 0: {schedule: {$merge: schedule} }}})
-    console.log(updatedOrgData)
     // Submit
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,

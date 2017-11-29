@@ -66,6 +66,7 @@ const AsylumConnectDialog = ({
         // share should be in the pattern share/{type}/{id}/{title}
         <ShareDialog
           handleMessageNew={handleMessageNew}
+          handleRequestOpen={handleRequestOpen}
           handleRequestClose={handleRequestClose}
           session={session}
           listId={dialog.split('/')[2]}
@@ -83,6 +84,7 @@ const AsylumConnectDialog = ({
       {dialog === 'password' &&
         <PasswordDialog
           handleMessageNew={handleMessageNew}
+          handleRequestOpen={handleRequestOpen}
           handleRequestClose={handleRequestClose}
           session={session}
         />
