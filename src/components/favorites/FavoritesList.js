@@ -7,6 +7,8 @@ import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui/Tooltip';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
@@ -22,19 +24,22 @@ const styles = theme => ({
   footer: {
     backgroundColor: theme.palette.common.blue,
     color: theme.palette.common.darkWhite,
+    minHeight: '180px',
     padding: '3rem 0',
 
   },
+  minHeight350: { minHeight: '350px' },
   marginBottom: {marginBottom: '2rem'},
   marginLeft: {marginLeft: '1rem'},
   marginRight: {marginRight: '1rem'},
   marginTop: {marginTop: '2rem'},
   mainRow: {
     borderBottom: `1px solid ${theme.palette.common.darkGrey}`,
-    margin: '1rem -8px .5rem',
+    margin: '1rem 0px .5rem',
     paddingBottom: '1rem',
   },
   textWhite: {color: theme.palette.common.darkWhite},
+  tooltip: { fontFamily: 'sans-serif' },
 });
 
 const FavoritesList = ({
@@ -66,23 +71,30 @@ const FavoritesList = ({
     <Typography className={classes.marginTop} type="display1">
       Favorites
     </Typography>
-    <Typography type="body1">
-      {session
-        ? 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'
-        : 'You must be logged in to use favorites.'
-      }
-    </Typography>
+    {session
+      ? (
+        <Typography type="body1">
+          Your favorites lists are only visible to you and anyone you choose to share your lists with.
+        </Typography>
+      ) : (
+        <Typography className={classes.minHeight350} type="body1">
+          You must be logged in to use favorites.
+        </Typography>
+      )
+    }
     {session && (
       <Grid
         container
         className={classes.container}
         direction="row"
         justify="space-between"
+        spacing={0}
         >
         <Grid 
           container 
           className={classes.mainRow} 
           justify="space-between"
+          spacing={0}
           >
           <Button
             aria-owns={open ? 'favorites-menu' : null}
@@ -90,16 +102,23 @@ const FavoritesList = ({
             onClick={handleMenuOpen}>
             {list ? list.title : 'Select A List'}
             {` `}
-            <Fa className={classes.marginLeft} name="chevron-down" />
+            <Fa
+              className={classes.marginLeft}
+              name={open ? 'chevron-up' : 'chevron-down'}
+            />
           </Button>
           <div>
             {list && (
-              <AsylumConnectButton 
-                variant="secondary"
-                onClick={() => {window.print()}}
+              <Tooltip
+                className={classes.tooltip+' hide--on-print'}
+                classes={{tooltipTop:"badge-tooltipTop"}}
+                title='Print Favorites'
+                placement="top"
               >
-                Print
-              </AsylumConnectButton>
+                <IconButton color="primary" style={{height: 'auto'}} onClick={() => {window.print()}}>
+                  <Fa name="print" />
+                </IconButton>
+              </Tooltip>
             )}
             {list && (
               <AsylumConnectButton
@@ -118,16 +137,16 @@ const FavoritesList = ({
           </div>
         </Grid>
         <Grid container justify="center">
-          <div>
+          <div className={classes.minHeight350}>
             {loadingResources ? (
-              <Fa name="spinner" spin />
+              <Fa className={classes.marginTop} name="spinner" spin />
             ) : (
               <div>
                 {resources.map(resource =>
                   <ResourceListItem
                     isOnFavoritesList={true}
                     handleMessageNew={handleMessageNew}
-                    handleRemoveFavorite={handleRemoveFavorite}
+                    handleListRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
                     listId={list.slug}
                     resource={resource}
@@ -137,7 +156,7 @@ const FavoritesList = ({
               </div>
             )}
             {!loadingResources && list && resources.length === 0 && (
-              <Typography type="body1">
+              <Typography className={classes.marginTop} type="body1">
                 You haven't added any resources to this list yet.
               </Typography>
             )}
@@ -146,35 +165,41 @@ const FavoritesList = ({
       </Grid>
     )}
 
-    {list && (
-      <Grid
-        container
-        className={classes.footer}
-        direction="column"
-        alignItems="center"
-        spacing={0}
-        >
-        <Typography
-          className={classNames(classes.marginBottom, classes.textWhite)}
-          type="display2">
-          {`Share "${list.title}" Favorites List`}
-        </Typography>
-        <Grid container 
-          justify="center"
-          spacing={0}
-          >
-          <AsylumConnectButton className={classes.marginRight} variant="primary">
-            Print
-          </AsylumConnectButton>
-          <AsylumConnectButton
-            className={classes.marginLeft}
-            onClick={() => handleRequestOpen('listShare')}
-            variant="primary">
-            Share
-          </AsylumConnectButton>
-        </Grid>
-      </Grid>
-    )}
+    {/*<Grid
+      container
+      className={classes.footer}
+      direction="column"
+      alignItems="center"
+      spacing={0}
+      >
+      {list && (
+        <div>
+          <Typography
+            className={classNames(classes.marginBottom, classes.textWhite)}
+            type="display2">
+            {`Share "${list.title}" Favorites List`}
+          </Typography>
+          <Grid container 
+            justify="center"
+            spacing={0}
+            >
+            <AsylumConnectButton
+              className={classes.marginRight}
+              onClick={() => {window.print()}}
+              variant="primary"
+            >
+              Print
+            </AsylumConnectButton>
+            <AsylumConnectButton
+              className={classes.marginLeft}
+              onClick={() => handleRequestOpen('share/collection/'+list.id+'/'+list.title)}
+              variant="primary">
+              Share
+            </AsylumConnectButton>
+          </Grid>
+        </div>
+      )}
+    </Grid>*/}
 
     <Menu
       id="favorites-menu"
