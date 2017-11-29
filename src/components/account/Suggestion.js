@@ -65,12 +65,11 @@ const defaultResource = {
       "email": "",
     }
   ],
-  "properties": [
-      {
-          "name": "approval-asylumconnect",
-          "value": "false"
-      },
-  ],
+  "properties":{
+    "source-name": "asylumconnect",
+    "community-asylum-seeker": "true",
+    "community-lgbt": "true"
+  },
   "locations": [
       {
           "name": "",
@@ -224,24 +223,25 @@ class Suggestion extends React.Component {
   }
   handleSelectNonEngServices(action, nonEngService, index){
     const { resourceData, nonEngServices } = this.state
-    let updatedNonEngServices, requestService, updatedResourceData;
+    let updatedNonEngServices, requestService, updatedProperties, updatedResourceData;
      
     if (action=='add'){
       // Add selected service to nonEngServices state
       updatedNonEngServices = update(nonEngServices, {$push: [nonEngService]})
       // Add selected service to request resource Data
-      requestService = {'name':'lang-' + nonEngService.split(' ').join('-'), 'value': 'true'}
-      updatedResourceData = update(resourceData, {properties: {$push:[requestService]}})
+      requestService = {['lang-' + nonEngService.split(' ').join('-')]: 'true'}
+      updatedResourceData = update(resourceData, {properties: {$merge:requestService}})
     } else {
       // Remove selected service from nonEngServices
       updatedNonEngServices = update(nonEngServices, {$splice: [[index,1]]})      
       // Remove select service from request resourceData
       requestService = 'lang-' + nonEngService.split(' ').join('-')
       // Find index of the select service in resourceData.properties array
-      let indexResource = resourceData.properties.findIndex(p => p.name == requestService)
-      if (indexResource >= 0) {
-        updatedResourceData = update(resourceData, {properties: {$splice: [[indexResource,1]]}})
-      }      
+      updatedProperties = resourceData.properties
+      delete updatedProperties[requestService]
+      
+      updatedResourceData = update(resourceData, {properties: {$set: updatedProperties}})
+      
     }
     this.setState({nonEngServices: updatedNonEngServices, resourceData: updatedResourceData})
     
@@ -327,7 +327,7 @@ class Suggestion extends React.Component {
     let updatedResourceData = update(resourceData, {tags: {$set: selectedResourceTypes}})
     this.setState({resourceData: updatedResourceData})
   }
-  handleClick(){    
+  handleClick(){
     // Require authentication for submission
     const {handleMessageNew, handleRequestOpen, handleLogOut, session} = this.props;
     if (!session) {
@@ -377,7 +377,7 @@ class Suggestion extends React.Component {
 
     this.setState({resourceData: updatedResourceData4})
 
-
+    console.log(updatedResourceData4)
     this.submitResource(updatedResourceData4)
   }
 
