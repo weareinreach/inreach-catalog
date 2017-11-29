@@ -377,7 +377,7 @@ class Suggestion extends React.Component {
 
     this.setState({resourceData: updatedResourceData4})
 
-    console.log(updatedResourceData4)
+    //console.log(updatedResourceData4)
     this.submitResource(updatedResourceData4)
   }
 
@@ -405,7 +405,7 @@ class Suggestion extends React.Component {
     .then(response => {
       if (response.status === 200) {
         this.setState({isSent: true})
-        handleMessageNew('Your information has been submitted for reviewing.');
+        handleMessageNew('Your information has been submitted to be reviewed.');
       } else {
         handleMessageNew('Oops! Something went wrong.');
       }
@@ -460,7 +460,7 @@ class Suggestion extends React.Component {
           </div>
         ):(
           <div className={classes.settingsTypeFont}>
-            <span>Thank you for your request! All changes will be review by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a href="mailto:catalog@asylumconnect.org" className={classes.boldFont}>catalog@asylumconnect.org</a>.</span>
+            <span>Thank you for your request! All changes will be reviewed by the AsylumConnect team and verification permitting, published as soon as possible. Question? Please email <a href="mailto:catalog@asylumconnect.org" className={classes.boldFont}>catalog@asylumconnect.org</a>.</span>
           </div>
         )}
         </div>
