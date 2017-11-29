@@ -21,7 +21,7 @@ const styles = theme => ({
   bgLightGrey: { backgroundColor: theme.palette.common.lightGrey },
   paddingBelow: { paddingBottom: '0.5rem' },
   paddingBelowLarge: { paddingBottom: '2rem' },
-  paddingVertical: { padding: '1.5rem 0' },
+  paddingVertical: { padding: '2rem 0' },
   centerColumn: {
     maxWidth: theme.maxColumnWidth,
     margin: "0 auto"
@@ -68,9 +68,9 @@ const Footer = ({ classes }) => {
 
   return (
     <footer className={classNames(textCenter, bgDarkGrey)}>
-      <Grid container spacing={0} className={classNames(centerColumn, paddingVertical)}>
+      <Grid container spacing={0} alignItems="center" className={classNames(centerColumn, paddingVertical)}>
 
-        <Grid item xs={12} md={6} className={paddingBelowLarge}>
+        <Grid item xs={12} md={6}>
           <Grid container justify="center">
             <ContactLink
               link="https://www.facebook.com/asylumconnect"
@@ -103,21 +103,21 @@ const Footer = ({ classes }) => {
           <Grid container spacing={0}>
             <Grid item xs>
               <Link to="/suggestions/new">
-                <Typography type="display3" className={paddingBelow}>
+                <Typography type="display3">
                   Suggest a Resource
                 </Typography>
               </Link>
             </Grid>
             <Grid item xs>
               <a href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL">
-                <Typography type="display3" className={paddingBelow}>
+                <Typography type="display3">
                   Share Feedback
                 </Typography>
               </a>
             </Grid>
             <Grid item xs>
               <a href="http://www.asylumconnect.org/contact-us">
-                <Typography type="display3" className={paddingBelow}>
+                <Typography type="display3">
                   Subscribe to our Newletter
                 </Typography>
               </a>

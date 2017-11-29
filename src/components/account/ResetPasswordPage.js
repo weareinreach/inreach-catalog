@@ -47,8 +47,8 @@ class ResetPasswordPage extends React.Component {
     }
     let query = queryString.parse(location.search);
 
-    if(query && query.token) {
-      this.token = query.token
+    if(query && (query.token || query.t)) {
+      this.token = query.token || query.t;
     } else {
       handleMessageNew('Invalid password reset token.');
       history.push('/');
