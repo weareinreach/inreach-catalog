@@ -116,7 +116,7 @@ const Footer = ({ classes }) => {
               </a>
             </Grid>
             <Grid item xs>
-              <a href="http://www.asylumconnect.org/contact-us">
+              <a href="https://www.asylumconnect.org/follow-us-subscribe">
                 <Typography type="display3">
                   Subscribe to our Newletter
                 </Typography>
