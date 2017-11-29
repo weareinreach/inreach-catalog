@@ -28,12 +28,28 @@ const styles = theme => ({
   },
   textBlack: { color: theme.palette.common.darkBlack },
   textCenter: { textAlign: 'center' },
+  footerLink: {
+    color: theme.typography.body2.color,
+    textDecoration: 'underline',
+    '&:link': {
+      color: theme.typography.body2.color
+    },
+    '&:hover': {
+      color: theme.typography.body2.color,
+      textDecoration: 'none',
+    },
+    '&:active': {
+      color: theme.typography.body2.color
+    }
+
+  }
 });
 
 const Footer = ({ classes }) => {
   const {
     bgDarkGrey,
     bgLightGrey,
+    footerLink,
     paddingBelow,
     paddingBelowLarge,
     paddingVertical,
@@ -55,9 +71,6 @@ const Footer = ({ classes }) => {
       <Grid container spacing={0} className={classNames(centerColumn, paddingVertical)}>
 
         <Grid item xs={12} md={6} className={paddingBelowLarge}>
-          <Typography type="display3" className={paddingBelow}>
-            Connect with AsylumConnect
-          </Typography>
           <Grid container justify="center">
             <ContactLink
               link="https://www.facebook.com/asylumconnect"
@@ -87,41 +100,35 @@ const Footer = ({ classes }) => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <div className={paddingBelow}>
-            <Link
-              to="/"
-            >
-              <AsylumConnectButton variant="primary">
-                Suggest a Resource
-              </AsylumConnectButton>
-            </Link>
-          </div>
-          <div className={paddingBelow}>
-            <a
-              href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
-              className={paddingBelow}
-            >
-              <AsylumConnectButton variant="primary">
-                Share Feedback
-              </AsylumConnectButton>
-            </a>
-          </div>
-          <Typography type="display3" className={paddingBelow}>
-            Stay Updated on AsylumConnect's Lifesaving Initiatives
-          </Typography>
-          <a
-            href="http://www.asylumconnect.org/contact-us"
-          >
-            <AsylumConnectButton variant="primary">
-              Subscribe to our newsletter
-            </AsylumConnectButton>
-          </a>
+          <Grid container spacing={0}>
+            <Grid item xs>
+              <Link to="/suggestions/new">
+                <Typography type="display3" className={paddingBelow}>
+                  Suggest a Resource
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs>
+              <a href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL">
+                <Typography type="display3" className={paddingBelow}>
+                  Share Feedback
+                </Typography>
+              </a>
+            </Grid>
+            <Grid item xs>
+              <a href="http://www.asylumconnect.org/contact-us">
+                <Typography type="display3" className={paddingBelow}>
+                  Subscribe to our Newletter
+                </Typography>
+              </a>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
 
       <div className={classNames(bgLightGrey, paddingVertical)}>
         <Typography type="body2">
-          AsylumConnect, Inc. 2016. All rights reserved. Powered by One Degree.
+          AsylumConnect, Inc. {(new Date()).getFullYear()}. All rights reserved. <a href="https://www.1degree.org" className={footerLink}>Powered by One Degree</a>.
         </Typography>
       </div>
 

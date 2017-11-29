@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
@@ -21,6 +21,15 @@ const styles = theme => ({
     cursor: 'pointer',
     position: 'relative'
   }),
+  uncheckLink: {
+    fontFamily: theme.typography.body2.fontFamily,
+    fontSize: theme.typography.body2.fontSize,
+    fontWeight: theme.typography.body2.fontWeight,
+    position: 'absolute',
+    right: '1rem',
+    top: '1rem',
+    textDecoration: 'none'
+  },
   [theme.breakpoints.down('sm')]: {
     searchInput: searchInputMobile(theme)
   },
@@ -82,14 +91,16 @@ class ResourceTypeSelector extends React.Component {
       sectionTitle, 
       subfilterSpacing, 
       dividerSpacing,
-      resourceList
+      resourceList,
+      uncheckLink
     } = this.props.classes;
-    const { onChange, selectedResourceTypes }= this.props;
+    const { onChange, selectedResourceTypes, clearResourceTypes }= this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const containerWidth = (isMobile ? '100%' : this.props.containerWidth+'px');
 
     return (
       <AsylumConnectSelector label="Resource Type" selected={selectedResourceTypes} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
+        <a href='#' onClick={clearResourceTypes} className={uncheckLink}>Uncheck All</a>
         {resourceTypes.map((filter, i) => (
             <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
           )
@@ -98,6 +109,10 @@ class ResourceTypeSelector extends React.Component {
       
     );
   }
+};
+
+ResourceTypeSelector.propTypes = {
+  clearResourceTypes: PropTypes.func.isRequired,
 };
 
 export default withWidth(withStyles(styles)(ResourceTypeSelector));

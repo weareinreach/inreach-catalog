@@ -102,7 +102,7 @@ const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange,
         <Grid item xs={12} md={6}>
         {orgReviews === false ? <Loading />
         :
-          <ReviewList title='Organizational Reviews' list={orgReviews} classes={classes} acOnly={acFilter} />
+          <ReviewList title='Reviews of the organization' list={orgReviews} classes={classes} acOnly={acFilter} />
         }
         </Grid>
         {isMobile ? 
@@ -115,7 +115,7 @@ const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange,
         <Grid item xs={12} md={6}>
         {oppReviews === false ? <Loading />
         :
-          <ReviewList title='Service Reviews' list={oppReviews} classes={classes} acOnly={acFilter} />
+          <ReviewList title='Reviews of specific services' list={oppReviews} classes={classes} acOnly={acFilter} />
         }
         </Grid>
       </Grid>

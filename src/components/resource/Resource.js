@@ -182,7 +182,7 @@ const HeaderTabs = (props) => (
 );
 
 const Tools = (props) => (
-  <Grid container spacing={0} alignItems='center' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
+  <Grid container spacing={0} alignItems='flex-end' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
     <Grid item xs={12} sm={12} md={5} lg={5}>
       <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
     </Grid>

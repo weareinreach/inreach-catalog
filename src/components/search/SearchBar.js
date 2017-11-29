@@ -111,7 +111,12 @@ class SearchBar extends React.Component {
           />
         </Grid>
         <Grid item sm={4} xs={12} className="hide--on-print">
-          <ResourceTypeSelector containerWidth={this.props.containerWidth} onChange={this.props.handleResourceTypeSelect} selectedResourceTypes={this.props.selectedResourceTypes} />
+          <ResourceTypeSelector 
+            containerWidth={this.props.containerWidth} 
+            onChange={this.props.handleResourceTypeSelect} 
+            selectedResourceTypes={this.props.selectedResourceTypes} 
+            clearResourceTypes={this.props.clearResourceTypes} 
+          />
         </Grid>
       </Grid>
     );
