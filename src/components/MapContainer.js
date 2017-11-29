@@ -249,7 +249,7 @@ class MapContainer extends React.Component {
     if(this.state.nearLatLng == null) {
       geocodeByAddress(this.props.nearAddress)
         .then(results => {
-          console.log(results);
+          //console.log(results);
           let state = {};
           if(results.length && results[0].address_components) {
             results[0].address_components.map((piece) => {
@@ -258,13 +258,13 @@ class MapContainer extends React.Component {
               }
             });
           }
-          console.log(getLatLng(results[0]))
+          //console.log(getLatLng(results[0]))
           return getLatLng(results[0]).then((latLng) => ({latLng, state}));
         })
         .then(redirect)
         .catch(error => {
           this.props.handleMessageNew("Unable to find your location, please try entering your city, state in the box above.");
-          console.error('Error', error)
+          //console.error('Error', error)
           this.setState({
             searchDisabled: false
           });
