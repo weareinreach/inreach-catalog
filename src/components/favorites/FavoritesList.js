@@ -7,6 +7,8 @@ import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui/Tooltip';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
@@ -33,10 +35,11 @@ const styles = theme => ({
   marginTop: {marginTop: '2rem'},
   mainRow: {
     borderBottom: `1px solid ${theme.palette.common.darkGrey}`,
-    margin: '1rem -8px .5rem',
+    margin: '1rem 0px .5rem',
     paddingBottom: '1rem',
   },
   textWhite: {color: theme.palette.common.darkWhite},
+  tooltip: { fontFamily: 'sans-serif' },
 });
 
 const FavoritesList = ({
@@ -85,11 +88,13 @@ const FavoritesList = ({
         className={classes.container}
         direction="row"
         justify="space-between"
+        spacing={0}
         >
         <Grid 
           container 
           className={classes.mainRow} 
           justify="space-between"
+          spacing={0}
           >
           <Button
             aria-owns={open ? 'favorites-menu' : null}
@@ -104,12 +109,16 @@ const FavoritesList = ({
           </Button>
           <div>
             {list && (
-              <AsylumConnectButton 
-                variant="secondary"
-                onClick={() => {window.print()}}
+              <Tooltip
+                className={classes.tooltip+' hide--on-print'}
+                classes={{tooltipTop:"badge-tooltipTop"}}
+                title='Print Favorites'
+                placement="top"
               >
-                Print
-              </AsylumConnectButton>
+                <IconButton color="primary" style={{height: 'auto'}} onClick={() => {window.print()}}>
+                  <Fa name="print" />
+                </IconButton>
+              </Tooltip>
             )}
             {list && (
               <AsylumConnectButton
@@ -156,7 +165,7 @@ const FavoritesList = ({
       </Grid>
     )}
 
-    <Grid
+    {/*<Grid
       container
       className={classes.footer}
       direction="column"
@@ -190,7 +199,7 @@ const FavoritesList = ({
           </Grid>
         </div>
       )}
-    </Grid>
+    </Grid>*/}
 
     <Menu
       id="favorites-menu"
