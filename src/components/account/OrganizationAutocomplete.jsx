@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
@@ -12,26 +13,17 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import {withStyles} from 'material-ui/styles';
 
-
 function renderInput(inputProps) {
-  const {classes, autoFocus, value, ref, isLoading} = inputProps;
-  delete inputProps['isLoading'];
-
+  const {classes, autoFocus, value, ref} = inputProps;
   return (
     <FormControl className={classes.textField}>
       <InputLabel htmlFor="organization">Organization Name</InputLabel>
       <Input
         id="organization"
+        onBlur={inputProps.onBlurOrganizations}
         value={value}
         ref={ref}
-        {...Object.assign({}, inputProps, {classes: { inputAdorned: classes.inputAdorned }})}
-        endAdornment={
-          <InputAdornment
-            style={isLoading ? null : {visibility: 'hidden'}}
-            position="end">
-            <Fa name="spinner" spin />
-          </InputAdornment>
-        }
+        {...Object.assign({}, inputProps, {classes: null})}
       />
     </FormControl>
   );
@@ -60,20 +52,59 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
   );
 }
 
+function renderLoadingContainer(options) {
+  const {containerProps, children} = options;
+  const styles = {
+    container: {
+      marginTop: '8px',
+      marginBottom: '24px',
+      left: 0,
+      position: 'absolute',
+      right: 0,
+    },
+    spinner: {
+      display: 'flex',
+      height: '40px',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  };
+  return (
+    <Paper {...containerProps} style={styles.container} square>
+      {children}
+      <div style={styles.spinner}>
+        <Fa name="spinner" spin />
+      </div>
+    </Paper>
+  );
+}
+
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
-
+  const {history, handleMessageNew} = this;
+  const styles = {
+    container: {
+      marginTop: '8px',
+      marginBottom: '24px',
+      left: 0,
+      position: 'absolute',
+      right: 0,
+    },
+  };
   return (
-    <Paper {...containerProps} square>
+    <Paper {...containerProps} style={styles.container} square>
       {children}
-      { query.length > 0 && children !== null && (
-        <a href="#">
+      {query.length > 0 && (
+        <Link to="/suggestions/new" onMouseDown={(e) => { //prevent onBlur from hiding link before the click is registered
+          history.push('/suggestions/new')
+          handleMessageNew('Once you\'ve completed signing up, use the suggest a resource form to add your organization to our system')
+        }}>
           <MenuItem component="div">
             <span style={{fontWeight: 200}}>
               Can't find it? Add a new organization here...
             </span>
           </MenuItem>
-        </a>
+        </Link>
       )}
     </Paper>
   );
@@ -107,20 +138,21 @@ const styles = theme => ({
   textField: {
     width: '100%',
   },
-  inputAdorned: {
-    width: '94%',
-  },
 });
 
 const OrganizationAutocomplete = ({
   classes,
+  handleBlurOrganizations,
+  handleMessageNew,
   handleOrganizationSearchChange,
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
   handleOrganizationsClearRequested,
+  history,
   isLoadingOrganizations,
   organizations,
   organizationSearch,
+  organizationSelection,
 }) => (
   <Autosuggest
     theme={{
@@ -133,24 +165,32 @@ const OrganizationAutocomplete = ({
     onSuggestionsFetchRequested={handleOrganizationsFetchRequested}
     onSuggestionsClearRequested={handleOrganizationsClearRequested}
     onSuggestionSelected={handleOrganizationSelect}
-    renderSuggestionsContainer={renderSuggestionsContainer}
+    renderSuggestionsContainer={
+      isLoadingOrganizations
+        ? renderLoadingContainer
+        : !organizationSelection ? renderSuggestionsContainer.bind({history, handleMessageNew}) : () => true
+    }
     getSuggestionValue={getSuggestionValue}
     renderInputComponent={renderInput}
     renderSuggestion={renderSuggestion}
     focusInputOnSuggestionClick={false}
     inputProps={{
-      autoFocus: true,
       classes,
       placeholder: 'Start typing...',
-      value: organizationSearch,
+      value:
+        organizationSearch ||
+        (organizationSelection && organizationSelection.name
+          ? organizationSelection.name
+          : ''),
+      onBlur: handleBlurOrganizations,
       onChange: handleOrganizationSearchChange,
-      isLoading: isLoadingOrganizations,
     }}
   />
 );
 
 OrganizationAutocomplete.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleBlurOrganizations: PropTypes.func.isRequired,
   handleOrganizationSearchChange: PropTypes.func.isRequired,
   handleOrganizationSelect: PropTypes.func.isRequired,
   handleOrganizationsFetchRequested: PropTypes.func.isRequired,
