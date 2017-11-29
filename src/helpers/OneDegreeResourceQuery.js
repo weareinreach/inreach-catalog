@@ -83,6 +83,11 @@ class OneDegreeResourceQuery {
     return this;
   }
 
+  setState(state) {
+    this.filters.query.state = state;
+    return this;
+  }
+
   setPerPage(perPage) {
     this.filters.per_page = perPage;
     return this;

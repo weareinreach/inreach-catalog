@@ -199,7 +199,7 @@ class AsylumConnectCatalog extends React.Component {
               />)}
             />
           <Route
-            path="/search/:place/:near/:for/:filter/:sort"
+            path="/search/:in/:place/:near/:for/:filter/:sort"
             render={(props) => (
               <MapContainer
                 {...props}
@@ -216,9 +216,9 @@ class AsylumConnectCatalog extends React.Component {
                 user={user}
               />)}
             />
-              <RedirectWithParams from={"/search/:place/:near/:for/:filter"} to={"/search/:place/:near/:for/:filter/default"} />
-              <RedirectWithParams from={"/search/:place/:near/:for"} to={"/search/:place/:near/:for/all/default"} />
-              <RedirectWithParams from={"/search/:place/:near/"} to={"/search/:place/:near/any/all/default"} />
+              <RedirectWithParams from={"/search/:in/:place/:near/:for/:filter"} to={"/search/:in/:place/:near/:for/:filter/default"} />
+              <RedirectWithParams from={"/search/:in/:place/:near/:for"} to={"/search/:in/:place/:near/:for/all/default"} />
+              <RedirectWithParams from={"/search/:in/:place/:near/"} to={"/search/:in/:place/:near/any/all/default"} />
               <Redirect from="/search" to="/"/>
               <Redirect from="/resource" to="/"/>
               <Route render={(props) => (
