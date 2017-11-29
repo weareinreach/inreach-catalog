@@ -90,6 +90,7 @@ class ResourceListItem extends React.Component {
       handleRemoveFavorite,
       handleRequestOpen,
       isOnFavoritesList,
+      isOnPublicList,
       slug,
       lists,
       session,
@@ -145,7 +146,7 @@ class ResourceListItem extends React.Component {
                     user={user}
                   />
                 )}
-                {isOnFavoritesList && (
+                {isOnFavoritesList && !isOnPublicList && (
                   <Button onClick={() => handleListRemoveFavorite(resource.id)}>
                     <Fa name="times"/>
                   </Button>

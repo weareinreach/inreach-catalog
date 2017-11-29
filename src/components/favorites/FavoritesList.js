@@ -69,7 +69,7 @@ const FavoritesList = ({
     <Typography className={classes.marginTop} type="display1">
       {publicList ? publicList : 'Favorites'}
     </Typography>
-    {session
+    {session || publicList
       ? (
         <Typography type="body1">
           {!publicList && 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'}
@@ -80,7 +80,7 @@ const FavoritesList = ({
         </Typography>
       )
     }
-    {session && (
+    {(session || publicList) && (
       <Grid
         container
         className={classes.container}
@@ -141,6 +141,7 @@ const FavoritesList = ({
                 {resources.map(resource =>
                   <ResourceListItem
                     isOnFavoritesList={true}
+                    isOnPublicList={publicList}
                     handleMessageNew={handleMessageNew}
                     handleListRemoveFavorite={handleRemoveFavorite}
                     key={resource.id}
