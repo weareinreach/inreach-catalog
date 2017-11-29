@@ -383,7 +383,7 @@ class Suggestion extends React.Component {
 
   submitResource(data){
     const {user, handleMessageNew} = this.props;
-    const client_user_id = user ? user.id : 0
+    const client_user_id = user ? user : 0
     const payload = {
       "api_key": config[process.env.OD_API_ENV].odApiKey,
       "submission": {

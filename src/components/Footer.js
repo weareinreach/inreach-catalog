@@ -89,7 +89,7 @@ const Footer = ({ classes }) => {
         <Grid item xs={12} md={6}>
           <div className={paddingBelow}>
             <Link
-              to="/suggestion/new"
+              to="/suggestions/new"
             >
               <AsylumConnectButton variant="primary">
                 Suggest a Resource
