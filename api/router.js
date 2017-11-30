@@ -3,6 +3,7 @@ require('dotenv').load();
 const crypto = require('crypto');
 const fetch = require('node-fetch');
 const config = require('../src/config/config');
+const serverConfig = require('../config/config');
 const mailgun = require("mailgun.js");
 const striptags = require("striptags");
 
@@ -173,8 +174,8 @@ function confirmLogin(authToken){
  */
 function send(email){
   return new Promise((resolve, reject) => {
-    var mg = mailgun.client({username: 'api', key: config[process.env.OD_API_ENV].mailgun.apiKey});
-    mg.messages.create(config[process.env.OD_API_ENV].mailgun.domain, {
+    var mg = mailgun.client({username: 'api', key: serverConfig[process.env.OD_API_ENV].mailgun.apiKey});
+    mg.messages.create(serverConfig[process.env.OD_API_ENV].mailgun.domain, {
         from: email.sender,
         to: email.recipients,
         subject: email.subject,
@@ -203,7 +204,7 @@ function send(email){
 async function makeEmail(req, res, userData){
   let subject = req.body.subject;
   if(!subject){
-    let defaultSubject = config[process.env.OD_API_ENV].mailgun.defaultSubject;
+    let defaultSubject = serverConfig[process.env.OD_API_ENV].mailgun.defaultSubject;
     subject = typeof defaultSubject === "function" ? defaultSubject(req.body) : defaultSubject;
   }
 
