@@ -48,6 +48,7 @@ const FavoritesListMobile = ({
   lists,
   match,
   open,
+  publicList,
   resources,
   session,
   user,
@@ -59,17 +60,18 @@ const FavoritesListMobile = ({
       }>
       <KeyboardArrowLeft />
     </IconButton>
-    {!session && (
-      <div>
+    {session || publicList
+      ? (
         <Typography className={classes.textCenter} type="display1">
-          Your Favorites
+          {publicList ? publicList : 'Favorites'}
         </Typography>
+      ) : (
         <Typography className={classNames(classes.spacingTop, classes.textCenter)} type="body1">
-          You must be logged in use favorites.
+          You must be logged in to use favorites.
         </Typography>
-      </div>
-    )}
-    {session && (
+      )
+    }
+    {(session || publicList) && (
       <div>
         {/^listNew/.test(dialog) && (
           <ListNewFormContainer
@@ -84,26 +86,30 @@ const FavoritesListMobile = ({
         )}
         {dialog === 'none' && (
           <div>
-            <Typography className={classes.textCenter} type="display1">
-              Your Favorites
-            </Typography>
-            <Typography className={classes.spacingTop} type="body1">
-              Select one of your favorites lists or{` `}
-              <a
-                className={classes.bodyLink}
-                onClick={() => handleRequestOpen('listNew/favoritesList')}>
-                create a new list.
-              </a>
-            </Typography>
-            <Button
-              aria-owns={open ? 'favorites-menu' : null}
-              aria-haspopup="true"
-              className={classes.spacingTop}
-              onClick={handleMenuOpen}>
-              {list ? list.title : 'Select A List'}
-              {` `}
-              <Fa className={classes.spacingLeft} name="chevron-down" />
-            </Button>
+            {!publicList ?
+              <div>
+                <Typography className={classes.textCenter} type="display1">
+                  Your Favorites
+                </Typography>
+                <Typography className={classes.spacingTop} type="body1">
+                  Select one of your favorites lists or{` `}
+                  <a
+                    className={classes.bodyLink}
+                    onClick={() => handleRequestOpen('listNew/favoritesList')}>
+                    create a new list.
+                  </a>
+                </Typography>
+                <Button
+                  aria-owns={open ? 'favorites-menu' : null}
+                  aria-haspopup="true"
+                  className={classes.spacingTop}
+                  onClick={handleMenuOpen}>
+                  {list ? list.title : 'Select A List'}
+                  {` `}
+                  <Fa className={classes.spacingLeft} name="chevron-down" />
+                </Button> 
+              </div> 
+            : null }
             <div className={classes.spacingTop}>
               <Grid item>
                 {loadingResources ? (
@@ -113,6 +119,7 @@ const FavoritesListMobile = ({
                     {resources.map(resource => (
                       <ResourceListItem
                         format={'favoritesMobile'}
+                        isOnPublicList={publicList}
                         handleMessageNew={handleMessageNew}
                         handleRemoveFavorite={handleRemoveFavorite}
                         isOnFavoritesList

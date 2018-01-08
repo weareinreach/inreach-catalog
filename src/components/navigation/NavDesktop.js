@@ -53,10 +53,10 @@ const NavDesktop = ({
     <a className="hide--on-screen" href="#">
       <Typography type="headline">AsylumConnect Catalog</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/about-us">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/who-we-are">
       <Typography type="display4">about us</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/take-action">
+    <a className="hide--on-print" href="http://www.asylumconnect.org/donate">
       <Typography type="display4">take action</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/seek-lgbtq-asylum">

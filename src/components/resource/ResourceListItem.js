@@ -179,7 +179,7 @@ class ResourceListItem extends React.Component {
               } else if (format === 'favoritesMobile' && item.fieldName === 'additional') {
                 text = (resource.schedule && resource.schedule.note) ? resource.schedule.note : null;
               }*/
-              if (isMobile) {
+              if (isMobile && !isOnFavoritesList) {
                 text = (
                   <Truncate lines={3} ellipsis={<span>...<Link to={'/resource/'+resource.slug} className={moreInfo}>read more</Link></span>} >
                     {resource[item.fieldName]}
