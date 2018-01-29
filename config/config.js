@@ -6,7 +6,7 @@ const config = {
       defaultSubject: "This is a test message from AsylumConnect"
     },
     notifications: {
-      "submission.new": ['jhatter+ac@gmail.com'],
+      "submission.new": ['jhatter+ac@gmail.com', 'katie@asylumconnect.org'],
       "submission.update": ['jhatter+ac@gmail.com']
     }
   },
