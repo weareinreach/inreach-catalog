@@ -59,7 +59,13 @@ const styles = (theme) => ({
   container: {
     minHeight: '500px',
     paddingTop: '60px',
-    paddingBottom: '60px'
+    paddingBottom: '60px',
+    [theme.breakpoints.down('sm')]: Object.assign(mobilePadding(theme), {
+      /*height: "100%",*/
+      paddingTop: '0px',
+      paddingBottom: '0px'
+      /*marginBottom: '91px'*/
+    })
   },
   separator: {
     padding: "0 0.75rem",
@@ -78,7 +84,11 @@ const styles = (theme) => ({
   bottomSpacing: {
     marginBottom: "0.9rem"
   },
-  mobileSpacing: {},
+  mobileSpacing: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: "1.5rem"
+    }
+  },
   lineSpacing: {
     lineHeight: "1.4rem"
   },
@@ -87,7 +97,10 @@ const styles = (theme) => ({
   },
   dividerSpacing: dividerSpacing(theme),
   orgName: {
-    fontSize: "21px"
+    fontSize: "21px",
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center'
+    }
   },
   serviceBadge: {
     position: "absolute"
@@ -102,32 +115,15 @@ const styles = (theme) => ({
   boldFont: boldFont(theme),
   italicFont: italicFont(theme),
   moreInfo: Object.assign({
-    color: theme.palette.primary[500]
+    color: theme.palette.primary[500],
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center'
+    }
   }, boldFont(theme)),
   bodyLink: bodyLink(theme),
   listLink: {
     '& + &:before': {
       content: '\", \"'
-    }
-  },
-  [theme.breakpoints.down('sm')]: {
-    container: Object.assign(mobilePadding(theme), {
-      /*height: "100%",*/
-      paddingTop: '0px',
-      paddingBottom: '0px'
-      /*marginBottom: '91px'*/
-    }),
-    orgName: {
-      textAlign: 'center'
-    },
-    moreInfo: {
-      textAlign: 'center'
-    },
-    mobileSpacing: {
-      marginTop: "1.5rem"
-    },
-    reviewField: {
-      height: "15%"
     }
   },
   dialogBody: {

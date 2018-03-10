@@ -14,6 +14,7 @@ import SwipeableViews from 'react-swipeable-views';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 import AsylumConnectButton from '../AsylumConnectButton';
+import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
 import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
@@ -59,7 +60,7 @@ const styles = theme => ({
     formRow: {
       marginBottom: '0'
     }
-  }
+  },
 });
 
 const ResultsContainer = (props) => {
@@ -169,7 +170,7 @@ class SearchResultsContainer extends React.Component {
           <SearchBar {...this.props} classes={null} />
           <Grid container spacing={0} alignItems='flex-start'>
             <Grid item xs={12} md={8} className={formRow}>
-              <Grid container spacing={0} justify='space-between'>
+              <Grid container spacing={0} justify='space-between'>  
                 <Grid item xs>
                   <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
                     Search
@@ -195,6 +196,13 @@ class SearchResultsContainer extends React.Component {
                 </Grid>
                 }
               </Grid>
+              {this.props.infographic ? 
+                <Grid container spacing={0} justify='space-between'>  
+                  <Grid item xs>
+                    <AsylumConnectInfographicButton url={this.props.infographic.url} text={"Asylum Seeker's Guide to "+this.props.infographic.name} />
+                  </Grid>
+                </Grid>
+              : null}
             </Grid>
             <Grid item xs={12} md={4} className={filterContainer}>
               <SearchRefinementControls 
@@ -226,12 +234,14 @@ class SearchResultsContainer extends React.Component {
               onChangeIndex={this.handleSwipeChange}
             >
               <ResultsContainer {...searchResultsProps}/>
-              <div>
+              <div className="position-relative">
                 <AsylumConnectMap
-                  resources={this.props.mapResources}
-                  loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
                   containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
+                  history={this.props.history}
+                  loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
                   mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
+                  resources={this.props.mapResources}
+                  searchCenter={this.props.searchCenter}
                 />
               </div>
             </SwipeableViews>

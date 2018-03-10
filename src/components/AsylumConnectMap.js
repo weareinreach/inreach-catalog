@@ -20,25 +20,6 @@ const styles = (theme) => ({
   infoWindow: {
     lineHeight: '1.4rem',
     cursor: 'pointer'
-  },
-  infographicButtonContainer: {
-    height: '1em',
-    left: '120px',
-    position: 'absolute', 
-    top: '10px', 
-    zIndex: '1000'
-  },
-  infographicButton: {
-    backgroundColor: theme.palette.common.white,
-    minHeight: '0px'
-  },
-  smallerButton: {
-    textTransform: 'none',
-    fontWeight: 'normal',
-    fontSize: '11px',
-    fontFamily: 'Roboto,sans-serif',
-    letterSpacing: '0',
-    lineHeight: '1.2'
   }
 });
 
@@ -85,20 +66,35 @@ class AsylumConnectMap extends React.Component {
 
 
   render() {
-    const { classes, history, resources } = this.props;
-    //var { mapProps } = this.props;
+    const { classes, history, resources, infographic } = this.props;
+    const defaultCenter = { lat: 39.8333333, lng: -98.585522 };
+    const defaultZoom = 4;
+    
+    let center = defaultCenter, zoom = defaultZoom;
+
     if(resources.length) {
       this.updateBounds(resources);
+    } else if(this.props.searchCenter) {
+      center = this.props.searchCenter
+      zoom = 8;
     }
+
+    if(this.map && (resources.length || !this.props.searchCenter)) {
+      let centerLatLng = this.map.getCenter();
+      center = {lat: centerLatLng.lat(), lng: centerLatLng.lng()};
+      zoom = this.map.getZoom();
+    }    
 
     return (
       <div className="map-area">
-        <AsylumConnectInfographicButton classes={classes} text="Asylum Seeker's Guide to San Francisco" />
+        {infographic && <AsylumConnectInfographicButton url={infographic.url} text={"Asylum Seeker's Guide to "+infographic.name} />}
         <GoogleMap
-          defaultZoom={4}
-          defaultCenter={{ lat: 39.8333333, lng: -98.585522 }}
+          defaultZoom={defaultZoom}
+          defaultCenter={defaultCenter}
           ref={this.onMapMounted}
           options={{fullscreenControl: false}}
+          center={center}
+          zoom={zoom}
         >
         {
           resources && resources.length ?

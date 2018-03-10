@@ -19,7 +19,8 @@ const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {
     borderLeft: "1px solid "+theme.palette.common.lightGrey,
     cursor: 'pointer',
-    position: 'relative'
+    position: 'relative',
+    [theme.breakpoints.down('sm')]: searchInputMobile(theme)
   }),
   uncheckLink: {
     fontFamily: theme.typography.body2.fontFamily,
@@ -29,9 +30,6 @@ const styles = theme => ({
     right: '1rem',
     top: '1rem',
     textDecoration: 'none'
-  },
-  [theme.breakpoints.down('sm')]: {
-    searchInput: searchInputMobile(theme)
   },
   sectionHeader: {
     color: theme.palette.common.darkBlack
