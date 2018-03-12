@@ -1,3 +1,4 @@
+const convertTime = require('./ConvertTime');
 const days = [
   {name: 'Monday', abbr: 'Mon', oneletter: 'M'},
   {name: 'Tuesday', abbr: 'Tue', oneletter: 'T'},
@@ -8,7 +9,7 @@ const days = [
   {name: 'Saturday', abbr: 'Sun', oneletter: 'Su'},
 ]
 
-export const scheduleParser = ({ schedule, format = 'condensed' } = { }) => {
+export const scheduleParser = ({ schedule, format = 'condensed', hideClosed = true } = { }) => {
   let openHours = [], final = [];
   days.forEach((item) => {
     let name;
@@ -27,7 +28,7 @@ export const scheduleParser = ({ schedule, format = 'condensed' } = { }) => {
         && schedule[item.name.toLowerCase()+"_start"]
         && typeof schedule[item.name.toLowerCase()+"_end"] !== "undefined"
         && schedule[item.name.toLowerCase()+"_end"]) {
-      let times = schedule[item.name.toLowerCase()+"_start"] + '-' + schedule[item.name.toLowerCase()+"_end"];
+      let times = convertTime(schedule[item.name.toLowerCase()+"_start"], 'hh:MM A') + '-' + convertTime(schedule[item.name.toLowerCase()+"_end"], 'hh:MM A');
       
       openHours.push({
         name: name,
@@ -58,7 +59,9 @@ export const scheduleParser = ({ schedule, format = 'condensed' } = { }) => {
             } else {
               return {days: item.start, time: item.time};
             }
-          })
+          }).filter((item) => {
+            return !hideClosed || (hideClosed && item.time !== 'Closed');
+          });
         }
       break;
       case 'expanded':
