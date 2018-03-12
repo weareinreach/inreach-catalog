@@ -6,7 +6,7 @@ const days = [
   {name: 'Thursday', abbr: 'Thu', oneletter: 'Th'},
   {name: 'Friday', abbr: 'Fri', oneletter: 'F'},
   {name: 'Saturday', abbr: 'Sat', oneletter: 'S'},
-  {name: 'Saturday', abbr: 'Sun', oneletter: 'Su'},
+  {name: 'Sunday', abbr: 'Sun', oneletter: 'Su'},
 ]
 
 export const scheduleParser = ({ schedule, format = 'condensed', hideClosed = true } = { }) => {
