@@ -62,17 +62,19 @@ const Visit = ({resource, classes, isMobile, hideTitle, className}) => (
       )}
       </Typography> : null }
       {resource.locations && resource.locations.length ? 
-        resource.locations.map((location) => (
+        resource.locations.map((location) => {
+          let schedule;
+          return (
           <div key={location.id} className={resource.locations.length > 1 ? classes.locationSpacing : null}>
             <Typography type="body2" className={classes.lineSpacing} >
               <strong className={classes.boldFont}>{location.name ? location.name : 'Location'}: </strong>
               {addressParser({address: location})}
             </Typography>
-            {location.schedule && Object.keys(location.schedule).length > 1 
+            {location.schedule && Object.keys(location.schedule).length > 1 && (schedule = scheduleParser({schedule: location.schedule})).length
             ?
               <Typography type="body2" className={classes.lineSpacing} >
                 <strong className={classes.boldFont}>Hours: </strong>
-                {scheduleParser({schedule: location.schedule}).map((sch) => {
+                {schedule.map((sch) => {
                   return sch.days+' '+sch.time;
                 }).join(', ')}
               </Typography>
@@ -88,7 +90,8 @@ const Visit = ({resource, classes, isMobile, hideTitle, className}) => (
               </Typography>
             : null}
           </div>
-        ))
+        )
+      })
       : null}
       
       
