@@ -30,7 +30,6 @@ export default function withSession(WrappedComponent) {
 
       const { session } = this.state;
       if (session) {
-        this.handleFetchUser(session);
         this.fetchLists(session);
       };
     }
