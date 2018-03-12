@@ -9,10 +9,11 @@ export default function withSession(WrappedComponent) {
       super(props)
 
       const jwt = window.localStorage.getItem('jwt');
+      const user = parseInt(window.localStorage.getItem('user'));
       this.state = {
         lists: [],
         session: jwt,
-        user: null
+        user: user,
       };
 
       this.handleFetchUser = this.handleFetchUser.bind(this);
@@ -83,12 +84,18 @@ export default function withSession(WrappedComponent) {
 
     handleFetchUser(session) {
       fetchUser(session)
-        .then(data => this.setState({ user: data.user.id }))
+        .then(data => {
+          window.localStorage.setItem('user', data.user.id);
+          this.handleStorageChange();
+        })
         .catch(error => this.handleLogOut());
     }
 
     handleStorageChange() {
-      this.setState({ session: window.localStorage.getItem('jwt')});
+      this.setState({
+        session: window.localStorage.getItem('jwt'),
+        user: parseInt(window.localStorage.getItem('user'))
+      });
     }
 
     handleLogIn(jwt) {
@@ -100,8 +107,9 @@ export default function withSession(WrappedComponent) {
 
     handleLogOut() {
       window.localStorage.removeItem('jwt');
+      window.localStorage.removeItem('user');
       this.handleStorageChange();
-      this.setState({ lists: [], user: null, });
+      this.setState({ lists: [] });
     }
 
     render() {
