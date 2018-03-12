@@ -115,7 +115,6 @@ class AsylumConnectCatalog extends React.Component {
             handleLogOut={handleLogOut}
             handleRequestOpen={handleRequestOpen}
             session={session}
-            user={user}
             location={location}
             history={history}
             match={match}

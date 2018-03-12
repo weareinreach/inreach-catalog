@@ -25,7 +25,6 @@ const NavTablet = ({
   handleLogOut,
   handleRequestOpen,
   session,
-  user,
 }) => { 
   return (
     <Grid container spacing={0}
@@ -51,17 +50,14 @@ const NavTablet = ({
       </Grid>
       
       <Grid item md={5}>
-        <FavoritesLink user={user}/>
+        <FavoritesLink/>
       </Grid>
     </Grid>
   )
 }
 
-NavTablet.defaultProps = { user: null };
-
 NavTablet.propTypes = {
-  classes: PropTypes.object.isRequired,
-  user: PropTypes.number,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavTablet);
