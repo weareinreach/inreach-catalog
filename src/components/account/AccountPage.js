@@ -4,6 +4,7 @@ import {withStyles} from 'material-ui/styles';
 
 import OrgSettings from './OrgSettings';
 import GeneralSettings from './GeneralSettings';
+import PromptReconfirm from '../PromptReconfirm';
 
 import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
@@ -79,7 +80,8 @@ class AccountPage extends React.Component {
       handleLogOut,
       handleMessageNew,
       handleRequestOpen,
-      session
+      session,
+      sessionConfirmed,
     } = this.props;
     const { isAuthenticated, user, value } = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
@@ -158,24 +160,34 @@ class AccountPage extends React.Component {
             />
           </div>
         </div>
-        )
-      )
+      );
     } else {
-      settings = ('')
+      settings = '';
     }
     return (
       <div className={classes.root}>
-        <Typography type="display1" className={[classes.marginBottom, classes.textAlignCenter].join(' ')}>Your Account</Typography>
-        {settings}
+        <Typography
+          type="display1"
+          className={[classes.marginBottom, classes.textAlignCenter].join(' ')}
+        >
+          Your Account
+        </Typography>
+        {this.props.sessionConfirmed
+          ? settings
+          : <PromptReconfirm handleRequestOpen={this.props.handleRequestOpen}/>
+        }
       </div>
-  )}
+    );
+  }
 }
 
 AccountPage.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  handleUnconfirmSession: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
+  sessionConfirmed: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(withWidth(AccountPage));
