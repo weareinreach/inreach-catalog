@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
 import config from '../../config/config.js';
-import {confirmSession} from '../../helpers/odasRequests';
+import { confirmSession } from '../../helpers/odasRequests';
 
 import PasswordForm from './PasswordForm';
 
@@ -20,8 +20,8 @@ class PasswordFormContainer extends React.Component {
   }
 
   handleChange(event) {
-    const {name, value} = event.target;
-    this.setState({[name]: value});
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event) {
@@ -44,7 +44,7 @@ class PasswordFormContainer extends React.Component {
         } else {
           handleMessageNew('Oops! Something went wrong.');
         }
-      })
+      });
   }
 
   render() {
