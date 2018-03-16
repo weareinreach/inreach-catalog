@@ -26,10 +26,16 @@ class PasswordFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {handleMessageNew, handleRequestClose, session} = this.props;
+    const {
+      handleConfirmSession,
+      handleMessageNew,
+      handleRequestClose,
+      session,
+    } = this.props;
     confirmSession(this.state.password, session)
       .then(response => {
         handleMessageNew('Password Confirmed');
+        handleConfirmSession();
         handleRequestClose();
       })
       .catch(error => {
@@ -54,6 +60,7 @@ class PasswordFormContainer extends React.Component {
 }
 
 PasswordFormContainer.propTypes = {
+  handleConfirmSession: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
