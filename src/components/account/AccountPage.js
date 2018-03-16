@@ -54,22 +54,50 @@ class AccountPage extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
   }
-  componentDidMount(){
-    const {handleMessageNew, handleLogOut, session} = this.props;
-    if (!session) {
-      this.props.history.push('/');
-      handleMessageNew('You need to log in to view your account.')
+
+  componentDidMount() {
+    const { handleMessageNew, handleLogOut, session } = this.props;
+    if (!this.props.session) {
+      this.handleNullSession();
     } else {
-      fetchUser(session)
-        .then(data => {
-          this.setState({ isAuthenticated: true, user: data.user });
-        })
-        .catch(error => {
+      this.handleFetchUser();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.sessionConfirmed && nextProps.sessionConfirmed) {
+      this.handleFetchUser();
+    } else if (this.props.session && !nextProps.session) {
+      this.handleNullSession();
+    }
+  }
+
+  handleFetchUser() {
+    const {
+      handleMessageNew,
+      handleLogOut,
+      handleUnconfirmSession,
+      history,
+      session,
+    } = this.props;
+    fetchUser(session)
+      .then(data => {
+        this.setState({ isAuthenticated: true, user: data.user });
+      })
+      .catch(error => {
+        if (error.response.status === 403) {
+          handleUnconfirmSession();
+        } else {
           handleLogOut();
           this.props.history.push('/');
-          handleMessageNew('Oops! Something went wrong. Error:' + error);
-        });
-    }
+          handleMessageNew('Oops! Something went wrong.');
+        }
+      });
+  }
+
+  handleNullSession() {
+    this.props.history.push('/');
+    this.props.handleMessageNew('You need to log in to view your account.');
   }
   handleChange(event, value){
     this.setState({ value });
