@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import OrgSettings from './OrgSettings';
 import GeneralSettings from './GeneralSettings';
@@ -10,7 +10,7 @@ import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
-import {fetchUser} from '../../helpers/odasRequests';
+import { fetchUser } from '../../helpers/odasRequests';
 import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
 
@@ -21,23 +21,23 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+  [`@media (max-width: ${breakpoints['sm']}px)`]: {
     root: {
       padding: '5% 10%',
     },
     marginBottom: {
-      marginBottom: '5%'
-    }
+      marginBottom: '5%',
+    },
   },
   formRow: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'baseline'
+    alignItems: 'baseline',
   },
   textAlignCenter: {
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 function TabContainer(props) {
@@ -50,9 +50,9 @@ class AccountPage extends React.Component {
     this.state = {
       value: 0,
       isAuthenticated: false,
-      user: null
-    }
-    this.handleChange = this.handleChange.bind(this)
+      user: null,
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -99,9 +99,11 @@ class AccountPage extends React.Component {
     this.props.history.push('/');
     this.props.handleMessageNew('You need to log in to view your account.');
   }
-  handleChange(event, value){
+
+  handleChange(event, value) {
     this.setState({ value });
-  };
+  }
+
   render() {
     const {
       classes,
@@ -118,13 +120,17 @@ class AccountPage extends React.Component {
       settings = isMobile ? (
         <div>
           <AppBar position="static">
-            <Tabs value={value} onChange={this.handleChange} indicatorColor="primary"
-              fullWidth>
+            <Tabs
+              value={value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              fullWidth
+            >
               <Tab label="Your Account" />
               <Tab label="Your Org" />
             </Tabs>
           </AppBar>
-          {value === 0 &&
+          {value === 0 && (
             <TabContainer>
               <GeneralSettings
                 handleLogOut={handleLogOut}
@@ -134,14 +140,20 @@ class AccountPage extends React.Component {
                 user={user}
               />
             </TabContainer>
-          }
-          {value === 1 && <TabContainer><OrgSettings handleMessageNew={handleMessageNew} user={user}/></TabContainer>}
+          )}
+          {value === 1 && (
+            <TabContainer>
+              <OrgSettings handleMessageNew={handleMessageNew} user={user} />
+            </TabContainer>
+          )}
         </div>
-      ):(
+      ) : (
         <div>
-          <Typography type="display2" className={classes.textAlignCenter}>Organization</Typography>
+          <Typography type="display2" className={classes.textAlignCenter}>
+            Organization
+          </Typography>
           <div className={classes.formRow}>
-            <OrgSettings handleMessageNew={handleMessageNew} user={user}/>
+            <OrgSettings handleMessageNew={handleMessageNew} user={user} />
             <GeneralSettings
               handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
@@ -151,19 +163,22 @@ class AccountPage extends React.Component {
             />
           </div>
         </div>
-      )
-    } else if (isAuthenticated && !user.affiliation){
-      settings = (
-        isMobile ? (
-          <div>
-            <AppBar position="static">
-              <Tabs value={value} onChange={this.handleChange} indicatorColor="primary"
-                fullWidth>
-                <Tab label="Your Account" />
-                <Tab label="Your Org" disabled />
-              </Tabs>
-            </AppBar>
-          {value === 0 &&
+      );
+    } else if (isAuthenticated && !user.affiliation) {
+      settings = isMobile ? (
+        <div>
+          <AppBar position="static">
+            <Tabs
+              value={value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              fullWidth
+            >
+              <Tab label="Your Account" />
+              <Tab label="Your Org" disabled />
+            </Tabs>
+          </AppBar>
+          {value === 0 && (
             <TabContainer>
               <GeneralSettings
                 handleLogOut={handleLogOut}
@@ -174,9 +189,9 @@ class AccountPage extends React.Component {
                 user={user}
               />
             </TabContainer>
-          }
-          </div>
-        ):(
+          )}
+        </div>
+      ) : (
         <div>
           <div className={classes.formRow}>
             <GeneralSettings
