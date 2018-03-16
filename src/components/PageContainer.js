@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import FavoritesListContainer from './favorites/FavoritesListContainer';
 import AccountPage from './account/AccountPage';
@@ -18,10 +19,12 @@ class PageContainer extends React.Component {
       handleLogOut,
       handleMessageNew,
       handleRequestOpen,
+      handleUnconfirmSession,
       history,
       match,
       location,
       session,
+      sessionConfirmed,
       user,
     } = this.props;
     const favoritesListProps = {
@@ -64,8 +67,11 @@ class PageContainer extends React.Component {
                 handleMessageNew={handleMessageNew}
                 handleLogOut={handleLogOut}
                 handleRequestOpen={handleRequestOpen}
+                handleUnconfirmSession={handleUnconfirmSession}
                 history={history}
                 session={session}
+                sessionConfirmed={sessionConfirmed}
+                user={user}
               />
             )}
             />
@@ -86,5 +92,10 @@ class PageContainer extends React.Component {
     );
   }
 }
+
+PageContainer.propTypes = {
+  handleUnconfirmSession: PropTypes.func.isRequired,
+  sessionConfirmed: PropTypes.bool.isRequired,
+};
 
 export default PageContainer;
