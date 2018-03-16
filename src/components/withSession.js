@@ -13,6 +13,7 @@ export default function withSession(WrappedComponent) {
       this.state = {
         lists: [],
         session: jwt,
+        sessionConfirmed: false,
         user: user,
       };
 
@@ -23,6 +24,8 @@ export default function withSession(WrappedComponent) {
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
       this.handleStorageChange = this.handleStorageChange.bind(this);
+      this.handleUnconfirmSession = this.handleUnconfirmSession.bind(this);
+      this.handleConfirmSession = this.handleConfirmSession.bind(this);
     }
 
     componentDidMount() {
@@ -30,8 +33,9 @@ export default function withSession(WrappedComponent) {
 
       const { session } = this.state;
       if (session) {
+        this.handleConfirmSession(); // assume confirmed until proven otherwise
         this.fetchLists(session);
-      };
+      }
     }
 
     componentWillUnmount() {
@@ -100,6 +104,7 @@ export default function withSession(WrappedComponent) {
     handleLogIn(jwt) {
       window.localStorage.setItem('jwt', jwt);
       this.handleStorageChange();
+      this.handleConfirmSession();
       this.handleFetchUser(jwt);
       this.fetchLists(jwt);
     }
@@ -108,7 +113,16 @@ export default function withSession(WrappedComponent) {
       window.localStorage.removeItem('jwt');
       window.localStorage.removeItem('user');
       this.handleStorageChange();
+      this.handleUnconfirmSession();
       this.setState({ lists: [] });
+    }
+
+    handleConfirmSession() {
+      this.setState({ sessionConfirmed: true });
+    }
+
+    handleUnconfirmSession() {
+      this.setState({ sessionConfirmed: false });
     }
 
     render() {
@@ -121,8 +135,10 @@ export default function withSession(WrappedComponent) {
           handleListAddFavorite={this.handleListAddFavorite}
           handleListRemoveFavorite={this.handleListRemoveFavorite}
           handleListNew={this.handleListNew}
+          handleConfirmSession={this.handleConfirmSession}
+          handleUnconfirmSession={this.handleUnconfirmSession}
         />
       );
     }
-  }
+  };
 }
