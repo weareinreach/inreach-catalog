@@ -94,7 +94,8 @@ function renderSuggestionsContainer(options) {
   return (
     <Paper {...containerProps} style={styles.container} square>
       {children}
-      {query.length > 0 && (
+      {/* Temporarily hide this option */}
+      {false && query.length > 0 && (
         <Link to="/suggestions/new" onMouseDown={(e) => { //prevent onBlur from hiding link before the click is registered
           history.push('/suggestions/new')
           handleMessageNew('Once you\'ve completed signing up, use the suggest a resource form to add your organization to our system')

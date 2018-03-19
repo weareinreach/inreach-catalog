@@ -104,7 +104,8 @@ class SignupFormContainer extends React.Component {
       handleMessageNew('The passwords you have entered do not match');
       return;
     }
-    if (selection === 'provider' && !organizationSelection) {
+    //Temporarily make the organization field not required
+    if (false && selection === 'provider' && !organizationSelection) {
       handleMessageNew('Please select an organization.');
       return;
     }
@@ -113,6 +114,7 @@ class SignupFormContainer extends React.Component {
       user: {
         email,
         password,
+        is_professional: selection === 'provider'
       },
     });
     const affiliationPayload = this.state.organizationSelection
@@ -134,7 +136,7 @@ class SignupFormContainer extends React.Component {
       })
       .then(data => {
         this.props.handleLogIn(data.jwt);
-        if (selection === 'provider') {
+        if (selection === 'provider' && affiliationPayload) {
           return this.createAffiliation(affiliationPayload);
         } else {
           return Promise.reject('USER_POST_SUCCESS');
