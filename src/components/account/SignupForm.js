@@ -75,25 +75,6 @@ const SignupForm = ({
     )}
     {selection !== '' && (
       <form className={classes.container} onSubmit={handleSubmit}>
-        {selection === 'provider' && (
-          <OrganizationAutocomplete
-            handleBlurOrganizations={handleBlurOrganizations}
-            handleMessageNew={handleMessageNew}
-            handleOrganizationSearchChange={handleOrganizationSearchChange}
-            handleOrganizationSelect={handleOrganizationSelect}
-            handleOrganizationsFetchRequested={
-              handleOrganizationsFetchRequested
-            }
-            handleOrganizationsClearRequested={
-              handleOrganizationsClearRequested
-            }
-            history={history}
-            isLoadingOrganizations={isLoadingOrganizations}
-            organizationSearch={organizationSearch}
-            organizationSelection={organizationSelection}
-            organizations={organizations}
-          />
-        )}
         <TextField
           id="email"
           label={selection === 'seeker' ? 'Email' : 'Organization Email'}
@@ -126,6 +107,28 @@ const SignupForm = ({
           type="password"
           value={passwordConfirmation}
         />
+        {selection === 'provider' && (
+          <OrganizationAutocomplete
+            handleBlurOrganizations={handleBlurOrganizations}
+            handleMessageNew={handleMessageNew}
+            handleOrganizationSearchChange={handleOrganizationSearchChange}
+            handleOrganizationSelect={handleOrganizationSelect}
+            handleOrganizationsFetchRequested={
+              handleOrganizationsFetchRequested
+            }
+            handleOrganizationsClearRequested={
+              handleOrganizationsClearRequested
+            }
+            history={history}
+            isLoadingOrganizations={isLoadingOrganizations}
+            organizationSearch={organizationSearch}
+            organizationSelection={organizationSelection}
+            organizations={organizations}
+          />
+        )}
+        <Typography type="body1">
+          Can't find your organziation? While our Suggest a Resource form is currently under construction, <a href="https://goo.gl/forms/0Joi30DrOqf65duy2" target="_blank">please use this Google Form</a> to suggest new resource(s) for inclusion in the AsylumConnect catalog. Once your organization has been approved by the AsylumConnect team, you will then be able to sign up for a free service provider user account to claim your organization's profile on the live resource catalog.
+        </Typography>
         <Typography type="body1" className={classes.paddingVertical}>
           By clicking "Sign Up," you agree to One Degree's{` `}
           <a href="https://www.1degree.org/privacy" target="_blank">
