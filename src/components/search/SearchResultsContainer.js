@@ -14,6 +14,7 @@ import SwipeableViews from 'react-swipeable-views';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 import AsylumConnectButton from '../AsylumConnectButton';
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
@@ -59,6 +60,9 @@ const styles = theme => ({
     formRow: {
       marginBottom: '0'
     }
+  },
+  backButton: {
+    paddingBottom: '0.83em'
   }
 });
 
@@ -143,6 +147,7 @@ class SearchResultsContainer extends React.Component {
       containerSearchResults,
       filterContainer,
       noResults,
+      backButton,
       tooltip
       } = this.props.classes;
     const searchResultsProps = {
@@ -166,6 +171,12 @@ class SearchResultsContainer extends React.Component {
       <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
         <Grid item xs={12} sm={11} md={10} lg={10} xl={11} >
         <div className={containerSearchForm+' no-background'}>
+          {isMobile ?
+            <div className={backButton}>
+              <AsylumConnectBackButton color="contrast" onClick={() => {this.props.history.goBack()}} />
+            </div>
+          : null 
+          }
           <SearchBar {...this.props} classes={null} />
           <Grid container spacing={0} alignItems='flex-start'>
             <Grid item xs={12} md={8} className={formRow}>
