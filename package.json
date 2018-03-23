@@ -55,6 +55,7 @@
     "react-fontawesome": "^1.6.1",
     "react-ga": "^2.3.5",
     "react-google-maps": "^9.0.1",
+    "react-hot-loader": "^4.0.0",
     "react-places-autocomplete": "^5.4.3",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
