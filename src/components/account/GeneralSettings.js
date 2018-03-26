@@ -140,23 +140,20 @@ class GeneralSettings extends React.Component {
     let email = user? user.email:''
     return (
       <div className={classes.root}>
-        <Typography type="display3" className={classes.formType}>Your Account</Typography>
-        <div>
-          <GeneralSettingsEmail 
-            currentEmail={email} 
-            handleUpdateEmail={this.updateEmail} 
-            isEmailUpdated={isEmailUpdated}
-            handleMessageNew={handleMessageNew}
-          />
-          <GeneralSettingsPassword 
-            handleUpdatePassword={this.updatePassword} 
-            isPasswordUpdated={isPasswordUpdated} 
-            handleMessageNew={handleMessageNew}
-          />
-          <div><div onClick={this.handleRequestOpen} className={classes.settingsTypeFont}>
-            <span>Delete Account</span>
-          </div></div>
-        </div>
+        <GeneralSettingsEmail 
+          currentEmail={email} 
+          handleUpdateEmail={this.updateEmail} 
+          isEmailUpdated={isEmailUpdated}
+          handleMessageNew={handleMessageNew}
+        />
+        <GeneralSettingsPassword 
+          handleUpdatePassword={this.updatePassword} 
+          isPasswordUpdated={isPasswordUpdated} 
+          handleMessageNew={handleMessageNew}
+        />
+        <div><div onClick={this.handleRequestOpen} className={classes.settingsTypeFont}>
+          <span>Delete Account</span>
+        </div></div>
         {/*<AsylumConnectDialog
           dialog={dialog}
           handleDeleteAccount={this.handleDeleteAccount}
