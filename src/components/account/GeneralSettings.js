@@ -31,11 +31,17 @@ function TextMaskCustom(props) {
 
 const styles = theme => ({
   root: {
-    width: '33%',
+    width: '50%',
     padding: '0 5% 0 5%'
   },
   formType: {
     margin: '10% 0 10% 0'
+  },
+  [`@media (max-width: ${breakpoints['md']}px)`]: {
+    root: {
+      width: '75%',
+      padding: '0 5% 0 5%'
+    }
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]:{
     root: {
