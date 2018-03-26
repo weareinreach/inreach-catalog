@@ -2,6 +2,7 @@ import React from 'react';
 import MaskedInput from 'react-text-mask';
 
 import GeneralSettingsEmail from './GeneralSettingsEmail';
+import GeneralSettingsOrganization from './GeneralSettingsOrganization';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
 import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
@@ -149,6 +150,9 @@ class GeneralSettings extends React.Component {
         {user.is_professional && (
           <Typography type="display3" className={classes.formType}>Your Account</Typography>
         )}
+        <GeneralSettingsOrganization
+          handleMessageNew={handleMessageNew}
+        />
         <GeneralSettingsEmail 
           currentEmail={email} 
           handleUpdateEmail={this.updateEmail} 
