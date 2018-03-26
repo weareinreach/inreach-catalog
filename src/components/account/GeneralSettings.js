@@ -146,6 +146,9 @@ class GeneralSettings extends React.Component {
     let email = user? user.email:''
     return (
       <div className={classes.root}>
+        {user.is_professional && (
+          <Typography type="display3" className={classes.formType}>Your Account</Typography>
+        )}
         <GeneralSettingsEmail 
           currentEmail={email} 
           handleUpdateEmail={this.updateEmail} 
