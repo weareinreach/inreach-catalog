@@ -45,7 +45,6 @@ const SignupForm = ({
   handleRequestOpen,
   handleSelect,
   handleSubmit,
-  history,
   isLoadingOrganizations,
   organizations,
   organizationSearch,
@@ -121,7 +120,6 @@ const SignupForm = ({
               handleOrganizationsClearRequested={
                 handleOrganizationsClearRequested
               }
-              history={history}
               isLoadingOrganizations={isLoadingOrganizations}
               organizationSearch={organizationSearch}
               organizationSelection={organizationSelection}
