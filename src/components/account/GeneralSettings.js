@@ -74,14 +74,9 @@ class GeneralSettings extends React.Component {
       isEmailUpdated: null,
       dialog: 'none'
     }
-    //this.handleDelete = this.handleDelete.bind(this)
     this.handleOdasError = this.handleOdasError.bind(this)
     this.updateEmail = this.updateEmail.bind(this)
     this.updatePassword = this.updatePassword.bind(this)
-    //this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
-    this.handleLogIn = this.handleLogIn.bind(this)
-    this.handleRequestOpen = this.handleRequestOpen.bind(this)
-    //this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
   handleOdasError(error) {
@@ -128,21 +123,8 @@ class GeneralSettings extends React.Component {
       .catch(error => this.handleOdasError(error));
   }
 
-  handleRequestOpen() {
-    this.props.handleRequestOpen('deleteAccount')
-    //this.setState({dialog:'deleteAccount'});
-  }
-
-  handleRequestClose() {
-    //this.setState({dialog:'none'})
-  }
-
-  handleLogIn(){
-    return 'login...'
-  }
-
   render() {
-    const { classes, handleMessageNew, user } = this.props;
+    const { classes, handleMessageNew, handleRequestOpen, user } = this.props;
     const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
     let email = user? user.email:''
     return (
@@ -164,17 +146,9 @@ class GeneralSettings extends React.Component {
           isPasswordUpdated={isPasswordUpdated} 
           handleMessageNew={handleMessageNew}
         />
-        <div><div onClick={this.handleRequestOpen} className={classes.settingsTypeFont}>
+        <div onClick={() => handleRequestOpen('deleteAccount')} className={classes.settingsTypeFont}>
           <span>Delete Account</span>
-        </div></div>
-        {/*<AsylumConnectDialog
-          dialog={dialog}
-          handleDeleteAccount={this.handleDeleteAccount}
-          handleLogIn={this.handleLogIn}
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={this.handleRequestClose}
-          handleRequestOpen={this.handleRequestOpen}
-        />*/}
+        </div>
       </div>
     )
   }
