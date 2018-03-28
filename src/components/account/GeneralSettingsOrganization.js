@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-
-import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
+
+import { createAffiliation } from '../../helpers/odasRequests';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
+import OrganizationAutocomplete from './OrganizationAutocomplete';
+import withOrganizations from './withOrganizations';
 
 const styles = theme => ({
-  root: {
-    width: '30%',
-    padding: '0 5% 0 5%',
-  },
   settingsTypeFont: {
     padding: '15px 0 25px 0',
     fontSize: 13,
@@ -39,13 +38,6 @@ const styles = theme => ({
   },
   formType: {
     margin: '10% 0 10% 0',
-  },
-  inputLabel: {
-    '& label': theme.custom.inputLabel,
-    '& div': {
-      marginTop: '20px',
-    },
-    '& input': theme.custom.inputText,
   },
 });
 
@@ -74,8 +66,19 @@ class GeneralSettingsOrganization extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleMessageNew } = this.props;
-    handleMessageNew('submit');
+    const { handleMessageNew, organizationSelection, session } = this.props;
+    if (organizationSelection === null) {
+      handleMessageNew('Please select an organization');
+    } else {
+      const { id, name } = organizationSelection;
+      createAffiliation({ id, name }, session)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
   }
 
   render() {
@@ -94,6 +97,22 @@ class GeneralSettingsOrganization extends Component {
             <Typography>You are not affiliated to an organization.</Typography>
           )}
           <form className={classes.form} onSubmit={this.handleSubmit}>
+            <OrganizationAutocomplete
+              handleBlurOrganizations={this.props.handleBlurOrganizations}
+              handleMessageNew={this.props.handleMessageNew}
+              handleOrganizationSearchChange={this.props.handleOrganizationSearchChange}
+              handleOrganizationSelect={this.props.handleOrganizationSelect}
+              handleOrganizationsFetchRequested={
+                this.props.handleOrganizationsFetchRequested
+              }
+              handleOrganizationsClearRequested={
+                this.props.handleOrganizationsClearRequested
+              }
+              isLoadingOrganizations={this.props.isLoadingOrganizations}
+              organizationSearch={this.props.organizationSearch}
+              organizationSelection={this.props.organizationSelection}
+              organizations={this.props.organizations}
+            />
             <AsylumConnectButton variant="primary">
               Change Organization
             </AsylumConnectButton>
@@ -106,11 +125,21 @@ class GeneralSettingsOrganization extends Component {
 
 GeneralSettingsOrganization.defaultProps = {
   affiliation: null,
+  organizationSelection: null,
 };
 
 GeneralSettingsOrganization.propTypes = {
   affiliation: PropTypes.shape({}),
   classes: PropTypes.object.isRequired,
+  handleBlurOrganizations: PropTypes.func.isRequired,
+  handleOrganizationSearchChange: PropTypes.func.isRequired,
+  handleOrganizationSelect: PropTypes.func.isRequired,
+  handleOrganizationsFetchRequested: PropTypes.func.isRequired,
+  handleOrganizationsClearRequested: PropTypes.func.isRequired,
+  organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  organizationSearch: PropTypes.string.isRequired,
+  organizationSelection: PropTypes.object,
+  session: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(GeneralSettingsOrganization);
+export default withStyles(styles)(withOrganizations(GeneralSettingsOrganization));

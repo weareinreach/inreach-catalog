@@ -128,12 +128,13 @@ class GeneralSettings extends React.Component {
       classes,
       handleMessageNew,
       handleRequestOpen,
+      session,
       user: {
         affiliation,
         is_professional:
         isProfessional,
         email
-      }
+      },
     } = this.props;
     const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
     return (
@@ -145,6 +146,7 @@ class GeneralSettings extends React.Component {
           <GeneralSettingsOrganization
             handleMessageNew={handleMessageNew}
             affiliation={affiliation}
+            session={session}
           />
         )}
         <GeneralSettingsEmail 
