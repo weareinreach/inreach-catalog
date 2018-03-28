@@ -139,6 +139,15 @@ export const createUser = ({ email, password, isProfessional }) => {
   return handleFetch(url, options);
 };
 
+export const deleteAffiliation = session => {
+  const url = `${odas}api/affiliations`;
+  const options = {
+    method: 'DELETE',
+    headers: headers(session),
+  };
+  return handleFetch(url, options);
+};
+
 export const deleteListFavorite = (listId, resourceId, session) => {
   const url = `${odas}api/collections/${listId}/items/${resourceId}?fetchable_type=Opportunity`;
   const options = {
