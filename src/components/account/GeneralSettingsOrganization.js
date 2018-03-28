@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
-import TextField from 'material-ui/TextField';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
+import TextField from 'material-ui/TextField';
+import Typography from 'material-ui/Typography';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
@@ -78,7 +79,7 @@ class GeneralSettingsOrganization extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { affiliation, classes } = this.props;
     return (
       <div>
         <div
@@ -89,8 +90,11 @@ class GeneralSettingsOrganization extends Component {
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </div>
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
+          {!affiliation && (
+            <Typography>You are not affiliated to an organization.</Typography>
+          )}
           <form className={classes.form} onSubmit={this.handleSubmit}>
-            <AsylumConnectButton variant="primary" >
+            <AsylumConnectButton variant="primary">
               Change Organization
             </AsylumConnectButton>
           </form>
