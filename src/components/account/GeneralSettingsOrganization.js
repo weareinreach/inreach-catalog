@@ -84,11 +84,11 @@ class GeneralSettingsOrganization extends Component {
     } else {
       const { id, name } = organizationSelection;
       createAffiliation({ id, name }, session)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
+        .then(response =>
+          handleUserUpdate({ affiliation: { fetchable_id: id }})
+        )
+        .catch(() => {
+          handleMessageNew('Oops! Something went wrong.');
         })
     }
   }
