@@ -124,17 +124,29 @@ class GeneralSettings extends React.Component {
   }
 
   render() {
-    const { classes, handleMessageNew, handleRequestOpen, user } = this.props;
+    const {
+      classes,
+      handleMessageNew,
+      handleRequestOpen,
+      user: {
+        affiliation,
+        is_professional:
+        isProfessional,
+        email
+      }
+    } = this.props;
     const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
-    let email = user? user.email:''
     return (
       <div className={classes.root}>
-        {user.is_professional && (
+        {affiliation && (
           <Typography type="display3" className={classes.formType}>Your Account</Typography>
         )}
-        <GeneralSettingsOrganization
-          handleMessageNew={handleMessageNew}
-        />
+        {isProfessional && (
+          <GeneralSettingsOrganization
+            handleMessageNew={handleMessageNew}
+            affiliation={affiliation}
+          />
+        )}
         <GeneralSettingsEmail 
           currentEmail={email} 
           handleUpdateEmail={this.updateEmail} 
@@ -160,7 +172,11 @@ GeneralSettings.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.shape({
+    affiliation: PropTypes.shape({}),
+    is_professional: PropTypes.bool.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired
 };
 
 export default withStyles(styles)(GeneralSettings);

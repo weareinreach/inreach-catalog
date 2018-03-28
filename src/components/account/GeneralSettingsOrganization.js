@@ -100,7 +100,12 @@ class GeneralSettingsOrganization extends Component {
   }
 }
 
+GeneralSettingsOrganization.defaultProps = {
+  affiliation: null,
+};
+
 GeneralSettingsOrganization.propTypes = {
+  affiliation: PropTypes.shape({}),
   classes: PropTypes.object.isRequired,
 };
 
