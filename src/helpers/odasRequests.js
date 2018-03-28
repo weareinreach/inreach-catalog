@@ -76,6 +76,20 @@ export const fetchUserLists = session => {
   return handleFetch(url, options);
 };
 
+export const createAffiliation = ({ id, name }, session) => {
+  const url = `${odas}api/affiliations`;
+  const payload = {
+    fetchable_id: id,
+    organization_name: name,
+  };
+  const options = {
+    method: 'PUT',
+    headers: headers(session),
+    body: JSON.stringify(payload),
+  };
+  return handleFetch(url, options);
+};
+
 export const createList = (payload, session) => {
   const url = `${odas}api/collections`;
   const options = {
@@ -100,6 +114,26 @@ export const createListFavorite = (listId, resourceId, session) => {
   const options = {
     method: 'POST',
     headers: headers(session),
+    body: JSON.stringify(payload),
+  };
+  return handleFetch(url, options);
+};
+
+export const createUser = ({ email, password, isProfessional }) => {
+  const url = `${odas}api/users`;
+  const payload = {
+    user: {
+      email,
+      password,
+      is_professional: isProfessional,
+    }
+  };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      OneDegreeSource: 'asylumconnect',
+    },
     body: JSON.stringify(payload),
   };
   return handleFetch(url, options);
