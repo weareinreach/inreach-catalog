@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { createAffiliation } from '../../helpers/odasRequests';
+import { createAffiliation, deleteAffiliation } from '../../helpers/odasRequests';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
@@ -48,12 +48,24 @@ class GeneralSettingsOrganization extends Component {
       open: false,
     };
 
+    this.handleAffiliationDelete = this.handleAffiliationDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {}
+
+  handleAffiliationDelete() {
+    const { handleMessageNew, handleUserUpdate, session } = this.props; 
+    deleteAffiliation(session)
+      .then(response => {
+        handleUserUpdate({ affiliation: null });
+      })
+      .catch(() => {
+        handleMessageNew('Oops! Something went wrong.');
+      });
+  }
 
   handleChange(event) {
     const { name, value } = event.target;
@@ -66,7 +78,7 @@ class GeneralSettingsOrganization extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleMessageNew, organizationSelection, session } = this.props;
+    const { handleMessageNew, handleUserUpdate, organizationSelection, session } = this.props;
     if (organizationSelection === null) {
       handleMessageNew('Please select an organization');
     } else {
@@ -93,30 +105,36 @@ class GeneralSettingsOrganization extends Component {
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </div>
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-          {!affiliation && (
-            <Typography>You are not affiliated to an organization.</Typography>
-          )}
-          <form className={classes.form} onSubmit={this.handleSubmit}>
-            <OrganizationAutocomplete
-              handleBlurOrganizations={this.props.handleBlurOrganizations}
-              handleMessageNew={this.props.handleMessageNew}
-              handleOrganizationSearchChange={this.props.handleOrganizationSearchChange}
-              handleOrganizationSelect={this.props.handleOrganizationSelect}
-              handleOrganizationsFetchRequested={
-                this.props.handleOrganizationsFetchRequested
-              }
-              handleOrganizationsClearRequested={
-                this.props.handleOrganizationsClearRequested
-              }
-              isLoadingOrganizations={this.props.isLoadingOrganizations}
-              organizationSearch={this.props.organizationSearch}
-              organizationSelection={this.props.organizationSelection}
-              organizations={this.props.organizations}
-            />
-            <AsylumConnectButton variant="primary">
-              Change Organization
+          {affiliation ? (
+            <AsylumConnectButton onClick={this.handleAffiliationDelete} variant="primary">
+              Delete Association
             </AsylumConnectButton>
-          </form>
+          ) : (
+            <div>
+              <Typography>You are not affiliated to an organization.</Typography>
+              <form className={classes.form} onSubmit={this.handleSubmit}>
+                <OrganizationAutocomplete
+                  handleBlurOrganizations={this.props.handleBlurOrganizations}
+                  handleMessageNew={this.props.handleMessageNew}
+                  handleOrganizationSearchChange={this.props.handleOrganizationSearchChange}
+                  handleOrganizationSelect={this.props.handleOrganizationSelect}
+                  handleOrganizationsFetchRequested={
+                    this.props.handleOrganizationsFetchRequested
+                  }
+                  handleOrganizationsClearRequested={
+                    this.props.handleOrganizationsClearRequested
+                  }
+                  isLoadingOrganizations={this.props.isLoadingOrganizations}
+                  organizationSearch={this.props.organizationSearch}
+                  organizationSelection={this.props.organizationSelection}
+                  organizations={this.props.organizations}
+                />
+                <AsylumConnectButton variant="primary">
+                  Change Organization
+                </AsylumConnectButton>
+              </form>
+            </div>
+          )}
         </Collapse>
       </div>
     );
@@ -136,6 +154,7 @@ GeneralSettingsOrganization.propTypes = {
   handleOrganizationSelect: PropTypes.func.isRequired,
   handleOrganizationsFetchRequested: PropTypes.func.isRequired,
   handleOrganizationsClearRequested: PropTypes.func.isRequired,
+  handleUserUpdate: PropTypes.func.isRequired,
   organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
   organizationSearch: PropTypes.string.isRequired,
   organizationSelection: PropTypes.object,

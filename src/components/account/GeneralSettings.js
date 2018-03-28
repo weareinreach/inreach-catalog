@@ -128,6 +128,7 @@ class GeneralSettings extends React.Component {
       classes,
       handleMessageNew,
       handleRequestOpen,
+      handleUserUpdate,
       session,
       user: {
         affiliation,
@@ -145,6 +146,7 @@ class GeneralSettings extends React.Component {
         {isProfessional && (
           <GeneralSettingsOrganization
             handleMessageNew={handleMessageNew}
+            handleUserUpdate={handleUserUpdate}
             affiliation={affiliation}
             session={session}
           />
@@ -173,6 +175,7 @@ GeneralSettings.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  handleUserUpdate: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
   user: PropTypes.shape({
     affiliation: PropTypes.shape({}),
