@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import fetchJsonp from 'fetch-jsonp';
 import 'whatwg-fetch';
-import debounce from 'lodash/debounce';
 
 import config from '../../config/config.js';
 
 import SignupForm from './SignupForm';
+import withOrganizations from './withOrganizations';
 
 class SignupFormContainer extends React.Component {
   constructor(props) {
@@ -14,70 +13,19 @@ class SignupFormContainer extends React.Component {
 
     this.state = {
       email: '',
-      isLoadingOrganizations: false,
-      organizations: [],
-      organizationSearch: '',
-      organizationSelection: null,
       password: '',
       passwordConfirmation: '',
       selection: '',
     };
 
-    this.debouncedLoadOrganizations = debounce(this.loadOrganizations, 1000);
-    this.handleBlurOrganizations = this.handleBlurOrganizations.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleOrganizationSearchChange = this.handleOrganizationSearchChange.bind(this);
-    this.handleOrganizationSelect = this.handleOrganizationSelect.bind(this);
-    this.handleOrganizationsFetchRequested = this.handleOrganizationsFetchRequested.bind(this);
-    this.handleOrganizationsClearRequested = this.handleOrganizationsClearRequested.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleBlurOrganizations(event) {
-    this.setState(prevState =>
-      Object.assign(
-        {},
-        {organizations: []},
-        {
-          organizationSearch: prevState.organizationSelection
-            ? prevState.organizationSelection.name
-            : '',
-        },
-      ),
-    );
   }
 
   handleChange(event) {
     const {name, value} = event.target;
     this.setState({[name]: value});
-  }
-
-  handleOrganizationSearchChange(event, {newValue}) {
-    this.setState({
-      organizationSearch: newValue,
-      organizationSelection: null,
-    });
-  }
-
-  handleOrganizationsFetchRequested() {
-    this.setState({
-      isLoadingOrganizations: true,
-      organizationSelection: null,
-    });
-    this.debouncedLoadOrganizations();
-  }
-
-  handleOrganizationsClearRequested() {
-    this.setState({organizations: []});
-  }
-
-  handleOrganizationSelect(event, {suggestion}) {
-    this.setState({
-      organizations: [],
-      organizationSearch: '',
-      organizationSelection: suggestion,
-    });
   }
 
   handleSelect(selection) {
@@ -86,12 +34,14 @@ class SignupFormContainer extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {handleMessageNew, handleRequestClose} = this.props;
+    const {
+      handleMessageNew,
+      handleRequestClose,
+      organizationSelection,
+    } = this.props;
     const {
       email,
       password,
-      organizationSearch,
-      organizationSelection,
       passwordConfirmation,
       selection,
     } = this.state;
@@ -117,11 +67,12 @@ class SignupFormContainer extends React.Component {
         is_professional: selection === 'provider'
       },
     });
-    const affiliationPayload = this.state.organizationSelection
+
+    const affiliationPayload = organizationSelection
       ? JSON.stringify({
           affiliation: {
-            organization_name: this.state.organizationSelection.name,
-            fetchable_id: this.state.organizationSelection.id,
+            organization_name: organizationSelection.name,
+            fetchable_id: organizationSelection.id,
           },
         })
       : null;
@@ -205,37 +156,12 @@ class SignupFormContainer extends React.Component {
     return fetch(url, options);
   }
 
-  loadOrganizations() {
-    const apiDomain = config[process.env.OD_API_ENV].odrs;
-    const url = `${apiDomain}organizations.jsonp?`;
-    const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
-    const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state
-      .organizationSearch}`;
-    fetchJsonp(url + apiKeyParam + queryParams)
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          isLoadingOrganizations: false,
-          organizations: data.organizations,
-        });
-      });
-  }
-
   render() {
     return (
       <SignupForm
         {...this.props}
         {...this.state}
-        handleBlurOrganizations={this.handleBlurOrganizations}
         handleChange={this.handleChange}
-        handleOrganizationSearchChange={this.handleOrganizationSearchChange}
-        handleOrganizationSelect={this.handleOrganizationSelect}
-        handleOrganizationsClearRequested={
-          this.handleOrganizationsClearRequested
-        }
-        handleOrganizationsFetchRequested={
-          this.handleOrganizationsFetchRequested
-        }
         handleSelect={this.handleSelect}
         handleSubmit={this.handleSubmit}
       />
@@ -249,4 +175,4 @@ SignupFormContainer.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
 };
 
-export default SignupFormContainer;
+export default withOrganizations(SignupFormContainer);
