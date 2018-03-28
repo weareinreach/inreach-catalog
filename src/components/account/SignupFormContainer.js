@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import 'whatwg-fetch';
-
-import config from '../../config/config.js';
+import { createAffiliation, createUser } from '../../helpers/odasRequests';
 
 import SignupForm from './SignupForm';
 import withOrganizations from './withOrganizations';
@@ -24,12 +22,12 @@ class SignupFormContainer extends React.Component {
   }
 
   handleChange(event) {
-    const {name, value} = event.target;
-    this.setState({[name]: value});
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   handleSelect(selection) {
-    this.setState({selection});
+    this.setState({ selection });
   }
 
   handleSubmit(event) {
@@ -39,12 +37,8 @@ class SignupFormContainer extends React.Component {
       handleRequestClose,
       organizationSelection,
     } = this.props;
-    const {
-      email,
-      password,
-      passwordConfirmation,
-      selection,
-    } = this.state;
+    const { email, password, passwordConfirmation, selection } = this.state;
+    const isProfessional = selection === 'provider';
 
     if (password.length < 8) {
       handleMessageNew('Password must be at least 8 characters.');
@@ -60,100 +54,29 @@ class SignupFormContainer extends React.Component {
       return;
     }
 
-    const userPayload = JSON.stringify({
-      user: {
-        email,
-        password,
-        is_professional: selection === 'provider'
-      },
-    });
-
-    const affiliationPayload = organizationSelection
-      ? JSON.stringify({
-          affiliation: {
-            organization_name: organizationSelection.name,
-            fetchable_id: organizationSelection.id,
-          },
-        })
-      : null;
-
-    this.createUser(userPayload)
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-        } else {
-          return Promise.reject('USER_POST_FAILURE');
-        }
-      })
-      .then(data => {
-        this.props.handleLogIn(data.jwt);
-        if (selection === 'provider' && affiliationPayload) {
-          return this.createAffiliation(affiliationPayload);
-        } else {
-          return Promise.reject('USER_POST_SUCCESS');
-        }
-      })
-      .then(response => {
-        if (response.status !== 201) {
-          return Promise.reject('AFFILIATION_PUT_FAILURE');
-        } else {
+    createUser({ email, password, isProfessional })
+      .then(({ jwt }) => {
+        this.props.handleLogIn(jwt);
+        if (!organizationSelection) {
           handleRequestClose();
         }
+        const { id, name } = organizationSelection;
+        createAffiliation({ id, name }, jwt)
+          .then(() => handleRequestClose())
+          .catch(() => {
+            handleMessageNew(
+              `Sorry. Something went wrong connecting you to your organization.`
+            );
+            handleRequestClose();
+          });
       })
       .catch(error => {
-        switch (error) {
-          case 'USER_POST_SUCCESS':
-            handleRequestClose();
-            break;
-          case 'USER_POST_FAILURE':
-            handleMessageNew(
-              'Sorry. We could not create an account with that email.',
-            );
-            break;
-          case 'AFFILIATION_PUT_FAILURE':
-            handleMessageNew(
-              `Sorry. Something went wrong connecting you to your organization.`,
-            );
-            handleRequestClose();
-            break;
-          default:
-            handleMessageNew('Oops! Something went wrong.');
-        }
+        error.response.status === 400
+          ? handleMessageNew(
+              'Sorry. We could not create an account with that email.'
+            )
+          : handleMessageNew('Oops! Something went wrong.');
       });
-  }
-
-  createUser(payload) {
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/users`;
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body: payload,
-    };
-    return fetch(url, options);
-  }
-
-  createAffiliation(payload) {
-    const apiDomain = config[process.env.OD_API_ENV].odas;
-    const url = `${apiDomain}api/affiliations`;
-    const options = {
-      method: 'PUT',
-      headers: {
-        Authorization: window.localStorage.getItem('jwt'),
-        'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
-      },
-      body: payload,
-    };
-    if (typeof config[process.env.OD_API_ENV].basicAuth !== 'undefined') {
-      options.headers['Demo-Authorization'] = options.headers['Authorization'];
-      options.headers['Authorization'] =
-        config[process.env.OD_API_ENV].basicAuth;
-    }
-    return fetch(url, options);
   }
 
   render() {
