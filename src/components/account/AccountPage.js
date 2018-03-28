@@ -52,7 +52,9 @@ class AccountPage extends React.Component {
       isAuthenticated: false,
       user: null,
     };
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleUserUpdate = this.handleUserUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +97,15 @@ class AccountPage extends React.Component {
       });
   }
 
+  handleUserUpdate(data) {
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        ...data,
+      },
+    }));
+  }
+
   handleNullSession() {
     this.props.history.push('/');
     this.props.handleMessageNew('You need to log in to view your account.');
@@ -105,6 +116,7 @@ class AccountPage extends React.Component {
   }
 
   render() {
+    const { handleUserUpdate } = this;
     const {
       classes,
       handleLogOut,
@@ -136,6 +148,7 @@ class AccountPage extends React.Component {
                 handleLogOut={handleLogOut}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
+                handleUserUpdate={handleUserUpdate}
                 session={session}
                 user={user}
               />
@@ -158,6 +171,7 @@ class AccountPage extends React.Component {
               handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
+              handleUserUpdate={handleUserUpdate}
               session={session}
               user={user}
             />
@@ -184,6 +198,7 @@ class AccountPage extends React.Component {
                 handleLogOut={handleLogOut}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
+                handleUserUpdate={handleUserUpdate}
                 history={this.props.history}
                 session={session}
                 user={user}
@@ -198,6 +213,7 @@ class AccountPage extends React.Component {
               handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
+              handleUserUpdate={handleUserUpdate}
               session={session}
               user={user}
             />
