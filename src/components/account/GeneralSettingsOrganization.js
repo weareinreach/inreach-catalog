@@ -28,17 +28,7 @@ const styles = theme => ({
     alignItems: 'center',
     cursor: 'pointer',
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    '& > div': {
-      margin: '15px 0 15px 0',
-    },
-  },
-  formType: {
-    margin: '10% 0 10% 0',
-  },
+  marginVertical: { margin: '1rem 0' },
 });
 
 class GeneralSettingsOrganization extends Component {
@@ -106,9 +96,12 @@ class GeneralSettingsOrganization extends Component {
         </div>
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
           {affiliation ? (
-            <AsylumConnectButton onClick={this.handleAffiliationDelete} variant="primary">
-              Delete Association
-            </AsylumConnectButton>
+            <div>
+              <Typography>Before joining a new organzation, you must leave your current organization.</Typography>
+              <AsylumConnectButton className={classes.marginVertical} onClick={this.handleAffiliationDelete} variant="primary">
+                Leave Organization
+              </AsylumConnectButton>
+            </div>
           ) : (
             <div>
               <Typography>You are not affiliated to an organization.</Typography>
