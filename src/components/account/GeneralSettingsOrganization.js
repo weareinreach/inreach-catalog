@@ -103,30 +103,27 @@ class GeneralSettingsOrganization extends Component {
               </AsylumConnectButton>
             </div>
           ) : (
-            <div>
-              <Typography>You are not affiliated to an organization.</Typography>
-              <form className={classes.form} onSubmit={this.handleSubmit}>
-                <OrganizationAutocomplete
-                  handleBlurOrganizations={this.props.handleBlurOrganizations}
-                  handleMessageNew={this.props.handleMessageNew}
-                  handleOrganizationSearchChange={this.props.handleOrganizationSearchChange}
-                  handleOrganizationSelect={this.props.handleOrganizationSelect}
-                  handleOrganizationsFetchRequested={
-                    this.props.handleOrganizationsFetchRequested
-                  }
-                  handleOrganizationsClearRequested={
-                    this.props.handleOrganizationsClearRequested
-                  }
-                  isLoadingOrganizations={this.props.isLoadingOrganizations}
-                  organizationSearch={this.props.organizationSearch}
-                  organizationSelection={this.props.organizationSelection}
-                  organizations={this.props.organizations}
-                />
-                <AsylumConnectButton variant="primary">
-                  Change Organization
-                </AsylumConnectButton>
-              </form>
-            </div>
+            <form className={classes.form} onSubmit={this.handleSubmit}>
+              <OrganizationAutocomplete
+                handleBlurOrganizations={this.props.handleBlurOrganizations}
+                handleMessageNew={this.props.handleMessageNew}
+                handleOrganizationSearchChange={this.props.handleOrganizationSearchChange}
+                handleOrganizationSelect={this.props.handleOrganizationSelect}
+                handleOrganizationsFetchRequested={
+                  this.props.handleOrganizationsFetchRequested
+                }
+                handleOrganizationsClearRequested={
+                  this.props.handleOrganizationsClearRequested
+                }
+                isLoadingOrganizations={this.props.isLoadingOrganizations}
+                organizationSearch={this.props.organizationSearch}
+                organizationSelection={this.props.organizationSelection}
+                organizations={this.props.organizations}
+              />
+              <AsylumConnectButton className={classes.marginVertical} variant="primary">
+                Join Organization
+              </AsylumConnectButton>
+            </form>
           )}
         </Collapse>
       </div>
