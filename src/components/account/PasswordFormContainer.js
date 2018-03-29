@@ -39,7 +39,7 @@ class PasswordFormContainer extends React.Component {
         handleRequestClose();
       })
       .catch(error => {
-        if (response.error.status === 401) {
+        if (error.response.status === 401) {
           handleMessageNew('The password you entered was incorrect.');
         } else {
           handleMessageNew('Oops! Something went wrong.');
