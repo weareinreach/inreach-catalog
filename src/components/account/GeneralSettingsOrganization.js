@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { createAffiliation, deleteAffiliation } from '../../helpers/odasRequests';
+import {
+  createAffiliation,
+  deleteAffiliation,
+} from '../../helpers/odasRequests';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
@@ -44,10 +47,8 @@ class GeneralSettingsOrganization extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {}
-
   handleAffiliationDelete() {
-    const { handleMessageNew, handleUserUpdate, session } = this.props; 
+    const { handleMessageNew, handleUserUpdate, session } = this.props;
     deleteAffiliation(session)
       .then(response => {
         handleUserUpdate({ affiliation: null });
@@ -68,18 +69,23 @@ class GeneralSettingsOrganization extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleMessageNew, handleUserUpdate, organizationSelection, session } = this.props;
+    const {
+      handleMessageNew,
+      handleUserUpdate,
+      organizationSelection,
+      session,
+    } = this.props;
     if (organizationSelection === null) {
       handleMessageNew('Please select an organization');
     } else {
       const { id, name } = organizationSelection;
       createAffiliation({ id, name }, session)
         .then(response =>
-          handleUserUpdate({ affiliation: { fetchable_id: id }})
+          handleUserUpdate({ affiliation: { fetchable_id: id } })
         )
         .catch(() => {
           handleMessageNew('Oops! Something went wrong.');
-        })
+        });
     }
   }
 
@@ -97,8 +103,15 @@ class GeneralSettingsOrganization extends Component {
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
           {affiliation ? (
             <div>
-              <Typography>Before joining a new organzation, you must leave your current organization.</Typography>
-              <AsylumConnectButton className={classes.marginVertical} onClick={this.handleAffiliationDelete} variant="primary">
+              <Typography>
+                Before joining a new organzation, you must leave your current
+                organization.
+              </Typography>
+              <AsylumConnectButton
+                className={classes.marginVertical}
+                onClick={this.handleAffiliationDelete}
+                variant="primary"
+              >
                 Leave Organization
               </AsylumConnectButton>
             </div>
@@ -107,7 +120,9 @@ class GeneralSettingsOrganization extends Component {
               <OrganizationAutocomplete
                 handleBlurOrganizations={this.props.handleBlurOrganizations}
                 handleMessageNew={this.props.handleMessageNew}
-                handleOrganizationSearchChange={this.props.handleOrganizationSearchChange}
+                handleOrganizationSearchChange={
+                  this.props.handleOrganizationSearchChange
+                }
                 handleOrganizationSelect={this.props.handleOrganizationSelect}
                 handleOrganizationsFetchRequested={
                   this.props.handleOrganizationsFetchRequested
@@ -120,7 +135,10 @@ class GeneralSettingsOrganization extends Component {
                 organizationSelection={this.props.organizationSelection}
                 organizations={this.props.organizations}
               />
-              <AsylumConnectButton className={classes.marginVertical} variant="primary">
+              <AsylumConnectButton
+                className={classes.marginVertical}
+                variant="primary"
+              >
                 Join Organization
               </AsylumConnectButton>
             </form>
@@ -151,4 +169,6 @@ GeneralSettingsOrganization.propTypes = {
   session: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(withOrganizations(GeneralSettingsOrganization));
+export default withStyles(styles)(
+  withOrganizations(GeneralSettingsOrganization)
+);
