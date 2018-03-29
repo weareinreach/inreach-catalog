@@ -6,10 +6,6 @@ import {
   deleteAffiliation,
 } from '../../helpers/odasRequests';
 
-import Collapse from 'material-ui/transitions/Collapse';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
-import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
@@ -37,9 +33,6 @@ const styles = theme => ({
 class GeneralSettingsOrganization extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      open: false,
-    };
 
     this.handleAffiliationDelete = this.handleAffiliationDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -61,10 +54,6 @@ class GeneralSettingsOrganization extends Component {
   handleChange(event) {
     const { name, value } = event.target;
     this.setState({ [name]: value });
-  }
-
-  handleToggleDropDown() {
-    this.setState(prevState => ({ open: !prevState.open }));
   }
 
   handleSubmit(event) {
@@ -93,57 +82,49 @@ class GeneralSettingsOrganization extends Component {
     const { affiliation, classes } = this.props;
     return (
       <div>
-        <div
-          onClick={this.handleToggleDropDown}
-          className={classes.settingsTypeFont}
-        >
-          <span>Change Organization</span>
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
-        </div>
-        <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-          {affiliation ? (
-            <div>
-              <Typography>
-                Before joining a new organzation, you must leave your current
-                organization.
-              </Typography>
-              <AsylumConnectButton
-                className={classes.marginVertical}
-                onClick={this.handleAffiliationDelete}
-                variant="primary"
-              >
-                Leave Organization
-              </AsylumConnectButton>
-            </div>
-          ) : (
-            <form className={classes.form} onSubmit={this.handleSubmit}>
-              <OrganizationAutocomplete
-                handleBlurOrganizations={this.props.handleBlurOrganizations}
-                handleMessageNew={this.props.handleMessageNew}
-                handleOrganizationSearchChange={
-                  this.props.handleOrganizationSearchChange
-                }
-                handleOrganizationSelect={this.props.handleOrganizationSelect}
-                handleOrganizationsFetchRequested={
-                  this.props.handleOrganizationsFetchRequested
-                }
-                handleOrganizationsClearRequested={
-                  this.props.handleOrganizationsClearRequested
-                }
-                isLoadingOrganizations={this.props.isLoadingOrganizations}
-                organizationSearch={this.props.organizationSearch}
-                organizationSelection={this.props.organizationSelection}
-                organizations={this.props.organizations}
-              />
-              <AsylumConnectButton
-                className={classes.marginVertical}
-                variant="primary"
-              >
-                Join Organization
-              </AsylumConnectButton>
-            </form>
-          )}
-        </Collapse>
+        <span className={classes.settingsTypeFont}>Change Organization</span>
+        {affiliation ? (
+          <div>
+            <Typography>
+              Before joining a new organzation, you must leave your current
+              organization.
+            </Typography>
+            <AsylumConnectButton
+              className={classes.marginVertical}
+              onClick={this.handleAffiliationDelete}
+              variant="primary"
+            >
+              Leave Organization
+            </AsylumConnectButton>
+          </div>
+        ) : (
+          <form className={classes.form} onSubmit={this.handleSubmit}>
+            <OrganizationAutocomplete
+              handleBlurOrganizations={this.props.handleBlurOrganizations}
+              handleMessageNew={this.props.handleMessageNew}
+              handleOrganizationSearchChange={
+                this.props.handleOrganizationSearchChange
+              }
+              handleOrganizationSelect={this.props.handleOrganizationSelect}
+              handleOrganizationsFetchRequested={
+                this.props.handleOrganizationsFetchRequested
+              }
+              handleOrganizationsClearRequested={
+                this.props.handleOrganizationsClearRequested
+              }
+              isLoadingOrganizations={this.props.isLoadingOrganizations}
+              organizationSearch={this.props.organizationSearch}
+              organizationSelection={this.props.organizationSelection}
+              organizations={this.props.organizations}
+            />
+            <AsylumConnectButton
+              className={classes.marginVertical}
+              variant="primary"
+            >
+              Join Organization
+            </AsylumConnectButton>
+          </form>
+        )}
       </div>
     );
   }
