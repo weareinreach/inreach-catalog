@@ -36,7 +36,6 @@ class GeneralSettingsOrganization extends Component {
 
     this.handleAffiliationDelete = this.handleAffiliationDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
