@@ -95,7 +95,7 @@ class SearchFormContainer extends React.Component {
             </Grid>
             {this.props.infographic ? 
               <Grid item xs={12} className={infographicSpacing}>
-                <AsylumConnectInfographicButton url={this.props.infographic.url} text={"Asylum Seeker's Guide to "+this.props.infographic.name} />
+                <AsylumConnectInfographicButton url={this.props.infographic.url ? this.props.infographic.url : null} list={this.props.infographic.list ? this.props.infographic.list : null} text={"Asylum Seeker's Guide to "+this.props.infographic.name} />
               </Grid>
             : null}
           </Grid>
