@@ -18,6 +18,7 @@ import ReactDOM from 'react-dom';
 
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';
+import infograph from "../helpers/Infographics";
 import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
@@ -30,10 +31,8 @@ const styles = (theme) => ({
   },
   containerMap: {
     maxWidth: theme.maxColumnWidth,
-    margin: "0 auto"
-  },
-  [theme.breakpoints.down('sm')]: {
-    containerMap: {
+    margin: "0 auto",
+    [theme.breakpoints.down('sm')]: {
       overflowY: 'auto'
     }
   }
@@ -110,14 +109,6 @@ class MapContainer extends React.Component {
     }
   }
 
-  getCachedResource(slug) {
-    let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
-    if(resourceIndex > -1) {
-      return this.findResource(slug);
-    } 
-    return null;
-  }
-
   clearSearchStatus() {
     this.setState({
       searchStatus: null
@@ -138,6 +129,26 @@ class MapContainer extends React.Component {
     this.setState({
       selectedResourceTypes: []
     });
+  }
+
+  getCachedResource(slug) {
+    let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
+    if(resourceIndex > -1) {
+      return this.findResource(slug);
+    } 
+    return null;
+  }
+
+  getInfographic() {
+    let { nearLatLng } = this.parseParams(this.props.match.params);
+    const center = nearLatLng;
+    if(center) {
+      return infograph.fetchNearestInfographic(center.lat, center.lng);
+    } else if(this.props.match && this.props.match.path === '/') {
+      return infograph.getDefaultInfographic();
+    } else {
+      return null;
+    }
   }
 
   handlePlaceSelect(address) {
@@ -349,14 +360,6 @@ class MapContainer extends React.Component {
       }
     });
 
-    /*console.log(
-      newOrgIds,
-      newOrgSlugs,
-      newOrgs,
-      this.state.searchResultsIndex.concat(newOrgIds),
-      this.state.searchResultSlugs.concat(newOrgSlugs),
-      this.state.searchResults.concat(newOrgs))*/
-
     this.setState((prevState) => ({
       searchResultsIndex: prevState.searchResultsIndex.concat(newOrgIds),
       searchResultSlugs: prevState.searchResultSlugs.concat(newOrgSlugs),
@@ -436,7 +439,9 @@ class MapContainer extends React.Component {
         break;
       }
     }
+
     const isMobile = this.props.width < breakpoints['sm'];
+    const infographic = this.getInfographic();
 
     return (
         <div className={"container--map "+this.props.classes.containerMap}> 
@@ -450,6 +455,7 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
+                    infographic={isMobile && infographic}
                     nearAddress={this.props.nearAddress}
                     searchDisabled={this.state.searchDisabled}
                      />} />
@@ -474,11 +480,13 @@ class MapContainer extends React.Component {
                       handleRequestOpen={this.props.handleRequestOpen}
                       handleFilterSelect={this.handleFilterSelect}
                       handleSortSelect={this.handleSortSelect}
+                      infographic={isMobile && infographic}
                       lists={this.props.lists}
                       mapResources={mapResources}
                       nearAddress={this.props.nearAddress}
                       printDisabled={this.state.printDisabled}
                       searchDisabled={this.state.searchDisabled}
+                      searchCenter={this.state.nearLatLng}
                       session={this.props.session}
                       user={this.props.user}
                     />)}
@@ -507,12 +515,14 @@ class MapContainer extends React.Component {
               <Sticky>
                 <div>
                   <AsylumConnectMap
-                    resources={mapResources}
-                    history={this.props.history}
-                    loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
+                    history={this.props.history}
+                    infographic={infographic}
+                    loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
                     ref={(el) => this.ACMap = el}
+                    resources={mapResources}
+                    searchCenter={this.state.nearLatLng}
                   />
                 </div>
               </Sticky>          

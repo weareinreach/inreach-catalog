@@ -29,7 +29,10 @@ let resourceIndex = resourceTypes.getTagIndex();
 const styles = (theme) => ({
   boldFont: boldFont(theme),
   contentSpacing: {
-    margin: "1.5rem 0"
+    margin: "1.5rem 0",
+    [theme.breakpoints.down('sm')]: {
+      margin: "0.75rem 0"
+    }
   },
   lineSpacing: {
     lineHeight: "1.4rem"
@@ -44,14 +47,13 @@ const styles = (theme) => ({
     fontWeight: "600",
     color: theme.palette.primary[500]
   },
-  [theme.breakpoints.down('sm')]: {
-    pullLeft: {
+  pullLeft: {
+    [theme.breakpoints.down('sm')]: {
       textAlign: "left"
-    },
-    contentSpacing: {
-      margin: "0.75rem 0"
-    },
-    badgeSpacing: {
+    }
+  },
+  badgeSpacing: {
+    [theme.breakpoints.down('sm')]: {
       marginBottom: "0.75rem"
     }
   }

@@ -31,16 +31,14 @@ const styles = (theme) => ({
     padding: "1rem",
     fontSize: "0.9rem",
     height: "20%",
-    border: "1px solid "+theme.palette.common.darkGrey
+    border: "1px solid "+theme.palette.common.darkGrey,
+    [theme.breakpoints.down('sm')]: {
+      height: "15%"
+    }
   },
   boldFont: boldFont(theme),
   bodyLink: bodyLink(theme),
-  italicFont: italicFont(theme),
-  [theme.breakpoints.down('sm')]: {
-    reviewField: {
-      height: "15%"
-    }
-  }
+  italicFont: italicFont(theme)
 });
 
 class ReviewForm extends React.Component {
@@ -93,7 +91,7 @@ class ReviewForm extends React.Component {
           url: '/api/organizations/'+this.props.resource.id+'/comments',
           payload,
           callback: (data) => {
-            console.log(data);
+            //console.log(data);
             this.props.onSubmit({
               type: 'comment',
               data: Object.assign(payload,
