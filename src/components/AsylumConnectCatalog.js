@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import PropTypes from 'prop-types';
 import Dialog, { DialogActions,
   DialogContent,
@@ -259,4 +260,4 @@ AsylumConnectCatalog.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default withSession(withWidth(withStyles(styles)(AsylumConnectCatalog)));
+export default hot(module)(withSession(withWidth(withStyles(styles)(AsylumConnectCatalog))));
