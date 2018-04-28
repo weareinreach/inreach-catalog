@@ -101,8 +101,11 @@ class AsylumConnectCatalog extends React.Component {
       handleListNew,
       handleLogIn,
       handleLogOut,
+      handleConfirmSession,
+      handleUnconfirmSession,
       lists,
       session,
+      sessionConfirmed,
       user,
       location,
       history,
@@ -116,7 +119,6 @@ class AsylumConnectCatalog extends React.Component {
             handleLogOut={handleLogOut}
             handleRequestOpen={handleRequestOpen}
             session={session}
-            user={user}
             location={location}
             history={history}
             match={match}
@@ -151,6 +153,7 @@ class AsylumConnectCatalog extends React.Component {
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
               dialog={dialog}
+              handleConfirmSession={handleConfirmSession}
               handleListAddFavorite={handleListAddFavorite}
               handleListNew={handleListNew}
               handleLogIn={handleLogIn}
@@ -228,8 +231,10 @@ class AsylumConnectCatalog extends React.Component {
                     {...this.props}
                     {...props}
                     session={session}
+                    sessionConfirmed={sessionConfirmed}
                     handleMessageNew={handleMessageNew}
                     handleRequestOpen={handleRequestOpen}
+                    handleUnconfirmSession={handleUnconfirmSession}
                   />
                 )}
               />
@@ -255,7 +260,10 @@ AsylumConnectDialog.defaultProps = {
 AsylumConnectCatalog.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleLogOut: PropTypes.func.isRequired,
+  handleConfirmSession: PropTypes.func.isRequired,
+  handleUnconfirmSession: PropTypes.func.isRequired,
   session: PropTypes.string,
+  sessionConfirmed: PropTypes.bool.isRequired,
   user: PropTypes.number,
   width: PropTypes.number.isRequired,
 };

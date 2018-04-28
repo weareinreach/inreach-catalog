@@ -33,7 +33,7 @@ class FavoritesListContainer extends React.Component {
 
   componentDidMount() {
     const { listId } = this.props.match.params;
-    const { lists, user } = this.props;
+    const { lists } = this.props;
 
     if (lists.length && !listId) {
       this.setState({publicList: null});
@@ -133,7 +133,7 @@ class FavoritesListContainer extends React.Component {
   }
 
   handleListSelect(list) {
-    const {history, user} = this.props;
+    const { history } = this.props;
     history.push(`/favorites/${list.slug}`);
     this.handleMenuClose();
   }

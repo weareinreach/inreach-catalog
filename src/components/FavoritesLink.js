@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-const FavoritesLink = ({ classes, user }) => (
+const FavoritesLink = ({ classes }) => (
   <Link to={`/favorites`}  className="hide--on-print">
     <Typography
       type='display4'
@@ -30,11 +30,6 @@ const FavoritesLink = ({ classes, user }) => (
   </Link>
 );
 
-FavoritesLink.defaultProps = { user: null };
-
-FavoritesLink.propTypes = {
-  classes: PropTypes.object.isRequired,
-  user: PropTypes.number,
-};
+FavoritesLink.propTypes = { classes: PropTypes.object.isRequired };
 
 export default withStyles(styles)(FavoritesLink);

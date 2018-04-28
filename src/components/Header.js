@@ -12,7 +12,6 @@ const Header = ({
   handleRequestOpen,
   handleLogOut,
   session,
-  user,
   width,
   location,
   history,
@@ -37,7 +36,6 @@ const Header = ({
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
         session={session}
-        user={user}
       />
     );
   } else {
@@ -46,22 +44,17 @@ const Header = ({
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
         session={session}
-        user={user}
       />
     );
   }
 };
 
-Header.defaultProps = {
-  session: null,
-  user: null,
-};
+Header.defaultProps = { session: null };
 
 Header.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
   width: PropTypes.number.isRequired,
 };
 
