@@ -41,7 +41,6 @@ const NavDesktop = ({
   handleLogOut,
   handleRequestOpen,
   session,
-  user,
 }) => (
   <div className={classes.root}>
     <Link to='/'>
@@ -76,21 +75,17 @@ const NavDesktop = ({
       handleRequestOpen={handleRequestOpen}
       session={session}
     />
-    <FavoritesLink user={user}>view your favorites</FavoritesLink>
+    <FavoritesLink>view your favorites</FavoritesLink>
   </div>
 );
 
-NavDesktop.defaultProps = {
-  session: null,
-  user: null,
-};
+NavDesktop.defaultProps = { session: null };
 
 NavDesktop.propTypes = {
   classes: PropTypes.object.isRequired,
   handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
 };
 
 export default withStyles(styles)(NavDesktop);

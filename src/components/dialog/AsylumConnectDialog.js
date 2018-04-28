@@ -22,6 +22,7 @@ const styles = theme => ({
 const AsylumConnectDialog = ({
   classes,
   dialog,
+  handleConfirmSession,
   handleListAddFavorite,
   handleListNew,
   handleLogIn,
@@ -83,6 +84,7 @@ const AsylumConnectDialog = ({
         />}
       {dialog === 'password' &&
         <PasswordDialog
+          handleConfirmSession={handleConfirmSession}
           handleMessageNew={handleMessageNew}
           handleRequestOpen={handleRequestOpen}
           handleRequestClose={handleRequestClose}
@@ -119,6 +121,7 @@ AsylumConnectDialog.defaultProps = {
 AsylumConnectDialog.propTypes = {
   classes: PropTypes.shape({dialogBody: PropTypes.string}).isRequired,
   dialog: PropTypes.string.isRequired,
+  handleConfirmSession: PropTypes.func.isRequired,
   handleListAddFavorite: PropTypes.func.isRequired,
   handleListNew: PropTypes.func.isRequired,
   handleLogIn: PropTypes.func.isRequired,

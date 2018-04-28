@@ -53,7 +53,7 @@ class NavMobile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) { console.log(nextProps);
+  componentWillReceiveProps(nextProps) {
     if(nextProps.location) {
       let value = this.state.value;
       switch(nextProps.location.pathname) {

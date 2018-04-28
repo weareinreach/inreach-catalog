@@ -70,7 +70,7 @@ class ResetPasswordPage extends React.Component {
 
   handleSubmit(event) {
     const { handleMessageNew, history } = this.props;
-    console.log('submitted!');
+    //console.log('submitted!');
     event.preventDefault();
 
     //check token

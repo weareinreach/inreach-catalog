@@ -24,7 +24,17 @@ const styles = theme => ({
     overflow: 'auto',
     maxHeight: 300,
     borderRadius: '2px',
-    boxShadow: theme.shadows[9]
+    boxShadow: theme.shadows[9],
+    [theme.breakpoints.down('sm')]: {
+      position: 'static',
+      width: '100%',
+      maxHeight: 'none',
+      height: 'auto',
+      boxShadow: 'none',
+      border: 'none',
+      borderRadius: '0px',
+      marginBottom: '91px' 
+    }
   },
   poweredByGoogle: {
     display: 'flex',
@@ -63,21 +73,11 @@ const styles = theme => ({
   textCenter: {
     textAlign: 'center'
   },
-  mobilePadding: {},
-  paddingTop:{},
-  [theme.breakpoints.down('sm')]: {
-    languageList: {
-      position: 'static',
-      width: '100%',
-      maxHeight: 'none',
-      height: 'auto',
-      boxShadow: 'none',
-      border: 'none',
-      borderRadius: '0px',
-      marginBottom: '91px' 
-    },
-    mobilePadding: mobilePadding(theme),
-    topPadding: {
+  mobilePadding: {
+    [theme.breakpoints.down('sm')]: mobilePadding(theme)
+  },
+  topPadding: {
+    [theme.breakpoints.down('sm')]: {
       paddingTop: '8px'
     }
   }

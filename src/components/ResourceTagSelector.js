@@ -20,11 +20,9 @@ const styles = theme => ({
     borderLeft: "1px solid "+theme.palette.common.lightGrey,
     cursor: 'pointer',
     position: 'relative',
-    marginBottom: '0px'
+    marginBottom: '0px',
+    [theme.breakpoints.down('sm')]: searchInputMobile(theme)
   }),
-  [theme.breakpoints.down('sm')]: {
-    searchInput: searchInputMobile(theme)
-  },
   sectionHeader: {
     color: theme.palette.common.darkBlack
   },

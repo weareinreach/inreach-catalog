@@ -60,7 +60,6 @@ const FavoritesList = ({
   publicList,
   resources,
   session,
-  user,
 }) => (
   <Grid
     container
@@ -232,7 +231,6 @@ FavoritesList.defaultProps = {
   list: null,
   publicList: null,
   session: null,
-  user: null,
 };
 
 FavoritesList.propTypes = {
@@ -252,7 +250,6 @@ FavoritesList.propTypes = {
   publicList: PropTypes.string,
   resources: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
 };
 
 export default withStyles(styles)(FavoritesList);
