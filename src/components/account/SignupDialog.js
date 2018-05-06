@@ -9,7 +9,8 @@ const SignupDialog = ({
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
-  history
+  history,
+  session,
 }) => (
   <div>
     <DialogTitle>Sign Up</DialogTitle>
@@ -19,16 +20,22 @@ const SignupDialog = ({
       handleRequestClose={handleRequestClose}
       handleRequestOpen={handleRequestOpen}
       history={history}
+      session={session}
     />
   </div>
 );
+
+SignupDialog.defaultProps = {
+  session: null,
+};
 
 SignupDialog.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  session: PropTypes.string,
 };
 
 export default SignupDialog;

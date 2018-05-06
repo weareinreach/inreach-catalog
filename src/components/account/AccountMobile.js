@@ -84,11 +84,16 @@ const AccountMobile = ({
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
+          session={session}
         />
       )}
     </TabContainer>
   </div>
 );
+
+AccountMobile.defaultProps = {
+  session: null,
+};
 
 AccountMobile.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -96,6 +101,7 @@ AccountMobile.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string,
   tab: PropTypes.number.isRequired,
 };
 
