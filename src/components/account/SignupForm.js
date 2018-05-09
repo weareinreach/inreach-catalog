@@ -28,6 +28,7 @@ const styles = theme => ({
   marginBottom: {marginBottom: '2rem'},
   marginBottomLg: {marginBottom: '3rem'},
   marginTop: {marginTop: '2rem'},
+  marginVertical: {margin: '2rem 0'},
   spacingTop: {marginTop: '1rem'},
   backgroundTransparent: {backgroundColor: 'transparent'}
 });
@@ -153,9 +154,13 @@ const SignupForm = ({
           organizationSelection={organizationSelection}
           organizations={organizations}
         />
-        <AsylumConnectButton variant="secondary">Join Organization</AsylumConnectButton>
+        <div className={classes.marginVertical}>
+          <AsylumConnectButton variant="secondary">
+            Join Organization
+          </AsylumConnectButton>
+        </div>
         <Typography type="body1">
-          You may also join your organization later under account settings.
+          You may also join your organization later in account settings.
         </Typography>
       </form>
     )}
