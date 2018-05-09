@@ -44,6 +44,7 @@ const SignupForm = ({
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
   handleOrganizationsClearRequested,
+  handleRequestClose,
   handleRequestOpen,
   handleSelect,
   handleSignUp,
@@ -132,6 +133,9 @@ const SignupForm = ({
     )}
     {activeStep === 2 && (
       <form onSubmit={handleCreateAffiliation}>
+        <Typography type="display4">
+          Connect to Your Organization
+        </Typography>
         <OrganizationAutocomplete
           handleBlurOrganizations={handleBlurOrganizations}
           handleMessageNew={handleMessageNew}
@@ -143,15 +147,16 @@ const SignupForm = ({
           handleOrganizationsClearRequested={
             handleOrganizationsClearRequested
           }
+          handleRequestClose={handleRequestClose}
           isLoadingOrganizations={isLoadingOrganizations}
           organizationSearch={organizationSearch}
           organizationSelection={organizationSelection}
           organizations={organizations}
         />
-        <Typography type="body1" className={classes.paddingVertical}>
-          Can't find your organization? While our Suggest a Resource form is currently under construction, <a href="https://goo.gl/forms/0Joi30DrOqf65duy2" target="_blank">please use this Google Form</a> to suggest new resource(s) for inclusion in the AsylumConnect catalog. Once your organization has been approved by the AsylumConnect team, you will then be able to sign up for a free service provider user account to claim your organization's profile on the live resource catalog.
-        </Typography>
         <AsylumConnectButton variant="secondary">Join Organization</AsylumConnectButton>
+        <Typography type="body1">
+          You may also join your organization later under account settings.
+        </Typography>
       </form>
     )}
     <MobileStepper
@@ -189,6 +194,7 @@ SignupForm.propTypes = {
   handleOrganizationSelect: PropTypes.func.isRequired,
   handleOrganizationsFetchRequested: PropTypes.func.isRequired,
   handleOrganizationsClearRequested: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   handleSelect: PropTypes.func.isRequired,
   handleSignUp: PropTypes.func.isRequired,
