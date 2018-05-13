@@ -55,7 +55,7 @@ class GeneralSettingsPassword extends React.Component {
     super(props);
     this.state = {
       phoneTextMask: '(  )   -   ',
-      open: true,
+      open: false,
       currentPassword: '',
       newPassword: '',
       confirmedPassword: ''

@@ -24,27 +24,33 @@ const styles = theme => ({
     color: theme.palette.primary[500],
     cursor: 'pointer',
   },
-  paddingVertical: {padding: '2.5rem 6rem'},
+  paddingVertical: {padding: '2.5rem 0'},
   marginBottom: {marginBottom: '2rem'},
   marginBottomLg: {marginBottom: '3rem'},
+  marginTop: {marginTop: '2rem'},
+  marginVertical: {margin: '2rem 0'},
   spacingTop: {marginTop: '1rem'},
   backgroundTransparent: {backgroundColor: 'transparent'}
 });
 
 const SignupForm = ({
+  activeStep,
   classes,
   email,
   handleBlurOrganizations,
   handleChange,
+  handleCreateAffiliation,
   handleMessageNew,
   handleOrganizationSearchChange,
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
   handleOrganizationsClearRequested,
+  handleRequestClose,
   handleRequestOpen,
   handleSelect,
-  handleSubmit,
-  history,
+  handleSignUp,
+  handleStepNext,
+  handleStepBack,
   isLoadingOrganizations,
   organizations,
   organizationSearch,
@@ -54,7 +60,7 @@ const SignupForm = ({
   selection,
 }) => (
   <div className={classes.container}>
-    {selection === '' && (
+    {activeStep === 0 && (
       <div className={classes.container}>
         <Typography className={classes.marginBottomLg} type="display3">
           Which are you?
@@ -71,10 +77,15 @@ const SignupForm = ({
           variant="secondary">
           I am a service provider
         </AsylumConnectButton>
+        <div onClick={() => handleRequestOpen('login')}>
+          <Typography type="body1">
+            <span className={classes.link}>Already have an account?</span>
+          </Typography>
+        </div>
       </div>
     )}
-    {selection !== '' && (
-      <form className={classes.container} onSubmit={handleSubmit}>
+    {activeStep === 1 && (
+      <form className={classes.container} onSubmit={handleSignUp}>
         <TextField
           id="email"
           label={selection === 'seeker' ? 'Email' : 'Organization Email'}
@@ -107,28 +118,6 @@ const SignupForm = ({
           type="password"
           value={passwordConfirmation}
         />
-        {selection === 'provider' && (
-          <OrganizationAutocomplete
-            handleBlurOrganizations={handleBlurOrganizations}
-            handleMessageNew={handleMessageNew}
-            handleOrganizationSearchChange={handleOrganizationSearchChange}
-            handleOrganizationSelect={handleOrganizationSelect}
-            handleOrganizationsFetchRequested={
-              handleOrganizationsFetchRequested
-            }
-            handleOrganizationsClearRequested={
-              handleOrganizationsClearRequested
-            }
-            history={history}
-            isLoadingOrganizations={isLoadingOrganizations}
-            organizationSearch={organizationSearch}
-            organizationSelection={organizationSelection}
-            organizations={organizations}
-          />
-        )}
-        {selection === 'provider' && (<Typography type="body1">
-          Can't find your organization? While our Suggest a Resource form is currently under construction, <a href="https://goo.gl/forms/0Joi30DrOqf65duy2" target="_blank">please use this Google Form</a> to suggest new resource(s) for inclusion in the AsylumConnect catalog. Once your organization has been approved by the AsylumConnect team, you will then be able to sign up for a free service provider user account to claim your organization's profile on the live resource catalog.
-        </Typography>)}
         <Typography type="body1" className={classes.paddingVertical}>
           By clicking "Sign Up," you agree to One Degree's{` `}
           <a href="https://www.1degree.org/privacy" target="_blank">
@@ -143,25 +132,50 @@ const SignupForm = ({
         <AsylumConnectButton variant="secondary">Sign Up</AsylumConnectButton>
       </form>
     )}
-    {selection === '' && (
-      <div onClick={() => handleRequestOpen('login')}>
-        <Typography type="body1">
-          <span className={classes.link}>Already have an account?</span>
+    {activeStep === 2 && (
+      <form onSubmit={handleCreateAffiliation}>
+        <Typography type="display4">
+          Connect to Your Organization
         </Typography>
-      </div>
+        <OrganizationAutocomplete
+          handleBlurOrganizations={handleBlurOrganizations}
+          handleMessageNew={handleMessageNew}
+          handleOrganizationSearchChange={handleOrganizationSearchChange}
+          handleOrganizationSelect={handleOrganizationSelect}
+          handleOrganizationsFetchRequested={
+            handleOrganizationsFetchRequested
+          }
+          handleOrganizationsClearRequested={
+            handleOrganizationsClearRequested
+          }
+          handleRequestClose={handleRequestClose}
+          isLoadingOrganizations={isLoadingOrganizations}
+          organizationSearch={organizationSearch}
+          organizationSelection={organizationSelection}
+          organizations={organizations}
+        />
+        <div className={classes.marginVertical}>
+          <AsylumConnectButton variant="secondary">
+            Join Organization
+          </AsylumConnectButton>
+        </div>
+        <Typography type="body1">
+          You may also join your organization later in account settings.
+        </Typography>
+      </form>
     )}
     <MobileStepper
       className={classes.spacingTop+' '+classes.backgroundTransparent}
       type="dots"
-      steps={2}
+      steps={selection === 'provider' ? 3 : 2}
       position="static"
-      activeStep={selection === '' ? 0 : 1}
+      activeStep={activeStep}
       nextButton={<div />}
       backButton={<div />}
     />
-    {selection !== '' && (
+    {activeStep === 1 && (
       <div className={classes.flex}>
-        <Button dense onClick={() => handleSelect('')}>
+        <Button dense onClick={handleStepBack}>
           <KeyboardArrowLeft />
           Back
         </Button>
@@ -175,17 +189,22 @@ SignupForm.defaultProps = {
 };
 
 SignupForm.propTypes = {
+  activeStep: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   handleBlurOrganizations: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleCreateAffiliation: PropTypes.func.isRequired,
   handleOrganizationSearchChange: PropTypes.func.isRequired,
   handleOrganizationSelect: PropTypes.func.isRequired,
   handleOrganizationsFetchRequested: PropTypes.func.isRequired,
   handleOrganizationsClearRequested: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   handleSelect: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSignUp: PropTypes.func.isRequired,
+  handleStepBack: PropTypes.func.isRequired,
+  handleStepNext: PropTypes.func.isRequired,
   organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
   organizationSearch: PropTypes.string.isRequired,
   organizationSelection: PropTypes.object,
