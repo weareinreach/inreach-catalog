@@ -82,7 +82,7 @@ class DeleteAccountDialog extends React.Component {
           <AsylumConnectButton variant="primary" onClick={this.confirmDelete} className={classes.marginTop}>delete account</AsylumConnectButton>
         </form>
         
-        <AsylumConnectButton variant="primary" handleRequestClose={handleRequestClose}>
+        <AsylumConnectButton variant="primary" onClick={handleRequestClose}>
           cancel
         </AsylumConnectButton>
       </div>

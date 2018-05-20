@@ -2,6 +2,7 @@ import React from 'react';
 import MaskedInput from 'react-text-mask';
 
 import GeneralSettingsEmail from './GeneralSettingsEmail';
+import GeneralSettingsOrganization from './GeneralSettingsOrganization';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
 import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
@@ -31,11 +32,17 @@ function TextMaskCustom(props) {
 
 const styles = theme => ({
   root: {
-    width: '33%',
+    width: '50%',
     padding: '0 5% 0 5%'
   },
   formType: {
     margin: '10% 0 10% 0'
+  },
+  [`@media (max-width: ${breakpoints['md']}px)`]: {
+    root: {
+      width: '75%',
+      padding: '0 5% 0 5%'
+    }
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]:{
     root: {
@@ -67,14 +74,9 @@ class GeneralSettings extends React.Component {
       isEmailUpdated: null,
       dialog: 'none'
     }
-    //this.handleDelete = this.handleDelete.bind(this)
     this.handleOdasError = this.handleOdasError.bind(this)
     this.updateEmail = this.updateEmail.bind(this)
     this.updatePassword = this.updatePassword.bind(this)
-    //this.handleDeleteAccount = this.handleDeleteAccount.bind(this)
-    this.handleLogIn = this.handleLogIn.bind(this)
-    this.handleRequestOpen = this.handleRequestOpen.bind(this)
-    //this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
   handleOdasError(error) {
@@ -121,50 +123,48 @@ class GeneralSettings extends React.Component {
       .catch(error => this.handleOdasError(error));
   }
 
-  handleRequestOpen() {
-    this.props.handleRequestOpen('deleteAccount')
-    //this.setState({dialog:'deleteAccount'});
-  }
-
-  handleRequestClose() {
-    //this.setState({dialog:'none'})
-  }
-
-  handleLogIn(){
-    return 'login...'
-  }
-
   render() {
-    const { classes, handleMessageNew, user } = this.props;
+    const {
+      classes,
+      handleMessageNew,
+      handleRequestOpen,
+      handleUserUpdate,
+      session,
+      user: {
+        affiliation,
+        is_professional:
+        isProfessional,
+        email
+      },
+    } = this.props;
     const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
-    let email = user? user.email:''
     return (
       <div className={classes.root}>
-        <Typography type="display3" className={classes.formType}>Your Account</Typography>
-        <div>
-          <GeneralSettingsEmail 
-            currentEmail={email} 
-            handleUpdateEmail={this.updateEmail} 
-            isEmailUpdated={isEmailUpdated}
+        {affiliation && (
+          <Typography type="display3" className={classes.formType}>Your Account</Typography>
+        )}
+        {isProfessional && (
+          <GeneralSettingsOrganization
             handleMessageNew={handleMessageNew}
+            handleUserUpdate={handleUserUpdate}
+            affiliation={affiliation}
+            session={session}
           />
-          <GeneralSettingsPassword 
-            handleUpdatePassword={this.updatePassword} 
-            isPasswordUpdated={isPasswordUpdated} 
-            handleMessageNew={handleMessageNew}
-          />
-          <div><div onClick={this.handleRequestOpen} className={classes.settingsTypeFont}>
-            <span>Delete Account</span>
-          </div></div>
-        </div>
-        {/*<AsylumConnectDialog
-          dialog={dialog}
-          handleDeleteAccount={this.handleDeleteAccount}
-          handleLogIn={this.handleLogIn}
+        )}
+        <GeneralSettingsEmail 
+          currentEmail={email} 
+          handleUpdateEmail={this.updateEmail} 
+          isEmailUpdated={isEmailUpdated}
           handleMessageNew={handleMessageNew}
-          handleRequestClose={this.handleRequestClose}
-          handleRequestOpen={this.handleRequestOpen}
-        />*/}
+        />
+        <GeneralSettingsPassword 
+          handleUpdatePassword={this.updatePassword} 
+          isPasswordUpdated={isPasswordUpdated} 
+          handleMessageNew={handleMessageNew}
+        />
+        <div onClick={() => handleRequestOpen('deleteAccount')} className={classes.settingsTypeFont}>
+          <span>Delete Account</span>
+        </div>
       </div>
     )
   }
@@ -175,8 +175,13 @@ GeneralSettings.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
+  handleUserUpdate: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.shape({
+    affiliation: PropTypes.shape({}),
+    is_professional: PropTypes.bool.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired
 };
 
 export default withStyles(styles)(GeneralSettings);

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
@@ -81,7 +82,7 @@ function renderLoadingContainer(options) {
 
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
-  const {history, handleMessageNew} = this;
+  const {history, handleMessageNew, handleRequestClose} = this;
   const styles = {
     container: {
       marginTop: '8px',
@@ -94,11 +95,10 @@ function renderSuggestionsContainer(options) {
   return (
     <Paper {...containerProps} style={styles.container} square>
       {children}
-      {/* Temporarily hide this option */}
-      {false && query.length > 0 && (
-        <Link to="/suggestions/new" onMouseDown={(e) => { //prevent onBlur from hiding link before the click is registered
-          history.push('/suggestions/new')
-          handleMessageNew('Once you\'ve completed signing up, use the suggest a resource form to add your organization to our system')
+      {query.length > 0 && (
+        <Link to="/suggestions/new" onMouseDown={(e) => {
+          history.push('/suggestions/new');
+          handleRequestClose();
         }}>
           <MenuItem component="div">
             <span style={{fontWeight: 200}}>
@@ -149,6 +149,7 @@ const OrganizationAutocomplete = ({
   handleOrganizationSelect,
   handleOrganizationsFetchRequested,
   handleOrganizationsClearRequested,
+  handleRequestClose,
   history,
   isLoadingOrganizations,
   organizations,
@@ -169,7 +170,11 @@ const OrganizationAutocomplete = ({
     renderSuggestionsContainer={
       isLoadingOrganizations
         ? renderLoadingContainer
-        : !organizationSelection ? renderSuggestionsContainer.bind({history, handleMessageNew}) : () => true
+        : !organizationSelection
+        ? renderSuggestionsContainer.bind({
+            history, handleMessageNew, handleRequestClose
+          })
+        : () => true
     }
     getSuggestionValue={getSuggestionValue}
     renderInputComponent={renderInput}
@@ -189,6 +194,10 @@ const OrganizationAutocomplete = ({
   />
 );
 
+OrganizationAutocomplete.defaultProps = {
+  handleRequestClose: () => true,
+};
+
 OrganizationAutocomplete.propTypes = {
   classes: PropTypes.object.isRequired,
   handleBlurOrganizations: PropTypes.func.isRequired,
@@ -196,9 +205,10 @@ OrganizationAutocomplete.propTypes = {
   handleOrganizationSelect: PropTypes.func.isRequired,
   handleOrganizationsFetchRequested: PropTypes.func.isRequired,
   handleOrganizationsClearRequested: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func,
   isLoadingOrganizations: PropTypes.bool.isRequired,
   organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
   organizationSearch: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(OrganizationAutocomplete);
+export default withRouter(withStyles(styles)(OrganizationAutocomplete));

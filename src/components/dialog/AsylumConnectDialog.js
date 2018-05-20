@@ -100,6 +100,7 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
           history={history}
+          session={session}
         />}
       {dialog === 'deleteAccount' &&
         <DeleteAccountDialog
