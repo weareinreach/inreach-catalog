@@ -210,7 +210,7 @@ class SearchResultsContainer extends React.Component {
               {this.props.infographic ? 
                 <Grid container spacing={0} justify='space-between'>  
                   <Grid item xs>
-                    <AsylumConnectInfographicButton url={this.props.infographic.url} text={"Asylum Seeker's Guide to "+this.props.infographic.name} />
+                    <AsylumConnectInfographicButton url={this.props.infographic.url} text={"Asylum Seeker's "+this.props.infographic.name} />
                   </Grid>
                 </Grid>
               : null}

@@ -87,7 +87,7 @@ class AsylumConnectMap extends React.Component {
 
     return (
       <div className="map-area">
-        {infographic && <AsylumConnectInfographicButton url={infographic.url ? infographic.url : null} list={infographic.list ? infographic.list : null} text={"Asylum Seeker's Guide to "+infographic.name} />}
+        {infographic && <AsylumConnectInfographicButton url={infographic.url ? infographic.url : null} list={infographic.list ? infographic.list : null} text={"Asylum Seeker's "+infographic.name} />}
         <GoogleMap
           defaultZoom={defaultZoom}
           defaultCenter={defaultCenter}
