@@ -29,7 +29,7 @@ const propertyMap = {
     "community-seniors": "Seniors",
     "community-children": "Children",
     "community-daca-recipient-seeker": "DACA Recipient Seeker",
-    "community-detained-immigrant":"Detained tmmigrants"
+    "community-detained-immigrant":"Detained Immigrants"
   },
   "language": {
     "lang-american-sign-language": { name: "American Sign Language" },
