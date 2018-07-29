@@ -27,10 +27,13 @@ const propertyMap = {
     "community-refugee": "Refugees",
     "community-veteran": "Military veterans",
     "community-seniors": "Seniors",
-    "community-children": "Children"
+    "community-children": "Children",
+    "community-daca-recipient-seeker": "DACA Recipient Seeker",
+    "community-detained-immigrant":"Detained tmmigrants"
   },
   "language": {
     "lang-american-sign-language": { name: "American Sign Language" },
+    "lang-all-languages-by-interpreter": { name: "Translation services available. Contact organization for more information."},
     "lang-amharic": { code: "am" },
     "lang-arabic": { code: "ar" },
     "lang-bangali": { code: "bn" },

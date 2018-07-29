@@ -6,7 +6,7 @@ const infographics = [
       lng: -118.284006
     },
     distance: 34, //miles
-    name: "Los Angeles",
+    name: "Guide to Los Angeles",
     url: "https://www.asylumconnect.org/s/LA-infographic.pdf"
   },
   {
@@ -15,7 +15,7 @@ const infographics = [
       lng: -73.989177
     },
     distance: 20, //miles
-    name: "New York City",
+    name: "Guide to New York City",
     url: "https://www.asylumconnect.org/s/NYC-infographic.pdf"
   },
   {
@@ -24,7 +24,7 @@ const infographics = [
       lng: -75.124199
     },
     distance: 12, //miles
-    name: "Philadelphia",
+    name: "Guide to Philadelphia",
     url: "https://www.asylumconnect.org/s/philly-infographic.pdf"
   },
   {
@@ -33,7 +33,7 @@ const infographics = [
       lng: -122.284278
     },
     distance: 16, //miles
-    name: "San Francisco",
+    name: "Guide to San Francisco",
     url: "https://www.asylumconnect.org/s/sf-infographic.pdf"
   },
   {
@@ -42,7 +42,7 @@ const infographics = [
       lng: -122.332071
     },
     distance: 9, //miles
-    name: "Seattle",
+    name: "Guide to Seattle",
     url: "https://www.asylumconnect.org/s/seattle-infographic.pdf"
   },
   {
@@ -51,7 +51,7 @@ const infographics = [
       lng: -77.037268
     },
     distance: 8, //miles
-    name: "Washington, DC",
+    name: "Guide to Washington, DC",
     url: "https://www.asylumconnect.org/s/DC-infographic.pdf"
   }
 ];
@@ -62,7 +62,7 @@ const defaultInfographic = {
       lng: -98.556061
     },
     distance: 2680,
-    name: "the U.S.",
+    name: "Legal Guides",
     list: [
       {name: "Know your rights", url:"https://www.asylumconnect.org/s/know-your-rights.pdf"},
       {name: "Legal assistance", url:"https://www.asylumconnect.org/s/legal-assistance.pdf"},
