@@ -35,6 +35,9 @@ const styles = (theme) => ({
     color: theme.palette.primary[500],
     width: relativeSize*2+'rem',
     height: relativeSize*2+'rem'
+  },
+  checkboxDisabled: {
+    color: theme.palette.common.lightBlack
   }
 });
 
@@ -53,6 +56,10 @@ const AsylumConnectCheckbox = (props) => {
     classes.checkboxChecked,
     props.additionalClasses ? props.additionalClasses.checkboxChecked : null
   );
+  const checkboxDisabled = classNames(
+    classes.checkboxDisabled,
+    props.additionalClasses ? props.additionalClasses.checkboxDisabled : null
+  );
 
   const iconSize = Object.assign(defaultIconSize, props.iconSize);
 
@@ -67,9 +74,11 @@ const AsylumConnectCheckbox = (props) => {
           checked={props.checked}
           classes={{
             default: checkboxDefault,
-            checked: checkboxChecked
+            checked: checkboxChecked,
+            disabled: checkboxDisabled
           }}
           onChange={props.onChange}
+          disabled={props.disabled ? true : false}
         />
       }
       label={props.label}
