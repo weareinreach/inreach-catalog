@@ -21,3 +21,4 @@ export { default as RedHeartIcon } from './RedHeartIcon';
 export { default as SearchIcon } from './SearchIcon';
 export { default as ShareIcon } from './ShareIcon';
 export { default as SportsEntertainmentIcon } from './SportsEntertainmentIcon';
+export { default as TransportationIcon } from './TransportationIcon';

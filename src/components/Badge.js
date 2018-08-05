@@ -17,6 +17,7 @@ import {
   MentalHealthIcon,
   MiscIcon,
   SportsEntertainmentIcon,
+  TransportationIcon
 } from './icons';
 
 const styles = theme => ({
@@ -74,6 +75,10 @@ const Badge = ({ classes, type, height, width, extraClasses }) => {
       label: 'Sports / Entertainment',
       icon: <SportsEntertainmentIcon />,
     },
+    transportation: {
+      label: 'Transportation',
+      icon: <TransportationIcon />,
+    },
   };
 
   const iconWidth = (width ? width : '75px');
@@ -114,6 +119,7 @@ Badge.propTypes = {
     'mentalHealth',
     'misc',
     'sportsEntertainment',
+    'transportation'
   ]).isRequired
 };
 

@@ -24,7 +24,7 @@ import resourceTypes from '../../helpers/ResourceTypes';
 import propertyMap from '../../helpers/OneDegreePropertyMap';
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 
-let resourceIndex = resourceTypes.getTagIndex();
+let resourceIndex = resourceTypes.resourceIndex;
 
 const styles = (theme) => ({
   boldFont: boldFont(theme),
