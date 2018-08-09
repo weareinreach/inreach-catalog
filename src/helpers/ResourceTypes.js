@@ -41,11 +41,14 @@ const resourceTypes = [
   /* AC Legal Category */
   /** Using Category instead of Tags for most of the main checkbox for inclusiveness **/
   {category: 'Legal', type: 'legal', odTag: 'Legal'},
+  {category: 'Legal', type: 'legal', odTag: 'ID & driver\'s license'},
   {category: 'Legal', type: 'legal', odTag: 'Asylum application',       title: 'Asylum application'},
-  {category: 'Legal', type: 'legal', odTag: 'DACA',                     title: 'Deferred Action for Childhood Arrivals (DACA)'},
-  {category: 'Legal', type: 'legal', odTag: 'Immigration detention',    title: 'Immigration detention'},
   {category: 'Legal', type: 'legal', odTag: 'Crime victim support',     title: 'Crime and discrimination'},
-  {category: 'Legal', type: 'legal', odTag: 'ID & driver\'s license',   title: 'Documentation'},
+  {category: 'Legal', type: 'legal', odTag: 'DACA',                     title: 'Deferred Action for Childhood Arrivals (DACA)'},
+  //{category: 'Legal', type: 'legal', odTag: '',     title: 'Deportation or removal'},
+  {category: 'Legal', type: 'legal', odTag: 'Immigration detention',    title: 'Immigration detention'},
+  //{category: 'Legal', type: 'legal', odTag: '',     title: 'Name and gender change'},
+  
   /*{category: 'Legal', type: 'legal', odTag: 'Legal assistance',   title: 'Legal aid'},
   {category: 'Legal', type: 'legal', odTag: 'Legal services',     title: 'Legal aid'},
   {category: 'Legal', type: 'legal', odTag: 'Immigration law',    title: 'Legal aid'},*/
@@ -186,8 +189,8 @@ const resourceTypes = [
 
   /* AC Transportation Category */
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation'},
-  {category: 'Transportation', type: 'transportation', odTag: 'Transit passes & discounts',     title: 'Transit passes & discounts'},
-  {category: 'Transportation', type: 'transportation', odTag: 'Transportation for healthcare',  title: 'Transit passes & discounts'},
+  {category: 'Transportation', type: 'transportation', odTag: 'Transit passes & discounts',     title: 'Transit passes and discounts'},
+  {category: 'Transportation', type: 'transportation', odTag: 'Transportation for healthcare',  title: 'Transit passes and discounts'},
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation assistance',      title: 'Transportation assistance'},
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation for healthcare',  title: 'Transportation assistance'},
 ];
