@@ -71,7 +71,7 @@ const FilterCollection = (props) => (
       <Grid container spacing={0} className={props.classes.subfilterSpacing} >
       {props.children.map((filter, i) => (
         <Grid item key={i} xs={12} sm={6} md={4}>
-          <AsylumConnectCheckbox label={filter.title} value={filter.title} onChange={props.onChange} checked={(props.selectedResourceTypes.indexOf(filter.title) >= 0)} />
+          <AsylumConnectCheckbox label={filter.title} value={filter.title} onChange={props.onChange} disabled={(props.selectedResourceTypes.indexOf(props.category) >= 0)} checked={(props.selectedResourceTypes.indexOf(filter.title) >= 0 || props.selectedResourceTypes.indexOf(props.category) >= 0)} />
         </Grid>
       ))}
       </Grid>

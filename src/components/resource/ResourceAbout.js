@@ -11,8 +11,6 @@ import propertyMap from '../../helpers/OneDegreePropertyMap';
 import resourceTypes from '../../helpers/ResourceTypes';
 import ACBadge from '../Badge';
 
-let resourceIndex = resourceTypes.getTagIndex();
-
 const Communities = (props) => (
   <Grid container spacing={0}>
     <Grid item xs={12} className={props.classes.sectionSpacing}>
@@ -90,13 +88,13 @@ const Services = (props) => {
                   <Typography key={item.id} type="body2" style={{position:'relative'}} >
                     {item.tags && item.tags.length ?
                       (() => {
-                        let badge = 'misc';
+                        let badge = resourceTypes.getBadge(
+                          item.tags.concat(
+                            item.categories && item.categories.length ? item.categories : [],
+                            item.areas && item.areas.length ? item.areas : []
+                          )
+                        );
 
-                        item.tags.forEach((tag) => {
-                          if(typeof resourceIndex[tag] !== 'undefined') {
-                            badge = resourceIndex[tag].type
-                          }
-                        })
                         return (
                           <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type={badge} width='45px' height='45px' />
                         );
