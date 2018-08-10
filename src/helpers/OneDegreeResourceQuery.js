@@ -39,9 +39,9 @@ class OneDegreeResourceQuery {
         this.filters.query.tags.push(tag.odTag)
       }
     });
-    if(this.filters.query.tags.length && this.filters.query.tags.indexOf('Case management') < 0) {
+    /*if(this.filters.query.tags.length && this.filters.query.tags.indexOf('Case management') < 0) {
       this.filters.query.tags.push('Case management');
-    }
+    }*/
     /*tags.forEach((tag) => {
       this.filters.query.tags = this.filters.query.tags.concat(tag.split(','));
     });*/
