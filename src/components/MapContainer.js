@@ -443,6 +443,9 @@ class MapContainer extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const infographic = this.getInfographic();
 
+    //on the search results, enforce a distance limitation of 100 miles
+    const mapMaxDistance = this.props.match.path == '/search/:in/:place/:near/:for/:filter/:sort' ? 100 : null;
+
     return (
         <div className={"container--map "+this.props.classes.containerMap}> 
           <Grid container spacing={0} alignItems='stretch'>
@@ -483,6 +486,7 @@ class MapContainer extends React.Component {
                       infographic={isMobile && infographic}
                       lists={this.props.lists}
                       mapResources={mapResources}
+                      mapMaxDistance={mapMaxDistance}
                       nearAddress={this.props.nearAddress}
                       printDisabled={this.state.printDisabled}
                       searchDisabled={this.state.searchDisabled}
@@ -520,6 +524,7 @@ class MapContainer extends React.Component {
                     infographic={infographic}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
+                    mapMaxDistance={mapMaxDistance}
                     ref={(el) => this.ACMap = el}
                     resources={mapResources}
                     searchCenter={this.state.nearLatLng}

@@ -251,6 +251,7 @@ class SearchResultsContainer extends React.Component {
                   history={this.props.history}
                   loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
                   mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
+                  mapMaxDistance={this.props.mapMaxDistance}
                   resources={this.props.mapResources}
                   searchCenter={this.props.searchCenter}
                 />

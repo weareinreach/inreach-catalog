@@ -502,6 +502,7 @@ class Resource extends React.Component {
                       loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}
                       containerElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />}
                       mapElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />} 
+                      mapMaxDistance={this.props.mapMaxDistance}
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
