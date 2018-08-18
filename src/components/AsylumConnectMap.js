@@ -43,17 +43,37 @@ class AsylumConnectMap extends React.Component {
     this.map = ref;
 
     /*google.maps.event.addListener(ref, 'zoom_changed', function() {
-      
+      let referencePoint = new google.maps.LatLng(lat, lng);
+      let nearestInfographic = false;
+      infographics.some((infographic, index) => {
+        if(google.maps.geometry.spherical
+            .computeDistanceBetween(
+              referencePoint, 
+              new google.maps.LatLng(infographic.center.lat, infographic.center.lng)
+            ) <= milesToMeters(infographic.distance)
+        ) {
+          nearestInfographic = infographic;
+          return true;
+        }
+      });
     });*/
 
   }
 
   updateBounds(resources) {
+    let self = this;
     const bounds = new google.maps.LatLngBounds();
     resources.map((resource) => {
       let points = resource.locations.length ? resource.locations : [{lat: resource.lat, lng: resource.lng, region: resource.region}];
       points.map((location) => {
         if(!location.lat || (!location.lng && !location.long)) return null;
+        //exclude from bounds calculations the locations more than 50 miles away
+        if(google && google.maps && google.maps.geometry && google.maps.geometry.spherical && google.maps.geometry.spherical.computeDistanceBetween && self.props.searchCenter && self.props.mapMaxDistance && !isNaN(self.props.mapMaxDistance)
+          && google.maps.geometry.spherical.computeDistanceBetween(
+            new google.maps.LatLng(self.props.searchCenter.lat, self.props.searchCenter.lng),
+            new google.maps.LatLng(location.lat, location.long ? location.long : location.lng)
+          ) > self.props.mapMaxDistance * 1609.34
+        ) return null;
         bounds.extend({lat: location.lat, lng: location.long ? location.long : location.lng});
         bounds.extend({lat: location.lat-0.1, lng: location.long ? location.long-0.1 : location.lng-0.1});
         bounds.extend({lat: location.lat+0.1, lng: location.long ? location.long+0.1 : location.lng+0.1});
