@@ -35,7 +35,14 @@ class OneDegreeResourceQuery {
    */
   addTags(tags) {
     ResourceTypes.types.forEach((tag) => {
-      if((tag.title && tags.indexOf(tag.title) >= 0) || tags.indexOf(tag.category) >= 0) {
+      if(
+        (
+          (tag.title && tags.indexOf(tag.title) >= 0) 
+          || tags.indexOf(tag.category) >= 0
+        ) 
+        && (typeof tag.iconOnly == "undefined" || tag.iconOnly == false)
+        && this.filters.query.tags.indexOf(tag.odTag) < 0
+      ) {
         this.filters.query.tags.push(tag.odTag)
       }
     });
@@ -177,6 +184,12 @@ class OneDegreeResourceQuery {
         var orgsSearch = new OneDegreeResourceQuery();
         orgsSearch
           .setIds(ids)
+          .setLocation({
+            lat: self.filters.query.lat,
+            lng: self.filters.query.long
+          })
+          .setOrder(self.filters.query.order)
+          .setState(self.filters.query.state)
           .setPerPage(ids.length);
         if(self.filters && self.filters.query && self.filters.query.order) {
           orgsSearch.setOrder(self.filters.query.order);
