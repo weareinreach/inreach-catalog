@@ -258,7 +258,7 @@ const resourceIndex = getTagIndex();
 const getBadge = (tags) => {
   let badge = 'misc';
   tags.forEach((tag) => {
-    if(typeof resourceIndex[tag] !== 'undefined') {
+    if(typeof resourceIndex[tag] !== 'undefined' && badge == 'misc') {
       badge = resourceIndex[tag].type
     }
   });
