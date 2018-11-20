@@ -26,4 +26,8 @@ module.exports = function(app) {
   // Share Resource
   app.route('/api/share')
   	.post(localAPI.share)
+
+  // Static Page
+  app.route('/api/page/:page_name')
+    .get(localAPI.page)
 };

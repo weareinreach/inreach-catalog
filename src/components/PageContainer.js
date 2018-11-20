@@ -83,11 +83,20 @@ class PageContainer extends React.Component {
               history={history}
               session={session}
               user={user}
-              session={session}
             />
           )}
           />
-          <Route path="/thuy" render={(props) => (<Static {...props} />)} />
+          <Route path="/page/:pageName" render={(props) => (
+            <Static
+              handleMessageNew={handleMessageNew}
+              handleLogOut={handleLogOut}
+              handleRequestOpen={handleRequestOpen}
+              history={history}
+              session={session}
+              user={user}
+              {...props} 
+            />
+          )} />
         </Switch>
       </div>
     );

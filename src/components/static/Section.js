@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 
 import Resource from './Resource';
+import ContentMarkdown from '../../helpers/ContentMarkdown';
 
 const styles = (theme, props) => ({
   textAlignCenter: {
@@ -38,14 +39,16 @@ const Section = ({
       {/* <Icon /> */}
       <Typography type='display4' className={classes.textAlignCenter}>{type}</Typography>
       <Typography type='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
-      <Typography type='caption' className={classes.italic}>{description}</Typography>
+      <Typography type='caption' className={classes.italic}>
+        <ContentMarkdown source={description} />
+      </Typography>
       {resources.map(resource => <Resource key={type} color={color} {...resource} />)}
     </div >
   )
 };
 
 Section.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   color: PropTypes.string,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
