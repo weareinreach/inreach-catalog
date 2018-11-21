@@ -455,6 +455,15 @@ class Resource extends React.Component {
               <div>  
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
                   <AsylumConnectBackButton onClick={() => {history.goBack()}} />
+                  <AsylumConnectButton 
+                    variant="secondary"
+                    className="center-align"
+                    onClick={() => (
+                      props.session 
+                      ? props.handleRequestOpen('share/resource/'+resource.id+'/'+resource.name) 
+                      : props.handleMessageNew('You must be logged in to share resources') )}
+                    >share
+                  </AsylumConnectButton> 
                   <SaveToFavoritesButton
                     handleListAddFavorite={props.handleListAddFavorite}
                     handleListRemoveFavorite={props.handleListRemoveFavorite}

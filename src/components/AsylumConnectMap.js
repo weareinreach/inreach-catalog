@@ -166,7 +166,7 @@ class AsylumConnectMap extends React.Component {
 
 AsylumConnectMap.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object,
   resources: PropTypes.array
 };
 
