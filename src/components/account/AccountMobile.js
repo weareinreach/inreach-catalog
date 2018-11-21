@@ -42,6 +42,7 @@ const AccountMobile = ({
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
+  session,
   tab,
 }) => (
   <div>
