@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
+import Toolbar from 'material-ui/Toolbar';
 import Paper from 'material-ui/Paper';
 
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import PasswordFormContainer from './PasswordFormContainer';
 import {DialogTitle} from '../dialog';
 
@@ -18,16 +20,28 @@ const styles = theme => ({
     boxShadow: "none"
   },
   textCenter: {textAlign: 'center'},
+  toolbarRoot: {
+    justifyContent: 'space-between'
+  },
+  toolbarGutters: {
+    paddingLeft: '0',
+    paddingRight: '0',
+  }
 });
 
 const PasswordMobile = ({
-  handleConfirmSession,
+  classes,
+  handleLogIn,
   handleMessageNew,
   handleRequestClose,
+  handleConfirmSession,
   session,
 }) => (
   <div>
     <Paper className={classes.root}>
+      <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
+        <AsylumConnectBackButton onClick={() => {handleRequestClose()}} />
+      </Toolbar>
       <DialogTitle>Confirm Password</DialogTitle>
       <PasswordFormContainer
         handleConfirmSession={handleConfirmSession}
@@ -40,10 +54,12 @@ const PasswordMobile = ({
 );
 
 PasswordMobile.propTypes = {
-  handleConfirmSession: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  session: PropTypes.string.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired,
+  session: PropTypes.string
 };
 
-export default PasswordMobile;
+export default withStyles(styles)(PasswordMobile);

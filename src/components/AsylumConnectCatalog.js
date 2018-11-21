@@ -27,14 +27,16 @@ import Footer from './Footer';
 import {
   AccountMobile,
   LoginDialog,
+  PasswordMobile
 } from './account';
 import {
   DisclaimerDialog,
   PrivacyDialog,
   PrivacyMobile
 } from './privacy';
+import ShareMobile from './share/ShareMobile';
 import Language from './navigation/Language';
-import AsylumConnectButton from './AsylumConnectButton.js';
+import AsylumConnectButton from './AsylumConnectButton';
 import withSession from './withSession';
 import withWidth from './withWidth';
 import Message from './Message';
@@ -142,6 +144,27 @@ class AsylumConnectCatalog extends React.Component {
                 session={session}
               />
             )}
+            {['password'].includes(dialog) && (
+              <PasswordMobile
+                dialog={dialog}
+                handleLogIn={handleLogIn}
+                handleMessageNew={handleMessageNew}
+                handleRequestClose={handleRequestClose}
+                handleRequestOpen={handleRequestOpen}
+                handleConfirmSession={handleConfirmSession}
+                session={session}
+              />
+            )}
+            {dialog && dialog.indexOf('share') >=0 && (
+              <ShareMobile
+                dialog={dialog}
+                handleLogIn={handleLogIn}
+                handleMessageNew={handleMessageNew}
+                handleRequestClose={handleRequestClose}
+                handleRequestOpen={handleRequestOpen}
+                session={session}
+              />
+            )}
             {['language'].includes(dialog) && (
               <Language
                 handleRequestOpen={handleRequestOpen}
@@ -168,7 +191,7 @@ class AsylumConnectCatalog extends React.Component {
             />
           </div>
         )}
-        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language'].includes(dialog)) || !isMobile ?
+        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
           <div className={"content "+this.props.classes.navPadding} >
             <Switch>
               <Route path="/resource/:id" render={(props) => (
