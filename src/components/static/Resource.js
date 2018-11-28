@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import withStylesProps from '../withStylesProps';
 import Typography from 'material-ui/Typography';
 
+import ContentMarkdown from '../../helpers/ContentMarkdown';
+
+require('./Resource.scss');
+
 const styles = (theme, props) => ({
   resourceNameMargin: {
     marginTop: theme.spacing.unit * 4,
@@ -27,26 +31,42 @@ const Resource = ({
   how,
   email,
 }) => (
-    <div>
-      <Typography type='display3' className={classes.resourceNameMargin}>{name}</Typography>
-      <a href={`${link}`}><Typography type='body1' className={classes.applyColor}>{link}</Typography></a>
-      <Typography type='body1'>{description}</Typography>
-      <Typography type='body1' className={classes.infoItem}>Who this resource serves:</Typography>
-      <Typography type='body1'>{who}</Typography>
-      <Typography type='body1' className={classes.infoItem}>How to visit this resource:</Typography>
-      <Typography type='body1'>Website: {link}</Typography>
-      <Typography type='body1'>Email: {email}</Typography>
-      <Typography type='body1'>{how}</Typography>
+    <div className="resource--with-markdown">
+      {name && <Typography type='display3' className={classes.resourceNameMargin}>{name}</Typography>}
+      {link && <a href={`${link}`}><Typography type='body1' className={classes.applyColor}>{link}</Typography></a>}
+      {description && <Typography type='body1'>
+        <ContentMarkdown 
+          renderers={{
+            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+          }} 
+          source={description} />
+      </Typography>}
+      {who && <Typography type='body1' className={classes.infoItem}>Who this resource serves:</Typography>}
+      {who && <Typography type='body1'>
+        <ContentMarkdown 
+          renderers={{
+            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+          }} 
+          source={who} />
+      </Typography>}
+      {how && <Typography type='body1' className={classes.infoItem}>How to visit this resource:</Typography>}
+      {how && <Typography type='body1'>
+        <ContentMarkdown 
+          renderers={{
+            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+          }} 
+          source={how} />
+      </Typography>}
     </div>
   );
 
 Resource.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.string,
-  link: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  who: PropTypes.string.isRequired,
-  how: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  description: PropTypes.string,
+  who: PropTypes.string,
+  how: PropTypes.string,
   email: PropTypes.string,
 };
 

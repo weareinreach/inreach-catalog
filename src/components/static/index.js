@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
 
 import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
@@ -25,6 +26,7 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: '0 10%'
   },
   subtitle: {
     fontStyle: 'italic',
@@ -33,13 +35,27 @@ const styles = theme => ({
   section: {
     padding: '5% 20%',
   },
-  [`@media (max-width: ${breakpoints['sm']}px)`]: {
+  inlineBlock: {
+    display: 'inline-block'
+  },
+  navigation: {
+    marginTop: theme.spacing.unit * 10
+  },
+  [`@media (max-width: ${breakpoints['md']}px)`]: {
     section: {
-      padding: 0
+      padding: '5%'
     },
+    header: {
+      padding: '0 5%'
+    }
+  },
+  [`@media (max-width: ${breakpoints['sm']}px)`]: {
     marginBottom: {
       marginBottom: '5%',
     },
+    navigation: {
+      marginTop: theme.spacing.unit * 2
+    }
   },
   textAlignCenter: {
     textAlign: 'center',
@@ -104,9 +120,17 @@ class Static extends React.Component {
                 <Typography type='caption' className={classes.subtitle}>
                   <ContentMarkdown source={this.state.data[0].caption} />
                 </Typography>
-                <div className={classes.cta}>
-                  {/* 4 Icons */}
-                </div>
+                <Grid container spacing={0} alignItems='stretch' className={classes.navigation}>
+                  {this.state.data.map((section, index) => {return section.icon ? (
+                        <Grid key={index} item xs={3} sm={3} className={classes.textAlignCenter}>
+                          <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
+                            <StandaloneIcon name={section.icon} />
+                          </a>
+                          <Typography type='display4'>{section.heading}</Typography>
+                        </Grid>
+                    ) : null}
+                  )}
+                </Grid>
               </div>
               : null }
             </div>
@@ -114,10 +138,7 @@ class Static extends React.Component {
             {this.state.data.map((section, index) => {
               if(section.heading == "Intro") return null;
               return (
-                <div key={index} className={classes.section}>
-                  <div>
-                    <StandaloneIcon name={section.icon} />
-                  </div>
+                <div key={index} className={classes.section} id={section.heading.replace(/ /g, '-')}>
                   <Section color={section.color} icon={section.icon}
                     type={section.heading}
                     title={section.title}

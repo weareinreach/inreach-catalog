@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton';
 
 import Resource from './Resource';
 import ContentMarkdown from '../../helpers/ContentMarkdown';
+import {StandaloneIcon} from '../icons';
 
 const styles = (theme, props) => ({
   textAlignCenter: {
@@ -21,6 +22,9 @@ const styles = (theme, props) => ({
   },
   applyColor: {
     color: props.color
+  },
+  inlineBlock: {
+    display: 'inline-block'
   }
 })
 
@@ -33,16 +37,24 @@ const Section = ({
   description,
   resources
 }) => {
-  const Icon = icon;
   return (
     <div>
-      {/* <Icon /> */}
+      <div className={classes.textAlignCenter}>
+        <div className={classes.inlineBlock}>
+          <StandaloneIcon name={icon} />
+        </div>
+      </div>
       <Typography type='display4' className={classes.textAlignCenter}>{type}</Typography>
       <Typography type='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
       <Typography type='caption' className={classes.italic}>
-        <ContentMarkdown source={description} />
+        <ContentMarkdown
+          renderers={{
+            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+          }} 
+          source={description} 
+        />
       </Typography>
-      {resources.map(resource => <Resource key={type} color={color} {...resource} />)}
+      {resources.map((resource, index) => <Resource key={index} color={color} {...resource} />)}
     </div >
   )
 };
@@ -52,7 +64,7 @@ Section.propTypes = {
   color: PropTypes.string,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   resources: PropTypes.array.isRequired,
 };
 
