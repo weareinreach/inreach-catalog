@@ -132,7 +132,6 @@ const resourceTypes = [
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Student loans',              title: 'Scholarships'},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Grants',                     title: 'Scholarships'},
   {category: 'Education and Employment', type: 'hygiene',             odTag: 'School clothes',             title: 'Scholarships'},
-  {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Translation & interpretation', title: 'Translation & interpretation'},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'ESL classes',                   iconOnly: true},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'School supplies',               iconOnly: true},
   {category: 'Education and Employment', type: 'educationEmployment', odTag: 'Books',                         iconOnly: true},
@@ -197,6 +196,9 @@ const resourceTypes = [
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Dance',             iconOnly: true},
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Recreation',        iconOnly: true},
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Sports & fitness',  iconOnly: true},
+
+  /* AC Translation and interpretation Category */
+  {category: 'Translation & interpretation', type: 'misc', odTag: 'Translation & interpretation'},
 
   /* AC Transportation Category */
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation'},
