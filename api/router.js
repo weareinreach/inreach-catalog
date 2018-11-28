@@ -4,6 +4,10 @@ const crypto = require('crypto');
 const fetch = require('node-fetch');
 const config = require('../src/config/config');
 const mailer = require("./mailer.js");
+const SheetsReader = require("./SheetsReader");
+const objectPath = require('object-path');
+
+const ARRAY_PLACEHOLDER = "~~";
 
 let getNotificationType = function(path) {
   switch(path) {
@@ -117,5 +121,104 @@ module.exports = {
           message: err.message
         })
       })
+  },
+
+
+  page: function(req, res) {
+    const pageMap = {
+      'international': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE'
+    }
+
+    let pageData = [];
+
+    //check page name against a map of spreadsheet ids
+    if(req.params 
+      && req.params.page_name 
+      && req.params.page_name.length 
+      && pageMap[req.params.page_name]) {
+      const sheetsReader = new SheetsReader(process.env.SHEETS_API_KEY, pageMap[req.params.page_name]);
+      sheetsReader.getTabs()
+        .then(tabs => {
+          return Promise.all(
+            tabs.map((tab, index) => {
+              let tabData = {
+                heading: tab.properties.title
+              };
+              return sheetsReader.getRows(tab)
+                .then(rowsData => {
+                  const regex = /\[([^\]]*)\]/gm;
+                  rowsData.map(row => {
+                    let identifier = row[0];
+                    let identifierRoot = identifier.replace(regex, '');
+                    let path = [identifierRoot];
+
+                    if(identifierRoot !== identifier) {
+                      let match;
+                      
+                      while((match = regex.exec(identifier)) !== null) {
+                        if (match.index === regex.lastIndex) {
+                          regex.lastIndex++;
+                        }
+
+                        if(match[1].length === 0) {
+                          path.push(ARRAY_PLACEHOLDER);
+                        } else {
+                          path.push(match[1])
+                        }               
+                      }
+                    }
+                    for(var i = 1; i < row.length; i++) {
+                      let updatedPath = path.map(value => {
+                        if(value == ARRAY_PLACEHOLDER) {
+                          return (i-1).toString();
+                        } else {
+                          return value;
+                        }
+                      });
+                      console.log(updatedPath.join('.'), row[i]);
+                      objectPath.set(tabData, updatedPath.join('.'), row[i]);
+                    }
+                  });
+                  return tabData;
+ 
+                });
+
+            })
+          ).then((data) => {
+            res.json({
+              status: "success",
+              data
+            });
+          });
+        });
+
+    } else {
+      res.json({
+        status: "error",
+        statusCode: "404",
+        message: "page name not found"
+      })
+    }
+    //get spreadsheet
+    //  cycle through each sheet
+    //    cycle through each row
+    //      take first column value to determine next steps
+            // const regex = /\[([^\]]*)\]/gm;
+            // const str = `resource[8][who]`;
+            // let m;
+
+            // while ((m = regex.exec(str)) !== null) {
+            //     // This is necessary to avoid infinite loops with zero-width matches
+            //     if (m.index === regex.lastIndex) {
+            //         regex.lastIndex++;
+            //     }
+                
+            //     // The result can be accessed through the `m`-variable.
+            //     m.forEach((match, groupIndex) => {
+            //         console.log(`Found match, group ${groupIndex}: ${match}`);
+            //     });
+            // }
+    
+
   }
 }
