@@ -8,8 +8,10 @@ import ContentMarkdown from '../../helpers/ContentMarkdown';
 require('./Resource.scss');
 
 const styles = (theme, props) => ({
-  resourceNameMargin: {
+  resourceMargin: {
     marginTop: theme.spacing.unit * 4,
+  },
+  resourceNameMargin: {
     marginBottom: theme.spacing.unit,
   },
   infoItem: {
@@ -31,13 +33,13 @@ const Resource = ({
   how,
   email,
 }) => (
-    <div className="resource--with-markdown">
+    <div className={"resource--with-markdown "+classes.resourceMargin}>
       {name && <Typography type='display3' className={classes.resourceNameMargin}>{name}</Typography>}
-      {link && <a href={`${link}`}><Typography type='body1' className={classes.applyColor}>{link}</Typography></a>}
+      {link && <a href={`${link}`} target="_blank"><Typography type='body1' className={classes.applyColor}>{link}</Typography></a>}
       {description && <Typography type='body1'>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
           }} 
           source={description} />
       </Typography>}
@@ -45,7 +47,7 @@ const Resource = ({
       {who && <Typography type='body1'>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
           }} 
           source={who} />
       </Typography>}
@@ -53,7 +55,7 @@ const Resource = ({
       {how && <Typography type='body1'>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
           }} 
           source={how} />
       </Typography>}

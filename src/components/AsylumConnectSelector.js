@@ -42,6 +42,7 @@ class AsylumConnectSelector extends React.Component {
 
     this.handleToggleRequest = this.handleToggleRequest.bind(this)
     this.handleOutsideClick = this.handleOutsideClick.bind(this)
+    this.handlePaperClick = this.handlePaperClick.bind(this)
   }
 
   handleOutsideClick(event) {
@@ -65,6 +66,12 @@ class AsylumConnectSelector extends React.Component {
       open: !this.state.open
     })
     
+  }
+
+  handlePaperClick() {
+    if(this.props.closeOnClick === true) {
+      this.handleToggleRequest()
+    }
   }
 
   render() {
@@ -92,7 +99,7 @@ class AsylumConnectSelector extends React.Component {
           </div>
         </div>
         {this.state.open ? 
-          <Paper id={this.id} className={listContainerClasses+" selector--asylum-connect"} style={{width: containerWidth}}>
+          <Paper id={this.id} className={listContainerClasses+" selector--asylum-connect"} style={{width: containerWidth}} onClick={this.handlePaperClick}>
             {this.props.children}
             {/*resourceTypes.map((filter, i) => (
                 <List key={i} index={i} classes={listClasses} onChange={onChange} selected={selected} {...filter} />

@@ -126,17 +126,18 @@ module.exports = {
 
   page: function(req, res) {
     const pageMap = {
-      'international': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE'
+      'international': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE',
+      'outside-us-and-canada': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE'
     }
+    const page_name = req.params.page_name && req.params.page_name.length ? req.params.page_name.toLowerCase() : false;
 
     let pageData = [];
 
     //check page name against a map of spreadsheet ids
     if(req.params 
-      && req.params.page_name 
-      && req.params.page_name.length 
-      && pageMap[req.params.page_name]) {
-      const sheetsReader = new SheetsReader(process.env.SHEETS_API_KEY, pageMap[req.params.page_name]);
+      && page_name
+      && pageMap[page_name]) {
+      const sheetsReader = new SheetsReader(process.env.SHEETS_API_KEY, pageMap[page_name]);
       sheetsReader.getTabs()
         .then(tabs => {
           return Promise.all(
@@ -175,7 +176,6 @@ module.exports = {
                           return value;
                         }
                       });
-                      console.log(updatedPath.join('.'), row[i]);
                       objectPath.set(tabData, updatedPath.join('.'), row[i]);
                     }
                   });
