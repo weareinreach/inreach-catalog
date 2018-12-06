@@ -9,9 +9,14 @@ import Resource from './Resource';
 import ContentMarkdown from '../../helpers/ContentMarkdown';
 import {StandaloneIcon} from '../icons';
 
+import Dropdown from './Dropdown';
+
 const styles = (theme, props) => ({
   textAlignCenter: {
     textAlign: 'center',
+  },
+  textBold: {
+    fontWeight: 700
   },
   titleMargin: {
     marginTop: theme.spacing.unit * 3,
@@ -28,15 +33,35 @@ const styles = (theme, props) => ({
   }
 })
 
-const Section = ({
-  classes,
+
+class Section extends React.Component {
+  constructor(props, context) {
+    super(props,context);
+    this.state = {
+      dropdownSelection: !(this.props.dropdown && Object.keys(this.props.dropdown).length > 0)
+    };
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
+    /*this.fetchPage = this.fetchPage.bind(this);
+    this.handlePageRequest = this.handlePageRequest.bind(this);*/
+  }
+
+  handleDropdownSelect(item) {
+    this.setState({
+      dropdownSelection:item
+    });
+  }
+
+  render() {
+  var {classes,
   color,
   icon,
   type,
   title,
   description,
-  resources
-}) => {
+  resources,
+  dropdown} = this.props;
+  const containerWidth = "auto";
+  const dropdownKeys = dropdown && Object.keys(dropdown).length ? Object.keys(dropdown) : false;
   return (
     <div>
       <div className={classes.textAlignCenter}>
@@ -44,19 +69,20 @@ const Section = ({
           <StandaloneIcon name={icon} />
         </div>
       </div>
-      <Typography type='display4' className={classes.textAlignCenter}>{type}</Typography>
+      <Typography type='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
       <Typography type='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
       <Typography type='caption' className={classes.italic}>
         <ContentMarkdown
           renderers={{
-            link: (props) => (<a href={props.href} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
           }} 
           source={description} 
         />
       </Typography>
-      {resources.map((resource, index) => <Resource key={index} color={color} {...resource} />)}
-    </div >
-  )
+      {dropdownKeys ? <Dropdown label={dropdown.label} keys={dropdownKeys} dropdown={dropdown} color={color} selected={this.state.dropdownSelection} onSelect={this.handleDropdownSelect} /> : null}
+      {this.state.dropdownSelection ? resources.map((resource, index) => <Resource key={index} color={color} {...resource} />) : null}
+    </div>
+  )}
 };
 
 Section.propTypes = {

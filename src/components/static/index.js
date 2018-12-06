@@ -30,10 +30,10 @@ const styles = theme => ({
   },
   subtitle: {
     fontStyle: 'italic',
-    marginTop: theme.spacing.unit * 4
+    marginTop: theme.spacing.unit * 2
   },
   section: {
-    padding: '5% 20%',
+    padding: '5% 30%',
   },
   inlineBlock: {
     display: 'inline-block'
@@ -60,6 +60,9 @@ const styles = theme => ({
   textAlignCenter: {
     textAlign: 'center',
   },
+  textBold: {
+    fontWeight: 700
+  }
 });
 
 class Static extends React.Component {
@@ -120,13 +123,13 @@ class Static extends React.Component {
                 <Typography type='caption' className={classes.subtitle}>
                   <ContentMarkdown source={this.state.data[0].caption} />
                 </Typography>
-                <Grid container spacing={0} alignItems='stretch' className={classes.navigation}>
+                <Grid container spacing={0} alignItems='felx-start' justify='center' className={classes.navigation}>
                   {this.state.data.map((section, index) => {return section.icon ? (
-                        <Grid key={index} item xs={3} sm={3} className={classes.textAlignCenter}>
+                        <Grid key={index} item xs={3} sm={2} className={classes.textAlignCenter}>
                           <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
                             <StandaloneIcon name={section.icon} />
                           </a>
-                          <Typography type='display4'>{section.heading}</Typography>
+                          <Typography type='display4' className={classes.textBold}>{section.heading}</Typography>
                         </Grid>
                     ) : null}
                   )}
@@ -144,6 +147,7 @@ class Static extends React.Component {
                     title={section.title}
                     description={section.description}
                     resources={section.resources && section.resources.length ? section.resources : []}
+                    dropdown={section.dropdown ? section.dropdown : null}
                   />
                 </div>
               )}
