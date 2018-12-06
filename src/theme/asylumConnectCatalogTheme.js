@@ -189,6 +189,7 @@ export default createMuiTheme({
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 600,
+    "fontWeightHeavy": 700,
     "display4": {
       "fontSize": 12,
       "fontWeight": 600,

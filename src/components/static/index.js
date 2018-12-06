@@ -33,7 +33,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2
   },
   section: {
-    padding: '5% 30%',
+    padding: '6% 30% 8%',
   },
   inlineBlock: {
     display: 'inline-block'
@@ -43,10 +43,13 @@ const styles = theme => ({
   },
   [`@media (max-width: ${breakpoints['md']}px)`]: {
     section: {
-      padding: '5%'
+      padding: '5% 5% 7%'
     },
     header: {
       padding: '0 5%'
+    },
+    hr: {
+      margin: theme.spacing.unit+' 5%'
     }
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]: {
@@ -107,8 +110,9 @@ class Static extends React.Component {
 
   render() {
     const classes = this.props.classes;
+    const lastSection = this.state.data ? this.state.data.length : 0;
     return (
-      <div>
+      <div className="static--page-container">
       { this.state.loading ? <Loading /> :
         <div className={classes.root}> 
             <div>
@@ -123,7 +127,7 @@ class Static extends React.Component {
                 <Typography type='caption' className={classes.subtitle}>
                   <ContentMarkdown source={this.state.data[0].caption} />
                 </Typography>
-                <Grid container spacing={0} alignItems='felx-start' justify='center' className={classes.navigation}>
+                <Grid container spacing={0} alignItems='flex-start' justify='center' className={classes.navigation}>
                   {this.state.data.map((section, index) => {return section.icon ? (
                         <Grid key={index} item xs={3} sm={2} className={classes.textAlignCenter}>
                           <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
@@ -141,14 +145,17 @@ class Static extends React.Component {
             {this.state.data.map((section, index) => {
               if(section.heading == "Intro") return null;
               return (
-                <div key={index} className={classes.section} id={section.heading.replace(/ /g, '-')}>
-                  <Section color={section.color} icon={section.icon}
-                    type={section.heading}
-                    title={section.title}
-                    description={section.description}
-                    resources={section.resources && section.resources.length ? section.resources : []}
-                    dropdown={section.dropdown ? section.dropdown : null}
-                  />
+                <div>
+                  <div key={index} className={classes.section} id={section.heading.replace(/ /g, '-')}>
+                    <Section color={section.color} icon={section.icon}
+                      type={section.heading}
+                      title={section.title}
+                      description={section.description}
+                      resources={section.resources && section.resources.length ? section.resources : []}
+                      dropdown={section.dropdown ? section.dropdown : null}
+                    />
+                  </div>
+                  {index+1 < lastSection ? <Grid key={'grid'+index} container spacing={0} alignItems='flex-start' justify='center' ><Grid item xs={12} md={8}><hr className={classes.hr} /></Grid></Grid> : null}
                 </div>
               )}
             )}

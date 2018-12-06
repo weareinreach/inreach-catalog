@@ -11,6 +11,8 @@ import {StandaloneIcon} from '../icons';
 
 import Dropdown from './Dropdown';
 
+import breakpoints from '../../theme/breakpoints';
+
 const styles = (theme, props) => ({
   textAlignCenter: {
     textAlign: 'center',
@@ -19,17 +21,27 @@ const styles = (theme, props) => ({
     fontWeight: 700
   },
   titleMargin: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 5,
     marginBottom: theme.spacing.unit
   },
   italic: {
     fontStyle: 'italic',
+    lineHeight: '1.2rem'
   },
   applyColor: {
     color: props.color
   },
   inlineBlock: {
     display: 'inline-block'
+  },
+  dropdown: {
+    width: '50%',
+    margin: theme.spacing.unit * 5 + ' auto'
+  },
+  [`@media (max-width: ${breakpoints['sm']}px)`]: {
+    dropdown: {
+      width: '100%'
+    }
   }
 })
 
@@ -79,7 +91,7 @@ class Section extends React.Component {
           source={description} 
         />
       </Typography>
-      {dropdownKeys ? <Dropdown label={dropdown.label} keys={dropdownKeys} dropdown={dropdown} color={color} selected={this.state.dropdownSelection} onSelect={this.handleDropdownSelect} /> : null}
+      {dropdownKeys ? <Dropdown label={dropdown.label} keys={dropdownKeys} dropdown={dropdown} color={color} selected={this.state.dropdownSelection} onSelect={this.handleDropdownSelect} dropdownClassName={classes.dropdown} /> : null}
       {this.state.dropdownSelection ? resources.map((resource, index) => <Resource key={index} color={color} {...resource} />) : null}
     </div>
   )}
