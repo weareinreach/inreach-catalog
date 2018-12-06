@@ -1,8 +1,13 @@
-.resource--with-markdown {
+.static--page-container {
   hr {
-    margin-top: 2rem;
     border-top: none;
     border-left: none;
     border-right: none;
+  }
+}
+
+.resource--with-markdown {
+  hr {
+    margin-top: 2rem;
   }
 }

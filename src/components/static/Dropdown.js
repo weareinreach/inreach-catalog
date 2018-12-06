@@ -62,7 +62,7 @@ class Dropdown extends React.Component {
   }
 
   render() {
-    const {classes, dropdown, label, color} = this.props;
+    const {classes, dropdown, label, color, className, dropdownClassName} = this.props;
     let {keys} = this.props;
     const containerWidth = '100%';
     var removal = keys.indexOf('label');
@@ -70,12 +70,14 @@ class Dropdown extends React.Component {
       keys.splice(removal, 1);
     }
     return (
-      <div>
-        <AsylumConnectSelector label={this.state.selected ? this.state.selected : label} selected={[]} containerWidth={containerWidth} containerClass={classes.dropdownInput} listContainerClass={classes.listContainerClass} closeOnClick={true}>
-          <List>
-            {keys.map((item, index) => <ListItem button key={index} selected={this.state.selected === item} onClick={event => this.handleSelect(item)}>{item}</ListItem>)}
-          </List>
-        </AsylumConnectSelector>
+      <div className={className}>
+        <div className={dropdownClassName}>
+          <AsylumConnectSelector label={this.state.selected ? this.state.selected : label} selected={[]} containerWidth={containerWidth} containerClass={classes.dropdownInput} listContainerClass={classes.listContainerClass} closeOnClick={true}>
+            <List>
+              {keys.map((item, index) => <ListItem button key={index} selected={this.state.selected === item} onClick={event => this.handleSelect(item)}>{item}</ListItem>)}
+            </List>
+          </AsylumConnectSelector>
+        </div>
         {dropdown && this.state.selected && dropdown[this.state.selected] && dropdown[this.state.selected].length ?
           dropdown[this.state.selected].map((resource, index) => <Resource key={index} color={color} {...resource} />)
           :null}
