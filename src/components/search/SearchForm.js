@@ -9,11 +9,14 @@ import {
 import Fa from 'react-fontawesome';
 
 import { withStyles } from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import { FormControlLabel } from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
 import Snackbar from 'material-ui/Snackbar';
 import Slide from 'material-ui/transitions/Slide';
+
+import { Link } from 'react-router-dom';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 import SearchBar from './SearchBar';
@@ -40,6 +43,8 @@ class SearchForm extends React.Component {
         <SearchBar {...this.props} classes={null} />
         <Grid container spacing={0}>
           <Grid item xs={12} className={formRow}>
+            <Typography type="body2">
+              Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada">Click here.</Link>
             {/*<FormControlLabel
               control={
                 <Checkbox
@@ -49,6 +54,7 @@ class SearchForm extends React.Component {
             label="Include remote resources"
             className={formRow}
             />*/}
+            </Typography>
           </Grid>
           <Grid item xs={12} className={searchButton}>
             <AsylumConnectButton variant={variant} onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>

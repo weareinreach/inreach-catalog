@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Static from './static/';
 import FavoritesListContainer from './favorites/FavoritesListContainer';
 import AccountPage from './account/AccountPage';
 import ResetPasswordPage from './account/ResetPasswordPage';
@@ -40,54 +40,64 @@ class PageContainer extends React.Component {
       user: this.props.user,
     };
     return (
-      <div className="page-container"> 
-          <Switch>
-            <Route
-              path="/favorites/:listId"
-              render={() => <FavoritesListContainer {...favoritesListProps} />}
+      <div className="page-container">
+        <Switch>
+          <Route
+            path="/favorites/:listId"
+            render={() => <FavoritesListContainer {...favoritesListProps} />}
+          />
+          <Route
+            path="/favorites"
+            render={() => <FavoritesListContainer {...favoritesListProps} />}
+          />
+          <Route path="/account/reset-password" render={() => (
+            <ResetPasswordPage
+              handleMessageNew={handleMessageNew}
+              handleLogOut={handleLogOut}
+              handleRequestOpen={handleRequestOpen}
+              history={history}
+              match={match}
+              location={location}
+              session={session}
             />
-            <Route
-              path="/favorites"
-              render={() => <FavoritesListContainer {...favoritesListProps} />}
+          )}
+          />
+          <Route path="/account" render={() => (
+            <AccountPage
+              handleMessageNew={handleMessageNew}
+              handleLogOut={handleLogOut}
+              handleRequestOpen={handleRequestOpen}
+              handleUnconfirmSession={handleUnconfirmSession}
+              history={history}
+              session={session}
+              sessionConfirmed={sessionConfirmed}
+              user={user}
             />
-            <Route path="/account/reset-password" render={()=>(
-              <ResetPasswordPage
-                handleMessageNew={handleMessageNew}
-                handleLogOut={handleLogOut}
-                handleRequestOpen={handleRequestOpen}
-                history={history}
-                match={match}
-                location={location}
-                session={session}
-              />
-            )}
+          )}
+          />
+          <Route path="/suggestions/new" render={() => (
+            <Suggestion
+              handleMessageNew={handleMessageNew}
+              handleLogOut={handleLogOut}
+              handleRequestOpen={handleRequestOpen}
+              history={history}
+              session={session}
+              user={user}
             />
-            <Route path="/account" render={()=>(
-              <AccountPage
-                handleMessageNew={handleMessageNew}
-                handleLogOut={handleLogOut}
-                handleRequestOpen={handleRequestOpen}
-                handleUnconfirmSession={handleUnconfirmSession}
-                history={history}
-                session={session}
-                sessionConfirmed={sessionConfirmed}
-                user={user}
-              />
-            )}
+          )}
+          />
+          <Route path="/page/:pageName" render={(props) => (
+            <Static
+              handleMessageNew={handleMessageNew}
+              handleLogOut={handleLogOut}
+              handleRequestOpen={handleRequestOpen}
+              history={history}
+              session={session}
+              user={user}
+              {...props} 
             />
-            <Route path="/suggestions/new" render={()=>(
-              <Suggestion 
-                handleMessageNew={handleMessageNew} 
-                handleLogOut={handleLogOut} 
-                handleRequestOpen={handleRequestOpen}
-                history={history}
-                session={session}
-                user={user}
-                session={session}
-                />
-            )}
-            />
-          </Switch>
+          )} />
+        </Switch>
       </div>
     );
   }

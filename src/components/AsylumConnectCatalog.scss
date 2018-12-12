@@ -85,6 +85,10 @@ input[class*="inputSingleline"] {
   position: absolute;
 }
 
+strong {
+  font-weight: 600;
+}
+
 @media screen {
   .hide--on-screen {
     display: none !important;
