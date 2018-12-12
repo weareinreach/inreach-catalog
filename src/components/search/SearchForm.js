@@ -30,21 +30,28 @@ const styles = theme => ({
   [theme.breakpoints.down('sm')]: {
     searchButton: {
       textAlign: "center"
+    },
+    body2: {
+      color: theme.palette.common.white
+    },
+    link: {
+      color: theme.palette.common.white,
+      textDecoration: 'underline'
     }
   }
 });
 
 class SearchForm extends React.Component {
   render() {
-    const { formRow, searchButton } = this.props.classes;
+    const { formRow, searchButton, body2, link } = this.props.classes;
     const variant = this.props.width < breakpoints['sm'] ? "primary" : "secondary";
     return (
       <div>
         <SearchBar {...this.props} classes={null} />
         <Grid container spacing={0}>
           <Grid item xs={12} className={formRow}>
-            <Typography type="body2">
-              Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada">Click here.</Link>
+            <Typography type="body2" className={body2}>
+              Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
             {/*<FormControlLabel
               control={
                 <Checkbox
