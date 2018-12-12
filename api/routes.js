@@ -1,6 +1,29 @@
 module.exports = function(app) {
   var localAPI = require('./router'),
     bodyParser = require('body-parser');
+  const url = require('url');
+  const NodeCache = require( "node-cache" );
+  const memCache = new NodeCache();
+
+  var cache = (duration) => {
+    return (req, res, next) => {
+      let key = '__express__' + url.parse(req.originalUrl || req.url).pathname.toLowerCase();
+      let cachedContent = memCache.get( key );
+      if ( cachedContent == undefined || (req.query && req.query.cachebust === 'true') ){
+        res.sendResponse = res.send;
+        res.send = (body) => {
+          memCache.set(key, body, duration * 1000);
+          res.header('x-cache', 'miss');
+          res.sendResponse(body);
+        }
+        next();
+      } else {
+        res.header('x-cache', 'hit');
+        res.send(cachedContent);
+        return;
+      }
+    }
+  }
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
@@ -29,5 +52,5 @@ module.exports = function(app) {
 
   // Static Page
   app.route('/api/page/:page_name')
-    .get(localAPI.page)
+    .get(cache(12*60*60), localAPI.page)
 };

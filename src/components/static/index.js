@@ -13,6 +13,8 @@ import Loading from '../Loading';
 import 'whatwg-fetch';
 import ContentMarkdown from '../../helpers/ContentMarkdown';
 import {StandaloneIcon} from '../icons';
+import url from 'url';
+import queryString from 'query-string';
 
 const styles = theme => ({
   root: {
@@ -83,8 +85,13 @@ class Static extends React.Component {
     this.fetchPage(this.props.match.params.pageName);
   }
 
+  useFreshRequest(search) {
+    var query = queryString.parse(search);
+    return (query && query.fresh && query.fresh === 'true');
+  }
+
   fetchPage(name) {
-    fetch(window.location.origin+'/api/page/'+name, 
+    fetch(window.location.origin+'/api/page/'+name + (this.useFreshRequest(window.location.search) ? '?cachebust=true' : ''), 
     {
       method: 'GET',
       headers: {
@@ -145,8 +152,8 @@ class Static extends React.Component {
             {this.state.data.map((section, index) => {
               if(section.heading == "Intro") return null;
               return (
-                <div>
-                  <div key={index} className={classes.section} id={section.heading.replace(/ /g, '-')}>
+                <div key={index}>
+                  <div className={classes.section} id={section.heading.replace(/ /g, '-')}>
                     <Section color={section.color} icon={section.icon}
                       type={section.heading}
                       title={section.title}
@@ -155,7 +162,7 @@ class Static extends React.Component {
                       dropdown={section.dropdown ? section.dropdown : null}
                     />
                   </div>
-                  {index+1 < lastSection ? <Grid key={'grid'+index} container spacing={0} alignItems='flex-start' justify='center' ><Grid item xs={12} md={8}><hr className={classes.hr} /></Grid></Grid> : null}
+                  {index+1 < lastSection ? <Grid container spacing={0} alignItems='flex-start' justify='center' ><Grid item xs={12} md={8}><hr className={classes.hr} /></Grid></Grid> : null}
                 </div>
               )}
             )}
