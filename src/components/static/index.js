@@ -66,7 +66,7 @@ const styles = theme => ({
     textAlign: 'center',
   },
   textBold: {
-    fontWeight: 700
+    fontWeight: theme.typography.fontWeightHeavy
   }
 });
 
