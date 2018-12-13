@@ -18,7 +18,7 @@ const styles = (theme, props) => ({
     textAlign: 'center',
   },
   textBold: {
-    fontWeight: 700
+    fontWeight: theme.typography.fontWeightHeavy
   },
   titleMargin: {
     marginTop: theme.spacing.unit * 5,
