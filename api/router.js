@@ -127,7 +127,8 @@ module.exports = {
   page: function(req, res) {
     const pageMap = {
       'international': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE',
-      'outside-us-and-canada': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE'
+      'outside-us-and-canada': '1SpeBICjrlU0b0U18i46RLjjDAwUNqo-5dRoITi6OWhE',
+      'mexico': '1yYv-Wi0cke0zzgwFmtiBSydF1H-6eoQ_BBCZbAafV8s'
     }
     const page_name = req.params.page_name && req.params.page_name.length ? req.params.page_name.toLowerCase() : false;
 
