@@ -5,13 +5,13 @@ import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import ArrowBackIcon from 'material-ui-icons/ArrowBack';
-import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
 
 import SearchForm from './SearchForm';
 import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 import {mobilePadding} from '../../theme/sharedClasses';
+import SubAnnouncement from '../SubAnnouncement';
 
 const styles = theme => ({
   title: {
@@ -33,14 +33,6 @@ const styles = theme => ({
     top: '0',
     left:'0',
     right: '0'
-  },
-  subAnnouncementText: {
-    color: theme.palette.common.darkBlack,
-    fontWeight: theme.typography.fontWeightHeavy
-  },
-  subAnnouncementTextArrow: {
-    verticalAlign: 'bottom',
-    height: '1.2rem'
   },
   infographicSpacing: {},
   [theme.breakpoints.down('sm')]: {
@@ -97,18 +89,14 @@ class SearchFormContainer extends React.Component {
       backButtonLabel, 
       containerSearchForm, 
       infographicSpacing, 
-      subAnnouncement,
-      subAnnouncementText,
-      subAnnouncementTextArrow } = this.props.classes;
+      subAnnouncement} = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div style={{position: 'relative'}}>
         {! isMobile ? <div className={subAnnouncement} style={{marginLeft: '-'+(this.props.width - 1300)/2 + 'px', paddingLeft: (this.props.width - 1300)/2 + 'px'}}>
           <Grid container alignItems='center' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0}>
             <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-              <Typography type="body2">
-                <a href="https://goo.gl/forms/EihovJZGbCqKZ5582" target="_blank" className={subAnnouncementText}>Are you interested in joining an online community for LGBTQ asylum seekers?&nbsp;&nbsp;<KeyboardArrowRightIcon className={subAnnouncementTextArrow} /></a>
-              </Typography>
+              <SubAnnouncement />
             </Grid>
           </Grid>
         </div> 
