@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SpeechBubblesIcon = ({width}) => (
-  <svg id="095322d3-e9aa-43a4-959b-e549e7cbde15" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>speech-bubbles</title><circle cx="25" cy="25" r="17.46" fill="#E58C51"/>
+const SpeechBubblesIcon = ({width, fillColor}) => (
+  <svg id="095322d3-e9aa-43a4-959b-e549e7cbde15" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>speech-bubbles</title><circle cx="25" cy="25" r="17.46" fill={fillColor} />
     <g id="Outside-US-Resource-List" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
         <g id="NEW-Outside-US-Resource-List" transform="translate(-326.000000, -500.000000)" stroke="#000000">
             <g id="Online-Icon" transform="translate(295.078125, 492.078125)">
@@ -17,7 +17,7 @@ const SpeechBubblesIcon = ({width}) => (
   </svg>
 );
 
-SpeechBubblesIcon.defaultProps = { width: '100%' }
-SpeechBubblesIcon.propTypes = { width: PropTypes.string }
+SpeechBubblesIcon.defaultProps = { width: '100%', fillColor: '#E58C51' }
+SpeechBubblesIcon.propTypes = { width: PropTypes.string, fillColor: PropTypes.string }
 
 export default SpeechBubblesIcon;

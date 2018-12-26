@@ -78,7 +78,7 @@ class Section extends React.Component {
     <div>
       <div className={classes.textAlignCenter}>
         <div className={classes.inlineBlock}>
-          <StandaloneIcon name={icon} />
+          <StandaloneIcon name={icon} fillColor={color} />
         </div>
       </div>
       <Typography type='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
