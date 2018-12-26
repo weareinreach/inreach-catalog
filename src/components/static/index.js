@@ -32,7 +32,8 @@ const styles = theme => ({
   },
   subtitle: {
     fontStyle: 'italic',
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing.unit * 2,
+    textAlign: 'center'
   },
   section: {
     padding: '6% 30% 8%',
@@ -138,7 +139,7 @@ class Static extends React.Component {
                   {this.state.data.map((section, index) => {return section.icon ? (
                         <Grid key={index} item xs={3} sm={2} className={classes.textAlignCenter}>
                           <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
-                            <StandaloneIcon name={section.icon} />
+                            <StandaloneIcon name={section.icon} fillColor={section.color} />
                           </a>
                           <Typography type='display4' className={classes.textBold}>{section.heading}</Typography>
                         </Grid>

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AirplaneIcon = ({width}) => (
-  <svg id="095322d3-e9aa-43a4-959b-e549e7cbde16" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>speech-bubbles</title><circle cx="25" cy="25" r="17.46" fill="#6988C1"/>
+const AirplaneIcon = ({width, fillColor}) => (
+  <svg id="095322d3-e9aa-43a4-959b-e549e7cbde16" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>speech-bubbles</title><circle cx="25" cy="25" r="17.46" fill={fillColor}/>
     <g id="Outside-US-Resource-List" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
         <g id="NEW-Outside-US-Resource-List" transform="translate(-1037.000000, -495.100000)" stroke="#000000">
             <g id="Online-Icon" transform="translate(990.921875, 490.078125)">
@@ -18,7 +18,7 @@ const AirplaneIcon = ({width}) => (
   </svg>
 );
 
-AirplaneIcon.defaultProps = { width: '100%' }
-AirplaneIcon.propTypes = { width: PropTypes.string }
+AirplaneIcon.defaultProps = { width: '100%', fillColor: '#6988C1' }
+AirplaneIcon.propTypes = { width: PropTypes.string, fillColor: PropTypes.string }
 
 export default AirplaneIcon;
