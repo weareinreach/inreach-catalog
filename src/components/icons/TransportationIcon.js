@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TransportationIcon = ({width}) => (
+const TransportationIcon = ({width, fillColor}) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
       <defs>
-        <style dangerouslySetInnerHTML={{__html: ".cls-1{fill:#ababab;}.cls-2,.cls-3{fill:none;stroke:#000;stroke-width:0.5px;}.cls-2{stroke-linecap:round;stroke-linejoin:round;}.cls-3{stroke-miterlimit:10;}" }} />
+        <style dangerouslySetInnerHTML={{__html: ".cls-1{fill:"+fillColor+";}.cls-2,.cls-3{fill:none;stroke:#000;stroke-width:0.5px;}.cls-2{stroke-linecap:round;stroke-linejoin:round;}.cls-3{stroke-miterlimit:10;}" }} />
       </defs>
       <title>resource-transportation</title>
       <g id="Layer_2" data-name="Layer 2">
@@ -22,7 +22,7 @@ const TransportationIcon = ({width}) => (
     </svg>
 );
 
-TransportationIcon.defaultProps = { width: '100%' }
-TransportationIcon.propTypes = { width: PropTypes.string }
+TransportationIcon.defaultProps = { width: '100%', fillColor: '#ababab' }
+TransportationIcon.propTypes = { width: PropTypes.string, fillColor: PropTypes.string }
 
 export default TransportationIcon;
