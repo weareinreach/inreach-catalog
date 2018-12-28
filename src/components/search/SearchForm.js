@@ -25,7 +25,13 @@ import breakpoints from '../../theme/breakpoints';
 
 const styles = theme => ({
   formRow: {
-    marginBottom: '2.5rem'
+    marginBottom: '1.5rem'
+  },
+  callout: {
+    color: theme.palette.secondary[500]
+  },
+  underline: {
+    textDecoration: 'underline'
   },
   [theme.breakpoints.down('sm')]: {
     searchButton: {
@@ -43,16 +49,28 @@ const styles = theme => ({
 
 class SearchForm extends React.Component {
   render() {
-    const { formRow, searchButton, body2, link } = this.props.classes;
+    const { formRow, searchButton, body2, link, callout, underline } = this.props.classes;
     const variant = this.props.width < breakpoints['sm'] ? "primary" : "secondary";
     return (
       <div>
-        <SearchBar {...this.props} classes={null} />
-        <Grid container spacing={0}>
+        <Grid container spacing={0} >
+          <Grid item xs={12} className={formRow}>
+            <Typography type="body2" className={body2+' '+callout}>
+              Are you in Mexico waiting to seek LGBTQ asylum in the U.S.? <a href="/page/Mexico/#googtrans(es)" className={link+' '+callout+' '+underline}>Click here.</a>
+            </Typography>
+          </Grid>
           <Grid item xs={12} className={formRow}>
             <Typography type="body2" className={body2}>
               Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
-            {/*<FormControlLabel
+            </Typography>
+          </Grid>
+        </Grid>
+        <SearchBar {...this.props} classes={null} />
+        <Grid container spacing={0}>
+          {/*<Grid item xs={12} className={formRow}>
+            <Typography type="body2" className={body2}>
+              Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
+            <FormControlLabel
               control={
                 <Checkbox
                   value="checkedA"
@@ -60,9 +78,9 @@ class SearchForm extends React.Component {
               }
             label="Include remote resources"
             className={formRow}
-            />*/}
+            />
             </Typography>
-          </Grid>
+          </Grid>*/}
           <Grid item xs={12} className={searchButton}>
             <AsylumConnectButton variant={variant} onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
               Search

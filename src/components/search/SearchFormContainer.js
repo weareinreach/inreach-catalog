@@ -18,7 +18,7 @@ const styles = theme => ({
     marginBottom: '0.7rem'
   },
   subheading: {
-    marginBottom: '4rem'
+    marginBottom: '2rem'
   },
   container: {
     minHeight: '500px'
