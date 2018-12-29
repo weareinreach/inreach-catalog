@@ -23,6 +23,9 @@ const styles = (theme, props) => ({
   },
   applyColor: {
     color: props.color
+  },
+  linkColor: {
+    color: theme.palette.primary[500]
   }
 })
 
@@ -39,11 +42,11 @@ const Resource = ({
 }) => (
     <div className={"resource--with-markdown "+classes.resourceMargin}>
       {name && <Typography type='display3' className={classes.marginBottom}>{name}</Typography>}
-      {link && <a href={`${link}`} target="_blank"><Typography type='body1' className={classes.applyColor+' '+classes.marginBottom}>{link}</Typography></a>}
+      {link && <a href={`${link}`} target="_blank"><Typography type='body1' className={classes.linkColor+' '+classes.marginBottom}>{link}</Typography></a>}
       {description && <Typography type='body1' className={classes.marginTop}>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={description} />
       </Typography>}
@@ -51,7 +54,7 @@ const Resource = ({
       {who && <Typography type='body1'>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={who} />
       </Typography>}
@@ -59,7 +62,7 @@ const Resource = ({
       {how && <Typography type='body1'>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={how} />
       </Typography>}
@@ -67,7 +70,7 @@ const Resource = ({
       {visit && <Typography type='body1'>
         <ContentMarkdown 
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={visit} />
       </Typography>}
