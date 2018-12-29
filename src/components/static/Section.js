@@ -83,10 +83,10 @@ class Section extends React.Component {
       </div>
       <Typography type='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
       <Typography type='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
-      <Typography type='caption' className={classes.italic}>
+      <Typography type='body1'>
         <ContentMarkdown
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} className={classes.applyColor}>{props.children}</a>)
+            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={description} 
         />
