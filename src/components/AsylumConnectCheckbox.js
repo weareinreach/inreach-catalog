@@ -38,6 +38,9 @@ const styles = (theme) => ({
   },
   checkboxDisabled: {
     color: theme.palette.common.lightBlack
+  },
+  labelClass: {
+
   }
 });
 
@@ -47,6 +50,10 @@ const AsylumConnectCheckbox = (props) => {
   const rootClass = classNames(
     classes.root,
     props.additionalClasses ? props.additionalClasses.root : null
+  );
+  const labelClass = classNames(
+    classes.labelClass,
+    props.additionalClasses ? props.additionalClasses.label : null
   );
   const checkboxDefault = classNames(
     classes.checkboxDefault,
@@ -83,7 +90,8 @@ const AsylumConnectCheckbox = (props) => {
       }
       label={props.label}
       classes={{
-        root: rootClass
+        root: rootClass,
+        label: labelClass
       }}
     />
   );

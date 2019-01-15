@@ -259,6 +259,22 @@ const getTagIndex = () => {
 
 const resourceIndex = getTagIndex();
 
+const getCategoryIndex = () => {
+  let index = {};
+  resourceTypes.forEach((item) => {
+    if(item.title) {
+      index[item.title] = item
+    } else if((typeof item.iconOnly === 'undefined' || !item.iconOnly) && typeof index[item.category] === 'undefined') {
+      index[item.category] = item;
+    }
+    
+  });
+
+  return index;
+}
+
+const resourceCategoryIndex = getCategoryIndex();
+
 const getBadge = (tags) => {
   let badge = 'misc';
   tags.forEach((tag) => {
@@ -309,5 +325,6 @@ export default {
   types: resourceTypes,
   resourceTypesByGroup,
   resourceIndex,
+  resourceCategoryIndex,
   getBadge
 };
