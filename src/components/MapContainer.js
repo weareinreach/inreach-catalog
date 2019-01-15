@@ -458,7 +458,7 @@ class MapContainer extends React.Component {
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
-                    infographic={isMobile && infographic}
+                    infographic={infographic}
                     nearAddress={this.props.nearAddress}
                     searchDisabled={this.state.searchDisabled}
                      />} />
@@ -521,7 +521,7 @@ class MapContainer extends React.Component {
                   <AsylumConnectMap
                     containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
                     history={this.props.history}
-                    infographic={infographic}
+                    infographic={this.props.match.path == "/search/:in/:place/:near/:for/:filter/:sort" && infographic}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
                     mapMaxDistance={mapMaxDistance}
