@@ -18,6 +18,7 @@ import Slide from 'material-ui/transitions/Slide';
 
 import { Link } from 'react-router-dom';
 
+import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
 import AsylumConnectButton from '../AsylumConnectButton';
 import SearchBar from './SearchBar';
 import withWidth from '../withWidth';
@@ -81,12 +82,17 @@ class SearchForm extends React.Component {
             />
             </Typography>
           </Grid>*/}
-          <Grid item xs={12} className={searchButton}>
+          <Grid item xs={12} sm={12} md={4} className={searchButton}>
             <AsylumConnectButton variant={variant} onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
               Search
               {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
             </AsylumConnectButton>
           </Grid>
+          {this.props.infographic ? 
+          <Grid item xs={12} sm={12} md={8} className={searchButton}>
+            <AsylumConnectInfographicButton type='link' url={this.props.infographic.url ? this.props.infographic.url : null} list={this.props.infographic.list ? this.props.infographic.list : null} text={"Download Legal Guides on LGBTQ Asylum in the U.S."} />
+          </Grid>
+          : null}
         </Grid>
         
       </div>

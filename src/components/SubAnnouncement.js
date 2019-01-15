@@ -9,7 +9,11 @@ import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
 const styles = (theme) => ({
   subAnnouncementText: {
     color: theme.palette.common.darkBlack,
-    fontWeight: theme.typography.fontWeightHeavy
+    fontWeight: theme.typography.fontWeightHeavy,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.typography.caption.fontSize,
+      fontWeight: theme.typography.caption.fontWeight
+    }
   },
   subAnnouncementTextArrow: {
     verticalAlign: 'bottom',

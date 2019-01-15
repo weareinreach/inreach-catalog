@@ -32,7 +32,12 @@ const styles = theme => ({
     position: 'absolute',
     top: '0',
     left:'0',
-    right: '0'
+    right: '0',
+    [theme.breakpoints.down('sm')]: Object.assign(mobilePadding(theme), {
+      position: 'static',
+      paddingTop: "80px",
+      marginLeft: '0'
+    }),
   },
   infographicSpacing: {},
   [theme.breakpoints.down('sm')]: {
@@ -48,8 +53,9 @@ const styles = theme => ({
       backgroundColor: theme.palette.primary[500]
     },
     containerSearchForm: Object.assign(mobilePadding(theme), {
-      paddingTop: "60px",
-      paddingBottom: "60px"
+      paddingTop: "1rem",
+      paddingBottom: "60px",
+      backgroundColor: theme.palette.primary[500]
     }),
     infographicSpacing: {
       marginTop: '1rem'
@@ -63,6 +69,7 @@ const styles = theme => ({
     left: '0',
     right: '0',
     height: '60px',
+    zIndex: '200',
     '&:hover, &:active': {
       backgroundColor: theme.palette.common.white
     }
@@ -101,14 +108,19 @@ class SearchFormContainer extends React.Component {
           </Grid>
         </div> 
         : null}
+        {isMobile ? 
+          <Button href="http://asylumconnect.org" classes={{root: backButton, label: backButtonLabel }}>
+            <ArrowBackIcon />&nbsp;Back to AsylumConnect Home Site
+          </Button>
+        : null}
         <Grid container alignItems='center' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
           <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+            {isMobile ? 
+              <Grid item xs={12} className={subAnnouncement} >
+                <SubAnnouncement />
+              </Grid>
+            : null}
             <Grid container spacing={0} className={containerSearchForm} >
-              {isMobile ? 
-                <Button href="http://asylumconnect.org" classes={{root: backButton, label: backButtonLabel }}>
-                  <ArrowBackIcon />&nbsp;Back to AsylumConnect Home Site
-                </Button>
-              : null}
               <Grid item xs={12}>
                 <Typography type="title" className={title}>
                   Welcome to the AsylumConnect catalog!
@@ -122,11 +134,6 @@ class SearchFormContainer extends React.Component {
               <Grid item xs={12}>
                 <SearchForm {...this.props} classes={null}/>
               </Grid>
-              {this.props.infographic ? 
-                <Grid item xs={12} className={infographicSpacing}>
-                  <AsylumConnectInfographicButton url={this.props.infographic.url ? this.props.infographic.url : null} list={this.props.infographic.list ? this.props.infographic.list : null} text={"Asylum Seeker's "+this.props.infographic.name} />
-                </Grid>
-              : null}
             </Grid>
           </Grid>
         </Grid>
