@@ -13,8 +13,9 @@ import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
-import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
+import AsylumConnectButton from '../AsylumConnectButton';
+import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
 import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
@@ -24,9 +25,6 @@ import ResourceListItem from '../resource/ResourceListItem';
 import {mobilePadding, boldFont} from '../../theme/sharedClasses';
 
 const styles = theme => ({
-  formRow: {
-    marginBottom: '2.5rem'
-  },
   tooltip: { fontFamily: 'sans-serif' },
   container: {
     minHeight: '500px',
@@ -37,9 +35,18 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary[500],
     justifyContent: 'space-evenly'
   },
+  centerText: {
+    textAlign: "center"
+  },
   noResults: Object.assign(boldFont(theme), {
     textAlign: "center"
   }),
+  fullBottomMargin: {
+    marginBottom: '2rem'
+  },
+  halfBottomMargin: {
+    marginBottom: '1rem'
+  },
   [theme.breakpoints.up('sm')]: {
     filterContainer: {
       marginTop: "-0.8rem"
@@ -60,6 +67,13 @@ const styles = theme => ({
     }),
     formRow: {
       marginBottom: '0'
+    },
+    checkboxDefault: {
+      color: theme.palette.common.white,
+      alignItems: 'flex-start'
+    },
+    checkboxLabel: {
+      color: theme.palette.common.white
     }
   },
   backButton: {
@@ -141,14 +155,18 @@ class SearchResultsContainer extends React.Component {
 
   render() {
     const { 
-      tabContainer,
-      container, 
-      formRow, 
+      backButton,
+      centerText,
+      checkboxDefault,
+      checkboxLabel,
+      container,
       containerSearchForm, 
       containerSearchResults,
       filterContainer,
+      fullBottomMargin, 
+      halfBottomMargin,
       noResults,
-      backButton,
+      tabContainer,
       tooltip
       } = this.props.classes;
     const searchResultsProps = {
@@ -167,6 +185,8 @@ class SearchResultsContainer extends React.Component {
       searching: this.props.searching,
       user: this.props.user
     };
+    const {showWalkinCheckbox} = this.props;
+    const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
@@ -180,7 +200,7 @@ class SearchResultsContainer extends React.Component {
           }
           <SearchBar {...this.props} classes={null} />
           <Grid container spacing={0} alignItems='flex-start'>
-            <Grid item xs={12} md={8} className={formRow}>
+            <Grid item xs={12} md={8} className={toolbarClass}>
               <Grid container spacing={0} justify='space-between'>  
                 <Grid item xs>
                   <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
@@ -215,14 +235,21 @@ class SearchResultsContainer extends React.Component {
                 </Grid>
               : null}
             </Grid>
-            <Grid item xs={12} md={4} className={filterContainer}>
+            <Grid item xs={12} md={4} className={filterContainer+' '+toolbarClass}>
               <SearchRefinementControls 
                 clearSearchFilters={this.props.clearSearchFilters}
                 handleFilterSelect={this.props.handleFilterSelect} 
                 handleSortSelect={this.props.handleSortSelect} 
-                selectedFilters={this.props.selectedFilters} 
+                selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
                 selectedSort={this.props.selectedSort}  />
             </Grid>
+            {showWalkinCheckbox ? <Grid item xs={12} className={centerText+' '+halfBottomMargin}>
+              <AsylumConnectCheckbox label="Only show me resources that provide walk-in hours" value="time-walk-in" onChange={this.props.handleFilterSelect} checked={(this.props.selectedFilters.indexOf("time-walk-in") >= 0)} additionalClasses={{
+                checkboxDefault: checkboxDefault,
+                label: checkboxLabel
+              }} />
+            </Grid> 
+            : null}
           </Grid>
         </div>
         {isMobile ? 

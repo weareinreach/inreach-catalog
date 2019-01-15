@@ -119,7 +119,7 @@ class SearchRefinementControls extends React.Component {
             : null}
           </div>
         : 
-        <Grid container spacing={0} style={{marginBottom: '1.5rem'}}>
+        <Grid container spacing={0}>
           <Grid item xs={12} >
             <SearchFilterSelector onChange={this.props.handleFilterSelect} containerWidth="100%" selectedFilters={this.props.selectedFilters} />
             {/*<SearchSortSelector onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />*/}
