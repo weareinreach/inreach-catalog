@@ -27,6 +27,23 @@ const styles = theme => ({
       marginRight: '0'
     }
   },
+  infographicLinkContainer: {
+    position: 'static',
+    width: '100%',
+    top: 'auto',
+    left: 'auto',
+    zIndex: '1',
+    marginTop: '0.5rem',
+    marginRight: '0',
+    textAlign: 'right',
+    [theme.breakpoints.down('md')]: {
+      marginTop: '1rem',
+      textAlign: 'left',
+    },
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center'
+    }
+  },
   infographicButton: {
     backgroundColor: theme.palette.common.white,
     minHeight: '0px'
@@ -44,8 +61,10 @@ const styles = theme => ({
     alignItems: 'flex-start'
   },
   infographicLink: {
+    fontFamily: 'Roboto,sans-serif',
+    fontWeight: 'normal',
+    fontSize: theme.typography.fontSize,
     [theme.breakpoints.down('sm')]: {
-      fontFamily: 'Roboto,sans-serif',
       color: theme.palette.common.white,
       fontWeight: 'normal',
       textDecoration: 'underline',
@@ -117,14 +136,15 @@ class AsylumConnectInfographicButton extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
+    const {classes, type} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
+    const containerClass = type == 'link' ? classes.infographicLinkContainer : classes.infographicButtonContainer;
     return(
-      <div className={classes.infographicButtonContainer}>
-        {!isMobile && <Button raised dense href={this.props.url} target="_blank" onClick={this.handleOnClick} className={classes.infographicButton} classes={{label: classes.smallerButton}}>
+      <div className={containerClass}>
+        {type=='button' && <Button raised dense href={this.props.url} target="_blank" onClick={this.handleOnClick} className={classes.infographicButton} classes={{label: classes.smallerButton}}>
           <Fa name="map-o" className={classes.infographicButtonIcon} /><span>{this.props.text}</span>
         </Button>}
-        {isMobile && <a href={this.props.url ? this.props.url : "#"} className={classes.infographicLink} target="_blank" onClick={this.handleOnClick}>{this.props.text}</a>}
+        {type=='link' && <a href={this.props.url ? this.props.url : "#"} className={classes.infographicLink} target="_blank" onClick={this.handleOnClick}><Fa name="download" className={classes.infographicButtonIcon} />{this.props.text}</a>}
         {this.state.open && this.props.list && this.props.list.length ? 
           <Paper id={this.id}>
             <MenuList role="menu">
