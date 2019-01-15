@@ -63,6 +63,7 @@ const styles = theme => ({
   infographicLink: {
     fontFamily: 'Roboto,sans-serif',
     fontWeight: 'normal',
+    fontSize: theme.typography.fontSize,
     [theme.breakpoints.down('sm')]: {
       color: theme.palette.common.white,
       fontWeight: 'normal',
