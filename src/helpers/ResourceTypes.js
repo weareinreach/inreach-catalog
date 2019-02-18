@@ -145,7 +145,7 @@ const resourceTypes = [
 
   /* AC Community support Category */
   {category: 'Community Support', type: 'communitySupport', odTag: 'Community centers'},
-  {category: 'Community Support', type: 'communitySupport', odTag: 'Community centers', title: 'Community centers'},
+  /*{category: 'Community Support', type: 'communitySupport', odTag: 'Community centers', title: 'Community centers'}, //removed because 1D removed corresponding tag */
   {category: 'Community Support', type: 'communitySupport', odTag: 'LGBTQ centers',     title: 'LGBTQ centers'},
   {category: 'Community Support', type: 'communitySupport', odTag: 'Cultural centers',  title: 'Cultural centers'},
 
@@ -198,7 +198,7 @@ const resourceTypes = [
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Sports & fitness',  iconOnly: true},
 
   /* AC Translation and interpretation Category */
-  {category: 'Translation & interpretation', type: 'misc', odTag: 'Translation & interpretation'},
+  {category: 'Translation and interpretation', type: 'speechBubble', odTag: 'Translation & interpretation'},
 
   /* AC Transportation Category */
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation'},

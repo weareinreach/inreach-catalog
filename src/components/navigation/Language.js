@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import langs from 'langs';
+import url from 'url';
 import ValidLanguageList from '../../helpers/ValidLanguageList';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
@@ -132,6 +133,11 @@ class Language extends React.Component {
     this.setState({selectedLang: currentLang})
     if(currentLang === "English") {
       document.cookie = "googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      
+      //Google Translate started adding root domain translation cookies - this will clear those
+      var hostComponents = window.location.host.split('.');
+      var domain = hostComponents.length >= 2 ? hostComponents[hostComponents.length-2] + '.' + hostComponents[hostComponents.length-1] : window.location.host;
+      document.cookie = "googtrans=;domain="+domain+";path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     }
   }
 

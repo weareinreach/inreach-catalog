@@ -16,6 +16,7 @@ import {
   MedicalIcon,
   MentalHealthIcon,
   MiscIcon,
+  SpeechBubblesIcon,
   SportsEntertainmentIcon,
   TransportationIcon
 } from './icons';
@@ -71,6 +72,10 @@ const Badge = ({ classes, type, height, width, extraClasses }) => {
       label: 'Other Services',
       icon: <MiscIcon />,
     },
+    speechBubble: {
+      label: 'Translation and interpretation',
+      icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />
+    },
     sportsEntertainment: {
       label: 'Sports / Entertainment',
       icon: <SportsEntertainmentIcon />,
@@ -118,6 +123,7 @@ Badge.propTypes = {
     'medical',
     'mentalHealth',
     'misc',
+    'speechBubble',
     'sportsEntertainment',
     'transportation'
   ]).isRequired
