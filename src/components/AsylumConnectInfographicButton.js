@@ -11,9 +11,9 @@ import breakpoints from '../theme/breakpoints';
 const styles = theme => ({
   infographicButtonContainer: {
     height: '1em',
-    left: '120px',
+    left: '10px',
     position: 'absolute', 
-    top: '10px', 
+    top: '60px', 
     zIndex: '1000',
     marginRight: '1em',
     [theme.breakpoints.down('sm')]: {

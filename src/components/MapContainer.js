@@ -24,6 +24,7 @@ import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
 import Resource from './resource/Resource';
+import ResourceTypes from '../helpers/ResourceTypes';
 
 const styles = (theme) => ({
   searchArea: {
@@ -443,6 +444,7 @@ class MapContainer extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const infographic = this.getInfographic();
 
+    const selectedResourceTypes = typeof this.state.selectedResourceTypes !== 'undefined' && this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes : [];
     //on the search results, enforce a distance limitation of 100 miles
     const mapMaxDistance = this.props.match.path == '/search/:in/:place/:near/:for/:filter/:sort' ? 100 : null;
 
@@ -492,6 +494,7 @@ class MapContainer extends React.Component {
                       searchDisabled={this.state.searchDisabled}
                       searchCenter={this.state.nearLatLng}
                       session={this.props.session}
+                      showWalkinCheckbox={(false && selectedResourceTypes.filter(item => {return (typeof ResourceTypes.resourceCategoryIndex[item] !== 'undefined' && ResourceTypes.resourceCategoryIndex[item].category == 'Legal')}).length > 0)}
                       user={this.props.user}
                     />)}
                   />
