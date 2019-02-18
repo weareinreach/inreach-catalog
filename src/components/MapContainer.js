@@ -494,7 +494,7 @@ class MapContainer extends React.Component {
                       searchDisabled={this.state.searchDisabled}
                       searchCenter={this.state.nearLatLng}
                       session={this.props.session}
-                      showWalkinCheckbox={(selectedResourceTypes.filter(item => {return (typeof ResourceTypes.resourceCategoryIndex[item] !== 'undefined' && ResourceTypes.resourceCategoryIndex[item].category == 'Legal')}).length > 0)}
+                      showWalkinCheckbox={(false && selectedResourceTypes.filter(item => {return (typeof ResourceTypes.resourceCategoryIndex[item] !== 'undefined' && ResourceTypes.resourceCategoryIndex[item].category == 'Legal')}).length > 0)}
                       user={this.props.user}
                     />)}
                   />
