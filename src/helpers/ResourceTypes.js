@@ -198,7 +198,7 @@ const resourceTypes = [
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Sports & fitness',  iconOnly: true},
 
   /* AC Translation and interpretation Category */
-  {category: 'Translation and interpretation', type: 'speechBubble', odTag: 'Translation & interpretation'},
+  {category: 'Translation and Interpretation', type: 'speechBubble', odTag: 'Translation & interpretation'},
 
   /* AC Transportation Category */
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation'},
