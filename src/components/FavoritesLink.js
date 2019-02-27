@@ -9,7 +9,7 @@ import RedHeartIcon from './icons/RedHeartIcon';
 
 const styles = theme => ({
   viewYourFavoritesText: {
-    color: theme.palette.secondary[500],
+    color: theme.palette.primary[500],
     fontWeight: '300',
     display: 'flex',
     flexDirection: 'row',

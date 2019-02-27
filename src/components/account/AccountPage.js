@@ -162,7 +162,7 @@ class AccountPage extends React.Component {
         </div>
       ) : (
         <div>
-          <Typography type="display2" className={classes.textAlignCenter}>
+          <Typography variant="display2" className={classes.textAlignCenter}>
             Organization
           </Typography>
           <div className={classes.formRow}>
@@ -226,7 +226,7 @@ class AccountPage extends React.Component {
     return (
       <div className={classes.root}>
         <Typography
-          type="display1"
+          variant="display1"
           className={[classes.marginBottom, classes.textAlignCenter].join(' ')}
         >
           Your Account

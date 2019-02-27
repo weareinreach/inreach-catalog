@@ -21,7 +21,7 @@ const styles = theme => ({
   },
   flex: {display: 'flex'},
   link: {
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     cursor: 'pointer',
   },
   paddingVertical: {padding: '2.5rem 0'},
@@ -62,23 +62,23 @@ const SignupForm = ({
   <div className={classes.container}>
     {activeStep === 0 && (
       <div className={classes.container}>
-        <Typography className={classes.marginBottomLg} type="display3">
+        <Typography className={classes.marginBottomLg} variant="display3">
           Which are you?
         </Typography>
         <AsylumConnectButton
           className={classes.marginBottom}
           onClick={() => handleSelect('seeker')}
-          variant="secondary">
+          variant="primary">
           I am an asylum seeker
         </AsylumConnectButton>
         <AsylumConnectButton
           className={classes.marginBottomLg}
           onClick={() => handleSelect('provider')}
-          variant="secondary">
+          variant="primary">
           I am a service provider
         </AsylumConnectButton>
         <div onClick={() => handleRequestOpen('login')}>
-          <Typography type="body1">
+          <Typography variant="body1">
             <span className={classes.link}>Already have an account?</span>
           </Typography>
         </div>
@@ -118,7 +118,7 @@ const SignupForm = ({
           type="password"
           value={passwordConfirmation}
         />
-        <Typography type="body1" className={classes.paddingVertical}>
+        <Typography variant="body1" className={classes.paddingVertical}>
           By clicking "Sign Up," you agree to One Degree's{` `}
           <a href="https://www.1degree.org/privacy" target="_blank">
             Privacy Policy
@@ -129,12 +129,12 @@ const SignupForm = ({
           </a>
           .
         </Typography>
-        <AsylumConnectButton variant="secondary">Sign Up</AsylumConnectButton>
+        <AsylumConnectButton variant="primary">Sign Up</AsylumConnectButton>
       </form>
     )}
     {activeStep === 2 && (
       <form onSubmit={handleCreateAffiliation}>
-        <Typography type="display4">
+        <Typography variant="display4">
           Connect to Your Organization
         </Typography>
         <OrganizationAutocomplete
@@ -155,11 +155,11 @@ const SignupForm = ({
           organizations={organizations}
         />
         <div className={classes.marginVertical}>
-          <AsylumConnectButton variant="secondary">
+          <AsylumConnectButton variant="primary">
             Join Organization
           </AsylumConnectButton>
         </div>
-        <Typography type="body1">
+        <Typography variant="body1">
           You may also join your organization later in account settings.
         </Typography>
       </form>

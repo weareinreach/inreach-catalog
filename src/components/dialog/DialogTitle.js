@@ -9,7 +9,7 @@ const styles = (theme) => ({
 });
 
 const DialogTitle = ({ children, classes }) => (
-  <Typography className={classes.title} type="display1">
+  <Typography className={classes.title} variant="display1">
     { children }
   </Typography>
 );

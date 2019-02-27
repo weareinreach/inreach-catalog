@@ -50,22 +50,22 @@ const NavDesktop = ({
       </IconButton>
     </Link>
     <a className="hide--on-screen" href="#">
-      <Typography type="headline">AsylumConnect Catalog</Typography>
+      <Typography variant="headline">AsylumConnect Catalog</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/who-we-are">
-      <Typography type="display4">about us</Typography>
+      <Typography variant="display4">about us</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/donate">
-      <Typography type="display4">take action</Typography>
+      <Typography variant="display4">take action</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/seek-lgbtq-asylum">
-      <Typography type="display4">get help</Typography>
+      <Typography variant="display4">get help</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/contact">
-      <Typography type="display4">contact us</Typography>
+      <Typography variant="display4">contact us</Typography>
     </a>
     <Link className="hide--on-print" to='/'>
-      <AsylumConnectButton variant="primary">
+      <AsylumConnectButton variant="secondary">
         find resources
       </AsylumConnectButton>
     </Link>

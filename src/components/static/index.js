@@ -43,6 +43,9 @@ const styles = theme => ({
   inlineBlock: {
     display: 'inline-block'
   },
+  iconPadding: {
+    padding: theme.spacing.unit
+  },
   navigation: {
     marginTop: theme.spacing.unit * 10
   },
@@ -154,14 +157,14 @@ class Static extends React.Component {
                   <Typography type='title'>
                     <ContentMarkdown source={this.state.data[0].title} />
                   </Typography>
-                  <Typography type='body1' className={classes.subtitle}>
+                  <Typography type='body2' className={classes.subtitle}>
                     <ContentMarkdown source={this.state.data[0].caption} />
                   </Typography>
                   <Grid container spacing={0} alignItems='flex-start' justify='center' className={classes.navigation}>
-                    {this.state.data.map((section, index) => {return section.icon ? (
+                    {this.state.data.map((section, index) => {console.log(section.icon); return section.icon ? (
                           <Grid key={index} item xs={3} sm={2} className={classes.textAlignCenter}>
                             <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
-                              <StandaloneIcon name={section.icon} fillColor={section.color} />
+                              <StandaloneIcon name={section.icon} fillColor={section.color} strokeColor="#000" className={classes.iconPadding} />
                             </a>
                             <Typography type='display4' className={classes.textBold}>{section.heading}</Typography>
                           </Grid>

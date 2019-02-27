@@ -25,21 +25,26 @@ import breakpoints from '../../theme/breakpoints';
 const styles = theme => ({
   fixedFab: {
     position: 'fixed',
-    bottom: '101px',
+    bottom: '79px',
     right: '20px',
     zIndex: '49',
     backgroundColor: theme.palette.common.white
   },
   fixedFilters: {
-    backgroundColor: theme.palette.primary[500],
+    backgroundColor: theme.palette.secondary[500],
     position: 'fixed',
-    bottom: '91px',
+    bottom: '59px',
     top: '0',
     left: '0',
     right: '0',
     zIndex: '50',
     padding: '2rem',
     overflowY: 'auto'
+  },
+  placement: {
+    top: theme.spacing.unit * -2,
+    right: theme.spacing.unit * -2,
+    backgroundColor: theme.palette.secondary[500]
   },
   fabContent: {
     fontSize: ".5rem", 
@@ -82,21 +87,22 @@ class SearchRefinementControls extends React.Component {
   }
 
   render() {
-    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent, refinementTitle } = this.props.classes;
+    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent, refinementTitle, placement, secondaryColor } = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div className="hide--on-print">
         {isMobile ?
           <div>
             
-            <Button fab aria-label="filters" onClick={this.handleFilterOpen} className={fixedFab}>
+            <Button variant="fab" aria-label="filters" onClick={this.handleFilterOpen} className={fixedFab}>
               <Badge badgeContent={this.props.selectedFilters.length} color={this.props.selectedFilters.length ? "accent" : "primary"}
                 classes={{
-                  colorAccent: badgeColorAccent
+                  badge: placement,
+                  colorAccent: badgeColorAccent,
+                  colorPrimary: secondaryColor
                 }}>
                 <div className={fabContent}>
                   <FiltersIcon height="30px" width="30px" />
-                  Filters
                 </div>
               </Badge>
             </Button>

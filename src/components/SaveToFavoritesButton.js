@@ -7,6 +7,7 @@ import Button from 'material-ui/Button';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 
+import AsylumConnectPopUp from './AsylumConnectPopUp';
 import RedHeartIcon from './icons/RedHeartIcon';
 
 import breakpoints from '../theme/breakpoints';
@@ -146,12 +147,12 @@ class SaveToFavoritesButton extends React.Component {
     return (
       <div>
         <Button onClick={handleMenuOpen}>
-          <Typography type="display4" className={classes.viewYourFavoritesText}>
+          <Typography variant="display4" className={classes.viewYourFavoritesText}>
             {buttonLabel}
             <RedHeartIcon width={'38px'} fill={isFavorite} />
           </Typography>
         </Button>
-        <Menu
+        <AsylumConnectPopUp
           id="favorites-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: 'bottom'}}
@@ -181,9 +182,9 @@ class SaveToFavoritesButton extends React.Component {
               this.props.handleRequestOpen(
                 `listNew/saveToFavorites/${resourceId}`,
               )}>
-            <span className={classes.textBlue}>Create New List</span>
+            <span className={classes.textBlue}>+ Create New List</span>
           </MenuItem>
-        </Menu>
+        </AsylumConnectPopUp>
       </div>
     );
   }

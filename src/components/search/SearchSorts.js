@@ -27,7 +27,7 @@ const styles = theme => ({
   radioLabel: {},
   radioRoot: {},
   radioCheckbox: {},
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     radioLabel: {
       color: theme.palette.common.white,
     },

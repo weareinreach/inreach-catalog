@@ -13,11 +13,12 @@ import { searchInput, searchInputMobile } from '../../theme/sharedClasses';
 
 const styles = theme => ({
   searchInput: searchInput(theme),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     searchInput: searchInputMobile(theme)
   },
   searchInputContainer: {
-    position: 'relative'
+    position: 'relative',
+    zIndex: '10'
   },
   placesContainer: {
     backgroundColor: theme.palette.background.paper,
@@ -100,7 +101,7 @@ class SearchBar extends React.Component {
     );
     return (
       <Grid container spacing={0}>
-        <Grid item sm={8} xs={12}>
+        <Grid item md={8} sm={12} xs={12}>
           <PlacesAutocomplete
             onSelect={this.handlePlaceSelect}
             autocompleteItem={AutocompleteItem}
@@ -110,7 +111,7 @@ class SearchBar extends React.Component {
             options={options}
           />
         </Grid>
-        <Grid item sm={4} xs={12} className="hide--on-print">
+        <Grid item md={4} sm={12} xs={12} className="hide--on-print">
           <ResourceTypeSelector 
             containerWidth={this.props.containerWidth} 
             onChange={this.props.handleResourceTypeSelect} 

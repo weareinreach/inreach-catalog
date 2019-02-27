@@ -17,10 +17,15 @@ const resourceTypes = ResourceTypes.resourceTypesByGroup;
 
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {
-    borderLeft: "1px solid "+theme.palette.common.lightGrey,
+    borderLeft: "2px solid "+theme.palette.common.lightGrey,
     cursor: 'pointer',
     position: 'relative',
-    [theme.breakpoints.down('sm')]: searchInputMobile(theme)
+    boxShadow: '-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    [theme.breakpoints.down('md')]: {
+      boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+      borderLeft: "none"
+    },
+    [theme.breakpoints.down('xs')]: searchInputMobile(theme)
   }),
   uncheckLink: {
     fontFamily: theme.typography.body2.fontFamily,
@@ -55,7 +60,7 @@ const styles = theme => ({
 
 const FilterCollection = (props) => (
   <div>
-    <Typography type="body2" className={props.classes.sectionHeader}>
+    <Typography variant="body2" className={props.classes.sectionHeader}>
       <ACBadge type={props.type} width='45px' height='45px' /> 
       <span className={props.classes.sectionTitle}>
         {props.category}

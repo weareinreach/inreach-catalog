@@ -15,7 +15,7 @@ const styles = (theme) => ({
 
 const DialogButton = ({children, classes, handleRequestClose}) => (
     <div className={classes.buttonContainer}>
-      <AsylumConnectButton onClick={handleRequestClose} variant="secondary">
+      <AsylumConnectButton onClick={handleRequestClose} variant="primary">
         { children }
       </AsylumConnectButton>
     </div>

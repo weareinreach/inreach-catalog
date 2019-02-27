@@ -17,8 +17,8 @@ export default createMuiTheme({
       "white": "#fff",
       "transparent": "rgba(0, 0, 0, 0)",
       "fullBlack": "rgba(0, 0, 0, 1)",
-      "darkBlack": "rgba(0, 0, 0, 0.87)",
-      "lightBlack": "rgba(0, 0, 0, 0.54)",
+      "darkBlack": "rgba(29, 31, 35, 1)",
+      "lightBlack": "rgba(29, 31, 35, 1)",
       "minBlack": "rgba(0, 0, 0, 0.26)",
       "faintBlack": "rgba(0, 0, 0, 0.12)",
       "fullWhite": "rgba(255, 255, 255, 1)",
@@ -26,41 +26,47 @@ export default createMuiTheme({
       "lightWhite": "rgba(255, 255, 255, 0.54)",
       "darkGrey": "#e9e9e9",
       "lightGrey": "#f7f7f7",
-      "gold": "#ffd04a"
+      "gold": "#ffd04a",
+      "orange": "#F36D52",
+      "yellow": "#FFD048",
+      "green": "#15B58A",
+      "cyan": "#23BCD7",
+      "success": "#00C419",
+      "error": "#E1001C"
     },
     "type": "light",
     "primary": {
-      "50": "#6a88c0",
-      "100": "#6a88c0",
-      "200": "#6a88c0",
-      "300": "#6a88c0",
-      "400": "#6a88c0",
-      "500": "#6a88c0",
-      "600": "#6a88c0",
-      "700": "#6a88c0",
-      "800": "#6a88c0",
-      "900": "#6a88c0",
-      "A100": "#6a88c0",
-      "A200": "#6a88c0",
-      "A400": "#6a88c0",
-      "A700": "#6a88c0",
+      "50": "#FCDCDB",
+      "100": "#FCDCDB",
+      "200": "#CC4747",
+      "300": "#CC4747",
+      "400": "#CC4747",
+      "500": "#CC4747",
+      "600": "#CC4747",
+      "700": "#CC4747",
+      "800": "#CC4747",
+      "900": "#991F1F",
+      "A100": "#CC4747",
+      "A200": "#CC4747",
+      "A400": "#CC4747",
+      "A700": "#CC4747",
       "contrastDefaultColor": "light"
     },
     "secondary": {
-      "50": "#f26f6f",
-      "100": "#f26f6f",
-      "200": "#f26f6f",
-      "300": "#f26f6f",
-      "400": "#f26f6f",
-      "500": "#f26f6f",
-      "600": "#bb3e44",
-      "700": "#f26f6f",
-      "800": "#f26f6f",
-      "900": "#f26f6f",
-      "A100": "#f26f6f",
-      "A200": "#f26f6f",
-      "A400": "#f26f6f",
-      "A700": "#f26f6f",
+      "50": "#E3E9F3",
+      "100": "#E3E9F3",
+      "200": "#5073B3",
+      "300": "#5073B3",
+      "400": "#5073B3",
+      "500": "#5073B3",
+      "600": "#5073B3",
+      "700": "#5073B3",
+      "800": "#5073B3",
+      "900": "#2D4A80",
+      "A100": "#5073B3",
+      "A200": "#5073B3",
+      "A400": "#5073B3",
+      "A700": "#5073B3",
       "contrastDefaultColor": "light"
     },
     "error": {
@@ -184,8 +190,8 @@ export default createMuiTheme({
     }
   },
   "typography": {
-    "fontFamily": "\"Open Sans\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-    "fontSize": 14,
+    "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
+    "fontSize": 16,
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 600,
@@ -196,7 +202,7 @@ export default createMuiTheme({
       "fontFamily": "\"Open Sans\", sans-serif",
       "letterSpacing": "-.04em",
       "lineHeight": 1,
-      "color": "rgba(0, 0, 0, 0.87)",
+      "color": "rgba(29, 31, 35, 1)",
       "textTransform": "uppercase"
     },
     "display3": {
@@ -205,66 +211,66 @@ export default createMuiTheme({
       "fontFamily": "\"Open Sans\", sans-serif",
       "letterSpacing": "-.02em",
       "lineHeight": 1.35,
-      "color": "rgba(0, 0, 0, 0.87)"
+      "color": "rgba(29, 31, 35, 1)"
     },
     "display2": {
       "fontSize": 18,
       "fontWeight": 500,
-      "fontFamily": "\"Roboto\", sans-serif",
+      "fontFamily": "\"Open Sans\", sans-serif",
       "lineHeight": "inherit",
-      "color": "rgba(0, 0, 0, 0.87)"
+      "color": "rgba(29, 31, 35, 1)"
     },
     "display1": {
       "fontSize": 22,
       "fontWeight": 700,
-      "fontFamily": "\"Roboto\", sans-serif",
+      "fontFamily": "\"Open Sans\", sans-serif",
       "lineHeight": "40px",
-      "color": "rgba(0, 0, 0, 0.87)"
+      "color": "rgba(29, 31, 35, 1)"
     },
     "headline": {
-      "fontSize": 24,
-      "fontWeight": 400,
-      "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      "lineHeight": "32px",
-      "color": "rgba(0, 0, 0, 0.87)"
+      "fontSize": 32,
+      "fontWeight": 700,
+      "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
+      "lineHeight": 1.2,
+      "color": "rgba(29, 31, 35, 1)"
     },
     "title": {
-      "fontSize": 21,
-      "fontWeight": 700,
-      "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      "lineHeight": 1,
-      "color": "rgba(0, 0, 0, 0.87)"
+      "fontSize": 24,
+      "fontWeight": 600,
+      "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
+      "lineHeight": 1.2,
+      "color": "rgba(29, 31, 35, 1)"
     },
     "subheading": {
-      "fontSize": 16,
-      "fontWeight": 400,
-      "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      "lineHeight": "24px",
-      "color": "rgba(0, 0, 0, 0.87)"
+      "fontSize": 18,
+      "fontWeight": 600,
+      "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
+      "lineHeight": 1.2,
+      "color": "rgba(29, 31, 35, 1)"
     },
     "body2": {
-      "fontSize": 14,
-      "fontWeight": 300,
+      "fontSize": 16,
+      "fontWeight": 400,
       "fontFamily": "\"Open Sans\", sans-serif",
       "lineHeight": "20px",
-      "color": "rgba(0, 0, 0, 0.38)"
+      "color": "rgba(29, 31, 35, 1)"
     },
     "body1": {
-      "fontSize": 13,
-      "fontWeight": 300,
+      "fontSize": 14,
+      "fontWeight": 400,
       "fontFamily": "\"Open Sans\", sans-serif",
       "lineHeight": "20px",
-      "color": "rgba(0, 0, 0, 0.54)"
+      "color": "rgba(29, 31, 35, 1)"
     },
     "caption": {
-      "fontSize": 12,
+      "fontSize": 14,
       "fontWeight": 400,
-      "fontFamily": "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-      "lineHeight": 1,
-      "color": "rgba(0, 0, 0, 0.54)"
+      "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
+      "lineHeight": "20px",
+      "color": "rgba(29, 31, 35, 1)"
     },
     "button": {
-      "fontSize": 14,
+      "fontSize": 16,
       "textTransform": "uppercase",
       "fontWeight": 700,
       "fontFamily": "\"Open Sans\", sans-serif",

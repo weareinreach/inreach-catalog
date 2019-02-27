@@ -2,10 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const LegalIcon = ({width, fillColor}) => (
-  <svg id="f9123466-1d27-4cbe-926b-59cd33f4b30d" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>resource-legal</title><circle cx="25" cy="25" r="17.46" fill={fillColor} /><path d="M31.31,26.67a3.08,3.08,0,0,0,3.08-3.08H28.23A3.08,3.08,0,0,0,31.31,26.67Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="31.31" y1="18.27" x2="28.77" y2="23.58" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="31.31" y1="18.27" x2="33.85" y2="23.58" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><path d="M18.69,26.67a3.08,3.08,0,0,0,3.08-3.08H15.61A3.08,3.08,0,0,0,18.69,26.67Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="21.23" y1="23.58" x2="18.69" y2="18.27" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><polyline points="16.15 23.59 18.69 18.27 31.31 18.27" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="25" y1="16.47" x2="25" y2="29.2" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><path d="M29.28,33.54h0a4.28,4.28,0,1,0-8.55,0h8.55Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/></svg>
+  <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+width={width} viewBox='0 0 37 39'>
+    <defs>
+        <path id='a' d='M0 .075h34.925V35H.001z' />
+    </defs>
+    <g fill='none' fillRule='evenodd'>
+        <g transform='translate(1.297 2.052)'>
+            <mask id='b' fill='#fff'>
+                <use xlinkHref='#a' />
+            </mask>
+            <path fill={fillColor} d='M34.925 17.537C34.925 27.181 27.108 35 17.463 35S0 27.181 0 17.537C0 7.893 7.82.074 17.462.074c9.646 0 17.463 7.82 17.463 17.463'
+            mask='url(#b)' />
+        </g>
+        <g stroke='#FFF' strokeLinecap='round' strokeLinejoin='round' strokeWidth='0.5'>
+            <path d='M25.253 21.495a3.085 3.085 0 0 0 3.085-3.085h-6.17a3.085 3.085 0 0 0 3.085 3.085zM25.253 13.1l-2.538 5.31M25.253 13.1l2.538 5.31M12.632 21.495a3.085 3.085 0 0 0 3.085-3.085h-6.17a3.085 3.085 0 0 0 3.085 3.085zM15.17 18.41l-2.538-5.31'
+            />
+            <path d='M10.094 18.41l2.538-5.31h12.62M18.942 11.295V24.03M23.22 28.36a4.29 4.29 0 0 0-4.277-4.276 4.29 4.29 0 0 0-4.277 4.277h8.554z'
+            />
+        </g>
+    </g>
+</svg>
 );
 
-LegalIcon.defaultProps = { width: '100%', fillColor: '#efb58c' }
+LegalIcon.defaultProps = { width: '100%', fillColor: '#5073B3' }
 LegalIcon.propTypes = { width: PropTypes.string, fillColor: PropTypes.string }
 
 export default LegalIcon;

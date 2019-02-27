@@ -25,7 +25,7 @@ const PromptReconfirm = ({ classes, handleRequestOpen }) => (
     <AsylumConnectButton
       className={classes.spacingVertical}
       onClick={() => handleRequestOpen('password')}
-      variant="secondary"
+      variant="primary"
     >
       Re-Enter Password
     </AsylumConnectButton>

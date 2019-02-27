@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   spacingVertical: {margin: '2.5rem 0'},
   link: {
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     cursor: 'pointer',
   },
 });
@@ -30,7 +30,7 @@ const ForgotForm = ({
   password,
 }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
-    <Typography type="body1">
+    <Typography variant="body1">
       We'll send you an email to reset your password.
     </Typography>
     <TextField
@@ -45,11 +45,11 @@ const ForgotForm = ({
     />
     <AsylumConnectButton
       className={classes.spacingVertical}
-      variant="secondary">
+      variant="primary">
       Send
     </AsylumConnectButton>
     <div onClick={() => handleRequestOpen('login')}>
-      <Typography type="body1">
+      <Typography variant="body1">
         <span className={classes.link}>Back</span>
       </Typography>
     </div>

@@ -10,7 +10,10 @@ const styles = (theme) => ({
   subAnnouncementText: {
     color: theme.palette.common.darkBlack,
     fontWeight: theme.typography.fontWeightHeavy,
-    [theme.breakpoints.down('sm')]: {
+    '&:hover': {
+      color: theme.palette.common.darkBlack,
+    },
+    [theme.breakpoints.down('xs')]: {
       fontSize: theme.typography.caption.fontSize,
       fontWeight: theme.typography.caption.fontWeight
     }
@@ -22,7 +25,7 @@ const styles = (theme) => ({
 });
 
 const SubAnnouncement = ({ classes, handleRequestOpen, url }) => (
-  <Typography type="body2">
+  <Typography variant="body2">
     <a href={url} target="_blank" className={classes.subAnnouncementText}>Are you interested in joining an online community for LGBTQ asylum seekers?&nbsp;&nbsp;<KeyboardArrowRightIcon className={classes.subAnnouncementTextArrow} /></a>
   </Typography>
 );

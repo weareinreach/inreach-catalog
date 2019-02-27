@@ -21,7 +21,11 @@ const styles = theme => ({
     marginBottom: '2rem'
   },
   container: {
-    minHeight: '500px'
+    minHeight: '500px',
+    paddingTop: theme.spacing.unit * 16,
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: 0
+    }
   },
   subAnnouncement: {
     backgroundColor: '#e9e9e9',
@@ -33,14 +37,14 @@ const styles = theme => ({
     top: '0',
     left:'0',
     right: '0',
-    [theme.breakpoints.down('sm')]: Object.assign(mobilePadding(theme), {
+    [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
       position: 'static',
       paddingTop: "80px",
       marginLeft: '0'
     }),
   },
   infographicSpacing: {},
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     title: {
       color: theme.palette.common.white
     },
@@ -50,12 +54,12 @@ const styles = theme => ({
     },
     container: {
       height: "100%",
-      backgroundColor: theme.palette.primary[500]
+      backgroundColor: theme.palette.secondary[500]
     },
     containerSearchForm: Object.assign(mobilePadding(theme), {
       paddingTop: "1rem",
       paddingBottom: "60px",
-      backgroundColor: theme.palette.primary[500]
+      backgroundColor: theme.palette.secondary[500]
     }),
     infographicSpacing: {
       marginTop: '1rem'
@@ -96,7 +100,7 @@ class SearchFormContainer extends React.Component {
       backButtonLabel, 
       containerSearchForm, 
       infographicSpacing, 
-      subAnnouncement} = this.props.classes;
+      subAnnouncement} = this.props.classes; console.log(this.props.width, breakpoints['sm']);
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div style={{position: 'relative'}}>
@@ -113,7 +117,7 @@ class SearchFormContainer extends React.Component {
             <ArrowBackIcon />&nbsp;Back to AsylumConnect Home Site
           </Button>
         : null}
-        <Grid container alignItems='center' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
+        <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
           <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
             {isMobile ? 
               <Grid item xs={12} className={subAnnouncement} >
@@ -122,12 +126,12 @@ class SearchFormContainer extends React.Component {
             : null}
             <Grid container spacing={0} className={containerSearchForm} >
               <Grid item xs={12}>
-                <Typography type="title" className={title}>
+                <Typography variant="title" className={title}>
                   Welcome to the AsylumConnect catalog!
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography type="subheading" className={subheading}>
+                <Typography variant="subheading" className={subheading}>
                   Search for LGBTQ- and asylum-friendly resources near you
                 </Typography>
               </Grid>

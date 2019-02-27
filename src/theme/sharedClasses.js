@@ -22,13 +22,16 @@ export const selectInput = theme => ({
   backgroundColor: theme.palette.common.white,
   borderRadius: '0.1px'
 });
+export const dropShadow = theme => ({
+  boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)'
+});
 export const searchInputMobile = theme => ({
   padding: '1.0rem',
   height: '3.0rem',
   marginBottom: '1.0rem'
 });
 export const bodyLink = theme => ({
-  color: theme.palette.primary[500]
+  color: theme.palette.secondary[500]
 });
 export const listLink = theme =>({
   '& + &:before': {

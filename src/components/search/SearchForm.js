@@ -29,12 +29,15 @@ const styles = theme => ({
     marginBottom: '1.5rem'
   },
   callout: {
-    color: theme.palette.secondary[500]
+    color: theme.palette.primary[500]
   },
   underline: {
-    textDecoration: 'underline'
+    textDecoration: 'underline',
+    '&:hover': {
+      color: theme.palette.primary[900]
+    }
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     searchButton: {
       textAlign: "center"
     },
@@ -51,17 +54,17 @@ const styles = theme => ({
 class SearchForm extends React.Component {
   render() {
     const { formRow, searchButton, body2, link, callout, underline } = this.props.classes;
-    const variant = this.props.width < breakpoints['sm'] ? "primary" : "secondary";
+    const variant = this.props.width < breakpoints['sm'] ?  "secondary" : "primary";
     return (
       <div>
         <Grid container spacing={0} >
           <Grid item xs={12} className={formRow}>
-            <Typography type="body2" className={body2+' '+callout}>
+            <Typography variant="body2" className={body2+' '+callout}>
               Are you in Mexico waiting to seek LGBTQ asylum in the U.S.? <a href="/page/Mexico/#googtrans(es)" className={link+' '+callout+' '+underline}>Click here.</a>
             </Typography>
           </Grid>
           <Grid item xs={12} className={formRow}>
-            <Typography type="body2" className={body2}>
+            <Typography variant="body2" className={body2}>
               Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
             </Typography>
           </Grid>
@@ -69,7 +72,7 @@ class SearchForm extends React.Component {
         <SearchBar {...this.props} classes={null} />
         <Grid container spacing={0}>
           {/*<Grid item xs={12} className={formRow}>
-            <Typography type="body2" className={body2}>
+            <Typography variant="body2" className={body2}>
               Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
             <FormControlLabel
               control={

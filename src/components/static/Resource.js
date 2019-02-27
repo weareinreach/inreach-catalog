@@ -25,7 +25,10 @@ const styles = (theme, props) => ({
     color: props.color
   },
   linkColor: {
-    color: theme.palette.primary[500]
+    color: theme.palette.secondary[500],
+    '&:hover': {
+      color: theme.palette.secondary[900]
+    }
   }
 })
 
@@ -42,32 +45,32 @@ const Resource = ({
 }) => (
     <div className={"resource--with-markdown "+classes.resourceMargin}>
       {name && <Typography type='display3' className={classes.marginBottom}>{name}</Typography>}
-      {link && <a href={`${link}`} target="_blank"><Typography type='body1' className={classes.linkColor+' '+classes.marginBottom}>{link}</Typography></a>}
-      {description && <Typography type='body1' className={classes.marginTop}>
+      {link && <a href={`${link}`} target="_blank"><Typography type='body2' className={classes.linkColor+' '+classes.marginBottom}>{link}</Typography></a>}
+      {description && <Typography type='body2' className={classes.marginTop}>
         <ContentMarkdown 
           renderers={{
             link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={description} />
       </Typography>}
-      {who && <Typography type='body1' className={classes.infoItem}>Who this resource serves:</Typography>}
-      {who && <Typography type='body1'>
+      {who && <Typography type='body2' className={classes.infoItem}>Who this resource serves:</Typography>}
+      {who && <Typography type='body2'>
         <ContentMarkdown 
           renderers={{
             link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={who} />
       </Typography>}
-      {how && <Typography type='body1' className={classes.infoItem}>How to use this resource:</Typography>}
-      {how && <Typography type='body1'>
+      {how && <Typography type='body2' className={classes.infoItem}>How to use this resource:</Typography>}
+      {how && <Typography type='body2'>
         <ContentMarkdown 
           renderers={{
             link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
           }} 
           source={how} />
       </Typography>}
-      {visit && <Typography type='body1' className={classes.infoItem}>How to visit this resource:</Typography>}
-      {visit && <Typography type='body1'>
+      {visit && <Typography type='body2' className={classes.infoItem}>How to visit this resource:</Typography>}
+      {visit && <Typography type='body2'>
         <ContentMarkdown 
           renderers={{
             link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)

@@ -21,7 +21,7 @@ const styles = theme => ({
     cursor: 'pointer',
     position: 'relative',
     marginBottom: '0px',
-    [theme.breakpoints.down('sm')]: searchInputMobile(theme)
+    [theme.breakpoints.down('xs')]: searchInputMobile(theme)
   }),
   sectionHeader: {
     color: theme.palette.common.darkBlack
@@ -41,7 +41,7 @@ const styles = theme => ({
 const FilterCollection = (props) => (
   <div>
     {props.index > 0 ? <Divider /> : null}
-    <Typography type="body2" className={props.classes.sectionHeader}>
+    <Typography variant="body2" className={props.classes.sectionHeader}>
       <ACBadge type={props.type} width='45px' height='45px' /> 
       <AsylumConnectCheckbox label={props.category + ' > ' + (props.title ? props.title + ' > ': '') + props.odTag} value={props.odTag} onChange={props.onChange} checked={(props.selectedResourceTags.indexOf(props.odTag) >= 0)} />
     </Typography>

@@ -44,20 +44,20 @@ const styles = (theme) => ({
     color: theme.palette.common.darkBlack 
   },
   reviewAC: {
-    backgroundColor: theme.palette.primary[500],
+    backgroundColor: theme.palette.secondary[500],
     color: theme.palette.common.white
   }
 });
 
 const ReviewType = ({classes, type}) => (
-  <Typography type="body2" className={classes.reviewBadge + ' ' + classes['review'+type]}>
+  <Typography variant="body2" className={classes.reviewBadge + ' ' + classes['review'+type]}>
     {type == 'OD' ? 'One Degree user' : 'AsylumConnect user' }
   </Typography>
 );
 
 const ReviewList = ({title, classes, list, acOnly}) => (
   <div>
-    <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+    <Typography variant="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
       {title}
     </Typography>
     {list.filter(({client_id})=>(!acOnly || client_id==clientId)).length ? 
@@ -67,14 +67,14 @@ const ReviewList = ({title, classes, list, acOnly}) => (
             <ReviewType type={review.client_id == clientId ? 'AC' : 'OD' } classes={classes} />
           </Grid>
           <Grid item xs={12}>
-            <Typography type="body2">
+            <Typography variant="body2">
               "{review.content}"
             </Typography>
           </Grid>
         </Grid>
       ))
     :
-      <Typography type="body2" className={classes.boldFont}>
+      <Typography variant="body2" className={classes.boldFont}>
         No Reviews
       </Typography>
     }
@@ -86,7 +86,7 @@ const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange,
   <Grid container spacing={0} >
     {isMobile ? null :
     <Grid item xs={12} md={3}>
-      <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+      <Typography variant="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
         Reviews
       </Typography>
     </Grid>

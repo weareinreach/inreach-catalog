@@ -2,10 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SearchIcon = ({width, color}) => (
-  <svg id="717ec356-097d-4411-8993-8c27f97e1c69" className="svg-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width={width}><title>icon-search</title><path d="M28.56,25.72a6.94,6.94,0,1,0-2.14,1.14" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><path d="M32.63,35.23l-4.07-9.51a6.94,6.94,0,0,1-2.14,1.14l4,9.32a.92.92,0,0,0,1.21.48l.53-.23A.92.92,0,0,0,32.63,35.23Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/></svg>
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} viewBox='0 0 24 24'>
+    <g fill='none' fillRule='evenodd'>
+        <path fill={color} d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'
+        />
+        <path d='M0 0h24v24H0z' />
+    </g>
+</svg>
 );
 
-SearchIcon.defaultProps = { width: '100%', color: '#000' }
+SearchIcon.defaultProps = { width: '100%', color: '#1D1F23' }
 SearchIcon.propTypes = { width: PropTypes.string, color: PropTypes.string }
 
 export default SearchIcon;

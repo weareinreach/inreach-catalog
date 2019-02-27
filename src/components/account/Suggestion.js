@@ -419,7 +419,7 @@ class Suggestion extends React.Component {
     return (
       <div className={classes.root}>
         <div>
-          <Typography type="display2" className={classes.formType}>Suggest New Resource</Typography>
+          <Typography variant="display2" className={classes.formType}>Suggest New Resource</Typography>
           <Typography type='body1'>
             Thank you for your interest in contributing to the AsylumConnect resource catalog! Use this form to suggest a resource you think should be included. It's ok if you do not have all of the information the form asks for - just fill in what you know, and we'll do the rest! We appreciate your submission and thank you for helping to connect asylum seekers to helpful services. All suggested resources are subject to review by AsylumConnect staff before being published.
           </Typography>
@@ -455,7 +455,7 @@ class Suggestion extends React.Component {
         
         {!isSent  ? (
           <div>
-            <AsylumConnectButton variant='primary' onClick={this.handleClick}>suggest resource</AsylumConnectButton>
+            <AsylumConnectButton variant='secondary' onClick={this.handleClick}>suggest resource</AsylumConnectButton>
             <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
           </div>
         ):(

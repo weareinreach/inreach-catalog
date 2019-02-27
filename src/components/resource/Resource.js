@@ -60,7 +60,7 @@ const styles = (theme) => ({
     minHeight: '500px',
     paddingTop: '60px',
     paddingBottom: '60px',
-    [theme.breakpoints.down('sm')]: Object.assign(mobilePadding(theme), {
+    [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
       /*height: "100%",*/
       paddingTop: '0px',
       paddingBottom: '0px'
@@ -85,7 +85,7 @@ const styles = (theme) => ({
     marginBottom: "0.9rem"
   },
   mobileSpacing: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       marginTop: "1.5rem"
     }
   },
@@ -98,7 +98,7 @@ const styles = (theme) => ({
   dividerSpacing: dividerSpacing(theme),
   orgName: {
     fontSize: "21px",
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       textAlign: 'center'
     }
   },
@@ -107,7 +107,7 @@ const styles = (theme) => ({
   },
   serviceText: {
     paddingLeft:"45px",
-    paddingTop:"10px"
+    //paddingTop:"10px"
   },
   serviceTooltip: {
     top: "6px"
@@ -115,8 +115,8 @@ const styles = (theme) => ({
   boldFont: boldFont(theme),
   italicFont: italicFont(theme),
   moreInfo: Object.assign({
-    color: theme.palette.primary[500],
-    [theme.breakpoints.down('sm')]: {
+    color: theme.palette.secondary[500],
+    [theme.breakpoints.down('xs')]: {
       textAlign: 'center'
     }
   }, boldFont(theme)),
@@ -145,7 +145,7 @@ const ResourceHeader = ({classes, resource, isMobile}) => (
     <Grid item xs={12} >
       <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
         <Grid item xs md lg xl >
-          <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
+          <Typography variant="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
         </Grid>
         {isMobile ? null :
         <Grid item xs={5} className="pull-right">
@@ -154,7 +154,7 @@ const ResourceHeader = ({classes, resource, isMobile}) => (
       </Grid>
     </Grid>
     <Grid item xs={12} >
-      <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
+      <Typography variant="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
         <a href={resource.website} className={classes.bodyLink}>{isMobile ? url.parse(resource.website).hostname : resource.website}</a> {resource.phones && resource.phones.length ? '| ' : null}{resource.phones && resource.phones.length ? <Phone phone={resource.phones[0]} classes={classes} /> : null}
       </Typography>
     </Grid>
@@ -165,7 +165,7 @@ const HeaderTabs = (props) => (
   <Tabs
     value={props.tab}
     onChange={props.handleTabClick}
-    indicatorColor="primary"
+    indicatorColor="secondary"
     textColor="black"
     fullWidth={true}
     scrollable={false}
@@ -199,7 +199,7 @@ const Tools = (props) => (
       </div>
       <div className={props.classes.separator + " center-align"} ></div>
       <AsylumConnectButton 
-        variant="secondary"
+        variant="primary"
         className="center-align"
         onClick={() => (
           props.session 
@@ -456,7 +456,7 @@ class Resource extends React.Component {
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
                   <AsylumConnectBackButton onClick={() => {history.goBack()}} />
                   <AsylumConnectButton 
-                    variant="secondary"
+                    variant="primary"
                     className="center-align"
                     onClick={() => (
                       props.session 
