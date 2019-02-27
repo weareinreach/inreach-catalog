@@ -32,11 +32,15 @@ const styles = theme => ({
   relative: {
     position: 'relative'
   },
+  selectContainer: {
+    cursor: 'pointer'
+  },
   selectedLabel: {
     fontWeight: theme.typography.fontWeightMedium,
     textTransform: 'uppercase',
     fontSize: theme.typography.fontSize-1,
-    lineHeight: 1.25
+    lineHeight: 1.25,
+
   },
   indicator: {
     display: 'inline-block',
@@ -101,10 +105,11 @@ class AsylumConnectSelector extends React.Component {
       relative,
       selectList,
       selectedLabel,
+      selectContainer,
       indicator
     } = this.props.classes;
     const { selected, label, containerWidth }= this.props;
-    const containerClasses = this.props.containerClass + (this.state.open ? ' ' + toggledSelect : '');
+    const containerClasses = (this.props.containerClass ? this.props.containerClass + ' ' : '') + (this.state.open ? toggledSelect + ' ' : '') + selectContainer;
     const listContainerClasses = (this.props.listContainerClass ? this.props.listContainerClass + ' ' : '') + selectList;
     const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '') + relative;
 

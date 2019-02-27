@@ -80,7 +80,7 @@ const AsylumConnectCheckbox = (props) => {
           checkedIcon={<CheckBoxIcon style={iconSize}/>}
           checked={props.checked}
           classes={{
-            default: checkboxDefault,
+            root: checkboxDefault,
             checked: checkboxChecked,
             disabled: checkboxDisabled
           }}
