@@ -404,6 +404,20 @@ export default createMuiTheme({
         width: '100%',
         marginTop: '0px'
       }
+    },
+    MuiFormLabel: {
+      root: {
+        '&$focused': {
+          color: "#5073B3"
+        }
+      }
+    },
+    MuiInput: {
+      underline: {
+        '&:after': {
+          backgroundColor: "#5073B3"
+        }
+      }
     }
   }
 });
