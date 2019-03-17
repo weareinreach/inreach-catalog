@@ -6,7 +6,7 @@ const resourceTypes = [
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'Medical clinics'},
   {category: 'Medical', type: 'medical', odTag: 'Sexual health',                        title: 'HIV and sexual health'},
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'HIV and sexual health'},
-  {category: 'Medical', type: 'transportation', odTag: 'Physical evaluations for asylum claim', title: 'Physical evaluations for asylum claim'},
+  {category: 'Medical', type: 'medical', odTag: 'Physical evaluations for asylum claim', title: 'Physical evaluations for asylum claim'},
   {category: 'Medical', type: 'medical', odTag: 'Trans health',                         title: 'Trans health'},
   {category: 'Medical', type: 'medical', odTag: 'Hormone therapy',                      title: 'Trans health'},
   {category: 'Medical', type: 'medical', odTag: 'Gender reassignment surgery',          title: 'Trans health'},
