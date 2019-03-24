@@ -12,7 +12,7 @@ import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
-import LogoImg from '../../images/asylum-connect.svg';
+import LogoImg from '../../images/logo@2x.png';
 
 const styles = theme => ({
   root: {
@@ -30,6 +30,7 @@ const styles = theme => ({
   IconButton: {
     display: 'inline',
     height: '60px',
+    width: 'auto'
   },
   LogoFitHeight: {
     height: '100%',
