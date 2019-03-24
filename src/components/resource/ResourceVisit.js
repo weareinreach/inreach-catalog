@@ -17,14 +17,14 @@ const styles = theme => ({
   listLink: listLink(theme),
   dividerSpacing: dividerSpacing(theme),
   bottomSpacing: {
-    marginBottom: "0.9rem"
+    marginBottom: theme.spacing.unit * 2
   },
   lineSpacing: {
     lineHeight: "1.4rem"
   },
   locationSpacing: {
-    paddingTop: "0.5rem",
-    paddingBottom: "0.5rem"
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
   }
 });
 

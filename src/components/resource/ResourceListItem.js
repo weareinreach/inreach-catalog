@@ -29,7 +29,7 @@ let resourceIndex = resourceTypes.resourceIndex;
 const styles = (theme) => ({
   boldFont: boldFont(theme),
   contentSpacing: {
-    margin: "1.5rem 0",
+    margin: (theme.spacing.unit * 3) + " 0",
     [theme.breakpoints.down('xs')]: {
       margin: "0.75rem 0"
     }
@@ -38,7 +38,7 @@ const styles = (theme) => ({
     lineHeight: "1.4rem"
   },
   dividerSpacing: {
-    marginBottom: "2rem"
+    marginBottom: theme.spacing.unit * 4
   },
   orgName: {
     fontSize: "21px"
@@ -54,8 +54,10 @@ const styles = (theme) => ({
   },
   badgeSpacing: {
     [theme.breakpoints.down('xs')]: {
+      marginLeft: theme.spacing.unit * -1,
       marginBottom: "0.75rem"
-    }
+    },
+    marginLeft: theme.spacing.unit * -1
   }
 });
 
@@ -228,7 +230,7 @@ class ResourceListItem extends React.Component {
                       if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
                         badges.push(resourceIndex[tag].type);
                         return (
-                          <Badge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                          <Badge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='52px' height='52px' />
                         )
                       }
                     })

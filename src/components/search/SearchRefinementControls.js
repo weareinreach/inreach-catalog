@@ -38,7 +38,7 @@ const styles = theme => ({
     left: '0',
     right: '0',
     zIndex: '50',
-    padding: '2rem',
+    padding: theme.spacing.unit * 4,
     overflowY: 'auto'
   },
   placement: {
@@ -51,8 +51,8 @@ const styles = theme => ({
     fontFamily: theme.typography.title.fontFamily
   },
   dividerSpacing: {
-    marginTop: '1.5rem',
-    marginBottom: '1.5rem'
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3
   },
   toolbarRoot: {
     justifyContent: 'space-between'

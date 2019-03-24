@@ -32,8 +32,8 @@ const styles = theme => ({
     fontSize: theme.typography.body2.fontSize,
     fontWeight: theme.typography.body2.fontWeight,
     position: 'absolute',
-    right: '1rem',
-    top: '1rem',
+    right: theme.spacing.unit * 2,
+    top: theme.spacing.unit * 2,
     textDecoration: 'none'
   },
   sectionHeader: {
@@ -45,14 +45,14 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   dividerSpacing: {
-    marginTop: '1rem', 
-    marginBottom: '1rem'
+    marginTop: theme.spacing.unit * 2, 
+    marginBottom: theme.spacing.unit * 2
   },
   subfilterSpacing: {
-    marginTop: '1rem'
+    marginTop: theme.spacing.unit * 2
   },
   resourceList: {
-    padding: '2rem',
+    padding: theme.spacing.unit * 4,
     right: '0',
     maxHeight: '420px',
   }

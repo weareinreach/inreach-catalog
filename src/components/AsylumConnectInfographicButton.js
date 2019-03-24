@@ -62,6 +62,7 @@ const styles = theme => ({
     alignItems: 'flex-start'
   },
   infographicLink: {
+    fontWeight: theme.typography.fontWeightMedium,
     [theme.breakpoints.down('xs')]: {
       color: theme.palette.common.white,
       fontWeight: 'normal',

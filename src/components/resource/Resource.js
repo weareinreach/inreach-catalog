@@ -47,8 +47,8 @@ const styles = (theme) => ({
     minWidth: '0'
   },
   tabLabelContainer: {
-    paddingLeft: "10px",
-    paddingRight: "10px"
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit
   },
   tabLabel: {
     fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
@@ -67,12 +67,15 @@ const styles = (theme) => ({
       /*marginBottom: '91px'*/
     })
   },
+  cushion: {
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
+  },
   separator: {
-    padding: "0 0.75rem",
+    padding: "0 "+theme.spacing.unit,
     fontSize: "1.25rem",
     "&:after": {
       content: "\" \"",
-      borderLeft: "1px solid "+theme.palette.common.minBlack 
     }
   },
   header: {
@@ -86,14 +89,14 @@ const styles = (theme) => ({
   },
   mobileSpacing: {
     [theme.breakpoints.down('xs')]: {
-      marginTop: "1.5rem"
+      marginTop: theme.spacing.unit * 3
     }
   },
   lineSpacing: {
     lineHeight: "1.4rem"
   },
   sectionSpacing: {
-    marginBottom: "1.7rem"
+    marginBottom: theme.spacing.unit * 3
   },
   dividerSpacing: dividerSpacing(theme),
   orgName: {
@@ -106,11 +109,11 @@ const styles = (theme) => ({
     position: "absolute"
   },
   serviceText: {
-    paddingLeft:"45px",
+    paddingLeft: theme.spacing.unit * 5
     //paddingTop:"10px"
   },
   serviceTooltip: {
-    top: "6px"
+    top: theme.spacing.unit
   },
   boldFont: boldFont(theme),
   italicFont: italicFont(theme),
@@ -182,7 +185,7 @@ const Tools = (props) => (
     <Grid item xs={12} sm={12} md={5} lg={5}>
       <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
     </Grid>
-    <Grid item xs={12} sm={12} md={7} className="pull-right">
+    <Grid item xs={12} sm={12} md={7} className={"pull-right "+props.classes.cushion}>
       <div className="center-align">
         <SaveToFavoritesButton
           handleListAddFavorite={props.handleListAddFavorite}

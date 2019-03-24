@@ -26,7 +26,7 @@ import breakpoints from '../../theme/breakpoints';
 
 const styles = theme => ({
   formRow: {
-    marginBottom: '1.5rem'
+    marginBottom: theme.spacing.unit * 3
   },
   callout: {
     color: theme.palette.primary[500]

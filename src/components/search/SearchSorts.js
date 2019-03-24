@@ -21,8 +21,8 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   dividerSpacing: {
-    marginTop: '1rem', 
-    marginBottom: '1rem'
+    marginTop: theme.spacing.unit * 2, 
+    marginBottom: theme.spacing.unit * 2
   },
   radioLabel: {},
   radioRoot: {},

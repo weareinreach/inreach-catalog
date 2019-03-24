@@ -9,8 +9,11 @@ import RedHeartIcon from './icons/RedHeartIcon';
 
 const styles = theme => ({
   viewYourFavoritesText: {
-    color: theme.palette.primary[500],
-    fontWeight: '300',
+    color: theme.palette.secondary[500],
+    '&:hover': {
+      color: theme.palette.secondary[900]
+    },
+    fontWeight: theme.typography.fontWeightMedium,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -25,7 +28,6 @@ const FavoritesLink = ({ classes }) => (
       className={classes.viewYourFavoritesText}
     >
       View Your Favorites
-      <RedHeartIcon width={'38px'}/>
     </Typography>
   </Link>
 );

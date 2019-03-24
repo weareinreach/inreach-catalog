@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 const styles = (theme) => ({
-  title: { paddingBottom: '1rem', textAlign: 'center' },
+  title: { paddingBottom: theme.spacing.unit * 2, textAlign: 'center' },
 });
 
 const DialogTitle = ({ children, classes }) => (

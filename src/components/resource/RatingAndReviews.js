@@ -8,7 +8,7 @@ import {withStyles} from 'material-ui/styles';
 
 const styles = (theme) => ({
   ratingSpacing: {
-    marginRight: "1rem"
+    marginRight: theme.spacing.unit * 2
   }
 });
 

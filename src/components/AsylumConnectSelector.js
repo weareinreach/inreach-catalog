@@ -37,7 +37,7 @@ const styles = theme => ({
   },
   selectedLabel: {
     fontWeight: theme.typography.fontWeightMedium,
-    textTransform: 'uppercase',
+    //textTransform: 'uppercase',
     fontSize: theme.typography.fontSize-1,
     lineHeight: 1.25,
 

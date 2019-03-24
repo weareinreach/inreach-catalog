@@ -24,8 +24,8 @@ const styles = theme => ({
     color: theme.palette.secondary[500]
   },
   dividerSpacing: {
-    marginTop: '1rem', 
-    marginBottom: '1rem'
+    marginTop: theme.spacing.unit * 2, 
+    marginBottom: theme.spacing.unit * 2
   },
   switchRoot: {},
   switchLabel: {},

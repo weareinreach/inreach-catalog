@@ -9,7 +9,7 @@ const styles = (theme) => ({
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '2rem',
+    marginTop: theme.spacing.unit * 4,
   },
 });
 

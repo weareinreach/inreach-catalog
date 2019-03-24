@@ -17,7 +17,7 @@ import withWidth from '../withWidth';
 const styles = theme => ({
   root: {
     padding: '5% 0 5% 0',
-    marginBottom: '70px',
+    marginBottom: theme.spacing.unit * 9,
     display: 'flex',
     flexDirection: 'column',
   },

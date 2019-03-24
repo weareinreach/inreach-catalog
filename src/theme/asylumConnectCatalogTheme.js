@@ -418,6 +418,13 @@ export default createMuiTheme({
           backgroundColor: "#5073B3"
         }
       }
+    },
+    MuiButton: {
+      root: {
+        '&:hover': {
+          backgroundColor: "transparent"
+        }
+      }
     }
   }
 });

@@ -18,7 +18,7 @@ const styles = theme => ({
     textAlign: 'center',
   },
   marginTop: {
-    marginTop: '10px'
+    marginTop: theme.spacing.unit
   }
 });
 

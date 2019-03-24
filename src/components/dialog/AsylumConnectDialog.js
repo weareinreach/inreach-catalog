@@ -15,7 +15,7 @@ const styles = theme => ({
   dialogBody: {
     minWidth: '600px',
     overflowY: 'auto',
-    padding: '4.5rem 5.5rem',
+    padding: (theme.spacing.unit * 9) + ' ' + (theme.spacing.unit * 11),
   },
 });
 

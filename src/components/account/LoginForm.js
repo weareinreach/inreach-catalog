@@ -19,11 +19,11 @@ const styles = theme => ({
     color: theme.palette.secondary[500],
     cursor: 'pointer',
   },
-  paddingAbove: {paddingTop: '2.5rem'},
-  paddingVertical: {padding: '2.5rem 5rem'},
+  paddingAbove: {paddingTop: theme.spacing.unit * 5},
+  paddingVertical: {padding: (theme.spacing.unit * 5) + ' ' + (theme.spacing.unit * 10) },
   [`@media (max-width: ${breakpoints['sm']}px)`]:{
     paddingVertical: {
-      padding: '1.5rem 0',
+      padding: (theme.spacing.unit * 3) + ' 0',
     }
   }
 });

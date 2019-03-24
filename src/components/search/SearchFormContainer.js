@@ -15,10 +15,10 @@ import SubAnnouncement from '../SubAnnouncement';
 
 const styles = theme => ({
   title: {
-    marginBottom: '0.7rem'
+    marginBottom: theme.spacing.unit
   },
   subheading: {
-    marginBottom: '2rem'
+    marginBottom: theme.spacing.unit * 4
   },
   container: {
     minHeight: '500px',
@@ -50,7 +50,7 @@ const styles = theme => ({
     },
     subheading: {
       color: theme.palette.common.white,
-      marginBottom: '2rem'
+      marginBottom: theme.spacing.unit * 4
     },
     container: {
       height: "100%",

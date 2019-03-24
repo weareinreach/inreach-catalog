@@ -14,7 +14,7 @@ const styles = theme => ({
     flexDirection: 'column',
     textAlign: 'center',
   },
-  spacingVertical: {margin: '2.5rem 0'},
+  spacingVertical: {margin: (theme.spacing.unit * 5) + ' 0'},
   link: {
     color: theme.palette.secondary[500],
     cursor: 'pointer',
