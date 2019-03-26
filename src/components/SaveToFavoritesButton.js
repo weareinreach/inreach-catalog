@@ -154,7 +154,7 @@ class SaveToFavoritesButton extends React.Component {
         <a href='#' onClick={handleMenuOpen}>
           <Typography className={classes.viewYourFavoritesText}>
             {buttonLabel}
-            {isMobile ? <RedHeartIcon width={'38px'} fill={isFavorite} /> : null}
+            {isMobile ? <RedHeartIcon width={'25px'} fill={isFavorite} /> : null}
           </Typography>
         </a>
         <AsylumConnectPopUp

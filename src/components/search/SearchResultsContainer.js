@@ -250,7 +250,7 @@ class SearchResultsContainer extends React.Component {
                 </Grid>
               : null}
             </Grid>
-            <Grid item xs={12} md={4} className={filterContainer+' '+toolbarClass}>
+            {!isMobile ? <Grid item xs={12} md={4} className={filterContainer+' '+toolbarClass}>
               <SearchRefinementControls 
                 clearSearchFilters={this.props.clearSearchFilters}
                 handleFilterSelect={this.props.handleFilterSelect} 
@@ -258,6 +258,7 @@ class SearchResultsContainer extends React.Component {
                 selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
                 selectedSort={this.props.selectedSort}  />
             </Grid>
+            : null }
             {showWalkinCheckbox ? <Grid item xs={12} className={centerText+' '+halfBottomMargin}>
               <AsylumConnectCheckbox label="Only show me resources that provide walk-in hours" value="time-walk-in" onChange={this.props.handleFilterSelect} checked={(this.props.selectedFilters.indexOf("time-walk-in") >= 0)} additionalClasses={{
                 checkboxDefault: checkboxDefault,
@@ -282,6 +283,7 @@ class SearchResultsContainer extends React.Component {
             >
               <Tab label="List" />
               <Tab label="Map" />
+              <Tab label="Filter" />
             </Tabs>
             <SwipeableViews
               index={this.state.tab}
@@ -298,6 +300,14 @@ class SearchResultsContainer extends React.Component {
                   resources={this.props.mapResources}
                   searchCenter={this.props.searchCenter}
                 />
+              </div>
+              <div className="position-relative">
+                <SearchRefinementControls 
+                  clearSearchFilters={this.props.clearSearchFilters}
+                  handleFilterSelect={this.props.handleFilterSelect} 
+                  handleSortSelect={this.props.handleSortSelect} 
+                  selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
+                  selectedSort={this.props.selectedSort}  />
               </div>
             </SwipeableViews>
           </div>

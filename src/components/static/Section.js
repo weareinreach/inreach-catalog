@@ -84,9 +84,9 @@ class Section extends React.Component {
           <StandaloneIcon className={classes.iconPadding} name={icon} fillColor={color} strokeColor={'#000'} />
         </div>
       </div>
-      <Typography type='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
-      <Typography type='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
-      <Typography type='body2'>
+      <Typography variant='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
+      <Typography variant='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
+      <Typography variant='body2'>
         <ContentMarkdown
           renderers={{
             link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)

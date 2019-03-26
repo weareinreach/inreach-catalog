@@ -17,7 +17,7 @@ import PrivacyIcon from '../icons/PrivacyIcon'
 let theTheme;
 
 const styles = theme => {
-  theTheme = theme;
+  theTheme = theme; console.log(theme.typography.body1);
   return ({
     root: {
       width: '100vw',
@@ -32,7 +32,9 @@ const styles = theme => {
       zIndex: '100',
       borderTop: "1px solid "+theme.palette.common.faintBlack 
     },
-    navButton: {
+    navButton: Object.assign({}, theme.typography.body1, {
+      fontSize: (theme.typography.body1.fontSize-2),
+      transition: 'none',
       minWidth: '20%',
       textTransform: 'uppercase',
       fontWeight: 'bold',
@@ -41,8 +43,10 @@ const styles = theme => {
       '&:hover': {
         color: theme.palette.common.darkBlack
       }
-    },
+    }),
     navButtonSelected: {
+      paddingTop: '8px !important',
+      fontSize: (theme.typography.body1.fontSize-2) +'px !important',
       color: theme.palette.primary[500],
       '&:hover': {
         color: theme.palette.primary[500]

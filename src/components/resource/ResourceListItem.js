@@ -131,7 +131,7 @@ class ResourceListItem extends React.Component {
         <Divider className={dividerSpacing} />
         <Grid container spacing={0} className={dividerSpacing}>
           <Grid item xs={12} >
-            <Grid container alignItems="center" justify="space-between" spacing={0}>
+            <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
               <Grid item xs={8} md lg xl >
                 <Link to={'/resource/'+resource.slug}><Typography variant="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
