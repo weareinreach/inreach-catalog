@@ -23,7 +23,7 @@ const styles = theme => ({
     fontWeight: 700,
     fontFamily: "\"Open Sans\", sans-serif",
     letterSpacing: "-.02em",
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -160,7 +160,7 @@ class GeneralSettingsPassword extends React.Component {
               onChange={this.handleChange}
               required
             />
-            <div><AsylumConnectButton variant="primary">Change Password</AsylumConnectButton></div>
+            <div><AsylumConnectButton variant="secondary">Change Password</AsylumConnectButton></div>
           </form>
         </Collapse>
       </div>

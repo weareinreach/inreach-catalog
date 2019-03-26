@@ -16,13 +16,13 @@ const Communities = (props) => (
     <Grid item xs={12} className={props.classes.sectionSpacing}>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
+          <Typography variant="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
             Who this resource serves
           </Typography>
         </Grid>
         <Grid item xs={12}>
         {props.list && props.list.length ? 
-          <Typography type="body2" className={props.classes.bottomSpacing} > 
+          <Typography variant="body2" className={props.classes.bottomSpacing} > 
             { props.list.map((item) => {
                   if(typeof propertyMap['community'][item.slug] !== 'undefined') {
                     return propertyMap['community'][item.slug];
@@ -42,7 +42,7 @@ const Languages = (props) => (
   <Grid item xs={12} className={props.classes.sectionSpacing}>
     <Grid container spacing={0}>
       <Grid item xs={12}>
-        <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
+        <Typography variant="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
           Non-English Services
         </Typography>
       </Grid>
@@ -57,7 +57,7 @@ const Languages = (props) => (
                 text = langs.where('1', property.code).name;
               }
               return (
-                <Typography key={text} type="body2" className={props.classes.bottomSpacing} >
+                <Typography key={text} variant="body2" className={props.classes.bottomSpacing} >
                   {text}
                 </Typography>
               )
@@ -77,7 +77,7 @@ const Services = (props) => {
       <Grid item xs={12} className={props.classes.sectionSpacing}>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
+            <Typography variant="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
               Services
             </Typography>
           </Grid>
@@ -85,7 +85,7 @@ const Services = (props) => {
             {(props.list && props.list ?
               props.list.map((item) => {
                 return (
-                  <Typography key={item.id} type="body2" style={{position:'relative'}} >
+                  <Typography key={item.id} variant="body2" style={{position:'relative'}} >
                     {item.tags && item.tags.length ?
                       (() => {
                         let badge = resourceTypes.getBadge(
@@ -117,7 +117,7 @@ const About = (props) => (
   <Grid container spacing={0}>
     <Grid item xs={12} className={props.classes.contentSpacing}>
       <Grid container spacing={0}>
-        <Typography type="body2" className={props.classes.bottomSpacing+' '+props.classes.lineSpacing}>
+        <Typography variant="body2" className={props.classes.bottomSpacing+' '+props.classes.lineSpacing}>
           {props.resource.description}
         </Typography>
       </Grid>
@@ -131,7 +131,7 @@ const About = (props) => (
       {props.languages && props.languages.length ? <Languages list={props.languages} classes={props.classes} /> : null}
     </Grid>
     {/*<Grid item xs={12}>
-      <Typography type="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
+      <Typography variant="subheading" className={props.classes.boldFont+' '+props.classes.bottomSpacing} >
         Additional Information
       </Typography>
     </Grid>*/}

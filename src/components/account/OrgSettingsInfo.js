@@ -80,7 +80,7 @@ class OrgSettingsInfo extends React.Component {
       <div className={classes.root}>
         <form className={classes.form}>
         { !isSuggestion ? (
-          <Typography type="display2" className={classes.formType}>{name}</Typography>
+          <Typography variant="display2" className={classes.formType}>{name}</Typography>
           ):(
             <TextField
               className={classes.inputLabel}

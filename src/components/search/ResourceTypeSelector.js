@@ -17,18 +17,23 @@ const resourceTypes = ResourceTypes.resourceTypesByGroup;
 
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {
-    borderLeft: "1px solid "+theme.palette.common.lightGrey,
+    borderLeft: "2px solid "+theme.palette.common.lightGrey,
     cursor: 'pointer',
     position: 'relative',
-    [theme.breakpoints.down('sm')]: searchInputMobile(theme)
+    boxShadow: '-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    [theme.breakpoints.down('md')]: {
+      boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+      borderLeft: "none"
+    },
+    [theme.breakpoints.down('xs')]: searchInputMobile(theme)
   }),
   uncheckLink: {
     fontFamily: theme.typography.body2.fontFamily,
     fontSize: theme.typography.body2.fontSize,
     fontWeight: theme.typography.body2.fontWeight,
     position: 'absolute',
-    right: '1rem',
-    top: '1rem',
+    right: theme.spacing.unit * 2,
+    top: theme.spacing.unit * 2,
     textDecoration: 'none'
   },
   sectionHeader: {
@@ -40,14 +45,14 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   dividerSpacing: {
-    marginTop: '1rem', 
-    marginBottom: '1rem'
+    marginTop: theme.spacing.unit * 2, 
+    marginBottom: theme.spacing.unit * 2
   },
   subfilterSpacing: {
-    marginTop: '1rem'
+    marginTop: theme.spacing.unit * 2
   },
   resourceList: {
-    padding: '2rem',
+    padding: theme.spacing.unit * 4,
     right: '0',
     maxHeight: '420px',
   }
@@ -55,7 +60,7 @@ const styles = theme => ({
 
 const FilterCollection = (props) => (
   <div>
-    <Typography type="body2" className={props.classes.sectionHeader}>
+    <Typography variant="body2" className={props.classes.sectionHeader}>
       <ACBadge type={props.type} width='45px' height='45px' /> 
       <span className={props.classes.sectionTitle}>
         {props.category}

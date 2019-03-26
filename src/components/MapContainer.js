@@ -33,7 +33,7 @@ const styles = (theme) => ({
   containerMap: {
     maxWidth: theme.maxColumnWidth,
     margin: "0 auto",
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       overflowY: 'auto'
     }
   }

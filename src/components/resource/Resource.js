@@ -47,8 +47,8 @@ const styles = (theme) => ({
     minWidth: '0'
   },
   tabLabelContainer: {
-    paddingLeft: "10px",
-    paddingRight: "10px"
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit
   },
   tabLabel: {
     fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
@@ -60,19 +60,22 @@ const styles = (theme) => ({
     minHeight: '500px',
     paddingTop: '60px',
     paddingBottom: '60px',
-    [theme.breakpoints.down('sm')]: Object.assign(mobilePadding(theme), {
+    [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
       /*height: "100%",*/
       paddingTop: '0px',
       paddingBottom: '0px'
       /*marginBottom: '91px'*/
     })
   },
+  cushion: {
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
+  },
   separator: {
-    padding: "0 0.75rem",
+    padding: "0 "+theme.spacing.unit,
     fontSize: "1.25rem",
     "&:after": {
       content: "\" \"",
-      borderLeft: "1px solid "+theme.palette.common.minBlack 
     }
   },
   header: {
@@ -85,20 +88,20 @@ const styles = (theme) => ({
     marginBottom: "0.9rem"
   },
   mobileSpacing: {
-    [theme.breakpoints.down('sm')]: {
-      marginTop: "1.5rem"
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing.unit * 3
     }
   },
   lineSpacing: {
     lineHeight: "1.4rem"
   },
   sectionSpacing: {
-    marginBottom: "1.7rem"
+    marginBottom: theme.spacing.unit * 3
   },
   dividerSpacing: dividerSpacing(theme),
   orgName: {
     fontSize: "21px",
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       textAlign: 'center'
     }
   },
@@ -106,17 +109,17 @@ const styles = (theme) => ({
     position: "absolute"
   },
   serviceText: {
-    paddingLeft:"45px",
-    paddingTop:"10px"
+    paddingLeft: theme.spacing.unit * 5
+    //paddingTop:"10px"
   },
   serviceTooltip: {
-    top: "6px"
+    top: theme.spacing.unit
   },
   boldFont: boldFont(theme),
   italicFont: italicFont(theme),
   moreInfo: Object.assign({
-    color: theme.palette.primary[500],
-    [theme.breakpoints.down('sm')]: {
+    color: theme.palette.secondary[500],
+    [theme.breakpoints.down('xs')]: {
       textAlign: 'center'
     }
   }, boldFont(theme)),
@@ -145,7 +148,7 @@ const ResourceHeader = ({classes, resource, isMobile}) => (
     <Grid item xs={12} >
       <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
         <Grid item xs md lg xl >
-          <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
+          <Typography variant="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
         </Grid>
         {isMobile ? null :
         <Grid item xs={5} className="pull-right">
@@ -154,7 +157,7 @@ const ResourceHeader = ({classes, resource, isMobile}) => (
       </Grid>
     </Grid>
     <Grid item xs={12} >
-      <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
+      <Typography variant="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
         <a href={resource.website} className={classes.bodyLink}>{isMobile ? url.parse(resource.website).hostname : resource.website}</a> {resource.phones && resource.phones.length ? '| ' : null}{resource.phones && resource.phones.length ? <Phone phone={resource.phones[0]} classes={classes} /> : null}
       </Typography>
     </Grid>
@@ -165,7 +168,7 @@ const HeaderTabs = (props) => (
   <Tabs
     value={props.tab}
     onChange={props.handleTabClick}
-    indicatorColor="primary"
+    indicatorColor="secondary"
     textColor="black"
     fullWidth={true}
     scrollable={false}
@@ -182,7 +185,7 @@ const Tools = (props) => (
     <Grid item xs={12} sm={12} md={5} lg={5}>
       <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
     </Grid>
-    <Grid item xs={12} sm={12} md={7} className="pull-right">
+    <Grid item xs={12} sm={12} md={7} className={"pull-right "+props.classes.cushion}>
       <div className="center-align">
         <SaveToFavoritesButton
           handleListAddFavorite={props.handleListAddFavorite}
@@ -199,7 +202,7 @@ const Tools = (props) => (
       </div>
       <div className={props.classes.separator + " center-align"} ></div>
       <AsylumConnectButton 
-        variant="secondary"
+        variant="primary"
         className="center-align"
         onClick={() => (
           props.session 
@@ -456,7 +459,7 @@ class Resource extends React.Component {
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
                   <AsylumConnectBackButton onClick={() => {history.goBack()}} />
                   <AsylumConnectButton 
-                    variant="secondary"
+                    variant="primary"
                     className="center-align"
                     onClick={() => (
                       props.session 

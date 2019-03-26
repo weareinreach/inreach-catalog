@@ -71,7 +71,7 @@ const Footer = ({ classes }) => {
       <Grid container spacing={0} alignItems="center" className={classNames(centerColumn, paddingVertical)}>
 
         <Grid item xs={12} md={6}>
-          <Grid container justify="center">
+          <Grid container spacing={16} justify="center">
             <ContactLink
               link="https://www.facebook.com/asylumconnect"
               icon="facebook-f"
@@ -103,21 +103,21 @@ const Footer = ({ classes }) => {
           <Grid container spacing={0}>
             <Grid item xs>
               <Link to="/suggestions/new">
-                <Typography type="display3">
+                <Typography variant="display3">
                   Suggest a Resource
                 </Typography>
               </Link>
             </Grid>
             <Grid item xs>
               <a href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL">
-                <Typography type="display3">
+                <Typography variant="display3">
                   Share Feedback
                 </Typography>
               </a>
             </Grid>
             <Grid item xs>
               <a href="https://www.asylumconnect.org/follow-us-subscribe">
-                <Typography type="display3">
+                <Typography variant="display3">
                   Subscribe to our Newletter
                 </Typography>
               </a>
@@ -127,7 +127,7 @@ const Footer = ({ classes }) => {
       </Grid>
 
       <div className={classNames(bgLightGrey, paddingVertical)}>
-        <Typography type="body2">
+        <Typography variant="body2">
           AsylumConnect, Inc. {(new Date()).getFullYear()}. All rights reserved. <a href="https://www.1degree.org" className={footerLink}>Powered by One Degree</a>.
         </Typography>
       </div>

@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FiltersIcon = ({width}) => (
-  <svg id="c0ec20f0-9e48-4c81-bf8a-14d6ccddba61" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="10 12 30 25" width={width}><title>icon-filters</title><line x1="28.73" y1="19.43" x2="14.56" y2="19.43" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><circle cx="30.86" cy="19.43" r="2.13" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><line x1="22.76" y1="25" x2="35.44" y2="25" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><circle cx="20.63" cy="25" r="2.13" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><line x1="14.56" y1="30.58" x2="26.6" y2="30.58" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><circle cx="28.73" cy="30.58" r="2.13" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><line x1="32.99" y1="19.43" x2="35.44" y2="19.43" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><line x1="18.5" y1="25" x2="14.56" y2="25" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/><line x1="30.86" y1="30.58" x2="35.44" y2="30.58" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/></svg>
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} viewBox='0 0 24 24'>
+    <g fill='none' fillRule='evenodd'>
+        <path d='M0 0h24v24H0z' />
+        <path fill='#1D1F23' d='M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z'
+        />
+    </g>
+</svg>
 );
 
 FiltersIcon.defaultProps = { width: '100%' }

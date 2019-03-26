@@ -17,34 +17,53 @@ const styles = theme => ({
     alignSelf: "center"
   },
   primary: {
-    color: theme.palette.primary[500],
-    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary[500],
     borderColor: theme.palette.primary[500],
     '&:hover': {
       color: theme.palette.common.white,
-      backgroundColor: theme.palette.primary[500],
+      backgroundColor: theme.palette.primary[900],
+      borderColor: theme.palette.primary[900],
     },
   },
   secondary: {
-    color: theme.palette.common.white,
-    backgroundColor: theme.palette.secondary[500],
+    color: theme.palette.secondary[500],
+    backgroundColor: theme.palette.common.white,
     borderColor: theme.palette.secondary[500],
     '&:hover': {
-      backgroundColor: theme.palette.secondary[600],
-      borderColor: theme.palette.secondary[600],
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.secondary[900],
+      borderColor: theme.palette.secondary[900],
     },
   },
-  disabled: {
-    color: theme.palette.common.lightGrey,
-    backgroundColor: theme.palette.common.faintBlack,
-    borderColor: "transparent",
+  disabledPrimary: {
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary[100],
+    borderColor: theme.palette.primary[100],
     '&:active': {
-      backgroundColor: theme.palette.common.faintBlack,
-      borderColor: "transparent",
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary[100],
+      borderColor: theme.palette.primary[100]
     },
     '&:hover': {
-      backgroundColor: theme.palette.common.faintBlack,
-      borderColor: "transparent",
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary[100],
+      borderColor: theme.palette.primary[100]
+    },
+  },
+  disabledSecondary: {
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.secondary[100],
+    borderColor: theme.palette.secondary[100],
+    '&:active': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.secondary[100],
+      borderColor: theme.palette.secondary[100]
+    },
+    '&:hover': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.secondary[100],
+      borderColor: theme.palette.secondary[100]
     },
   }
 });
@@ -65,7 +84,7 @@ function AsylumConnectButton(props) {
       onClick={onClick}
       type="submit"
       classes={{
-        disabled: classes.disabled
+        disabled: variant == 'secondary' ? classes.disabledSecondary : classes.disabledPrimary
       }}
     >
       {children}

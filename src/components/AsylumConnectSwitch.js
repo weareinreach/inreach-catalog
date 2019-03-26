@@ -18,7 +18,7 @@ const styles = (theme) => ({
     marginLeft: '0',
     color: theme.palette.common.lightBlack, //fix this for non-resource-type checkboxes
     '&:hover': {
-      color: theme.palette.primary[500]
+      color: theme.palette.secondary[500]
     },
   },
   switchRoot: {},

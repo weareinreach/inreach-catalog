@@ -16,14 +16,14 @@ const styles = theme => ({
     textAlign: 'center',
   },
   link: {
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     cursor: 'pointer',
   },
-  paddingAbove: {paddingTop: '2.5rem'},
-  paddingVertical: {padding: '2.5rem 5rem'},
+  paddingAbove: {paddingTop: theme.spacing.unit * 5},
+  paddingVertical: {padding: (theme.spacing.unit * 5) + ' ' + (theme.spacing.unit * 10) },
   [`@media (max-width: ${breakpoints['sm']}px)`]:{
     paddingVertical: {
-      padding: '1.5rem 0',
+      padding: (theme.spacing.unit * 3) + ' 0',
     }
   }
 });
@@ -57,7 +57,7 @@ const LoginForm = ({
       type="password"
       value={password}
     />
-    <Typography type="body1" className={classes.paddingVertical}>
+    <Typography variant="body1" className={classes.paddingVertical}>
       By clicking "Log In," you agree to One Degree's{` `}
       <a href="https://www.1degree.org/privacy" target="_blank">
         Privacy Policy
@@ -68,14 +68,14 @@ const LoginForm = ({
       </a>
       .
     </Typography>
-    <AsylumConnectButton variant="secondary">Log In</AsylumConnectButton>
+    <AsylumConnectButton variant="primary">Log In</AsylumConnectButton>
     <div onClick={() => handleRequestOpen('forgot')}>
-      <Typography className={classes.paddingAbove} type="body1">
+      <Typography className={classes.paddingAbove} variant="body1">
         <span className={classes.link}>Forgot Password?</span>
       </Typography>
     </div>
     <div onClick={() => handleRequestOpen('signup')}>
-      <Typography type="body1">
+      <Typography variant="body1">
         <span className={classes.link}>Don't have an account?</span>
       </Typography>
     </div>

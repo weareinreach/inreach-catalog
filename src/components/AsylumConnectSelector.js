@@ -7,26 +7,50 @@ import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
 
 import AsylumConnectIndicator from './AsylumConnectIndicator';
 import withWidth from './withWidth';
+import { dropShadow } from '../theme/sharedClasses';
 
 const styles = theme => ({
   toggledSelect: {
-    backgroundColor: theme.palette.common.darkGrey+" !important"
+    backgroundColor: theme.palette.secondary[100]+" !important"
   },
-  selectList: {
+  selectList: Object.assign(dropShadow(theme), {
     width: '100%',
     top: '100%',
     position: 'absolute',
     zIndex: '50',
     overflowY: 'auto',
-  },
+  }),
   arrow: {
-    width: '18px', 
-    height: '18px',
-    color: theme.palette.primary[500],
-    float: "right"
+    width: '20px', 
+    height: '20px',
+    color: theme.palette.common.lightBlack,
+    float: "right",
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
   },
   relative: {
     position: 'relative'
+  },
+  selectContainer: {
+    cursor: 'pointer'
+  },
+  selectedLabel: {
+    fontWeight: theme.typography.fontWeightMedium,
+    //textTransform: 'uppercase',
+    fontSize: theme.typography.fontSize-1,
+    lineHeight: 1.25,
+
+  },
+  indicator: {
+    display: 'inline-block',
+    verticalAlign: 'top',
+    marginLeft: '0.2rem',
+    marginRight: '0.2rem',
+    [theme.breakpoints.down('xs')]: {
+      position: 'absolute',
+      right: '20px'
+    }
   }
 
 });
@@ -79,10 +103,13 @@ class AsylumConnectSelector extends React.Component {
       arrow,
       toggledSelect,
       relative,
-      selectList
+      selectList,
+      selectedLabel,
+      selectContainer,
+      indicator
     } = this.props.classes;
     const { selected, label, containerWidth }= this.props;
-    const containerClasses = this.props.containerClass + (this.state.open ? ' ' + toggledSelect : '');
+    const containerClasses = (this.props.containerClass ? this.props.containerClass + ' ' : '') + (this.state.open ? toggledSelect + ' ' : '') + selectContainer;
     const listContainerClasses = (this.props.listContainerClass ? this.props.listContainerClass + ' ' : '') + selectList;
     const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '') + relative;
 
@@ -90,11 +117,11 @@ class AsylumConnectSelector extends React.Component {
       <div className={rootClass}>
         <div className={containerClasses} onClick={this.handleToggleRequest} >
           <div>
-            <span>
+            <span className={selectedLabel}>
               {label}
             </span>
             {selected && selected.length ? 
-              <AsylumConnectIndicator>{selected.length}</AsylumConnectIndicator> : null}
+              <AsylumConnectIndicator className={indicator} color="secondary">{selected.length}</AsylumConnectIndicator> : null}
             {this.state.open ? <KeyboardArrowUpIcon className={arrow} /> : <KeyboardArrowDownIcon className={arrow} />}
           </div>
         </div>

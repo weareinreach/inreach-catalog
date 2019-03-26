@@ -10,6 +10,7 @@ require('./Resource.scss');
 
 import { searchInput } from '../../theme/sharedClasses';
 import AsylumConnectSelector from '../AsylumConnectSelector';
+import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import Resource from './Resource';
 
 const styles = (theme, props) => ({
@@ -74,7 +75,7 @@ class Dropdown extends React.Component {
         <div className={dropdownClassName}>
           <AsylumConnectSelector label={this.state.selected ? this.state.selected : label} selected={[]} containerWidth={containerWidth} containerClass={classes.dropdownInput} listContainerClass={classes.listContainerClass} closeOnClick={true}>
             <List>
-              {keys.map((item, index) => <ListItem button key={index} selected={this.state.selected === item} onClick={event => this.handleSelect(item)}>{item}</ListItem>)}
+              {keys.map((item, index) => <AsylumConnectDropdownListItem button key={index} selected={this.state.selected === item} onClick={event => this.handleSelect(item)}>{item}</AsylumConnectDropdownListItem>)}
             </List>
           </AsylumConnectSelector>
         </div>

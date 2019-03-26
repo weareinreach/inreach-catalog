@@ -7,6 +7,7 @@ import Button from 'material-ui/Button';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 
+import AsylumConnectPopUp from './AsylumConnectPopUp';
 import RedHeartIcon from './icons/RedHeartIcon';
 
 import breakpoints from '../theme/breakpoints';
@@ -20,7 +21,10 @@ import {
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
-    fontWeight: '300',
+    '&:hover': {
+      color: theme.palette.secondary[900]
+    },
+    fontWeight: theme.typography.fontWeightMedium,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -143,15 +147,17 @@ class SaveToFavoritesButton extends React.Component {
     const buttonLabel =
       theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
 
+    const isMobile = theWidth() < breakpoints['sm'];
+
     return (
       <div>
-        <Button onClick={handleMenuOpen}>
-          <Typography type="display4" className={classes.viewYourFavoritesText}>
+        <a href='#' onClick={handleMenuOpen}>
+          <Typography className={classes.viewYourFavoritesText}>
             {buttonLabel}
-            <RedHeartIcon width={'38px'} fill={isFavorite} />
+            {isMobile ? <RedHeartIcon width={'25px'} fill={isFavorite} /> : null}
           </Typography>
-        </Button>
-        <Menu
+        </a>
+        <AsylumConnectPopUp
           id="favorites-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: 'bottom'}}
@@ -181,9 +187,9 @@ class SaveToFavoritesButton extends React.Component {
               this.props.handleRequestOpen(
                 `listNew/saveToFavorites/${resourceId}`,
               )}>
-            <span className={classes.textBlue}>Create New List</span>
+            <span className={classes.textBlue}>+ Create New List</span>
           </MenuItem>
-        </Menu>
+        </AsylumConnectPopUp>
       </div>
     );
   }

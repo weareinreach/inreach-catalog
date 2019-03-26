@@ -214,7 +214,7 @@ class OrgSettings extends React.Component {
     let address = (orgData && orgData.locations && orgData.locations[0]) ? orgData.locations[0]: {}
     return (
       <div className={classes.root}>
-        <Typography type="display3" className={classes.formType}>Your Organization</Typography>
+        <Typography variant="display3" className={classes.formType}>Your Organization</Typography>
         {isLoading? (<Loading />):(
           <div>
             {orgData.has_pending_submission? (
@@ -238,7 +238,7 @@ class OrgSettings extends React.Component {
             
             {!isSent  ? (
               <div>
-                <AsylumConnectButton variant='primary' onClick={this.handleClick}>request change</AsylumConnectButton>
+                <AsylumConnectButton variant='secondary' onClick={this.handleClick}>request change</AsylumConnectButton>
                 <Typography type='body1' className={classes.extraMargin}>All organization changes are subject to review by AsylumConnect before publication</Typography>
               </div>
             ):(

@@ -47,15 +47,15 @@ const AccountMobile = ({
 }) => (
   <div>
     <Paper className={classes.root}>
-      <Typography className={classes.textCenter} type="display1">
+      <Typography className={classes.textCenter} variant="display1">
         {tab === 0 && 'Log In'}
         {tab === 1 && 'Sign Up'}
       </Typography>
       <Tabs
         value={tab}
         onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'login' : 'signup')}
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor="secondary"
+        textColor="secondary"
         centered>
         <Tab label="LOG IN" />
         <Tab label="SIGN UP" />

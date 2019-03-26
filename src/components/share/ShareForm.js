@@ -29,7 +29,7 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
       type="email"
       value={email}
     />
-    <AsylumConnectButton className={classes.spacingAbove} variant="secondary">
+    <AsylumConnectButton className={classes.spacingAbove} variant="primary">
       Share {shareType === "collection" ? "List" : "Resource"}
     </AsylumConnectButton>
   </form>

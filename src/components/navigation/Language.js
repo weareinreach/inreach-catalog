@@ -7,6 +7,8 @@ import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
+import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
+import AsylumConnectSelector from '../AsylumConnectSelector';
 
 import ChevronIcon from '../icons/ChevronIcon';
 import withWidth from '../withWidth';
@@ -17,16 +19,20 @@ const styles = theme => ({
   root: {
     display: 'block'
   },
+  languageListContainer: {
+    width: 'auto'
+  },
   languageList: {
-    position: 'absolute',
+    /*position: 'absolute',
     zIndex: 3,
-    paddingTop: 0,
+    paddingTop: 0,*/
     background: theme.palette.background.paper,
+    paddingTop: 0,
     overflow: 'auto',
     maxHeight: 300,
-    borderRadius: '2px',
-    boxShadow: theme.shadows[9],
-    [theme.breakpoints.down('sm')]: {
+    /*borderRadius: '2px',
+    boxShadow: theme.shadows[9],*/
+    [theme.breakpoints.down('xs')]: {
       position: 'static',
       width: '100%',
       maxHeight: 'none',
@@ -75,10 +81,10 @@ const styles = theme => ({
     textAlign: 'center'
   },
   mobilePadding: {
-    [theme.breakpoints.down('sm')]: mobilePadding(theme)
+    [theme.breakpoints.down('xs')]: mobilePadding(theme)
   },
   topPadding: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       paddingTop: '8px'
     }
   }
@@ -95,9 +101,9 @@ class LangMenuItem extends React.Component {
   }
   render() {
     return (
-      <ListItem button onClick={this.handleSelectLang}>
-        <ListItemText primary={this.props.langName} />
-      </ListItem>
+      <AsylumConnectDropdownListItem button onClick={this.handleSelectLang}>
+        {this.props.langName}
+      </AsylumConnectDropdownListItem>
     )
   }
 }
@@ -112,7 +118,26 @@ class Language extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
+    this.generateLanguageList = this.generateLanguageList.bind(this)
   }
+
+  generateLanguageList() {
+    return (
+        <List className={[this.props.classes.languageList, 'skiptranslate', this.props.classes.mobilePadding].join(' ')}>
+          <ListSubheader className={this.props.classes.poweredByGoogle}>
+            <span>Powered By</span>
+            <a className={this.props.classes.gooLogoLink} href="https://translate.google.com" target="_blank">
+              <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png" width="37px" height="14px" className={this.props.classes.gooLogoImg} alt="Google Translate" />
+              <span className={this.props.classes.blackTranslateColor}>Translate</span>
+            </a>
+          </ListSubheader>
+          { this.state.initialLangsList.map((lang,index) =>  
+            <LangMenuItem key={index} langName={lang.local} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
+          )}
+      </List>
+    )
+  }
+
   handleClick(event) {
     this.setState({ open: !this.state.open });
   };
@@ -149,37 +174,17 @@ class Language extends React.Component {
     return (
       <div className={classes.root + ' hide--on-print' }>
         {!isMobile ?
-        <div className={classes.languageLink} onClick={this.handleClick}>
-          <Typography
-            aria-owns={this.state.open ? 'simple-menu' : null}
-            aria-haspopup="true"
-            type="body1"
-            className={[classes.centerTextAlign,'skiptranslate'].join(' ')}>
-          {selectedLang}
-          <ChevronIcon width={'18px'} direction={this.state.open ? 'up' : 'down'}/>
-          </Typography>
-        </div>
+          <AsylumConnectSelector label={selectedLang} selected={[]} listContainerClass={classes.languageListContainer}>
+            {this.generateLanguageList()}
+          </AsylumConnectSelector>
         : 
         <div className={classes.mobilePadding+' '+classes.topPadding}>
           <AsylumConnectBackButton color="default" onClick={() => {handleRequestOpen('none'); history.push('/');}} />
-          <Typography className={classes.textCenter} type="display1">
+          <Typography className={classes.textCenter} variant="display1">
             Select Language
           </Typography>
+          {this.generateLanguageList()}
         </div>}
-        {(open || isMobile) &&
-          <List className={[classes.languageList, 'skiptranslate', classes.mobilePadding].join(' ')}>
-            <ListSubheader className={classes.poweredByGoogle}>
-              <span>Powered By</span>
-              <a className={classes.gooLogoLink} href="https://translate.google.com" target="_blank">
-                <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png" width="37px" height="14px" className={classes.gooLogoImg} alt="Google Translate" />
-                <span className={classes.blackTranslateColor}>Translate</span>
-              </a>
-            </ListSubheader>
-            { initialLangsList.map((lang,index) =>  
-              <LangMenuItem key={index} langName={lang.local} langCode={lang['1']} handleSelectLang={this.handleRequestCloseAfterSelect} />
-            )}
-          </List>
-        }
       </div>
     );
   }

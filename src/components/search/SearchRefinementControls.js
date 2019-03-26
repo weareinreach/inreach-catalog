@@ -25,29 +25,34 @@ import breakpoints from '../../theme/breakpoints';
 const styles = theme => ({
   fixedFab: {
     position: 'fixed',
-    bottom: '101px',
+    bottom: '79px',
     right: '20px',
     zIndex: '49',
     backgroundColor: theme.palette.common.white
   },
   fixedFilters: {
-    backgroundColor: theme.palette.primary[500],
-    position: 'fixed',
-    bottom: '91px',
-    top: '0',
-    left: '0',
-    right: '0',
-    zIndex: '50',
-    padding: '2rem',
+    backgroundColor: theme.palette.secondary[500],
+    //position: 'fixed',
+    //bottom: '59px',
+    //top: '0',
+    //left: '0',
+    //right: '0',
+    //zIndex: '50',
+    padding: theme.spacing.unit * 4,
     overflowY: 'auto'
+  },
+  placement: {
+    top: theme.spacing.unit * -2,
+    right: theme.spacing.unit * -2,
+    backgroundColor: theme.palette.secondary[500]
   },
   fabContent: {
     fontSize: ".5rem", 
     fontFamily: theme.typography.title.fontFamily
   },
   dividerSpacing: {
-    marginTop: '1.5rem',
-    marginBottom: '1.5rem'
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3
   },
   toolbarRoot: {
     justifyContent: 'space-between'
@@ -82,31 +87,18 @@ class SearchRefinementControls extends React.Component {
   }
 
   render() {
-    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent, refinementTitle } = this.props.classes;
+    const { fixedFab, fixedFilters, fabContent, dividerSpacing, toolbarRoot, toolbarGutters, buttonRoot, badgeColorAccent, refinementTitle, placement, secondaryColor } = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div className="hide--on-print">
         {isMobile ?
           <div>
-            
-            <Button fab aria-label="filters" onClick={this.handleFilterOpen} className={fixedFab}>
-              <Badge badgeContent={this.props.selectedFilters.length} color={this.props.selectedFilters.length ? "accent" : "primary"}
-                classes={{
-                  colorAccent: badgeColorAccent
-                }}>
-                <div className={fabContent}>
-                  <FiltersIcon height="30px" width="30px" />
-                  Filters
-                </div>
-              </Badge>
-            </Button>
-            {this.state.open ?
               <Paper className={fixedFilters}>
-                <AsylumConnectBackButton color="contrast" onClick={this.handleFilterOpen} />
+                {/*<AsylumConnectBackButton color="contrast" onClick={this.handleFilterOpen} />
                 <Toolbar classes={{ root: toolbarRoot, gutters: toolbarGutters }}>
                   <h2 className={refinementTitle}>Filters</h2>
                   <Button color="contrast" classes={{root: buttonRoot}} onClick={this.props.clearSearchFilters}>Clear Filters</Button>
-                </Toolbar>
+                </Toolbar>*/}
                 <SearchFilters onChange={this.props.handleFilterSelect} selectedFilters={this.props.selectedFilters} />
                 {/*<Grid container spacing={0}>
                   <Grid item xs={12}>
@@ -116,7 +108,6 @@ class SearchRefinementControls extends React.Component {
                 </Grid>
                 <SearchSorts onChange={this.props.handleSortSelect} selectedSort={this.props.selectedSort} />*/}
               </Paper>
-            : null}
           </div>
         : 
         <Grid container spacing={0}>

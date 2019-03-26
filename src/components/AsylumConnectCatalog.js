@@ -44,9 +44,13 @@ import Message from './Message';
 import breakpoints from '../theme/breakpoints';
 
 const styles = (theme) => ({
-  [theme.breakpoints.down('sm')]: {
+  container: {
+    fontFamily: theme.typography.fontFamily,
+    fontSize: theme.typography.fontSize
+  },
+  [theme.breakpoints.down('xs')]: {
     navPadding: {
-      paddingBottom: "91px"
+      paddingBottom: "59px"
     }
   }
 });
@@ -116,7 +120,7 @@ class AsylumConnectCatalog extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const {handleMessageNew, handleRequestClose, handleRequestOpen, handleAddressChange} = this;
     return (
-        <div>
+        <div className={this.props.classes.container}>
           <Header
             handleLogOut={handleLogOut}
             handleRequestOpen={handleRequestOpen}

@@ -7,7 +7,7 @@ class ReviewCount extends React.Component {
   render() {
     const { total } = this.props;
     return (
-      <Typography type="body2" className="center-align">
+      <Typography variant="body2" className="center-align">
         {total + ' review' + (total !== 1 ? 's' : '') }
       </Typography>
     );

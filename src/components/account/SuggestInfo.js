@@ -56,7 +56,7 @@ const styles = theme => ({
     fontWeight: 700,
     fontFamily: "\"Open Sans\", sans-serif",
     letterSpacing: "-.02em",
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -70,7 +70,7 @@ const styles = theme => ({
     },
   },
   searchInput: searchInput(theme),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     searchInput: searchInputMobile(theme)
   },
   searchInputContainer: {

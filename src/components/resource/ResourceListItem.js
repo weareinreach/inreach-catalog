@@ -29,8 +29,8 @@ let resourceIndex = resourceTypes.resourceIndex;
 const styles = (theme) => ({
   boldFont: boldFont(theme),
   contentSpacing: {
-    margin: "1.5rem 0",
-    [theme.breakpoints.down('sm')]: {
+    margin: (theme.spacing.unit * 3) + " 0",
+    [theme.breakpoints.down('xs')]: {
       margin: "0.75rem 0"
     }
   },
@@ -38,24 +38,26 @@ const styles = (theme) => ({
     lineHeight: "1.4rem"
   },
   dividerSpacing: {
-    marginBottom: "2rem"
+    marginBottom: theme.spacing.unit * 4
   },
   orgName: {
     fontSize: "21px"
   },
   moreInfo: {
     fontWeight: "600",
-    color: theme.palette.primary[500]
+    color: theme.palette.secondary[500]
   },
   pullLeft: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       textAlign: "left"
     }
   },
   badgeSpacing: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: theme.spacing.unit * -1,
       marginBottom: "0.75rem"
-    }
+    },
+    marginLeft: theme.spacing.unit * -1
   }
 });
 
@@ -129,9 +131,9 @@ class ResourceListItem extends React.Component {
         <Divider className={dividerSpacing} />
         <Grid container spacing={0} className={dividerSpacing}>
           <Grid item xs={12} >
-            <Grid container alignItems="center" justify="space-between" spacing={0}>
+            <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
               <Grid item xs={8} md lg xl >
-                <Link to={'/resource/'+resource.slug}><Typography type="subheading" className={orgName}>{resource.name}</Typography></Link>
+                <Link to={'/resource/'+resource.slug}><Typography variant="subheading" className={orgName}>{resource.name}</Typography></Link>
               </Grid>
               <Grid item xs={4} container alignItems="flex-start" justify="flex-end">
                 {!isOnFavoritesList && (
@@ -159,7 +161,7 @@ class ResourceListItem extends React.Component {
           {format == 'search' ? 
           <Grid item xs={12} >
             <Link to={'/resource/'+resource.slug}>
-              <Typography type="body1" className={moreInfo} >
+              <Typography variant="body1" className={moreInfo} >
                 See more information
               </Typography>
             </Link> 
@@ -192,14 +194,14 @@ class ResourceListItem extends React.Component {
               }
               return (
                 <Grid item xs={12} key={index} >
-                  <Typography type="body2" className={lineSpacing}>
+                  <Typography variant="body2" className={lineSpacing}>
                     <strong className={classes.boldFont+' '+labelClass}>{item.label}:</strong> {text}
                   </Typography>
                 </Grid>);
             })}
             {resource.opportunity_community_properties && resource.opportunity_community_properties.length ? 
             <Grid item xs={12} className={labelClass}>
-              <Typography type="body2" className={lineSpacing} > 
+              <Typography variant="body2" className={lineSpacing} > 
                 <strong className={classes.boldFont+' '+labelClass}>Who it serves: </strong>
                 { resource.opportunity_community_properties.map((item) => {
                       if(typeof propertyMap['community'][item] !== 'undefined') {
@@ -228,7 +230,7 @@ class ResourceListItem extends React.Component {
                       if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
                         badges.push(resourceIndex[tag].type);
                         return (
-                          <Badge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='45px' height='45px' />
+                          <Badge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='52px' height='52px' />
                         )
                       }
                     })
