@@ -22,8 +22,6 @@ import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
 import ACBadge from '../Badge';
 
-
-import DetailHeader from './DetailHeader';
 import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
 import ReviewForm from './ReviewForm';
@@ -111,11 +109,7 @@ const styles = (theme) => ({
     position: "absolute"
   },
   serviceText: {
-    display: 'block',
-    lineHeight: (theme.spacing.unit * 0.5 + 45).toString() + 'px',
-    paddingLeft: theme.spacing.unit * 8,
-    //marginTop: theme.spacing.unit * 2,
-    //marginBottom: theme.spacing.unit * 2
+    paddingLeft: theme.spacing.unit * 5
     //paddingTop:"10px"
   },
   serviceTooltip: {
@@ -149,7 +143,26 @@ const styles = (theme) => ({
   }
 });
 
-
+const ResourceHeader = ({classes, resource, isMobile}) => (
+  <Grid container spacing={0} alignItems='center'>
+    <Grid item xs={12} >
+      <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
+        <Grid item xs md lg xl >
+          <Typography variant="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
+        </Grid>
+        {isMobile ? null :
+        <Grid item xs={5} className="pull-right">
+          <RatingAndReviews total={resource.opportunity_comments.length} rating={resource.rating} />
+        </Grid>}
+      </Grid>
+    </Grid>
+    <Grid item xs={12} >
+      <Typography variant="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
+        <a href={resource.website} className={classes.bodyLink}>{isMobile ? url.parse(resource.website).hostname : resource.website}</a> {resource.phones && resource.phones.length ? '| ' : null}{resource.phones && resource.phones.length ? <Phone phone={resource.phones[0]} classes={classes} /> : null}
+      </Typography>
+    </Grid>
+  </Grid>
+);
 
 const HeaderTabs = (props) => (
   <Tabs
@@ -200,7 +213,7 @@ const Tools = (props) => (
   </Grid>
 );
 
-class Resource extends React.Component {
+class Service extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.odClient = new OneDegreeResourceClient();
@@ -467,13 +480,8 @@ class Resource extends React.Component {
                     user={props.user}
                   />
                 </Toolbar>
-                <DetailHeader 
+                <ResourceHeader 
                   classes={classes}
-                  website={resource.website}
-                  name={resource.name}
-                  rating={resource.rating}
-                  totalRatings={resource.opportunity_comments.length}
-                  phones={resource.phones}
                   resource={resource}
                   isMobile={isMobile}
                 />
@@ -541,13 +549,8 @@ class Resource extends React.Component {
                 tab={this.state.tab}
                 tabs={this.tabs}
               />
-              <DetailHeader 
+              <ResourceHeader 
                 classes={classes}
-                website={resource.website}
-                name={resource.name}
-                rating={resource.rating}
-                totalRatings={resource.opportunity_comments.length}
-                phones={resource.phones}
                 resource={resource}
               />
               {this.state.oppLoading ? 
@@ -593,8 +596,8 @@ class Resource extends React.Component {
   } 
 }
 
-Resource.propTypes = {
+Service.propTypes = {
   handleMessageNew: PropTypes.func.isRequired
 }
 
-export default withWidth(withStyles(styles)(Resource));
+export default withWidth(withStyles(styles)(Service));

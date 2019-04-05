@@ -1,5 +1,6 @@
 export { default as AccountIcon } from './AccountIcon';
 export { default as AirplaneIcon } from './AirplaneIcon';
+export { default as CollapseIcon } from './CollapseIcon';
 export { default as CommunitySupportIcon } from './CommunitySupportIcon';
 export { default as ComputersIcon } from './ComputersIcon';
 export { default as EducationEmploymentIcon } from './EducationEmploymentIcon';
@@ -29,6 +30,7 @@ export { default as TravelIcon } from './TravelIcon';
 import React from 'react';
 import AccountIcon from './AccountIcon';
 import AirplaneIcon from './AirplaneIcon';
+import CollapseIcon from './CollapseIcon';
 import CommunitySupportIcon  from './CommunitySupportIcon';
 import ComputersIcon  from './ComputersIcon';
 import EducationEmploymentIcon  from './EducationEmploymentIcon';
@@ -56,10 +58,11 @@ import TransportationIcon  from './TransportationIcon';
 import TravelIcon  from './TravelIcon';
 
 const StandaloneIcon = function(props) { 
-  const { name, height, width, fillColor, strokeColor, className } = props;
+  const { name, height, width, fillColor, strokeColor, className, expanded } = props;
   const typeMapping = {
     account: <AccountIcon />,
     airplane: <AirplaneIcon fillColor={fillColor || undefined} strokeColor={strokeColor || undefined} />,
+    collapse: <CollapseIcon color={fillColor || undefined} expanded={expanded || undefined} />,
     communitySupport:  <CommunitySupportIcon fillColor={fillColor || undefined} />,
     computers: <ComputersIcon fillColor={fillColor || undefined} />,
     educationEmployment: <EducationEmploymentIcon fillColor={fillColor || undefined} />,

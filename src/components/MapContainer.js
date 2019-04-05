@@ -24,6 +24,8 @@ import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
 import Resource from './resource/Resource';
+import Service from './resource/Service';
+import Detail from './resource/Detail';
 import ResourceTypes from '../helpers/ResourceTypes';
 
 const styles = (theme) => ({
@@ -498,8 +500,26 @@ class MapContainer extends React.Component {
                       user={this.props.user}
                     />)}
                   />
+                  <Route path="/resource/:id/service/:serviceId" render={ props => (
+                    <Service {...props}
+                      handleListAddFavorite={this.props.handleListAddFavorite}
+                      handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+                      handleListNew={this.props.handleListNew}
+                      handleLogOut={this.props.handleLogOut}
+                      handleMessageNew={this.props.handleMessageNew}
+                      handleRequestOpen={this.props.handleRequestOpen}
+                      lists={this.props.lists}
+                      mapResources={mapResources}
+                      resource={this.getCachedResource(props.match.params.id)}
+                      setSelectedResource={this.setSelectedResource}
+                      service={props.match.params.serviceId}
+                      setSelectedService={this.setSelectedService}
+                      session={this.props.session}
+                      user={this.props.user}
+                    />)}
+                  />
                   <Route path="/resource/:id" render={ props => (
-                    <Resource {...props}
+                    <Detail {...props}
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
                       handleListNew={this.props.handleListNew}
@@ -512,6 +532,7 @@ class MapContainer extends React.Component {
                       setSelectedResource={this.setSelectedResource}
                       session={this.props.session}
                       user={this.props.user}
+                      type='resource'
                     />)}
                   />
                 </Switch>

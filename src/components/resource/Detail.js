@@ -20,10 +20,18 @@ import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
+import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
 import ACBadge from '../Badge';
 
 
 import DetailHeader from './DetailHeader';
+import DetailHeaderTabs from './DetailHeaderTabs';
+import About from './DetailAbout';
+import Communities from './DetailCommunities';
+import Languages from './DetailLanguages';
+import Services from './DetailServices';
+
+import Tools from './Tools';
 import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
 import ReviewForm from './ReviewForm';
@@ -32,7 +40,6 @@ import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
 import Phone from './Phone';
 
-import About from './ResourceAbout';
 import Visit from './ResourceVisit';
 import Reviews from './Reviews';
 
@@ -98,7 +105,7 @@ const styles = (theme) => ({
     lineHeight: "1.4rem"
   },
   sectionSpacing: {
-    marginBottom: theme.spacing.unit * 3
+    marginBottom: theme.spacing.unit * 0
   },
   dividerSpacing: dividerSpacing(theme),
   orgName: {
@@ -108,12 +115,13 @@ const styles = (theme) => ({
     }
   },
   serviceBadge: {
-    position: "absolute"
+    position: "absolute",
+    marginLeft: theme.spacing.unit * -1
   },
   serviceText: {
     display: 'block',
     lineHeight: (theme.spacing.unit * 0.5 + 45).toString() + 'px',
-    paddingLeft: theme.spacing.unit * 8,
+    paddingLeft: theme.spacing.unit * 7,
     //marginTop: theme.spacing.unit * 2,
     //marginBottom: theme.spacing.unit * 2
     //paddingTop:"10px"
@@ -149,58 +157,7 @@ const styles = (theme) => ({
   }
 });
 
-
-
-const HeaderTabs = (props) => (
-  <Tabs
-    value={props.tab}
-    onChange={props.handleTabClick}
-    indicatorColor="secondary"
-    textColor="black"
-    fullWidth={true}
-    scrollable={false}
-    indicatorClassName={props.classes.tabIndicator}
-  >
-    {props.tabs.map((tab) => 
-      (<Tab key={tab.value} label={props.isMobile && tab.mobileLabel ? tab.mobileLabel : tab.label} classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />)
-    )}
-  </Tabs>
-);
-
-const Tools = (props) => (
-  <Grid container spacing={0} alignItems='flex-end' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
-    <Grid item xs={12} sm={12} md={5} lg={5}>
-      <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
-    </Grid>
-    <Grid item xs={12} sm={12} md={7} className={"pull-right "+props.classes.cushion}>
-      <div className="center-align">
-        <SaveToFavoritesButton
-          handleListAddFavorite={props.handleListAddFavorite}
-          handleListRemoveFavorite={props.handleListRemoveFavorite}
-          handleListNew={props.handleListNew}
-          handleLogOut={props.handleLogOut}
-          handleMessageNew={props.handleMessageNew}
-          handleRequestOpen={props.handleRequestOpen}
-          lists={props.lists}
-          resourceId={props.resource.id}
-          session={props.session}
-          user={props.user}
-        />
-      </div>
-      <div className={props.classes.separator + " center-align"} ></div>
-      <AsylumConnectButton 
-        variant="primary"
-        className="center-align"
-        onClick={() => (
-          props.session 
-          ? props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name) 
-          : props.handleMessageNew('You must be logged in to share resources') )}
-        >share</AsylumConnectButton> 
-    </Grid>
-  </Grid>
-);
-
-class Resource extends React.Component {
+class Detail extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.odClient = new OneDegreeResourceClient();
@@ -213,7 +170,8 @@ class Resource extends React.Component {
         organization: false,
         opportunities: false
       },
-      resource: props.resource,
+      //this will be the organization or opportunity whose details are being viwed - potentially confusing terminology, but nothing stands out as a clearer option
+      resource: props.resource, 
       acFilter: false,
       userReview: null,
       userComment: null
@@ -435,6 +393,9 @@ class Resource extends React.Component {
                         this.resourceProperties
                           .filter((item) => ( item.slug.indexOf('community') === 0))
                       : null);
+
+    const sharePath = props.type //+ '/' + resource.id+'/' + props.resource.name;
+
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
@@ -450,7 +411,7 @@ class Resource extends React.Component {
                     className="center-align"
                     onClick={() => (
                       props.session 
-                      ? props.handleRequestOpen('share/resource/'+resource.id+'/'+resource.name) 
+                      ? props.handleRequestOpen('share/'+sharePath) 
                       : props.handleMessageNew('You must be logged in to share resources') )}
                     >share
                   </AsylumConnectButton> 
@@ -477,7 +438,7 @@ class Resource extends React.Component {
                   resource={resource}
                   isMobile={isMobile}
                 />
-                <HeaderTabs
+                <DetailHeaderTabs
                   tabs={this.tabs}
                   tab={this.state.tab}
                   classes={classes}
@@ -538,6 +499,7 @@ class Resource extends React.Component {
                 handleTabClick={this.handleTabClickDesktop}
                 handleRequestOpen={this.props.handleRequestOpen}
                 resource={resource}
+                sharePath={sharePath}
                 tab={this.state.tab}
                 tabs={this.tabs}
               />
@@ -550,39 +512,40 @@ class Resource extends React.Component {
                 phones={resource.phones}
                 resource={resource}
               />
+              <Element name="visit"></Element>
+              <About classes={classes} resource={resource} />
               {this.state.oppLoading ? 
                 <Loading />
-              : 
-                <About communities={communities} languages={languages} classes={classes} resource={resource} />
-              }
-              <Grid container spacing={0}>
-                <Grid item xs={12}>
-                  <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
-                </Grid>
-              </Grid>
-              <Visit 
-                resource={resource}
-              />
-              <Grid container spacing={0}>
-                <Grid item xs={12}>
-                  <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
-                </Grid>
-              </Grid>
+              : null}
+              {this.state.oppLoading && props.communities && props.communities.length ? 
+                null
+              : <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />}
+              {this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
+                null
+              : <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />}
+              {this.state.oppLoading && languages && languages.length ? 
+                null
+              : <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />}
+              <Element name="visit"></Element>
+              <AsylumConnectCollapsibleSection title={'Visit'} content={<Visit resource={resource} />} />
+              <Element name="reviews"></Element>
               {session 
                 && (this.state.userReview === false || this.state.userReview === null)
                 && (this.state.userComment === false ||  this.state.userComment === null) ?
-                <ReviewForm 
-                  resource={resource}
-                  session={props.session}
-                  user={props.user}
-                  onSubmit={this.handleNewReview}
+                <AsylumConnectCollapsibleSection title={'Leave a review'} content={<ReviewForm 
+                    resource={resource}
+                    session={props.session}
+                    user={props.user}
+                    onSubmit={this.handleNewReview}
+                  />} 
                 />
               : null}
-              <Reviews
-                orgReviews={this.state.reviewList.organization}
-                oppReviews={this.state.reviewList.opportunities}
-                acFilter={this.state.acFilter}
-                handleFilterChange={this.handleFilterChange}
+              <AsylumConnectCollapsibleSection title={'Reviews'} content={<Reviews
+                  orgReviews={this.state.reviewList.organization}
+                  oppReviews={this.state.reviewList.opportunities}
+                  acFilter={this.state.acFilter}
+                  handleFilterChange={this.handleFilterChange}
+                />} 
               />
             </div>}
           </div>
@@ -593,8 +556,8 @@ class Resource extends React.Component {
   } 
 }
 
-Resource.propTypes = {
+Detail.propTypes = {
   handleMessageNew: PropTypes.func.isRequired
 }
 
-export default withWidth(withStyles(styles)(Resource));
+export default withWidth(withStyles(styles)(Detail));

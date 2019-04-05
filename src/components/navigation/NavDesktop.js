@@ -33,7 +33,8 @@ const styles = theme => ({
     width: 'auto'
   },
   LogoFitHeight: {
-    height: '100%',
+    maxWidth: '65px'
+    //height: '100%',
   },
 });
 

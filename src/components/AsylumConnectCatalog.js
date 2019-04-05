@@ -198,6 +198,22 @@ class AsylumConnectCatalog extends React.Component {
         { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
           <div className={"content "+this.props.classes.navPadding} >
             <Switch>
+              <Route path="/resource/:id/service/:serviceId" render={(props) => (
+                <MapContainer
+                  {...props}
+                  handleAddressChange={handleAddressChange}
+                  handleListAddFavorite={handleListAddFavorite}
+                  handleListRemoveFavorite={handleListRemoveFavorite}
+                  handleListNew={handleListNew}
+                  handleLogOut={handleLogOut}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestOpen={handleRequestOpen}
+                  lists={lists}
+                  nearAddress={this.state.nearAddress}
+                  session={session}
+                  user={user}
+                />)}
+              />
               <Route path="/resource/:id" render={(props) => (
                 <MapContainer
                   {...props}
@@ -214,40 +230,40 @@ class AsylumConnectCatalog extends React.Component {
                   user={user}
                 />)}
               />
-            <Route exact path="/" render={(props) => (
-              <MapContainer
-                {...props}
-                handleAddressChange={handleAddressChange}
-                handleListAddFavorite={handleListAddFavorite}
-                handleListRemoveFavorite={handleListRemoveFavorite}
-                handleListNew={handleListNew}
-                handleLogOut={handleLogOut}
-                handleMessageNew={handleMessageNew}
-                handleRequestOpen={handleRequestOpen}
-                lists={lists}
-                nearAddress={this.state.nearAddress}
-                session={session}
-                user={user}
-              />)}
-            />
-          <Route
-            path="/search/:in/:place/:near/:for/:filter/:sort"
-            render={(props) => (
-              <MapContainer
-                {...props}
-                handleAddressChange={handleAddressChange}
-                handleListAddFavorite={handleListAddFavorite}
-                handleListRemoveFavorite={handleListRemoveFavorite}
-                handleListNew={handleListNew}
-                handleLogOut={handleLogOut}
-                handleMessageNew={handleMessageNew}
-                handleRequestOpen={handleRequestOpen}
-                lists={lists}
-                nearAddress={this.state.nearAddress}
-                session={session}
-                user={user}
-              />)}
-            />
+              <Route exact path="/" render={(props) => (
+                <MapContainer
+                  {...props}
+                  handleAddressChange={handleAddressChange}
+                  handleListAddFavorite={handleListAddFavorite}
+                  handleListRemoveFavorite={handleListRemoveFavorite}
+                  handleListNew={handleListNew}
+                  handleLogOut={handleLogOut}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestOpen={handleRequestOpen}
+                  lists={lists}
+                  nearAddress={this.state.nearAddress}
+                  session={session}
+                  user={user}
+                />)}
+              />
+              <Route
+                path="/search/:in/:place/:near/:for/:filter/:sort"
+                render={(props) => (
+                  <MapContainer
+                    {...props}
+                    handleAddressChange={handleAddressChange}
+                    handleListAddFavorite={handleListAddFavorite}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleListNew={handleListNew}
+                    handleLogOut={handleLogOut}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestOpen={handleRequestOpen}
+                    lists={lists}
+                    nearAddress={this.state.nearAddress}
+                    session={session}
+                    user={user}
+                />)}
+              />
               <RedirectWithParams from={"/search/:in/:place/:near/:for/:filter"} to={"/search/:in/:place/:near/:for/:filter/default"} />
               <RedirectWithParams from={"/search/:in/:place/:near/:for"} to={"/search/:in/:place/:near/:for/all/default"} />
               <RedirectWithParams from={"/search/:in/:place/:near/"} to={"/search/:in/:place/:near/any/all/default"} />

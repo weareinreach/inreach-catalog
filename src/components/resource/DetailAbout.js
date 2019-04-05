@@ -15,9 +15,6 @@ const About = (props) => (
         </Typography>
       </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <Divider className={props.classes.dividerSpacing} /><Element name="about"></Element>
-    </Grid>
   </Grid>
 );
 
