@@ -143,7 +143,7 @@ class SaveToFavoritesButton extends React.Component {
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
     );
-
+    
     const buttonLabel =
       theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
 
