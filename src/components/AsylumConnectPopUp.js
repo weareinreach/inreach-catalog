@@ -30,9 +30,9 @@ class AsylumConnectPopUp extends React.Component {
     let properties = Object.assign({}, this.props);
     properties.classes = null;
     properties.children = null;
-
-    return (
-      <Menu {...this.properties} >
+    console.log(properties);
+    return ( 
+      <Menu {...properties} >
         {this.props.children}
       </Menu>
     );
