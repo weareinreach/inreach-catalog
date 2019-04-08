@@ -44,7 +44,7 @@ const Tools = (props) => (
 
 Tools.propTypes = {
   sharePath: PropTypes.string.isRequired,
-  resource: PropTypes.object.isRequired
+  resource: PropTypes.object
 }
 
 export default Tools;

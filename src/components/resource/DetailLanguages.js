@@ -22,7 +22,7 @@ const Languages = (props) => (
                 text = langs.where('1', property.code).name;
               }
               return (
-                <Typography key={text} variant="body2" className={props.classes.bottomSpacing} >
+                <Typography key={text} variant="body2" >
                   {text}
                 </Typography>
               )

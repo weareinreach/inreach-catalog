@@ -20,10 +20,18 @@ import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
+import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
 import ACBadge from '../Badge';
 
 
 import DetailHeader from './DetailHeader';
+import DetailHeaderTabs from './DetailHeaderTabs';
+import About from './DetailAbout';
+import Communities from './DetailCommunities';
+import Languages from './DetailLanguages';
+import Services from './DetailServices';
+
+import Tools from './Tools';
 import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
 import ReviewForm from './ReviewForm';
@@ -32,7 +40,6 @@ import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
 import Phone from './Phone';
 
-import About from './ResourceAbout';
 import Visit from './ResourceVisit';
 import Reviews from './Reviews';
 
@@ -45,167 +52,13 @@ import ActionButton from '../ActionButton';
 
 
 const styles = (theme) => ({
-  tabRoot: {
-    minWidth: '0'
-  },
-  tabLabelContainer: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit
-  },
-  tabLabel: {
-    fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
-  },
-  tabIndicator: {
-    height: "4px"
-  },
-  container: {
-    minHeight: '500px',
-    paddingTop: '60px',
-    paddingBottom: '60px',
-    [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
-      /*height: "100%",*/
-      paddingTop: '0px',
-      paddingBottom: '0px'
-      /*marginBottom: '91px'*/
-    })
-  },
-  cushion: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit
-  },
-  separator: {
-    padding: "0 "+theme.spacing.unit,
-    fontSize: "1.25rem",
-    "&:after": {
-      content: "\" \"",
-    }
-  },
-  header: {
-    borderBottom: "1px solid "+theme.palette.common.darkGrey
-  },
-  contentSpacing: {
-    margin: "1.5rem 0"
-  },
-  bottomSpacing: {
-    marginBottom: "0.9rem"
-  },
-  mobileSpacing: {
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing.unit * 3
-    }
-  },
-  lineSpacing: {
-    lineHeight: "1.4rem"
-  },
-  sectionSpacing: {
-    marginBottom: theme.spacing.unit * 3
-  },
-  dividerSpacing: dividerSpacing(theme),
-  orgName: {
-    fontSize: "21px",
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center'
-    }
-  },
-  serviceBadge: {
-    position: "absolute"
-  },
-  serviceText: {
-    display: 'block',
-    lineHeight: (theme.spacing.unit * 0.5 + 45).toString() + 'px',
-    paddingLeft: theme.spacing.unit * 8,
-    //marginTop: theme.spacing.unit * 2,
-    //marginBottom: theme.spacing.unit * 2
-    //paddingTop:"10px"
-  },
-  serviceTooltip: {
-    top: theme.spacing.unit
-  },
-  boldFont: boldFont(theme),
-  italicFont: italicFont(theme),
-  moreInfo: Object.assign({
-    color: theme.palette.secondary[500],
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center'
-    }
-  }, boldFont(theme)),
-  bodyLink: bodyLink(theme),
-  listLink: {
-    '& + &:before': {
-      content: '\", \"'
-    }
-  },
-  dialogBody: {
-    minWidth: '600px',
-    overflowY: 'auto',
-    padding: '5.5rem',
-  },
-  toolbarRoot: {
-    justifyContent: 'space-between'
-  },
-  toolbarGutters: {
-    paddingLeft: '0',
-    paddingRight: '0',
-  }
 });
-
-
-
-const HeaderTabs = (props) => (
-  <Tabs
-    value={props.tab}
-    onChange={props.handleTabClick}
-    indicatorColor="secondary"
-    textColor="black"
-    fullWidth={true}
-    scrollable={false}
-    indicatorClassName={props.classes.tabIndicator}
-  >
-    {props.tabs.map((tab) => 
-      (<Tab key={tab.value} label={props.isMobile && tab.mobileLabel ? tab.mobileLabel : tab.label} classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />)
-    )}
-  </Tabs>
-);
-
-const Tools = (props) => (
-  <Grid container spacing={0} alignItems='flex-end' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
-    <Grid item xs={12} sm={12} md={5} lg={5}>
-      <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
-    </Grid>
-    <Grid item xs={12} sm={12} md={7} className={"pull-right "+props.classes.cushion}>
-      <div className="center-align">
-        <SaveToFavoritesButton
-          handleListAddFavorite={props.handleListAddFavorite}
-          handleListRemoveFavorite={props.handleListRemoveFavorite}
-          handleListNew={props.handleListNew}
-          handleLogOut={props.handleLogOut}
-          handleMessageNew={props.handleMessageNew}
-          handleRequestOpen={props.handleRequestOpen}
-          lists={props.lists}
-          resourceId={props.resource.id}
-          session={props.session}
-          user={props.user}
-        />
-      </div>
-      <div className={props.classes.separator + " center-align"} ></div>
-      <AsylumConnectButton 
-        variant="primary"
-        className="center-align"
-        onClick={() => (
-          props.session 
-          ? props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name) 
-          : props.handleMessageNew('You must be logged in to share resources') )}
-        >share</AsylumConnectButton> 
-    </Grid>
-  </Grid>
-);
 
 class Resource extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.odClient = new OneDegreeResourceClient();
     this.state = {
-      tab: 0,
       orgLoading: true,
       oppLoading: true,
       reviewLoading: true,
@@ -213,8 +66,8 @@ class Resource extends React.Component {
         organization: false,
         opportunities: false
       },
-      resource: props.resource,
-      acFilter: false,
+      //this will be the organization or opportunity whose details are being viwed - potentially confusing terminology, but nothing stands out as a clearer option
+      resource: props.resource, 
       userReview: null,
       userComment: null
     };
@@ -225,19 +78,13 @@ class Resource extends React.Component {
       {label: "REVIEWS", value: "reviews"}
     ]
 
-    this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
-    this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
-    this.handleSwipeChange = this.handleSwipeChange.bind(this);
-
-    this.handleResourceRequest = this.handleResourceRequest.bind(this);
+    this.handleOrganizationRequest = this.handleOrganizationRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleCommentRequest = this.handleCommentRequest.bind(this);
     this.handleRatingRequest = this.handleRatingRequest.bind(this);
     this.handleNewReview = this.handleNewReview.bind(this);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
 
-    /*this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);*/
+    this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
   }
 
   componentWillMount() {
@@ -249,7 +96,7 @@ class Resource extends React.Component {
       });
       this.odClient.getOrganization({
         id: this.props.match.params.id,
-        callback: this.handleResourceRequest
+        callback: this.handleOrganizationRequest
       });
     } else {
       this.odClient.getOpportunities({
@@ -274,7 +121,7 @@ class Resource extends React.Component {
     }
   }
 
-  handleResourceRequest(response) {
+  handleOrganizationRequest(response) {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
@@ -304,14 +151,6 @@ class Resource extends React.Component {
     }
   }
 
-  /*handleDialogOpen(dialog) {
-    this.setState({dialog});
-  }
-
-  handleDialogClose() {
-    this.setState({dialog: 'none'});
-  }*/
-
   handleNewReview({resourceType = 'organization', type, data } = {}) {
     let reviewList = this.state.reviewList
     reviewList[resourceType] = [data].concat(reviewList[resourceType].filter(comment => comment.client_user_id !== data.client_user_id));
@@ -323,7 +162,7 @@ class Resource extends React.Component {
   getReviews(resource) {
     const { handleCommentRequest } = this;
     if(resource.opportunity_comment_count) {
-      this.odClient.getCommentsFromOrganizationId({
+      this.odClient.getCommentsFromId({
         resourceType: 'opportunities',
         id: resource.id,
         per_page: resource.opportunity_comment_count,
@@ -339,7 +178,7 @@ class Resource extends React.Component {
     }
 
     if(resource.comment_count) {
-      this.odClient.getCommentsFromOrganizationId({
+      this.odClient.getCommentsFromId({
         resourceType: 'organization',
         id: resource.id,
         per_page: resource.comment_count,
@@ -396,35 +235,18 @@ class Resource extends React.Component {
     });
   }
 
-  handleFilterChange(event, acFilter) {
-    this.setState({acFilter});
-  }
-
-  handleTabClickDesktop (e, tab) {
-    this.setState({
-      tab
-    });
+  handleTabClickDesktop(e, tab) {
     scroller.scrollTo(this.tabs[tab].value, {
       duration: 500,
       delay: 100,
       smooth: true
     })
-  }
-
-  handleTabClickMobile (e, tab) {
-    this.setState({
-      tab
-    });
-  }
-
-  handleSwipeChange(index, indexLatest) {
-    this.setState({
-      tab: index
-    });
+    this.props.handleTabClickDesktop(e, tab);
   }
 
   render() {
-    const { classes, session, handleMessageNew, history } = this.props;
+    const { session, handleMessageNew, history } = this.props;
+    const classes = this.props.defaultClasses;
     const { props } = this;
     const { resource } = this.state;
     const languages = (this.resourceProperties && this.resourceProperties.length ? 
@@ -435,6 +257,12 @@ class Resource extends React.Component {
                         this.resourceProperties
                           .filter((item) => ( item.slug.indexOf('community') === 0))
                       : null);
+
+    const sharePath = resource ? 'resource' + '/' + resource.id + '/' + resource.name : '';
+    const showReviewForm = session 
+                && (this.state.userReview === false || this.state.userReview === null)
+                && (this.state.userComment === false ||  this.state.userComment === null);
+
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
@@ -450,7 +278,7 @@ class Resource extends React.Component {
                     className="center-align"
                     onClick={() => (
                       props.session 
-                      ? props.handleRequestOpen('share/resource/'+resource.id+'/'+resource.name) 
+                      ? props.handleRequestOpen('share/'+sharePath) 
                       : props.handleMessageNew('You must be logged in to share resources') )}
                     >share
                   </AsylumConnectButton> 
@@ -474,33 +302,42 @@ class Resource extends React.Component {
                   rating={resource.rating}
                   totalRatings={resource.opportunity_comments.length}
                   phones={resource.phones}
-                  resource={resource}
                   isMobile={isMobile}
                 />
-                <HeaderTabs
+                <DetailHeaderTabs
                   tabs={this.tabs}
-                  tab={this.state.tab}
+                  tab={this.props.tab}
                   classes={classes}
-                  handleTabClick={this.handleTabClickMobile}
+                  handleTabClick={this.props.handleTabClickMobile}
                   isMobile={isMobile}
                 />
                 <Divider />
                 <SwipeableViews
-                  index={this.state.tab}
-                  onChangeIndex={this.handleSwipeChange}
+                  index={this.props.tab}
+                  onChangeIndex={this.props.handleSwipeChange}
                 >
                   <div>
-                  {this.state.oppLoading ? 
-                    <Loading />
-                  : 
-                    <About communities={communities} languages={languages} classes={classes} resource={resource} />
-                  }
+                    <About classes={classes} resource={resource} />
+                    {this.state.oppLoading ? 
+                      <Loading />
+                    : null}
+                    {!this.state.oppLoading && props.communities && props.communities.length ? 
+                      <AsylumConnectCollapsibleSection expanded={false} title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
+                    : null}
+                    {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
+                      <AsylumConnectCollapsibleSection expanded={false} title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />
+                    : null}
+                    {!this.state.oppLoading && languages && languages.length ? 
+                      <AsylumConnectCollapsibleSection expanded={false} title='Non-English services' content={<Languages list={languages} classes={classes} />} />
+                    : null}
                   </div>
                   <div className={classes.mobileSpacing}>
-                    <Visit 
-                      resource={resource}
-                      isMobile={isMobile}
-                    />
+                    <AsylumConnectCollapsibleSection borderTop={false} title={'Visit'} content={<Visit 
+                      emails={resource.emails}
+                      locations={resource.locations}
+                      phones={resource.phones}
+                      website={resource.website}
+                      isMobile={isMobile} />} />
                     <AsylumConnectMap
                       resources={this.props.mapResources}
                       loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}
@@ -510,22 +347,22 @@ class Resource extends React.Component {
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
-                    {session 
-                      && (this.state.userReview === false || this.state.userReview === null)
-                      && (this.state.userComment === false ||  this.state.userComment === null) ?
-                      <ReviewForm 
+                    {showReviewForm ?
+                      <AsylumConnectCollapsibleSection borderTop={false} title={'Leave a review'} content={<ReviewForm 
                         resource={resource}
                         session={props.session}
                         user={props.user}
                         onSubmit={this.handleNewReview}
+                        />} 
                       />
                     : null}
-                    <Reviews
+                    <AsylumConnectCollapsibleSection borderTop={showReviewForm} title={'Reviews'} content={<Reviews
                       orgReviews={this.state.reviewList.organization}
                       oppReviews={this.state.reviewList.opportunities}
-                      acFilter={this.state.acFilter}
-                      handleFilterChange={this.handleFilterChange}
+                      acFilter={this.props.acFilter}
+                      handleFilterChange={this.props.handleFilterChange}
                       isMobile={isMobile}
+                      />}
                     />
                   </div>
                 </SwipeableViews>
@@ -538,7 +375,8 @@ class Resource extends React.Component {
                 handleTabClick={this.handleTabClickDesktop}
                 handleRequestOpen={this.props.handleRequestOpen}
                 resource={resource}
-                tab={this.state.tab}
+                sharePath={sharePath}
+                tab={this.props.tab}
                 tabs={this.tabs}
               />
               <DetailHeader 
@@ -548,41 +386,44 @@ class Resource extends React.Component {
                 rating={resource.rating}
                 totalRatings={resource.opportunity_comments.length}
                 phones={resource.phones}
-                resource={resource}
               />
+              <Element name="about"></Element>
+              <About classes={classes} resource={resource} />
               {this.state.oppLoading ? 
                 <Loading />
-              : 
-                <About communities={communities} languages={languages} classes={classes} resource={resource} />
-              }
-              <Grid container spacing={0}>
-                <Grid item xs={12}>
-                  <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
-                </Grid>
-              </Grid>
-              <Visit 
-                resource={resource}
-              />
-              <Grid container spacing={0}>
-                <Grid item xs={12}>
-                  <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
-                </Grid>
-              </Grid>
-              {session 
-                && (this.state.userReview === false || this.state.userReview === null)
-                && (this.state.userComment === false ||  this.state.userComment === null) ?
-                <ReviewForm 
-                  resource={resource}
-                  session={props.session}
-                  user={props.user}
-                  onSubmit={this.handleNewReview}
+              : null}
+              {!this.state.oppLoading && props.communities && props.communities.length ? 
+                <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
+              : null}
+              {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
+                <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />
+              : null}
+              {!this.state.oppLoading && languages && languages.length ? 
+                <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
+              : null}
+              <Element name="visit"></Element>
+              <AsylumConnectCollapsibleSection title={'Visit'} content={<Visit
+                emails={resource.emails}
+                locations={resource.locations}
+                phones={resource.phones}
+                website={resource.website}
+              />} />
+              <Element name="reviews"></Element>
+              {showReviewForm ?
+                <AsylumConnectCollapsibleSection title={'Leave a review'} content={<ReviewForm 
+                    resource={resource}
+                    session={props.session}
+                    user={props.user}
+                    onSubmit={this.handleNewReview}
+                  />} 
                 />
               : null}
-              <Reviews
-                orgReviews={this.state.reviewList.organization}
-                oppReviews={this.state.reviewList.opportunities}
-                acFilter={this.state.acFilter}
-                handleFilterChange={this.handleFilterChange}
+              <AsylumConnectCollapsibleSection title={'Reviews'} content={<Reviews
+                  orgReviews={this.state.reviewList.organization}
+                  oppReviews={this.state.reviewList.opportunities}
+                  acFilter={this.props.acFilter}
+                  handleFilterChange={this.props.handleFilterChange}
+                />} 
               />
             </div>}
           </div>

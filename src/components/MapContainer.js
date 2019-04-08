@@ -67,8 +67,11 @@ class MapContainer extends React.Component {
       searchResultsIndex: [],
       searchResultSlugs: [],
       selectedResource: null,
+      selectedService: null,
       lastSearch: null,
     }
+
+    this.recentResourceCache = {};
 
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
@@ -81,6 +84,7 @@ class MapContainer extends React.Component {
     this.handlePrintClick = this.handlePrintClick.bind(this)
     this.processSearchResults = this.processSearchResults.bind(this)
     this.setSelectedResource = this.setSelectedResource.bind(this)
+    this.setSelectedService = this.setSelectedService.bind(this)
     this.clearResourceTypes = this.clearResourceTypes.bind(this)
     this.clearSearchFilters = this.clearSearchFilters.bind(this)
     this.clearSearchStatus = this.clearSearchStatus.bind(this)
@@ -106,6 +110,16 @@ class MapContainer extends React.Component {
             && nextProps.match.params
             && this.props.match.params.id != nextProps.match.params.id
             && this.props.match.path == '/resource/:id'
+            ))
+    ) {
+      this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
+    }
+    if(nextProps.match.path == '/resource/:id/service/:serviceId' && 
+      (this.props.match.path != '/resource/:id/service/:serviceId'
+        || (this.props.match.params 
+            && nextProps.match.params
+            && this.props.match.params.serviceId != nextProps.match.params.serviceId
+            && this.props.match.path == '/resource/:id/service/:serviceId'
             ))
     ) {
       this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
@@ -138,7 +152,9 @@ class MapContainer extends React.Component {
     let resourceIndex = this.state.searchResultSlugs.indexOf(slug.toLowerCase());
     if(resourceIndex > -1) {
       return this.findResource(slug);
-    } 
+    } else if(typeof this.recentResourceCache[slug.toLowerCase()] !== 'undefined') {
+      return this.recentResourceCache[slug.toLowerCase()];
+    }
     return null;
   }
 
@@ -374,8 +390,17 @@ class MapContainer extends React.Component {
   }
 
   setSelectedResource(resource) {
+    if(resource) {
+      this.recentResourceCache[resource.slug.toLowerCase()] = resource;
+    }
     this.setState({
       selectedResource: resource
+    });
+  }
+
+  setSelectedService(service) {
+    this.setState({
+      selectedService: service
     });
   }
 
@@ -432,10 +457,13 @@ class MapContainer extends React.Component {
 
   render() {
     var mapResources = [];
-    if(this.state.searchResults || this.state.selectedResource) {
+    if(this.state.searchResults || this.state.selectedResource || this.state.selectedService) {
       switch(this.props.match.path) {
         case '/resource/:id':
           mapResources = (this.state.selectedResource ? [this.state.selectedResource] : [])
+        break;
+        case '/resource/:id/service/:serviceId':
+          mapResources = (this.state.selectedService ? [this.state.selectedService] : [])
         break;
         default:
           mapResources = this.state.searchResults;
@@ -500,7 +528,7 @@ class MapContainer extends React.Component {
                       user={this.props.user}
                     />)}
                   />
-                  <Route path="/resource/:id/service/:serviceId" render={ props => (
+                  {/*<Route path="/resource/:id/service/:serviceId" render={ props => (
                     <Service {...props}
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
@@ -517,7 +545,7 @@ class MapContainer extends React.Component {
                       session={this.props.session}
                       user={this.props.user}
                     />)}
-                  />
+                  />*/}
                   <Route path="/resource/:id" render={ props => (
                     <Detail {...props}
                       handleListAddFavorite={this.props.handleListAddFavorite}
@@ -529,10 +557,11 @@ class MapContainer extends React.Component {
                       lists={this.props.lists}
                       mapResources={mapResources}
                       resource={this.getCachedResource(props.match.params.id)}
+                      service={this.state.selectedService}
                       setSelectedResource={this.setSelectedResource}
+                      setSelectedService={this.setSelectedService}
                       session={this.props.session}
                       user={this.props.user}
-                      type='resource'
                     />)}
                   />
                 </Switch>

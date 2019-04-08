@@ -50,7 +50,7 @@ const styles = (theme) => ({
   },
   [theme.breakpoints.down('xs')]: {
     navPadding: {
-      paddingBottom: "59px"
+      paddingBottom: "76px"
     }
   }
 });
@@ -198,7 +198,7 @@ class AsylumConnectCatalog extends React.Component {
         { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
           <div className={"content "+this.props.classes.navPadding} >
             <Switch>
-              <Route path="/resource/:id/service/:serviceId" render={(props) => (
+              {/*<Route path="/resource/:id/service/:serviceId" render={(props) => (
                 <MapContainer
                   {...props}
                   handleAddressChange={handleAddressChange}
@@ -213,7 +213,7 @@ class AsylumConnectCatalog extends React.Component {
                   session={session}
                   user={user}
                 />)}
-              />
+              />*/}
               <Route path="/resource/:id" render={(props) => (
                 <MapContainer
                   {...props}

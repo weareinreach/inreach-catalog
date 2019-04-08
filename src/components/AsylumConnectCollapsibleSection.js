@@ -15,13 +15,31 @@ const styles = theme => ({
   },
   containerClass: {
     paddingTop: theme.spacing.unit * 5,
-    paddingBottom: theme.spacing.unit * 5
+    paddingBottom: theme.spacing.unit * 5,
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2
+    }
   },
   borderTop: {
     borderTop: '1px solid '+theme.palette.common.separator
   },
   borderBottom: {
     paddingBottom: '1px solid '+theme.palette.common.separator
+  },
+  detailsRootClass: {
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: 0
+  },
+  summaryRootClass: {
+    minHeight: "0!important",
+  },
+  summaryExpandedClass: {
+    minHeight: "0!important",
+    margin: "0!important"
+  },
+  summaryContentClass: {
+    margin: "0!important"
   },
   iconClass: {
     left: '0px',
@@ -44,16 +62,6 @@ class AsylumConnectCollapsibleSection extends React.Component {
     this.handlePaperClick = this.handlePaperClick.bind(this)*/
   }
 
-  handleOutsideClick(event) {
-    var watch = document.querySelectorAll('#'+this.id);
-    if(watch.length) {
-      if(!watch[0].contains(event.target)) {
-        this.handleToggleRequest();
-      }
-    }
-    
-  }
-
   handleToggle(event, expanded) {
     this.setState({
       expanded: expanded
@@ -63,7 +71,7 @@ class AsylumConnectCollapsibleSection extends React.Component {
   render() {
     const { content, title, summary, borderTop, borderBottom } = this.props;
     const { expanded } = this.state;
-    const { iconClass, containerClass, rootClass } = this.props.classes;
+    const { iconClass, containerClass, rootClass, summaryRootClass, summaryExpandedClass, summaryContentClass, detailsRootClass } = this.props.classes;
     const containerClasses = (borderTop ? this.props.classes.borderTop : '') + ' ' + (borderBottom ? this.props.classes.borderBottom : '') + ' ' + containerClass;
     /*const listContainerClasses = (this.props.listContainerClass ? this.props.listContainerClass + ' ' : '') + selectList;*/
     //const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '');
@@ -72,10 +80,17 @@ class AsylumConnectCollapsibleSection extends React.Component {
 
       <div className={containerClasses}>
         <ExpansionPanel className={rootClass} expanded={expanded} onChange={this.handleToggle}>
-          <ExpansionPanelSummary classes={{expandIcon: iconClass}}  expandIcon={<CollapseIcon expanded={expanded} />}>
+          <ExpansionPanelSummary classes={{
+            root: summaryRootClass,
+            content: summaryContentClass,
+            expanded: summaryExpandedClass,
+            expandIcon: iconClass
+          }}  expandIcon={<CollapseIcon expanded={expanded} />}>
             <Typography variant="title">{title}</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          <ExpansionPanelDetails classes = {{
+            root: detailsRootClass
+          }}>
             {content}
           </ExpansionPanelDetails>
         </ExpansionPanel>

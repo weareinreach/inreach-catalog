@@ -2,8 +2,6 @@ import React from 'react';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import { Element } from 'react-scroll';
 
 
 const About = (props) => (

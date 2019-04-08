@@ -15,12 +15,12 @@ const styles = (theme) => ({
 const RatingAndReviews = ({rating, total, classes}) => (
   <div>
     <RatingControl rating={rating} className={classes.ratingSpacing} />
-    <ReviewCount total={total} />
+    {total ? <ReviewCount total={total} /> : null}
   </div>
 )
 
 RatingAndReviews.propTypes = {
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   rating: PropTypes.number.isRequired
 };
 
