@@ -29,7 +29,7 @@ class OneDegreeResourceClient {
     return properties;
   }
 
-  getOrganization({id = null, callback = (data) => {} } = {}) {
+  getOrganization({id = null, orgOnly = false, callback = (data) => {} } = {}) {
     if(id == null) {
       console.error('[OneDegreeResourceClient] No resource ID passed');
       return false;
@@ -38,7 +38,7 @@ class OneDegreeResourceClient {
     this.fetch({
       url: 'organizations/'+id,
       callback: (orgData) => {
-        if(orgData.status && orgData.status == "error") {
+        if((orgData.status && orgData.status == "error") || orgOnly) {
           callback(orgData);
         } else {
           self.getOpportunities({
@@ -81,7 +81,7 @@ class OneDegreeResourceClient {
     });
   }
 
-  getCommentsFromOrganizationId({resourceType = 'organization', id = null, per_page =20, callback = (data) => {} } = {}) {
+  getCommentsFromId({resourceType = 'organization', id = null, serviceId = null, per_page =20, callback = (data) => {} } = {}) {
     if(id == null) {
       console.error('[OneDegreeResourceClient::getComments] No resource ID passed');
       return false;
@@ -91,7 +91,10 @@ class OneDegreeResourceClient {
 
     switch(resourceType) {
       case 'organization':
-        url = url;
+        url = url + '/comments';
+        break;
+      case 'opportunity':
+        url = 'organizations/' + id + '/opportunities/' + serviceId + '/comments';
         break;
       case 'opportunities':
         url = url + '/' + resourceType;

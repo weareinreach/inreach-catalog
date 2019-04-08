@@ -1,4 +1,12 @@
 const propertyMap = {
+  "additional-info": {
+    "ada-accessible": "American Disabilities Act (ADA) accessible",
+    "geo-neighborhood": "Neighborhood: [value]",
+    "geo-near-public-transit": "Close to public transit",
+    "geo-public-transit-description": "Transit details: [value]",
+    "time-appointment-required": "Appointment needed",
+    "time-walk-in": "Walk-ins welcome"
+  },
   "community": {
     "community-african-american": "African American community",
     "community-api": "Asian/Pacific Islander community",
@@ -30,6 +38,39 @@ const propertyMap = {
     "community-children": "Children",
     "community-daca-recipient-seeker": "DACA Recipient Seeker",
     "community-detained-immigrant":"Detained Immigrants"
+  },
+  "eligibility": {
+    "elig-age-or-over": "Ages [value] or older",
+    "elig-age-or-under": "Ages [value] or under",
+    "elig-annual-income-or-over": "Annual income of $[value] or more",
+    "elig-annual-income-or-under": "Annual income of $[value] or less",
+    "elig-ca-healthy-families": "California Healthy Families",
+    "elig-city-resident": "City residents",
+    "elig-county-resident": "Country residents",
+    "elig-description": "[value]",
+    "elig-employed-full-time": "Full-time employment",
+    "elig-employed-part-time": "Part-time employment",
+    "elig-gender": "[value]",
+    "elig-grade-or-over": "Grade [value] or above",
+    "elig-grade-or-under": "Grade [value] or below",
+    "elig-homeless": "Homeless",
+    "elig-household-over18-count": "Household with more than [value] children under 18 years of age",
+    "elig-household-under18-count": "Household with less than [value] children under 18 years of age",
+    "elig-immigrant": "Immigrant",
+    "elig-legal-resident": "Legal resident",
+    "elig-liheap": "Low Income Home Energy Assistance Program (LIHEAP)",
+    "elig-married": "Married",
+    "elig-medicaid": "On medicaid",
+    "elig-monthly-income": "Monthly income of $[value]",
+    "elig-rent-home": "Renting home",
+    "elig-single-parent": "Single parent",
+    "elig-snap": "Supplemental Nutrition Assistance Program (SNAP)",
+    "elig-ssi": "Receiving Social Security or SSI",
+    "elig-tanf": "Temporary Assistance for Needy Families (TANF)",
+    "elig-unknown": "Unknown",
+    "elig-us-citizen": "U.S. citizen",
+    "elig-veteran": "Militart veteran",
+    "elig-wic": "WIC"
   },
   "language": {
     "lang-american-sign-language": { name: "American Sign Language" },
@@ -94,6 +135,19 @@ const propertyMap = {
     "lang-urdu": { code: "ur" },
     "lang-vietnamese": { code: "vi" },
     "lang-wolof": { code: "wo" }
+  },
+  "more-about": {
+    "cost-fees": "Costs: [value]",
+    "cost-free": "Free of cost",
+    "has-confidentiality-policy": "Has a confidentiality policy"
+  },
+  "not-required": {
+    "not-req-medical-insurance": "Medical insurance",
+    "not-req-photo-id": "Photo ID",
+    "not-req-proof-of-age": "Proof of age",
+    "not-req-proof-of-income": "Proof of income",
+    "not-req-proof-of-residence": "Proof of residence",
+    "not-req-referral": "Referral"
   }
 
 
