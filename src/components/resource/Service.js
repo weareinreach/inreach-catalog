@@ -22,12 +22,14 @@ import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
 import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
 import ACBadge from '../Badge';
-
+import IconButton from 'material-ui/IconButton';
+import ShareIcon from '../icons/ShareIcon';
 
 import DetailHeader from './DetailHeader';
 import DetailHeaderTabs from './DetailHeaderTabs';
 import DetailPropertyList from './DetailPropertyList';
 import DetailServiceType from './DetailServiceType';
+import DetailAccessInstructions from './DetailAccessInstructions';
 import About from './DetailAbout';
 import Communities from './DetailCommunities';
 import Languages from './DetailLanguages';
@@ -287,27 +289,26 @@ class Service extends React.Component {
               <div>  
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
                   <AsylumConnectBackButton onClick={() => {history.goBack()}} />
-                  <AsylumConnectButton 
-                    variant="primary"
-                    className="center-align"
-                    onClick={() => (
-                      props.session 
-                      ? props.handleRequestOpen('share/'+sharePath) 
-                      : props.handleMessageNew('You must be logged in to share resources') )}
-                    >share
-                  </AsylumConnectButton> 
-                  <SaveToFavoritesButton
-                    handleListAddFavorite={props.handleListAddFavorite}
-                    handleListRemoveFavorite={props.handleListRemoveFavorite}
-                    handleListNew={props.handleListNew}
-                    handleLogOut={props.handleLogOut}
-                    handleRequestOpen={props.handleRequestOpen}
-                    handleMessageNew={props.handleMessageNew}
-                    lists={props.lists}
-                    resourceId={resource.id}
-                    session={props.session}
-                    user={props.user}
-                  />
+                  <div>
+                    <SaveToFavoritesButton className="center-align"
+                      handleListAddFavorite={props.handleListAddFavorite}
+                      handleListRemoveFavorite={props.handleListRemoveFavorite}
+                      handleListNew={props.handleListNew}
+                      handleLogOut={props.handleLogOut}
+                      handleRequestOpen={props.handleRequestOpen}
+                      handleMessageNew={props.handleMessageNew}
+                      lists={props.lists}
+                      resourceId={resource.id}
+                      session={props.session}
+                      user={props.user}
+                    />
+                    <IconButton className="center-align" onClick={() => (
+                        props.session 
+                        ? props.handleRequestOpen('share/'+sharePath) 
+                        : props.handleMessageNew('You must be logged in to share resources') )}>
+                      <ShareIcon />
+                    </IconButton>
+                  </div>
                 </Toolbar>
                 <DetailHeader 
                   classes={classes}
@@ -423,11 +424,9 @@ class Service extends React.Component {
                 <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
               : null}
               <Element name="visit"></Element>
-              <AsylumConnectCollapsibleSection title={'Visit'} content={<Visit 
-                emails={service.emails}
-                locations={service.locations}
+              <AsylumConnectCollapsibleSection title={'Visit'} content={<DetailAccessInstructions 
+                list={service.access_instructions}
                 phones={service.phones}
-                website={resource.website}
                  />} />
               <Element name="reviews"></Element>
               {showReviewForm ?

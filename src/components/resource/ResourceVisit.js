@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   lineSpacing: {
     lineHeight: "1.4rem",
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit*2
   },
   locationSpacing: {
     paddingTop: theme.spacing.unit,
