@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-import AsylumConnectButton from '../AsylumConnectButton';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import DetailHeaderTabs from './DetailHeaderTabs';
+import IconButton from 'material-ui/IconButton';
+import ShareIcon from '../icons/ShareIcon';
 
 
 const Tools = (props) => (
@@ -30,14 +31,12 @@ const Tools = (props) => (
         />
       </div>
       <div className={props.classes.separator + " center-align"} ></div>
-      <AsylumConnectButton 
-        variant="primary"
-        className="center-align"
-        onClick={() => (
+      <IconButton className="center-align" onClick={() => (
           props.session 
           ? props.handleRequestOpen('share/'+props.sharePath) 
-          : props.handleMessageNew('You must be logged in to share resources') )}
-        >share</AsylumConnectButton> 
+          : props.handleMessageNew('You must be logged in to share resources') )}>
+        <ShareIcon />
+      </IconButton>
     </Grid>
   </Grid>
 );

@@ -34,7 +34,6 @@ const resourceTypes = [
   {category: 'Medical', type: 'medical', odTag: 'Pregnancy tests',                      iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Abortion',                             iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Sex worker health services',           iconOnly: true},
-  {category: 'Medical', type: 'medical', odTag: 'Birth control',                        iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Sex education',                        iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'STD tests',                            iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'HIV health services',                  iconOnly: true},

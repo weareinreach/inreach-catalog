@@ -426,6 +426,13 @@ export default createMuiTheme({
           backgroundColor: "transparent"
         }
       }
+    },
+    MuiIconButton: {
+      root: {
+        '&:hover': {
+          backgroundColor: "transparent"
+        }
+      }
     }
   }
 });

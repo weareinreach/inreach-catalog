@@ -22,7 +22,8 @@ import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
 import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
 import ACBadge from '../Badge';
-
+import IconButton from 'material-ui/IconButton';
+import ShareIcon from '../icons/ShareIcon';
 
 import DetailHeader from './DetailHeader';
 import DetailHeaderTabs from './DetailHeaderTabs';
@@ -273,27 +274,26 @@ class Resource extends React.Component {
               <div>  
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
                   <AsylumConnectBackButton onClick={() => {history.goBack()}} />
-                  <AsylumConnectButton 
-                    variant="primary"
-                    className="center-align"
-                    onClick={() => (
-                      props.session 
-                      ? props.handleRequestOpen('share/'+sharePath) 
-                      : props.handleMessageNew('You must be logged in to share resources') )}
-                    >share
-                  </AsylumConnectButton> 
-                  <SaveToFavoritesButton
-                    handleListAddFavorite={props.handleListAddFavorite}
-                    handleListRemoveFavorite={props.handleListRemoveFavorite}
-                    handleListNew={props.handleListNew}
-                    handleLogOut={props.handleLogOut}
-                    handleRequestOpen={props.handleRequestOpen}
-                    handleMessageNew={props.handleMessageNew}
-                    lists={props.lists}
-                    resourceId={resource.id}
-                    session={props.session}
-                    user={props.user}
-                  />
+                  <div>
+                    <SaveToFavoritesButton className="center-align"
+                      handleListAddFavorite={props.handleListAddFavorite}
+                      handleListRemoveFavorite={props.handleListRemoveFavorite}
+                      handleListNew={props.handleListNew}
+                      handleLogOut={props.handleLogOut}
+                      handleRequestOpen={props.handleRequestOpen}
+                      handleMessageNew={props.handleMessageNew}
+                      lists={props.lists}
+                      resourceId={resource.id}
+                      session={props.session}
+                      user={props.user}
+                    />
+                    <IconButton className="center-align" onClick={() => (
+                        props.session 
+                        ? props.handleRequestOpen('share/'+sharePath) 
+                        : props.handleMessageNew('You must be logged in to share resources') )}>
+                      <ShareIcon />
+                    </IconButton>
+                  </div>
                 </Toolbar>
                 <DetailHeader 
                   classes={classes}
@@ -322,13 +322,13 @@ class Resource extends React.Component {
                       <Loading />
                     : null}
                     {!this.state.oppLoading && props.communities && props.communities.length ? 
-                      <AsylumConnectCollapsibleSection expanded={false} title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
+                      <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
                     : null}
                     {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
-                      <AsylumConnectCollapsibleSection expanded={false} title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />
+                      <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />
                     : null}
                     {!this.state.oppLoading && languages && languages.length ? 
-                      <AsylumConnectCollapsibleSection expanded={false} title='Non-English services' content={<Languages list={languages} classes={classes} />} />
+                      <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
                     : null}
                   </div>
                   <div className={classes.mobileSpacing}>

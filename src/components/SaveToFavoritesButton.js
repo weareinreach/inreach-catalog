@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 
@@ -150,13 +151,10 @@ class SaveToFavoritesButton extends React.Component {
     const isMobile = theWidth() < breakpoints['sm'];
 
     return (
-      <div>
-        <a href='#' onClick={handleMenuOpen}>
-          <Typography className={classes.viewYourFavoritesText}>
-            {buttonLabel}
-            {isMobile ? <RedHeartIcon width={'25px'} fill={isFavorite} /> : null}
-          </Typography>
-        </a>
+      <div className={this.props.className}>
+        <IconButton onClick={handleMenuOpen}>
+          <RedHeartIcon width={'24px'} fill={isFavorite} />
+        </IconButton>
         <AsylumConnectPopUp
           id="favorites-menu"
           anchorEl={anchorEl}

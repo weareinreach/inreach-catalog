@@ -129,11 +129,6 @@ class ReviewForm extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <Typography variant="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-            Leave a review
-          </Typography>
-        </Grid>
         {!this.state.complete ?
           <div>
             <Grid item xs={12}>
@@ -160,13 +155,10 @@ class ReviewForm extends React.Component {
           </div>
         : <Grid item xs={12}>
             <Typography variant="body2" className={classes.boldFont+' '+classes.bottomSpacing}>
-              Thank you for your comment! Questions? Please email <a href="mailto:catalog.asylumconnect.org" className={classes.bodyLink}>catalog.asylumconnect.org</a>
+              Thank you for your comment! Questions? Please email <a href="mailto:catalog@asylumconnect.org" className={classes.bodyLink}>catalog@asylumconnect.org</a>
             </Typography>
           </Grid>
         }
-        <Grid item xs={12}>
-          <Divider className={classes.dividerSpacing} />
-        </Grid>
       </Grid>
     )
   }

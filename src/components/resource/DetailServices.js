@@ -7,6 +7,7 @@ import {
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
+import { isACOpportunity } from '../../helpers/Opportunities';
 import resourceTypes from '../../helpers/ResourceTypes';
 import ACBadge from '../Badge';
 
@@ -34,7 +35,9 @@ const Services = (props) => {
                         );
                       })()
                     : <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />}
-                    <Link to={'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
+                    {isACOpportunity(item) ?
+                      <Link to={'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
+                    : <span className={props.classes.serviceText}>{item.title}</span>}
                   </Typography>
                 )
               })
