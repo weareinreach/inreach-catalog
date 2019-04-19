@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import DetailHeaderTabs from './DetailHeaderTabs';
 import IconButton from 'material-ui/IconButton';
@@ -11,9 +12,13 @@ import ShareIcon from '../icons/ShareIcon';
 
 
 const Tools = (props) => (
-  <Grid container spacing={0} alignItems='flex-end' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
+  <Grid container spacing={0} alignItems={props.tabs ? 'flex-end' : 'center'} justify='center' className={(props.tabs ? props.classes.header : '')+' '+props.classes.dividerSpacing}>
     <Grid item xs={12} sm={12} md={5} lg={5}>
-      <DetailHeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
+      {props.tabs ?
+        <DetailHeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
+      : 
+        <AsylumConnectBackButton text={props.backText} onClick={props.handleBackButtonClick} />
+      }
     </Grid>
     <Grid item xs={12} sm={12} md={7} className={"pull-right "+props.classes.cushion}>
       <div className="center-align">

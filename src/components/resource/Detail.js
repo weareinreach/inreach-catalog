@@ -170,7 +170,6 @@ class Detail extends React.Component {
   render() {
     const { classes, session, handleMessageNew, history } = this.props;
     const { props } = this;
-
     return (
       <Switch>
         <Route path="/resource/:id/service/:serviceId" render={ props => (

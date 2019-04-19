@@ -88,6 +88,7 @@ class Service extends React.Component {
     this.handleRatingRequest = this.handleRatingRequest.bind(this);
     this.handleNewReview = this.handleNewReview.bind(this);
 
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
   }
 
@@ -239,6 +240,10 @@ class Service extends React.Component {
     });
   }
 
+  handleBackButtonClick() {
+    this.props.history.push('/resource/'+this.state.resource.slug);
+  }
+
   handleTabClickDesktop(e, tab) {
     scroller.scrollTo(this.tabs[tab].value, {
       duration: 500,
@@ -274,7 +279,7 @@ class Service extends React.Component {
     const moreabout = (service && service.properties ? this.filterProperties(service.properties, propertyMap['more-about']) : null);
     const notrequired = (service && service.properties ? this.filterProperties(service.properties, propertyMap['not-required']) : null);
 
-    const sharePath = service && resource ? 'service' + '/' + service.id + '/' + service.title + '/' + resource.name : '';
+    const sharePath = service ? 'resource' + '/' + service.id + '/' + service.title : '';
     const showReviewForm = session 
                 && (this.state.userReview === false || this.state.userReview === null)
                 && (this.state.userComment === false ||  this.state.userComment === null);
@@ -288,7 +293,7 @@ class Service extends React.Component {
             {isMobile ?
               <div>  
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
-                  <AsylumConnectBackButton onClick={() => {history.goBack()}} />
+                  <AsylumConnectBackButton onClick={this.handleBackButtonClick} />
                   <div>
                     <SaveToFavoritesButton className="center-align"
                       handleListAddFavorite={props.handleListAddFavorite}
@@ -389,13 +394,14 @@ class Service extends React.Component {
             <div> {/******* DESKTOP *******/}
               <Tools 
                 {...props}
+                backText={"Back to Resource"}
                 classes={classes} 
+                handleBackButtonClick={this.handleBackButtonClick}
                 handleTabClick={this.handleTabClickDesktop}
                 handleRequestOpen={this.props.handleRequestOpen}
                 resource={service}
                 sharePath={sharePath}
-                tab={this.props.tab}
-                tabs={this.tabs}
+                tabs={null}
               />
               <DetailHeader 
                 classes={classes}
