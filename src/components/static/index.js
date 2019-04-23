@@ -164,7 +164,7 @@ class Static extends React.Component {
                     <ContentMarkdown source={this.state.data[0].caption} />
                   </Typography>
                   <Grid container spacing={0} alignItems='flex-start' justify='space-between' className={classes.navigation}>
-                    {this.state.data.map((section, index) => {console.log(section.icon); return section.icon ? (
+                    {this.state.data.map((section, index) => { return section.icon ? (
                           <Grid key={index} item xs={3} sm={2} className={classes.textAlignCenter}>
                             <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
                               <StandaloneIcon name={section.icon} fillColor={section.color} strokeColor="#000" className={classes.iconPadding} />
