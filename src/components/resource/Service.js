@@ -394,7 +394,7 @@ class Service extends React.Component {
             <div> {/******* DESKTOP *******/}
               <Tools 
                 {...props}
-                backText={"Back to Resource"}
+                backText={"Back to Organization"}
                 classes={classes} 
                 handleBackButtonClick={this.handleBackButtonClick}
                 handleTabClick={this.handleTabClickDesktop}
@@ -433,6 +433,7 @@ class Service extends React.Component {
               <AsylumConnectCollapsibleSection title={'Visit'} content={<DetailAccessInstructions 
                 list={service.access_instructions}
                 phones={service.phones}
+                rawSchedule={service.schedule}
                  />} />
               <Element name="reviews"></Element>
               {showReviewForm ?

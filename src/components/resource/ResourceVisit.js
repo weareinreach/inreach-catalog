@@ -28,6 +28,8 @@ const styles = theme => ({
   }
 });
 
+//TODO: Update each of these to utilize components where the code is shared with DetailAccessInstructions.js
+
 const Visit = ({website, phones, emails, locations, classes, isMobile, hideTitle, className}) => (
   <Grid container spacing={0} className={className}>
      <Grid item xs={12}>

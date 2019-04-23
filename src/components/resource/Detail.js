@@ -52,10 +52,10 @@ const styles = (theme) => ({
     borderBottom: "1px solid "+theme.palette.common.darkGrey
   },
   contentSpacing: {
-    margin: "1.5rem 0"
+    margin: (theme.spacing.unit * 3) + " 0"
   },
   bottomSpacing: {
-    marginBottom: "0.9rem"
+    marginBottom: theme.spacing.unit * 2
   },
   mobileSpacing: {
     [theme.breakpoints.down('xs')]: {

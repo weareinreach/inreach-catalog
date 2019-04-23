@@ -8,7 +8,7 @@ import Phone from './Phone';
 
 const DetailHeader = ({classes, name, website, rating, totalRatings, phones, isMobile}) => (
   <Grid container spacing={0} alignItems='center'>
-    <Grid item xs={12} >
+    <Grid item xs={12} className={classes.bottomSpacing}>
       <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
         <Grid item xs md lg xl >
           <Typography variant="subheading" className={classes.orgName + ' ' + classes.boldFont}>{name}</Typography>
