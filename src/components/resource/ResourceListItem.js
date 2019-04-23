@@ -19,6 +19,7 @@ import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import FavoritesLink from '../FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
 import Badge from '../Badge';
+import DetailAccessInstructions from './DetailAccessInstructions';
 import ResourceVisit from './ResourceVisit';
 import resourceTypes from '../../helpers/ResourceTypes';
 import propertyMap from '../../helpers/OneDegreePropertyMap';
@@ -35,7 +36,8 @@ const styles = (theme) => ({
     }
   },
   lineSpacing: {
-    lineHeight: "1.4rem"
+    lineHeight: "1.4rem",
+    marginBottom: theme.spacing.unit * 2
   },
   dividerSpacing: {
     marginBottom: theme.spacing.unit * 4
@@ -124,6 +126,12 @@ class ResourceListItem extends React.Component {
     ];
 
     const labelClass = format == 'search' ? 'hide--on-screen' : null;
+    const name = resource.name || resource.title;
+    const link = resource.resource_type == 'Organization' ? '/resource/'+resource.slug : '/resource/'+resource.organization.slug+'/service/'+resource.slug;
+    const tags = resource.resource_type == 'Organization' ? resource.opportunity_tags : resource.tags.concat(
+                  resource.categories && resource.categories.length ? resource.categories : [],
+                  resource.areas && resource.areas.length ? resource.areas : []
+                ) 
 
     //this.props.fetchSearchResults();
     return (
@@ -133,7 +141,7 @@ class ResourceListItem extends React.Component {
           <Grid item xs={12} >
             <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
               <Grid item xs={8} md lg xl >
-                <Link to={'/resource/'+resource.slug}><Typography variant="subheading" className={orgName}>{resource.name}</Typography></Link>
+                <Link to={link}><Typography variant="subheading" className={orgName}>{name}</Typography></Link>
               </Grid>
               <Grid item xs={4} container alignItems="flex-start" justify="flex-end">
                 {!isOnFavoritesList && (
@@ -160,7 +168,7 @@ class ResourceListItem extends React.Component {
           </Grid>
           {format == 'search' ? 
           <Grid item xs={12} >
-            <Link to={'/resource/'+resource.slug}>
+            <Link to={link}>
               <Typography variant="body1" className={moreInfo} >
                 See more information
               </Typography>
@@ -185,7 +193,7 @@ class ResourceListItem extends React.Component {
               }*/
               if (isMobile && !isOnFavoritesList) {
                 text = (
-                  <Truncate lines={3} ellipsis={<span>...<Link to={'/resource/'+resource.slug} className={moreInfo}>read more</Link></span>} >
+                  <Truncate lines={3} ellipsis={<span>...<Link to={link} className={moreInfo}>read more</Link></span>} >
                     {resource[item.fieldName]}
                   </Truncate>
                 );
@@ -213,20 +221,31 @@ class ResourceListItem extends React.Component {
               </Typography>
             </Grid>
           : null }
+          {resource.resource_type == 'Organization' ?
             <ResourceVisit 
-              resource={resource}
+              emails={resource.emails}
+              locations={resource.locations}
+              phones={resource.phones}
+              website={resource.website}
               className={labelClass}
               hideTitle={true}
             />
+          :
+            <DetailAccessInstructions 
+              list={resource.access_instructions}
+              phones={resource.phones}
+              rawSchedule={resource.schedule}
+            />
+          }
             </Grid>
           </Grid>
           <Grid item xs={12} >
             <Grid container alignItems="center" spacing={0} justify="space-between">
               <Grid item xs={12} md={6} className={badgeSpacing}>
-                {resource.opportunity_tags && resource.opportunity_tags.length ?
+                {tags && tags.length ?
                   (() => {
                     let badges = [];
-                    return resource.opportunity_tags.map((tag) => {
+                    return tags.map((tag) => {
                       if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
                         badges.push(resourceIndex[tag].type);
                         return (

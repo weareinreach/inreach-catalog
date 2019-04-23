@@ -303,7 +303,7 @@ class Service extends React.Component {
                       handleRequestOpen={props.handleRequestOpen}
                       handleMessageNew={props.handleMessageNew}
                       lists={props.lists}
-                      resourceId={resource.id}
+                      resourceId={service.id}
                       session={props.session}
                       user={props.user}
                     />
@@ -356,12 +356,11 @@ class Service extends React.Component {
                     : null}
                   </div>
                   <div className={classes.mobileSpacing}>
-                    <AsylumConnectCollapsibleSection borderTop={false} title={'Visit'} content={<Visit 
-                      emails={service.emails}
-                      locations={service.locations}
+                    <AsylumConnectCollapsibleSection borderTop={false} title={'Visit'} content={<DetailAccessInstructions 
+                      list={service.access_instructions}
                       phones={service.phones}
-                      website={resource.website} 
-                      isMobile={isMobile} />} />
+                      rawSchedule={service.schedule}
+                       />} />
                     <AsylumConnectMap
                       resources={this.props.mapResources}
                       loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}

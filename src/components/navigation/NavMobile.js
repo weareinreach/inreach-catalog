@@ -17,7 +17,7 @@ import PrivacyIcon from '../icons/PrivacyIcon'
 let theTheme;
 
 const styles = theme => {
-  theTheme = theme; console.log(theme.typography.body1);
+  theTheme = theme; //console.log(theme.typography.body1);
   return ({
     root: {
       width: '100vw',

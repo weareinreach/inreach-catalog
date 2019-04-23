@@ -122,11 +122,11 @@ class FavoritesListContainer extends React.Component {
     this.queryOneDegree
       .setIds(resources.map(resource => resource.fetchable_id))
       .fetch({
-        type: 'organizations',
+        type: 'both',
         callback: data => {
           this.setState({
             loadingResources: false,
-            resources: data.organizations,
+            resources: data,
           });
         },
       });

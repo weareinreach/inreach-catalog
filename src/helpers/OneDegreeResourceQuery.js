@@ -204,11 +204,29 @@ class OneDegreeResourceQuery {
   }
 
   fetch( {type = 'opportunities', callback = (data) => { } } = {} ) {
-    fetchJsonp(this.baseURL + type + '.jsonp?' + this.buildFilters(type))
-      .then(function(res) {
-        return res.json();
-      }).then(callback);
-    return this;
+    if(type == 'both') {
+      let aggregateList = [];
+      fetchJsonp(this.baseURL + 'organizations.jsonp?' + this.buildFilters('organizations'))
+        .then(function(res) {
+          return res.json();
+        }).then(organizations => {
+          aggregateList = aggregateList.concat(organizations.organizations);
+          return fetchJsonp(this.baseURL + 'opportunities.jsonp?' + this.buildFilters('opportunities'))
+        })
+        .then(function(res) {
+          return res.json();
+        }).then(opportunities => {
+          return aggregateList.concat(opportunities.opportunities);
+        }).then(callback);
+      return this;
+    } else {
+      fetchJsonp(this.baseURL + type + '.jsonp?' + this.buildFilters(type))
+        .then(function(res) {
+          return res.json();
+        }).then(callback);
+      return this;
+    }
+    
   }
 }
 

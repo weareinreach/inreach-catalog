@@ -100,7 +100,7 @@ class SearchFormContainer extends React.Component {
       backButtonLabel, 
       containerSearchForm, 
       infographicSpacing, 
-      subAnnouncement} = this.props.classes; console.log(this.props.width, breakpoints['sm']);
+      subAnnouncement} = this.props.classes; //console.log(this.props.width, breakpoints['sm']);
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div style={{position: 'relative'}}>
