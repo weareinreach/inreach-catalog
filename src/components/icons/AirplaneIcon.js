@@ -2,20 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AirplaneIcon = ({width, fillColor, strokeColor}) => (
-    <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
-width={width} viewBox='0 0 37 39'>
-        <defs>
-            <path id='a' d='M0 36.422V.078h35.923v36.344z' />
-        </defs>
+    <svg xmlns='http://www.w3.org/2000/svg' width={width}  viewBox='0 0 37 39'>
         <g fill='none' fillRule='evenodd'>
-            <g transform='translate(.523 .663)'>
-                <mask id='b' fill='#fff'>
-                    <use xlinkHref='#a' />
-                </mask>
-                <path fill='#5073B3' d='M35.924 18.172c0 10.037-8.041 18.173-17.962 18.173C8.042 36.345 0 28.209 0 18.172 0 8.136 8.042 0 17.962 0s17.962 8.136 17.962 18.172'
-                mask='url(#b)' />
-            </g>
-            <path d='M27.662 22.26c.334.078.76-.012.677-.338-.268-1.047-1.04-1.974-2.064-2.378l-4.024-1.68-1.352-3.043c-.272-1.011-.935-1.966-1.691-2.706l-1.691-1.352 1.015 5.749-5.071-1.825a.845.845 0 0 1-.534-.689l-.144-1.883c-.022-.19-.2-.54-.339-.676l-1.014-.676-.628 4.078a1.682 1.682 0 0 0 1.097 1.953l15.763 5.467zM10.753 27.671H28.35'
+            <circle cx='18.5' cy='19.5' r='17.5' fill={fillColor} />
+            <path d='M27.247 21.836c.333.078.76-.013.676-.338-.267-1.047-1.04-1.974-2.063-2.379l-4.024-1.68-1.352-3.043c-.272-1.01-.935-1.966-1.691-2.705l-1.691-1.353 1.014 5.75-5.07-1.825a.845.845 0 0 1-.535-.69l-.144-1.882c-.021-.19-.2-.541-.338-.676l-1.014-.677-.628 4.079a1.682 1.682 0 0 0 1.096 1.952l15.764 5.467zM10.338 27.247h17.596'
             stroke={strokeColor} strokeLinecap='round' strokeLinejoin='round' strokeWidth='0.5'
             />
         </g>

@@ -30,9 +30,11 @@ const styles = theme => ({
 
   }
 });
+//TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
-const DetailAccessInstructions = ({list, phones, classes}) => (
-  <Grid container spacing={0}>
+const DetailAccessInstructions = ({list, phones, rawSchedule, classes}) => {
+  let schedule;
+  return (<Grid container spacing={0}>
     <Grid item xs={12}>
     {list.length ? list.map((item, index) => {
       switch(item.access_type) {
@@ -52,7 +54,18 @@ const DetailAccessInstructions = ({list, phones, classes}) => (
         case 'email':
           return (
             <Typography key={index} variant="body2" className={classes.lineSpacing} >
-                <strong className={classes.boldFont}>Email: </strong><a href={"mailto:"+item.access_value} className={classes.bodyLink+' '+classes.listLink}>{item.access_value}</a>
+                <strong className={classes.boldFont}>Email: </strong>{item.emails && item.emails.map((email) => {
+                    let name = trim(
+                      (email.title ? email.title : '')+ ' ' +
+                      (email.first_name ? email.first_name : '')+ ' ' +
+                      (email.last_name ? email.last_name : '')
+                    );
+                    return (
+                    <a href={"mailto:"+email.email} key={email.id} className={classes.bodyLink+' '+classes.listLink}>
+                      {email.email} 
+                      {name ? "("+name+")" : ''}
+                    </a>
+                )})}
                 {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
             </Typography>
           );
@@ -62,6 +75,15 @@ const DetailAccessInstructions = ({list, phones, classes}) => (
             return (
               <Typography key={index} variant="body2" className={classes.lineSpacing} >
                   <strong className={classes.boldFont}>{item.access_value ? item.access_value : item.locations[0].name}: </strong>{addressParser({address: item.locations[0]})}
+                  {rawSchedule && Object.keys(rawSchedule).length > 1 && (schedule = scheduleParser({schedule: rawSchedule})).length
+                    ?
+                    <span><br/>
+                      <strong className={classes.boldFont}>Hours: </strong>
+                        {schedule.map((sch) => {
+                          return sch.days+' '+sch.time;
+                        }).join(', ')}
+                    </span>
+                    : null}
                   {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
               </Typography>
             );
@@ -89,8 +111,8 @@ const DetailAccessInstructions = ({list, phones, classes}) => (
     : null}
     
     </Grid>
-  </Grid>
-);
+  </Grid>);
+}
 
 export default withStyles(styles)(DetailAccessInstructions);
 
