@@ -97,6 +97,7 @@ class ResourceListItem extends React.Component {
       handleRequestOpen,
       isOnFavoritesList,
       isOnPublicList,
+      locale,
       slug,
       lists,
       session,
@@ -127,7 +128,7 @@ class ResourceListItem extends React.Component {
 
     const labelClass = format == 'search' ? 'hide--on-screen' : null;
     const name = resource.name || resource.title;
-    const link = resource.resource_type == 'Organization' ? '/resource/'+resource.slug : '/resource/'+resource.organization.slug+'/service/'+resource.slug;
+    const link = resource.resource_type == 'Organization' ? '/'+locale+'/resource/'+resource.slug : '/'+locale+'/resource/'+resource.organization.slug+'/service/'+resource.slug;
     const tags = resource.resource_type == 'Organization' ? resource.opportunity_tags : resource.tags.concat(
                   resource.categories && resource.categories.length ? resource.categories : [],
                   resource.areas && resource.areas.length ? resource.areas : []

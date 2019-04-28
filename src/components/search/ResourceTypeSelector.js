@@ -13,8 +13,6 @@ import ResourceTypes from '../../helpers/ResourceTypes';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
 
-const resourceTypes = ResourceTypes.resourceTypesByGroup;
-
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {
     borderLeft: "2px solid "+theme.palette.common.lightGrey,
@@ -63,7 +61,7 @@ const FilterCollection = (props) => (
     <Typography variant="body2" className={props.classes.sectionHeader}>
       <ACBadge type={props.type} width='45px' height='45px' /> 
       <span className={props.classes.sectionTitle}>
-        {props.category}
+        {props.t(props.category)}
       </span>
       {typeof props.value !== 'undefined' ? 
       <span className={props.classes.sectionTitle}>
@@ -76,13 +74,13 @@ const FilterCollection = (props) => (
       <Grid container spacing={0} className={props.classes.subfilterSpacing} >
       {props.children.map((filter, i) => (
         <Grid item key={i} xs={12} sm={6} md={4}>
-          <AsylumConnectCheckbox label={filter.title} value={filter.title} onChange={props.onChange} disabled={(props.selectedResourceTypes.indexOf(props.category) >= 0)} checked={(props.selectedResourceTypes.indexOf(filter.title) >= 0 || props.selectedResourceTypes.indexOf(props.category) >= 0)} />
+          <AsylumConnectCheckbox label={props.t(filter.title)} value={filter.title} onChange={props.onChange} disabled={(props.selectedResourceTypes.indexOf(props.category) >= 0)} checked={(props.selectedResourceTypes.indexOf(filter.title) >= 0 || props.selectedResourceTypes.indexOf(props.category) >= 0)} />
         </Grid>
       ))}
       </Grid>
     : null
     }
-    {props.index+1 !== resourceTypes.length ? <Divider className={props.classes.dividerSpacing} /> : null}
+    {props.index+1 !== props.resourceTypes.length ? <Divider className={props.classes.dividerSpacing} /> : null}
   </div>
 );
 
@@ -100,12 +98,13 @@ class ResourceTypeSelector extends React.Component {
     const { onChange, selectedResourceTypes, clearResourceTypes }= this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const containerWidth = (isMobile ? '100%' : this.props.containerWidth+'px');
+    const resourceTypes = ResourceTypes.getResourceTypesByGroup(this.props.locale);
 
     return (
       <AsylumConnectSelector label="Resource Type" selected={selectedResourceTypes} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
         <a href='#' onClick={clearResourceTypes} className={uncheckLink}>Uncheck All</a>
         {resourceTypes.map((filter, i) => (
-            <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} {...filter} />
+            <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} resourceTypes={resourceTypes} t={this.props.t} {...filter} />
           )
         )}
       </AsylumConnectSelector>

@@ -268,7 +268,7 @@ export default createMuiTheme({
       "fontWeight": 400,
       "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
       "lineHeight": "20px",
-      "color": "rgba(29, 31, 35, 1)"
+      "color": "rgba(0, 0, 0, 0.54)"
     },
     "button": {
       "fontSize": 16,

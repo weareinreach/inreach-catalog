@@ -451,6 +451,8 @@ class Suggestion extends React.Component {
             selectedFeatures={features}
             handleTagSelect={this.handleTagSelect}
             selectedTags={tags}
+            locale={this.props.locale}
+            t={this.props.t}
           />
         
         {!isSent  ? (

@@ -53,22 +53,23 @@ const styles = theme => ({
 
 class SearchForm extends React.Component {
   render() {
+    const { locale } = this.props; console.log(locale);
     const { formRow, searchButton, body2, link, callout, underline } = this.props.classes;
     const variant = this.props.width < breakpoints['sm'] ?  "secondary" : "primary";
     return (
       <div>
-        <Grid container spacing={0} >
+        {/*<Grid container spacing={0} >
           <Grid item xs={12} className={formRow}>
             <Typography variant="body2" className={body2+' '+callout}>
-              Are you in Mexico waiting to seek LGBTQ asylum in the U.S.? <a href="/page/Mexico/#googtrans(es)" className={link+' '+callout+' '+underline}>Click here.</a>
+              Are you in Mexico waiting to seek LGBTQ asylum in the U.S.? <a href={"/"+locale+"/page/Mexico/#googtrans(es)"} className={link+' '+callout+' '+underline}>Click here.</a>
             </Typography>
           </Grid>
           <Grid item xs={12} className={formRow}>
             <Typography variant="body2" className={body2}>
-              Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
+              Are you outside of the United States and Canada? <Link to={"/"+locale+"/page/outside-US-and-Canada"} className={link}>Click here.</Link>
             </Typography>
           </Grid>
-        </Grid>
+        </Grid>*/}
         <SearchBar {...this.props} classes={null} />
         <Grid container spacing={0}>
           {/*<Grid item xs={12} className={formRow}>
@@ -91,7 +92,7 @@ class SearchForm extends React.Component {
               {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
             </AsylumConnectButton>
           </Grid>
-          {this.props.infographic ? 
+          {this.props.infographic && this.props.country=='US' ? 
           <Grid item xs={12} sm={12} md={8} className={searchButton}>
             <AsylumConnectInfographicButton type='link' url={this.props.infographic.url ? this.props.infographic.url : null} list={this.props.infographic.list ? this.props.infographic.list : null} text={"Download Legal Guides on LGBTQ Asylum in the U.S."} />
           </Grid>

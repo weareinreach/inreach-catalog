@@ -325,7 +325,7 @@ class SuggestInfo extends React.Component {
 SuggestInfo.propTypes = {
   classes: PropTypes.object.isRequired,
   info: PropTypes.object,
-  handleCollectInfoData: React.PropTypes.func
+  handleCollectInfoData: PropTypes.func
 };
 
 export default withStyles(styles)(SuggestInfo);

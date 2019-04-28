@@ -43,14 +43,14 @@ class PageContainer extends React.Component {
       <div className="page-container">
         <Switch>
           <Route
-            path="/favorites/:listId"
+            path="/:locale/favorites/:listId"
             render={() => <FavoritesListContainer {...favoritesListProps} />}
           />
           <Route
-            path="/favorites"
+            path="/:locale/favorites"
             render={() => <FavoritesListContainer {...favoritesListProps} />}
           />
-          <Route path="/account/reset-password" render={() => (
+          <Route path="/:locale/account/reset-password" render={() => (
             <ResetPasswordPage
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
@@ -62,7 +62,7 @@ class PageContainer extends React.Component {
             />
           )}
           />
-          <Route path="/account" render={() => (
+          <Route path="/:locale/account" render={() => (
             <AccountPage
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
@@ -75,7 +75,7 @@ class PageContainer extends React.Component {
             />
           )}
           />
-          <Route path="/suggestions/new" render={() => (
+          <Route path="/:locale/suggestions/new" render={() => (
             <Suggestion
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
@@ -86,7 +86,7 @@ class PageContainer extends React.Component {
             />
           )}
           />
-          <Route path="/page/:pageName" render={(props) => (
+          <Route path="/:locale/page/:pageName" render={(props) => (
             <Static
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
@@ -96,6 +96,9 @@ class PageContainer extends React.Component {
               user={user}
               {...props} 
             />
+          )} />
+          <Route render={(props) => (
+            <Redirect to={ window.location.pathname.indexOf((localStorage.getItem('locale')||'en_US')) < 0 ? '/'+(localStorage.getItem('locale')||'en_US')+window.location.pathname : '/'} />
           )} />
         </Switch>
       </div>

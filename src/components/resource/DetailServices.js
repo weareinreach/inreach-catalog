@@ -36,7 +36,7 @@ const Services = (props) => {
                       })()
                     : <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />}
                     {isACOpportunity(item) ?
-                      <Link to={'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
+                      <Link to={'/'+props.locale+'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
                     : <span className={props.classes.serviceText}>{item.title}</span>}
                   </Typography>
                 )

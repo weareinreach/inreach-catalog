@@ -24,6 +24,7 @@ const NavTablet = ({
   classes,
   handleLogOut,
   handleRequestOpen,
+  locale,
   session,
 }) => { 
   return (
@@ -45,12 +46,13 @@ const NavTablet = ({
         <AccountNav
           handleLogOut={handleLogOut}
           handleRequestOpen={handleRequestOpen}
+          locale={locale}
           session={session}
         />
       </Grid>
       
       <Grid item md={5}>
-        <FavoritesLink/>
+        <FavoritesLink locale={locale}/>
       </Grid>
     </Grid>
   )

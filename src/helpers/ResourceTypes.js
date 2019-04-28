@@ -1,3 +1,4 @@
+//Master list of all AC resources types mapped to One Degree tags - should cover all locales
 const resourceTypes = [
   /* AC Medical Category */
   {category: 'Medical', type: 'medical', odTag: 'Dental',                               title: 'Dental care'},
@@ -208,10 +209,32 @@ const resourceTypes = [
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation assistance',      title: 'Transportation assistance'},
   {category: 'Transportation', type: 'transportation', odTag: 'Transportation for healthcare',  title: 'Transportation assistance'},
 ];
-//Art, dance, recreation, sports & fitness
-const groupResourceTypes = () => {
+
+//use this to exclude certain resource types from the list for certain locales
+const localeExclusions = {
+  'en_US': [],
+  'en_CA': [
+    'Deferred Action for Childhood Arrivals (DACA)'
+  ]
+}
+const filterResourceType = function(item, locale) {
+  if(typeof item.title !== 'undefined') {
+    return (typeof localeExclusions[locale] === 'undefined' || localeExclusions[locale].indexOf(item.title) == -1);
+  } else { 
+    return (typeof localeExclusions[locale] === 'undefined' || localeExclusions[locale].indexOf(item.category) == -1);
+  }
+}
+
+
+const defaultLocale = 'en_US';
+
+const getResourceTypes = (locale = defaultLocale) => {
+  return resourceTypes.filter((item) => (filterResourceType(item, locale)));
+}
+
+const getResourceTypesByGroup = (locale = defaultLocale) => {
   let categorized = {}, index = [], final = [];
-  resourceTypes.forEach((item) => {
+  resourceTypes.filter((item) => (filterResourceType(item, locale))).forEach((item) => {
     if(typeof categorized[item.category] === "undefined") {
       categorized[item.category] = {
         category: item.category,
@@ -248,21 +271,21 @@ const groupResourceTypes = () => {
   return final;
 }
 
-const resourceTypesByGroup = groupResourceTypes();
+const resourceTypesByGroup = getResourceTypesByGroup();
 
-const getTagIndex = () => {
+const getResourceIndex = (locale = defaultLocale) => {
   let index = {};
-  resourceTypes.forEach((item) => {
+  resourceTypes.filter((item) => (filterResourceType(item, locale))).forEach((item) => {
     index[item.odTag] = item
   });
   return index;
 }
 
-const resourceIndex = getTagIndex();
+const resourceIndex = getResourceIndex();
 
-const getCategoryIndex = () => {
+const getResourceCategoryIndex = (locale = defaultLocale) => {
   let index = {};
-  resourceTypes.forEach((item) => {
+  resourceTypes.filter((item) => (filterResourceType(item, locale))).forEach((item) => {
     if(item.title) {
       index[item.title] = item
     } else if((typeof item.iconOnly === 'undefined' || !item.iconOnly) && typeof index[item.category] === 'undefined') {
@@ -274,7 +297,7 @@ const getCategoryIndex = () => {
   return index;
 }
 
-const resourceCategoryIndex = getCategoryIndex();
+const resourceCategoryIndex = getResourceCategoryIndex();
 
 const getBadge = (tags) => {
   let badge = 'misc';
@@ -286,46 +309,14 @@ const getBadge = (tags) => {
   return badge;
 };
 
-/*const resourceTypes = [
-  {category: 'Medical', type: 'medical', children: [
-    {title: 'Medical clinics', value: 'Health'}, //confirm
-    {title: 'Women\'s health', value: 'Pregnancy'}, //refine
-    {title: 'Sexual health', value: 'Sexual health'},
-    {title: 'Trans health', value: 'Trans health'},
-    {title: 'Dental care', value: 'Dental'}
-  ]},
-  {category: 'Legal', type: 'legal', children: [
-    {title: 'Legal aid', value: 'Legal assistance'}, //refine
-    {title: 'Documentation', value: 'Documentation'} //MISSING
-  ]},
-  {category: 'Housing', type: 'housing', value: 'Housing'}, //refine
-  {category: 'Food', type: 'food', value: 'Food'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', value: 'Homeless support'}, //refine
-  {category: 'Computers and Internet', type: 'computers', value: 'Computer labs'},
-  {category: 'Education and Employment', type: 'educationEmployment', children: [
-    {title: 'English classes', value: 'Language resources'}, //refine
-    {title: 'Career counseling', value: 'Job training & preparation'}, //refine
-    {title: 'Libraries', value: 'Libraries'},
-    {title: 'Scholarships', value: 'Scholarships'},
-  ]},
-  {category: 'Community support', type: 'communitySupport', children: [
-    {title: 'Community centers', value: 'Community centers'},
-    {title: 'LGBTQ centers', value: 'LGBTQ centers'},
-    {title: 'Cultural centers', value: 'Cultural centers'},
-  ]},
-  {category: 'Mental health', type: 'mentalHealth', children: [
-    {title: 'Support Groups', value: 'Support groups'}, //refine
-    {title: 'Private Counseling', value: 'Counseling & therapy'},
-    {title: 'Psychiatry', value: 'Psychiatry'},
-  ]},
-  {category: 'Mail services', type: 'mail', value: 'Mail'},
-  {category: 'Sports and Entertainment', type: 'sportsEntertainment', value: 'Recreational activities'},
-];*/
-
 export default {
   types: resourceTypes,
+  getResourceTypes,
   resourceTypesByGroup,
+  getResourceTypesByGroup,
   resourceIndex,
+  getResourceIndex,
   resourceCategoryIndex,
+  getResourceCategoryIndex,
   getBadge
 };

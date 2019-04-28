@@ -83,6 +83,7 @@ function renderLoadingContainer(options) {
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
   const {history, handleMessageNew, handleRequestClose} = this;
+  const {locale} = this.props;
   const styles = {
     container: {
       marginTop: '8px',
@@ -96,8 +97,8 @@ function renderSuggestionsContainer(options) {
     <Paper {...containerProps} style={styles.container} square>
       {children}
       {query.length > 0 && (
-        <Link to="/suggestions/new" onMouseDown={(e) => {
-          history.push('/suggestions/new');
+        <Link to={"/"+locale+"/suggestions/new"} onMouseDown={(e) => {
+          history.push('/'+locale+'/suggestions/new');
           handleRequestClose();
         }}>
           <MenuItem component="div">

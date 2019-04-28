@@ -194,6 +194,7 @@ class SearchResultsContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
+      locale: this.props.locale,
       noResults: noResults,
       session: this.props.session,
       searchResults: this.props.searchResults,

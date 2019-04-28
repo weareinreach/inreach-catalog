@@ -5,6 +5,7 @@ import url from 'url';
 import ValidLanguageList from '../../helpers/ValidLanguageList';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
+import classNames from 'classnames';
 import Typography from 'material-ui/Typography';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
@@ -13,7 +14,7 @@ import AsylumConnectSelector from '../AsylumConnectSelector';
 import ChevronIcon from '../icons/ChevronIcon';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
-import {mobilePadding} from '../../theme/sharedClasses';
+import {searchInput, searchInputMobile, mobilePadding} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   root: {
@@ -22,6 +23,17 @@ const styles = theme => ({
   languageListContainer: {
     width: 'auto'
   },
+  bodySelector: Object.assign(searchInput(theme), {
+    borderLeft: "2px solid "+theme.palette.common.lightGrey,
+    cursor: 'pointer',
+    position: 'relative',
+    boxShadow: '-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    [theme.breakpoints.down('md')]: {
+      boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+      borderLeft: "none"
+    },
+    [theme.breakpoints.down('xs')]: searchInputMobile(theme)
+  }),
   languageList: {
     /*position: 'absolute',
     zIndex: 3,
@@ -117,6 +129,7 @@ class Language extends React.Component {
       selectedLang: 'English'
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleReload = this.handleReload.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
     this.generateLanguageList = this.generateLanguageList.bind(this)
   }
@@ -145,9 +158,25 @@ class Language extends React.Component {
   handleRequestCloseAfterSelect(langCode, langName) {
     this.setState({ open: false, selectedLang: langName });
     window.location.hash = "#googtrans("+langCode+")";
-    window.localStorage.setItem('lang', langName)
-    location.reload();
+    window.localStorage.setItem('lang', langName);
+    if(typeof this.props.onSelect == 'function') {
+      this.props.onSelect(langCode, langName);
+    }
+    if(this.props.autoReload) {
+      location.reload();
+    }
   };
+
+  handleReload() {
+    location.reload()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.triggerReload) {
+      this.handleReload();
+    }
+
+  }
 
   componentWillMount(){
     var currentLang = window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
@@ -167,14 +196,17 @@ class Language extends React.Component {
   }
 
   render() {
-    const {classes, history, handleRequestOpen} = this.props;
+    const {classes, history, handleRequestOpen, useMobile, inputClass, title, label, triggerReload} = this.props;
     const {open, selectedLang, initialLangsList} = this.state;
-    const isMobile = this.props.width < breakpoints['sm'];
+    const isMobile = this.props.width < breakpoints['sm'] && useMobile;
+    if(triggerReload===true) {
+      this.handleReload();
+    }
 
     return (
       <div className={classes.root + ' hide--on-print' }>
         {!isMobile ?
-          <AsylumConnectSelector label={selectedLang} selected={[]} listContainerClass={classes.languageListContainer}>
+          <AsylumConnectSelector label={label || selectedLang} containerClass={inputClass} selected={[]} closeOnClick={true} listContainerClass={classNames([classes.languageListContainer, this.props.listContainerClass])}>
             {this.generateLanguageList()}
           </AsylumConnectSelector>
         : 
@@ -190,8 +222,15 @@ class Language extends React.Component {
   }
 };
 
+Language.defaultProps = {
+  useMobile: true,
+  autoReload: true
+}
+
 Language.propTypes = {
   classes: PropTypes.object.isRequired,
+  useMobile: PropTypes.bool,
+  autoReload: PropTypes.bool
 };
 
 LangMenuItem.propTypes = {

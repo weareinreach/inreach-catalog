@@ -6,7 +6,6 @@ import Typography from 'material-ui/Typography';
 import langs from 'langs';
 
 import propertyMap from '../../helpers/OneDegreePropertyMap';
-import resourceTypes from '../../helpers/ResourceTypes';
 
 const Languages = (props) => (
   <Grid item xs={12} className={props.classes.sectionSpacing}>

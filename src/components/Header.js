@@ -13,6 +13,7 @@ const Header = ({
   handleLogOut,
   session,
   width,
+  locale,
   location,
   history,
   match
@@ -28,6 +29,7 @@ const Header = ({
         location={location}
         history={history}
         match={match}
+        locale={locale}
       />
     );
   } else if (isTablet) {
@@ -35,6 +37,7 @@ const Header = ({
       <NavTablet
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
+        locale={locale}
         session={session}
       />
     );
@@ -43,6 +46,7 @@ const Header = ({
       <NavDesktop
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
+        locale={locale}
         session={session}
       />
     );

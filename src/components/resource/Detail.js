@@ -173,7 +173,7 @@ class Detail extends React.Component {
     //console.log(this.props.resource, this.props.service)
     return (
       <Switch>
-        <Route path="/resource/:id/service/:serviceId" render={ props => (
+        <Route path="/:locale/resource/:id/service/:serviceId" render={ props => (
           <Service {...props}
             acFilter={this.state.acFilter}
             defaultClasses={this.props.classes}
@@ -188,6 +188,7 @@ class Detail extends React.Component {
             handleTabClickDesktop={this.handleTabClickDesktop}
             handleTabClickMobile={this.handleTabClickMobile}
             lists={this.props.lists}
+            locale={this.props.locale}
             mapResources={this.props.mapResources}
             resource={this.props.resource}
             service={this.props.service}
@@ -195,10 +196,11 @@ class Detail extends React.Component {
             setSelectedService={this.props.setSelectedService}
             session={this.props.session}
             tab={this.state.tab}
+            t={this.props.t}
             user={this.props.user}
           />)}
         />
-        <Route path="/resource/:id" render={ props => (
+        <Route path="/:locale/resource/:id" render={ props => (
           <Resource {...props}
             acFilter={this.state.acFilter}
             defaultClasses={this.props.classes}
@@ -213,11 +215,13 @@ class Detail extends React.Component {
             handleTabClickDesktop={this.handleTabClickDesktop}
             handleTabClickMobile={this.handleTabClickMobile}
             lists={this.props.lists}
+            locale={this.props.locale}
             mapResources={this.props.mapResources}
             resource={this.props.resource}
             setSelectedResource={this.props.setSelectedResource}
             session={this.props.session}
             tab={this.state.tab}
+            t={this.props.t}
             user={this.props.user}
           />)}
         />
