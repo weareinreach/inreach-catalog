@@ -172,7 +172,9 @@ class SuggestAdditional extends React.Component {
           
           <ResourceTagSelector 
             onChange={ handleTagSelect} 
-            selectedResourceTags={ selectedTags} />
+            selectedResourceTags={ selectedTags}
+            locale={this.props.locale}
+            t={this.props.t} />
           {/* <TextField
             className={classes.inputLabel}
             label='Additional Information:'

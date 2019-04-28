@@ -82,13 +82,13 @@ class SearchBar extends React.Component {
       value: this.state.address,
       onChange: this.handlePlaceChange,
       //autoFocus: true,
-      placeholder: "Start typing address, city or zip code in the US…",
+      placeholder: this.props.t("Start typing address, city or zip code in the US…"),
       name: 'search--near',
       id: "search--near",
     }
     const options = {
       componentRestrictions: {
-        country: 'us'
+        country: typeof this.props.country == 'string' ? this.props.country.toLowerCase() : 'us'
       }
     };
     const AutocompleteItem = ({ formattedSuggestion }) => (
@@ -117,6 +117,8 @@ class SearchBar extends React.Component {
             onChange={this.props.handleResourceTypeSelect} 
             selectedResourceTypes={this.props.selectedResourceTypes} 
             clearResourceTypes={this.props.clearResourceTypes} 
+            locale={this.props.locale}
+            t={this.props.t}
           />
         </Grid>
       </Grid>

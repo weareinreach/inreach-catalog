@@ -104,22 +104,22 @@ class MapContainer extends React.Component {
     window.removeEventListener('resize', this.resizeMap.bind(this));
   }
   componentWillUpdate(nextProps, nextState) {
-    if(nextProps.match.path == '/resource/:id' && 
-      (this.props.match.path != '/resource/:id'
+    if(nextProps.match.path == '/:locale/resource/:id' && 
+      (this.props.match.path != '/:locale/resource/:id'
         || (this.props.match.params 
             && nextProps.match.params
             && this.props.match.params.id != nextProps.match.params.id
-            && this.props.match.path == '/resource/:id'
+            && this.props.match.path == '/:locale/resource/:id'
             ))
     ) {
       this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
     }
-    if(nextProps.match.path == '/resource/:id/service/:serviceId' && 
-      (this.props.match.path != '/resource/:id/service/:serviceId'
+    if(nextProps.match.path == '/:locale/resource/:id/service/:serviceId' && 
+      (this.props.match.path != '/:locale/resource/:id/service/:serviceId'
         || (this.props.match.params 
             && nextProps.match.params
             && this.props.match.params.serviceId != nextProps.match.params.serviceId
-            && this.props.match.path == '/resource/:id/service/:serviceId'
+            && this.props.match.path == '/:locale/resource/:id/service/:serviceId'
             ))
     ) {
       this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
@@ -267,7 +267,7 @@ class MapContainer extends React.Component {
       var nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
       var filters = encodeURIComponent(this.state.selectedFilters.length ? this.state.selectedFilters.join(',') : 'all');
       var sort = encodeURIComponent(this.state.selectedSort);
-      this.props.history.push('/search/'+inState+'/'+nearAddress+'/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
+      this.props.history.push('/'+this.props.locale+'/search/'+inState+'/'+nearAddress+'/'+nearLatLng+'/'+resourceTypes+'/'+filters+'/'+sort);
       this.setState({
         searchStatus: 'refresh',
         nearLatLng: latLng,
@@ -476,15 +476,14 @@ class MapContainer extends React.Component {
 
     const selectedResourceTypes = typeof this.state.selectedResourceTypes !== 'undefined' && this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes : [];
     //on the search results, enforce a distance limitation of 100 miles
-    const mapMaxDistance = this.props.match.path == '/search/:in/:place/:near/:for/:filter/:sort' ? 100 : null;
-
+    const mapMaxDistance = this.props.match.path == '/:locale/search/:in/:place/:near/:for/:filter/:sort' ? 100 : null;
     return (
         <div className={"container--map "+this.props.classes.containerMap}> 
           <Grid container spacing={0} alignItems='stretch'>
             <Grid item xs={12} sm={8}>
               <div className="container--search">
                 <Switch>
-                  <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.state}
+                  <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.props} {...this.state}
                     clearResourceTypes={this.clearResourceTypes}
                     handlePlaceSelect={this.handlePlaceSelect} 
                     handlePlaceChange={this.handlePlaceChange}
@@ -493,9 +492,10 @@ class MapContainer extends React.Component {
                     infographic={infographic}
                     nearAddress={this.props.nearAddress}
                     searchDisabled={this.state.searchDisabled}
+                    classes={null}
                      />} />
                     }
-                  <Route path="/search/:in/:place/:near/:for/:filter/:sort" render={ props => (
+                  <Route path="/:locale/search/:in/:place/:near/:for/:filter/:sort" render={ props => (
                     <SearchResultsContainer {...props} {...this.state}
                       clearResourceTypes={this.clearResourceTypes}
                       clearSearchFilters={this.clearSearchFilters}
@@ -517,6 +517,7 @@ class MapContainer extends React.Component {
                       handleSortSelect={this.handleSortSelect}
                       infographic={isMobile && infographic}
                       lists={this.props.lists}
+                      locale={this.props.locale}
                       mapResources={mapResources}
                       mapMaxDistance={mapMaxDistance}
                       nearAddress={this.props.nearAddress}
@@ -525,6 +526,7 @@ class MapContainer extends React.Component {
                       searchCenter={this.state.nearLatLng}
                       session={this.props.session}
                       showWalkinCheckbox={(false && selectedResourceTypes.filter(item => {return (typeof ResourceTypes.resourceCategoryIndex[item] !== 'undefined' && ResourceTypes.resourceCategoryIndex[item].category == 'Legal')}).length > 0)}
+                      t={this.props.t}
                       user={this.props.user}
                     />)}
                   />
@@ -546,7 +548,7 @@ class MapContainer extends React.Component {
                       user={this.props.user}
                     />)}
                   />*/}
-                  <Route path="/resource/:id" render={ props => (
+                  <Route path="/:locale/resource/:id" render={ props => (
                     <Detail {...props}
                       handleListAddFavorite={this.props.handleListAddFavorite}
                       handleListRemoveFavorite={this.props.handleListRemoveFavorite}
@@ -555,12 +557,14 @@ class MapContainer extends React.Component {
                       handleMessageNew={this.props.handleMessageNew}
                       handleRequestOpen={this.props.handleRequestOpen}
                       lists={this.props.lists}
+                      locale={this.props.locale}
                       mapResources={mapResources}
                       resource={this.getCachedResource(props.match.params.id)}
                       service={this.state.selectedService}
                       setSelectedResource={this.setSelectedResource}
                       setSelectedService={this.setSelectedService}
                       session={this.props.session}
+                      t={this.props.t}
                       user={this.props.user}
                     />)}
                   />
@@ -574,7 +578,7 @@ class MapContainer extends React.Component {
                   <AsylumConnectMap
                     containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
                     history={this.props.history}
-                    infographic={this.props.match.path == "/search/:in/:place/:near/:for/:filter/:sort" && infographic}
+                    infographic={this.props.match.path == "/:locale/search/:in/:place/:near/:for/:filter/:sort" && infographic}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
                     mapMaxDistance={mapMaxDistance}

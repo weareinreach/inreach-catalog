@@ -39,6 +39,7 @@ import Language from './navigation/Language';
 import AsylumConnectButton from './AsylumConnectButton';
 import withSession from './withSession';
 import withWidth from './withWidth';
+import withLocale from './withLocale';
 import Message from './Message';
 
 import breakpoints from '../theme/breakpoints';
@@ -102,6 +103,8 @@ class AsylumConnectCatalog extends React.Component {
   render() {
     const {dialog, message, messageOpen} = this.state;
     const {
+      changeLocale,
+      country,
       handleListAddFavorite,
       handleListRemoveFavorite,
       handleListNew,
@@ -110,8 +113,10 @@ class AsylumConnectCatalog extends React.Component {
       handleConfirmSession,
       handleUnconfirmSession,
       lists,
+      locale,
       session,
       sessionConfirmed,
+      t,
       user,
       location,
       history,
@@ -128,6 +133,7 @@ class AsylumConnectCatalog extends React.Component {
             location={location}
             history={history}
             match={match}
+            locale={locale}
           />
         {isMobile ? (
           <div>
@@ -180,6 +186,7 @@ class AsylumConnectCatalog extends React.Component {
           <div>
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
+              locale={locale}
               dialog={dialog}
               handleConfirmSession={handleConfirmSession}
               handleListAddFavorite={handleListAddFavorite}
@@ -198,9 +205,10 @@ class AsylumConnectCatalog extends React.Component {
         { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
           <div className={"content "+this.props.classes.navPadding} >
             <Switch>
-              <Route path="/resource/:id/service/:serviceId" render={(props) => (
+              <Route path="/:locale/resource/:id/service/:serviceId" render={(props) => (
                 <MapContainer
                   {...props}
+                  country={country}
                   handleAddressChange={handleAddressChange}
                   handleListAddFavorite={handleListAddFavorite}
                   handleListRemoveFavorite={handleListRemoveFavorite}
@@ -209,14 +217,17 @@ class AsylumConnectCatalog extends React.Component {
                   handleMessageNew={handleMessageNew}
                   handleRequestOpen={handleRequestOpen}
                   lists={lists}
+                  locale={locale}
                   nearAddress={this.state.nearAddress}
                   session={session}
+                  t={t}
                   user={user}
                 />)}
               />
-              <Route path="/resource/:id" render={(props) => (
+              <Route path="/:locale/resource/:id" render={(props) => (
                 <MapContainer
                   {...props}
+                  country={country}
                   handleAddressChange={handleAddressChange}
                   handleListAddFavorite={handleListAddFavorite}
                   handleListRemoveFavorite={handleListRemoveFavorite}
@@ -225,14 +236,18 @@ class AsylumConnectCatalog extends React.Component {
                   handleMessageNew={handleMessageNew}
                   handleRequestOpen={handleRequestOpen}
                   lists={lists}
+                  locale={locale}
                   nearAddress={this.state.nearAddress}
                   session={session}
+                  t={t}
                   user={user}
                 />)}
               />
               <Route exact path="/" render={(props) => (
                 <MapContainer
                   {...props}
+                  changeLocale={changeLocale}
+                  country={country}
                   handleAddressChange={handleAddressChange}
                   handleListAddFavorite={handleListAddFavorite}
                   handleListRemoveFavorite={handleListRemoveFavorite}
@@ -241,16 +256,19 @@ class AsylumConnectCatalog extends React.Component {
                   handleMessageNew={handleMessageNew}
                   handleRequestOpen={handleRequestOpen}
                   lists={lists}
+                  locale={locale}
                   nearAddress={this.state.nearAddress}
                   session={session}
+                  t={t}
                   user={user}
                 />)}
               />
               <Route
-                path="/search/:in/:place/:near/:for/:filter/:sort"
+                path="/:locale/search/:in/:place/:near/:for/:filter/:sort"
                 render={(props) => (
                   <MapContainer
                     {...props}
+                    country={country}
                     handleAddressChange={handleAddressChange}
                     handleListAddFavorite={handleListAddFavorite}
                     handleListRemoveFavorite={handleListRemoveFavorite}
@@ -259,16 +277,19 @@ class AsylumConnectCatalog extends React.Component {
                     handleMessageNew={handleMessageNew}
                     handleRequestOpen={handleRequestOpen}
                     lists={lists}
+                    locale={locale}
                     nearAddress={this.state.nearAddress}
                     session={session}
+                    t={t}
                     user={user}
                 />)}
               />
-              <RedirectWithParams from={"/search/:in/:place/:near/:for/:filter"} to={"/search/:in/:place/:near/:for/:filter/default"} />
-              <RedirectWithParams from={"/search/:in/:place/:near/:for"} to={"/search/:in/:place/:near/:for/all/default"} />
-              <RedirectWithParams from={"/search/:in/:place/:near/"} to={"/search/:in/:place/:near/any/all/default"} />
-              <Redirect from="/search" to="/"/>
-              <Redirect from="/resource" to="/"/>
+              <RedirectWithParams from={"/:locale/search/:in/:place/:near/:for/:filter"} to={"/search/:in/:place/:near/:for/:filter/default"} />
+              <RedirectWithParams from={"/:locale/search/:in/:place/:near/:for"} to={"/search/:in/:place/:near/:for/all/default"} />
+              <RedirectWithParams from={"/:locale/search/:in/:place/:near/"} to={"/search/:in/:place/:near/any/all/default"} />
+              <Redirect from="/:locale/search" to="/"/>
+              <Redirect from="/:locale/resource" to="/"/>
+              <Redirect from="/:locale/resource/:id/service" to="/"/>
               <Route render={(props) => (
                 <PageContainer
                     {...this.state}
@@ -285,7 +306,7 @@ class AsylumConnectCatalog extends React.Component {
             </Switch>
           </div>
         : null }
-        { isMobile ? null : <Footer /> }
+        { isMobile ? null : <Footer locale={locale} /> }
         <Message
           handleMessageClose={this.handleMessageClose}
           message={message}
@@ -312,4 +333,4 @@ AsylumConnectCatalog.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default hot(module)(withSession(withWidth(withStyles(styles)(AsylumConnectCatalog))));
+export default hot(module)(withLocale((withSession(withWidth(withStyles(styles)(AsylumConnectCatalog))))));

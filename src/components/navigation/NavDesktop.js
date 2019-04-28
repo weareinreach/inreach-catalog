@@ -42,6 +42,7 @@ const NavDesktop = ({
   classes,
   handleLogOut,
   handleRequestOpen,
+  locale,
   session,
 }) => (
   <div className={classes.root}>
@@ -75,9 +76,10 @@ const NavDesktop = ({
     <AccountNav
       handleLogOut={handleLogOut}
       handleRequestOpen={handleRequestOpen}
+      locale={locale}
       session={session}
     />
-    <FavoritesLink>view your favorites</FavoritesLink>
+    <FavoritesLink locale={locale}>view your favorites</FavoritesLink>
   </div>
 );
 

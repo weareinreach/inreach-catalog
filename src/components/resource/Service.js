@@ -264,7 +264,7 @@ class Service extends React.Component {
   }
 
   render() {
-    const { session, handleMessageNew, history } = this.props;
+    const { session, handleMessageNew, history, locale, t } = this.props;
     const classes = this.props.defaultClasses;
     const { props } = this;
     const { resource, service } = this.state;

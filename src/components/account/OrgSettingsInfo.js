@@ -203,7 +203,7 @@ class OrgSettingsInfo extends React.Component {
 OrgSettingsInfo.propTypes = {
   classes: PropTypes.object.isRequired,
   info: PropTypes.object,
-  handleCollectInfoData: React.PropTypes.func
+  handleCollectInfoData: PropTypes.func
 };
 
 export default withStyles(styles)(OrgSettingsInfo);

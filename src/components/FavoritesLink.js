@@ -21,8 +21,8 @@ const styles = theme => ({
   }
 });
 
-const FavoritesLink = ({ classes }) => (
-  <Link to={`/favorites`}  className="hide--on-print">
+const FavoritesLink = ({ classes, locale }) => (
+  <Link to={'/'+locale+'/favorites'}  className="hide--on-print">
     <Typography
       type='display4'
       className={classes.viewYourFavoritesText}

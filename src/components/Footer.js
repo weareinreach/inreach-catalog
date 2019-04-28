@@ -45,7 +45,7 @@ const styles = theme => ({
   }
 });
 
-const Footer = ({ classes }) => {
+const Footer = ({ classes, locale }) => {
   const {
     bgDarkGrey,
     bgLightGrey,
@@ -102,7 +102,7 @@ const Footer = ({ classes }) => {
         <Grid item xs={12} md={6}>
           <Grid container spacing={0}>
             <Grid item xs>
-              <Link to="/suggestions/new">
+              <Link to={"/"+locale+"/suggestions/new"}>
                 <Typography variant="display3">
                   Suggest a Resource
                 </Typography>

@@ -246,7 +246,7 @@ class Resource extends React.Component {
   }
 
   render() {
-    const { session, handleMessageNew, history } = this.props;
+    const { session, handleMessageNew, history, locale } = this.props;
     const classes = this.props.defaultClasses;
     const { props } = this;
     const { resource } = this.state;
@@ -325,7 +325,7 @@ class Resource extends React.Component {
                       <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
                     : null}
                     {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
-                      <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />
+                      <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} locale={locale} />} />
                     : null}
                     {!this.state.oppLoading && languages && languages.length ? 
                       <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
@@ -396,7 +396,7 @@ class Resource extends React.Component {
                 <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
               : null}
               {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
-                <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} />} />
+                <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} locale={locale} />} />
               : null}
               {!this.state.oppLoading && languages && languages.length ? 
                 <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />

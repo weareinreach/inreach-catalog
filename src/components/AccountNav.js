@@ -36,6 +36,7 @@ const AccountNav = ({
   session,
   handleLogOut,
   handleRequestOpen,
+  locale
 }) => (
   <div
     className={classes.accountNav+' hide--on-print'}
@@ -44,7 +45,7 @@ const AccountNav = ({
       <div className={classes.root}>
         <Link
           className={[classes.divider, classes.accountLinks].join(' ')}
-          to='/account'
+          to={'/'+locale+'/account'}
         >
           <Typography type='body1' className={classes.lowercaseText}>
              Account Settings

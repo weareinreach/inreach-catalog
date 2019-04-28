@@ -10,10 +10,11 @@ import Typography from 'material-ui/Typography';
 import resourceTypes from '../../helpers/ResourceTypes';
 import ACBadge from '../Badge';
 
-const tags = resourceTypes.resourceIndex;
+//const tags = resourceTypes.resourceIndex;
 
 const ServiceType = (props) => {
   var listedTags = [];
+  const tags = resourceTypes.getResourceIndex(props.locale);
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} className={props.classes.sectionSpacing}>

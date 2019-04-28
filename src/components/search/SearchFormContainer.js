@@ -7,8 +7,11 @@ import Button from 'material-ui/Button';
 import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 
 import SearchForm from './SearchForm';
+import LocaleForm from '../locale/LocaleForm';
+import AsylumConnectBackButton from "../AsylumConnectBackButton";
 import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
 import withWidth from '../withWidth';
+import locale from '../../helpers/Locale';
 import breakpoints from '../../theme/breakpoints';
 import {mobilePadding} from '../../theme/sharedClasses';
 import SubAnnouncement from '../SubAnnouncement';
@@ -89,6 +92,41 @@ const styles = theme => ({
 class SearchFormContainer extends React.Component {
   constructor(props, context) {
     super(props, context)
+    this.state = {
+      locale: (locale.isLocaleSet() ? locale.getLocale() : false)
+    }
+
+    this.handleLocaleSelect = this.handleLocaleSelect.bind(this);
+    this.handleLocaleReset = this.handleLocaleReset.bind(this);
+  }
+
+  componentWillMount() {
+    if(locale.isLocaleSet()) {
+      this.handleLocaleSelect(locale.getLocale());
+    }
+  }
+
+  handleLocaleSelect(locale) {
+    switch(locale) {
+      case 'es_MX':
+        this.props.history.push("/"+locale+"/page/Mexico/");
+      break;
+      case 'intl':
+        this.props.history.push("/intl/page/outside-US-and-Canada");
+      break;
+      default: 
+      this.setState({
+        locale: locale
+      });
+      break;
+    }
+    
+  }
+
+  handleLocaleReset() {
+    this.setState({
+      locale: false
+    });
   }
 
   render() {
@@ -112,9 +150,14 @@ class SearchFormContainer extends React.Component {
           </Grid>
         </div> 
         : null}
-        {isMobile ? 
+        {isMobile && !this.state.locale ? 
           <Button href="http://asylumconnect.org" classes={{root: backButton, label: backButtonLabel }}>
             <ArrowBackIcon />&nbsp;Back to AsylumConnect Home Site
+          </Button>
+        : null}
+        {isMobile && this.state.locale ? 
+          <Button onClick={this.handleLocaleReset} classes={{root: backButton, label: backButtonLabel }}>
+            <ArrowBackIcon />&nbsp;Choose a different country
           </Button>
         : null}
         <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
@@ -122,6 +165,11 @@ class SearchFormContainer extends React.Component {
             {isMobile ? 
               <Grid item xs={12} className={subAnnouncement} >
                 <SubAnnouncement />
+              </Grid>
+            : null}
+            {!isMobile && this.state.locale ?
+              <Grid item xs={12}>
+                <AsylumConnectBackButton text="Choose a different country" onClick={this.handleLocaleReset} />
               </Grid>
             : null}
             <Grid container spacing={0} className={containerSearchForm} >
@@ -136,7 +184,11 @@ class SearchFormContainer extends React.Component {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <SearchForm {...this.props} classes={null}/>
+              {this.state.locale ?
+                <SearchForm {...this.props} classes={null} onLocaleReset={this.handleLocaleReset} />
+              :
+                <LocaleForm {...this.props} classes={null} onLocaleSelect={this.handleLocaleSelect} /> 
+              }
               </Grid>
             </Grid>
           </Grid>
