@@ -61,7 +61,7 @@ export default function withLocale(WrappedComponent) {
     }
 
     t(key) {
-      if(typeof this.state.content[key] !=='undefined') {
+      if(typeof this.state.content !== 'undefined' && typeof this.state.content[key] !=='undefined') {
         return this.state.content[key];
       } else {
         return key;

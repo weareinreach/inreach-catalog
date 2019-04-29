@@ -12,7 +12,6 @@ import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
-import LogoImg from '../../images/logo@2x.png';
 
 const styles = theme => ({
   root: {
@@ -43,13 +42,16 @@ const NavDesktop = ({
   handleLogOut,
   handleRequestOpen,
   locale,
+  logo,
   session,
-}) => (
+}) => {
+  
+return (
   <div className={classes.root}>
     <Link to='/'>
       <IconButton
         className={classes.IconButton}>
-        <img src={LogoImg} className={classes.LogoFitHeight} />
+        <img src={logo} className={classes.LogoFitHeight} />
       </IconButton>
     </Link>
     <a className="hide--on-screen" href="#">
@@ -81,7 +83,7 @@ const NavDesktop = ({
     />
     <FavoritesLink locale={locale}>view your favorites</FavoritesLink>
   </div>
-);
+)};
 
 NavDesktop.defaultProps = { session: null };
 

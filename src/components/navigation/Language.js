@@ -129,6 +129,7 @@ class Language extends React.Component {
       selectedLang: 'English'
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
     this.handleReload = this.handleReload.bind(this)
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(this)
     this.generateLanguageList = this.generateLanguageList.bind(this)
@@ -154,14 +155,18 @@ class Language extends React.Component {
   handleClick(event) {
     this.setState({ open: !this.state.open });
   };
+
+  handleSelect(langCode, langName) {
+    if(typeof this.props.onSelect == 'function') {
+      this.props.onSelect(langCode, langName);
+    }
+  }
   
   handleRequestCloseAfterSelect(langCode, langName) {
     this.setState({ open: false, selectedLang: langName });
     window.location.hash = "#googtrans("+langCode+")";
     window.localStorage.setItem('lang', langName);
-    if(typeof this.props.onSelect == 'function') {
-      this.props.onSelect(langCode, langName);
-    }
+    this.handleSelect(langCode, langName);
     if(this.props.autoReload) {
       location.reload();
     }
@@ -185,6 +190,7 @@ class Language extends React.Component {
       currentLang = ValidLanguageList.byCode(langCode)
     }
     this.setState({selectedLang: currentLang})
+    this.handleSelect(ValidLanguageList.codeByName(currentLang) ,currentLang);
     if(currentLang === "English") {
       document.cookie = "googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       

@@ -64,7 +64,7 @@ class ResourceTagSelector extends React.Component {
     const resourceTypes = ResourceTypes.getResourceTypes(locale);
 
     return (
-      <AsylumConnectSelector label="Resource Types" selected={selectedResourceTags} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
+      <AsylumConnectSelector label="Service Types" selected={selectedResourceTags} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
         {resourceTypes.map((filter, i) => (
             <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle}} onChange={onChange} selectedResourceTags={selectedResourceTags} t={t} {...filter}  />
           )

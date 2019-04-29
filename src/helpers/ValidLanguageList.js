@@ -111,7 +111,8 @@ var validLangs = [
 
 var ValidLanguageList = {
     all: getValidLanguagueList,
-    byCode: getValidLanguageByCode
+    byCode: getValidLanguageByCode,
+    codeByName: getValidLanguageCodeByName
 }
 
 function getValidLanguagueList() {
@@ -130,6 +131,14 @@ function getValidLanguageByCode(code) {
     for (var validLang of validLangs) {
         if (validLang['1'] == code) {
             return validLang['local']
+        }
+    }
+}
+
+function getValidLanguageCodeByName(name) {
+    for (var validLang of validLangs) {
+        if (validLang['local'] ==  name) {
+            return validLang['1'];
         }
     }
 }

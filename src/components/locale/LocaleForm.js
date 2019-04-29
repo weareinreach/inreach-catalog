@@ -21,6 +21,7 @@ import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import AsylumConnectButton from '../AsylumConnectButton';
 import withWidth from '../withWidth';
+import locale from '../../helpers/Locale';
 
 import breakpoints from '../../theme/breakpoints';
 import {searchInput, searchInputMobile, mobilePadding} from '../../theme/sharedClasses';
@@ -30,6 +31,7 @@ const styles = theme => ({
     cursor: 'pointer',
     position: 'relative',
     boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+    marginBottom: '0',
     //boxShadow: '-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
     [theme.breakpoints.down('md')]: {
       boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
@@ -65,6 +67,11 @@ const styles = theme => ({
     link: {
       color: theme.palette.common.white,
       textDecoration: 'underline'
+    },
+    formContainer: {
+      paddingBottom: theme.spacing.unit * 8,
+      backgroundColor: theme.palette.common.white,
+      marginTop: theme.spacing.unit
     }
   }
 });
@@ -89,6 +96,7 @@ class LocaleForm extends React.Component {
     }
 
     this.getStartingLanguage = this.getStartingLanguage.bind(this)
+    this.getLocaleNameFromCode = this.getLocaleNameFromCode.bind(this)
     this.handleNextClick = this.handleNextClick.bind(this)
     this.handleSelectLocale = this.handleSelectLocale.bind(this)
     this.handleSelectLanguage = this.handleSelectLanguage.bind(this)
@@ -107,45 +115,56 @@ class LocaleForm extends React.Component {
 
   handleSelectLocale(localeCode, localeName) {
     this.setState({
-      selectedLocaleCode: localeCode,
+      selectedLocale: localeCode,
       selectedLocaleName: localeName
     });
   }
 
   handleNextClick(ev) {
-    if(this.state.selectedLocaleCode) {
-      console.log('changing locale from form');
-      this.props.changeLocale(this.state.selectedLocaleCode);
+    if(this.state.selectedLocale) {
+      //console.log('changing locale from form');
+      this.props.changeLocale(this.state.selectedLocale);
     }
-    //check if 
-    if(this.state.selectedLanguageName !== this.state.startingLang) { console.log('reload')
+    if(typeof this.props.onLocaleSelect === 'function') {
+      this.props.onLocaleSelect(this.state.selectedLocale, this.state.selectedLanguage, (this.state.selectedLanguageName !== this.state.startingLang));
+    }
+    /*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
       this.setState({
         reload: true
       });
-    } else if(typeof this.props.onLocaleSelect === 'function') {
-      this.props.onLocaleSelect(this.state.selectedLocaleCode);
-    }
+    } */
 
+  }
+
+  getLocaleNameFromCode(code) {
+    let selectedLocale = supportedLocales.filter((item) => (item.code === code));
+    if(selectedLocale.length) {
+      return selectedLocale[0].name;
+    } else {
+      return false;
+    }
   }
 
   componentWillMount() {
     this.setState({
-      startingLang: this.getStartingLanguage()
+      startingLang: this.getStartingLanguage(),
+      selectedLocale: locale.getLocale(),
+      selectedLocaleName: this.getLocaleNameFromCode(locale.getLocale())
     });
   }
 
   render() {
-    const { formRow, labelRow, searchButton, body2, link, callout, underline, inputClass, listContainerClass } = this.props.classes;
+    const { formRow, labelRow, searchButton, body2, link, callout, underline, inputClass, listContainerClass, formContainer } = this.props.classes;
     const variant = this.props.width < breakpoints['sm'] ?  "secondary" : "primary";
     const localeLabel = 'Select country';
     const languageLabel = 'Select language';
     return (
-      <Grid container justify='flex-start' spacing={40} >
+      <Grid container justify='flex-start' spacing={40} className={formContainer}>
         <Grid item xs={12} md={6}>
           <Typography variant="caption" className={labelRow}>
             1. What is your preferred language?
           </Typography>
-          <Language useMobile={false} label={this.state.selectedLanguageName ? this.state.selectedLanguageName : languageLabel} inputClass={inputClass} autoReload={false} listContainerClass={listContainerClass} onSelect={this.handleSelectLanguage} triggerReload={this.state.reload}  />
+          <Language useMobile={false} inputClass={inputClass} autoReload={false} listContainerClass={listContainerClass} onSelect={this.handleSelectLanguage} triggerReload={this.state.reload}  />
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="caption" className={labelRow}>

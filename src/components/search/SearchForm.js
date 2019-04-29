@@ -53,7 +53,7 @@ const styles = theme => ({
 
 class SearchForm extends React.Component {
   render() {
-    const { locale } = this.props; console.log(locale);
+    const { locale } = this.props;
     const { formRow, searchButton, body2, link, callout, underline } = this.props.classes;
     const variant = this.props.width < breakpoints['sm'] ?  "secondary" : "primary";
     return (

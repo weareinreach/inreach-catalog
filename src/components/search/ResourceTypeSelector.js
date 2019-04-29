@@ -101,7 +101,7 @@ class ResourceTypeSelector extends React.Component {
     const resourceTypes = ResourceTypes.getResourceTypesByGroup(this.props.locale);
 
     return (
-      <AsylumConnectSelector label="Resource Type" selected={selectedResourceTypes} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
+      <AsylumConnectSelector label="Service Type" selected={selectedResourceTypes} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
         <a href='#' onClick={clearResourceTypes} className={uncheckLink}>Uncheck All</a>
         {resourceTypes.map((filter, i) => (
             <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle, subfilterSpacing, dividerSpacing}} onChange={onChange} selectedResourceTypes={selectedResourceTypes} resourceTypes={resourceTypes} t={this.props.t} {...filter} />
