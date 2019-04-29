@@ -86,8 +86,8 @@ class AsylumConnectMap extends React.Component {
 
 
   render() {
-    const { classes, history, resources, infographic } = this.props;
-    const defaultCenter = { lat: 39.8333333, lng: -98.585522 };
+    const { classes, history, resources, infographic, t } = this.props;
+    const defaultCenter = { lat: parseFloat(t('39.8333333')), lng: parseFloat(t('-98.585522')) };
     const defaultZoom = 4;
     
     let center = defaultCenter, zoom = defaultZoom;

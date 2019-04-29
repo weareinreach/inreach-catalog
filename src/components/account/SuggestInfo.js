@@ -160,16 +160,21 @@ class SuggestInfo extends React.Component {
     }    
   }
   render() {
-    const { classes, name, website, description, address, emails, notes, digits, nonEngServices } = this.props;
+    const { classes, name, website, description, address, emails, notes, digits, nonEngServices, t, locale, country } = this.props;
 
     const inputPropsAutoAddress = {
       value: address,
       onChange: this.handleChangeAutoAddress,
       type: 'text',
-      placeholder: "Start typing address, city or zip code in the US…",
+      placeholder: t("Start typing address, city or zip code in the US…"),
       name: 'search--near',
       id: "search--near",
     }
+    const options = {
+      componentRestrictions: {
+        country: typeof country == 'string' ? country.toLowerCase() : 'us'
+      }
+    };
     const cssClasses = {
       root: classes.searchInputContainer,
       input: classes.searchInput,
@@ -198,6 +203,7 @@ class SuggestInfo extends React.Component {
               onEnterKeyDown={this.handlePlaceSelect}
               inputProps={inputPropsAutoAddress}
               classNames={cssClasses}
+              options={options}
             />
           </FormControl>
           <TextField

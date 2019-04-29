@@ -16,18 +16,22 @@ import {
 class PageContainer extends React.Component {
   render() {
     const {
+      country,
       handleLogOut,
       handleMessageNew,
       handleRequestOpen,
       handleUnconfirmSession,
       history,
       match,
+      locale,
       location,
       session,
       sessionConfirmed,
       user,
+      t
     } = this.props;
     const favoritesListProps = {
+      country: country,
       dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
@@ -36,8 +40,10 @@ class PageContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
+      locale: locale,
       session: this.props.session,
       user: this.props.user,
+      t: t
     };
     return (
       <div className="page-container">
@@ -52,37 +58,46 @@ class PageContainer extends React.Component {
           />
           <Route path="/:locale/account/reset-password" render={() => (
             <ResetPasswordPage
+              country={country}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               history={history}
+              locale={locale}
               match={match}
               location={location}
               session={session}
+              t={t}
             />
           )}
           />
           <Route path="/:locale/account" render={() => (
             <AccountPage
+              country={country}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               handleUnconfirmSession={handleUnconfirmSession}
               history={history}
+              locale={locale}
               session={session}
               sessionConfirmed={sessionConfirmed}
               user={user}
+              t={t}
             />
           )}
           />
           <Route path="/:locale/suggestions/new" render={() => (
             <Suggestion
+              country={country}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               history={history}
+              locale={locale}
               session={session}
               user={user}
+              t={t}
             />
           )}
           />

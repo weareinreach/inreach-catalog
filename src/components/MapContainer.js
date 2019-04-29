@@ -577,14 +577,17 @@ class MapContainer extends React.Component {
                 <div>
                   <AsylumConnectMap
                     containerElement={<div style={{ width: this.state.mapWidth,height: window.innerHeight+"px" }} />}
+                    country={this.props.country}
                     history={this.props.history}
                     infographic={this.props.match.path == "/:locale/search/:in/:place/:near/:for/:filter/:sort" && infographic}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
+                    locale={this.props.locale}
                     mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
                     mapMaxDistance={mapMaxDistance}
                     ref={(el) => this.ACMap = el}
                     resources={mapResources}
                     searchCenter={this.state.nearLatLng}
+                    t={this.props.t}
                   />
                 </div>
               </Sticky>          

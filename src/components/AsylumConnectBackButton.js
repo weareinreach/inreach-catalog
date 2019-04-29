@@ -1,5 +1,6 @@
 import React from 'react';
 
+import classNames from 'classnames';
 import BackIcon from './icons/BackIcon';
 import Button from 'material-ui/Button';
 import {withStyles} from 'material-ui/styles';
@@ -30,8 +31,8 @@ const styles = (theme) => ({
   }
 });
 
-const AsylumConnectBackButton = ({onClick, classes, width="24px", color="secondary", text=""}) => (
-  <Button className={classes[color]} classes={{root: classes.buttonRoot}} onClick={onClick}>
+const AsylumConnectBackButton = ({onClick, classes, className="", width="24px", color="secondary", text=""}) => (
+  <Button className={classNames([classes[color], className])} classes={{root: classes.buttonRoot}} onClick={onClick}>
     <BackIcon width={width} color={'currentColor'} />
     {text}
   </Button>

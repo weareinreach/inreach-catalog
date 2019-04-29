@@ -424,13 +424,16 @@ class Suggestion extends React.Component {
             Thank you for your interest in contributing to the AsylumConnect resource catalog! Use this form to suggest a resource you think should be included. It's ok if you do not have all of the information the form asks for - just fill in what you know, and we'll do the rest! We appreciate your submission and thank you for helping to connect asylum seekers to helpful services. All suggested resources are subject to review by AsylumConnect staff before being published.
           </Typography>
           <SuggestInfo 
+            address={address}
+            country={this.props.country}
+            emails={emails}
             digits={phones[0].digits}
             description={description}
-            address={address}
-            website={website}
+            locale={this.props.locale}
             name={name}
-            emails={emails}
             nonEngServices={nonEngServices}
+            t={this.props.t}
+            website={website}
             handleChangeGeneralInfo={this.handleChangeGeneralInfo}
             handleChangePhone={this.handleChangePhone}
             handleChangeEmail={this.handleChangeEmail}

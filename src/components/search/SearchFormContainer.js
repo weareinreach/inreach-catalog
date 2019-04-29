@@ -25,7 +25,7 @@ const styles = theme => ({
   },
   container: {
     minHeight: '500px',
-    paddingTop: theme.spacing.unit * 16,
+    paddingTop: theme.spacing.unit * 8,
     [theme.breakpoints.down('xs')]: {
       paddingTop: 0
     }
@@ -46,6 +46,9 @@ const styles = theme => ({
       marginLeft: '0'
     }),
   },
+  containerSearchForm: {
+    paddingTop: theme.spacing.unit * 8
+  },
   infographicSpacing: {},
   [theme.breakpoints.down('xs')]: {
     title: {
@@ -60,13 +63,17 @@ const styles = theme => ({
       backgroundColor: theme.palette.secondary[500]
     },
     containerSearchForm: Object.assign(mobilePadding(theme), {
-      paddingTop: "1rem",
-      paddingBottom: "60px",
+      paddingTop: theme.spacing.unit * 4,
+      paddingBottom: theme.spacing.unit * 8,
+      height: "75vh",
       backgroundColor: theme.palette.secondary[500]
     }),
     infographicSpacing: {
       marginTop: '1rem'
     }
+  },
+  changeCountryButton: {
+    marginLeft: theme.spacing.unit * -1
   },
   backButton: {
     position: 'fixed',
@@ -76,6 +83,7 @@ const styles = theme => ({
     left: '0',
     right: '0',
     height: '60px',
+    width: '100%',
     zIndex: '200',
     '&:hover, &:active': {
       backgroundColor: theme.palette.common.white
@@ -106,19 +114,30 @@ class SearchFormContainer extends React.Component {
     }
   }
 
-  handleLocaleSelect(locale) {
+  handleLocaleSelect(locale, language, hasLanguageChanged) {
+    let redirect = false;
     switch(locale) {
       case 'es_MX':
-        this.props.history.push("/"+locale+"/page/Mexico/");
+        redirect = "/"+locale+"/page/Mexico/";
       break;
       case 'intl':
-        this.props.history.push("/intl/page/outside-US-and-Canada");
+        redirect = "/intl/page/outside-US-and-Canada";
       break;
       default: 
       this.setState({
         locale: locale
       });
       break;
+    }
+
+    if(redirect) {
+      if(hasLanguageChanged) {
+        window.location=redirect+'#googtrans('+language+')';
+      } else {
+        this.props.history.push(redirect)
+      }
+    } else if(hasLanguageChanged) {
+      location.reload()
     }
     
   }
@@ -136,6 +155,7 @@ class SearchFormContainer extends React.Component {
       subheading, 
       backButton, 
       backButtonLabel, 
+      changeCountryButton,
       containerSearchForm, 
       infographicSpacing, 
       subAnnouncement} = this.props.classes; //console.log(this.props.width, breakpoints['sm']);
@@ -169,18 +189,24 @@ class SearchFormContainer extends React.Component {
             : null}
             {!isMobile && this.state.locale ?
               <Grid item xs={12}>
-                <AsylumConnectBackButton text="Choose a different country" onClick={this.handleLocaleReset} />
+                <AsylumConnectBackButton className={changeCountryButton} color='default' text="Choose a different country" onClick={this.handleLocaleReset} />
               </Grid>
             : null}
             <Grid container spacing={0} className={containerSearchForm} >
               <Grid item xs={12}>
-                <Typography variant="title" className={title}>
-                  Welcome to the AsylumConnect catalog!
-                </Typography>
+                {this.state.locale ?
+                  <Typography variant="title" className={title}>
+                    {this.props.t('Welcome to the United States AsylumConnect catalog!')}
+                  </Typography>
+                :
+                  <Typography variant="title" className={title}>
+                    {this.props.t('Welcome to the AsylumConnect catalog!')}
+                  </Typography>
+                }
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subheading" className={subheading}>
-                  Search for LGBTQ- and asylum-friendly resources near you
+                  Search for LGBTQ- and immigrant-friendly services near you
                 </Typography>
               </Grid>
               <Grid item xs={12}>
