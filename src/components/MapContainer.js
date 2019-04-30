@@ -500,6 +500,7 @@ class MapContainer extends React.Component {
                       clearResourceTypes={this.clearResourceTypes}
                       clearSearchFilters={this.clearSearchFilters}
                       clearSearchStatus={this.clearSearchStatus}
+                      country={this.props.country}
                       fetchNextSearchResultsPage={this.fetchNextSearchResultsPage}
                       fetchSearchResults={this.fetchSearchResults}
                       handleListAddFavorite={this.props.handleListAddFavorite}
