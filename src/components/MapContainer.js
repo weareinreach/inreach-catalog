@@ -459,10 +459,10 @@ class MapContainer extends React.Component {
     var mapResources = [];
     if(this.state.searchResults || this.state.selectedResource || this.state.selectedService) {
       switch(this.props.match.path) {
-        case '/resource/:id':
+        case '/:locale/resource/:id':
           mapResources = (this.state.selectedResource ? [this.state.selectedResource] : [])
         break;
-        case '/resource/:id/service/:serviceId':
+        case '/:locale/resource/:id/service/:serviceId':
           mapResources = (this.state.selectedService ? [this.state.selectedService] : [])
         break;
         default:
