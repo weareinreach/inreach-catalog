@@ -9,6 +9,9 @@ import { withStyles } from 'material-ui/styles';
 import breakpoints from '../theme/breakpoints';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 
+import language from '../helpers/Language';
+import ValidLanguageList from '../helpers/ValidLanguageList';
+
 const styles = theme => ({
   infographicButtonContainer: {
     height: '1em',
@@ -124,7 +127,7 @@ class AsylumConnectInfographicButton extends React.Component {
   }
 
   handleOnClick(event) {
-    if(this.props.list && this.props.list.length) {
+    if(this.props.list) {
       event.preventDefault();
       this.handleToggleRequest();
     }
@@ -138,16 +141,21 @@ class AsylumConnectInfographicButton extends React.Component {
     const {classes, type} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const containerClass = type == 'link' ? classes.infographicLinkContainer : classes.infographicButtonContainer;
+    let list = false;
+    if(this.props.list) { console.log(this.props.list)
+      list = this.props.list[ValidLanguageList.codeByName(language.getLanguage())] || this.props.list.default;
+      console.log(list)
+    }
     return(
       <div className={containerClass}>
         {type=='button' && <Button variant="raised" href={this.props.url} target="_blank" onClick={this.handleOnClick} className={classes.infographicButton} classes={{label: classes.smallerButton}}>
           <Fa name="map-o" className={classes.infographicButtonIcon} /><span>{this.props.text}</span>
         </Button>}
         {type=='link' && <a href={this.props.url ? this.props.url : "#"} className={classes.infographicLink} target="_blank" onClick={this.handleOnClick}><Fa name="download" className={classes.infographicButtonIcon} />{this.props.text}</a>}
-        {this.state.open && this.props.list && this.props.list.length ? 
+        {this.state.open && list ? 
           <Paper id={this.id}>
             <MenuList role="menu">
-              {this.props.list.map((item, i) => (
+              {list.map((item, i) => (
                 <a key={i} href={item.url} target="_blank" className={classes.infographicListLink} onClick={this.handleListClick}><AsylumConnectDropdownListItem button={true} additionalClass={classes.infographicListItem}>{item.name}</AsylumConnectDropdownListItem></a>
                 )
               )}

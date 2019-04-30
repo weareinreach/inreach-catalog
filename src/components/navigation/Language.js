@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import langs from 'langs';
 import url from 'url';
 import ValidLanguageList from '../../helpers/ValidLanguageList';
+import language from '../../helpers/Language';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
@@ -165,7 +166,8 @@ class Language extends React.Component {
   handleRequestCloseAfterSelect(langCode, langName) {
     this.setState({ open: false, selectedLang: langName });
     window.location.hash = "#googtrans("+langCode+")";
-    window.localStorage.setItem('lang', langName);
+    language.setLanguage(langName);
+    //window.localStorage.setItem('lang', langName);
     this.handleSelect(langCode, langName);
     if(this.props.autoReload) {
       location.reload();
@@ -184,7 +186,7 @@ class Language extends React.Component {
   }
 
   componentWillMount(){
-    var currentLang = window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
+    var currentLang = language.getLanguage();//window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
     if(window.location.hash.length !== 0) {
       let langCode = window.location.hash.substring(window.location.hash.indexOf("(") + 1).slice(0, -1).toLowerCase()
       currentLang = ValidLanguageList.byCode(langCode)
