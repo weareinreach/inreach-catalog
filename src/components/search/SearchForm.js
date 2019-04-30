@@ -92,9 +92,9 @@ class SearchForm extends React.Component {
               {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
             </AsylumConnectButton>
           </Grid>
-          {this.props.infographic && this.props.country=='US' ? 
+          {this.props.infographic ? 
           <Grid item xs={12} sm={12} md={8} className={searchButton}>
-            <AsylumConnectInfographicButton type='link' url={this.props.infographic.url ? this.props.infographic.url : null} list={this.props.infographic.list ? this.props.infographic.list : null} text={"Download Legal Guides on LGBTQ Asylum in the U.S."} />
+            <AsylumConnectInfographicButton type='link' url={this.props.infographic.url ? this.props.infographic.url : null} list={this.props.infographic.list ? this.props.infographic.list : null} text={this.props.t("Download Legal Guides on LGBTQ Asylum in the U.S.")} />
           </Grid>
           : null}
         </Grid>

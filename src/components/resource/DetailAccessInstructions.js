@@ -32,7 +32,7 @@ const styles = theme => ({
 });
 //TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
-const DetailAccessInstructions = ({list, phones, rawSchedule, classes}) => {
+const DetailAccessInstructions = ({list, phones, rawSchedule, classes}) => { console.log(list, rawSchedule)
   let schedule;
   return (<Grid container spacing={0}>
     <Grid item xs={12}>
@@ -92,18 +92,22 @@ const DetailAccessInstructions = ({list, phones, rawSchedule, classes}) => {
           }
         break;
         case 'link':
-          <Typography key={index} variant="body2" className={classes.lineSpacing} >
+          return(
+            <Typography key={index} variant="body2" className={classes.lineSpacing} >
               <strong className={classes.boldFont}>Website: </strong><a href={item.access_value} className={classes.bodyLink+' '+classes.listLink}>{item.access_value}</a>
               {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
-          </Typography>
+            </Typography>
+          );
         break;
         case 'file':
         break;
         case 'other':
         default: 
-          <Typography key={index} variant="body2" className={classes.lineSpacing} >
+          return(
+            <Typography key={index} variant="body2" className={classes.lineSpacing} >
               <strong className={classes.boldFont}>{item.access_value}: </strong> item.instructions
-          </Typography>
+            </Typography>
+          );
         break;
       }
     })

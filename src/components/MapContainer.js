@@ -164,7 +164,7 @@ class MapContainer extends React.Component {
     if(center) {
       return infograph.fetchNearestInfographic(center.lat, center.lng);
     } else if(this.props.match && this.props.match.path === '/') {
-      return infograph.getDefaultInfographic();
+      return infograph.getDefaultInfographic(this.props.locale);
     } else {
       return null;
     }

@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
 import config from '../config/config.js';
 import ResourceTypes from './ResourceTypes';
+import locale from './Locale';
 
 class OneDegreeResourceQuery {
   
@@ -27,6 +28,8 @@ class OneDegreeResourceQuery {
         extended: 'true'
       }
     };
+
+    this.filterResults = this.filterResults.bind(this);
   }
 
   /**
@@ -57,6 +60,64 @@ class OneDegreeResourceQuery {
 
   areAllResultsReturned() {
     return this.pagingData.current_page == this.pagingData.total_pages;
+  }
+
+  filterAtCapacity(resources) {
+    if(resources.length) {
+      return resources.filter((resource) => (
+        typeof resource.properties == 'undefined' 
+        || typeof resource.properties['at-capacity'] == 'undefined'
+        || resource.properties['at-capacity'] !== 'true'
+      ));
+    } else {
+      return resources;
+    }
+  }
+
+  filterResults(resources) {
+    let filter = (item) => (true);
+    if(resources.length) {
+      switch(locale.getLocale()) {
+        case 'en_CA':
+          filter = (resource) => {
+            return (
+              typeof resource.properties !== 'undefined' 
+              && Object.keys(resource.properties).filter((key) => (key.indexOf('service-province') !== -1 || key.indexOf('service-territory') !== -1)).length > 0
+              && (
+                !this.removeAtCapacity
+                || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
+              )
+            )
+          }
+        break;
+        case 'en_US':
+        default:
+          filter = (resource) => {
+            return (
+              typeof resource.properties !== 'undefined' 
+              && Object.keys(resource.properties).filter((key) => (key.indexOf('service-province') !== -1 || key.indexOf('service-territory') !== -1)).length == 0
+              && (
+                !this.removeAtCapacity
+                || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
+              )
+            )
+          }
+        break; 
+      }
+      return resources.filter(filter);
+    } else {
+      return resources
+    }
+
+    /*if(resources.length) {
+      return resources.filter((resource) => (
+        typeof resource.properties == 'undefined' 
+        || typeof resource.properties['at-capacity'] == 'undefined'
+        || resource.properties['at-capacity'] !== 'true'
+      ));
+    } else {
+      return resources;
+    }*/
   }
 
   setIds(ids) {
@@ -116,18 +177,6 @@ class OneDegreeResourceQuery {
     }
   }
 
-  filterAtCapacity(resources) {
-    if(resources.length) {
-      return resources.filter((resource) => (
-        typeof resource.properties == 'undefined' 
-        || typeof resource.properties['at-capacity'] == 'undefined'
-        || resource.properties['at-capacity'] !== 'true'
-      ));
-    } else {
-      return resources;
-    }
-  }
-
   serialize(obj, prefix) {
     var str = [], p;
     for(p in obj) {
@@ -169,7 +218,7 @@ class OneDegreeResourceQuery {
       callback: (data) => {
         let ids = [], filtered;
 
-        filtered = this.removeAtCapacity ? self.filterAtCapacity(data.opportunities) : data.opportunities;
+        filtered = self.filterResults(data.opportunities); //this.removeAtCapacity ? self.filterAtCapacity(data.opportunities) : data.opportunities;
 
         filtered.forEach((opportunity, index) => {
           if(ids.indexOf(opportunity.organization.id) === -1) {
