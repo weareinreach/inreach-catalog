@@ -122,6 +122,7 @@ class AccountPage extends React.Component {
       handleLogOut,
       handleMessageNew,
       handleRequestOpen,
+      locale,
       session,
       sessionConfirmed,
     } = this.props;
@@ -149,6 +150,7 @@ class AccountPage extends React.Component {
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 handleUserUpdate={handleUserUpdate}
+                locale={locale}
                 session={session}
                 user={user}
               />
@@ -172,6 +174,7 @@ class AccountPage extends React.Component {
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
               handleUserUpdate={handleUserUpdate}
+              locale={locale}
               session={session}
               user={user}
             />
@@ -200,6 +203,7 @@ class AccountPage extends React.Component {
                 handleRequestOpen={handleRequestOpen}
                 handleUserUpdate={handleUserUpdate}
                 history={this.props.history}
+                locale={locale}
                 session={session}
                 user={user}
               />
@@ -214,6 +218,7 @@ class AccountPage extends React.Component {
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
               handleUserUpdate={handleUserUpdate}
+              locale={locale}
               session={session}
               user={user}
             />

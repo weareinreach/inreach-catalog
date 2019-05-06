@@ -142,9 +142,8 @@ class AsylumConnectInfographicButton extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const containerClass = type == 'link' ? classes.infographicLinkContainer : classes.infographicButtonContainer;
     let list = false;
-    if(this.props.list) { console.log(this.props.list)
+    if(this.props.list) {
       list = this.props.list[ValidLanguageList.codeByName(language.getLanguage())] || this.props.list.default;
-      console.log(list)
     }
     return(
       <div className={containerClass}>
