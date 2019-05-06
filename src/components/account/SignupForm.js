@@ -52,6 +52,7 @@ const SignupForm = ({
   handleStepNext,
   handleStepBack,
   isLoadingOrganizations,
+  locale,
   organizations,
   organizationSearch,
   organizationSelection,
@@ -150,6 +151,7 @@ const SignupForm = ({
           }
           handleRequestClose={handleRequestClose}
           isLoadingOrganizations={isLoadingOrganizations}
+          locale={locale}
           organizationSearch={organizationSearch}
           organizationSelection={organizationSelection}
           organizations={organizations}

@@ -78,7 +78,7 @@ class GeneralSettingsOrganization extends Component {
   }
 
   render() {
-    const { affiliation, classes } = this.props;
+    const { affiliation, classes, locale } = this.props;
     return (
       <div>
         <span className={classes.settingsTypeFont}>Change Organization</span>
@@ -112,6 +112,7 @@ class GeneralSettingsOrganization extends Component {
                 this.props.handleOrganizationsClearRequested
               }
               isLoadingOrganizations={this.props.isLoadingOrganizations}
+              locale={locale}
               organizationSearch={this.props.organizationSearch}
               organizationSelection={this.props.organizationSelection}
               organizations={this.props.organizations}

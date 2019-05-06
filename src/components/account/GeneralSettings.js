@@ -129,6 +129,7 @@ class GeneralSettings extends React.Component {
       handleMessageNew,
       handleRequestOpen,
       handleUserUpdate,
+      locale,
       session,
       user: {
         affiliation,
@@ -148,6 +149,7 @@ class GeneralSettings extends React.Component {
             handleMessageNew={handleMessageNew}
             handleUserUpdate={handleUserUpdate}
             affiliation={affiliation}
+            locale={locale}
             session={session}
           />
         )}

@@ -32,6 +32,7 @@ const AsylumConnectDialog = ({
   handleRequestClose,
   handleRequestOpen,
   history,
+  locale,
   session,
   user,
 }) =>
@@ -47,6 +48,7 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
+          locale={locale}
         />
       }
       {/^listNew/.test(dialog) &&
@@ -57,6 +59,7 @@ const AsylumConnectDialog = ({
           handleListNew={handleListNew}
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
+          locale={locale}
           origin={dialog.split('/')[1]}
           originList={dialog.split('/')[2]}
           session={session}
@@ -69,6 +72,7 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestOpen={handleRequestOpen}
           handleRequestClose={handleRequestClose}
+          locale={locale}
           session={session}
           listId={dialog.split('/')[2]}
           listTitle={dialog.split('/')[3]}
@@ -81,6 +85,7 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
+          locale={locale}
         />}
       {dialog === 'password' &&
         <PasswordDialog
@@ -88,6 +93,7 @@ const AsylumConnectDialog = ({
           handleMessageNew={handleMessageNew}
           handleRequestOpen={handleRequestOpen}
           handleRequestClose={handleRequestClose}
+          locale={locale}
           session={session}
         />
         }
@@ -100,6 +106,7 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
           history={history}
+          locale={locale}
           session={session}
         />}
       {dialog === 'deleteAccount' &&
@@ -109,6 +116,7 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
           history={history}
+          locale={locale}
           session={session}
         />}
     </div>

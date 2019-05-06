@@ -82,8 +82,7 @@ function renderLoadingContainer(options) {
 
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
-  const {history, handleMessageNew, handleRequestClose} = this;
-  const {locale} = this.props;
+  const {history, handleMessageNew, handleRequestClose, locale} = this;
   const styles = {
     container: {
       marginTop: '8px',
@@ -153,6 +152,7 @@ const OrganizationAutocomplete = ({
   handleRequestClose,
   history,
   isLoadingOrganizations,
+  locale,
   organizations,
   organizationSearch,
   organizationSelection,
@@ -173,7 +173,7 @@ const OrganizationAutocomplete = ({
         ? renderLoadingContainer
         : !organizationSelection
         ? renderSuggestionsContainer.bind({
-            history, handleMessageNew, handleRequestClose
+            history, handleMessageNew, handleRequestClose, locale
           })
         : () => true
     }
