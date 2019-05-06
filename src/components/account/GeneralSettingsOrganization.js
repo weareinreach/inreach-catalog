@@ -20,7 +20,7 @@ const styles = theme => ({
     fontWeight: 700,
     fontFamily: '"Open Sans", sans-serif',
     letterSpacing: '-.02em',
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -78,7 +78,7 @@ class GeneralSettingsOrganization extends Component {
   }
 
   render() {
-    const { affiliation, classes } = this.props;
+    const { affiliation, classes, locale } = this.props;
     return (
       <div>
         <span className={classes.settingsTypeFont}>Change Organization</span>
@@ -91,7 +91,7 @@ class GeneralSettingsOrganization extends Component {
             <AsylumConnectButton
               className={classes.marginVertical}
               onClick={this.handleAffiliationDelete}
-              variant="primary"
+              variant="secondary"
             >
               Leave Organization
             </AsylumConnectButton>
@@ -112,13 +112,14 @@ class GeneralSettingsOrganization extends Component {
                 this.props.handleOrganizationsClearRequested
               }
               isLoadingOrganizations={this.props.isLoadingOrganizations}
+              locale={locale}
               organizationSearch={this.props.organizationSearch}
               organizationSelection={this.props.organizationSelection}
               organizations={this.props.organizations}
             />
             <AsylumConnectButton
               className={classes.marginVertical}
-              variant="primary"
+              variant="secondary"
             >
               Join Organization
             </AsylumConnectButton>

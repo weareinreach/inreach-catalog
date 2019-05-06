@@ -10,20 +10,22 @@ const styles = (theme) => ({
     }
   },
   secondary: {
-    backgroundColor: theme.palette.primary[500]
+    backgroundColor: theme.palette.secondary[500]
   },
   circle: {
     borderRadius: '50%',
     border: 'none',
-    display: 'inline-block',
-    verticalAlign: 'middle',
     height: '1rem',
     width: '1rem',
     textAlign: 'center',
     color: theme.palette.common.white,
     fontWeight: '700',
     lineHeight: '1rem',
-    fontSize: '0.7rem',
+    fontSize: '0.7rem'
+  },
+  position: {
+    display: 'inline-block',
+    verticalAlign: 'top',
     marginLeft: '0.2rem',
     marginRight: '0.2rem'
   }
@@ -35,7 +37,9 @@ class AsylumConnectIndicator extends React.Component {
 
     return (
       <div className={
-        (this.props.className ? this.props.className : circle) + ' ' + 
+
+        (this.props.className ? this.props.className : position) + ' ' + 
+        circle + ' ' +
         (this.props.color == 'secondary' ? secondary : primary)}>
         {this.props.children}
       </div>

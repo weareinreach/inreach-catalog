@@ -6,6 +6,12 @@ const config = {
     client_id: 26,
     basicAuth: "Basic ZGVtbzoxNm1pc3Npb24="
   },
+  /*development: {
+    odrs: "https://data.1degree.org/v1/",
+    odas: "https://www.1degree.org/",
+    odApiKey: "244a9ed0545c013590490614a1d2fcd4",
+    client_id: 26
+  },*/
   production: {
     odrs: "https://data.1degree.org/v1/",
     odas: "https://www.1degree.org/",

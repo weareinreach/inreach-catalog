@@ -10,6 +10,7 @@ const SignupDialog = ({
   handleRequestClose,
   handleRequestOpen,
   history,
+  locale,
   session,
 }) => (
   <div>
@@ -20,6 +21,7 @@ const SignupDialog = ({
       handleRequestClose={handleRequestClose}
       handleRequestOpen={handleRequestOpen}
       history={history}
+      locale={locale}
       session={session}
     />
   </div>

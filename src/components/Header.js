@@ -8,17 +8,30 @@ import NavTablet from './navigation/NavTablet';
 import withWidth from './withWidth';
 import breakpoints from '../theme/breakpoints';
 
+import LogoImg from '../images/logo@2x.png';
+import LogoImgCA from '../images/logo-ca@2x.png';
+
 const Header = ({
   handleRequestOpen,
   handleLogOut,
   session,
   width,
+  locale,
   location,
   history,
   match
 }) => {
   const isMobile = width < breakpoints['sm'];
   const isTablet = width < breakpoints['md'];
+  let logo;
+  switch(locale) {
+    case 'en_CA':
+      logo = LogoImgCA;
+    break;
+    default:
+      logo = LogoImg;
+    break;
+  }
   if (isMobile) {
     return (
       <NavMobile
@@ -28,6 +41,7 @@ const Header = ({
         location={location}
         history={history}
         match={match}
+        locale={locale}
       />
     );
   } else if (isTablet) {
@@ -35,6 +49,8 @@ const Header = ({
       <NavTablet
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
+        locale={locale}
+        logo={logo}
         session={session}
       />
     );
@@ -43,6 +59,8 @@ const Header = ({
       <NavDesktop
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
+        locale={locale}
+        logo={logo}
         session={session}
       />
     );

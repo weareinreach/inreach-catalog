@@ -2,10 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CommunitySupportIcon = ({width, fillColor}) => (
-  <svg id="64e6b9c4-d269-48ce-bd9d-8b3e4ea8a5d7" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>resource-communitysupport</title><circle cx="25" cy="25" r="17.46" fill={fillColor}/><path d="M28.81,22.88a1,1,0,0,0-1,1V18.24a1,1,0,0,0-1.91,0V16.91a1,1,0,1,0-1.91,0v.59a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1v1.3a1,1,0,1,0-1.91,0v6.47a.94.94,0,0,0,0,.15,1.79,1.79,0,0,0,0,.21V30a4,4,0,0,0,4,4h1.47a4,4,0,0,0,4-3.48.94.94,0,0,0,0-.27V23.83A1,1,0,0,0,28.81,22.88Z" fill="none" stroke="#000" strokeLinejoin="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="22.14" y1="18.8" x2="22.14" y2="25.2" fill="none" stroke="#000" strokeLinejoin="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="24.05" y1="17.5" x2="24.05" y2="25.2" fill="none" stroke="#000" strokeLinejoin="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="25.95" y1="18.24" x2="25.95" y2="25.2" fill="none" stroke="#000" strokeLinejoin="round" strokeLinejoin="round" strokeWidth="0.62"/><line x1="27.86" y1="23.83" x2="27.86" y2="27.07" fill="none" stroke="#000" strokeLinejoin="round" strokeLinejoin="round" strokeWidth="0.62"/><path d="M26.22,28.37c-.56-.44-1.22.22-1.22.22s-.65-.66-1.22-.22-.4.9-.32,1v0h0l.06.07h0c.16.18.51.54.65.66l.81.73.81-.73a9.22,9.22,0,0,0,.67-.68h0l0-.06h0C26.61,29.27,26.78,28.81,26.22,28.37Z" fill="none" stroke="#000" strokeLinejoin="round" strokeLinejoin="round" strokeWidth="0.62"/></svg>
+  <svg xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'
+width={width} viewBox='0 0 36 38'>
+    <defs>
+        <path id='a' d='M0 35V.075h34.925V35z' />
+    </defs>
+    <g fill='none' fillRule='evenodd'>
+        <g transform='translate(.297 1.807)'>
+            <mask id='b' fill='#fff'>
+                <use xlinkHref='#a' />
+            </mask>
+            <path fill={fillColor} d='M34.926 17.537C34.926 27.182 27.108 35 17.463 35 7.819 35 0 27.182 0 17.537 0 7.892 7.819.074 17.463.074c9.645 0 17.463 7.818 17.463 17.463'
+            mask='url(#b)' />
+        </g>
+        <path d='M20.363 15.62a2.737 2.737 0 1 1-5.474 0 2.737 2.737 0 0 1 5.474 0zM25.837 18.014a1.71 1.71 0 1 1-3.42 0 1.71 1.71 0 0 1 3.42 0zM9.416 18.014a1.71 1.71 0 1 0 3.42 0 1.71 1.71 0 0 0-3.42 0zM12.152 25.198a5.474 5.474 0 0 1 10.948 0M22.135 22.099a3.484 3.484 0 0 1 5.07 3.1M8.047 25.198a3.484 3.484 0 0 1 5.07-3.1'
+        stroke='#FFF' strokeLinecap='round' strokeLinejoin='round' strokeWidth='0.5'
+        />
+    </g>
+</svg>
 );
 
-CommunitySupportIcon.defaultProps = { width: '100%', fillColor: '#d1b8d9'}
+CommunitySupportIcon.defaultProps = { width: '100%', fillColor: '#5073B3'}
 CommunitySupportIcon.propTypes = { width: PropTypes.string, fillColor: PropTypes.string }
 
 export default CommunitySupportIcon;

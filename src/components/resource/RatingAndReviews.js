@@ -8,19 +8,19 @@ import {withStyles} from 'material-ui/styles';
 
 const styles = (theme) => ({
   ratingSpacing: {
-    marginRight: "1rem"
+    marginRight: theme.spacing.unit * 2
   }
 });
 
 const RatingAndReviews = ({rating, total, classes}) => (
   <div>
     <RatingControl rating={rating} className={classes.ratingSpacing} />
-    <ReviewCount total={total} />
+    {total ? <ReviewCount total={total} /> : null}
   </div>
 )
 
 RatingAndReviews.propTypes = {
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   rating: PropTypes.number.isRequired
 };
 

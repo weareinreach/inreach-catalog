@@ -31,6 +31,9 @@ const styles = theme => ({
     alignItems: 'center',
     padding: '0 10%'
   },
+  headline: {
+    textAlign: 'center'
+  },
   subtitle: {
     /*fontStyle: 'italic',*/
     marginTop: theme.spacing.unit * 4,
@@ -42,6 +45,9 @@ const styles = theme => ({
   },
   inlineBlock: {
     display: 'inline-block'
+  },
+  iconPadding: {
+    padding: theme.spacing.unit
   },
   navigation: {
     marginTop: theme.spacing.unit * 10
@@ -151,19 +157,19 @@ class Static extends React.Component {
                   && this.state.data[0].heading
                   && this.state.data[0].heading == "Intro" ?
                 <div className={classes.header}>
-                  <Typography type='title'>
+                  <Typography variant='headline' className={classes.headline}>
                     <ContentMarkdown source={this.state.data[0].title} />
                   </Typography>
-                  <Typography type='body1' className={classes.subtitle}>
+                  <Typography variant='subheading' className={classes.subtitle}>
                     <ContentMarkdown source={this.state.data[0].caption} />
                   </Typography>
-                  <Grid container spacing={0} alignItems='flex-start' justify='center' className={classes.navigation}>
-                    {this.state.data.map((section, index) => {return section.icon ? (
+                  <Grid container spacing={0} alignItems='flex-start' justify='space-between' className={classes.navigation}>
+                    {this.state.data.map((section, index) => { return section.icon ? (
                           <Grid key={index} item xs={3} sm={2} className={classes.textAlignCenter}>
                             <a href={'#'+section.heading.replace(/ /g, '-')} className={classes.inlineBlock}>
-                              <StandaloneIcon name={section.icon} fillColor={section.color} />
+                              <StandaloneIcon name={section.icon} fillColor={section.color} strokeColor="#000" className={classes.iconPadding} />
                             </a>
-                            <Typography type='display4' className={classes.textBold}>{section.heading}</Typography>
+                            <Typography variant='display4' className={classes.textBold}>{section.heading}</Typography>
                           </Grid>
                       ) : null}
                     )}

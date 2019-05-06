@@ -22,7 +22,7 @@ const styles = theme => ({
 
 const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
-    <Typography type="body1">
+    <Typography variant="body1">
       Your favorites lists are only visible to you and anyone you share them&nbsp;with.
     </Typography>
     <TextField
@@ -36,7 +36,7 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
       required
       value={name}
     />
-    <AsylumConnectButton className={classes.spacingAbove} variant="secondary">
+    <AsylumConnectButton className={classes.spacingAbove} variant="primary">
       Create New List
     </AsylumConnectButton>
   </form>

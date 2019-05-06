@@ -16,7 +16,8 @@ const styles = theme => ({
     display: 'inline',
   },
   LogoFitHeight: {
-    height: '100%',
+    maxWidth: '55px'
+    /*height: '100%',*/
   },
   AsylumConnectMenu: {
     marginTop: '56px',

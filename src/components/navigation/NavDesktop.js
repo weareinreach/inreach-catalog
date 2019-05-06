@@ -12,7 +12,6 @@ import AccountNav from '../AccountNav';
 import AsylumConnectButton from '../AsylumConnectButton';
 import FavoritesLink from '../FavoritesLink';
 
-import LogoImg from '../../images/logo@2x.png';
 
 const styles = theme => ({
   root: {
@@ -33,7 +32,8 @@ const styles = theme => ({
     width: 'auto'
   },
   LogoFitHeight: {
-    height: '100%',
+    maxWidth: '65px'
+    //height: '100%',
   },
 });
 
@@ -41,32 +41,36 @@ const NavDesktop = ({
   classes,
   handleLogOut,
   handleRequestOpen,
+  locale,
+  logo,
   session,
-}) => (
+}) => {
+  
+return (
   <div className={classes.root}>
     <Link to='/'>
       <IconButton
         className={classes.IconButton}>
-        <img src={LogoImg} className={classes.LogoFitHeight} />
+        <img src={logo} className={classes.LogoFitHeight} />
       </IconButton>
     </Link>
     <a className="hide--on-screen" href="#">
-      <Typography type="headline">AsylumConnect Catalog</Typography>
+      <Typography variant="headline">AsylumConnect Catalog</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/who-we-are">
-      <Typography type="display4">about us</Typography>
+      <Typography variant="display4">about us</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/donate">
-      <Typography type="display4">take action</Typography>
+      <Typography variant="display4">take action</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/seek-lgbtq-asylum">
-      <Typography type="display4">get help</Typography>
+      <Typography variant="display4">get help</Typography>
     </a>
     <a className="hide--on-print" href="http://www.asylumconnect.org/contact">
-      <Typography type="display4">contact us</Typography>
+      <Typography variant="display4">contact us</Typography>
     </a>
     <Link className="hide--on-print" to='/'>
-      <AsylumConnectButton variant="primary">
+      <AsylumConnectButton variant="secondary">
         find resources
       </AsylumConnectButton>
     </Link>
@@ -74,11 +78,12 @@ const NavDesktop = ({
     <AccountNav
       handleLogOut={handleLogOut}
       handleRequestOpen={handleRequestOpen}
+      locale={locale}
       session={session}
     />
-    <FavoritesLink>view your favorites</FavoritesLink>
+    <FavoritesLink locale={locale}>view your favorites</FavoritesLink>
   </div>
-);
+)};
 
 NavDesktop.defaultProps = { session: null };
 

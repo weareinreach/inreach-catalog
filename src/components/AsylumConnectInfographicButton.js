@@ -7,6 +7,10 @@ import Fa from 'react-fontawesome';
 import withWidth from './withWidth';
 import { withStyles } from 'material-ui/styles';
 import breakpoints from '../theme/breakpoints';
+import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
+
+import language from '../helpers/Language';
+import ValidLanguageList from '../helpers/ValidLanguageList';
 
 const styles = theme => ({
   infographicButtonContainer: {
@@ -16,7 +20,7 @@ const styles = theme => ({
     top: '60px', 
     zIndex: '1000',
     marginRight: '1em',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       position: 'static',
       width: '100%',
       textAlign: 'center',
@@ -40,7 +44,7 @@ const styles = theme => ({
       marginTop: '1rem',
       textAlign: 'left',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       textAlign: 'center'
     }
   },
@@ -61,10 +65,8 @@ const styles = theme => ({
     alignItems: 'flex-start'
   },
   infographicLink: {
-    fontFamily: 'Roboto,sans-serif',
-    fontWeight: 'normal',
-    fontSize: theme.typography.fontSize,
-    [theme.breakpoints.down('sm')]: {
+    fontWeight: theme.typography.fontWeightMedium,
+    [theme.breakpoints.down('xs')]: {
       color: theme.palette.common.white,
       fontWeight: 'normal',
       textDecoration: 'underline',
@@ -77,7 +79,7 @@ const styles = theme => ({
     color: theme.palette.common.black
   },
   infographicListItem: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       fontSize: '0.75rem',
       lineHeight: '1rem',
       paddingTop: '5px',
@@ -125,7 +127,7 @@ class AsylumConnectInfographicButton extends React.Component {
   }
 
   handleOnClick(event) {
-    if(this.props.list && this.props.list.length) {
+    if(this.props.list) {
       event.preventDefault();
       this.handleToggleRequest();
     }
@@ -139,17 +141,21 @@ class AsylumConnectInfographicButton extends React.Component {
     const {classes, type} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const containerClass = type == 'link' ? classes.infographicLinkContainer : classes.infographicButtonContainer;
+    let list = false;
+    if(this.props.list) {
+      list = this.props.list[ValidLanguageList.codeByName(language.getLanguage())] || this.props.list.default;
+    }
     return(
       <div className={containerClass}>
-        {type=='button' && <Button raised dense href={this.props.url} target="_blank" onClick={this.handleOnClick} className={classes.infographicButton} classes={{label: classes.smallerButton}}>
+        {type=='button' && <Button variant="raised" href={this.props.url} target="_blank" onClick={this.handleOnClick} className={classes.infographicButton} classes={{label: classes.smallerButton}}>
           <Fa name="map-o" className={classes.infographicButtonIcon} /><span>{this.props.text}</span>
         </Button>}
         {type=='link' && <a href={this.props.url ? this.props.url : "#"} className={classes.infographicLink} target="_blank" onClick={this.handleOnClick}><Fa name="download" className={classes.infographicButtonIcon} />{this.props.text}</a>}
-        {this.state.open && this.props.list && this.props.list.length ? 
+        {this.state.open && list ? 
           <Paper id={this.id}>
             <MenuList role="menu">
-              {this.props.list.map((item, i) => (
-                <a href={item.url} target="_blank" className={classes.infographicListLink} onClick={this.handleListClick}><MenuItem key={i} button={true} className={classes.infographicListItem}>{item.name}</MenuItem></a>
+              {list.map((item, i) => (
+                <a key={i} href={item.url} target="_blank" className={classes.infographicListLink} onClick={this.handleListClick}><AsylumConnectDropdownListItem button={true} additionalClass={classes.infographicListItem}>{item.name}</AsylumConnectDropdownListItem></a>
                 )
               )}
               {/*resourceTypes.map((filter, i) => (

@@ -59,7 +59,7 @@ const styles = theme => ({
     fontWeight: 700,
     fontFamily: "\"Open Sans\", sans-serif",
     letterSpacing: "-.02em",
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     cursor: 'pointer'
   },
 });
@@ -129,6 +129,7 @@ class GeneralSettings extends React.Component {
       handleMessageNew,
       handleRequestOpen,
       handleUserUpdate,
+      locale,
       session,
       user: {
         affiliation,
@@ -141,13 +142,14 @@ class GeneralSettings extends React.Component {
     return (
       <div className={classes.root}>
         {affiliation && (
-          <Typography type="display3" className={classes.formType}>Your Account</Typography>
+          <Typography variant="display3" className={classes.formType}>Your Account</Typography>
         )}
         {isProfessional && (
           <GeneralSettingsOrganization
             handleMessageNew={handleMessageNew}
             handleUserUpdate={handleUserUpdate}
             affiliation={affiliation}
+            locale={locale}
             session={session}
           />
         )}

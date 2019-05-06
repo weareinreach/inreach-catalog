@@ -2,10 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ComputersIcon = ({width, fillColor}) => (
-  <svg id="6d26c0ff-a280-40ea-9e73-9f39d23228cf" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><title>resource-computers</title><circle cx="25" cy="25" r="17.46" fill={fillColor}/><path d="M17.15,17.66H32.85a1.27,1.27,0,0,1,1.27,1.27V30.86a0,0,0,0,1,0,0H15.88a0,0,0,0,1,0,0V18.93A1.27,1.27,0,0,1,17.15,17.66Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><rect x="17.18" y="19.16" width="15.65" height="10.2" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><path d="M27.86,30.86V31a.64.64,0,0,1-.64.64H22.77a.64.64,0,0,1-.64-.64v-.11h-8v.42a1.06,1.06,0,0,0,1.06,1.06H34.83a1.06,1.06,0,0,0,1.06-1.06v-.42Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/><path d="M22.77,31.6h4.45a.64.64,0,0,0,.64-.64v-.11H22.14V31A.64.64,0,0,0,22.77,31.6Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.62"/></svg>
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} viewBox='0 0 36 37'>
+    <g fill='none' fillRule='evenodd'>
+        <path fill={fillColor} d='M35.222 18.176c0 9.92-7.818 17.962-17.462 17.962S.297 28.096.297 18.176C.297 8.255 8.117.214 17.76.214c9.644 0 17.462 8.041 17.462 17.962'
+        />
+        <path d='M20.941 22.732l-.7.7h-4.9l-.7-.7h-7v.7c0 .773.79 1.4 1.765 1.4h16.77c.975 0 1.765-.627 1.765-1.4v-.7h-7zM9.041 22.732v-9.8a1.4 1.4 0 0 1 1.4-1.4h14.7a1.4 1.4 0 0 1 1.4 1.4v9.8'
+        stroke='#FFF' strokeLinecap='round' strokeLinejoin='round' strokeWidth='0.5'
+        />
+    </g>
+</svg>
 );
 
-ComputersIcon.defaultProps = { width: '100%', fillColor: '#8ec0e1' }
+ComputersIcon.defaultProps = { width: '100%', fillColor: '#5073B3' }
 ComputersIcon.propTypes = { width: PropTypes.string, fillColor: PropTypes.string }
 
 export default ComputersIcon;

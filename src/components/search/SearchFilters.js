@@ -21,15 +21,15 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   strong: {
-    color: theme.palette.primary[500]
+    color: theme.palette.secondary[500]
   },
   dividerSpacing: {
-    marginTop: '1rem', 
-    marginBottom: '1rem'
+    marginTop: theme.spacing.unit * 2, 
+    marginBottom: theme.spacing.unit * 2
   },
   switchRoot: {},
   switchLabel: {},
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     strong: {
       color: theme.palette.common.white
     },
@@ -78,7 +78,7 @@ class SearchFilters extends React.Component {
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}> 
-            <Typography type="body2" className={props.classes.sectionHeader} >
+            <Typography variant="body2" className={props.classes.sectionHeader} >
               <span className={props.classes.sectionTitle}>
                 Filter resources by...
               </span>
@@ -102,7 +102,7 @@ class SearchFilters extends React.Component {
             <Divider className={props.classes.dividerSpacing} />
           </Grid>
           <Grid item xs={12}> 
-            <Typography type="body2" className={props.classes.sectionHeader} >
+            <Typography variant="body2" className={props.classes.sectionHeader} >
               <span className={props.classes.sectionTitle}>
                 Do <span className={props.classes.strong}>not</span> show me resources that require...
               </span>

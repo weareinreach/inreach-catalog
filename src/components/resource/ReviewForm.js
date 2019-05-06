@@ -32,7 +32,7 @@ const styles = (theme) => ({
     fontSize: "0.9rem",
     height: "20%",
     border: "1px solid "+theme.palette.common.darkGrey,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       height: "15%"
     }
   },
@@ -129,22 +129,17 @@ class ReviewForm extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-            Leave a review
-          </Typography>
-        </Grid>
         {!this.state.complete ?
           <div>
             <Grid item xs={12}>
               <RatingControl mode="interactive" rating={this.state.rating} onClick={this.handleStarClick} className={classes.bottomSpacing+' '+classes.ratingSpacing}/>
-              <Typography type="body2" className={"center-align "+classes.bottomSpacing}>
+              <Typography variant="body2" className={"center-align "+classes.bottomSpacing}>
                 <span className={classes.boldFont}>Rate this resource </span> {isMobile ? null : '(your rating will not be recorded until you hit "submit" below)'}
               </Typography>
             </Grid>
             {isMobile ? null : 
             <Grid item xs={12}>
-              <Typography type="body2" className={classes.italicFont+' '+classes.bottomSpacing}>
+              <Typography variant="body2" className={classes.italicFont+' '+classes.bottomSpacing}>
                 Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.
               </Typography>
             </Grid>
@@ -153,20 +148,17 @@ class ReviewForm extends React.Component {
               <textarea className={classes.reviewField+' '+classes.bottomSpacing} onChange={this.handleCommentChange} placeholder="Start typing your review..." name="comment" />
             </Grid>
             <Grid item xs={12} className={classes.dividerSpacing}>
-              <AsylumConnectButton variant="primary" onClick={this.handleFormSubmission} >
+              <AsylumConnectButton variant="secondary" onClick={this.handleFormSubmission} >
                 Submit
               </AsylumConnectButton>
             </Grid>
           </div>
         : <Grid item xs={12}>
-            <Typography type="body2" className={classes.boldFont+' '+classes.bottomSpacing}>
-              Thank you for your comment! Questions? Please email <a href="mailto:catalog.asylumconnect.org" className={classes.bodyLink}>catalog.asylumconnect.org</a>
+            <Typography variant="body2" className={classes.boldFont+' '+classes.bottomSpacing}>
+              Thank you for your comment! Questions? Please email <a href="mailto:catalog@asylumconnect.org" className={classes.bodyLink}>catalog@asylumconnect.org</a>
             </Typography>
           </Grid>
         }
-        <Grid item xs={12}>
-          <Divider className={classes.dividerSpacing} />
-        </Grid>
       </Grid>
     )
   }

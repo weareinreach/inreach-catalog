@@ -80,7 +80,7 @@ class OrgSettingsInfo extends React.Component {
       <div className={classes.root}>
         <form className={classes.form}>
         { !isSuggestion ? (
-          <Typography type="display2" className={classes.formType}>{name}</Typography>
+          <Typography variant="display2" className={classes.formType}>{name}</Typography>
           ):(
             <TextField
               className={classes.inputLabel}
@@ -203,7 +203,7 @@ class OrgSettingsInfo extends React.Component {
 OrgSettingsInfo.propTypes = {
   classes: PropTypes.object.isRequired,
   info: PropTypes.object,
-  handleCollectInfoData: React.PropTypes.func
+  handleCollectInfoData: PropTypes.func
 };
 
 export default withStyles(styles)(OrgSettingsInfo);

@@ -10,7 +10,10 @@ import RedHeartIcon from './icons/RedHeartIcon';
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
-    fontWeight: '300',
+    '&:hover': {
+      color: theme.palette.secondary[900]
+    },
+    fontWeight: theme.typography.fontWeightMedium,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -18,14 +21,13 @@ const styles = theme => ({
   }
 });
 
-const FavoritesLink = ({ classes }) => (
-  <Link to={`/favorites`}  className="hide--on-print">
+const FavoritesLink = ({ classes, locale }) => (
+  <Link to={'/'+locale+'/favorites'}  className="hide--on-print">
     <Typography
       type='display4'
       className={classes.viewYourFavoritesText}
     >
       View Your Favorites
-      <RedHeartIcon width={'38px'}/>
     </Typography>
   </Link>
 );

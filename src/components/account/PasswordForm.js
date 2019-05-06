@@ -25,7 +25,7 @@ const PasswordForm = ({
   password,
 }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
-    <Typography type="body1">
+    <Typography variant="body1">
       Due to inactivity, please enter your password to confirm your identity.
     </Typography>
     <TextField
@@ -40,7 +40,7 @@ const PasswordForm = ({
     />
     <AsylumConnectButton
       className={classes.spacingVertical}
-      variant="secondary"
+      variant="primary"
     >
       Confirm Password
     </AsylumConnectButton>

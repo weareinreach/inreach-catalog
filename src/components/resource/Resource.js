@@ -20,8 +20,19 @@ import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
+import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
 import ACBadge from '../Badge';
+import IconButton from 'material-ui/IconButton';
+import ShareIcon from '../icons/ShareIcon';
 
+import DetailHeader from './DetailHeader';
+import DetailHeaderTabs from './DetailHeaderTabs';
+import About from './DetailAbout';
+import Communities from './DetailCommunities';
+import Languages from './DetailLanguages';
+import Services from './DetailServices';
+
+import Tools from './Tools';
 import FavoritesLink from '../FavoritesLink';
 import RatingControl from './RatingControl';
 import ReviewForm from './ReviewForm';
@@ -30,7 +41,6 @@ import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
 import Phone from './Phone';
 
-import About from './ResourceAbout';
 import Visit from './ResourceVisit';
 import Reviews from './Reviews';
 
@@ -43,179 +53,13 @@ import ActionButton from '../ActionButton';
 
 
 const styles = (theme) => ({
-  tabRoot: {
-    minWidth: '0'
-  },
-  tabLabelContainer: {
-    paddingLeft: "10px",
-    paddingRight: "10px"
-  },
-  tabLabel: {
-    fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
-  },
-  tabIndicator: {
-    height: "4px"
-  },
-  container: {
-    minHeight: '500px',
-    paddingTop: '60px',
-    paddingBottom: '60px',
-    [theme.breakpoints.down('sm')]: Object.assign(mobilePadding(theme), {
-      /*height: "100%",*/
-      paddingTop: '0px',
-      paddingBottom: '0px'
-      /*marginBottom: '91px'*/
-    })
-  },
-  separator: {
-    padding: "0 0.75rem",
-    fontSize: "1.25rem",
-    "&:after": {
-      content: "\" \"",
-      borderLeft: "1px solid "+theme.palette.common.minBlack 
-    }
-  },
-  header: {
-    borderBottom: "1px solid "+theme.palette.common.darkGrey
-  },
-  contentSpacing: {
-    margin: "1.5rem 0"
-  },
-  bottomSpacing: {
-    marginBottom: "0.9rem"
-  },
-  mobileSpacing: {
-    [theme.breakpoints.down('sm')]: {
-      marginTop: "1.5rem"
-    }
-  },
-  lineSpacing: {
-    lineHeight: "1.4rem"
-  },
-  sectionSpacing: {
-    marginBottom: "1.7rem"
-  },
-  dividerSpacing: dividerSpacing(theme),
-  orgName: {
-    fontSize: "21px",
-    [theme.breakpoints.down('sm')]: {
-      textAlign: 'center'
-    }
-  },
-  serviceBadge: {
-    position: "absolute"
-  },
-  serviceText: {
-    paddingLeft:"45px",
-    paddingTop:"10px"
-  },
-  serviceTooltip: {
-    top: "6px"
-  },
-  boldFont: boldFont(theme),
-  italicFont: italicFont(theme),
-  moreInfo: Object.assign({
-    color: theme.palette.primary[500],
-    [theme.breakpoints.down('sm')]: {
-      textAlign: 'center'
-    }
-  }, boldFont(theme)),
-  bodyLink: bodyLink(theme),
-  listLink: {
-    '& + &:before': {
-      content: '\", \"'
-    }
-  },
-  dialogBody: {
-    minWidth: '600px',
-    overflowY: 'auto',
-    padding: '5.5rem',
-  },
-  toolbarRoot: {
-    justifyContent: 'space-between'
-  },
-  toolbarGutters: {
-    paddingLeft: '0',
-    paddingRight: '0',
-  }
 });
-
-const ResourceHeader = ({classes, resource, isMobile}) => (
-  <Grid container spacing={0} alignItems='center'>
-    <Grid item xs={12} >
-      <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
-        <Grid item xs md lg xl >
-          <Typography type="subheading" className={classes.orgName + ' ' + classes.boldFont}>{resource.name}</Typography>
-        </Grid>
-        {isMobile ? null :
-        <Grid item xs={5} className="pull-right">
-          <RatingAndReviews total={resource.opportunity_comments.length} rating={resource.rating} />
-        </Grid>}
-      </Grid>
-    </Grid>
-    <Grid item xs={12} >
-      <Typography type="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
-        <a href={resource.website} className={classes.bodyLink}>{isMobile ? url.parse(resource.website).hostname : resource.website}</a> {resource.phones && resource.phones.length ? '| ' : null}{resource.phones && resource.phones.length ? <Phone phone={resource.phones[0]} classes={classes} /> : null}
-      </Typography>
-    </Grid>
-  </Grid>
-);
-
-const HeaderTabs = (props) => (
-  <Tabs
-    value={props.tab}
-    onChange={props.handleTabClick}
-    indicatorColor="primary"
-    textColor="black"
-    fullWidth={true}
-    scrollable={false}
-    indicatorClassName={props.classes.tabIndicator}
-  >
-    {props.tabs.map((tab) => 
-      (<Tab key={tab.value} label={props.isMobile && tab.mobileLabel ? tab.mobileLabel : tab.label} classes={{root: props.classes.tabRoot, label: props.classes.tabLabel, labelContainer: props.classes.tabLabelContainer}} />)
-    )}
-  </Tabs>
-);
-
-const Tools = (props) => (
-  <Grid container spacing={0} alignItems='flex-end' justify='center' className={props.classes.header+' '+props.classes.dividerSpacing}>
-    <Grid item xs={12} sm={12} md={5} lg={5}>
-      <HeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
-    </Grid>
-    <Grid item xs={12} sm={12} md={7} className="pull-right">
-      <div className="center-align">
-        <SaveToFavoritesButton
-          handleListAddFavorite={props.handleListAddFavorite}
-          handleListRemoveFavorite={props.handleListRemoveFavorite}
-          handleListNew={props.handleListNew}
-          handleLogOut={props.handleLogOut}
-          handleMessageNew={props.handleMessageNew}
-          handleRequestOpen={props.handleRequestOpen}
-          lists={props.lists}
-          resourceId={props.resource.id}
-          session={props.session}
-          user={props.user}
-        />
-      </div>
-      <div className={props.classes.separator + " center-align"} ></div>
-      <AsylumConnectButton 
-        variant="secondary"
-        className="center-align"
-        onClick={() => (
-          props.session 
-          ? props.handleRequestOpen('share/resource/'+props.resource.id+'/'+props.resource.name) 
-          : props.handleMessageNew('You must be logged in to share resources') )}
-        >share</AsylumConnectButton> 
-    </Grid>
-  </Grid>
-);
 
 class Resource extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.odClient = new OneDegreeResourceClient();
     this.state = {
-      tab: 0,
       orgLoading: true,
       oppLoading: true,
       reviewLoading: true,
@@ -223,8 +67,8 @@ class Resource extends React.Component {
         organization: false,
         opportunities: false
       },
-      resource: props.resource,
-      acFilter: false,
+      //this will be the organization or opportunity whose details are being viwed - potentially confusing terminology, but nothing stands out as a clearer option
+      resource: props.resource, 
       userReview: null,
       userComment: null
     };
@@ -235,19 +79,13 @@ class Resource extends React.Component {
       {label: "REVIEWS", value: "reviews"}
     ]
 
-    this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
-    this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
-    this.handleSwipeChange = this.handleSwipeChange.bind(this);
-
-    this.handleResourceRequest = this.handleResourceRequest.bind(this);
+    this.handleOrganizationRequest = this.handleOrganizationRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
     this.handleCommentRequest = this.handleCommentRequest.bind(this);
     this.handleRatingRequest = this.handleRatingRequest.bind(this);
     this.handleNewReview = this.handleNewReview.bind(this);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
 
-    /*this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);*/
+    this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
   }
 
   componentWillMount() {
@@ -259,7 +97,7 @@ class Resource extends React.Component {
       });
       this.odClient.getOrganization({
         id: this.props.match.params.id,
-        callback: this.handleResourceRequest
+        callback: this.handleOrganizationRequest
       });
     } else {
       this.odClient.getOpportunities({
@@ -284,7 +122,7 @@ class Resource extends React.Component {
     }
   }
 
-  handleResourceRequest(response) {
+  handleOrganizationRequest(response) {
     if(response.status && response.status == 'error') {
       //redirect
     } else {
@@ -314,14 +152,6 @@ class Resource extends React.Component {
     }
   }
 
-  /*handleDialogOpen(dialog) {
-    this.setState({dialog});
-  }
-
-  handleDialogClose() {
-    this.setState({dialog: 'none'});
-  }*/
-
   handleNewReview({resourceType = 'organization', type, data } = {}) {
     let reviewList = this.state.reviewList
     reviewList[resourceType] = [data].concat(reviewList[resourceType].filter(comment => comment.client_user_id !== data.client_user_id));
@@ -333,7 +163,7 @@ class Resource extends React.Component {
   getReviews(resource) {
     const { handleCommentRequest } = this;
     if(resource.opportunity_comment_count) {
-      this.odClient.getCommentsFromOrganizationId({
+      this.odClient.getCommentsFromId({
         resourceType: 'opportunities',
         id: resource.id,
         per_page: resource.opportunity_comment_count,
@@ -349,7 +179,7 @@ class Resource extends React.Component {
     }
 
     if(resource.comment_count) {
-      this.odClient.getCommentsFromOrganizationId({
+      this.odClient.getCommentsFromId({
         resourceType: 'organization',
         id: resource.id,
         per_page: resource.comment_count,
@@ -406,35 +236,18 @@ class Resource extends React.Component {
     });
   }
 
-  handleFilterChange(event, acFilter) {
-    this.setState({acFilter});
-  }
-
-  handleTabClickDesktop (e, tab) {
-    this.setState({
-      tab
-    });
+  handleTabClickDesktop(e, tab) {
     scroller.scrollTo(this.tabs[tab].value, {
       duration: 500,
       delay: 100,
       smooth: true
     })
-  }
-
-  handleTabClickMobile (e, tab) {
-    this.setState({
-      tab
-    });
-  }
-
-  handleSwipeChange(index, indexLatest) {
-    this.setState({
-      tab: index
-    });
+    this.props.handleTabClickDesktop(e, tab);
   }
 
   render() {
-    const { classes, session, handleMessageNew, history } = this.props;
+    const { session, handleMessageNew, history, locale } = this.props;
+    const classes = this.props.defaultClasses;
     const { props } = this;
     const { resource } = this.state;
     const languages = (this.resourceProperties && this.resourceProperties.length ? 
@@ -445,6 +258,12 @@ class Resource extends React.Component {
                         this.resourceProperties
                           .filter((item) => ( item.slug.indexOf('community') === 0))
                       : null);
+
+    const sharePath = resource ? 'resource' + '/' + resource.id + '/' + resource.name : '';
+    const showReviewForm = session 
+                && (this.state.userReview === false || this.state.userReview === null)
+                && (this.state.userComment === false ||  this.state.userComment === null);
+
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
@@ -454,58 +273,71 @@ class Resource extends React.Component {
             {isMobile ?
               <div>  
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
-                  <AsylumConnectBackButton onClick={() => {history.goBack()}} />
-                  <AsylumConnectButton 
-                    variant="secondary"
-                    className="center-align"
-                    onClick={() => (
-                      props.session 
-                      ? props.handleRequestOpen('share/resource/'+resource.id+'/'+resource.name) 
-                      : props.handleMessageNew('You must be logged in to share resources') )}
-                    >share
-                  </AsylumConnectButton> 
-                  <SaveToFavoritesButton
-                    handleListAddFavorite={props.handleListAddFavorite}
-                    handleListRemoveFavorite={props.handleListRemoveFavorite}
-                    handleListNew={props.handleListNew}
-                    handleLogOut={props.handleLogOut}
-                    handleRequestOpen={props.handleRequestOpen}
-                    handleMessageNew={props.handleMessageNew}
-                    lists={props.lists}
-                    resourceId={resource.id}
-                    session={props.session}
-                    user={props.user}
-                  />
+                  <AsylumConnectBackButton onClick={() => {history.length ? history.goBack() : history.push('/')}} />
+                  <div>
+                    <SaveToFavoritesButton className="center-align"
+                      handleListAddFavorite={props.handleListAddFavorite}
+                      handleListRemoveFavorite={props.handleListRemoveFavorite}
+                      handleListNew={props.handleListNew}
+                      handleLogOut={props.handleLogOut}
+                      handleRequestOpen={props.handleRequestOpen}
+                      handleMessageNew={props.handleMessageNew}
+                      lists={props.lists}
+                      resourceId={resource.id}
+                      session={props.session}
+                      user={props.user}
+                    />
+                    <IconButton className="center-align" onClick={() => (
+                        props.session 
+                        ? props.handleRequestOpen('share/'+sharePath) 
+                        : props.handleMessageNew('You must be logged in to share resources') )}>
+                      <ShareIcon />
+                    </IconButton>
+                  </div>
                 </Toolbar>
-                <ResourceHeader 
+                <DetailHeader 
                   classes={classes}
-                  resource={resource}
+                  website={resource.website}
+                  name={resource.name}
+                  rating={resource.rating}
+                  totalRatings={resource.opportunity_comments.length}
+                  phones={resource.phones}
                   isMobile={isMobile}
                 />
-                <HeaderTabs
+                <DetailHeaderTabs
                   tabs={this.tabs}
-                  tab={this.state.tab}
+                  tab={this.props.tab}
                   classes={classes}
-                  handleTabClick={this.handleTabClickMobile}
+                  handleTabClick={this.props.handleTabClickMobile}
                   isMobile={isMobile}
                 />
                 <Divider />
                 <SwipeableViews
-                  index={this.state.tab}
-                  onChangeIndex={this.handleSwipeChange}
+                  index={this.props.tab}
+                  onChangeIndex={this.props.handleSwipeChange}
                 >
                   <div>
-                  {this.state.oppLoading ? 
-                    <Loading />
-                  : 
-                    <About communities={communities} languages={languages} classes={classes} resource={resource} />
-                  }
+                    <About classes={classes} resource={resource} />
+                    {this.state.oppLoading ? 
+                      <Loading />
+                    : null}
+                    {!this.state.oppLoading && props.communities && props.communities.length ? 
+                      <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
+                    : null}
+                    {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
+                      <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} locale={locale} />} />
+                    : null}
+                    {!this.state.oppLoading && languages && languages.length ? 
+                      <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
+                    : null}
                   </div>
                   <div className={classes.mobileSpacing}>
-                    <Visit 
-                      resource={resource}
-                      isMobile={isMobile}
-                    />
+                    <AsylumConnectCollapsibleSection borderTop={false} title={'Visit'} content={<Visit 
+                      emails={resource.emails}
+                      locations={resource.locations}
+                      phones={resource.phones}
+                      website={resource.website}
+                      isMobile={isMobile} />} />
                     <AsylumConnectMap
                       resources={this.props.mapResources}
                       loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}
@@ -515,22 +347,22 @@ class Resource extends React.Component {
                     />
                   </div>
                   <div className={classes.mobileSpacing}>
-                    {session 
-                      && (this.state.userReview === false || this.state.userReview === null)
-                      && (this.state.userComment === false ||  this.state.userComment === null) ?
-                      <ReviewForm 
+                    {showReviewForm ?
+                      <AsylumConnectCollapsibleSection borderTop={false} title={'Leave a review'} content={<ReviewForm 
                         resource={resource}
                         session={props.session}
                         user={props.user}
                         onSubmit={this.handleNewReview}
+                        />} 
                       />
                     : null}
-                    <Reviews
+                    <AsylumConnectCollapsibleSection borderTop={showReviewForm} title={'Reviews'} content={<Reviews
                       orgReviews={this.state.reviewList.organization}
                       oppReviews={this.state.reviewList.opportunities}
-                      acFilter={this.state.acFilter}
-                      handleFilterChange={this.handleFilterChange}
+                      acFilter={this.props.acFilter}
+                      handleFilterChange={this.props.handleFilterChange}
                       isMobile={isMobile}
+                      />}
                     />
                   </div>
                 </SwipeableViews>
@@ -543,46 +375,55 @@ class Resource extends React.Component {
                 handleTabClick={this.handleTabClickDesktop}
                 handleRequestOpen={this.props.handleRequestOpen}
                 resource={resource}
-                tab={this.state.tab}
+                sharePath={sharePath}
+                tab={this.props.tab}
                 tabs={this.tabs}
               />
-              <ResourceHeader 
+              <DetailHeader 
                 classes={classes}
-                resource={resource}
+                website={resource.website}
+                name={resource.name}
+                rating={resource.rating}
+                totalRatings={resource.opportunity_comments.length}
+                phones={resource.phones}
               />
+              <Element name="about"></Element>
+              <About classes={classes} resource={resource} />
               {this.state.oppLoading ? 
                 <Loading />
-              : 
-                <About communities={communities} languages={languages} classes={classes} resource={resource} />
-              }
-              <Grid container spacing={0}>
-                <Grid item xs={12}>
-                  <Divider className={classes.dividerSpacing} /><Element name="visit"></Element>
-                </Grid>
-              </Grid>
-              <Visit 
-                resource={resource}
-              />
-              <Grid container spacing={0}>
-                <Grid item xs={12}>
-                  <Divider className={classes.dividerSpacing} /><Element name="reviews"></Element>
-                </Grid>
-              </Grid>
-              {session 
-                && (this.state.userReview === false || this.state.userReview === null)
-                && (this.state.userComment === false ||  this.state.userComment === null) ?
-                <ReviewForm 
-                  resource={resource}
-                  session={props.session}
-                  user={props.user}
-                  onSubmit={this.handleNewReview}
+              : null}
+              {!this.state.oppLoading && props.communities && props.communities.length ? 
+                <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
+              : null}
+              {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
+                <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} locale={locale} />} />
+              : null}
+              {!this.state.oppLoading && languages && languages.length ? 
+                <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
+              : null}
+              <Element name="visit"></Element>
+              <AsylumConnectCollapsibleSection title={'Visit'} content={<Visit
+                emails={resource.emails}
+                locations={resource.locations}
+                phones={resource.phones}
+                website={resource.website}
+              />} />
+              <Element name="reviews"></Element>
+              {showReviewForm ?
+                <AsylumConnectCollapsibleSection title={'Leave a review'} content={<ReviewForm 
+                    resource={resource}
+                    session={props.session}
+                    user={props.user}
+                    onSubmit={this.handleNewReview}
+                  />} 
                 />
               : null}
-              <Reviews
-                orgReviews={this.state.reviewList.organization}
-                oppReviews={this.state.reviewList.opportunities}
-                acFilter={this.state.acFilter}
-                handleFilterChange={this.handleFilterChange}
+              <AsylumConnectCollapsibleSection title={'Reviews'} content={<Reviews
+                  orgReviews={this.state.reviewList.organization}
+                  oppReviews={this.state.reviewList.opportunities}
+                  acFilter={this.props.acFilter}
+                  handleFilterChange={this.props.handleFilterChange}
+                />} 
               />
             </div>}
           </div>

@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = (theme) => ({
   announcement: {
-    backgroundColor: theme.palette.common.blue,
+    backgroundColor: theme.palette.secondary[500],
     padding: '2rem 0',
     textAlign: 'center',
   },
@@ -16,7 +16,7 @@ const styles = (theme) => ({
     position: 'relative'
   },
   pointerText: {
-    textShadow: "2px 0 #6988c1, -2px 0 #6988c1"
+    textShadow: "2px 0 "+theme.palette.secondary[500]+", -2px 0 "+theme.palette.secondary[500]
   },
   underline: {
     position: "absolute",
@@ -38,7 +38,7 @@ const styles = (theme) => ({
 const Announcement = ({ classes, handleRequestOpen }) => (
   <div className={classes.announcement + ' hide--on-print'}>
 
-    <Typography type="body1" className={classes.textContent}>
+    <Typography variant="body1" className={classes.textContent}>
       Asylum seekers contact service providers at their own risk.
       <br />
       <span>Please read our complete </span>

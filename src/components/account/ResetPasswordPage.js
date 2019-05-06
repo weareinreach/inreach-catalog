@@ -19,7 +19,7 @@ const styles = theme => ({
   bottomSpacing: {
     marginBottom: '0.9rem'
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     container: {
       minHeight: '100%',
       paddingBottom: '91px'
@@ -134,7 +134,7 @@ class ResetPasswordPage extends React.Component {
         ?
         <Grid item xs={11} sm={8} md={5} >
           <form onSubmit={this.handleSubmit}>
-            <Typography type="display1" style={{textAlign: 'center'}}>
+            <Typography variant="display1" style={{textAlign: 'center'}}>
               Reset Your Password
             </Typography>
             <TextField
@@ -167,7 +167,7 @@ class ResetPasswordPage extends React.Component {
               className={classes.bottomSpacing}
             />
             <AsylumConnectButton
-              variant="secondary"
+              variant="primary"
             >
               Reset Password
             </AsylumConnectButton>
@@ -175,10 +175,10 @@ class ResetPasswordPage extends React.Component {
         </Grid>
         :
         <Grid item xs={11} sm={8} md={5} >
-          <Typography type="display1" style={{textAlign: 'center'}} className={classes.bottomSpacing}>
+          <Typography variant="display1" style={{textAlign: 'center'}} className={classes.bottomSpacing}>
             Password Reset!
           </Typography>
-          <Typography type="body2" >
+          <Typography variant="body2" >
             Your password has reset. You can now login again using your new password.
           </Typography>
         </Grid>

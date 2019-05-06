@@ -17,7 +17,7 @@ import withWidth from '../withWidth';
 const styles = theme => ({
   root: {
     padding: '5% 0 5% 0',
-    marginBottom: '70px',
+    marginBottom: theme.spacing.unit * 9,
     display: 'flex',
     flexDirection: 'column',
   },
@@ -122,6 +122,7 @@ class AccountPage extends React.Component {
       handleLogOut,
       handleMessageNew,
       handleRequestOpen,
+      locale,
       session,
       sessionConfirmed,
     } = this.props;
@@ -149,6 +150,7 @@ class AccountPage extends React.Component {
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 handleUserUpdate={handleUserUpdate}
+                locale={locale}
                 session={session}
                 user={user}
               />
@@ -162,7 +164,7 @@ class AccountPage extends React.Component {
         </div>
       ) : (
         <div>
-          <Typography type="display2" className={classes.textAlignCenter}>
+          <Typography variant="display2" className={classes.textAlignCenter}>
             Organization
           </Typography>
           <div className={classes.formRow}>
@@ -172,6 +174,7 @@ class AccountPage extends React.Component {
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
               handleUserUpdate={handleUserUpdate}
+              locale={locale}
               session={session}
               user={user}
             />
@@ -200,6 +203,7 @@ class AccountPage extends React.Component {
                 handleRequestOpen={handleRequestOpen}
                 handleUserUpdate={handleUserUpdate}
                 history={this.props.history}
+                locale={locale}
                 session={session}
                 user={user}
               />
@@ -214,6 +218,7 @@ class AccountPage extends React.Component {
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
               handleUserUpdate={handleUserUpdate}
+              locale={locale}
               session={session}
               user={user}
             />
@@ -226,7 +231,7 @@ class AccountPage extends React.Component {
     return (
       <div className={classes.root}>
         <Typography
-          type="display1"
+          variant="display1"
           className={[classes.marginBottom, classes.textAlignCenter].join(' ')}
         >
           Your Account

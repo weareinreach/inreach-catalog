@@ -48,7 +48,7 @@ const styles = theme => ({
     fontWeight: 700,
     fontFamily: "\"Open Sans\", sans-serif",
     letterSpacing: "-.02em",
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -172,7 +172,9 @@ class SuggestAdditional extends React.Component {
           
           <ResourceTagSelector 
             onChange={ handleTagSelect} 
-            selectedResourceTags={ selectedTags} />
+            selectedResourceTags={ selectedTags}
+            locale={this.props.locale}
+            t={this.props.t} />
           {/* <TextField
             className={classes.inputLabel}
             label='Additional Information:'

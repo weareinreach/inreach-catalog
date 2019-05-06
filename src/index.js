@@ -2,7 +2,8 @@ import 'normalize.css';
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 import {render} from 'react-dom';
 import AsylumConnectCatalog from './components/AsylumConnectCatalog';
@@ -46,8 +47,12 @@ render(
     <Router>
       <div>
         <Route path="/" component={logPageView} />
-        <Route path="/" render={(props) => (<AsylumConnectCatalog location={props.location} history={props.history} />)} />
+        <Switch>
+          <Route path="/:locale" render={(props) => (<AsylumConnectCatalog match={props.match} location={props.location} history={props.history} />)} />
+          <Route path="/" render={(props) => (<AsylumConnectCatalog match={props.match} location={props.location} history={props.history} />)} />
+        </Switch>
       </div>
     </Router>
   </MuiThemeProvider>,
-  rootElement);
+  rootElement
+);

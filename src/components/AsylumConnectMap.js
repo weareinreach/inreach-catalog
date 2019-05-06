@@ -14,7 +14,7 @@ import AsylumConnectMarker from "./AsylumConnectMarker";
 
 const styles = (theme) => ({
   link: {
-    color: theme.palette.primary[500],
+    color: theme.palette.secondary[500],
     fontWeight: '600'
   },
   infoWindow: {
@@ -86,8 +86,8 @@ class AsylumConnectMap extends React.Component {
 
 
   render() {
-    const { classes, history, resources, infographic } = this.props;
-    const defaultCenter = { lat: 39.8333333, lng: -98.585522 };
+    const { classes, history, resources, infographic, t } = this.props;
+    const defaultCenter = { lat: parseFloat(t('39.8333333')), lng: parseFloat(t('-98.585522')) };
     const defaultZoom = 4;
     
     let center = defaultCenter, zoom = defaultZoom;
@@ -128,7 +128,7 @@ class AsylumConnectMap extends React.Component {
               return (
                 <AsylumConnectMarker key={location.id} position={{lat: location.lat, lng: location.long ? location.long : location.lng}} >
                   <InfoWindow>
-                    <Typography type="body2" className={classes.infoWindow} onClick={(ev) => {history.push('/resource/'+resource.slug)}}>
+                    <Typography variant="body2" className={classes.infoWindow} onClick={(ev) => {history.push('/resource/'+resource.slug)}}>
                       <strong style={{fontWeight: "600"}}>{location.name ? location.name : resource.name}</strong>
                       {location.region ? 
                         <span>

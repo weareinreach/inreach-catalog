@@ -28,12 +28,16 @@ const styles = theme => ({
   tooltip: { fontFamily: 'sans-serif' },
   container: {
     minHeight: '500px',
-    paddingTop: '60px',
-    paddingBottom: '60px'
+    paddingTop: theme.spacing.unit*8,
+    paddingBottom: theme.spacing.unit*8
   },
   tabContainer: {
-    backgroundColor: theme.palette.primary[500],
-    justifyContent: 'space-evenly'
+    backgroundColor: theme.palette.secondary[500],
+    justifyContent: 'space-evenly',
+    color: theme.palette.common.white
+  },
+  indicatorColor: {
+    backgroundColor: theme.palette.common.white
   },
   centerText: {
     textAlign: "center"
@@ -42,23 +46,32 @@ const styles = theme => ({
     textAlign: "center"
   }),
   fullBottomMargin: {
-    marginBottom: '2rem'
+    marginBottom: theme.spacing.unit*4,
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: 0
+    }
   },
   halfBottomMargin: {
-    marginBottom: '1rem'
+    marginBottom: theme.spacing.unit*2
+  },
+  secondary: {
+    color: theme.palette.secondary[500],
+    '&:hover': {
+      backgroundColor: 'inherit'
+    }
   },
   [theme.breakpoints.up('sm')]: {
     filterContainer: {
       marginTop: "-0.8rem"
     }
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     container: {
       paddingTop: '0px',
       paddingBottom: '0px'
     },
     containerSearchForm: Object.assign(mobilePadding(theme), { 
-      backgroundColor: theme.palette.primary[500],
+      backgroundColor: theme.palette.secondary[500],
       paddingTop: "20px",
       paddingBottom: "20px"
     }),
@@ -94,7 +107,7 @@ const ResultsContainer = (props) => {
       : null }
       { searching ? <Loading /> : 
         searchResults.length ? null :
-        <Typography type="body2" className={noResults}>
+        <Typography variant="body2" className={noResults}>
           We didn't currently find any verified resources within your search criteria.<br/>Try choosing different resource types or searching for a different location.
         </Typography>
       }
@@ -165,7 +178,9 @@ class SearchResultsContainer extends React.Component {
       filterContainer,
       fullBottomMargin, 
       halfBottomMargin,
+      indicatorColor,
       noResults,
+      secondary,
       tabContainer,
       tooltip
       } = this.props.classes;
@@ -179,6 +194,7 @@ class SearchResultsContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
+      locale: this.props.locale,
       noResults: noResults,
       session: this.props.session,
       searchResults: this.props.searchResults,
@@ -203,7 +219,7 @@ class SearchResultsContainer extends React.Component {
             <Grid item xs={12} md={8} className={toolbarClass}>
               <Grid container spacing={0} justify='space-between'>  
                 <Grid item xs>
-                  <AsylumConnectButton variant="secondary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
+                  <AsylumConnectButton variant="primary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
                     Search
                     {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
                   </AsylumConnectButton>
@@ -212,15 +228,15 @@ class SearchResultsContainer extends React.Component {
                 <Grid item xs className='pull-right'>
                   <Tooltip
                     className={tooltip}
-                    classes={{tooltipTop:"badge-tooltipTop"}}
+                    classes={{tooltipPlacementTop:"badge-tooltipTop"}}
                     title='Print Results'
                     placement="top"
                   >
-                    <IconButton color="primary" style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                    <IconButton className={secondary} style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
                       <Fa name="print" />
                     </IconButton>
                   </Tooltip>                  
-                  {/*<AsylumConnectButton variant="secondary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+                  {/*<AsylumConnectButton variant="primary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
                     Print
                     {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
                   </AsylumConnectButton>*/}
@@ -235,7 +251,7 @@ class SearchResultsContainer extends React.Component {
                 </Grid>
               : null}
             </Grid>
-            <Grid item xs={12} md={4} className={filterContainer+' '+toolbarClass}>
+            {!isMobile ? <Grid item xs={12} md={4} className={filterContainer+' '+toolbarClass}>
               <SearchRefinementControls 
                 clearSearchFilters={this.props.clearSearchFilters}
                 handleFilterSelect={this.props.handleFilterSelect} 
@@ -243,6 +259,7 @@ class SearchResultsContainer extends React.Component {
                 selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
                 selectedSort={this.props.selectedSort}  />
             </Grid>
+            : null }
             {showWalkinCheckbox ? <Grid item xs={12} className={centerText+' '+halfBottomMargin}>
               <AsylumConnectCheckbox label="Only show me resources that provide walk-in hours" value="time-walk-in" onChange={this.props.handleFilterSelect} checked={(this.props.selectedFilters.indexOf("time-walk-in") >= 0)} additionalClasses={{
                 checkboxDefault: checkboxDefault,
@@ -258,14 +275,16 @@ class SearchResultsContainer extends React.Component {
               value={this.state.tab}
               onChange={this.handleTabChange}
               indicatorColor="white"
-              textColor="white"
+              textColor="inherit"
               centered
               classes={{
-                flexContainer: tabContainer
+                flexContainer: tabContainer,
+                indicator: indicatorColor
               }}
             >
               <Tab label="List" />
               <Tab label="Map" />
+              <Tab label="Filter" />
             </Tabs>
             <SwipeableViews
               index={this.state.tab}
@@ -282,6 +301,14 @@ class SearchResultsContainer extends React.Component {
                   resources={this.props.mapResources}
                   searchCenter={this.props.searchCenter}
                 />
+              </div>
+              <div className="position-relative">
+                <SearchRefinementControls 
+                  clearSearchFilters={this.props.clearSearchFilters}
+                  handleFilterSelect={this.props.handleFilterSelect} 
+                  handleSortSelect={this.props.handleSortSelect} 
+                  selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
+                  selectedSort={this.props.selectedSort}  />
               </div>
             </SwipeableViews>
           </div>

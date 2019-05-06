@@ -18,7 +18,7 @@ const styles = theme => ({
     textAlign: 'center',
   },
   marginTop: {
-    marginTop: '10px'
+    marginTop: theme.spacing.unit
   }
 });
 
@@ -67,7 +67,7 @@ class DeleteAccountDialog extends React.Component {
         </DialogTitle>
         <Typography type='body1'>Are you sure you want to delete your account? Your account will be delete permanently, and any stored information will be erased.</Typography>
         <form className={classes.container}>
-          <Typography type="body1">
+          <Typography variant="body1">
             Deleting your account requires your password.
           </Typography>
           <TextField

@@ -12,7 +12,7 @@ const styles = theme => ({
     position: 'relative'
   }),
   filterList: {
-    padding: '2rem',
+    padding: theme.spacing.unit * 4,
     left: '0',
     maxHeight: '420px',
     minWidth: '320px'

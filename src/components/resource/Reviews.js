@@ -23,8 +23,7 @@ const styles = (theme) => ({
   switchInputRoot: {
     flexDirection: 'row-reverse',
     width: '100%',
-    maxWidth: '400px',
-    justifyContent: 'space-between',
+    maxWidth: '500px',
     marginRight: '0px'
   },
   switchRoot: {
@@ -44,22 +43,24 @@ const styles = (theme) => ({
     color: theme.palette.common.darkBlack 
   },
   reviewAC: {
-    backgroundColor: theme.palette.primary[500],
+    backgroundColor: theme.palette.secondary[500],
     color: theme.palette.common.white
   }
 });
 
 const ReviewType = ({classes, type}) => (
-  <Typography type="body2" className={classes.reviewBadge + ' ' + classes['review'+type]}>
+  <Typography variant="body2" className={classes.reviewBadge + ' ' + classes['review'+type]}>
     {type == 'OD' ? 'One Degree user' : 'AsylumConnect user' }
   </Typography>
 );
 
 const ReviewList = ({title, classes, list, acOnly}) => (
   <div>
-    <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
+    {title ?
+    <Typography variant="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
       {title}
     </Typography>
+    : null }
     {list.filter(({client_id})=>(!acOnly || client_id==clientId)).length ? 
       list.filter(({client_id})=>(!acOnly || client_id==clientId)).map((review) => (
         <Grid key={review.client_user_id} container spacing={0} className={classes.bottomSpacing}>
@@ -67,14 +68,14 @@ const ReviewList = ({title, classes, list, acOnly}) => (
             <ReviewType type={review.client_id == clientId ? 'AC' : 'OD' } classes={classes} />
           </Grid>
           <Grid item xs={12}>
-            <Typography type="body2">
+            <Typography variant="body2">
               "{review.content}"
             </Typography>
           </Grid>
         </Grid>
       ))
     :
-      <Typography type="body2" className={classes.boldFont}>
+      <Typography variant="body2" className={classes.boldFont}>
         No Reviews
       </Typography>
     }
@@ -82,16 +83,9 @@ const ReviewList = ({title, classes, list, acOnly}) => (
   
 );
 
-const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange, isMobile }) => (
+const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, acFilter, handleFilterChange, isMobile }) => (
   <Grid container spacing={0} >
-    {isMobile ? null :
-    <Grid item xs={12} md={3}>
-      <Typography type="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-        Reviews
-      </Typography>
-    </Grid>
-    }
-    <Grid item xs={12} sm md lg xl className={isMobile ? classes.bottomSpacing : "pull-right"}>
+    <Grid item xs={12} sm={12} md={12} lg xl className={isMobile ? classes.bottomSpacing : "pull-right"}>
       <AsylumConnectSwitch label="Only view reviews written by/for LGBTQ asylum seekers" value="ac-only" onChange={handleFilterChange}checked={acFilter} additionalClasses={{
           checkboxDefault: classes.switchRoot,
           root: classes.switchInputRoot
@@ -99,23 +93,25 @@ const Reviews = ({classes, orgReviews, oppReviews, acFilter, handleFilterChange,
     </Grid>
     <Grid item xs={12} >
       <Grid container spacing={0} justify="space-between">
+      {includeOrgReviews ?
         <Grid item xs={12} md={6}>
         {orgReviews === false ? <Loading />
         :
           <ReviewList title='Reviews of the organization' list={orgReviews} classes={classes} acOnly={acFilter} />
         }
         </Grid>
-        {isMobile ? 
+      : null }
+        {isMobile && includeOrgReviews ? 
           <Grid container spacing={0}>
             <Grid item xs={12}>
               <Divider className={classes.dividerSpacing} />
             </Grid>
           </Grid>
         : null}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={includeOrgReviews ? 6 : 12}>
         {oppReviews === false ? <Loading />
         :
-          <ReviewList title='Reviews of specific services' list={oppReviews} classes={classes} acOnly={acFilter} />
+          <ReviewList title={includeOrgReviews ? 'Reviews of specific services' : null} list={oppReviews} classes={classes} acOnly={acFilter} />
         }
         </Grid>
       </Grid>

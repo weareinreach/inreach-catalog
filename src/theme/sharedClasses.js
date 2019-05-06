@@ -5,7 +5,7 @@ export const searchInput = theme => ({
   fontFamily: theme.typography.fontFamily,
   fontSize: theme.typography.fontSize,
   width: '100%',
-  marginBottom: '1.5rem',
+  marginBottom: theme.spacing.unit * 3,
   height: '3.4rem',
   color: theme.palette.common.lightBlack,
   backgroundColor: theme.palette.common.white,
@@ -22,13 +22,16 @@ export const selectInput = theme => ({
   backgroundColor: theme.palette.common.white,
   borderRadius: '0.1px'
 });
+export const dropShadow = theme => ({
+  boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)'
+});
 export const searchInputMobile = theme => ({
-  padding: '1.0rem',
-  height: '3.0rem',
-  marginBottom: '1.0rem'
+  padding: theme.spacing.unit * 2,
+  height: theme.spacing.unit * 6,
+  marginBottom: theme.spacing.unit * 2
 });
 export const bodyLink = theme => ({
-  color: theme.palette.primary[500]
+  color: theme.palette.secondary[500]
 });
 export const listLink = theme =>({
   '& + &:before': {
@@ -46,5 +49,5 @@ export const italicFont = theme =>({
   fontStyle: "italic"
 })
 export const dividerSpacing = theme =>({
-  marginBottom: "2rem"
+  marginBottom: theme.spacing.unit * 4
 })

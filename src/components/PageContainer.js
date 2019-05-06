@@ -16,18 +16,22 @@ import {
 class PageContainer extends React.Component {
   render() {
     const {
+      country,
       handleLogOut,
       handleMessageNew,
       handleRequestOpen,
       handleUnconfirmSession,
       history,
       match,
+      locale,
       location,
       session,
       sessionConfirmed,
       user,
+      t
     } = this.props;
     const favoritesListProps = {
+      country: country,
       dialog: this.props.dialog,
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
@@ -36,57 +40,68 @@ class PageContainer extends React.Component {
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
       lists: this.props.lists,
+      locale: locale,
       session: this.props.session,
       user: this.props.user,
+      t: t
     };
     return (
       <div className="page-container">
         <Switch>
           <Route
-            path="/favorites/:listId"
+            path="/:locale/favorites/:listId"
             render={() => <FavoritesListContainer {...favoritesListProps} />}
           />
           <Route
-            path="/favorites"
+            path="/:locale/favorites"
             render={() => <FavoritesListContainer {...favoritesListProps} />}
           />
-          <Route path="/account/reset-password" render={() => (
+          <Route path="/:locale/account/reset-password" render={() => (
             <ResetPasswordPage
+              country={country}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               history={history}
+              locale={locale}
               match={match}
               location={location}
               session={session}
+              t={t}
             />
           )}
           />
-          <Route path="/account" render={() => (
+          <Route path="/:locale/account" render={() => (
             <AccountPage
+              country={country}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               handleUnconfirmSession={handleUnconfirmSession}
               history={history}
+              locale={locale}
               session={session}
               sessionConfirmed={sessionConfirmed}
               user={user}
+              t={t}
             />
           )}
           />
-          <Route path="/suggestions/new" render={() => (
+          <Route path="/:locale/suggestions/new" render={() => (
             <Suggestion
+              country={country}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               history={history}
+              locale={locale}
               session={session}
               user={user}
+              t={t}
             />
           )}
           />
-          <Route path="/page/:pageName" render={(props) => (
+          <Route path="/:locale/page/:pageName" render={(props) => (
             <Static
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
@@ -96,6 +111,9 @@ class PageContainer extends React.Component {
               user={user}
               {...props} 
             />
+          )} />
+          <Route render={(props) => (
+            <Redirect to={ window.location.pathname.indexOf((localStorage.getItem('locale')||'en_US')) < 0 ? '/'+(localStorage.getItem('locale')||'en_US')+window.location.pathname : '/'} />
           )} />
         </Switch>
       </div>

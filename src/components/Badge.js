@@ -10,7 +10,7 @@ import {
   EducationEmploymentIcon,
   FoodIcon,
   HousingIcon,
-  HygieneIcon,
+  ClothingIcon,
   LegalIcon,
   MailIcon,
   MedicalIcon,
@@ -23,7 +23,7 @@ import {
 
 const styles = theme => ({
   tooltip: { fontFamily: 'sans-serif' },
-  icon: { display: 'inline-block', verticalAlign: 'middle' },
+  icon: { display: 'inline-block', verticalAlign: 'middle', padding: theme.spacing.unit},
 });
 
 const Badge = ({ classes, type, height, width, extraClasses }) => {
@@ -50,7 +50,7 @@ const Badge = ({ classes, type, height, width, extraClasses }) => {
     },
     hygiene: {
       label: 'Hygiene',
-      icon: <HygieneIcon />,
+      icon: <ClothingIcon />,
     },
     legal: {
       label: 'Legal',
@@ -99,11 +99,11 @@ const Badge = ({ classes, type, height, width, extraClasses }) => {
   return (
     <Tooltip
       className={classes.tooltip}
-      classes={{tooltipTop:"badge-tooltipTop"}}
+      classes={{tooltipPlacementTop:"badge-tooltipTop"}}
       title={typeMapping[type].label}
       placement="top"
     >
-      <div className={iconClassList.join(" ")} style={ {width: iconWidth, height: iconHeight} }>
+      <div className={iconClassList.join(" ")} style={ {width: iconWidth, height: iconHeight, } }>
         { typeMapping[type].icon }
       </div>
     </Tooltip>

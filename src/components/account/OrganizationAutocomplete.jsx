@@ -82,7 +82,7 @@ function renderLoadingContainer(options) {
 
 function renderSuggestionsContainer(options) {
   const {containerProps, children, query} = options;
-  const {history, handleMessageNew, handleRequestClose} = this;
+  const {history, handleMessageNew, handleRequestClose, locale} = this;
   const styles = {
     container: {
       marginTop: '8px',
@@ -96,8 +96,8 @@ function renderSuggestionsContainer(options) {
     <Paper {...containerProps} style={styles.container} square>
       {children}
       {query.length > 0 && (
-        <Link to="/suggestions/new" onMouseDown={(e) => {
-          history.push('/suggestions/new');
+        <Link to={"/"+locale+"/suggestions/new"} onMouseDown={(e) => {
+          history.push('/'+locale+'/suggestions/new');
           handleRequestClose();
         }}>
           <MenuItem component="div">
@@ -152,6 +152,7 @@ const OrganizationAutocomplete = ({
   handleRequestClose,
   history,
   isLoadingOrganizations,
+  locale,
   organizations,
   organizationSearch,
   organizationSelection,
@@ -172,7 +173,7 @@ const OrganizationAutocomplete = ({
         ? renderLoadingContainer
         : !organizationSelection
         ? renderSuggestionsContainer.bind({
-            history, handleMessageNew, handleRequestClose
+            history, handleMessageNew, handleRequestClose, locale
           })
         : () => true
     }

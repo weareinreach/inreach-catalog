@@ -34,6 +34,9 @@ const styles = (theme, props) => ({
   inlineBlock: {
     display: 'inline-block'
   },
+  iconPadding: {
+    padding: theme.spacing.unit
+  },
   dropdown: {
     width: '50%',
     margin: theme.spacing.unit * 5 + ' auto'
@@ -78,12 +81,12 @@ class Section extends React.Component {
     <div>
       <div className={classes.textAlignCenter}>
         <div className={classes.inlineBlock}>
-          <StandaloneIcon name={icon} fillColor={color} />
+          <StandaloneIcon className={classes.iconPadding} name={icon} fillColor={color} strokeColor={'#000'} />
         </div>
       </div>
-      <Typography type='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
-      <Typography type='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
-      <Typography type='body1'>
+      <Typography variant='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
+      <Typography variant='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
+      <Typography variant='body2'>
         <ContentMarkdown
           renderers={{
             link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)

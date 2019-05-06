@@ -8,7 +8,7 @@ const maxRating = 5;
 
 const styles = (theme) => ({
   static: {
-    color: theme.palette.primary[500]
+    color: theme.palette.secondary[500]
   },
   user: {
     color: theme.palette.common.gold,

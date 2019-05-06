@@ -2,10 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FavoritesIcon = ({width, color}) => (
-  <svg id="be975d13-0d5b-4078-bd99-28909be055f5" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width={width}><title>icon-favorites</title><path d="M34.22,16C30,12.63,25,19,25,19s-5-6.36-9.22-3-3,6.83-2.42,7.73l.08.12h.06c.09.14.25.33.44.56h0c1.2,1.4,3.85,4.06,5,5S25,35,25,35s4.92-4.49,6.14-5.56a69.88,69.88,0,0,0,5.08-5.16h0a5.42,5.42,0,0,0,.37-.48l0-.08h0v.06l0,0C37.22,22.82,38.48,19.35,34.22,16Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.82"/></svg>
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} viewBox='0 0 24 24'>
+    <g fill='none' fillRule='evenodd'>
+        <path d='M0 .116h24v24H0z' />
+        <path fill={color} d='M16.5 3.116c-1.74 0-3.41.795-4.5 2.05a6.037 6.037 0 0 0-4.5-2.05C4.42 3.116 2 5.49 2 8.511c0 3.708 3.4 6.73 8.55 11.32L12 21.116l1.45-1.295C18.6 15.241 22 12.22 22 8.511c0-3.021-2.42-5.395-5.5-5.395zM12.1 18.37l-.1.098-.1-.098C7.14 14.142 4 11.346 4 8.51 4 6.55 5.5 5.078 7.5 5.078c1.54 0 3.04.971 3.57 2.315h1.87c.52-1.344 2.02-2.315 3.56-2.315 2 0 3.5 1.471 3.5 3.433 0 2.835-3.14 5.63-7.9 9.859z'
+        />
+    </g>
+</svg>
 );
 
-FavoritesIcon.defaultProps = { width: '100%', color: '#000' }
+FavoritesIcon.defaultProps = { width: '100%', color: '#1D1F23' }
 FavoritesIcon.propTypes = { width: PropTypes.string, color: PropTypes.string }
 
 export default FavoritesIcon;

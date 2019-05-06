@@ -9,13 +9,13 @@ const styles = (theme) => ({
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '2rem',
+    marginTop: theme.spacing.unit * 4,
   },
 });
 
 const DialogButton = ({children, classes, handleRequestClose}) => (
     <div className={classes.buttonContainer}>
-      <AsylumConnectButton onClick={handleRequestClose} variant="secondary">
+      <AsylumConnectButton onClick={handleRequestClose} variant="primary">
         { children }
       </AsylumConnectButton>
     </div>

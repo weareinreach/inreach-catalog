@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
-import BottomNavigation, { BottomNavigationButton } from 'material-ui/BottomNavigation';
+import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
 
 import SearchIcon from '../icons/SearchIcon'
 import FavoritesIcon from '../icons/FavoritesIcon'
@@ -14,35 +14,48 @@ import LanguageIcon from '../icons/LanguageIcon'
 import AccountIcon from '../icons/AccountIcon'
 import PrivacyIcon from '../icons/PrivacyIcon'
 
-const styles = theme => ({
-  root: {
-    width: '100vw',
-    display: 'flex',
-    flexDirection: 'row',
-    justify: 'space-between',
-    height: 'auto'
-  },
-  BottomNavBar: {
-    position:'fixed',
-    bottom:'0',
-    zIndex: '100',
-    borderTop: "1px solid "+theme.palette.common.faintBlack 
-  },
-  NavButton: {
-    minWidth: '20%',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    paddingTop: '8px',
-    '&:hover': {
-      color: theme.palette.secondary[500]
-    }
-  },
-});
+let theTheme;
 
-const buttonStyles = {
-  label: "nav-bottom-label",
-  selectedLabel: "nav-bottom-selectedLabel"
-}
+const styles = theme => {
+  theTheme = theme; //console.log(theme.typography.body1);
+  return ({
+    root: {
+      width: '100vw',
+      display: 'flex',
+      flexDirection: 'row',
+      justify: 'space-between',
+      height: 'auto'
+    },
+    BottomNavBar: {
+      position:'fixed',
+      bottom:'0',
+      zIndex: '100',
+      borderTop: "1px solid "+theme.palette.common.faintBlack 
+    },
+    navButton: Object.assign({}, theme.typography.body1, {
+      fontSize: (theme.typography.body1.fontSize-2),
+      transition: 'none',
+      minWidth: '20%',
+      textTransform: 'uppercase',
+      fontWeight: 'bold',
+      paddingTop: '8px',
+      color: theme.palette.common.darkBlack,
+      '&:hover': {
+        color: theme.palette.common.darkBlack
+      }
+    }),
+    navButtonSelected: {
+      paddingTop: '8px !important',
+      fontSize: (theme.typography.body1.fontSize-2) +'px !important',
+      color: theme.palette.primary[500],
+      '&:hover': {
+        color: theme.palette.primary[500]
+      }
+    }
+  })
+};
+
+
 
 class NavMobile extends React.Component {
   constructor(props) {
@@ -107,17 +120,21 @@ class NavMobile extends React.Component {
   };
   iconColor(position){
     if (position === null) {
-      return '#000'
+      return theTheme.palette.common.darkBlack;
     }
     
     if (this.state.value === position) {
-      return '#f26f6f'
+      return theTheme.palette.primary[500];
     } else {
-      return '#000'
+      return theTheme.palette.common.darkBlack;
     }
   }
   render() {
     const classes = this.props.classes;
+    const buttonStyles = {
+      label: classes.navButton,
+      selected: classes.navButtonSelected
+    }
     const { value } = this.state;
     return (
       <div className={classes.BottomNavBar}>
@@ -127,11 +144,11 @@ class NavMobile extends React.Component {
           showLabels
           className={classes.root}
         >
-          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="search" icon={<SearchIcon width="60px" color={this.iconColor(0)}/>} />
-          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="favorites" icon={<FavoritesIcon width="60px" color={this.iconColor(1)}/>} />
-          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="language" icon={<LanguageIcon width="60px" color={this.iconColor(2)} />} />
-          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="account" icon={<AccountIcon width="60px" color={this.iconColor(3)} />} />
-          <BottomNavigationButton className={classes.NavButton} classes={buttonStyles} label="privacy" icon={<PrivacyIcon width="60px" color={this.iconColor(4)}/>} />
+          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="search" icon={<SearchIcon width="30px" color={this.iconColor(0)}/>} />
+          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="favorites" icon={<FavoritesIcon width="30px" color={this.iconColor(1)}/>} />
+          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="language" icon={<LanguageIcon width="30px" color={this.iconColor(2)} />} />
+          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="account" icon={<AccountIcon width="30px" color={this.iconColor(3)} />} />
+          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="privacy" icon={<PrivacyIcon width="30px" color={this.iconColor(4)}/>} />
         </BottomNavigation>
       </div>
     )

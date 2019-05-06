@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 
 import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 
+import AsylumConnectPopUp from './AsylumConnectPopUp';
 import RedHeartIcon from './icons/RedHeartIcon';
 
 import breakpoints from '../theme/breakpoints';
@@ -20,13 +22,19 @@ import {
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
-    fontWeight: '300',
+    '&:hover': {
+      color: theme.palette.secondary[900]
+    },
+    fontWeight: theme.typography.fontWeightMedium,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   textBlue: {color: theme.palette.common.blue},
+  favoriteItem: {
+    justifyContent: 'space-between'
+  }
 });
 
 class SaveToFavoritesButton extends React.Component {
@@ -40,7 +48,7 @@ class SaveToFavoritesButton extends React.Component {
 
     this.handleCreateList = this.handleCreateList.bind(this);
     this.handleFetchError = this.handleFetchError.bind(this);
-    this.handleMenuOpen = this.handleMenuOpen.bind(this);
+    this.handleMenuToggle = this.handleMenuToggle.bind(this);
     this.handleMenuClose = this.handleMenuClose.bind(this);
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
@@ -77,7 +85,7 @@ class SaveToFavoritesButton extends React.Component {
     }
   }
 
-  handleMenuOpen(event) {
+  handleMenuToggle(event) {
     const {currentTarget} = event;
     if (!this.props.session) {
       return this.props.handleMessageNew(
@@ -85,13 +93,15 @@ class SaveToFavoritesButton extends React.Component {
       );
     } else if (this.props.lists.length < 1) {
       this.handleCreateList(currentTarget);
+    } else if(this.state.open) {
+      this.setState({open: false, anchorEl: null});
     } else {
-      this.setState({open: true, anchorEl: currentTarget});
+      this.setState({open: true, anchorEl: event.currentTarget});
     }
   }
 
   handleMenuClose() {
-    this.setState({open: false});
+    this.setState({open: false, anchorEl: null});
   }
 
   handleRemoveFavorite(listId) {
@@ -122,6 +132,7 @@ class SaveToFavoritesButton extends React.Component {
       handleCreateList,
       handleMenuOpen,
       handleMenuClose,
+      handleMenuToggle,
       handleRemoveFavorite,
       handleSaveToFavorites,
     } = this;
@@ -135,43 +146,42 @@ class SaveToFavoritesButton extends React.Component {
       resourceId,
       session,
     } = this.props;
-
+    //console.log(resourceId);
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
     );
-
+    
     const buttonLabel =
       theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
 
+    const isMobile = theWidth() < breakpoints['sm'];
+
     return (
-      <div>
-        <Button onClick={handleMenuOpen}>
-          <Typography type="display4" className={classes.viewYourFavoritesText}>
-            {buttonLabel}
-            <RedHeartIcon width={'38px'} fill={isFavorite} />
-          </Typography>
-        </Button>
-        <Menu
+      <div className={this.props.className}>
+        <IconButton onClick={handleMenuToggle}>
+          <RedHeartIcon width={'24px'} fill={isFavorite} />
+        </IconButton>
+        <AsylumConnectPopUp
           id="favorites-menu"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: 'bottom'}}
-          getContentAnchorEl={null}
           open={open}
-          onRequestClose={handleMenuClose}
-          PaperProps={{style: {maxHeight: '300px'}}}>
+          onClose={handleMenuClose}
+          PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}>
           {lists.map(list => {
             const isFavoriteItem = list.fetchable_list_items.some(
               item => item.fetchable_id === resourceId,
             );
             return (
               <MenuItem
+                className={classes.favoriteItem}
                 key={list.id}
                 onClick={() =>
                   isFavoriteItem
                     ? handleRemoveFavorite(list.id)
                     : handleSaveToFavorites(list.id)}>
-                {list.title}
-                <RedHeartIcon width={'24px'} fill={isFavoriteItem} />
+                <span>{list.title}</span>
+                <RedHeartIcon width={'24px'} fill={isFavoriteItem} style={{float: 'right'}} />
               </MenuItem>
             );
           })}
@@ -181,9 +191,9 @@ class SaveToFavoritesButton extends React.Component {
               this.props.handleRequestOpen(
                 `listNew/saveToFavorites/${resourceId}`,
               )}>
-            <span className={classes.textBlue}>Create New List</span>
+            <span className={classes.textBlue}>+ Create New List</span>
           </MenuItem>
-        </Menu>
+        </AsylumConnectPopUp>
       </div>
     );
   }

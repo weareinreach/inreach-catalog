@@ -62,11 +62,11 @@ const FavoritesListMobile = ({
     </IconButton>
     {session || publicList
       ? (
-        <Typography className={classes.textCenter} type="display1">
+        <Typography className={classes.textCenter} variant="display1">
           {publicList ? publicList : 'Favorites'}
         </Typography>
       ) : (
-        <Typography className={classNames(classes.spacingTop, classes.textCenter)} type="body1">
+        <Typography className={classNames(classes.spacingTop, classes.textCenter)} variant="body1">
           You must be logged in to use favorites.
         </Typography>
       )
@@ -88,10 +88,10 @@ const FavoritesListMobile = ({
           <div>
             {!publicList ?
               <div>
-                <Typography className={classes.textCenter} type="display1">
+                <Typography className={classes.textCenter} variant="display1">
                   Your Favorites
                 </Typography>
-                <Typography className={classes.spacingTop} type="body1">
+                <Typography className={classes.spacingTop} variant="body1">
                   Select one of your favorites lists or{` `}
                   <a
                     className={classes.bodyLink}
@@ -134,7 +134,7 @@ const FavoritesListMobile = ({
                 {!loadingResources &&
                   list &&
                   resources.length === 0 && (
-                    <Typography type="body1">
+                    <Typography variant="body1">
                       You haven't added any resources to this list yet.
                     </Typography>
                   )}

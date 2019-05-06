@@ -1,3 +1,5 @@
+import ValidLanguageList from './ValidLanguageList';
+
 //LA, NYC, Philadelphia, San Francisco, Seattle, and Washington DC
 const infographics = [
   {
@@ -57,18 +59,46 @@ const infographics = [
 ];
 
 const defaultInfographic = {
-  center: {
+  'en_CA': {
+    center: {
+      lat: 60.8545463, 
+      lng: -98.556061
+    },
+    distance: 2680,
+    name: "Legal Guides",
+    list: {
+      default: [
+        {name: "Steps to Apply for LGBTQ Asylum in Canada", url: "https://www.asylumconnect.org/s/Steps-to-Apply-for-Asylum-Canada-ENG-99tc.pdf"},
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Canada-ENG.pdf"},
+        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"},
+        
+      ],
+      /*fr: [
+        {name: "Steps to Apply for LGBTQ Asylum in Canada", url: "https://www.asylumconnect.org/s/Steps-to-Apply-for-Asylum-Canada-ENG-99tc.pdf"},
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Canada-ENG.pdf"},
+        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"}
+      ]*/
+    }
+
+  },
+  'en_US': {
+    center: {
       lat: 39.810492, 
       lng: -98.556061
     },
     distance: 2680,
     name: "Legal Guides",
-    list: [
-      {name: "8 Steps to Apply for LGBTQ Asylum in the U.S.", url: "https://www.asylumconnect.org/s/8-Steps-to-Apply-for-LGBTQ-Asylum-in-the-US-English.pdf"},
-      {name: "Know your rights", url:"https://www.asylumconnect.org/s/Know-Your-Rghts-English.pdf"},
-      {name: "Legal assistance", url:"https://www.asylumconnect.org/s/legal-assistance.pdf"},
-      {name: "Preliminary checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-English.pdf"}
-    ]
+    list: {
+      default: [
+        {name: "8 Steps to Apply for LGBTQ Asylum in the U.S.", url: "https://www.asylumconnect.org/s/8-Steps-to-Apply-for-LGBTQ-Asylum-in-the-US-English.pdf"},
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rghts-English.pdf"},
+        {name: "Finding Legal Assistance", url:"https://www.asylumconnect.org/s/legal-assistance.pdf"},
+        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-English.pdf"},
+        {name: "Preparing for an LGBTQ Credible Fear Screening or Interview", url:"https://www.asylumconnect.org/s/Preparing-for-a-Credible-Fear-Interview-English.pdf"},
+        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/remain-in-mexico-linked.pdf"}
+      ]
+    }
+  }
 };
 
 const milesToMeters = function(miles) {
@@ -99,7 +129,7 @@ export default {
     });
     return nearestInfographic;
   },
-  getDefaultInfographic: function() {
-    return defaultInfographic;
+  getDefaultInfographic: function(locale) {
+    return typeof defaultInfographic[locale] !== 'undefined' ? defaultInfographic[locale] : false;
   }
 };

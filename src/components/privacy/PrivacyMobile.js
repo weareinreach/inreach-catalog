@@ -30,15 +30,15 @@ const styles = theme => ({
 const PrivacyMobile = ({classes, handleRequestOpen, tab}) => (
   <div>
     <Paper className={classes.root}>
-      <Typography className={classes.textCenter} type="display1">
+      <Typography className={classes.textCenter} variant="display1">
         {tab === 0 && 'Privacy Statement' }
         {tab === 1 && 'AC Disclaimer' }
       </Typography>
       <Tabs
         value={tab}
         onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'privacy' : 'disclaimer')}
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor="secondary"
+        textColor="secondary"
         centered
       >
         <Tab label="PRIVACY" />
