@@ -12,6 +12,7 @@ const resourceTypes = [
   {category: 'Medical', type: 'medical', odTag: 'Hormone therapy',                      title: 'Trans health'},
   {category: 'Medical', type: 'medical', odTag: 'Gender reassignment surgery',          title: 'Trans health'},
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'Trans health'},
+  {category: 'Medical', type: 'medical', odTag: 'Gynecology',                           title: 'Women\'s health'},
   {category: 'Medical', type: 'medical', odTag: 'Pregnancy',                            title: 'Women\'s health'},
   {category: 'Medical', type: 'medical', odTag: 'Birth control',                        title: 'Women\'s health'},
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'Women\'s health'},
@@ -29,7 +30,6 @@ const resourceTypes = [
   {category: 'Medical', type: 'medical', odTag: 'Diabetes',                             iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Eye exams',                            iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Glasses & contacts',                   iconOnly: true},
-  {category: 'Medical', type: 'medical', odTag: 'Gynecology',                           iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'OB & prenatal care',                   iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Birth preparation',                    iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Pregnancy tests',                      iconOnly: true},
@@ -309,6 +309,13 @@ const getBadge = (tags) => {
   return badge;
 };
 
+const combineTags = (resource) => {
+  return resource.tags.concat(
+    resource.categories && resource.categories.length ? resource.categories : [],
+    resource.areas && resource.areas.length ? resource.areas : []
+  );
+}
+
 export default {
   types: resourceTypes,
   getResourceTypes,
@@ -318,5 +325,6 @@ export default {
   getResourceIndex,
   resourceCategoryIndex,
   getResourceCategoryIndex,
-  getBadge
+  getBadge,
+  combineTags
 };
