@@ -32,18 +32,18 @@ const styles = theme => ({
 });
 //TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
-const DetailAccessInstructions = ({list, phones, rawSchedule, classes}) => { console.log(list, rawSchedule)
+const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log(list, rawSchedule)
   let schedule;
   return (<Grid container spacing={0}>
     <Grid item xs={12}>
     {list.length ? list.map((item, index) => {
       switch(item.access_type) {
         case 'phone':
-          if(phones && phones.length > 0) {
-            let phone  = fetchPhone(phones);
+          let phone  = item.access_value.replace(/[^0-9\(\)\-\.\s]/g, '').length == item.access_value.length ? {digits: item.access_value} : item.access_value
+          if(phone && (phone.digits || phone.length > 0)) {
             return (
               <Typography key={index} variant="body2" className={classes.lineSpacing} >
-                <strong className={classes.boldFont}>Phone: </strong><Phone phone={phone} classes={classes} includeType={true} />
+                <strong className={classes.boldFont}>Phone: </strong>{typeof phone.digits !== 'undefined'?<Phone phone={phone} classes={classes} includeType={true} />:phone}
                 {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
               </Typography>
             );
