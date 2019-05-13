@@ -49,6 +49,7 @@ import Reviews from './Reviews';
 
 import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 import propertyMap from '../../helpers/OneDegreePropertyMap';
+import resourceTypes from '../../helpers/ResourceTypes';
 
 
 import {bodyLink, boldFont, italicFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
@@ -341,7 +342,7 @@ class Service extends React.Component {
                     {!this.state.oppLoading && communities && communities.length ? 
                       <AsylumConnectCollapsibleSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
                     : null}
-                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={service.tags} classes={classes} />} />
+                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} />} />
                     : null}
                     {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectCollapsibleSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
                     : null}
@@ -358,7 +359,6 @@ class Service extends React.Component {
                   <div className={classes.mobileSpacing}>
                     <AsylumConnectCollapsibleSection borderTop={false} title={'Visit'} content={<DetailAccessInstructions 
                       list={service.access_instructions}
-                      phones={service.phones}
                       rawSchedule={service.schedule}
                        />} />
                     <AsylumConnectMap
@@ -415,7 +415,7 @@ class Service extends React.Component {
               {!this.state.oppLoading && communities && communities.length ? 
                 <AsylumConnectCollapsibleSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
               : null}
-              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={service.tags} classes={classes} />} />
+              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} />} />
               : null}
               {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectCollapsibleSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
               : null}
@@ -431,7 +431,6 @@ class Service extends React.Component {
               <Element name="visit"></Element>
               <AsylumConnectCollapsibleSection title={'Visit'} content={<DetailAccessInstructions 
                 list={service.access_instructions}
-                phones={service.phones}
                 rawSchedule={service.schedule}
                  />} />
               <Element name="reviews"></Element>
