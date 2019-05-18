@@ -23,7 +23,7 @@ const resourceTypes = [
   {category: 'Medical', type: 'medical', odTag: 'Pediatric medicine',                   title: 'Medical clinics',           iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Physical therapy',                     title: 'Medical clinics',           iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Prescriptions',                        title: 'Medical clinics',           iconOnly: true},
-  {category: 'Medical', type: 'medical', odTag: 'Vaccinations',                                                   iconOnly: true},
+  {category: 'Medical', type: 'medical', odTag: 'Vaccinations',                         title: 'Medical clinics',           iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Health education',                     title: 'Medical clinics',           iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Diabetes',                             title: 'Medical clinics',           iconOnly: true},
   {category: 'Medical', type: 'medical', odTag: 'Eye exams',                            title: 'Medical clinics',           iconOnly: true},
@@ -50,15 +50,15 @@ const resourceTypes = [
   {category: 'Legal', type: 'legal', odTag: 'Immigration detention',    title: 'Immigration detention'},
   {category: 'Legal', type: 'legal', odTag: 'Name & gender change',     title: 'Name and gender change'},
   
-  {category: 'Legal', type: 'legal', odTag: 'ID & driver\'s license',       iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Legal assistance',             iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Legal services',               iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Tax law',                      iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'ID & driver\'s license',   title: 'Legal hotlines',       iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Legal assistance',         title: 'Legal hotlines',           iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Legal services',           title: 'Legal hotlines',           iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Tax law',                  title: 'Legal hotlines',           iconOnly: true},
   {category: 'Legal', type: 'legal', odTag: 'Personal injury ',         title: 'Crime and discrimination',  iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Visas & other statuses',       iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Family law',                   iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Housing law',                  iconOnly: true},
-  {category: 'Legal', type: 'legal', odTag: 'Criminal law',                 iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Visas & other statuses',   title: 'Legal hotlines',           iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Family law',               title: 'Legal hotlines',           iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Housing law',              title: 'Legal hotlines',           iconOnly: true},
+  {category: 'Legal', type: 'legal', odTag: 'Criminal law',             title: 'Legal hotlines',           iconOnly: true},
 
   /* AC Housing Category */
   /** Using Categories instead of Tags for most of these for inclusiveness **/
@@ -92,11 +92,11 @@ const resourceTypes = [
   /* AC Food Category */
   /** Using Categories instead of Tags for most of these for inclusiveness **/
   {category: 'Food', type: 'food', odTag: 'Food'},
-  {category: 'Food', type: 'food', odTag: 'Food stamps',            title: 'None', iconOnly: true},
-  {category: 'Food', type: 'food', odTag: 'Food pantries',          title: 'None', iconOnly: true},
-  {category: 'Food', type: 'food', odTag: 'Meals',                  title: 'None', iconOnly: true},
-  {category: 'Food', type: 'food', odTag: 'Summer & holiday meals', title: 'None', iconOnly: true},
-  {category: 'Food', type: 'food', odTag: 'Nutrition education',    title: 'None', iconOnly: true},
+  {category: 'Food', type: 'food', odTag: 'Food stamps',             iconOnly: true},
+  {category: 'Food', type: 'food', odTag: 'Food pantries',           iconOnly: true},
+  {category: 'Food', type: 'food', odTag: 'Meals',                   iconOnly: true},
+  {category: 'Food', type: 'food', odTag: 'Summer & holiday meals',  iconOnly: true},
+  {category: 'Food', type: 'food', odTag: 'Nutrition education',     iconOnly: true},
 
   /* AC Hygiene and Clothing Category */
   {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Laundry'},
@@ -106,10 +106,10 @@ const resourceTypes = [
   {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Clothes'},
   {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Heating & cooling'},
   {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Household supplies'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Cash for clothing', title: 'None',    iconOnly: true},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'General clothes',   title: 'None',    iconOnly: true},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'School clothes',    title: 'None',    iconOnly: true},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Work clothes',      title: 'None',    iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Cash for clothing',     iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'General clothes',       iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'School clothes',        iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Work clothes',          iconOnly: true},
 
   /* AC Computers and Internet Category */
   {category: 'Computers and Internet', type: 'computers', odTag: 'Computer classes'},
@@ -194,10 +194,10 @@ const resourceTypes = [
   /* AC Sports and Entertainment Category */
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Recreational activities'},
   {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Toys'},
-  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Art',               title: 'None',    iconOnly: true},
-  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Dance',             title: 'None',    iconOnly: true},
-  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Recreation',        title: 'None',    iconOnly: true},
-  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Sports & fitness',  title: 'None',    iconOnly: true},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Art',                   iconOnly: true},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Dance',                 iconOnly: true},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Recreation',            iconOnly: true},
+  {category: 'Sports and Entertainment', type: 'sportsEntertainment', odTag: 'Sports & fitness',      iconOnly: true},
 
   /* AC Translation and interpretation Category */
   {category: 'Translation and Interpretation', type: 'speechBubble', odTag: 'Translation & interpretation'},
