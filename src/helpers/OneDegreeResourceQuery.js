@@ -101,7 +101,7 @@ class OneDegreeResourceQuery {
             return (
               typeof resource.properties !== 'undefined' 
               && typeof serviceProperties.en_CA !== 'undefined'
-              && this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state'))))
+              && this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state') == 0)))
               && (
                 !this.removeAtCapacity
                 || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
@@ -115,7 +115,7 @@ class OneDegreeResourceQuery {
             return (
               typeof resource.properties !== 'undefined' 
               && typeof serviceProperties.en_CA !== 'undefined'
-              && !this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state'))))
+              && !this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state') == 0)))
               && (
                 !this.removeAtCapacity
                 || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
