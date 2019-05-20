@@ -4,6 +4,24 @@ import config from '../config/config.js';
 import ResourceTypes from './ResourceTypes';
 import locale from './Locale';
 
+const serviceProperties = {
+  'en_CA': [
+    'service-state-alberta',
+    'service-state-british-columbia',
+    'service-state-manitoba',
+    'service-state-new-brunswick',
+    'service-state-newfoundland-and-labrador',
+    'service-state-northwest-territories',
+    'service-state-nova-scotia',
+    'service-state-nunavut',
+    'service-state-ontario',
+    'service-state-prince-edward-island',
+    'service-state-quebec',
+    'service-state-saskatchewan',
+    'service-state-yukon'
+  ]
+}
+
 class OneDegreeResourceQuery {
   
 
@@ -82,7 +100,8 @@ class OneDegreeResourceQuery {
           filter = (resource) => {
             return (
               typeof resource.properties !== 'undefined' 
-              && Object.keys(resource.properties).filter((key) => (key.indexOf('service-province') !== -1 || key.indexOf('service-territory') !== -1)).length > 0
+              && typeof serviceProperties.en_CA !== 'undefined'
+              && this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state'))))
               && (
                 !this.removeAtCapacity
                 || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
@@ -95,7 +114,8 @@ class OneDegreeResourceQuery {
           filter = (resource) => {
             return (
               typeof resource.properties !== 'undefined' 
-              && Object.keys(resource.properties).filter((key) => (key.indexOf('service-province') !== -1 || key.indexOf('service-territory') !== -1)).length == 0
+              && typeof serviceProperties.en_CA !== 'undefined'
+              && !this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state'))))
               && (
                 !this.removeAtCapacity
                 || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
@@ -118,6 +138,10 @@ class OneDegreeResourceQuery {
     } else {
       return resources;
     }*/
+  }
+
+  hasServiceProperty(list, resourceProperties) {
+    return resourceProperties.filter(value => -1 !== list.indexOf(value)).length > 0;
   }
 
   setIds(ids) {
