@@ -363,10 +363,13 @@ class Service extends React.Component {
                        />} />
                     <AsylumConnectMap
                       resources={this.props.mapResources}
+                      country={this.props.country}
                       loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}
+                      locale={this.props.locale}
                       containerElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />}
                       mapElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />} 
                       mapMaxDistance={this.props.mapMaxDistance}
+                      t={this.props.t}
                     />
                   </div>
                   <div className={classes.mobileSpacing}>

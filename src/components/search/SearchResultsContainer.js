@@ -181,6 +181,7 @@ class SearchResultsContainer extends React.Component {
       indicatorColor,
       noResults,
       secondary,
+      t,
       tabContainer,
       tooltip
       } = this.props.classes;
@@ -294,12 +295,15 @@ class SearchResultsContainer extends React.Component {
               <div className="position-relative">
                 <AsylumConnectMap
                   containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
+                  country={this.props.country}
                   history={this.props.history}
                   loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
+                  locale={this.props.locale}
                   mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
                   mapMaxDistance={this.props.mapMaxDistance}
                   resources={this.props.mapResources}
                   searchCenter={this.props.searchCenter}
+                  t={this.props.t}
                 />
               </div>
               <div className="position-relative">
