@@ -4,6 +4,7 @@ export default {
   "English classes": "Language classes",
   "LGBTQ centers": "LGBTQ centres",
   "Cultural centers": "Cultural centres",
+  "Drop-in centers for LGBTQ youth": "Drop-in centres for LGBTQ youth",
   "Welcome to the United States AsylumConnect catalog!": "Welcome to the Canada AsylumConnect catalog!",
   "Physical evaluations for asylum claim": "Physical evaluations for refugee claim",
   "Asylum application": "Refugee claim",
