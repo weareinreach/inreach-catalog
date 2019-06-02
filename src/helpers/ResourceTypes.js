@@ -9,7 +9,7 @@ const resourceTypes = [
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'Medical clinics'},
   {category: 'Medical', type: 'medical', odTag: 'Sexual health',                        title: 'HIV and sexual health'},
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'HIV and sexual health'},
-  //{category: 'Medical', type: 'medical', odTag: 'Physical evaluations for asylum claim', title: 'Physical evaluations for asylum claim'},
+  {category: 'Medical', type: 'medical', odTag: 'Physical evaluations for asylum claim', title: 'Physical evaluations for asylum claim'},
   {category: 'Medical', type: 'medical', odTag: 'Transgender health',                   title: 'Trans health'},
   {category: 'Medical', type: 'transportation', odTag: 'Transportation for healthcare', title: 'Trans health'},
   {category: 'Medical', type: 'medical', odTag: 'Gynecology',                           title: 'Women\'s health'},
@@ -247,7 +247,8 @@ const resourceTypes = [
 const localeExclusions = {
   'en_US': [],
   'en_CA': [
-    'Deferred Action for Childhood Arrivals (DACA)'
+    'Deferred Action for Childhood Arrivals (DACA)',
+    'Special Immigrant Juvenile Status (SIJS)'
   ]
 }
 const filterResourceType = function(item, locale) {
