@@ -8,7 +8,7 @@ const infographics = [
       lng: -118.284006
     },
     distance: 34, //miles
-    name: "Guide to Los Angeles",
+    name: "Asylum Seeker's Guide to Los Angeles",
     url: "https://www.asylumconnect.org/s/LA-infographic.pdf"
   },
   {
@@ -17,7 +17,7 @@ const infographics = [
       lng: -73.989177
     },
     distance: 20, //miles
-    name: "Guide to New York City",
+    name: "Asylum Seeker's Guide to New York City",
     url: "https://www.asylumconnect.org/s/NYC-infographic.pdf"
   },
   {
@@ -26,7 +26,7 @@ const infographics = [
       lng: -75.124199
     },
     distance: 12, //miles
-    name: "Guide to Philadelphia",
+    name: "Asylum Seeker's Guide to Philadelphia",
     url: "https://www.asylumconnect.org/s/philly-infographic.pdf"
   },
   {
@@ -35,7 +35,7 @@ const infographics = [
       lng: -122.284278
     },
     distance: 16, //miles
-    name: "Guide to San Francisco",
+    name: "Asylum Seeker's Guide to San Francisco",
     url: "https://www.asylumconnect.org/s/sf-infographic.pdf"
   },
   {
@@ -44,7 +44,7 @@ const infographics = [
       lng: -122.332071
     },
     distance: 9, //miles
-    name: "Guide to Seattle",
+    name: "Asylum Seeker's Guide to Seattle",
     url: "https://www.asylumconnect.org/s/seattle-infographic.pdf"
   },
   {
@@ -53,8 +53,17 @@ const infographics = [
       lng: -77.037268
     },
     distance: 8, //miles
-    name: "Guide to Washington, DC",
+    name: "Asylum Seeker's Guide to Washington, DC",
     url: "https://www.asylumconnect.org/s/DC-infographic.pdf"
+  },
+  {
+    center: {
+      lat: 34.841486, 
+      lng: -92.415815
+    },
+    distance: 100, //miles
+    name: "LGBTQ-friendly businesses in Arkansas",
+    url: "https://arkansansforequality.org/business-equality-list"
   }
 ];
 
@@ -65,7 +74,7 @@ const defaultInfographic = {
       lng: -98.556061
     },
     distance: 2680,
-    name: "Legal Guides",
+    name: "Asylum Seeker's Legal Guides",
     list: {
       default: [
         {name: "Steps to Apply for LGBTQ Asylum in Canada", url: "https://www.asylumconnect.org/s/Steps-to-Apply-for-Asylum-Canada-ENG-99tc.pdf"},
@@ -87,7 +96,7 @@ const defaultInfographic = {
       lng: -98.556061
     },
     distance: 2680,
-    name: "Legal Guides",
+    name: "Asylum Seeker's Legal Guides",
     list: {
       default: [
         {name: "8 Steps to Apply for LGBTQ Asylum in the U.S.", url: "https://www.asylumconnect.org/s/8-Steps-to-Apply-for-LGBTQ-Asylum-in-the-US-English.pdf"},
