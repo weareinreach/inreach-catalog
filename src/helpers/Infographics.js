@@ -100,11 +100,24 @@ const defaultInfographic = {
     list: {
       default: [
         {name: "8 Steps to Apply for LGBTQ Asylum in the U.S.", url: "https://www.asylumconnect.org/s/8-Steps-to-Apply-for-LGBTQ-Asylum-in-the-US-English.pdf"},
-        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rghts-English.pdf"},
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-print.pdf"},
         {name: "Finding Legal Assistance", url:"https://www.asylumconnect.org/s/legal-assistance.pdf"},
         {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-English.pdf"},
-        {name: "Preparing for an LGBTQ Credible Fear Screening or Interview", url:"https://www.asylumconnect.org/s/Preparing-for-a-Credible-Fear-Interview-English.pdf"},
-        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/remain-in-mexico-linked.pdf"}
+        {name: "Preparing for an LGBTQ Credible Fear Screening or Interview", url:"https://www.asylumconnect.org/s/Credible-Fear-Inteview-English.pdf"},
+        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/Remain-in-Mexico-English.pdf"}
+      ],
+      ar: [
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-arabic.pdf"},
+      ],
+      kr: [
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-korean-ymdg.pdf"},
+      ],
+      ru: [
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-russian.pdf"},
+      ],
+      es: [
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Spanish-lrse.pdf"},
+        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/remain-in-mexico-spanish.pdf"}
       ]
     }
   }
