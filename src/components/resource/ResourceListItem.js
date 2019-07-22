@@ -42,6 +42,10 @@ const styles = (theme) => ({
   dividerSpacing: {
     marginBottom: theme.spacing.unit * 4
   },
+  nationalOrg: {
+    lineHeight: "1.4rem",
+    marginBottom: theme.spacing.unit
+  },
   orgName: {
     fontSize: "21px"
   },
@@ -111,6 +115,7 @@ class ResourceListItem extends React.Component {
       dividerSpacing,
       badgeSpacing,
       moreInfo,
+      nationalOrg,
       orgName,
       pullLeft
     } = classes;
@@ -133,6 +138,7 @@ class ResourceListItem extends React.Component {
                   resource.categories && resource.categories.length ? resource.categories : [],
                   resource.areas && resource.areas.length ? resource.areas : []
                 ) 
+    const orgProperties = Object.keys(resource.properties);
 
     //this.props.fetchSearchResults();
     return (
@@ -167,6 +173,13 @@ class ResourceListItem extends React.Component {
               </Grid>
             </Grid>
           </Grid>
+          {orgProperties.filter(item => (item.toLowerCase().indexOf('service-national') == 0)).length ? 
+          <Grid item xs={12} >
+            <Typography variant="body1" className={nationalOrg}>
+              <Fa name="info-circle" className={moreInfo}/> This organization can help people located anywhere in the country.
+            </Typography>
+          </Grid>
+          : null}
           {format == 'search' ? 
           <Grid item xs={12} >
             <Link to={link}>
