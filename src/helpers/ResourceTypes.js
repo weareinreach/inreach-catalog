@@ -128,17 +128,19 @@ const resourceTypes = [
   {category: 'Food', type: 'food', odTag: 'Nutrition education',     iconOnly: true},
 
   /* AC Hygiene and Clothing Category */
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Laundry'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Showers'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Storage'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Hygiene'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Clothes'},
   {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Heating & cooling'},
   {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Household supplies'},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Cash for clothing',     iconOnly: true},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'General clothes',       iconOnly: true},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'School clothes',        iconOnly: true},
-  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Work clothes',          iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Gender-neutral restrooms',title: 'Gender-neutral restrooms'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Gender-affirming items',  title: 'Gender-affirming items'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Clothes',                 title: 'Clothes'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Hygiene',                 title: 'Hygiene'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Laundry',                 title: 'Hygiene'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Showers',                 title: 'Hygiene'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Storage',                 title: 'Hygiene'},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Cash for clothing',       iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'General clothes',         iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'School clothes',          iconOnly: true},
+  {category: 'Hygiene and Clothing', type: 'hygiene', odTag: 'Work clothes',            iconOnly: true},
 
   /* AC Computers and Internet Category */
   {category: 'Computers and Internet', type: 'computers', odTag: 'Computer classes'},
