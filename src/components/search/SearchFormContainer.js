@@ -206,7 +206,7 @@ class SearchFormContainer extends React.Component {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subheading" className={subheading}>
-                  Search for LGBTQ- and immigrant-friendly services near you
+                  Search for verified LGBTQ- and immigrant-friendly services near you
                 </Typography>
               </Grid>
               <Grid item xs={12}>
