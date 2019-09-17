@@ -77,16 +77,16 @@ const defaultInfographic = {
     name: "Asylum Seeker's Legal Guides",
     list: {
       default: [
-        {name: "Steps to Apply for LGBTQ Asylum in Canada", url: "https://www.asylumconnect.org/s/Steps-to-Apply-for-Asylum-Canada-ENG-99tc.pdf"},
-        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Canada-ENG.pdf"},
-        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"},
+        {name: "Steps to Make a LGBTQ Refugee Protection Claim in Canada", url: "https://www.asylumconnect.org/s/canada-steps-to-asylum.pdf"},
+        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-canada.pdf"},
+        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/preliminary-checklist-canada.pdf"},
         
       ],
-      /*fr: [
-        {name: "Steps to Apply for LGBTQ Asylum in Canada", url: "https://www.asylumconnect.org/s/Steps-to-Apply-for-Asylum-Canada-ENG-99tc.pdf"},
-        {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Canada-ENG.pdf"},
-        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"}
-      ]*/
+      fr: [
+        {name: "Steps to Make a LGBTQ Refugee Protection Claim in Canada", url: "https://www.asylumconnect.org/s/Steps-to-Apply-for-Asylum-Canada-FR-pzsm.pdf"},
+        /*{name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Canada-ENG.pdf"},
+        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"}*/
+      ]
     }
 
   },
@@ -100,11 +100,12 @@ const defaultInfographic = {
     list: {
       default: [
         {name: "8 Steps to Apply for LGBTQ Asylum in the U.S.", url: "https://www.asylumconnect.org/s/8-Steps-to-Apply-for-LGBTQ-Asylum-in-the-US-English.pdf"},
+        {name: "The Defensive U.S. Asylum Process", url: "https://www.asylumconnect.org/s/about-the-defensive-asylum-process-in-the-united-states.pdf"},
         {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-print.pdf"},
         {name: "Finding Legal Assistance", url:"https://www.asylumconnect.org/s/legal-assistance.pdf"},
         {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-English.pdf"},
         {name: "Preparing for an LGBTQ Credible Fear Screening or Interview", url:"https://www.asylumconnect.org/s/Credible-Fear-Inteview-English.pdf"},
-        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/Remain-in-Mexico-English.pdf"}
+        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/remain-in-mexico-linked-2.pdf"}
       ],
       ar: [
         {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-arabic.pdf"},
@@ -117,7 +118,7 @@ const defaultInfographic = {
       ],
       es: [
         {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Spanish-lrse.pdf"},
-        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/remain-in-mexico-spanish.pdf"}
+        {name: "Remain in Mexico Policy", url: "https://www.asylumconnect.org/s/remain-in-mexico-spanish-1.pdf"}
       ]
     }
   }
