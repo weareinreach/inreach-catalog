@@ -52,6 +52,7 @@ const FavoritesList = ({
   handleMessageNew,
   handleRemoveFavorite,
   handleRequestOpen,
+  history,
   loadingResources,
   list,
   lists,
@@ -152,6 +153,7 @@ const FavoritesList = ({
                     isOnPublicList={publicList}
                     handleMessageNew={handleMessageNew}
                     handleListRemoveFavorite={handleRemoveFavorite}
+                    history={history}
                     key={resource.id}
                     resource={resource}
                     format='favorites'

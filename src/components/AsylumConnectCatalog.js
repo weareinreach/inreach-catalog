@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom';
 
 import {withStyles} from 'material-ui/styles';
+import classNames from 'classnames';
 
 import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';
@@ -32,8 +33,10 @@ import {
 import {
   DisclaimerDialog,
   PrivacyDialog,
-  PrivacyMobile
+  PrivacyMobile,
 } from './privacy';
+import PrivacyNotice from './privacy/PrivacyNotice';
+import MoreMobile from './navigation/MoreMobile';
 import ShareMobile from './share/ShareMobile';
 import Language from './navigation/Language';
 import AsylumConnectButton from './AsylumConnectButton';
@@ -48,7 +51,11 @@ import LogoImgCA from '../images/logo-ca@2x.png';
 
 import breakpoints from '../theme/breakpoints';
 
-const styles = (theme) => ({
+//polyfill for IE
+import 'element-closest-polyfill';
+
+const styles = (theme) => { console.log(theme.breakpoints.down('xs')); 
+  return ({
   container: {
     fontFamily: theme.typography.fontFamily,
     fontSize: theme.typography.fontSize
@@ -57,9 +64,13 @@ const styles = (theme) => ({
     navPadding: {
       paddingBottom: "76px"
     },
-    overflowY: "auto"
+    mobileScroll: {
+      maxHeight: "100%",
+      overflowY: "auto"
+    }
+    
   }
-});
+})};
 
 class AsylumConnectCatalog extends React.Component { 
   constructor(props, context) {
@@ -150,12 +161,21 @@ class AsylumConnectCatalog extends React.Component {
             locale={locale}
             logo={logo}
           />
-        {isMobile ? (
-          <div>
+        {isMobile ? 
+          dialog !== 'none' ?
+          <div className={classNames([this.props.classes.navPadding, this.props.classes.overflowY, this.props.classes.mobileScroll])}>
             {['disclaimer', 'privacy'].includes(dialog) && (
               <PrivacyMobile
                 tab={dialog === 'privacy' ? 0 : 1}
                 handleRequestOpen={handleRequestOpen}
+              />
+            )}
+            {['more'].includes(dialog) && (
+              <MoreMobile
+                dialog={dialog}
+                handleRequestOpen={handleRequestOpen}
+                handleRequestClose={handleRequestClose}
+                history={history}
               />
             )}
             {['forgot', 'login', 'signup'].includes(dialog) && (
@@ -197,7 +217,8 @@ class AsylumConnectCatalog extends React.Component {
               />
             )}
           </div>
-        ) : (
+          : null
+        : (
           <div>
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
@@ -217,7 +238,7 @@ class AsylumConnectCatalog extends React.Component {
             />
           </div>
         )}
-        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
+        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password', 'more'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
           <div id="container--main" className={"content "+this.props.classes.navPadding} >
             <Switch>
               <Route path="/:locale/resource/:id/service/:serviceId" render={(props) => (
@@ -323,7 +344,12 @@ class AsylumConnectCatalog extends React.Component {
             </Switch>
           </div>
         : null }
-        { isMobile ? null : <Footer locale={locale} /> }
+        { isMobile ? 
+          <PrivacyNotice 
+            locale={locale}
+            handleRequestOpen={handleRequestOpen}
+          /> 
+        : <Footer locale={locale} /> }
         <Message
           handleMessageClose={this.handleMessageClose}
           message={message}

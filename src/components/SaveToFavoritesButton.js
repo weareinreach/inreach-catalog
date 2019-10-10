@@ -163,6 +163,7 @@ class SaveToFavoritesButton extends React.Component {
         </IconButton>
         <AsylumConnectPopUp
           id="favorites-menu"
+          className="stop-click-propagation"
           anchorEl={anchorEl}
           anchorOrigin={{vertical: 'bottom'}}
           open={open}

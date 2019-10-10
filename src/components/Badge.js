@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import breakpoints from '../theme/breakpoints';
 
 import Tooltip from 'material-ui/Tooltip';
 import { withStyles } from 'material-ui/styles';
@@ -24,9 +25,19 @@ import {
 const styles = theme => ({
   tooltip: { fontFamily: 'sans-serif' },
   icon: { display: 'inline-block', verticalAlign: 'middle', padding: theme.spacing.unit},
+  flair: { 
+    display: 'inline-block', 
+    backgroundColor: theme.palette.secondary[100], 
+    color: theme.palette.secondary[500], 
+    marginRight: theme.spacing.unit, 
+    marginBottom: theme.spacing.unit, 
+    fontSize: theme.typography.display4.fontSize, 
+    padding: theme.spacing.unit, 
+    borderRadius: '2px'  
+  }
 });
 
-const Badge = ({ classes, type, height, width, extraClasses }) => {
+const Badge = ({ classes, type, height, width, extraClasses, useIcon }) => {
   const typeMapping = {
     communitySupport: {
       label: 'Community Support',
@@ -96,18 +107,26 @@ const Badge = ({ classes, type, height, width, extraClasses }) => {
     tooltipClassList.push(extraClasses.tooltip);
   }
 
-  return (
-    <Tooltip
-      className={classes.tooltip}
-      classes={{tooltipPlacementTop:"badge-tooltipTop"}}
-      title={typeMapping[type].label}
-      placement="top"
-    >
-      <div className={iconClassList.join(" ")} style={ {width: iconWidth, height: iconHeight, } }>
-        { typeMapping[type].icon }
-      </div>
-    </Tooltip>
-  );
+  const isMobile = window.innerWidth < breakpoints['sm'];
+
+  if(isMobile && (typeof useIcon == 'undefined' || useIcon == false)) {
+    return (<div className={classes.flair}>{typeMapping[type].label}</div>);
+  } else {
+    return (
+      <Tooltip
+        className={classes.tooltip}
+        classes={{tooltipPlacementTop:"badge-tooltipTop"}}
+        title={typeMapping[type].label}
+        placement="top"
+      >
+        <div className={iconClassList.join(" ")} style={ {width: iconWidth, height: iconHeight, } }>
+          { typeMapping[type].icon }
+        </div>
+      </Tooltip>
+    );
+  }
+
+  
 };
 
 Badge.propTypes = {

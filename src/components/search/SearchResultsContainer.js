@@ -226,6 +226,7 @@ class SearchResultsContainer extends React.Component {
       handleLogOut: this.props.handleLogOut,
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
+      history: this.props.history,
       lists: this.props.lists,
       loadingColor: loadingColor,
       locale: this.props.locale,

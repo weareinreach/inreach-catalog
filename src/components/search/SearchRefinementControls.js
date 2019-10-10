@@ -31,7 +31,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.common.white
   },
   fixedFilters: {
-    backgroundColor: theme.palette.secondary[500],
+    backgroundColor: theme.palette.common.white, //secondary[500],
     //position: 'fixed',
     //bottom: '59px',
     //top: '0',

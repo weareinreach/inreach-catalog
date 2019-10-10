@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import withWidth from '../withWidth';
+import breakpoints from '../../theme/breakpoints';
 import { withStyles } from 'material-ui/styles';
 import StarRateIcon from 'material-ui-icons/Star';
 
@@ -20,6 +22,25 @@ const styles = (theme) => ({
   unfilled: {
     color: theme.palette.common.darkGrey
   },
+  flair: {
+    display: 'inline-block', 
+    backgroundColor: theme.palette.primary[100], 
+    color: theme.palette.primary[500], 
+    marginRight: theme.spacing.unit, 
+    marginBottom: theme.spacing.unit, 
+    fontSize: theme.typography.display4.fontSize, 
+    padding: theme.spacing.unit/2 +' '+theme.spacing.unit, 
+    borderRadius: '2px'  
+  },
+  flairText: {
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  },
+  flairStar: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    width: '18px'
+  }
 });
 
 class RatingControl extends React.Component {
@@ -72,20 +93,34 @@ class RatingControl extends React.Component {
 
   render() {
     const { classes, mode, className } = this.props;
-    return (
-      <span className={className + " center-align"}>
-        {this.state.rating.map((item, index) => {
-          return (
-            <StarRateIcon 
-              key={index} 
-              onMouseOver={(ev) => {this.handleStarHover(index)}} 
-              onMouseOut={(ev) => {this.handleStarOut(index)}} 
-              onClick={(ev) => {this.handleStarSelect(index)}}
-              className={(item ? classes[mode] : classes.unfilled)} />
-          );
-        })}
-      </span>
-    );
+    const isMobile = this.props.width < breakpoints['sm'];
+
+    if(isMobile && this.props.mode == 'static') {
+      return (
+        <span>
+          {this.props.rating < 1 ? null :
+          <div className={classes.flair}><span className={classes.flairText}>{this.props.rating}</span> <StarRateIcon className={classes.flairStar} /></div>
+
+          }
+        </span>
+      );
+    } else {
+      return (
+        <span className={className + " center-align"}>
+          {this.state.rating.map((item, index) => {
+            return (
+              <StarRateIcon 
+                key={index} 
+                onMouseOver={(ev) => {this.handleStarHover(index)}} 
+                onMouseOut={(ev) => {this.handleStarOut(index)}} 
+                onClick={(ev) => {this.handleStarSelect(index)}}
+                className={(item ? classes[mode] : classes.unfilled)} />
+            );
+          })}
+        </span>
+      );
+    }
+    
   }
 }
 
@@ -98,4 +133,4 @@ RatingControl.defaultProps = {
   mode: 'static'
 };
 
-export default withStyles(styles)(RatingControl);
+export default withWidth(withStyles(styles)(RatingControl));

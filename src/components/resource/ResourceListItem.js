@@ -10,6 +10,7 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 
 import {boldFont} from '../../theme/sharedClasses';
 import { withStyles } from 'material-ui/styles';
@@ -50,7 +51,8 @@ const styles = (theme) => ({
     marginBottom: theme.spacing.unit
   },
   orgName: {
-    fontSize: "21px"
+    fontSize: "21px",
+    paddingTop: theme.spacing.unit * 1.5
   },
   moreInfo: {
     fontWeight: "600",
@@ -61,9 +63,24 @@ const styles = (theme) => ({
       textAlign: "left"
     }
   },
+  [theme.breakpoints.down('xs')]: {
+    cardPointer: {
+      cursor: 'pointer'
+    },
+    cardPadding: {
+      padding: theme.spacing.unit * 2
+    },
+    paperPadding: {
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2
+    },
+    ratingSpacing: {
+      paddingTop: theme.spacing.unit * 2
+    }
+  },
   badgeSpacing: {
     [theme.breakpoints.down('xs')]: {
-      marginLeft: theme.spacing.unit * -1,
+      marginLeft: theme.spacing.unit * 0,
       marginBottom: "0.75rem"
     },
     marginLeft: theme.spacing.unit * -1
@@ -102,6 +119,7 @@ class ResourceListItem extends React.Component {
       handleMessageNew,
       handleRemoveFavorite,
       handleRequestOpen,
+      history,
       isOnFavoritesList,
       isOnPublicList,
       locale,
@@ -115,6 +133,9 @@ class ResourceListItem extends React.Component {
       ratingSpacing,
       contentSpacing,
       lineSpacing,
+      cardPointer,
+      cardPadding,
+      paperPadding,
       dividerPadding,
       dividerSpacing,
       badgeSpacing,
@@ -146,7 +167,63 @@ class ResourceListItem extends React.Component {
 
     //this.props.fetchSearchResults();
     return (
-      <div className='page-break-inside--avoid'>
+      <div className={paperPadding} >
+      {isMobile ?
+        <Paper className={cardPointer} onClick={(ev) => { if(ev.target.closest('.stop-click-propagation') == null) {history.push(link)}}}>
+          <Grid container spacing={0} className={cardPadding}>
+            <Grid item xs={12} >
+              <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
+                <Grid item xs={8} md lg xl >
+                  <Typography variant="subheading" className={orgName}>{name}</Typography>
+                </Grid>
+                <Grid item xs={4} container alignItems="flex-start" justify="flex-end" className="stop-click-propagation">
+                  {!isOnFavoritesList && (
+                    <SaveToFavoritesButton
+                      handleListAddFavorite={handleListAddFavorite}
+                      handleListRemoveFavorite={handleListRemoveFavorite}
+                      handleListNew={handleListNew}
+                      handleLogOut={handleLogOut}
+                      handleMessageNew={handleMessageNew}
+                      handleRequestOpen={handleRequestOpen}
+                      lists={lists}
+                      resourceId={resource.id}
+                      session={session}
+                      user={user}
+                    />
+                  )}
+                  {isOnFavoritesList && !isOnPublicList && (
+                    <Button onClick={() => handleListRemoveFavorite(resource.id)}>
+                      <Fa name="times"/>
+                    </Button>
+                  )}
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} className={ratingSpacing}>
+              <Grid container alignItems="center" spacing={0} justify="space-between">
+                <Grid item xs={12} md={6} className={badgeSpacing}>
+                  {tags && tags.length ?
+                    (() => {
+                      let badges = [];
+                      return tags.map((tag) => {
+                        if(typeof resourceIndex[tag] !== 'undefined' && badges.indexOf(resourceIndex[tag].type) === -1) {
+                          badges.push(resourceIndex[tag].type);
+                          return (
+                            <Badge key={resourceIndex[tag].type} type={resourceIndex[tag].type} width='52px' height='52px' />
+                          )
+                        }
+                      })
+                    })()
+                  : null}
+                </Grid>
+                <Grid item xs={12} md={6} className={"pull-right "+pullLeft}>
+                  <RatingAndReviews rating={ resource.rating ? resource.rating : resource.opportunity_aggregate_ratings} total={resource.opportunity_comment_count + resource.comment_count} />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+      : <div className='page-break-inside--avoid'>
         <Divider className={dividerSpacing} />
         <Grid container spacing={0} className={dividerPadding}>
           <Grid item xs={12} >
@@ -280,7 +357,8 @@ class ResourceListItem extends React.Component {
             </Grid>
           </Grid>
         </Grid>
-      </div>
+      </div>}
+    </div>
     );
   }
     

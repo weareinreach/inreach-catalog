@@ -42,7 +42,7 @@ const FilterCollection = (props) => (
   <div>
     {props.index > 0 ? <Divider /> : null}
     <Typography variant="body2" className={props.classes.sectionHeader}>
-      <ACBadge type={props.type} width='45px' height='45px' /> 
+      <ACBadge type={props.type} width='45px' height='45px' useIcon={true} /> 
       <AsylumConnectCheckbox label={props.t(props.category) + ' > ' + (props.title ? props.t(props.title) + ' > ': '') + props.t(props.odTag)} value={props.odTag} onChange={props.onChange} checked={(props.selectedResourceTags.indexOf(props.odTag) >= 0)} />
     </Typography>
   </div>

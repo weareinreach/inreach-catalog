@@ -13,6 +13,7 @@ import FavoritesIcon from '../icons/FavoritesIcon'
 import LanguageIcon from '../icons/LanguageIcon'
 import AccountIcon from '../icons/AccountIcon'
 import PrivacyIcon from '../icons/PrivacyIcon'
+import MoreIcon from '../icons/MoreIcon'
 
 let theTheme;
 
@@ -42,6 +43,9 @@ const styles = theme => {
       color: theme.palette.common.darkBlack,
       '&:hover': {
         color: theme.palette.common.darkBlack
+      },
+      ['@media (max-width:359.95px)']: {
+        fontSize: (theme.typography.body1.fontSize-4),
       }
     }),
     navButtonSelected: {
@@ -50,6 +54,9 @@ const styles = theme => {
       color: theme.palette.primary[500],
       '&:hover': {
         color: theme.palette.primary[500]
+      },
+      ['@media (max-width:359.95px)']: {
+        fontSize: (theme.typography.body1.fontSize-4) +'px !important',
       }
     }
   })
@@ -113,7 +120,7 @@ class NavMobile extends React.Component {
         history.push('/account');
       break;
       case 4:
-        handleRequestOpen('privacy');
+        handleRequestOpen('more');
       break;
     }
     this.setState({ value });
@@ -148,7 +155,7 @@ class NavMobile extends React.Component {
           <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="favorites" icon={<FavoritesIcon width="30px" color={this.iconColor(1)}/>} />
           <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="language" icon={<LanguageIcon width="30px" color={this.iconColor(2)} />} />
           <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="account" icon={<AccountIcon width="30px" color={this.iconColor(3)} />} />
-          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="privacy" icon={<PrivacyIcon width="30px" color={this.iconColor(4)}/>} />
+          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="more" icon={<MoreIcon width="30px" color={this.iconColor(4)}/>} />
         </BottomNavigation>
       </div>
     )

@@ -33,7 +33,8 @@ const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
       /*height: "100%",*/
       paddingTop: '0px',
-      paddingBottom: '0px'
+      paddingBottom: '0px',
+      backgroundColor: theme.palette.common.white
       /*marginBottom: '91px'*/
     })
   },

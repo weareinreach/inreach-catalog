@@ -91,7 +91,7 @@ class OneDegreeResourceClient {
 
     switch(resourceType) {
       case 'organization':
-        url = url + '/comments';
+        url = url;
         break;
       case 'opportunity':
         url = 'organizations/' + id + '/opportunities/' + serviceId + '/comments';
