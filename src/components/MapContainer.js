@@ -36,7 +36,9 @@ const styles = (theme) => ({
     maxWidth: theme.maxColumnWidth,
     margin: "0 auto",
     [theme.breakpoints.down('xs')]: {
-      overflowY: 'auto'
+      overflowY: 'auto',
+      height: '100%',
+      backgroundColor: theme.palette.secondary[500]
     }
   }
 });

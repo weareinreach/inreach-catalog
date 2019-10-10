@@ -42,6 +42,9 @@ const styles = (theme) => ({
   dividerSpacing: {
     marginBottom: theme.spacing.unit * 4
   },
+  dividerPadding: {
+    paddingBottom: theme.spacing.unit * 4
+  },
   nationalOrg: {
     lineHeight: "1.4rem",
     marginBottom: theme.spacing.unit
@@ -112,6 +115,7 @@ class ResourceListItem extends React.Component {
       ratingSpacing,
       contentSpacing,
       lineSpacing,
+      dividerPadding,
       dividerSpacing,
       badgeSpacing,
       moreInfo,
@@ -144,7 +148,7 @@ class ResourceListItem extends React.Component {
     return (
       <div className='page-break-inside--avoid'>
         <Divider className={dividerSpacing} />
-        <Grid container spacing={0} className={dividerSpacing}>
+        <Grid container spacing={0} className={dividerPadding}>
           <Grid item xs={12} >
             <Grid container alignItems="flex-start" justify="space-between" spacing={0}>
               <Grid item xs={8} md lg xl >

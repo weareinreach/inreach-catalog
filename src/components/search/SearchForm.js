@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 
 import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
 import AsylumConnectButton from '../AsylumConnectButton';
+import LocaleSelector from '../locale/LocaleSelector';
 import SearchBar from './SearchBar';
 import withWidth from '../withWidth';
 import breakpoints from '../../theme/breakpoints';
@@ -55,7 +56,9 @@ class SearchForm extends React.Component {
   render() {
     const { locale } = this.props;
     const { formRow, searchButton, body2, link, callout, underline } = this.props.classes;
-    const variant = this.props.width < breakpoints['sm'] ?  "secondary" : "primary";
+    const variant = /*this.props.width < breakpoints['sm'] ?  "secondary" :*/ "primary";
+    const localeLabel = "Select country";
+    const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div>
         {/*<Grid container spacing={0} >
@@ -70,6 +73,13 @@ class SearchForm extends React.Component {
             </Typography>
           </Grid>
         </Grid>*/}
+        {isMobile ?
+        <Grid container>
+          <Grid item xs={12}>
+          <LocaleSelector label={localeLabel} setOnChange={true} handleSelectLocale={this.props.onLocaleSelect} changeLocale={this.props.changeLocale} />
+          </Grid>
+        </Grid>
+        : null }
         <SearchBar {...this.props} classes={null} />
         <Grid container spacing={0}>
           {/*<Grid item xs={12} className={formRow}>

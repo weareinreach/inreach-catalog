@@ -42,6 +42,10 @@ import withWidth from './withWidth';
 import withLocale from './withLocale';
 import Message from './Message';
 
+import LogoImg from '../images/logo@2x.png';
+import LogoImgMobile from '../images/logo-mobile@3x.png';
+import LogoImgCA from '../images/logo-ca@2x.png';
+
 import breakpoints from '../theme/breakpoints';
 
 const styles = (theme) => ({
@@ -52,7 +56,8 @@ const styles = (theme) => ({
   [theme.breakpoints.down('xs')]: {
     navPadding: {
       paddingBottom: "76px"
-    }
+    },
+    overflowY: "auto"
   }
 });
 
@@ -123,6 +128,15 @@ class AsylumConnectCatalog extends React.Component {
       match
     } = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
+    let logo;
+    switch(locale) {
+      case 'en_CA':
+        logo = isMobile ? LogoImgMobile : LogoImgCA;
+      break;
+      default:
+        logo = isMobile ? LogoImgMobile : LogoImg;
+      break;
+    }
     const {handleMessageNew, handleRequestClose, handleRequestOpen, handleAddressChange} = this;
     return (
         <div className={this.props.classes.container}>
@@ -134,6 +148,7 @@ class AsylumConnectCatalog extends React.Component {
             history={history}
             match={match}
             locale={locale}
+            logo={logo}
           />
         {isMobile ? (
           <div>
@@ -203,7 +218,7 @@ class AsylumConnectCatalog extends React.Component {
           </div>
         )}
         { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
-          <div className={"content "+this.props.classes.navPadding} >
+          <div id="container--main" className={"content "+this.props.classes.navPadding} >
             <Switch>
               <Route path="/:locale/resource/:id/service/:serviceId" render={(props) => (
                 <MapContainer
@@ -257,6 +272,7 @@ class AsylumConnectCatalog extends React.Component {
                   handleRequestOpen={handleRequestOpen}
                   lists={lists}
                   locale={locale}
+                  logo={logo}
                   nearAddress={this.state.nearAddress}
                   session={session}
                   t={t}
@@ -278,6 +294,7 @@ class AsylumConnectCatalog extends React.Component {
                     handleRequestOpen={handleRequestOpen}
                     lists={lists}
                     locale={locale}
+                    logo={logo}
                     nearAddress={this.state.nearAddress}
                     session={session}
                     t={t}

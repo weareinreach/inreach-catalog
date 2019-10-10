@@ -15,13 +15,18 @@ import locale from '../../helpers/Locale';
 import breakpoints from '../../theme/breakpoints';
 import {mobilePadding} from '../../theme/sharedClasses';
 import SubAnnouncement from '../SubAnnouncement';
+import IconButton from 'material-ui/IconButton';
 
 const styles = theme => ({
   title: {
     marginBottom: theme.spacing.unit
   },
   subheading: {
-    marginBottom: theme.spacing.unit * 4
+    marginBottom: theme.spacing.unit * 4,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: theme.typography.title.fontSize,
+      lineHeight: '1.5'
+    }
   },
   container: {
     minHeight: '500px',
@@ -63,6 +68,7 @@ const styles = theme => ({
       backgroundColor: theme.palette.secondary[500]
     },
     containerSearchForm: Object.assign(mobilePadding(theme), {
+      alignContent: 'flex-start',
       paddingTop: theme.spacing.unit * 4,
       paddingBottom: theme.spacing.unit * 8,
       height: "75vh",
@@ -94,7 +100,17 @@ const styles = theme => ({
     fontWeight: "600",
     justifyContent: "left",
     fontFamily: theme.typography.title.fontFamily
-  }
+  },
+  iconButton: {
+    display: 'inline',
+    height: '60px',
+    width: 'auto'
+  },
+  logoFitHeight: {
+    maxWidth: '65px',
+    paddingLeft: '20px'
+    //height: '100%',
+  },
 });
 
 class SearchFormContainer extends React.Component {
@@ -151,6 +167,8 @@ class SearchFormContainer extends React.Component {
   render() {
     const { 
       container, 
+      iconButton,
+      logoFitHeight,
       title, 
       subheading, 
       backButton, 
@@ -170,29 +188,30 @@ class SearchFormContainer extends React.Component {
           </Grid>
         </div> 
         : null}
-        {isMobile && !this.state.locale ? 
-          <Button href="http://asylumconnect.org" classes={{root: backButton, label: backButtonLabel }}>
-            <ArrowBackIcon />&nbsp;Back to AsylumConnect Home Site
-          </Button>
-        : null}
-        {isMobile && this.state.locale ? 
+        {/*isMobile && this.state.locale ? 
           <Button onClick={this.handleLocaleReset} classes={{root: backButton, label: backButtonLabel }}>
             <ArrowBackIcon />&nbsp;Choose a different country
           </Button>
-        : null}
+        : null*/}
         <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
           <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-            {isMobile ? 
-              <Grid item xs={12} className={subAnnouncement} >
-                <SubAnnouncement />
-              </Grid>
-            : null}
             {!isMobile && this.state.locale ?
               <Grid item xs={12}>
                 <AsylumConnectBackButton className={changeCountryButton} color='default' text="Choose a different country" onClick={this.handleLocaleReset} />
               </Grid>
             : null}
+            {isMobile ? 
+            <Grid item xs={12}>
+              <a href='https://www.asylumconnect.org'>
+                <IconButton
+                  className={iconButton}>
+                  <img src={this.props.logo} className={logoFitHeight} />
+                </IconButton>
+              </a>
+            </Grid> 
+            : null}
             <Grid container spacing={0} className={containerSearchForm} >
+              {!isMobile ? 
               <Grid item xs={12}>
                 {this.state.locale ?
                   <Typography variant="title" className={title}>
@@ -204,6 +223,7 @@ class SearchFormContainer extends React.Component {
                   </Typography>
                 }
               </Grid>
+              : null }
               <Grid item xs={12}>
                 <Typography variant="subheading" className={subheading}>
                   Search for verified LGBTQ- and immigrant-friendly services near you
@@ -211,7 +231,7 @@ class SearchFormContainer extends React.Component {
               </Grid>
               <Grid item xs={12}>
               {this.state.locale ?
-                <SearchForm {...this.props} classes={null} onLocaleReset={this.handleLocaleReset} />
+                <SearchForm {...this.props} classes={null} onLocaleReset={this.handleLocaleReset} onLocaleSelect={this.handleLocaleSelect} />
               :
                 <LocaleForm {...this.props} classes={null} onLocaleSelect={this.handleLocaleSelect} /> 
               }

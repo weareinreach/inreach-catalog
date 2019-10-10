@@ -24,10 +24,7 @@ const styles = theme => ({
     width: '20px', 
     height: '20px',
     color: theme.palette.common.lightBlack,
-    float: "right",
-    [theme.breakpoints.down('xs')]: {
-      display: 'none'
-    }
+    float: "right"
   },
   relative: {
     position: 'relative'
