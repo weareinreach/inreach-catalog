@@ -14,7 +14,12 @@ const styles = theme => ({
     padding: '0px 40px',
     'border-radius': '50px',
     minHeight: '30px',
-    alignSelf: "center"
+    alignSelf: "center",
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      paddingTop: theme.spacing.unit * 1,
+      paddingBottom: theme.spacing.unit * 1
+    }
   },
   primary: {
     color: theme.palette.common.white,

@@ -36,7 +36,7 @@ const AsylumConnectDialog = ({
   session,
   user,
 }) =>
-  <Dialog open={dialog !== 'none'} onRequestClose={handleRequestClose}>
+  <Dialog open={['none', 'more'].indexOf(dialog) == -1} onRequestClose={handleRequestClose}>
     <div className={classes.dialogBody}>
       <ActionButton
         onClick={handleRequestClose}

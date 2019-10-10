@@ -46,6 +46,7 @@ const FavoritesListMobile = ({
   loadingResources,
   list,
   lists,
+  locale,
   match,
   open,
   publicList,
@@ -121,8 +122,10 @@ const FavoritesListMobile = ({
                         format={'favoritesMobile'}
                         isOnPublicList={publicList}
                         handleMessageNew={handleMessageNew}
-                        handleRemoveFavorite={handleRemoveFavorite}
+                        handleListRemoveFavorite={handleRemoveFavorite}
                         isOnFavoritesList
+                        history={history}
+                        locale={locale}
                         key={resource.id}
                         resource={resource}
                         session={session}

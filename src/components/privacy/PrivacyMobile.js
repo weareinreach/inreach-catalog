@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
 import DisclaimerText from './DisclaimerText';
@@ -17,38 +16,45 @@ const TabContainer = ({ children }) => (
 TabContainer.propTypes = { children: PropTypes.node.isRequired };
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1 ,
-    marginLeft: "2.5em",
-    marginRight: "2.5em",
+  mobilePadding: {
+    paddingLeft: "20px",
+    paddingRight: "20px",
+  },
+  underline: {
+    paddingBottom: "20px",
     borderBottom: "1px solid "+theme.palette.common.faintBlack,
-    boxShadow: "none"
+  },
+  title: {
+    padding: '20px',
+    borderBottom: "1px solid "+theme.palette.common.faintBlack
+  },
+  titleSpacing: {
+    marginTop: '20px',
+    marginBottom: '10px'
   },
   textCenter: { textAlign: 'center' },
 });
 
 const PrivacyMobile = ({classes, handleRequestOpen, tab}) => (
   <div>
-    <Paper className={classes.root}>
-      <Typography className={classes.textCenter} variant="display1">
-        {tab === 0 && 'Privacy Statement' }
-        {tab === 1 && 'AC Disclaimer' }
-      </Typography>
-      <Tabs
-        value={tab}
-        onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'privacy' : 'disclaimer')}
-        indicatorColor="secondary"
-        textColor="secondary"
-        centered
-      >
-        <Tab label="PRIVACY" />
-        <Tab label="DISCLAIMER" />
-      </Tabs>
-    </Paper>
-    <TabContainer>
-      {tab === 0 && <DisclaimerText /> }
-      {tab === 1 && <PrivacyText /> }
-    </TabContainer>
+    <Typography variant='headline' className={classes.title}>
+      Privacy &amp; Disclaimer
+    </Typography>
+    <Grid container spacing={0} className={classes.mobilePadding}>
+      <Grid item xs={12} className={classes.underline}>
+        <Typography variant="title" className={classes.titleSpacing}>
+          Privacy Statement
+        </Typography>
+        <PrivacyText />
+      </Grid>
+       <Grid item xs={12} >
+        <Typography variant="title" className={classes.titleSpacing}>
+          AC Disclaimer
+        </Typography>
+        <DisclaimerText />
+      </Grid>
+    </Grid>
+    
   </div>
 );
 

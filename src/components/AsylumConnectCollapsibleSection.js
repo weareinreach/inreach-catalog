@@ -69,10 +69,10 @@ class AsylumConnectCollapsibleSection extends React.Component {
   }
 
   render() {
-    const { content, title, summary, borderTop, borderBottom } = this.props;
+    const { content, title, summary, borderTop, borderBottom, className } = this.props;
     const { expanded } = this.state;
     const { iconClass, containerClass, rootClass, summaryRootClass, summaryExpandedClass, summaryContentClass, detailsRootClass } = this.props.classes;
-    const containerClasses = (borderTop ? this.props.classes.borderTop : '') + ' ' + (borderBottom ? this.props.classes.borderBottom : '') + ' ' + containerClass;
+    const containerClasses = (borderTop ? this.props.classes.borderTop : '') + ' ' + (borderBottom ? this.props.classes.borderBottom : '') + ' ' + containerClass + ' ' + (className ? className : '');
     /*const listContainerClasses = (this.props.listContainerClass ? this.props.listContainerClass + ' ' : '') + selectList;*/
     //const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '');
 

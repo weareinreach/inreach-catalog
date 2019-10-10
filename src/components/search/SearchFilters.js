@@ -21,7 +21,7 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   strong: {
-    color: theme.palette.secondary[500]
+    //color: theme.palette.secondary[500]
   },
   dividerSpacing: {
     marginTop: theme.spacing.unit * 2, 
@@ -31,13 +31,13 @@ const styles = theme => ({
   switchLabel: {},
   [theme.breakpoints.down('xs')]: {
     strong: {
-      color: theme.palette.common.white
+      //color: theme.palette.common.white
     },
     sectionTitle: {
-      color: theme.palette.common.white
+      //color: theme.palette.common.white
     },
     sectionHeader: {
-      color: theme.palette.common.white
+      //color: theme.palette.common.white
     },
     switchRoot: {
       flexDirection: 'row-reverse',
@@ -46,7 +46,7 @@ const styles = theme => ({
       justifyContent: 'space-between',
     },
     switchLabel: {
-      color: theme.palette.common.white,
+      //color: theme.palette.common.white,
     },
   }
 });
