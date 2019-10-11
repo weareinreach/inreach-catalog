@@ -338,6 +338,7 @@ class AsylumConnectCatalog extends React.Component {
                     handleMessageNew={handleMessageNew}
                     handleRequestOpen={handleRequestOpen}
                     handleUnconfirmSession={handleUnconfirmSession}
+                    logo={logo}
                   />
                 )}
               />
