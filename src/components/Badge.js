@@ -37,7 +37,7 @@ const styles = theme => ({
   }
 });
 
-const Badge = ({ classes, type, height, width, extraClasses, useIcon }) => {
+const Badge = ({ classes, type, height, width, extraClasses, useIcon, mobileLabel }) => {
   const typeMapping = {
     communitySupport: {
       label: 'Community Support',
@@ -110,7 +110,7 @@ const Badge = ({ classes, type, height, width, extraClasses, useIcon }) => {
   const isMobile = window.innerWidth < breakpoints['sm'];
 
   if(isMobile && (typeof useIcon == 'undefined' || useIcon == false)) {
-    return (<div className={classes.flair}>{typeMapping[type].label}</div>);
+    return (<div className={classes.flair}>{mobileLabel ? mobileLabel : typeMapping[type].label}</div>);
   } else {
     return (
       <Tooltip

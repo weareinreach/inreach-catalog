@@ -346,7 +346,7 @@ class Service extends React.Component {
                     {!this.state.oppLoading && communities && communities.length ? 
                       <AsylumConnectStaticSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
                     : null}
-                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectStaticSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} />} />
+                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectStaticSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} isMobile={isMobile} />} />
                     : null}
                     {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectStaticSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
                     : null}
@@ -423,7 +423,7 @@ class Service extends React.Component {
               {!this.state.oppLoading && communities && communities.length ? 
                 <AsylumConnectCollapsibleSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
               : null}
-              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} />} />
+              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} isMobile={isMobile} />} />
               : null}
               {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectCollapsibleSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
               : null}

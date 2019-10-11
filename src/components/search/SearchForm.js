@@ -39,6 +39,10 @@ const styles = theme => ({
     }
   },
   [theme.breakpoints.down('xs')]: {
+    searchButtonContainer: {
+      paddingTop: theme.spacing.unit * 4,
+      paddingBottom: theme.spacing.unit * 10
+    },
     searchButton: {
       textAlign: "center"
     },
@@ -55,7 +59,7 @@ const styles = theme => ({
 class SearchForm extends React.Component {
   render() {
     const { locale } = this.props;
-    const { formRow, searchButton, body2, link, callout, underline } = this.props.classes;
+    const { formRow, searchButton, body2, link, callout, underline, searchButtonContainer } = this.props.classes;
     const variant = /*this.props.width < breakpoints['sm'] ?  "secondary" :*/ "primary";
     const localeLabel = "Select country";
     const isMobile = this.props.width < breakpoints['sm'];
@@ -81,7 +85,7 @@ class SearchForm extends React.Component {
         </Grid>
         : null }
         <SearchBar {...this.props} classes={null} />
-        <Grid container spacing={0}>
+        <Grid container spacing={0} className={searchButtonContainer}>
           {/*<Grid item xs={12} className={formRow}>
             <Typography variant="body2" className={body2}>
               Are you outside of the United States and Canada? <Link to="/page/outside-US-and-Canada" className={link}>Click here.</Link>
