@@ -299,7 +299,7 @@ class Resource extends React.Component {
                   classes={classes}
                   website={resource.website}
                   name={resource.name}
-                  rating={resource.rating}
+                  rating={resource.rating ? resource.rating : resource.opportunity_aggregate_ratings}
                   totalRatings={resource.opportunity_comments.length}
                   phones={resource.phones}
                   isMobile={isMobile}
@@ -325,7 +325,7 @@ class Resource extends React.Component {
                       <AsylumConnectCollapsibleSection title={'Who this '+props.type+' serves'} content={<Communities list={communities} classes={classes} />} />
                     : null}
                     {!this.state.oppLoading && resource.opportunities && resource.opportunities.length ? 
-                      <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} locale={locale} />} />
+                      <AsylumConnectCollapsibleSection title='Services' content={<Services resource={resource} list={resource.opportunities} classes={classes} locale={locale} isMobile={isMobile} />} />
                     : null}
                     {!this.state.oppLoading && languages && languages.length ? 
                       <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
@@ -362,6 +362,7 @@ class Resource extends React.Component {
                     <AsylumConnectCollapsibleSection borderTop={showReviewForm} title={'Reviews'} content={<Reviews
                       orgReviews={this.state.reviewList.organization}
                       oppReviews={this.state.reviewList.opportunities}
+                      reviews={this.state.reviewList.organization}
                       acFilter={this.props.acFilter}
                       handleFilterChange={this.props.handleFilterChange}
                       isMobile={isMobile}
@@ -386,7 +387,7 @@ class Resource extends React.Component {
                 classes={classes}
                 website={resource.website}
                 name={resource.name}
-                rating={resource.rating}
+                rating={resource.rating ? resource.rating : resource.opportunity_aggregate_ratings}
                 totalRatings={resource.opportunity_comments.length}
                 phones={resource.phones}
               />
@@ -424,6 +425,7 @@ class Resource extends React.Component {
               <AsylumConnectCollapsibleSection title={'Reviews'} content={<Reviews
                   orgReviews={this.state.reviewList.organization}
                   oppReviews={this.state.reviewList.opportunities}
+                  reviews={this.state.reviewList.organization}
                   acFilter={this.props.acFilter}
                   handleFilterChange={this.props.handleFilterChange}
                 />} 
