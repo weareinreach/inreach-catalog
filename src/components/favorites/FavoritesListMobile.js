@@ -68,7 +68,7 @@ const FavoritesListMobile = ({
         </Typography>
       ) : (
         <Typography className={classNames(classes.spacingTop, classes.textCenter)} variant="body1">
-          You must be logged in to use favorites.
+          You must <a href="#" onClick={(ev) => {ev.preventDefault(); handleRequestOpen('login')}}>be logged in</a> to use favorites.
         </Typography>
       )
     }

@@ -11,6 +11,7 @@ import resourceTypes from '../../helpers/ResourceTypes';
 import ACBadge from '../Badge';
 
 //const tags = resourceTypes.resourceIndex;
+//http://localhost:8080/en_US/resource/larkin-street-youth-services/service/get-emergency-shelter-for-youth
 
 const ServiceType = (props) => {
   var listedTags = [];
@@ -35,6 +36,7 @@ const ServiceType = (props) => {
                           );
                         })()
                       }
+                      {props.isMobile ? null : <p className={props.classes.serviceText}>{tag}</p>}
                     </span>
                   )
                 } else {

@@ -28,7 +28,7 @@ const supportedLocales = [
   {name: "🇨🇦 Canada", code: "en_CA"},
   {name: "🇲🇽 Mexico", code: "es_MX"},
   {name: "🇺🇸 United States", code: "en_US"},
-  {name: "🌎 Other", code: "intl"}
+  {name: "🌎 Other / Travel Support", code: "intl"}
 ]
 
 class LocaleSelector extends React.Component {

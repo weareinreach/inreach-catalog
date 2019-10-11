@@ -31,14 +31,15 @@ class FavoritesListContainer extends React.Component {
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     const { listId } = this.props.match.params;
     const { lists } = this.props;
+    const { resources } = this.state;
 
     if (lists.length && !listId) {
       this.setState({publicList: null});
       this.props.history.replace(`/favorites/${lists[0].slug}`);
-    } else if (!lists.length && listId) {
+    } else if (lists.length && !resources.length && listId) {
       this.fetchListResources(listId);
     }
   }
@@ -48,8 +49,8 @@ class FavoritesListContainer extends React.Component {
       this.setState({publicList: null});
       this.props.history.replace(`/favorites/${nextProps.lists[0].slug}`);
     }
-    if (this.props.match.params.listId !== nextProps.match.params.listId) {
-      this.setState({ loadingResources: true });
+    if (this.props.match.params.listId !== nextProps.match.params.listId) { 
+      this.setState({ loadingResources: true }); 
       this.fetchListResources(nextProps.match.params.listId);
     }
   }
@@ -132,9 +133,10 @@ class FavoritesListContainer extends React.Component {
       });
   }
 
-  handleListSelect(list) {
+  handleListSelect(list) { 
     const { history } = this.props;
     history.push(`/favorites/${list.slug}`);
+    console.log(list, history);
     this.handleMenuClose();
   }
 

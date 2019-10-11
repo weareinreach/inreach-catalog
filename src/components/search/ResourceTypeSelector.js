@@ -53,6 +53,9 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
     right: '0',
     maxHeight: '420px',
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: '50vh'
+    }
   }
 });
 
