@@ -26,7 +26,7 @@ const ServiceType = (props) => {
                 if(listedTags.indexOf(tag) < 0 && resourceTypes.getBadge([item]) !== 'misc') {
                   listedTags.push(tag);
                   return (
-                    <Typography key={index} variant="body2" style={{position:'relative'}} >
+                    <span key={index} style={{position:'relative'}} >
                       {(() => {
                           let badge = resourceTypes.getBadge([item]);
 
@@ -35,8 +35,7 @@ const ServiceType = (props) => {
                           );
                         })()
                       }
-                      <p className={props.classes.serviceText}>{tag}</p>
-                    </Typography>
+                    </span>
                   )
                 } else {
                   return null;

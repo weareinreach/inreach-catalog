@@ -83,7 +83,7 @@ const ReviewList = ({title, classes, list, acOnly}) => (
   
 );
 
-const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, acFilter, handleFilterChange, isMobile }) => (
+const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, reviews, acFilter, handleFilterChange, isMobile }) => (
   <Grid container spacing={0} >
     <Grid item xs={12} sm={12} md={12} lg xl className={isMobile ? classes.bottomSpacing : "pull-right"}>
       <AsylumConnectSwitch label="Only view reviews written by/for LGBTQ asylum seekers" value="ac-only" onChange={handleFilterChange}checked={acFilter} additionalClasses={{
@@ -93,7 +93,13 @@ const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, acF
     </Grid>
     <Grid item xs={12} >
       <Grid container spacing={0} justify="space-between">
-      {includeOrgReviews ?
+        <Grid item xs={12} md={12}>
+        {reviews === false ? <Loading />
+        :
+          <ReviewList title='User reviews' list={reviews} classes={classes} acOnly={acFilter} />
+        }
+        </Grid>
+      {/*includeOrgReviews ?
         <Grid item xs={12} md={6}>
         {orgReviews === false ? <Loading />
         :
@@ -113,7 +119,7 @@ const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, acF
         :
           <ReviewList title={includeOrgReviews ? 'Reviews of specific services' : null} list={oppReviews} classes={classes} acOnly={acFilter} />
         }
-        </Grid>
+        </Grid>*/}
       </Grid>
     </Grid>
   </Grid>

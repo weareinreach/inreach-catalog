@@ -16,6 +16,7 @@ function groupedServices(list) {
 }
 
 const Services = (props) => {
+  var lastBadge = false;
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} className={props.classes.sectionSpacing}>
@@ -40,16 +41,37 @@ const Services = (props) => {
                 }
                 return 0;
               }).map((item) => {
-                return (
-                  <Typography key={item.id} variant="body2" style={{position:'relative'}} >
-                    {item.badge ?
-                      <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type={item.badge} width='48px' height='48px' />
-                    : <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />}
-                    {isACOpportunity(item) ?
-                      <Link to={'/'+props.locale+'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
-                    : <span className={props.classes.serviceText}>{item.title}</span>}
-                  </Typography>
-                )
+                if(props.isMobile) {
+                  let newType = false;
+                  if(lastBadge !== item.badge) {
+                    newType = true;
+                    lastBadge = item.badge
+                  }
+                  return(
+                    <div>
+                      {newType ? 
+                        <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type={item.badge} width='48px' height='48px' />
+                      : null}
+                      <li>
+                        {isACOpportunity(item) ?
+                          <Link to={'/'+props.locale+'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
+                        : <span className={props.classes.serviceText}>{item.title}</span>}
+                      </li>
+                    </div>
+                  );
+                } else {
+
+                  return (
+                    <Typography key={item.id} variant="body2" style={{position:'relative'}} >
+                      {item.badge ?
+                        <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type={item.badge} width='48px' height='48px' />
+                      : <ACBadge extraClasses={{icon: props.classes.serviceBadge,tooltip:props.classes.serviceTooltip}} key='misc' type='misc' width='45px' height='45px' />}
+                      {isACOpportunity(item) ?
+                        <Link to={'/'+props.locale+'/resource/'+props.resource.slug+'/service/'+item.slug} className={props.classes.serviceText}>{item.title}</Link>
+                      : <span className={props.classes.serviceText}>{item.title}</span>}
+                    </Typography>
+                  )
+                }
               })
             : null)}
           </Grid>
