@@ -35,8 +35,8 @@ class LocaleSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedLocale: false,
-      selectedLocaleName: false,
+      selectedLocale: (this.props.locale ? this.props.locale : false),
+      selectedLocaleName: (this.props.locale ? this.getLocaleNameFromCode(this.props.locale) : false),
     }
 
     this.handleSelectLocale = this.handleSelectLocale.bind(this)
@@ -68,10 +68,12 @@ class LocaleSelector extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({
-      selectedLocale: locale.getLocale(),
-      selectedLocaleName: this.getLocaleNameFromCode(locale.getLocale())
-    });
+    if(this.state.selectedLocale == false) {
+      this.setState({
+        selectedLocale: locale.getLocale(),
+        selectedLocaleName: this.getLocaleNameFromCode(locale.getLocale())
+      });
+    }
   }
 
 

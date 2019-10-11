@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
 
 import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
@@ -16,6 +17,9 @@ import {StandaloneIcon} from '../icons';
 import url from 'url';
 import queryString from 'query-string';
 import SubAnnouncement from '../SubAnnouncement';
+import {mobilePadding} from '../../theme/sharedClasses';
+import LocaleSelector from '../locale/LocaleSelector';
+import locale from '../../helpers/Locale';
 
 const styles = theme => ({
   root: {
@@ -51,6 +55,11 @@ const styles = theme => ({
   },
   navigation: {
     marginTop: theme.spacing.unit * 10
+  },
+  localeHeader: {
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: theme.palette.secondary[500]
+    }
   },
   subAnnouncement: {
     backgroundColor: '#e9e9e9',
@@ -90,6 +99,35 @@ const styles = theme => ({
   },
   textBold: {
     fontWeight: theme.typography.fontWeightHeavy
+  },
+  iconButton: {
+    display: 'inline',
+    height: '60px',
+    width: 'auto'
+  },
+  logoFitHeight: {
+    maxWidth: '65px',
+    paddingLeft: '20px'
+    //height: '100%',
+  },
+  subheading: {
+    marginBottom: theme.spacing.unit * 4,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: theme.typography.title.fontSize,
+      lineHeight: '1.5'
+    }
+  },
+  [theme.breakpoints.down('xs')]: {
+    subheading: {
+      color: theme.palette.common.white,
+      marginBottom: theme.spacing.unit * 4
+    },
+    containerSearchForm: Object.assign(mobilePadding(theme), {
+      alignContent: 'flex-start',
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2,
+      backgroundColor: theme.palette.secondary[500]
+    }),
   }
 });
 
@@ -97,15 +135,23 @@ class Static extends React.Component {
   constructor(props, context) {
     super(props,context);
     this.state = {
-      loading: true
+      loading: true,
+      locale: props.match.params.locale
     };
     this.fetchPage = this.fetchPage.bind(this);
     this.handlePageRequest = this.handlePageRequest.bind(this);
+    this.handleLocaleSelect = this.handleLocaleSelect.bind(this);
   }
 
   componentWillMount() {
     window.scroll(0,0);
     this.fetchPage(this.props.match.params.pageName);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.match.params.pageName!==this.props.match.params.pageName){
+      this.fetchPage(nextProps.match.params.pageName);
+    }
   }
 
   useFreshRequest(search) {
@@ -125,6 +171,30 @@ class Static extends React.Component {
     ).then(this.handlePageRequest);
   }
 
+  handleLocaleSelect(locale, language) {
+    let redirect = false;
+    switch(locale) {
+      case 'es_MX':
+        redirect = "/"+locale+"/page/Mexico/";
+      break;
+      case 'intl':
+        redirect = "/intl/page/outside-US-and-Canada";
+      break;
+      default: 
+      redirect = "/";
+      break;
+    }
+
+    this.setState({
+      locale
+    })
+
+    if(redirect) {
+        this.props.history.push(redirect)
+    }
+    
+  }
+
   handlePageRequest(response) {
     if(response && response.status == 'success') {
       this.setState({
@@ -141,13 +211,39 @@ class Static extends React.Component {
   render() {
     const classes = this.props.classes;
     const lastSection = this.state.data ? this.state.data.length : 0;
+    const isMobile = this.props.width < breakpoints['sm'];
+    const localeLabel = "Select country";
     return (
       <div>
-        <Grid container alignItems='center' justify='center' spacing={0}>
-          <Grid item xs={12} className={classes.subAnnouncement} >
-            <SubAnnouncement />
+        {isMobile ? 
+        <Grid container alignItems='center' justify='center' spacing={0} className={classes.localeHeader}>
+          <Grid item xs={12}>
+            <a href='https://www.asylumconnect.org'>
+              <IconButton
+                className={classes.iconButton}>
+                <img src={this.props.logo} className={classes.logoFitHeight} />
+              </IconButton>
+            </a>
+          </Grid> 
+          <Grid container spacing={0} className={classes.containerSearchForm} >
+            <Grid item xs={12}>
+              <Typography variant="subheading" className={classes.subheading}>
+                Search for verified LGBTQ- and immigrant-friendly services near you
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <LocaleSelector label={localeLabel} setOnChange={true} locale={this.props.match.params.locale} handleSelectLocale={this.handleLocaleSelect} changeLocale={this.props.changeLocale} />
+            </Grid>
           </Grid>
+          
         </Grid>
+        : 
+          <Grid container alignItems='center' justify='center' spacing={0} className={classes.localeHeader}>
+            <Grid item xs={12} className={classes.subAnnouncement} >
+              <SubAnnouncement />
+            </Grid>
+          </Grid>
+        }
         <div className="static--page-container">
         { this.state.loading ? <Loading /> :
           <div className={classes.root}> 

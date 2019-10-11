@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
+import breakpoints from '../../theme/breakpoints';
 import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
 
 import SearchIcon from '../icons/SearchIcon'
@@ -44,7 +45,7 @@ const styles = theme => {
       '&:hover': {
         color: theme.palette.common.darkBlack
       },
-      ['@media (max-width:359.95px)']: {
+      [`@media (max-width: ${breakpoints['xs']}px)`]: {
         fontSize: (theme.typography.body1.fontSize-4),
       }
     }),
