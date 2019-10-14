@@ -60,6 +60,9 @@ const styles = theme => ({
       backgroundColor: 'inherit'
     }
   },
+  loadingColor: {
+    color: theme.palette.secondary[500]
+  },
   [theme.breakpoints.up('sm')]: {
     filterContainer: {
       marginTop: "-0.8rem"
@@ -87,6 +90,18 @@ const styles = theme => ({
     },
     checkboxLabel: {
       color: theme.palette.common.white
+    },
+    shrinkTab: {
+      overflowY: 'hidden',
+      height: 0
+    },
+    noResults: {
+      paddingTop: theme.spacing.unit*2,
+      paddingBottom: theme.spacing.unit*2,
+    },
+    loadingColor: {
+      backgroundColor: 'transparent',
+      color: theme.palette.common.white
     }
   },
   backButton: {
@@ -95,9 +110,9 @@ const styles = theme => ({
 });
 
 const ResultsContainer = (props) => {
-  const { containerSearchResults, searching, searchResults, noResults } = props;
+  const { containerSearchResults, searching, searchResults, noResults, loadingColor } = props;
   return (
-    <div className={containerSearchResults}>
+    <div className={(searching && !searchResults.length ? loadingColor : containerSearchResults)}>
       {searchResults.length ? 
         searchResults.map((organization) => {
           return (
@@ -105,7 +120,7 @@ const ResultsContainer = (props) => {
           )
         })
       : null }
-      { searching ? <Loading /> : 
+      { searching ? <Loading colorClass={searchResults.length ? null : loadingColor} /> : 
         searchResults.length ? null :
         <Typography variant="body2" className={noResults}>
           We didn't currently find any verified resources within your search criteria.<br/>Try choosing different resource types or searching for a different location.
@@ -129,11 +144,21 @@ class SearchResultsContainer extends React.Component {
     this.doSearch();
     window.addEventListener('popstate', this.doSearch.bind(this));
     window.addEventListener('scroll', this.addPage.bind(this));
+    let mapContainer = document.querySelector('.container--map');
+    console.log(mapContainer);
+    if(mapContainer) {
+      mapContainer.addEventListener('scroll', this.addPage.bind(this));
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('popstate', this.doSearch.bind(this));
     window.removeEventListener('scroll', this.addPage.bind(this));
+    let mapContainer = document.querySelector('.container--map');
+    console.log(mapContainer);
+    if(mapContainer) {
+      mapContainer.removeEventListener('scroll', this.addPage.bind(this));
+    }
   }
 
   doSearch(ev) {
@@ -143,7 +168,12 @@ class SearchResultsContainer extends React.Component {
 
   addPage(ev) {
     let searchContainer = document.querySelectorAll('.container--search'); 
-    if (searchContainer.length && (window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight)) {
+    let mapContainer = document.querySelector('.container--map');
+    if (searchContainer.length && 
+        ((window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight))
+        ||
+        (mapContainer && (mapContainer.scrollTop + mapContainer.clientHeight) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight))
+    ) {
         this.props.fetchNextSearchResultsPage();
     }
   }
@@ -179,14 +209,16 @@ class SearchResultsContainer extends React.Component {
       fullBottomMargin, 
       halfBottomMargin,
       indicatorColor,
+      loadingColor,
       noResults,
       secondary,
+      shrinkTab,
       t,
       tabContainer,
       tooltip
       } = this.props.classes;
     const searchResultsProps = {
-      containerSearchResults: containerSearchResults,
+      containerSearchResults: containerSearchResults + (this.state.tab !== 0 ? " "+shrinkTab : ""),
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
@@ -194,7 +226,9 @@ class SearchResultsContainer extends React.Component {
       handleLogOut: this.props.handleLogOut,
       handleMessageNew: this.props.handleMessageNew,
       handleRequestOpen: this.props.handleRequestOpen,
+      history: this.props.history,
       lists: this.props.lists,
+      loadingColor: loadingColor,
       locale: this.props.locale,
       noResults: noResults,
       session: this.props.session,
@@ -211,13 +245,14 @@ class SearchResultsContainer extends React.Component {
         <div className={containerSearchForm+' no-background'}>
           {isMobile ?
             <div className={backButton}>
-              <AsylumConnectBackButton color="contrast" onClick={() => {this.props.history.goBack()}} />
+              <AsylumConnectBackButton color="contrast" onClick={() => {this.props.history.push('/')}} />
             </div>
           : null 
           }
-          <SearchBar {...this.props} classes={null} />
+          <SearchBar {...this.props} classes={null} inlineSearchButton={isMobile} />
           <Grid container spacing={0} alignItems='flex-start'>
             <Grid item xs={12} md={8} className={toolbarClass}>
+              {isMobile ? null :
               <Grid container spacing={0} justify='space-between'>  
                 <Grid item xs>
                   <AsylumConnectButton variant="primary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
@@ -225,7 +260,6 @@ class SearchResultsContainer extends React.Component {
                     {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
                   </AsylumConnectButton>
                 </Grid>
-                {isMobile ? null : 
                 <Grid item xs className='pull-right'>
                   <Tooltip
                     className={tooltip}
@@ -242,8 +276,8 @@ class SearchResultsContainer extends React.Component {
                     {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
                   </AsylumConnectButton>*/}
                 </Grid>
-                }
               </Grid>
+              }
               {this.props.infographic ? 
                 <Grid container spacing={0} justify='space-between'>  
                   <Grid item xs>
@@ -292,7 +326,7 @@ class SearchResultsContainer extends React.Component {
               onChangeIndex={this.handleSwipeChange}
             >
               <ResultsContainer {...searchResultsProps}/>
-              <div className="position-relative">
+              <div className={"position-relative" + (this.state.tab !== 1 ? " "+shrinkTab : "")}>
                 <AsylumConnectMap
                   containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
                   country={this.props.country}
@@ -306,7 +340,7 @@ class SearchResultsContainer extends React.Component {
                   t={this.props.t}
                 />
               </div>
-              <div className="position-relative">
+              <div className={"position-relative" + (this.state.tab !== 2 ? " "+shrinkTab : "")}>
                 <SearchRefinementControls 
                   clearSearchFilters={this.props.clearSearchFilters}
                   handleFilterSelect={this.props.handleFilterSelect} 

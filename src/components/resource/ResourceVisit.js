@@ -5,6 +5,7 @@ import trim from 'trim';
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Fa from 'react-fontawesome';
 
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 import Phone from './Phone';
@@ -20,11 +21,30 @@ const styles = theme => ({
   },
   lineSpacing: {
     lineHeight: "1.4rem",
-    marginBottom: theme.spacing.unit*2
+    marginBottom: theme.spacing.unit*2,
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: theme.spacing.unit*4,
+      position: 'relative'
+    }
   },
   locationSpacing: {
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit
+  },
+  mobileIcon: {
+    display: 'none',
+    [theme.breakpoints.down('xs')]: {
+      display: 'block',
+      position: 'absolute',
+      left: 0,
+      top: theme.spacing.unit/2,
+      width: '22px',
+    }
+  },
+  mobileHide: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
   }
 });
 
@@ -33,10 +53,12 @@ const styles = theme => ({
 const Visit = ({website, phones, emails, locations, classes, isMobile, hideTitle, className}) => (
   <Grid container spacing={0} className={className}>
      <Grid item xs={12}>
-      <Typography variant="body2" className={classes.lineSpacing} ><strong className={classes.boldFont}>Website: </strong>{website ? <a href={website} target="_blank" className={classes.bodyLink}>{isMobile ? url.parse(website).hostname : website}</a> : null}</Typography>
+      <Typography variant="body2" className={classes.lineSpacing} ><strong className={classes.boldFont+' '+classes.mobileHide}>Website: </strong>{website ? <a href={website} target="_blank" className={classes.bodyLink}>{isMobile ? url.parse(website).hostname : website}</a> : null}
+        <Fa name="link" className={classes.mobileIcon} />
+      </Typography>
       {emails && emails.length ? 
         <Typography variant="body2" className={classes.lineSpacing} >
-          <strong className={classes.boldFont}>Email: </strong>{emails.map((email) => {
+          <strong className={classes.boldFont+' '+classes.mobileHide}>Email: </strong>{emails.map((email) => {
             let name = trim(
               (email.title ? email.title : '')+ ' ' +
               (email.first_name ? email.first_name : '')+ ' ' +
@@ -48,13 +70,15 @@ const Visit = ({website, phones, emails, locations, classes, isMobile, hideTitle
               {name ? "("+name+")" : ''}
             </a>
         )})}
+          <Fa name="envelope" className={classes.mobileIcon} />
       </Typography> : null}
       {phones && phones.length ? 
       <Typography variant="body2" className={classes.lineSpacing} >
-        <strong className={classes.boldFont}>Phone number(s): </strong>{phones.map((phone) => (
+        <strong className={classes.boldFont+' '+classes.mobileHide}>Phone number(s): </strong>{phones.map((phone) => (
           <Phone key={phone.id} phone={phone} classes={classes} includeType={true} />
         )
       )}
+        <Fa name="phone" className={classes.mobileIcon} />
       </Typography> : null }
       {locations && locations.length ? 
         locations.map((location) => {
@@ -64,14 +88,16 @@ const Visit = ({website, phones, emails, locations, classes, isMobile, hideTitle
             <Typography variant="body2" className={classes.lineSpacing} >
               <strong className={classes.boldFont}>{location.name ? location.name : 'Location'}: </strong>
               {addressParser({address: location})}
+               <Fa name="map-marker" className={classes.mobileIcon} />
             </Typography>
             {location.schedule && Object.keys(location.schedule).length > 1 && (schedule = scheduleParser({schedule: location.schedule})).length
             ?
               <Typography variant="body2" className={classes.lineSpacing} >
-                <strong className={classes.boldFont}>Hours: </strong>
+                <strong className={classes.boldFont+' '+classes.mobileHide}>Hours: </strong>
                 {schedule.map((sch) => {
                   return sch.days+' '+sch.time;
                 }).join(', ')}
+                <Fa name="clock-o" className={classes.mobileIcon} />
               </Typography>
             : null}
             {location.schedule 
@@ -82,6 +108,7 @@ const Visit = ({website, phones, emails, locations, classes, isMobile, hideTitle
               <Typography variant="body2" className={classes.lineSpacing} >
                 <strong className={classes.boldFont}>Additional Information: </strong>
                 {location.schedule.notes}
+                <Fa name="info-circle" className={classes.mobileIcon} />
               </Typography>
             : null}
           </div>

@@ -21,6 +21,7 @@ import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
 import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
+import AsylumConnectStaticSection from '../AsylumConnectStaticSection';
 import ACBadge from '../Badge';
 import IconButton from 'material-ui/IconButton';
 import ShareIcon from '../icons/ShareIcon';
@@ -324,6 +325,9 @@ class Service extends React.Component {
                   totalRatings={null}
                   phones={service.phones}
                   isMobile={isMobile}
+                  isService={true}
+                  orgName={resource.name}
+                  orgLink={'/'+locale+'/resource/'+resource.slug}
                 />
                 <DetailHeaderTabs
                   tabs={this.tabs}
@@ -338,22 +342,22 @@ class Service extends React.Component {
                   onChangeIndex={this.props.handleSwipeChange}
                 >
                   <div>
-                    <About classes={classes} resource={resource} />
+                    <About classes={classes} resource={service} />
                     {!this.state.oppLoading && communities && communities.length ? 
-                      <AsylumConnectCollapsibleSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
+                      <AsylumConnectStaticSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
                     : null}
-                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} />} />
+                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectStaticSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} isMobile={isMobile} />} />
                     : null}
-                    {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectCollapsibleSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
+                    {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectStaticSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
                     : null}
-                    {!this.state.oppLoading && eligibility && eligibility.length ? <AsylumConnectCollapsibleSection title={'Requirements'} content={<DetailPropertyList list={eligibility} classes={classes} />} />
+                    {!this.state.oppLoading && eligibility && eligibility.length ? <AsylumConnectStaticSection title={'Requirements'} content={<DetailPropertyList list={eligibility} classes={classes} />} />
                     : null}
-                    {!this.state.oppLoading && notrequired && notrequired.length ? <AsylumConnectCollapsibleSection title={'Not required'} content={<DetailPropertyList list={notrequired} classes={classes} />} />
+                    {!this.state.oppLoading && notrequired && notrequired.length ? <AsylumConnectStaticSection title={'Not required'} content={<DetailPropertyList list={notrequired} classes={classes} />} />
                     : null}
-                    {!this.state.oppLoading && additionalinfo && additionalinfo.length ? <AsylumConnectCollapsibleSection title={'Additional information'} content={<DetailPropertyList list={additionalinfo} classes={classes} />} />
+                    {!this.state.oppLoading && additionalinfo && additionalinfo.length ? <AsylumConnectStaticSection title={'Additional information'} content={<DetailPropertyList list={additionalinfo} classes={classes} />} />
                     : null}
                     {!this.state.oppLoading && languages && languages.length ? 
-                      <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
+                      <AsylumConnectStaticSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
                     : null}
                   </div>
                   <div className={classes.mobileSpacing}>
@@ -385,6 +389,7 @@ class Service extends React.Component {
                     <AsylumConnectCollapsibleSection borderTop={showReviewForm} title={'Reviews'} content={<Reviews
                         includeOrgReviews={false}
                         oppReviews={this.state.reviewList}
+                        reviews={this.state.reviewList}
                         acFilter={this.props.acFilter}
                         handleFilterChange={this.props.handleFilterChange}
                       />} 
@@ -418,7 +423,7 @@ class Service extends React.Component {
               {!this.state.oppLoading && communities && communities.length ? 
                 <AsylumConnectCollapsibleSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
               : null}
-              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} />} />
+              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} isMobile={isMobile} />} />
               : null}
               {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectCollapsibleSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
               : null}
@@ -449,6 +454,7 @@ class Service extends React.Component {
               <AsylumConnectCollapsibleSection title={'Reviews'} content={<Reviews
                   includeOrgReviews={false}
                   oppReviews={this.state.reviewList}
+                  reviews={this.state.reviewList}
                   acFilter={this.props.acFilter}
                   handleFilterChange={this.props.handleFilterChange}
                 />} 

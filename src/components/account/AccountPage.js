@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]: {
     root: {
-      padding: '5% 10%',
+      padding: '5% 20px',
     },
     marginBottom: {
       marginBottom: '5%',

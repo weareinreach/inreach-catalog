@@ -4,7 +4,7 @@ const config = {
     odas: "http://demo.1degree.org/",
     odApiKey: "116a982084a50135de470e09a2d30796",
     client_id: 26,
-    basicAuth: "Basic ZGVtbzoxNm1pc3Npb24="
+    basicAuth: "Basic ZGVtbzpwZW9wbGVmaXJzdA=="
   },
   /*development: {
     odrs: "https://data.1degree.org/v1/",

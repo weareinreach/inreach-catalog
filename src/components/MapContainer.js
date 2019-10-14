@@ -36,7 +36,9 @@ const styles = (theme) => ({
     maxWidth: theme.maxColumnWidth,
     margin: "0 auto",
     [theme.breakpoints.down('xs')]: {
-      overflowY: 'auto'
+      overflowY: 'auto',
+      height: '100%',
+      backgroundColor: theme.palette.secondary[500]
     }
   }
 });
@@ -76,6 +78,7 @@ class MapContainer extends React.Component {
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this)
     this.handlePlaceChange = this.handlePlaceChange.bind(this)
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
+    this.handleResourceBackButton = this.handleResourceBackButton.bind(this)
     this.handleFilterSelect = this.handleFilterSelect.bind(this)
     this.handleSortSelect = this.handleSortSelect.bind(this)
     this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this)
@@ -94,6 +97,9 @@ class MapContainer extends React.Component {
     window.addEventListener('resize', this.resizeMap.bind(this));
 
     this.resizeMap();
+    if(this.props.match.path == '/:locale/search/:in/:place/:near/:for/:filter/:sort') {
+      localStorage.setItem('lastSearch', this.props.history.location.pathname)
+    }
   }
 
   componentWillMount() {
@@ -123,6 +129,9 @@ class MapContainer extends React.Component {
             ))
     ) {
       this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
+    }
+    if(nextProps.match.path == '/:locale/search/:in/:place/:near/:for/:filter/:sort') {
+      localStorage.setItem('lastSearch', nextProps.history.location.pathname)
     }
   }
 
@@ -167,6 +176,15 @@ class MapContainer extends React.Component {
       return infograph.getDefaultInfographic(this.props.locale);
     } else {
       return null;
+    }
+  }
+
+  handleResourceBackButton() { console.log(this, this.state)
+    let lastSearch = localStorage.getItem('lastSearch');
+    if(lastSearch) {
+      this.props.history.push(lastSearch);
+    } else {
+      this.props.history.push('/');
     }
   }
 
@@ -557,6 +575,7 @@ class MapContainer extends React.Component {
                       handleLogOut={this.props.handleLogOut}
                       handleMessageNew={this.props.handleMessageNew}
                       handleRequestOpen={this.props.handleRequestOpen}
+                      handleResourceBackButton={this.handleResourceBackButton}
                       lists={this.props.lists}
                       locale={this.props.locale}
                       mapResources={mapResources}

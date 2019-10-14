@@ -5,6 +5,7 @@ import trim from 'trim';
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Fa from 'react-fontawesome';
 
 import { scheduleParser, addressParser } from '../../helpers/Parser';
 import { fetchPhone } from '../../helpers/Opportunities';
@@ -20,7 +21,11 @@ const styles = theme => ({
   },
   lineSpacing: {
     lineHeight: "1.4rem",
-    marginBottom: theme.spacing.unit*2
+    marginBottom: theme.spacing.unit*2,
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: theme.spacing.unit*4,
+      position: 'relative'
+    }
   },
   locationSpacing: {
     paddingTop: theme.spacing.unit,
@@ -28,11 +33,26 @@ const styles = theme => ({
   },
   instructions: {
 
+  },
+  mobileIcon: {
+    display: 'none',
+    [theme.breakpoints.down('xs')]: {
+      display: 'block',
+      position: 'absolute',
+      left: 0,
+      top: theme.spacing.unit/2,
+      width: '22px',
+    }
+  },
+  mobileHide: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
   }
 });
 //TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
-const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log(list, rawSchedule)
+const DetailAccessInstructions = ({list, rawSchedule, classes}) => { //console.log(list, rawSchedule)
   let schedule;
   return (<Grid container spacing={0}>
     <Grid item xs={12}>
@@ -43,8 +63,9 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log
           if(phone && (phone.digits || phone.length > 0)) {
             return (
               <Typography key={index} variant="body2" className={classes.lineSpacing} >
-                <strong className={classes.boldFont}>Phone: </strong>{typeof phone.digits !== 'undefined'?<Phone phone={phone} classes={classes} includeType={true} />:phone}
+                <strong className={classes.boldFont+' '+classes.mobileHide}>Phone: </strong>{typeof phone.digits !== 'undefined'?<Phone phone={phone} classes={classes} includeType={true} />:phone}
                 {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
+                <Fa name="phone" className={classes.mobileIcon} />
               </Typography>
             );
           } else {
@@ -54,7 +75,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log
         case 'email':
           return (
             <Typography key={index} variant="body2" className={classes.lineSpacing} >
-                <strong className={classes.boldFont}>Email: </strong>{item.emails && item.emails.map((email) => {
+                <strong className={classes.boldFont+' '+classes.mobileHide}>Email: </strong>{item.emails && item.emails.map((email) => {
                     let name = trim(
                       (email.title ? email.title : '')+ ' ' +
                       (email.first_name ? email.first_name : '')+ ' ' +
@@ -67,25 +88,33 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log
                     </a>
                 )})}
                 {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
+                <Fa name="envelope" className={classes.mobileIcon} />
             </Typography>
           );
         break;
         case 'location':
           if(item.locations && item.locations.length) {
             return (
-              <Typography key={index} variant="body2" className={classes.lineSpacing} >
+              <div key={index}>
+              <Typography variant="body2" className={classes.lineSpacing} >
                   <strong className={classes.boldFont}>{item.access_value ? item.access_value : item.locations[0].name}: </strong>{addressParser({address: item.locations[0]})}
-                  {rawSchedule && Object.keys(rawSchedule).length > 1 && (schedule = scheduleParser({schedule: rawSchedule})).length
-                    ?
-                    <span><br/>
-                      <strong className={classes.boldFont}>Hours: </strong>
-                        {schedule.map((sch) => {
-                          return sch.days+' '+sch.time;
-                        }).join(', ')}
-                    </span>
-                    : null}
-                  {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
+                  
+                  <Fa name="map-marker" className={classes.mobileIcon} />
               </Typography>
+              <Typography variant="body2" className={classes.lineSpacing} >
+              {rawSchedule && Object.keys(rawSchedule).length > 1 && (schedule = scheduleParser({schedule: rawSchedule})).length
+                ?
+                <span>
+                  <strong className={classes.boldFont+' '+classes.mobileHide}>Hours: </strong>
+                    {schedule.map((sch) => {
+                      return sch.days+' '+sch.time;
+                    }).join(', ')}
+                    <Fa name="clock-o" className={classes.mobileIcon} />
+                </span>
+                : null}
+              {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
+              </Typography>
+              </div>
             );
           } else {
             return null;
@@ -94,8 +123,9 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log
         case 'link':
           return(
             <Typography key={index} variant="body2" className={classes.lineSpacing} >
-              <strong className={classes.boldFont}>Website: </strong><a href={item.access_value} className={classes.bodyLink+' '+classes.listLink}>{item.access_value}</a>
+              <strong className={classes.boldFont+' '+classes.mobileHide}>Website: </strong><a href={item.access_value} className={classes.bodyLink+' '+classes.listLink}>{item.access_value}</a>
               {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
+              <Fa name="link" className={classes.mobileIcon} />
             </Typography>
           );
         break;

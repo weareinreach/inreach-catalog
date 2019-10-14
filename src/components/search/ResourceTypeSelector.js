@@ -53,13 +53,16 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
     right: '0',
     maxHeight: '420px',
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: '50vh'
+    }
   }
 });
 
 const FilterCollection = (props) => (
   <div>
     <Typography variant="body2" className={props.classes.sectionHeader}>
-      <ACBadge type={props.type} width='45px' height='45px' /> 
+      <ACBadge type={props.type} width='45px' height='45px' useIcon={true} /> 
       <span className={props.classes.sectionTitle}>
         {props.t(props.category)}
       </span>

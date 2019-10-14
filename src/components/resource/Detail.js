@@ -33,7 +33,8 @@ const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
       /*height: "100%",*/
       paddingTop: '0px',
-      paddingBottom: '0px'
+      paddingBottom: '0px',
+      backgroundColor: theme.palette.common.white
       /*marginBottom: '91px'*/
     })
   },
@@ -72,7 +73,21 @@ const styles = (theme) => ({
   orgName: {
     fontSize: "21px",
     [theme.breakpoints.down('xs')]: {
+      textAlign: 'center',
+      fontSize: "24px",
+    }
+  },
+  serviceOrg: {
+    [theme.breakpoints.down('xs')]: {
+      color: theme.palette.common.darkBlack,
+      textTransform: 'none',
+      fontWeight: 400,
       textAlign: 'center'
+    }
+  },
+  serviceOrgContainer: {
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing.unit * 2
     }
   },
   serviceBadge: {
@@ -84,7 +99,15 @@ const styles = (theme) => ({
     lineHeight: (theme.spacing.unit * 0.5 + 45).toString() + 'px',
     paddingLeft: theme.spacing.unit * 7,
     marginTop: 0,
-    marginBottom: 0
+    marginBottom: 0,
+    [theme.breakpoints.down('xs')]: {
+      display: 'inline-block',
+      width: "90%",
+      verticalAlign: "top",
+      lineHeight: 1.6,
+      paddingLeft: 0,
+      marginBottom: theme.spacing.unit,
+    }
     //marginTop: theme.spacing.unit * 2,
     //marginBottom: theme.spacing.unit * 2
     //paddingTop:"10px"
@@ -97,10 +120,17 @@ const styles = (theme) => ({
   moreInfo: Object.assign({
     color: theme.palette.common.darkGrey,
     [theme.breakpoints.down('xs')]: {
+      color: theme.palette.common.darkBlack,
       textAlign: 'center'
     }
   }, boldFont(theme)),
   bodyLink: bodyLink(theme),
+  mobileRatingSummary: {
+    [theme.breakpoints.down('xs')]: {
+      textAlign: 'center',
+      marginTop: theme.spacing.unit * 2
+    }
+  },
   listLink: {
     '& + &:before': {
       content: '\", \"'
@@ -211,6 +241,7 @@ class Detail extends React.Component {
             handleLogOut={this.props.handleLogOut}
             handleMessageNew={this.props.handleMessageNew}
             handleRequestOpen={this.props.handleRequestOpen}
+            handleResourceBackButton={this.props.handleResourceBackButton}
             handleSwipeChange={this.handleSwipeChange}
             handleTabClickDesktop={this.handleTabClickDesktop}
             handleTabClickMobile={this.handleTabClickMobile}

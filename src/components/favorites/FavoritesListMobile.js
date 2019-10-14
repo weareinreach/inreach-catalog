@@ -11,6 +11,9 @@ import Menu, {MenuItem} from 'material-ui/Menu';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
+import Loading from '../Loading';
+import AsylumConnectButton from '../AsylumConnectButton';
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
 
 import {bodyLink} from '../../theme/sharedClasses';
 
@@ -20,14 +23,20 @@ import ListNewFormContainer from './ListNewFormContainer';
 const styles = theme => ({
   bodyLink: bodyLink(theme),
   container: {
-    marginLeft: '10%',
-    maxWidth: '80%',
+    //marginLeft: '10%',
+    //maxWidth: '80%',
     marginTop: '1rem',
+    width: '100%',
+    paddingLeft: '20px',
+    paddingRight: '20px'
   },
   textCenter: {textAlign: 'center'},
   spacingBottom: {marginBottom: '1rem'},
   spacingLeft: {marginLeft: '1rem'},
   spacingTop: {marginTop: '1rem'},
+  backButton: {
+    paddingBottom: '0.83em'
+  }
 });
 
 const FavoritesListMobile = ({
@@ -46,6 +55,7 @@ const FavoritesListMobile = ({
   loadingResources,
   list,
   lists,
+  locale,
   match,
   open,
   publicList,
@@ -54,26 +64,39 @@ const FavoritesListMobile = ({
   user,
 }) => (
   <Grid container className={classes.container} direction="column">
-    <IconButton
-      onClick={
-        dialog === 'none' ? () => history.push('/') : () => handleRequestOpen('none')
-      }>
-      <KeyboardArrowLeft />
-    </IconButton>
+    <div className={classes.backButton}>
+      <AsylumConnectBackButton color="default" onClick={dialog === 'none' ? () => history.push('/') : () => handleRequestOpen('none')} />
+    </div>
     {session || publicList
       ? (
         <Typography className={classes.textCenter} variant="display1">
           {publicList ? publicList : 'Favorites'}
         </Typography>
       ) : (
-        <Typography className={classNames(classes.spacingTop, classes.textCenter)} variant="body1">
-          You must be logged in to use favorites.
+        <Typography className={classNames(classes.spacingBottom, classes.textCenter)} variant="body1">
+          Once logged in, you’ll be able to quickly find the organizations and resources you have favorited.
+          <br/><br/>
+          <AsylumConnectButton
+            variant="primary"
+            className={classes.spacingTop}
+            onClick={(ev) => {handleRequestOpen('login')}}
+          >
+            Log In
+          </AsylumConnectButton>
+          <AsylumConnectButton
+            variant="secondary"
+            className={classes.spacingTop}
+            onClick={(ev) => {handleRequestOpen('signup')}}
+          >
+            Sign Up
+          </AsylumConnectButton>
+
         </Typography>
       )
     }
     {(session || publicList) && (
       <div>
-        {/^listNew/.test(dialog) && (
+        {/*/^listNew/.test(dialog) && (
           <ListNewFormContainer
             handleListAddFavorite={handleListAddFavorite}
             handleListNew={handleListNew}
@@ -83,8 +106,8 @@ const FavoritesListMobile = ({
             session={session}
             user={user}
           />
-        )}
-        {dialog === 'none' && (
+        )*/}
+        {/*dialog === 'none' && (*/}
           <div>
             {!publicList ?
               <div>
@@ -99,6 +122,15 @@ const FavoritesListMobile = ({
                     create a new list.
                   </a>
                 </Typography>
+                <AsylumConnectButton
+                  variant="primary"
+                  className={classes.spacingTop}
+                  onClick={() => (session 
+                    ? handleRequestOpen('share/collection/'+list.id+'/'+list.title)
+                    : handleMessageNew('You must be logged in to share resources'))}
+                >
+                  Share
+                </AsylumConnectButton>
                 <Button
                   aria-owns={open ? 'favorites-menu' : null}
                   aria-haspopup="true"
@@ -113,7 +145,7 @@ const FavoritesListMobile = ({
             <div className={classes.spacingTop}>
               <Grid item>
                 {loadingResources ? (
-                  <Fa name="spinner" spin />
+                  <Loading />
                 ) : (
                   <div>
                     {resources.map(resource => (
@@ -121,8 +153,10 @@ const FavoritesListMobile = ({
                         format={'favoritesMobile'}
                         isOnPublicList={publicList}
                         handleMessageNew={handleMessageNew}
-                        handleRemoveFavorite={handleRemoveFavorite}
+                        handleListRemoveFavorite={handleRemoveFavorite}
                         isOnFavoritesList
+                        history={history}
+                        locale={locale}
                         key={resource.id}
                         resource={resource}
                         session={session}
@@ -155,7 +189,7 @@ const FavoritesListMobile = ({
               ))}
             </Menu>
           </div>
-        )}
+        {/*})*/}
       </div>
     )}
   </Grid>

@@ -7,6 +7,8 @@ import { CollapseIcon } from './icons';
 
 import Typography from 'material-ui/Typography';
 import ExpansionPanel, { ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui/ExpansionPanel';
+import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
 
 
 const styles = theme => ({
@@ -29,10 +31,13 @@ const styles = theme => ({
   },
   detailsRootClass: {
     paddingTop: theme.spacing.unit * 2,
-    paddingBottom: 0
+    paddingBottom: 0,
+    paddingLeft: 0
   },
   summaryRootClass: {
     minHeight: "0!important",
+    paddingLeft: "0!important",
+    paddingRight: "0!important"
   },
   summaryExpandedClass: {
     minHeight: "0!important",
@@ -42,10 +47,8 @@ const styles = theme => ({
     margin: "0!important"
   },
   iconClass: {
-    left: '0px',
-    right: '',
-    width: '18px',
-    height: '18px'
+    color: theme.palette.common.darkBlack,
+    right: 0
   }
 });
 
@@ -69,10 +72,10 @@ class AsylumConnectCollapsibleSection extends React.Component {
   }
 
   render() {
-    const { content, title, summary, borderTop, borderBottom } = this.props;
+    const { content, title, summary, borderTop, borderBottom, className } = this.props;
     const { expanded } = this.state;
     const { iconClass, containerClass, rootClass, summaryRootClass, summaryExpandedClass, summaryContentClass, detailsRootClass } = this.props.classes;
-    const containerClasses = (borderTop ? this.props.classes.borderTop : '') + ' ' + (borderBottom ? this.props.classes.borderBottom : '') + ' ' + containerClass;
+    const containerClasses = (borderTop ? this.props.classes.borderTop : '') + ' ' + (borderBottom ? this.props.classes.borderBottom : '') + ' ' + containerClass + ' ' + (className ? className : '');
     /*const listContainerClasses = (this.props.listContainerClass ? this.props.listContainerClass + ' ' : '') + selectList;*/
     //const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '');
 
@@ -85,8 +88,8 @@ class AsylumConnectCollapsibleSection extends React.Component {
             content: summaryContentClass,
             expanded: summaryExpandedClass,
             expandIcon: iconClass
-          }}  expandIcon={<CollapseIcon expanded={expanded} />}>
-            <Typography variant="title">{title}</Typography>
+          }}  expandIcon={ <KeyboardArrowDownIcon /> }>
+            <Typography variant="subheading">{title}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails classes = {{
             root: detailsRootClass

@@ -4,12 +4,16 @@ import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import PlaceIcon from 'material-ui-icons/Place';
+import IconButton from 'material-ui/IconButton';
+import Fa from 'react-fontawesome';
 
 import Dimensions from 'react-dimensions';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
 import { searchInput, searchInputMobile } from '../../theme/sharedClasses';
+
+import breakpoints from '../../theme/breakpoints';
 
 const styles = theme => ({
   searchInput: searchInput(theme),
@@ -29,7 +33,38 @@ const styles = theme => ({
     width: '100%',
     right: '0',
     left: '0'
-  }
+  },
+  inlineSearchButton: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    zIndex: 100,
+    height: "48px",
+    borderRadius: 0,
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary[500],
+    borderColor: theme.palette.primary[500],
+    '&:hover': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary[900],
+      borderColor: theme.palette.primary[900],
+    },
+  },
+  inlineSearchButtonDisabled: {
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary[100],
+    borderColor: theme.palette.primary[100],
+    '&:active': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary[100],
+      borderColor: theme.palette.primary[100]
+    },
+    '&:hover': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary[100],
+      borderColor: theme.palette.primary[100]
+    }
+  } 
 });
 
 
@@ -70,7 +105,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { searchInputContainer, searchInput, placesContainer } = this.props.classes;
+    const { searchInputContainer, searchInput, placesContainer, inlineSearchButton, inlineSearchButtonDisabled } = this.props.classes;
     
     const cssClasses = {
       root: searchInputContainer,
@@ -99,9 +134,10 @@ class SearchBar extends React.Component {
             <ListItemText primary={formattedSuggestion.mainText} secondary={formattedSuggestion.secondaryText} />
           </ListItem>    
     );
+    const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid container spacing={0}>
-        <Grid item md={8} sm={12} xs={12}>
+        <Grid item md={8} sm={12} xs={12} className="position-relative">
           <PlacesAutocomplete
             onSelect={this.handlePlaceSelect}
             autocompleteItem={AutocompleteItem}
@@ -110,6 +146,13 @@ class SearchBar extends React.Component {
             inputProps={inputProps}
             options={options}
           />
+          {isMobile && this.props.inlineSearchButton ? 
+          <IconButton className={inlineSearchButton} classes={{
+            disabled: inlineSearchButtonDisabled
+            }} onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled} >
+            <Fa name="search" />
+          </IconButton>
+          : null }
         </Grid>
         <Grid item md={4} sm={12} xs={12} className="hide--on-print">
           <ResourceTypeSelector 

@@ -22,6 +22,7 @@ import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import AsylumConnectButton from '../AsylumConnectButton';
 import withWidth from '../withWidth';
 import locale from '../../helpers/Locale';
+import LocaleSelector from './LocaleSelector';
 
 import breakpoints from '../../theme/breakpoints';
 import {searchInput, searchInputMobile, mobilePadding} from '../../theme/sharedClasses';
@@ -43,7 +44,11 @@ const styles = theme => ({
     width: '100%!important'
   },
   labelRow: {
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    [theme.breakpoints.down('xs')]: {
+      color: theme.palette.common.white,
+      fontSize: theme.typography.subheading.fontSize
+    }
   },
   formRow: {
     marginBottom: theme.spacing.unit * 3
@@ -70,18 +75,11 @@ const styles = theme => ({
     },
     formContainer: {
       paddingBottom: theme.spacing.unit * 8,
-      backgroundColor: theme.palette.common.white,
+      //backgroundColor: theme.palette.common.white,
       marginTop: theme.spacing.unit
     }
   }
 });
-
-const supportedLocales = [
-  {name: "🇨🇦 Canada", code: "en_CA"},
-  {name: "🇲🇽 Mexico", code: "es_MX"},
-  {name: "🇺🇸 United States", code: "en_US"},
-  {name: "🌎 Other", code: "intl"}
-]
 
 class LocaleForm extends React.Component {
   constructor(props) {
@@ -90,16 +88,15 @@ class LocaleForm extends React.Component {
       reload: false,
       selectedLanguage: false,
       selectedLanguageName: false,
-      selectedLocale: false,
-      selectedLocaleName: false,
+      /*selectedLocale: false,
+      selectedLocaleName: false,*/
       startingLang: this.getStartingLanguage()
     }
 
     this.getStartingLanguage = this.getStartingLanguage.bind(this)
-    this.getLocaleNameFromCode = this.getLocaleNameFromCode.bind(this)
     this.handleNextClick = this.handleNextClick.bind(this)
-    this.handleSelectLocale = this.handleSelectLocale.bind(this)
     this.handleSelectLanguage = this.handleSelectLanguage.bind(this)
+    this.handleSelectLocale = this.handleSelectLocale.bind(this)
   }
 
   getStartingLanguage() {
@@ -113,12 +110,6 @@ class LocaleForm extends React.Component {
     });
   }
 
-  handleSelectLocale(localeCode, localeName) {
-    this.setState({
-      selectedLocale: localeCode,
-      selectedLocaleName: localeName
-    });
-  }
 
   handleNextClick(ev) {
     if(this.state.selectedLocale) {
@@ -136,45 +127,37 @@ class LocaleForm extends React.Component {
 
   }
 
-  getLocaleNameFromCode(code) {
-    let selectedLocale = supportedLocales.filter((item) => (item.code === code));
-    if(selectedLocale.length) {
-      return selectedLocale[0].name;
-    } else {
-      return false;
-    }
+  handleSelectLocale(localeCode, localeName) {
+    this.setState({
+      selectedLocale: localeCode
+    });
   }
 
   componentWillMount() {
     this.setState({
       startingLang: this.getStartingLanguage(),
-      selectedLocale: locale.getLocale(),
-      selectedLocaleName: this.getLocaleNameFromCode(locale.getLocale())
+      selectedLocale: locale.getLocale()
     });
   }
 
   render() {
     const { formRow, labelRow, searchButton, body2, link, callout, underline, inputClass, listContainerClass, formContainer } = this.props.classes;
-    const variant = this.props.width < breakpoints['sm'] ?  "secondary" : "primary";
+    const variant = /*this.props.width < breakpoints['sm'] ?  "secondary" :*/ "primary";
     const localeLabel = 'Select country';
     const languageLabel = 'Select language';
     return (
       <Grid container justify='flex-start' spacing={40} className={formContainer}>
         <Grid item xs={12} md={6}>
           <Typography variant="caption" className={labelRow}>
-            1. What is your preferred language?
+            What is your preferred language?
           </Typography>
           <Language useMobile={false} inputClass={inputClass} autoReload={false} listContainerClass={listContainerClass} onSelect={this.handleSelectLanguage} triggerReload={this.state.reload}  />
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="caption" className={labelRow}>
-            2. Where are you looking for help?
+            Where are you looking for help?
           </Typography>
-          <AsylumConnectSelector label={this.state.selectedLocaleName ? this.state.selectedLocaleName : localeLabel} selected={[]} containerClass={inputClass} closeOnClick={true}>
-            <List>
-              {supportedLocales.map((item, index) => <AsylumConnectDropdownListItem button key={index} selected={this.state.selectedLocale === item.name} onClick={event => this.handleSelectLocale(item.code, item.name)}>{item.name}</AsylumConnectDropdownListItem>)}
-            </List>
-          </AsylumConnectSelector>
+          <LocaleSelector label={localeLabel} handleSelectLocale={this.handleSelectLocale} />
         </Grid>
         <Grid item xs={12} sm={12} md={12} className={searchButton}>
             <AsylumConnectButton variant={variant} onClick={this.handleNextClick}>

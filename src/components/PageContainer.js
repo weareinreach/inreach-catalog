@@ -16,6 +16,7 @@ import {
 class PageContainer extends React.Component {
   render() {
     const {
+      changeLocale,
       country,
       handleLogOut,
       handleMessageNew,
@@ -23,6 +24,7 @@ class PageContainer extends React.Component {
       handleUnconfirmSession,
       history,
       match,
+      logo,
       locale,
       location,
       session,
@@ -103,12 +105,14 @@ class PageContainer extends React.Component {
           />
           <Route path="/:locale/page/:pageName" render={(props) => (
             <Static
+              changeLocale={changeLocale}
               handleMessageNew={handleMessageNew}
               handleLogOut={handleLogOut}
               handleRequestOpen={handleRequestOpen}
               history={history}
               session={session}
               user={user}
+              logo={logo}
               {...props} 
             />
           )} />
