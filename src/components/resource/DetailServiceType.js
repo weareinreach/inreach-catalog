@@ -43,7 +43,7 @@ const ServiceType = (props) => {
           return subcategories.filter(subcategory => (subcategory.category === category.category)).length == 0
         })
         .map(category => ({label: category.title, type: category.type})) : [],
-        xunfoundTags.length ? unfoundTags.map(unfound => ({label: unfound, type: 'misc'})) : []
+        unfoundTags.length ? unfoundTags.map(unfound => ({label: unfound, type: 'misc'})) : []
     );
     //console.log(list);
   }
