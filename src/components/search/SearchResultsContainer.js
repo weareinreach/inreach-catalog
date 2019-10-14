@@ -245,7 +245,7 @@ class SearchResultsContainer extends React.Component {
         <div className={containerSearchForm+' no-background'}>
           {isMobile ?
             <div className={backButton}>
-              <AsylumConnectBackButton color="contrast" onClick={() => {this.props.history.goBack()}} />
+              <AsylumConnectBackButton color="contrast" onClick={() => {this.props.history.push('/')}} />
             </div>
           : null 
           }

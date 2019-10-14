@@ -38,6 +38,7 @@ import {
 import PrivacyNotice from './privacy/PrivacyNotice';
 import MoreMobile from './navigation/MoreMobile';
 import ShareMobile from './share/ShareMobile';
+import ListNewMobile from './favorites/ListNewMobile';
 import Language from './navigation/Language';
 import AsylumConnectButton from './AsylumConnectButton';
 import withSession from './withSession';
@@ -210,6 +211,20 @@ class AsylumConnectCatalog extends React.Component {
                 session={session}
               />
             )}
+            {dialog && dialog.indexOf('listNew') >=0 && (
+              <ListNewMobile
+                dialog={dialog}
+                handleListAddFavorite={handleListAddFavorite}
+                handleListNew={handleListNew}
+                handleLogIn={handleLogIn}
+                handleMessageNew={handleMessageNew}
+                handleRequestClose={handleRequestClose}
+                handleRequestOpen={handleRequestOpen}
+                locale={locale}
+                session={session}
+                user={user}
+              />
+            )}
             {['language'].includes(dialog) && (
               <Language
                 handleRequestOpen={handleRequestOpen}
@@ -238,7 +253,7 @@ class AsylumConnectCatalog extends React.Component {
             />
           </div>
         )}
-        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password', 'more'].includes(dialog) && (!dialog || dialog.indexOf('share') < 0)) || !isMobile ?
+        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password', 'more'].includes(dialog) && (!dialog || (dialog.indexOf('share') < 0 && dialog.indexOf('listNew') < 0) )) || !isMobile ?
           <div id="container--main" className={"content "+this.props.classes.navPadding} >
             <Switch>
               <Route path="/:locale/resource/:id/service/:serviceId" render={(props) => (

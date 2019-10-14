@@ -273,7 +273,7 @@ class Resource extends React.Component {
             {isMobile ?
               <div>  
                 <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
-                  <AsylumConnectBackButton onClick={() => {history.length ? history.goBack() : history.push('/')}} />
+                  <AsylumConnectBackButton onClick={this.props.handleResourceBackButton} />
                   <div>
                     <SaveToFavoritesButton className="center-align"
                       handleListAddFavorite={props.handleListAddFavorite}

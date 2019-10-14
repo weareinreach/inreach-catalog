@@ -241,6 +241,7 @@ class Detail extends React.Component {
             handleLogOut={this.props.handleLogOut}
             handleMessageNew={this.props.handleMessageNew}
             handleRequestOpen={this.props.handleRequestOpen}
+            handleResourceBackButton={this.props.handleResourceBackButton}
             handleSwipeChange={this.handleSwipeChange}
             handleTabClickDesktop={this.handleTabClickDesktop}
             handleTabClickMobile={this.handleTabClickMobile}
