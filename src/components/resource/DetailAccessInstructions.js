@@ -52,7 +52,7 @@ const styles = theme => ({
 });
 //TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
-const DetailAccessInstructions = ({list, rawSchedule, classes}) => { console.log(list, rawSchedule)
+const DetailAccessInstructions = ({list, rawSchedule, classes}) => { //console.log(list, rawSchedule)
   let schedule;
   return (<Grid container spacing={0}>
     <Grid item xs={12}>
