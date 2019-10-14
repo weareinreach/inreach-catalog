@@ -39,7 +39,7 @@ class FavoritesListContainer extends React.Component {
     if (lists.length && !listId) {
       this.setState({publicList: null});
       this.props.history.replace(`/favorites/${lists[0].slug}`);
-    } else if (lists.length && !resources.length && listId) {
+    } else if (/*lists.length &&*/ !resources.length && listId) {
       this.fetchListResources(listId);
     }
   }
@@ -181,7 +181,7 @@ class FavoritesListContainer extends React.Component {
   render() {
     const currentList = this.props.lists.find(
       list => list.slug == this.props.match.params.listId,
-    );
+    ); console.log(this.state.publicList);
     const isMobile = this.props.width < breakpoints['sm'];
     if (isMobile) {
       return (
