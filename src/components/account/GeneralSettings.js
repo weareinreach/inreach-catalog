@@ -126,9 +126,11 @@ class GeneralSettings extends React.Component {
   render() {
     const {
       classes,
+      handleLogOut,
       handleMessageNew,
       handleRequestOpen,
       handleUserUpdate,
+      history,
       locale,
       session,
       user: {
@@ -164,6 +166,9 @@ class GeneralSettings extends React.Component {
           isPasswordUpdated={isPasswordUpdated} 
           handleMessageNew={handleMessageNew}
         />
+        <div onClick={() => { history.push('/'); handleMessageNew('Logout successful.'); handleLogOut() }} className={classes.settingsTypeFont}>
+          <span>Logout</span>
+        </div>
         <div onClick={() => handleRequestOpen('deleteAccount')} className={classes.settingsTypeFont}>
           <span>Delete Account</span>
         </div>

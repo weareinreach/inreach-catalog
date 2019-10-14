@@ -145,7 +145,7 @@ class FavoritesListContainer extends React.Component {
   }
 
   handleMenuClose() {
-    this.setState({open: false});
+    this.setState({open: false, anchorEl: null});
   }
 
   handleRemoveFavorite(resourceId) {

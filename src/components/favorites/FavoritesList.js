@@ -14,6 +14,7 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
+import Loading from '../Loading';
 import ResourceListItem from '../resource/ResourceListItem';
 
 const styles = theme => ({
@@ -144,7 +145,7 @@ const FavoritesList = ({
         <Grid container justify="center">
           <div className={classes.minHeight350}>
             {loadingResources ? (
-              <Fa className={classes.marginTop} name="spinner" spin />
+              <Loading />
             ) : (
               <div>
                 {resources.map(resource =>
