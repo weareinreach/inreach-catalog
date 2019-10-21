@@ -52,7 +52,7 @@ const MoreMobile = ({classes, handleRequestClose, handleRequestOpen}) => (
       [
         {label: "Find Resources", url: "/"},
         {label: "Join the Online Community", url: "https://goo.gl/forms/EihovJZGbCqKZ5582"},
-        {label: "Learn More", url: "https://www.asylumconnect.org/"},
+        {label: "Learn More", url: "http://asylumconnect.org"},
         /*{label: "Rate This App", url: "/"}*/
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
@@ -60,14 +60,14 @@ const MoreMobile = ({classes, handleRequestClose, handleRequestOpen}) => (
       [
         {label: "Find Resource Referrals", url: "/"},
         {label: "Join the Online Community", url: "https://goo.gl/forms/EihovJZGbCqKZ5582"},
-        {label: "Learn More", url: "https://www.asylumconnect.org/"},
+        {label: "Learn More", url: "http://asylumconnect.org"},
         {label: "Rate This App", url: "https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"}
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'General Supporter Information'} content={<LinkList list={
       [
         {label: "Donate", url: "https://secure.actblue.com/donate/asylumconnect"},
-        {label: "Learn More", url: "https://www.asylumconnect.org/"}        
+        {label: "Learn More", url: "http://asylumconnect.org"}        
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'Suggest New Resource'} content={<LinkList list={
