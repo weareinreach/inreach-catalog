@@ -35,7 +35,7 @@ const LinkList = ({classes, list, onLinkClick}) => {
   <div>
     {list.map((item, index) => {
       if(item.url.indexOf('http') == 0) {
-        return (<a key={index} className={classes.linkStyles} href={item.url}>{item.label} <Fa name="link" /></a>);
+        return (<a key={index} className={classes.linkStyles} href={item.url} target="_blank">{item.label} <Fa name="link" /></a>);
       } else {
         return (<Link key={index} to={item.url} className={classes.linkStyles} onClick={onLinkClick} >{item.label} <Fa name="link" /></Link>);
       }

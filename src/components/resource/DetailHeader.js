@@ -33,7 +33,7 @@ const DetailHeader = ({classes, name, website, rating, totalRatings, phones, isM
     {isMobile ? 
     <Grid item xs={12} >
       <Typography variant="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
-        <a href={website} className={classes.bodyLink}>{isMobile ? url.parse(website).hostname : website}</a>
+        <a href={website} target="_blank" className={classes.bodyLink}>{isMobile ? url.parse(website).hostname : website}</a>
       </Typography>
     </Grid>
     : <Grid item xs={12} >
