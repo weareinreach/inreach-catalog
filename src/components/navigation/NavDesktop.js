@@ -57,16 +57,16 @@ return (
     <a className="hide--on-screen" href="#">
       <Typography variant="headline">AsylumConnect Catalog</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/who-we-are">
+    <a className="hide--on-print" href="https://asylumconnect.org/mission/">
       <Typography variant="display4">about us</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/donate">
+    <a className="hide--on-print" href="https://asylumconnect.org/donate/">
       <Typography variant="display4">take action</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/seek-lgbtq-asylum">
+    <a className="hide--on-print" href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/">
       <Typography variant="display4">get help</Typography>
     </a>
-    <a className="hide--on-print" href="http://www.asylumconnect.org/contact">
+    <a className="hide--on-print" href="https://asylumconnect.org/contact/">
       <Typography variant="display4">contact us</Typography>
     </a>
     <Link className="hide--on-print" to='/'>
