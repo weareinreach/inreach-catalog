@@ -61,11 +61,11 @@ class NavTabletMenu extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
           className={classes.AsylumConnectMenu}>
-            <MenuItem onClick={this.handleRequestClose}><a href='http://asylumconnect.org'><Typography type='display4'>home</Typography></a></MenuItem>
-            <MenuItem onClick={this.handleRequestClose}><a href='http://asylumconnect.org/mission'><Typography type='display4'>about us</Typography></a></MenuItem>
-            <MenuItem onClick={this.handleRequestClose}><a href='http://asylumconnect.org/donate'><Typography type='display4'>take action</Typography></a></MenuItem>
-            <MenuItem onClick={this.handleRequestClose}><a href='http://asylumconnect.org/faqs'><Typography type='display4'>get help</Typography></a></MenuItem>
-            <MenuItem onClick={this.handleRequestClose}><a href='http://asylumconnect.org/contact'><Typography type='display4'>contact us</Typography></a></MenuItem>
+            <MenuItem onClick={this.handleRequestClose}><a href='https://asylumconnect.org'><Typography type='display4'>home</Typography></a></MenuItem>
+            <MenuItem onClick={this.handleRequestClose}><a href='https://asylumconnect.org/mission/'><Typography type='display4'>about us</Typography></a></MenuItem>
+            <MenuItem onClick={this.handleRequestClose}><a href='https://asylumconnect.org/donate/'><Typography type='display4'>take action</Typography></a></MenuItem>
+            <MenuItem onClick={this.handleRequestClose}><a href='https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/'><Typography type='display4'>get help</Typography></a></MenuItem>
+            <MenuItem onClick={this.handleRequestClose}><a href='https://asylumconnect.org/contact/'><Typography type='display4'>contact us</Typography></a></MenuItem>
             <MenuItem onClick={this.handleRequestClose}><Link to='/'><Typography type='display4'>find resource</Typography></Link></MenuItem>
         </Menu>
       </div>
