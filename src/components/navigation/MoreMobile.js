@@ -35,7 +35,7 @@ const LinkList = ({classes, list, onLinkClick}) => {
   <div>
     {list.map((item, index) => {
       if(item.url.indexOf('http') == 0) {
-        return (<a key={index} className={classes.linkStyles} href={item.url}>{item.label} <Fa name="link" /></a>);
+        return (<a key={index} className={classes.linkStyles} href={item.url} target="_blank">{item.label} <Fa name="link" /></a>);
       } else {
         return (<Link key={index} to={item.url} className={classes.linkStyles} onClick={onLinkClick} >{item.label} <Fa name="link" /></Link>);
       }
@@ -52,22 +52,22 @@ const MoreMobile = ({classes, handleRequestClose, handleRequestOpen}) => (
       [
         {label: "Find Resources", url: "/"},
         {label: "Join the Online Community", url: "https://goo.gl/forms/EihovJZGbCqKZ5582"},
-        {label: "Learn More", url: "https://www.asylumconnect.org/"},
-        /*{label: "Rate This App", url: "/"}*/
+        {label: "Learn More", url: "https://asylumconnect.org"},
+        {label: "Rate This App", url: "https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"}
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'Help for a Client/Someone Else'} content={<LinkList list={
       [
         {label: "Find Resource Referrals", url: "/"},
         {label: "Join the Online Community", url: "https://goo.gl/forms/EihovJZGbCqKZ5582"},
-        {label: "Learn More", url: "https://www.asylumconnect.org/"},
+        {label: "Learn More", url: "https://asylumconnect.org"},
         {label: "Rate This App", url: "https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"}
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'General Supporter Information'} content={<LinkList list={
       [
         {label: "Donate", url: "https://secure.actblue.com/donate/asylumconnect"},
-        {label: "Learn More", url: "https://www.asylumconnect.org/"}        
+        {label: "Learn More", url: "https://asylumconnect.org"}        
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'Suggest New Resource'} content={<LinkList list={

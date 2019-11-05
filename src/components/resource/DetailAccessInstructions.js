@@ -123,7 +123,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => { //console.l
         case 'link':
           return(
             <Typography key={index} variant="body2" className={classes.lineSpacing} >
-              <strong className={classes.boldFont+' '+classes.mobileHide}>Website: </strong><a href={item.access_value} className={classes.bodyLink+' '+classes.listLink}>{item.access_value}</a>
+              <strong className={classes.boldFont+' '+classes.mobileHide}>Website: </strong><a href={item.access_value} target="_blank" className={classes.bodyLink+' '+classes.listLink}>{item.access_value}</a>
               {item.instructions ? <span className={classes.instructions}><br/>{item.instructions}</span> : null}
               <Fa name="link" className={classes.mobileIcon} />
             </Typography>
