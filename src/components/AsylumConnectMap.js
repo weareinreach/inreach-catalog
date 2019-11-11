@@ -63,6 +63,11 @@ class AsylumConnectMap extends React.Component {
   updateBounds(resources) {
     let self = this;
     const bounds = new google.maps.LatLngBounds();
+    if(typeof this.props.searchCenter == 'object') {
+      bounds.extend(this.props.searchCenter);
+      bounds.extend({lat: this.props.searchCenter.lat-0.1, lng: this.props.searchCenter.lng-0.1});
+      bounds.extend({lat: this.props.searchCenter.lat+0.1, lng: this.props.searchCenter.lng+0.1});
+    }
     resources.map((resource) => {
       let points = resource.locations.length ? resource.locations : [{lat: resource.lat, lng: resource.lng, region: resource.region}];
       points.map((location) => {

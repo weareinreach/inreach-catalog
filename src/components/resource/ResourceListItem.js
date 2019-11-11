@@ -199,6 +199,13 @@ class ResourceListItem extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
+            {orgProperties.filter(item => (item.toLowerCase().indexOf('service-national') == 0)).length ? 
+            <Grid item xs={12} >
+              <Typography variant="body1" className={nationalOrg}>
+                <Fa name="info-circle" className={moreInfo}/> This organization can help people located anywhere in the country.
+              </Typography>
+            </Grid>
+            : null}
             <Grid item xs={12} className={ratingSpacing}>
               <Grid container alignItems="center" spacing={0} justify="space-between">
                 <Grid item xs={12} md={6} className={badgeSpacing}>
