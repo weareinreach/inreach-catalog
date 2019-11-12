@@ -42,13 +42,18 @@ const FilterCollection = (props) => (
   <div>
     {props.index > 0 ? <Divider /> : null}
     <Typography variant="body2" className={props.classes.sectionHeader}>
-      <ACBadge type={props.type} width='45px' height='45px' useIcon={true} /> 
+      {/*<ACBadge type={props.type} width='45px' height='45px' useIcon={true} /> */}
       <AsylumConnectCheckbox label={props.t(props.category) + ' > ' + (props.title ? props.t(props.title) + ' > ': '') + props.t(props.odTag)} value={props.odTag} onChange={props.onChange} checked={(props.selectedResourceTags.indexOf(props.odTag) >= 0)} />
     </Typography>
   </div>
 );
 
 class ResourceTagSelector extends React.Component {
+
+  constructor(props, context) {
+    super(props, context);
+    this.resourceTypes = {};
+  }
 
   render() {
     const {
@@ -61,11 +66,13 @@ class ResourceTagSelector extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const containerWidth = (isMobile ? '100%' : this.props.containerWidth+'px');
 
-    const resourceTypes = ResourceTypes.getResourceTypes(locale);
+    if(typeof this.resourceTypes[locale] === 'undefined' || this.resourceTypes[locale].length === 0) {
+      this.resourceTypes[locale] = ResourceTypes.getResourceTypes(locale);
+    }
 
     return (
       <AsylumConnectSelector label="Service Types" selected={selectedResourceTags} containerWidth={containerWidth} containerClass={searchInput} listContainerClass={resourceList} >
-        {resourceTypes.map((filter, i) => (
+        {this.resourceTypes[locale].map((filter, i) => (
             <FilterCollection key={i} index={i} classes={{sectionHeader, sectionTitle}} onChange={onChange} selectedResourceTags={selectedResourceTags} t={t} {...filter}  />
           )
         )}
