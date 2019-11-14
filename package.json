@@ -45,7 +45,7 @@
     "material-ui-icons": "1.0.0-beta.36",
     "node-cache": "^4.2.0",
     "node-noop": "^1.0.0",
-    "node-sass": "^4.7.1",
+    "node-sass": "^4.13.0",
     "normalize.css": "^7.0.0",
     "object-path": "^0.11.4",
     "path-to-regexp": "^2.0.0",
