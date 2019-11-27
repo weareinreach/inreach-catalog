@@ -51,7 +51,6 @@ const MoreMobile = ({classes, handleRequestClose, handleRequestOpen}) => (
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'Help for Myself'} content={<LinkList list={
       [
         {label: "Find Resources", url: "/"},
-        {label: "Join the Online Community", url: "https://goo.gl/forms/EihovJZGbCqKZ5582"},
         {label: "Learn More", url: "https://asylumconnect.org"},
         {label: "Rate This App", url: "https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"}
       ]
@@ -59,8 +58,7 @@ const MoreMobile = ({classes, handleRequestClose, handleRequestOpen}) => (
     <AsylumConnectCollapsibleSection className={classes.mobilePadding} expanded={false} title={'Help for a Client/Someone Else'} content={<LinkList list={
       [
         {label: "Find Resource Referrals", url: "/"},
-        {label: "Join the Online Community", url: "https://goo.gl/forms/EihovJZGbCqKZ5582"},
-        {label: "Learn More", url: "https://asylumconnect.org"},
+        {label: "Learn More", url: "https://asylumconnect.org/how-to-find-resources-for-clients/"},
         {label: "Rate This App", url: "https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"}
       ]
     } classes={classes} onLinkClick={handleRequestClose} />} />
