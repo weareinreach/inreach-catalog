@@ -26,11 +26,11 @@ const styles = (theme) => ({
 
 const SubAnnouncement = ({ classes, handleRequestOpen, url }) => (
   <Typography variant="body2">
-    <a href={url} target="_blank" className={classes.subAnnouncementText}>Are you interested in joining an online community for LGBTQ asylum seekers?&nbsp;&nbsp;<KeyboardArrowRightIcon className={classes.subAnnouncementTextArrow} /></a>
+    <a href={url} target="_blank" className={classes.subAnnouncementText}>Download our free mobile app&nbsp;&nbsp;<KeyboardArrowRightIcon className={classes.subAnnouncementTextArrow} /></a>
   </Typography>
 );
 
-SubAnnouncement.defaultProps = { url: 'https://goo.gl/forms/EihovJZGbCqKZ5582' }
+SubAnnouncement.defaultProps = { url: 'https://asylumconnect.org/mobile-app/' }
 
 SubAnnouncement.propTypes = {
   classes: PropTypes.object.isRequired,
