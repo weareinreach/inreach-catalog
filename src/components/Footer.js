@@ -116,9 +116,9 @@ const Footer = ({ classes, locale }) => {
               </a>
             </Grid>
             <Grid item xs>
-              <a href="https://www.asylumconnect.org/follow-us-subscribe">
+              <a href="https://asylumconnect.org/contact/">
                 <Typography variant="display3">
-                  Subscribe to our Newletter
+                  Subscribe to our Newsletter
                 </Typography>
               </a>
             </Grid>
