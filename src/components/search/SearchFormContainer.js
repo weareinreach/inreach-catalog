@@ -215,11 +215,11 @@ class SearchFormContainer extends React.Component {
               <Grid item xs={12}>
                 {this.state.locale ?
                   <Typography variant="title" className={title}>
-                    {this.props.t('Welcome to the United States AsylumConnect catalog!')}
+                    {this.props.t('Welcome to the United States AsylumConnect Catalog!')}
                   </Typography>
                 :
                   <Typography variant="title" className={title}>
-                    {this.props.t('Welcome to the AsylumConnect catalog!')}
+                    {this.props.t('Welcome to the AsylumConnect Catalog!')}
                   </Typography>
                 }
               </Grid>

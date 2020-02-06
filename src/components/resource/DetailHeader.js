@@ -38,7 +38,7 @@ const DetailHeader = ({classes, name, website, rating, totalRatings, phones, isM
     </Grid>
     : <Grid item xs={12} >
       <Typography variant="body1" className={classes.moreInfo+' '+classes.bottomSpacing} >
-        <a href={website} className={classes.bodyLink}>{isMobile ? url.parse(website).hostname : website}</a> {phones && phones.length ? '| ' : null}{phones && phones.length ? <Phone phone={phones[0]} classes={classes} /> : null}
+        <a href={website} target="_blank" className={classes.bodyLink}>{isMobile ? url.parse(website).hostname : website}</a> {phones && phones.length ? '| ' : null}{phones && phones.length ? <Phone phone={phones[0]} classes={classes} /> : null}
       </Typography>
     </Grid>}
     {isMobile && phones && phones.length ? 
