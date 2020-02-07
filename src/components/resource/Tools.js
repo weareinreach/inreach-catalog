@@ -20,14 +20,14 @@ const Tools = (props) => (
 				<AsylumConnectBackButton text={props.backText} onClick={props.handleBackButtonClick} />
 			</Grid>
 			:
-			''
+			null
 		}
 		{props.tabs ?
 			<Grid item xs={12} sm={12} md={5}>
 					<DetailHeaderTabs tabs={props.tabs} tab={props.tab} handleTabClick={props.handleTabClick} classes={props.classes} />
 			</Grid>
 			:
-			''
+			null
 		}
     <Grid item xs={12} sm={12} md={7} className={"pull-right "+props.classes.cushion}>
       <div className="center-align">
