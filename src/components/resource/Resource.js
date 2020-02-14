@@ -375,7 +375,9 @@ class Resource extends React.Component {
             <div> {/******* DESKTOP *******/}
               <Tools 
                 {...props}
+                backText={"Back to Search Results"}
                 classes={classes} 
+                handleBackButtonClick={this.props.handleResourceBackButton}
                 handleTabClick={this.handleTabClickDesktop}
                 handleRequestOpen={this.props.handleRequestOpen}
                 resource={resource}
