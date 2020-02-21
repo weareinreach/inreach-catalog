@@ -44,7 +44,7 @@ const styles = (theme) => ({
 });
 
 /*const Map = (props) => (
-  
+
 );*/
 
 class MapContainer extends React.Component {
@@ -110,9 +110,9 @@ class MapContainer extends React.Component {
     window.removeEventListener('resize', this.resizeMap.bind(this));
   }
   componentWillUpdate(nextProps, nextState) {
-    if(nextProps.match.path == '/:locale/resource/:id' && 
+    if(nextProps.match.path == '/:locale/resource/:id' &&
       (this.props.match.path != '/:locale/resource/:id'
-        || (this.props.match.params 
+        || (this.props.match.params
             && nextProps.match.params
             && this.props.match.params.id != nextProps.match.params.id
             && this.props.match.path == '/:locale/resource/:id'
@@ -120,9 +120,9 @@ class MapContainer extends React.Component {
     ) {
       this.setSelectedResource(this.getCachedResource(nextProps.match.params.id));
     }
-    if(nextProps.match.path == '/:locale/resource/:id/service/:serviceId' && 
+    if(nextProps.match.path == '/:locale/resource/:id/service/:serviceId' &&
       (this.props.match.path != '/:locale/resource/:id/service/:serviceId'
-        || (this.props.match.params 
+        || (this.props.match.params
             && nextProps.match.params
             && this.props.match.params.serviceId != nextProps.match.params.serviceId
             && this.props.match.path == '/:locale/resource/:id/service/:serviceId'
@@ -141,7 +141,7 @@ class MapContainer extends React.Component {
     });
   }
 
-  clearSearchFilters() { 
+  clearSearchFilters() {
     this.setState({
       selectedFilters: []
     })
@@ -151,7 +151,7 @@ class MapContainer extends React.Component {
     if(ev) {
       ev.preventDefault();
     }
-    
+
     this.setState({
       selectedResourceTypes: []
     });
@@ -202,11 +202,11 @@ class MapContainer extends React.Component {
     this.props.handleAddressChange(address)
   }
 
-  handleResourceTypeSelect(event, checked) { 
+  handleResourceTypeSelect(event, checked) {
     var index;
     const target = event.target;
     var selectedResourceTypes = this.state.selectedResourceTypes.slice();
-    
+
     if(checked && selectedResourceTypes.indexOf(target.value) < 0) {
       selectedResourceTypes.push(target.value);
       selectedResourceTypes.sort();
@@ -223,11 +223,11 @@ class MapContainer extends React.Component {
     }
   }
 
-  handleFilterSelect(event, checked) { 
+  handleFilterSelect(event, checked) {
     var index;
     const target = event.target;
     var selectedFilters = this.state.selectedFilters.slice();
-    
+
     if(checked && selectedFilters.indexOf(target.value) < 0) {
       selectedFilters.push(target.value)
       selectedFilters.sort();
@@ -272,7 +272,7 @@ class MapContainer extends React.Component {
     }
   }
 
-  handleSearchButtonClick() {    
+  handleSearchButtonClick() {
 
     this.setState({
       searchDisabled: true
@@ -316,7 +316,7 @@ class MapContainer extends React.Component {
           this.setState({
             searchDisabled: false
           });
-          
+
         })
     } else {
       redirect({latLng: this.state.nearLatLng, state: this.state.inState});
@@ -347,7 +347,7 @@ class MapContainer extends React.Component {
         searchResults: [],
         lastSearch: stringified
       });
-      
+
 
       this.queryOneDegree = new OneDegreeResourceQuery();
       this.queryOneDegree
@@ -457,7 +457,7 @@ class MapContainer extends React.Component {
     return {selectedResourceTypes, inState, nearAddress, nearLatLng, selectedFilters, selectedSort};
   }
 
-  checkForURLUpdates(ev) { 
+  checkForURLUpdates(ev) {
     let { inState, nearAddress, nearLatLng, selectedResourceTypes, selectedFilters, selectedSort } = this.parseParams(this.props.match.params);
     let updated = false;
     let stringified = JSON.stringify({
@@ -492,18 +492,20 @@ class MapContainer extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const infographic = this.getInfographic();
 
+    console.log('infographic', infographic);
+
     const selectedResourceTypes = typeof this.state.selectedResourceTypes !== 'undefined' && this.state.selectedResourceTypes.length ? this.state.selectedResourceTypes : [];
     //on the search results, enforce a distance limitation of 100 miles
     const mapMaxDistance = this.props.match.path == '/:locale/search/:in/:place/:near/:for/:filter/:sort' ? 100 : null;
     return (
-        <div className={"container--map "+this.props.classes.containerMap}> 
+        <div className={"container--map "+this.props.classes.containerMap}>
           <Grid container spacing={0} alignItems='stretch'>
             <Grid item xs={12} sm={8}>
               <div className="container--search">
                 <Switch>
                   <Route exact path="/" render={props => <SearchFormContainer {...props} {...this.props} {...this.state}
                     clearResourceTypes={this.clearResourceTypes}
-                    handlePlaceSelect={this.handlePlaceSelect} 
+                    handlePlaceSelect={this.handlePlaceSelect}
                     handlePlaceChange={this.handlePlaceChange}
                     handleSearchButtonClick={this.handleSearchButtonClick}
                     handleResourceTypeSelect={this.handleResourceTypeSelect}
@@ -526,7 +528,7 @@ class MapContainer extends React.Component {
                       handleListNew={this.props.handleListNew}
                       handleLogOut={this.props.handleLogOut}
                       handleMessageNew={this.props.handleMessageNew}
-                      handlePlaceSelect={this.handlePlaceSelect} 
+                      handlePlaceSelect={this.handlePlaceSelect}
                       handlePlaceChange={this.handlePlaceChange}
                       handlePrintClick={this.handlePrintClick}
                       handleSearchButtonClick={this.handleSearchButtonClick}
@@ -602,7 +604,7 @@ class MapContainer extends React.Component {
                     infographic={this.props.match.path == "/:locale/search/:in/:place/:near/:for/:filter/:sort" && infographic}
                     loadingElement={<div style={{ width:"100%", height: window.innerHeight+"px" }} />}
                     locale={this.props.locale}
-                    mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />} 
+                    mapElement={<div style={{ width:this.state.mapWidth,height: window.innerHeight+"px" }} />}
                     mapMaxDistance={mapMaxDistance}
                     ref={(el) => this.ACMap = el}
                     resources={mapResources}
@@ -610,9 +612,9 @@ class MapContainer extends React.Component {
                     t={this.props.t}
                   />
                 </div>
-              </Sticky>          
+              </Sticky>
             </Grid>}
-          </Grid> 
+          </Grid>
         </div>
     );
   }

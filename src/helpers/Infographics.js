@@ -67,7 +67,7 @@ const infographics = [
   },
   {
     center: {
-      lat: 34.841486, 
+      lat: 34.841486,
       lng: -92.415815
     },
     distance: 100, //miles
@@ -79,7 +79,7 @@ const infographics = [
 const defaultInfographic = {
   'en_CA': {
     center: {
-      lat: 60.8545463, 
+      lat: 60.8545463,
       lng: -98.556061
     },
     distance: 2680,
@@ -89,19 +89,19 @@ const defaultInfographic = {
         {name: "Steps to Make a LGBTQ Refugee Protection Claim in Canada", url: "http://asylumconnect.org/wp-content/uploads/2019/10/canadastepstoasylum-compressed.pdf"},
         {name: "Know Your Rights", url:"http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightscanada_compressed.pdf"},
         {name: "Preliminary Document Checklist", url:"http://asylumconnect.org/wp-content/uploads/2019/10/preliminarychecklistcanada_compressed.pdf"},
-        
+
       ],
       fr: [
         {name: "Steps to Make a LGBTQ Refugee Protection Claim in Canada", url: "http://asylumconnect.org/wp-content/uploads/2019/10/E%CC%81tapesa%CC%80suivrepourdemanderlasile-Canada_compressed.pdf"},
-        /*{name: "Know Your Rights", url:"https://www.asylumconnect.org/s/Know-Your-Rights-Canada-ENG.pdf"},
-        {name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"}*/
+        {name: "Know Your Rights", url:"https://asylumconnect.org/wp-content/uploads/2020/02/Know-Your-Rights-Canada-French-compressed.pdf"},
+        /*{name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"}*/
       ]
     }
 
   },
   'en_US': {
     center: {
-      lat: 39.810492, 
+      lat: 39.810492,
       lng: -98.556061
     },
     distance: 2680,
@@ -146,7 +146,7 @@ const milesToMeters = function(miles) {
 //fetch nearest infographic
 //  nearest = defaultInfographic;
 //  confirm google, google.maps, ... exists
-//  
+//
 export default {
   fetchNearestInfographic: function(lat, lng) {
     if(typeof google === 'undefined' || !google.maps || !google.maps.geometry) {
@@ -157,7 +157,7 @@ export default {
     infographics.some((infographic, index) => {
       if(google.maps.geometry.spherical
           .computeDistanceBetween(
-            referencePoint, 
+            referencePoint,
             new google.maps.LatLng(infographic.center.lat, infographic.center.lng)
           ) <= milesToMeters(infographic.distance)
       ) {
@@ -168,6 +168,8 @@ export default {
     return nearestInfographic;
   },
   getDefaultInfographic: function(locale) {
+    console.log('getDefaultInfographic', locale);
+
     return typeof defaultInfographic[locale] !== 'undefined' ? defaultInfographic[locale] : false;
   }
 };
