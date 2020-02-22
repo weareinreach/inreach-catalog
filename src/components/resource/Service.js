@@ -73,7 +73,6 @@ class Service extends React.Component {
       reviewList: false,
       resource: props.resource, 
       service: props.service,
-      acFilter: false,
       userReview: null,
       userComment: null
     };
@@ -390,8 +389,6 @@ class Service extends React.Component {
                         includeOrgReviews={false}
                         oppReviews={this.state.reviewList}
                         reviews={this.state.reviewList}
-                        acFilter={this.props.acFilter}
-                        handleFilterChange={this.props.handleFilterChange}
                       />} 
                     />
                   </div>
@@ -455,8 +452,6 @@ class Service extends React.Component {
                   includeOrgReviews={false}
                   oppReviews={this.state.reviewList}
                   reviews={this.state.reviewList}
-                  acFilter={this.props.acFilter}
-                  handleFilterChange={this.props.handleFilterChange}
                 />} 
               />
             </div>}

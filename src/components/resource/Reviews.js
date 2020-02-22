@@ -48,25 +48,16 @@ const styles = (theme) => ({
   }
 });
 
-const ReviewType = ({classes, type}) => (
-  <Typography variant="body2" className={classes.reviewBadge + ' ' + classes['review'+type]}>
-    {type == 'OD' ? 'One Degree user' : 'AsylumConnect user' }
-  </Typography>
-);
-
-const ReviewList = ({title, classes, list, acOnly}) => (
+const ReviewList = ({title, classes, list}) => (
   <div>
     {title ?
     <Typography variant="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
       {title}
     </Typography>
     : null }
-    {list.filter(({client_id})=>(!acOnly || client_id==clientId)).length ? 
-      list.filter(({client_id})=>(!acOnly || client_id==clientId)).map((review) => (
+    {list.length ? 
+      list.map((review) => (
         <Grid key={review.client_user_id} container spacing={0} className={classes.bottomSpacing}>
-          <Grid item xs={12}>
-            <ReviewType type={review.client_id == clientId ? 'AC' : 'OD' } classes={classes} />
-          </Grid>
           <Grid item xs={12}>
             <Typography variant="body2">
               "{review.content}"
@@ -83,20 +74,14 @@ const ReviewList = ({title, classes, list, acOnly}) => (
   
 );
 
-const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, reviews, acFilter, handleFilterChange, isMobile }) => (
+const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, reviews, isMobile }) => (
   <Grid container spacing={0} >
-    <Grid item xs={12} sm={12} md={12} lg xl className={isMobile ? classes.bottomSpacing : "pull-right"}>
-      <AsylumConnectSwitch label="Only view reviews written by/for LGBTQ asylum seekers" value="ac-only" onChange={handleFilterChange}checked={acFilter} additionalClasses={{
-          checkboxDefault: classes.switchRoot,
-          root: classes.switchInputRoot
-        }} />
-    </Grid>
     <Grid item xs={12} >
       <Grid container spacing={0} justify="space-between">
         <Grid item xs={12} md={12}>
         {reviews === false ? <Loading />
         :
-          <ReviewList title='User reviews' list={reviews} classes={classes} acOnly={acFilter} />
+          <ReviewList title='User reviews' list={reviews} classes={classes} />
         }
         </Grid>
       {/*includeOrgReviews ?

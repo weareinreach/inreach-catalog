@@ -156,7 +156,6 @@ class Detail extends React.Component {
 
     this.state = {
       tab: 0,
-      acFilter: false,
       //userReview: null,
       //userComment: null
     };
@@ -164,7 +163,6 @@ class Detail extends React.Component {
     this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
     this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
     this.handleSwipeChange = this.handleSwipeChange.bind(this);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
   
   }
 
@@ -173,10 +171,6 @@ class Detail extends React.Component {
   }
 
   componentWillUnmount() {
-  }
-
-  handleFilterChange(event, acFilter) {
-    this.setState({acFilter});
   }
 
   handleTabClickDesktop (e, tab) {
@@ -205,9 +199,7 @@ class Detail extends React.Component {
       <Switch>
         <Route path="/:locale/resource/:id/service/:serviceId" render={ props => (
           <Service {...props}
-            acFilter={this.state.acFilter}
             defaultClasses={this.props.classes}
-            handleFilterChange={this.handleFilterChange}
             handleListAddFavorite={this.props.handleListAddFavorite}
             handleListRemoveFavorite={this.props.handleListRemoveFavorite}
             handleListNew={this.props.handleListNew}
@@ -232,9 +224,7 @@ class Detail extends React.Component {
         />
         <Route path="/:locale/resource/:id" render={ props => (
           <Resource {...props}
-            acFilter={this.state.acFilter}
             defaultClasses={this.props.classes}
-            handleFilterChange={this.handleFilterChange}
             handleListAddFavorite={this.props.handleListAddFavorite}
             handleListRemoveFavorite={this.props.handleListRemoveFavorite}
             handleListNew={this.props.handleListNew}
