@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Asylum Connect Catalog App powered by the One Degree API",
   "engines": {
-    "node": "9.2.0"
+    "node": "12.16.1"
   },
   "main": "index.js",
   "scripts": {
