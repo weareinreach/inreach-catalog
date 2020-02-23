@@ -363,8 +363,6 @@ class Resource extends React.Component {
                       orgReviews={this.state.reviewList.organization}
                       oppReviews={this.state.reviewList.opportunities}
                       reviews={this.state.reviewList.organization}
-                      acFilter={this.props.acFilter}
-                      handleFilterChange={this.props.handleFilterChange}
                       isMobile={isMobile}
                       />}
                     />
@@ -428,8 +426,6 @@ class Resource extends React.Component {
                   orgReviews={this.state.reviewList.organization}
                   oppReviews={this.state.reviewList.opportunities}
                   reviews={this.state.reviewList.organization}
-                  acFilter={this.props.acFilter}
-                  handleFilterChange={this.props.handleFilterChange}
                 />} 
               />
             </div>}
