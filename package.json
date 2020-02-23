@@ -86,18 +86,26 @@
   "devDependencies": {
     "@babel/runtime": "<=7.0.0-beta.55",
     "cross-env": "^5.2.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.18.2",
     "request": "^2.88.0",
     "tape": "^4.13.0",
     "webpack-dev-server": "^2.11.5"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jeremyhatter/asylum-connect-1deg-catalog"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "lint-staged": {
+    "**/*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true
+  }
 }
