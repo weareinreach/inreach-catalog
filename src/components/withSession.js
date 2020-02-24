@@ -1,7 +1,7 @@
 import React from 'react';
 import fetch from 'node-fetch';
 import config from '../config/config.js';
-import { fetchUser, fetchUserLists } from '../helpers/odasRequests';
+import {fetchUser, fetchUserLists} from '../helpers/odasRequests';
 
 export default function withSession(WrappedComponent) {
   return class extends React.Component {
@@ -14,7 +14,7 @@ export default function withSession(WrappedComponent) {
         lists: [],
         session: jwt,
         sessionConfirmed: false,
-        user: user,
+        user: user
       };
 
       this.handleFetchUser = this.handleFetchUser.bind(this);
@@ -31,7 +31,7 @@ export default function withSession(WrappedComponent) {
     componentDidMount() {
       window.addEventListener('storage', this.handleStorageChange);
 
-      const { session } = this.state;
+      const {session} = this.state;
       if (session) {
         this.handleConfirmSession(); // assume confirmed until proven otherwise
         this.fetchLists(session);
@@ -43,44 +43,42 @@ export default function withSession(WrappedComponent) {
     }
 
     handleListNew(list) {
-      this.setState(prevState => ({ lists: [...prevState.lists, list] }));
+      this.setState(prevState => ({lists: [...prevState.lists, list]}));
     }
 
     handleListAddFavorite(listId, favorite) {
       this.setState(prevState => ({
-        lists: prevState.lists.map(
-          list =>
-            list.id === listId
-              ? Object.assign({}, list, {
-                  fetchable_list_items: [
-                    ...list.fetchable_list_items,
-                    { fetchable_id: favorite },
-                  ],
-                })
-              : list
-        ),
+        lists: prevState.lists.map(list =>
+          list.id === listId
+            ? Object.assign({}, list, {
+                fetchable_list_items: [
+                  ...list.fetchable_list_items,
+                  {fetchable_id: favorite}
+                ]
+              })
+            : list
+        )
       }));
     }
 
     handleListRemoveFavorite(listId, favorite) {
       this.setState(prevState => ({
-        lists: prevState.lists.map(
-          list =>
-            list.id === listId
-              ? Object.assign({}, list, {
-                  fetchable_list_items: list.fetchable_list_items.filter(
-                    item => item.fetchable_id !== favorite
-                  ),
-                })
-              : list
-        ),
+        lists: prevState.lists.map(list =>
+          list.id === listId
+            ? Object.assign({}, list, {
+                fetchable_list_items: list.fetchable_list_items.filter(
+                  item => item.fetchable_id !== favorite
+                )
+              })
+            : list
+        )
       }));
     }
 
     fetchLists(session) {
       fetchUserLists(session)
         .then(data => {
-          this.setState({ lists: data ? data.collections : [] });
+          this.setState({lists: data ? data.collections : []});
         })
         .catch(error => {
           this.handleLogOut();
@@ -99,7 +97,7 @@ export default function withSession(WrappedComponent) {
     handleStorageChange() {
       this.setState({
         session: window.localStorage.getItem('jwt'),
-        user: parseInt(window.localStorage.getItem('user')),
+        user: parseInt(window.localStorage.getItem('user'))
       });
     }
 
@@ -116,15 +114,15 @@ export default function withSession(WrappedComponent) {
       window.localStorage.removeItem('user');
       this.handleStorageChange();
       this.handleUnconfirmSession();
-      this.setState({ lists: [] });
+      this.setState({lists: []});
     }
 
     handleConfirmSession() {
-      this.setState({ sessionConfirmed: true });
+      this.setState({sessionConfirmed: true});
     }
 
     handleUnconfirmSession() {
-      this.setState({ sessionConfirmed: false });
+      this.setState({sessionConfirmed: false});
     }
 
     render() {

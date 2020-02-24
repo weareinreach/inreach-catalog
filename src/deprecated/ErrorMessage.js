@@ -3,23 +3,22 @@ import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
 import Slide from 'material-ui/transitions/Slide';
 
-
 class ErrorMessage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      open: false,
+      open: false
     };
     this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   componentWillMount() {
-    this.setState({ open: true });
+    this.setState({open: true});
   }
 
   handleRequestClose() {
-    this.setState({ open: false });
+    this.setState({open: false});
   }
 
   render() {
@@ -31,10 +30,10 @@ class ErrorMessage extends React.Component {
         autoHideDuration={3000}
         transition={<Slide direction={'up'} />}
         SnackbarContentProps={{
-          'aria-describedby': 'message-id',
+          'aria-describedby': 'message-id'
         }}
         message={<span id="message-id">{this.props.message}</span>}
-      />  
+      />
     );
   }
 }

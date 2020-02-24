@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TextField from 'material-ui/TextField';
@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   secondaryLabel: {
     '&:focused': {
-      color: theme.palette.secondary[500]+' !important'
+      color: theme.palette.secondary[500] + ' !important'
     }
   },
   secondaryUnderline: {
@@ -34,14 +34,13 @@ const styles = theme => ({
 
 // Custom Button component with variant property
 function AsylumConnectTextField(props) {
-  const { classes, className } = props;
-  let properties = Object.assign({}, props); console.log(properties);
+  const {classes, className} = props;
+  let properties = Object.assign({}, props);
+  console.log(properties);
   properties.classes = null;
   properties.children = null;
 
-  return (
-    <TextField {...properties} />
-  );
+  return <TextField {...properties} />;
 }
 
 AsylumConnectTextField.propTypes = {

@@ -1,10 +1,12 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import {hot} from 'react-hot-loader';
 import PropTypes from 'prop-types';
-import Dialog, { DialogActions,
+import Dialog, {
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle } from 'material-ui/Dialog';
+  DialogTitle
+} from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import {
   BrowserRouter as Router,
@@ -22,19 +24,11 @@ import MapContainer from './MapContainer';
 import PageContainer from './PageContainer';
 require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
-import { AsylumConnectDialog } from './dialog';
-import Header from './Header'
+import {AsylumConnectDialog} from './dialog';
+import Header from './Header';
 import Footer from './Footer';
-import {
-  AccountMobile,
-  LoginDialog,
-  PasswordMobile
-} from './account';
-import {
-  DisclaimerDialog,
-  PrivacyDialog,
-  PrivacyMobile,
-} from './privacy';
+import {AccountMobile, LoginDialog, PasswordMobile} from './account';
+import {DisclaimerDialog, PrivacyDialog, PrivacyMobile} from './privacy';
 import PrivacyNotice from './privacy/PrivacyNotice';
 import MoreMobile from './navigation/MoreMobile';
 import ShareMobile from './share/ShareMobile';
@@ -55,25 +49,26 @@ import breakpoints from '../theme/breakpoints';
 //polyfill for IE
 import 'element-closest-polyfill';
 
-const styles = (theme) => { console.log(theme.breakpoints.down('xs')); 
-  return ({
-  container: {
-    fontFamily: theme.typography.fontFamily,
-    fontSize: theme.typography.fontSize
-  },
-  [theme.breakpoints.down('xs')]: {
-    navPadding: {
-      paddingBottom: "76px"
+const styles = theme => {
+  console.log(theme.breakpoints.down('xs'));
+  return {
+    container: {
+      fontFamily: theme.typography.fontFamily,
+      fontSize: theme.typography.fontSize
     },
-    mobileScroll: {
-      maxHeight: "100%",
-      overflowY: "auto"
+    [theme.breakpoints.down('xs')]: {
+      navPadding: {
+        paddingBottom: '76px'
+      },
+      mobileScroll: {
+        maxHeight: '100%',
+        overflowY: 'auto'
+      }
     }
-    
-  }
-})};
+  };
+};
 
-class AsylumConnectCatalog extends React.Component { 
+class AsylumConnectCatalog extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -114,7 +109,7 @@ class AsylumConnectCatalog extends React.Component {
   handleAddressChange(address) {
     this.setState({
       nearAddress: address
-    })
+    });
   }
 
   render() {
@@ -141,99 +136,110 @@ class AsylumConnectCatalog extends React.Component {
     } = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     let logo;
-    switch(locale) {
+    switch (locale) {
       case 'en_CA':
         logo = isMobile ? LogoImgMobile : LogoImgCA;
-      break;
+        break;
       default:
         logo = isMobile ? LogoImgMobile : LogoImg;
-      break;
+        break;
     }
-    const {handleMessageNew, handleRequestClose, handleRequestOpen, handleAddressChange} = this;
+    const {
+      handleMessageNew,
+      handleRequestClose,
+      handleRequestOpen,
+      handleAddressChange
+    } = this;
     return (
-        <div className={this.props.classes.container}>
-          <Header
-            handleLogOut={handleLogOut}
-            handleRequestOpen={handleRequestOpen}
-            session={session}
-            location={location}
-            history={history}
-            match={match}
-            locale={locale}
-            logo={logo}
-          />
-        {isMobile ? 
-          dialog !== 'none' ?
-          <div className={classNames([this.props.classes.navPadding, this.props.classes.overflowY, this.props.classes.mobileScroll])}>
-            {['disclaimer', 'privacy'].includes(dialog) && (
-              <PrivacyMobile
-                tab={dialog === 'privacy' ? 0 : 1}
-                handleRequestOpen={handleRequestOpen}
-              />
-            )}
-            {['more'].includes(dialog) && (
-              <MoreMobile
-                dialog={dialog}
-                handleRequestOpen={handleRequestOpen}
-                handleRequestClose={handleRequestClose}
-                history={history}
-              />
-            )}
-            {['forgot', 'login', 'signup'].includes(dialog) && (
-              <AccountMobile
-                dialog={dialog}
-                tab={dialog === 'signup' ? 1 : 0}
-                handleLogIn={handleLogIn}
-                handleMessageNew={handleMessageNew}
-                handleRequestClose={handleRequestClose}
-                handleRequestOpen={handleRequestOpen}
-                session={session}
-              />
-            )}
-            {['password'].includes(dialog) && (
-              <PasswordMobile
-                dialog={dialog}
-                handleLogIn={handleLogIn}
-                handleMessageNew={handleMessageNew}
-                handleRequestClose={handleRequestClose}
-                handleRequestOpen={handleRequestOpen}
-                handleConfirmSession={handleConfirmSession}
-                session={session}
-              />
-            )}
-            {dialog && dialog.indexOf('share') >=0 && (
-              <ShareMobile
-                dialog={dialog}
-                handleLogIn={handleLogIn}
-                handleMessageNew={handleMessageNew}
-                handleRequestClose={handleRequestClose}
-                handleRequestOpen={handleRequestOpen}
-                session={session}
-              />
-            )}
-            {dialog && dialog.indexOf('listNew') >=0 && (
-              <ListNewMobile
-                dialog={dialog}
-                handleListAddFavorite={handleListAddFavorite}
-                handleListNew={handleListNew}
-                handleLogIn={handleLogIn}
-                handleMessageNew={handleMessageNew}
-                handleRequestClose={handleRequestClose}
-                handleRequestOpen={handleRequestOpen}
-                locale={locale}
-                session={session}
-                user={user}
-              />
-            )}
-            {['language'].includes(dialog) && (
-              <Language
-                handleRequestOpen={handleRequestOpen}
-                history={history}
-              />
-            )}
-          </div>
-          : null
-        : (
+      <div className={this.props.classes.container}>
+        <Header
+          handleLogOut={handleLogOut}
+          handleRequestOpen={handleRequestOpen}
+          session={session}
+          location={location}
+          history={history}
+          match={match}
+          locale={locale}
+          logo={logo}
+        />
+        {isMobile ? (
+          dialog !== 'none' ? (
+            <div
+              className={classNames([
+                this.props.classes.navPadding,
+                this.props.classes.overflowY,
+                this.props.classes.mobileScroll
+              ])}
+            >
+              {['disclaimer', 'privacy'].includes(dialog) && (
+                <PrivacyMobile
+                  tab={dialog === 'privacy' ? 0 : 1}
+                  handleRequestOpen={handleRequestOpen}
+                />
+              )}
+              {['more'].includes(dialog) && (
+                <MoreMobile
+                  dialog={dialog}
+                  handleRequestOpen={handleRequestOpen}
+                  handleRequestClose={handleRequestClose}
+                  history={history}
+                />
+              )}
+              {['forgot', 'login', 'signup'].includes(dialog) && (
+                <AccountMobile
+                  dialog={dialog}
+                  tab={dialog === 'signup' ? 1 : 0}
+                  handleLogIn={handleLogIn}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestClose={handleRequestClose}
+                  handleRequestOpen={handleRequestOpen}
+                  session={session}
+                />
+              )}
+              {['password'].includes(dialog) && (
+                <PasswordMobile
+                  dialog={dialog}
+                  handleLogIn={handleLogIn}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestClose={handleRequestClose}
+                  handleRequestOpen={handleRequestOpen}
+                  handleConfirmSession={handleConfirmSession}
+                  session={session}
+                />
+              )}
+              {dialog && dialog.indexOf('share') >= 0 && (
+                <ShareMobile
+                  dialog={dialog}
+                  handleLogIn={handleLogIn}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestClose={handleRequestClose}
+                  handleRequestOpen={handleRequestOpen}
+                  session={session}
+                />
+              )}
+              {dialog && dialog.indexOf('listNew') >= 0 && (
+                <ListNewMobile
+                  dialog={dialog}
+                  handleListAddFavorite={handleListAddFavorite}
+                  handleListNew={handleListNew}
+                  handleLogIn={handleLogIn}
+                  handleMessageNew={handleMessageNew}
+                  handleRequestClose={handleRequestClose}
+                  handleRequestOpen={handleRequestOpen}
+                  locale={locale}
+                  session={session}
+                  user={user}
+                />
+              )}
+              {['language'].includes(dialog) && (
+                <Language
+                  handleRequestOpen={handleRequestOpen}
+                  history={history}
+                />
+              )}
+            </div>
+          ) : null
+        ) : (
           <div>
             <Announcement handleRequestOpen={handleRequestOpen} />
             <AsylumConnectDialog
@@ -253,71 +259,97 @@ class AsylumConnectCatalog extends React.Component {
             />
           </div>
         )}
-        { (isMobile && !['disclaimer', 'privacy', 'forgot', 'login', 'signup', 'language', 'password', 'more'].includes(dialog) && (!dialog || (dialog.indexOf('share') < 0 && dialog.indexOf('listNew') < 0) )) || !isMobile ?
-          <div id="container--main" className={"content "+this.props.classes.navPadding} >
+        {(isMobile &&
+          ![
+            'disclaimer',
+            'privacy',
+            'forgot',
+            'login',
+            'signup',
+            'language',
+            'password',
+            'more'
+          ].includes(dialog) &&
+          (!dialog ||
+            (dialog.indexOf('share') < 0 && dialog.indexOf('listNew') < 0))) ||
+        !isMobile ? (
+          <div
+            id="container--main"
+            className={'content ' + this.props.classes.navPadding}
+          >
             <Switch>
-              <Route path="/:locale/resource/:id/service/:serviceId" render={(props) => (
-                <MapContainer
-                  {...props}
-                  country={country}
-                  handleAddressChange={handleAddressChange}
-                  handleListAddFavorite={handleListAddFavorite}
-                  handleListRemoveFavorite={handleListRemoveFavorite}
-                  handleListNew={handleListNew}
-                  handleLogOut={handleLogOut}
-                  handleMessageNew={handleMessageNew}
-                  handleRequestOpen={handleRequestOpen}
-                  lists={lists}
-                  locale={locale}
-                  nearAddress={this.state.nearAddress}
-                  session={session}
-                  t={t}
-                  user={user}
-                />)}
+              <Route
+                path="/:locale/resource/:id/service/:serviceId"
+                render={props => (
+                  <MapContainer
+                    {...props}
+                    country={country}
+                    handleAddressChange={handleAddressChange}
+                    handleListAddFavorite={handleListAddFavorite}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleListNew={handleListNew}
+                    handleLogOut={handleLogOut}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestOpen={handleRequestOpen}
+                    lists={lists}
+                    locale={locale}
+                    nearAddress={this.state.nearAddress}
+                    session={session}
+                    t={t}
+                    user={user}
+                  />
+                )}
               />
-              <Route path="/:locale/resource/:id" render={(props) => (
-                <MapContainer
-                  {...props}
-                  country={country}
-                  handleAddressChange={handleAddressChange}
-                  handleListAddFavorite={handleListAddFavorite}
-                  handleListRemoveFavorite={handleListRemoveFavorite}
-                  handleListNew={handleListNew}
-                  handleLogOut={handleLogOut}
-                  handleMessageNew={handleMessageNew}
-                  handleRequestOpen={handleRequestOpen}
-                  lists={lists}
-                  locale={locale}
-                  nearAddress={this.state.nearAddress}
-                  session={session}
-                  t={t}
-                  user={user}
-                />)}
+              <Route
+                path="/:locale/resource/:id"
+                render={props => (
+                  <MapContainer
+                    {...props}
+                    country={country}
+                    handleAddressChange={handleAddressChange}
+                    handleListAddFavorite={handleListAddFavorite}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleListNew={handleListNew}
+                    handleLogOut={handleLogOut}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestOpen={handleRequestOpen}
+                    lists={lists}
+                    locale={locale}
+                    nearAddress={this.state.nearAddress}
+                    session={session}
+                    t={t}
+                    user={user}
+                  />
+                )}
               />
-              <Route exact path="/" render={(props) => (
-                <MapContainer
-                  {...props}
-                  changeLocale={changeLocale}
-                  country={country}
-                  handleAddressChange={handleAddressChange}
-                  handleListAddFavorite={handleListAddFavorite}
-                  handleListRemoveFavorite={handleListRemoveFavorite}
-                  handleListNew={handleListNew}
-                  handleLogOut={handleLogOut}
-                  handleMessageNew={handleMessageNew}
-                  handleRequestOpen={handleRequestOpen}
-                  lists={lists}
-                  locale={locale}
-                  logo={logo}
-                  nearAddress={this.state.nearAddress}
-                  session={session}
-                  t={t}
-                  user={user}
-                />)}
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <MapContainer
+                    {...props}
+                    changeLocale={changeLocale}
+                    country={country}
+                    handleAddressChange={handleAddressChange}
+                    handleListAddFavorite={handleListAddFavorite}
+                    handleListRemoveFavorite={handleListRemoveFavorite}
+                    handleListNew={handleListNew}
+                    handleLogOut={handleLogOut}
+                    handleMessageNew={handleMessageNew}
+                    handleRequestOpen={handleRequestOpen}
+                    lists={lists}
+                    locale={locale}
+                    logo={logo}
+                    nearAddress={this.state.nearAddress}
+                    session={session}
+                    t={t}
+                    user={user}
+                  />
+                )}
               />
               <Route
                 path="/:locale/search/:in/:place/:near/:for/:filter/:sort"
-                render={(props) => (
+                render={props => (
                   <MapContainer
                     {...props}
                     country={country}
@@ -335,16 +367,27 @@ class AsylumConnectCatalog extends React.Component {
                     session={session}
                     t={t}
                     user={user}
-                />)}
+                  />
+                )}
               />
-              <RedirectWithParams from={"/:locale/search/:in/:place/:near/:for/:filter"} to={"/search/:in/:place/:near/:for/:filter/default"} />
-              <RedirectWithParams from={"/:locale/search/:in/:place/:near/:for"} to={"/search/:in/:place/:near/:for/all/default"} />
-              <RedirectWithParams from={"/:locale/search/:in/:place/:near/"} to={"/search/:in/:place/:near/any/all/default"} />
-              <Redirect from="/:locale/search" to="/"/>
-              <Redirect from="/:locale/resource" to="/"/>
-              <Redirect from="/:locale/resource/:id/service" to="/"/>
-              <Route render={(props) => (
-                <PageContainer
+              <RedirectWithParams
+                from={'/:locale/search/:in/:place/:near/:for/:filter'}
+                to={'/search/:in/:place/:near/:for/:filter/default'}
+              />
+              <RedirectWithParams
+                from={'/:locale/search/:in/:place/:near/:for'}
+                to={'/search/:in/:place/:near/:for/all/default'}
+              />
+              <RedirectWithParams
+                from={'/:locale/search/:in/:place/:near/'}
+                to={'/search/:in/:place/:near/any/all/default'}
+              />
+              <Redirect from="/:locale/search" to="/" />
+              <Redirect from="/:locale/resource" to="/" />
+              <Redirect from="/:locale/resource/:id/service" to="/" />
+              <Route
+                render={props => (
+                  <PageContainer
                     {...this.state}
                     {...this.props}
                     {...props}
@@ -359,13 +402,15 @@ class AsylumConnectCatalog extends React.Component {
               />
             </Switch>
           </div>
-        : null }
-        { isMobile ? 
-          <PrivacyNotice 
+        ) : null}
+        {isMobile ? (
+          <PrivacyNotice
             locale={locale}
             handleRequestOpen={handleRequestOpen}
-          /> 
-        : <Footer locale={locale} /> }
+          />
+        ) : (
+          <Footer locale={locale} />
+        )}
         <Message
           handleMessageClose={this.handleMessageClose}
           message={message}
@@ -374,11 +419,11 @@ class AsylumConnectCatalog extends React.Component {
       </div>
     );
   }
-};
+}
 
 AsylumConnectDialog.defaultProps = {
   session: null,
-  user: null,
+  user: null
 };
 
 AsylumConnectCatalog.propTypes = {
@@ -389,7 +434,9 @@ AsylumConnectCatalog.propTypes = {
   session: PropTypes.string,
   sessionConfirmed: PropTypes.bool.isRequired,
   user: PropTypes.number,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired
 };
 
-export default hot(module)(withLocale((withSession(withWidth(withStyles(styles)(AsylumConnectCatalog))))));
+export default hot(module)(
+  withLocale(withSession(withWidth(withStyles(styles)(AsylumConnectCatalog))))
+);

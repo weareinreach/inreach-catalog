@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
-const styles = (theme) => ({
+const styles = theme => ({
   primary: {
     backgroundColor: theme.palette.primary[500], //fix this for non-resource-type checkboxes
     '&:hover': {
@@ -33,19 +33,22 @@ const styles = (theme) => ({
 
 class AsylumConnectIndicator extends React.Component {
   render() {
-    const { primary, secondary, circle } = this.props.classes;
+    const {primary, secondary, circle} = this.props.classes;
 
     return (
-      <div className={
-
-        (this.props.className ? this.props.className : position) + ' ' + 
-        circle + ' ' +
-        (this.props.color == 'secondary' ? secondary : primary)}>
+      <div
+        className={
+          (this.props.className ? this.props.className : position) +
+          ' ' +
+          circle +
+          ' ' +
+          (this.props.color == 'secondary' ? secondary : primary)
+        }
+      >
         {this.props.children}
       </div>
     );
-  };
+  }
 }
 
 export default withStyles(styles)(AsylumConnectIndicator);
-

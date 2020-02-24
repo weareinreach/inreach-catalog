@@ -5,7 +5,7 @@ import ResourceTypes from './ResourceTypes';
 import locale from './Locale';
 
 const serviceProperties = {
-  'en_CA': [
+  en_CA: [
     'service-state-alberta',
     'service-state-british-columbia',
     'service-state-manitoba',
@@ -20,11 +20,9 @@ const serviceProperties = {
     'service-state-saskatchewan',
     'service-state-yukon'
   ]
-}
+};
 
 class OneDegreeResourceQuery {
-  
-
   constructor() {
     this.resetFilters();
     this.baseURL = config[process.env.OD_API_ENV].odrs;
@@ -32,7 +30,7 @@ class OneDegreeResourceQuery {
     this.removeAtCapacity = false;
     this.pagingData = {};
     this.requiredFilters = {
-      'opportunities': {
+      opportunities: {
         query: {
           properties: {
             'community-asylum-seeker': 'true',
@@ -42,7 +40,7 @@ class OneDegreeResourceQuery {
           match: 'properties'
         }
       },
-      'organizations': {
+      organizations: {
         extended: 'true'
       }
     };
@@ -55,16 +53,14 @@ class OneDegreeResourceQuery {
    * @param {[Array]} tags an array of tags
    */
   addTags(tags) {
-    ResourceTypes.types.forEach((tag) => {
-      if(
-        (
-          (tag.title && tags.indexOf(tag.title) >= 0) 
-          || tags.indexOf(tag.category) >= 0
-        ) 
-        && (typeof tag.iconOnly == "undefined" || tag.iconOnly == false)
-        && this.filters.query.tags.indexOf(tag.odTag) < 0
+    ResourceTypes.types.forEach(tag => {
+      if (
+        ((tag.title && tags.indexOf(tag.title) >= 0) ||
+          tags.indexOf(tag.category) >= 0) &&
+        (typeof tag.iconOnly == 'undefined' || tag.iconOnly == false) &&
+        this.filters.query.tags.indexOf(tag.odTag) < 0
       ) {
-        this.filters.query.tags.push(tag.odTag)
+        this.filters.query.tags.push(tag.odTag);
       }
     });
     /*if(this.filters.query.tags.length && this.filters.query.tags.indexOf('Case management') < 0) {
@@ -81,52 +77,61 @@ class OneDegreeResourceQuery {
   }
 
   filterAtCapacity(resources) {
-    if(resources.length) {
-      return resources.filter((resource) => (
-        typeof resource.properties == 'undefined' 
-        || typeof resource.properties['at-capacity'] == 'undefined'
-        || resource.properties['at-capacity'] !== 'true'
-      ));
+    if (resources.length) {
+      return resources.filter(
+        resource =>
+          typeof resource.properties == 'undefined' ||
+          typeof resource.properties['at-capacity'] == 'undefined' ||
+          resource.properties['at-capacity'] !== 'true'
+      );
     } else {
       return resources;
     }
   }
 
   filterResults(resources) {
-    let filter = (item) => (true);
-    if(resources.length) {
-      switch(locale.getLocale()) {
+    let filter = item => true;
+    if (resources.length) {
+      switch (locale.getLocale()) {
         case 'en_CA':
-          filter = (resource) => {
+          filter = resource => {
             return (
-              typeof resource.properties !== 'undefined' 
-              && typeof serviceProperties.en_CA !== 'undefined'
-              && this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state') == 0)))
-              && (
-                !this.removeAtCapacity
-                || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
-              )
-            )
-          }
-        break;
+              typeof resource.properties !== 'undefined' &&
+              typeof serviceProperties.en_CA !== 'undefined' &&
+              this.hasServiceProperty(
+                serviceProperties.en_CA,
+                Object.keys(resource.properties).filter(
+                  key => key.indexOf('service-state') == 0
+                )
+              ) &&
+              (!this.removeAtCapacity ||
+                (this.removeAtCapacity &&
+                  resource.properties['at-capacity'] !== 'true'))
+            );
+          };
+          break;
         case 'en_US':
         default:
-          filter = (resource) => {
+          filter = resource => {
             return (
-              typeof resource.properties !== 'undefined' 
-              && typeof serviceProperties.en_CA !== 'undefined'
-              && !this.hasServiceProperty(serviceProperties.en_CA, Object.keys(resource.properties).filter((key) => (key.indexOf('service-state') == 0)))
-              && (
-                !this.removeAtCapacity
-                || (this.removeAtCapacity && resource.properties['at-capacity'] !== 'true')
-              )
-            )
-          }
-        break; 
+              typeof resource.properties !== 'undefined' &&
+              typeof serviceProperties.en_CA !== 'undefined' &&
+              !this.hasServiceProperty(
+                serviceProperties.en_CA,
+                Object.keys(resource.properties).filter(
+                  key => key.indexOf('service-state') == 0
+                )
+              ) &&
+              (!this.removeAtCapacity ||
+                (this.removeAtCapacity &&
+                  resource.properties['at-capacity'] !== 'true'))
+            );
+          };
+          break;
       }
       return resources.filter(filter);
     } else {
-      return resources
+      return resources;
     }
 
     /*if(resources.length) {
@@ -141,7 +146,9 @@ class OneDegreeResourceQuery {
   }
 
   hasServiceProperty(list, resourceProperties) {
-    return resourceProperties.filter(value => -1 !== list.indexOf(value)).length > 0;
+    return (
+      resourceProperties.filter(value => -1 !== list.indexOf(value)).length > 0
+    );
   }
 
   setIds(ids) {
@@ -161,12 +168,12 @@ class OneDegreeResourceQuery {
   }
 
   setFilters(filters) {
-    if(filters.indexOf('at-capacity') !== -1) {
+    if (filters.indexOf('at-capacity') !== -1) {
       filters.splice(filters.indexOf('at-capacity'), 1);
       this.removeAtCapacity = true;
     }
-    var properties = {}
-    filters.forEach((filter) => {
+    var properties = {};
+    filters.forEach(filter => {
       properties[filter] = 'true';
     });
     this.filters.query.properties = properties;
@@ -193,7 +200,7 @@ class OneDegreeResourceQuery {
   }
 
   nextPage() {
-    if(this.filters.page < this.pagingData.total_pages) {
+    if (this.filters.page < this.pagingData.total_pages) {
       this.filters.page++;
       return true;
     } else {
@@ -202,23 +209,39 @@ class OneDegreeResourceQuery {
   }
 
   serialize(obj, prefix) {
-    var str = [], p;
-    for(p in obj) {
+    var str = [],
+      p;
+    for (p in obj) {
       if (obj.hasOwnProperty(p)) {
-        var k = prefix ? prefix + "[" + (Number.isInteger(parseInt(p)) && parseInt(p).toString() === p ? '' : p ) + "]" : p, v = obj[p];
-        str.push((v !== null && typeof v === "object") ?
-          this.serialize(v, k) :
-          encodeURIComponent(k) + "=" + encodeURIComponent(v));
+        var k = prefix
+            ? prefix +
+              '[' +
+              (Number.isInteger(parseInt(p)) && parseInt(p).toString() === p
+                ? ''
+                : p) +
+              ']'
+            : p,
+          v = obj[p];
+        str.push(
+          v !== null && typeof v === 'object'
+            ? this.serialize(v, k)
+            : encodeURIComponent(k) + '=' + encodeURIComponent(v)
+        );
       }
     }
-    return str.filter((item) => item!=='').join("&");
+    return str.filter(item => item !== '').join('&');
   }
 
   buildFilters(type = 'opportunities') {
-    if(!this.removeAtCapacity) {
+    if (!this.removeAtCapacity) {
       this.filters.query.titles_only = 'true';
     }
-    return [this.serialize(this.requiredFilters[type]), this.serialize(this.filters)].filter((item) => item!=='').join("&");
+    return [
+      this.serialize(this.requiredFilters[type]),
+      this.serialize(this.filters)
+    ]
+      .filter(item => item !== '')
+      .join('&');
   }
 
   resetFilters() {
@@ -230,26 +253,27 @@ class OneDegreeResourceQuery {
       },
       page: 1,
       per_page: 10
-    }
+    };
     this.removeAtCapacity = false;
     this.pagingData = {};
     return this;
   }
 
-  fetchOrganizations({ callback = (data) => { } } = {}) {
+  fetchOrganizations({callback = data => {}} = {}) {
     var self = this;
     this.fetch({
-      callback: (data) => {
-        let ids = [], filtered;
+      callback: data => {
+        let ids = [],
+          filtered;
 
         filtered = self.filterResults(data.opportunities); //this.removeAtCapacity ? self.filterAtCapacity(data.opportunities) : data.opportunities;
 
         filtered.forEach((opportunity, index) => {
-          if(ids.indexOf(opportunity.organization.id) === -1) {
+          if (ids.indexOf(opportunity.organization.id) === -1) {
             ids.push(opportunity.organization.id);
           }
         });
-        if(ids.length === 0) {
+        if (ids.length === 0) {
           ids.push(0);
         }
         self.pagingData = data.paging;
@@ -264,42 +288,52 @@ class OneDegreeResourceQuery {
           .setOrder(self.filters.query.order)
           .setState(self.filters.query.state)
           .setPerPage(ids.length);
-        if(self.filters && self.filters.query && self.filters.query.order) {
+        if (self.filters && self.filters.query && self.filters.query.order) {
           orgsSearch.setOrder(self.filters.query.order);
         }
         orgsSearch.fetch({
           type: 'organizations',
           callback: callback
         });
-        
       }
     });
   }
 
-  fetch( {type = 'opportunities', callback = (data) => { } } = {} ) {
-    if(type == 'both') {
+  fetch({type = 'opportunities', callback = data => {}} = {}) {
+    if (type == 'both') {
       let aggregateList = [];
-      fetchJsonp(this.baseURL + 'organizations.jsonp?' + this.buildFilters('organizations'))
+      fetchJsonp(
+        this.baseURL +
+          'organizations.jsonp?' +
+          this.buildFilters('organizations')
+      )
         .then(function(res) {
           return res.json();
-        }).then(organizations => {
+        })
+        .then(organizations => {
           aggregateList = aggregateList.concat(organizations.organizations);
-          return fetchJsonp(this.baseURL + 'opportunities.jsonp?' + this.buildFilters('opportunities'))
+          return fetchJsonp(
+            this.baseURL +
+              'opportunities.jsonp?' +
+              this.buildFilters('opportunities')
+          );
         })
         .then(function(res) {
           return res.json();
-        }).then(opportunities => {
+        })
+        .then(opportunities => {
           return aggregateList.concat(opportunities.opportunities);
-        }).then(callback);
+        })
+        .then(callback);
       return this;
     } else {
       fetchJsonp(this.baseURL + type + '.jsonp?' + this.buildFilters(type))
         .then(function(res) {
           return res.json();
-        }).then(callback);
+        })
+        .then(callback);
       return this;
     }
-    
   }
 }
 

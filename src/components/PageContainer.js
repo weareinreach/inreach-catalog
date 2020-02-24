@@ -10,7 +10,7 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch,
+  Switch
 } from 'react-router-dom';
 
 class PageContainer extends React.Component {
@@ -58,67 +58,88 @@ class PageContainer extends React.Component {
             path="/:locale/favorites"
             render={() => <FavoritesListContainer {...favoritesListProps} />}
           />
-          <Route path="/:locale/account/reset-password" render={() => (
-            <ResetPasswordPage
-              country={country}
-              handleMessageNew={handleMessageNew}
-              handleLogOut={handleLogOut}
-              handleRequestOpen={handleRequestOpen}
-              history={history}
-              locale={locale}
-              match={match}
-              location={location}
-              session={session}
-              t={t}
-            />
-          )}
+          <Route
+            path="/:locale/account/reset-password"
+            render={() => (
+              <ResetPasswordPage
+                country={country}
+                handleMessageNew={handleMessageNew}
+                handleLogOut={handleLogOut}
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+                locale={locale}
+                match={match}
+                location={location}
+                session={session}
+                t={t}
+              />
+            )}
           />
-          <Route path="/:locale/account" render={() => (
-            <AccountPage
-              country={country}
-              handleMessageNew={handleMessageNew}
-              handleLogOut={handleLogOut}
-              handleRequestOpen={handleRequestOpen}
-              handleUnconfirmSession={handleUnconfirmSession}
-              history={history}
-              locale={locale}
-              session={session}
-              sessionConfirmed={sessionConfirmed}
-              user={user}
-              t={t}
-            />
-          )}
+          <Route
+            path="/:locale/account"
+            render={() => (
+              <AccountPage
+                country={country}
+                handleMessageNew={handleMessageNew}
+                handleLogOut={handleLogOut}
+                handleRequestOpen={handleRequestOpen}
+                handleUnconfirmSession={handleUnconfirmSession}
+                history={history}
+                locale={locale}
+                session={session}
+                sessionConfirmed={sessionConfirmed}
+                user={user}
+                t={t}
+              />
+            )}
           />
-          <Route path="/:locale/suggestions/new" render={() => (
-            <Suggestion
-              country={country}
-              handleMessageNew={handleMessageNew}
-              handleLogOut={handleLogOut}
-              handleRequestOpen={handleRequestOpen}
-              history={history}
-              locale={locale}
-              session={session}
-              user={user}
-              t={t}
-            />
-          )}
+          <Route
+            path="/:locale/suggestions/new"
+            render={() => (
+              <Suggestion
+                country={country}
+                handleMessageNew={handleMessageNew}
+                handleLogOut={handleLogOut}
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+                locale={locale}
+                session={session}
+                user={user}
+                t={t}
+              />
+            )}
           />
-          <Route path="/:locale/page/:pageName" render={(props) => (
-            <Static
-              changeLocale={changeLocale}
-              handleMessageNew={handleMessageNew}
-              handleLogOut={handleLogOut}
-              handleRequestOpen={handleRequestOpen}
-              history={history}
-              session={session}
-              user={user}
-              logo={logo}
-              {...props} 
-            />
-          )} />
-          <Route render={(props) => (
-            <Redirect to={ window.location.pathname.indexOf((localStorage.getItem('locale')||'en_US')) < 0 ? '/'+(localStorage.getItem('locale')||'en_US')+window.location.pathname : '/'} />
-          )} />
+          <Route
+            path="/:locale/page/:pageName"
+            render={props => (
+              <Static
+                changeLocale={changeLocale}
+                handleMessageNew={handleMessageNew}
+                handleLogOut={handleLogOut}
+                handleRequestOpen={handleRequestOpen}
+                history={history}
+                session={session}
+                user={user}
+                logo={logo}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            render={props => (
+              <Redirect
+                to={
+                  window.location.pathname.indexOf(
+                    localStorage.getItem('locale') || 'en_US'
+                  ) < 0
+                    ? '/' +
+                      (localStorage.getItem('locale') || 'en_US') +
+                      window.location.pathname
+                    : '/'
+                }
+              />
+            )}
+          />
         </Switch>
       </div>
     );
@@ -127,7 +148,7 @@ class PageContainer extends React.Component {
 
 PageContainer.propTypes = {
   handleUnconfirmSession: PropTypes.func.isRequired,
-  sessionConfirmed: PropTypes.bool.isRequired,
+  sessionConfirmed: PropTypes.bool.isRequired
 };
 
 export default PageContainer;

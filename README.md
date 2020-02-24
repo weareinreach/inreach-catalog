@@ -20,11 +20,11 @@ For responsive handling, the `render()` methodology from [this reference](https:
 
 [General workflow reference](http://nvie.com/posts/a-successful-git-branching-model/)
 
-There will be two main branches in the repo: `master` and `staging`. 
+There will be two main branches in the repo: `master` and `staging`.
 
-`master` will reference code that is on production or production-ready. 
+`master` will reference code that is on production or production-ready.
 
-`staging` will reference the main development code and will eventually be tested on staging.  
+`staging` will reference the main development code and will eventually be tested on staging.
 
 `feature/xxx` and `fix/xxx` branches should be made from `staging` and then merged back into `staging` using `git merge --no-ff feature/xxx`
 
@@ -47,20 +47,27 @@ npm install
 ### Run
 
 #### Development
+
 Run dev server that watches for changes and re-builds:
+
 ```bash
 npm run web-dev
 ```
+
 Local server is accessible at [http://localhost:8080](http://localhost:8080)
 
 #### Production Simulation
+
 First build the production build process:
+
 ```bash
 npm run web-prod
 ```
+
 Next start the server:
+
 ```bash
 npm run start
 ```
-Local server is accessible at [http://localhost:8080](http://localhost:8080)
 
+Local server is accessible at [http://localhost:8080](http://localhost:8080)

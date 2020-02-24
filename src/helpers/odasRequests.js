@@ -14,10 +14,10 @@ const headers = session =>
   Object.assign(
     {
       'Content-Type': 'application/json',
-      OneDegreeSource: 'asylumconnect',
+      OneDegreeSource: 'asylumconnect'
     },
     session ? {Authorization: basicAuth ? basicAuth : session} : null,
-    basicAuth ? {'Demo-Authorization': session} : null,
+    basicAuth ? {'Demo-Authorization': session} : null
   );
 
 function checkStatus(response) {
@@ -53,7 +53,7 @@ export const confirmSession = (password, session) => {
   const options = {
     method: 'POST',
     headers: headers(session),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };
@@ -76,16 +76,16 @@ export const fetchUserLists = session => {
   return handleFetch(url, options);
 };
 
-export const createAffiliation = ({ id, name }, session) => {
+export const createAffiliation = ({id, name}, session) => {
   const url = `${odas}api/affiliations`;
   const payload = {
     fetchable_id: id,
-    organization_name: name,
+    organization_name: name
   };
   const options = {
     method: 'PUT',
     headers: headers(session),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };
@@ -98,9 +98,9 @@ export const createList = (payload, session) => {
     body: JSON.stringify(
       Object.assign({}, payload, {
         region: 'USA',
-        shared_status: 'private',
-      }),
-    ),
+        shared_status: 'private'
+      })
+    )
   };
   return handleFetch(url, options);
 };
@@ -109,32 +109,32 @@ export const createListFavorite = (listId, resourceId, session) => {
   const url = `${odas}api/collections/${listId}/items`;
   const payload = {
     fetchable_id: resourceId,
-    fetchable_type: 'Opportunity',
+    fetchable_type: 'Opportunity'
   };
   const options = {
     method: 'POST',
     headers: headers(session),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };
 
-export const createUser = ({ email, password, isProfessional }) => {
+export const createUser = ({email, password, isProfessional}) => {
   const url = `${odas}api/users`;
   const payload = {
     user: {
       email,
       password,
-      is_professional: isProfessional,
+      is_professional: isProfessional
     }
   };
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      OneDegreeSource: 'asylumconnect',
+      OneDegreeSource: 'asylumconnect'
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };
@@ -143,7 +143,7 @@ export const deleteAffiliation = session => {
   const url = `${odas}api/affiliations`;
   const options = {
     method: 'DELETE',
-    headers: headers(session),
+    headers: headers(session)
   };
   return handleFetch(url, options);
 };
@@ -152,7 +152,7 @@ export const deleteListFavorite = (listId, resourceId, session) => {
   const url = `${odas}api/collections/${listId}/items/${resourceId}?fetchable_type=Opportunity`;
   const options = {
     method: 'DELETE',
-    headers: headers(session),
+    headers: headers(session)
   };
   return handleFetch(url, options);
 };
@@ -170,15 +170,15 @@ export const deleteUser = (pw, session) => {
   return handleFetch(url, options);
 };
 
-export const resetPassword = (payload) => {
+export const resetPassword = payload => {
   const url = `${odas}api/passwords`;
   const options = {
     method: 'PUT',
     headers: headers(),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
-}
+};
 
 export const updateListPermissions = (listId, newPermissions, session) => {
   const url = `${odas}api/collections/${listId}`;
@@ -191,17 +191,17 @@ export const updateListPermissions = (listId, newPermissions, session) => {
   const options = {
     method: 'PUT',
     headers: headers(session),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
-}
+};
 
 export const updateUserEmail = (payload, session) => {
   const url = `${odas}api/user`;
   const options = {
     method: 'PUT',
     headers: headers(session),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };
@@ -211,7 +211,7 @@ export const updateUserPassword = (payload, session) => {
   const options = {
     method: 'PUT',
     headers: headers(session),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
   return handleFetch(url, options);
 };

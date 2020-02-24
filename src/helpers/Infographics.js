@@ -9,7 +9,8 @@ const infographics = [
     },
     distance: 34, //miles
     name: "Asylum Seeker's Guide to Los Angeles",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/LAinfographic-1_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/LAinfographic-1_compressed.pdf'
   },
   {
     center: {
@@ -18,7 +19,8 @@ const infographics = [
     },
     distance: 20, //miles
     name: "Asylum Seeker's Guide to New York City",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/NYCinfographic-2_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/NYCinfographic-2_compressed.pdf'
   },
   {
     center: {
@@ -27,7 +29,8 @@ const infographics = [
     },
     distance: 12, //miles
     name: "Asylum Seeker's Guide to Philadelphia",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/phillyinfographic-1_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/phillyinfographic-1_compressed.pdf'
   },
   {
     center: {
@@ -36,16 +39,18 @@ const infographics = [
     },
     distance: 16, //miles
     name: "Asylum Seeker's Guide to San Francisco",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/sfinfographic-1_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/sfinfographic-1_compressed.pdf'
   },
   {
     center: {
-      lat: 47.606210,
+      lat: 47.60621,
       lng: -122.332071
     },
     distance: 9, //miles
     name: "Asylum Seeker's Guide to Seattle",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/seattleinfographic-1_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/seattleinfographic-1_compressed.pdf'
   },
   {
     center: {
@@ -54,7 +59,8 @@ const infographics = [
     },
     distance: 8, //miles
     name: "Asylum Seeker's Guide to Washington, DC",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/DCinfographic-1_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/DCinfographic-1_compressed.pdf'
   },
   {
     center: {
@@ -63,7 +69,8 @@ const infographics = [
     },
     distance: 24, //miles
     name: "Asylum Seeker's Guide to Phoenix, AZ",
-    url: "http://asylumconnect.org/wp-content/uploads/2019/10/PhoenixArizonaCityGuideEnglish_compressed.pdf"
+    url:
+      'http://asylumconnect.org/wp-content/uploads/2019/10/PhoenixArizonaCityGuideEnglish_compressed.pdf'
   },
   {
     center: {
@@ -71,13 +78,13 @@ const infographics = [
       lng: -92.415815
     },
     distance: 100, //miles
-    name: "LGBTQ-friendly businesses in Arkansas",
-    url: "https://arkansansforequality.org/business-equality-list"
+    name: 'LGBTQ-friendly businesses in Arkansas',
+    url: 'https://arkansansforequality.org/business-equality-list'
   }
 ];
 
 const defaultInfographic = {
-  'en_CA': {
+  en_CA: {
     center: {
       lat: 60.8545463,
       lng: -98.556061
@@ -86,20 +93,38 @@ const defaultInfographic = {
     name: "Asylum Seeker's Legal Guides",
     list: {
       default: [
-        {name: "Steps to Make a LGBTQ Refugee Protection Claim in Canada", url: "http://asylumconnect.org/wp-content/uploads/2019/10/canadastepstoasylum-compressed.pdf"},
-        {name: "Know Your Rights", url:"http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightscanada_compressed.pdf"},
-        {name: "Preliminary Document Checklist", url:"http://asylumconnect.org/wp-content/uploads/2019/10/preliminarychecklistcanada_compressed.pdf"},
-
+        {
+          name: 'Steps to Make a LGBTQ Refugee Protection Claim in Canada',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/canadastepstoasylum-compressed.pdf'
+        },
+        {
+          name: 'Know Your Rights',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightscanada_compressed.pdf'
+        },
+        {
+          name: 'Preliminary Document Checklist',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/preliminarychecklistcanada_compressed.pdf'
+        }
       ],
       fr: [
-        {name: "Steps to Make a LGBTQ Refugee Protection Claim in Canada", url: "http://asylumconnect.org/wp-content/uploads/2019/10/E%CC%81tapesa%CC%80suivrepourdemanderlasile-Canada_compressed.pdf"},
-        {name: "Know Your Rights", url:"https://asylumconnect.org/wp-content/uploads/2020/02/Know-Your-Rights-Canada-French-compressed.pdf"},
+        {
+          name: 'Steps to Make a LGBTQ Refugee Protection Claim in Canada',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/E%CC%81tapesa%CC%80suivrepourdemanderlasile-Canada_compressed.pdf'
+        },
+        {
+          name: 'Know Your Rights',
+          url:
+            'https://asylumconnect.org/wp-content/uploads/2020/02/Know-Your-Rights-Canada-French-compressed.pdf'
+        }
         /*{name: "Preliminary Checklist", url:"https://www.asylumconnect.org/s/Preliminary-Checklist-Canada-ENG-4jfe.pdf"}*/
       ]
     }
-
   },
-  'en_US': {
+  en_US: {
     center: {
       lat: 39.810492,
       lng: -98.556061
@@ -108,32 +133,100 @@ const defaultInfographic = {
     name: "Asylum Seeker's Legal Guides",
     list: {
       default: [
-        {name: "Steps to Apply for LGBTQ Asylum in the U.S.", url: "http://asylumconnect.org/wp-content/uploads/2019/10/8stepslinked-min.pdf"},
-        {name: "About The U.S. Defensive Asylum Process", url: "http://asylumconnect.org/wp-content/uploads/2019/10/about-the-defensive-asylum-process-in-the-united-states-2_compressed.pdf"},
-        {name: "Know Your Rights", url:"http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightsenglish_compressed.pdf"},
-        {name: "Seeking Legal Assistance", url:"http://asylumconnect.org/wp-content/uploads/2019/10/SeekinglegalassistanceEnglish-_compressed.pdf"},
-        {name: "Preliminary Document Checklist", url:"http://asylumconnect.org/wp-content/uploads/2019/10/PreliminaryChecklistEnglish-_compressed.pdf"},
-        {name: "Preparing for an LGBTQ Credible Fear Screening or Interview", url:"http://asylumconnect.org/wp-content/uploads/2019/10/CredibleFearInteviewEnglish_compressed.pdf"},
-        {name: "Remain in Mexico Policy", url: "http://asylumconnect.org/wp-content/uploads/2019/11/remain-in-mexico-linked-1_compressed.pdf"}
+        {
+          name: 'Steps to Apply for LGBTQ Asylum in the U.S.',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/8stepslinked-min.pdf'
+        },
+        {
+          name: 'About The U.S. Defensive Asylum Process',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/about-the-defensive-asylum-process-in-the-united-states-2_compressed.pdf'
+        },
+        {
+          name: 'Know Your Rights',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightsenglish_compressed.pdf'
+        },
+        {
+          name: 'Seeking Legal Assistance',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/SeekinglegalassistanceEnglish-_compressed.pdf'
+        },
+        {
+          name: 'Preliminary Document Checklist',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/PreliminaryChecklistEnglish-_compressed.pdf'
+        },
+        {
+          name: 'Preparing for an LGBTQ Credible Fear Screening or Interview',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/CredibleFearInteviewEnglish_compressed.pdf'
+        },
+        {
+          name: 'Remain in Mexico Policy',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/11/remain-in-mexico-linked-1_compressed.pdf'
+        }
       ],
       ar: [
-        {name: "Know Your Rights", url:"http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightsarabic-_compressed.pdf"},
-        {name: "Seeking Legal Assistance", url:"http://asylumconnect.org/wp-content/uploads/2019/10/legalassistancearabic-_compressed.pdf"},
+        {
+          name: 'Know Your Rights',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightsarabic-_compressed.pdf'
+        },
+        {
+          name: 'Seeking Legal Assistance',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/legalassistancearabic-_compressed.pdf'
+        }
       ],
       /*kr: [
         {name: "Know Your Rights", url:"https://www.asylumconnect.org/s/know-your-rights-korean-ymdg.pdf"},
       ],*/
       ru: [
-        {name: "Know Your Rights", url:"http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightsrussian_compressed-1.pdf"},
-        {name: "Seeking Legal Assistance", url:"http://asylumconnect.org/wp-content/uploads/2019/10/russianlegalassistance-_compressed.pdf"},
+        {
+          name: 'Know Your Rights',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/knowyourrightsrussian_compressed-1.pdf'
+        },
+        {
+          name: 'Seeking Legal Assistance',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/russianlegalassistance-_compressed.pdf'
+        }
       ],
       es: [
-        {name: "Steps to Apply for LGBTQ Asylum in the U.S.", url: "http://asylumconnect.org/wp-content/uploads/2019/10/8StepstoApplyforLGBTQAsylumintheU.S.Spanish-min.pdf"},
-        {name: "About The U.S. Defensive Asylum Process", url: "http://asylumconnect.org/wp-content/uploads/2019/10/U.S.DefensiveAsylumProcessEspanol.pdf"},
-        {name: "Know Your Rights", url:"http://asylumconnect.org/wp-content/uploads/2019/10/KnowYourRightsSpanish-_compressed.pdf"},
-        {name: "Seeking Legal Assistance", url:"http://asylumconnect.org/wp-content/uploads/2019/10/legalassistancespanish-_compressed.pdf"},
-        {name: "Preliminary Document Checklist", url:"http://asylumconnect.org/wp-content/uploads/2019/10/preliminarychecklistspanish-1_compressed.pdf"},
-        {name: "Remain in Mexico Policy", url: "http://asylumconnect.org/wp-content/uploads/2019/11/remain-in-mexico-spanish-2_compressed.pdf"}
+        {
+          name: 'Steps to Apply for LGBTQ Asylum in the U.S.',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/8StepstoApplyforLGBTQAsylumintheU.S.Spanish-min.pdf'
+        },
+        {
+          name: 'About The U.S. Defensive Asylum Process',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/U.S.DefensiveAsylumProcessEspanol.pdf'
+        },
+        {
+          name: 'Know Your Rights',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/KnowYourRightsSpanish-_compressed.pdf'
+        },
+        {
+          name: 'Seeking Legal Assistance',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/legalassistancespanish-_compressed.pdf'
+        },
+        {
+          name: 'Preliminary Document Checklist',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/10/preliminarychecklistspanish-1_compressed.pdf'
+        },
+        {
+          name: 'Remain in Mexico Policy',
+          url:
+            'http://asylumconnect.org/wp-content/uploads/2019/11/remain-in-mexico-spanish-2_compressed.pdf'
+        }
       ]
     }
   }
@@ -141,7 +234,7 @@ const defaultInfographic = {
 
 const milesToMeters = function(miles) {
   return miles * 1609.34;
-}
+};
 
 //fetch nearest infographic
 //  nearest = defaultInfographic;
@@ -149,17 +242,21 @@ const milesToMeters = function(miles) {
 //
 export default {
   fetchNearestInfographic: function(lat, lng) {
-    if(typeof google === 'undefined' || !google.maps || !google.maps.geometry) {
+    if (
+      typeof google === 'undefined' ||
+      !google.maps ||
+      !google.maps.geometry
+    ) {
       return false;
     }
     let referencePoint = new google.maps.LatLng(lat, lng);
     let nearestInfographic = false;
     infographics.some((infographic, index) => {
-      if(google.maps.geometry.spherical
-          .computeDistanceBetween(
-            referencePoint,
-            new google.maps.LatLng(infographic.center.lat, infographic.center.lng)
-          ) <= milesToMeters(infographic.distance)
+      if (
+        google.maps.geometry.spherical.computeDistanceBetween(
+          referencePoint,
+          new google.maps.LatLng(infographic.center.lat, infographic.center.lng)
+        ) <= milesToMeters(infographic.distance)
       ) {
         nearestInfographic = infographic;
         return true;
@@ -170,6 +267,8 @@ export default {
   getDefaultInfographic: function(locale) {
     console.log('getDefaultInfographic', locale);
 
-    return typeof defaultInfographic[locale] !== 'undefined' ? defaultInfographic[locale] : false;
+    return typeof defaultInfographic[locale] !== 'undefined'
+      ? defaultInfographic[locale]
+      : false;
   }
 };

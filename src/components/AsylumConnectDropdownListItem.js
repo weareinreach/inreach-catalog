@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
-import { ListItem } from 'material-ui/List';
+import {withStyles} from 'material-ui/styles';
+import {ListItem} from 'material-ui/List';
 
-import { dropShadow } from '../theme/sharedClasses';
+import {dropShadow} from '../theme/sharedClasses';
 
 const styles = theme => ({
   rootClass: {
@@ -12,25 +12,21 @@ const styles = theme => ({
       backgroundColor: theme.palette.secondary[900]
     }
   }
-
 });
-
 
 class AsylumConnectDropdownListItem extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
   }
 
   render() {
-    let { 
-      rootClass
-    } = this.props.classes;
+    let {rootClass} = this.props.classes;
     let properties = Object.assign({}, this.props);
     properties.classes = null;
     properties.children = null;
 
-    if(this.props.additionalClass) {
-      rootClass = rootClass + ' ' +this.props.additionalClass; 
+    if (this.props.additionalClass) {
+      rootClass = rootClass + ' ' + this.props.additionalClass;
     }
 
     return (
@@ -39,6 +35,6 @@ class AsylumConnectDropdownListItem extends React.Component {
       </ListItem>
     );
   }
-};
+}
 
 export default withStyles(styles)(AsylumConnectDropdownListItem);

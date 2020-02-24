@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {withStyles} from 'material-ui/styles';
 
 import Typography from 'material-ui/Typography';
 
@@ -17,21 +17,18 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
 });
 
-const FavoritesLink = ({ classes, locale }) => (
-  <Link to={'/'+locale+'/favorites'}  className="hide--on-print">
-    <Typography
-      type='display4'
-      className={classes.viewYourFavoritesText}
-    >
+const FavoritesLink = ({classes, locale}) => (
+  <Link to={'/' + locale + '/favorites'} className="hide--on-print">
+    <Typography type="display4" className={classes.viewYourFavoritesText}>
       View Your Favorites
     </Typography>
   </Link>
 );
 
-FavoritesLink.propTypes = { classes: PropTypes.object.isRequired };
+FavoritesLink.propTypes = {classes: PropTypes.object.isRequired};
 
 export default withStyles(styles)(FavoritesLink);

@@ -1,20 +1,16 @@
 import 'normalize.css';
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {render} from 'react-dom';
 import AsylumConnectCatalog from './components/AsylumConnectCatalog';
 import asylumConnectCatalogTheme from './theme/asylumConnectCatalogTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import PromisePolyfill from 'promise-polyfill'; 
+import PromisePolyfill from 'promise-polyfill';
 import ReactGA from 'react-ga';
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 
 ReactGA.initialize('UA-76058112-1');
-ReactGA.set({ 
+ReactGA.set({
   anonymizeIp: true
 });
 /**
@@ -30,11 +26,10 @@ if (!window.Promise) {
  * @return {[type]} [description]
  */
 const logPageView = () => {
-  ReactGA.set({ page: window.location.pathname + window.location.search });
-  ReactGA.pageview( window.location.pathname + window.location.search);
+  ReactGA.set({page: window.location.pathname + window.location.search});
+  ReactGA.pageview(window.location.pathname + window.location.search);
   return null;
-}
-
+};
 
 /**
  * App entry file
@@ -48,8 +43,26 @@ render(
       <div>
         <Route path="/" component={logPageView} />
         <Switch>
-          <Route path="/:locale" render={(props) => (<AsylumConnectCatalog match={props.match} location={props.location} history={props.history} />)} />
-          <Route path="/" render={(props) => (<AsylumConnectCatalog match={props.match} location={props.location} history={props.history} />)} />
+          <Route
+            path="/:locale"
+            render={props => (
+              <AsylumConnectCatalog
+                match={props.match}
+                location={props.location}
+                history={props.history}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            render={props => (
+              <AsylumConnectCatalog
+                match={props.match}
+                location={props.location}
+                history={props.history}
+              />
+            )}
+          />
         </Switch>
       </div>
     </Router>

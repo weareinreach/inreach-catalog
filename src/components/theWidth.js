@@ -1,3 +1,3 @@
 export default function theWidth() {
-	return window.innerWidth;
+  return window.innerWidth;
 }

@@ -3,7 +3,7 @@ const breakpoints = {
   sm: 600,
   md: 960,
   lg: 1280,
-  xl: 1500,
+  xl: 1500
 };
 
 export default breakpoints;

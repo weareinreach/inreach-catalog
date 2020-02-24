@@ -3,9 +3,9 @@ export default {
     return window.localStorage.getItem('locale');
   },
   getLocale: () => {
-    return window.localStorage.getItem('locale') || 'en_US'
+    return window.localStorage.getItem('locale') || 'en_US';
   },
-  setLocale: (locale) => {
+  setLocale: locale => {
     window.localStorage.setItem('locale', locale);
   },
   clearLocale: () => {

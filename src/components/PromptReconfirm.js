@@ -11,12 +11,12 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  spacingVertical: {margin: '2.5rem 0'},
+  spacingVertical: {margin: '2.5rem 0'}
 });
 
-const PromptReconfirm = ({ classes, handleRequestOpen }) => (
+const PromptReconfirm = ({classes, handleRequestOpen}) => (
   <Paper className={classes.container}>
     <Typography className={classes.spacingVertical}>
       This page contains sensitive information. For security, please re-enter
@@ -33,7 +33,7 @@ const PromptReconfirm = ({ classes, handleRequestOpen }) => (
 );
 
 PromptReconfirm.propTypes = {
-  handleRequestOpen: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(PromptReconfirm);

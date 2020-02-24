@@ -16,7 +16,7 @@ import theWidth from './theWidth';
 import {
   createList,
   createListFavorite,
-  deleteListFavorite,
+  deleteListFavorite
 } from '../helpers/odasRequests';
 
 const styles = theme => ({
@@ -29,7 +29,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   textBlue: {color: theme.palette.common.blue},
   favoriteItem: {
@@ -43,7 +43,7 @@ class SaveToFavoritesButton extends React.Component {
 
     this.state = {
       anchorEl: null,
-      open: false,
+      open: false
     };
 
     this.handleCreateList = this.handleCreateList.bind(this);
@@ -58,14 +58,14 @@ class SaveToFavoritesButton extends React.Component {
     const {session, user} = this.props;
     const payload = {
       created_by_user_id: user,
-      title: 'My List',
+      title: 'My List'
     };
     createList(payload, session)
       .then(data => {
         this.props.handleListNew(
           Object.assign({}, payload, data.collection, {
-            fetchable_list_items: [],
-          }),
+            fetchable_list_items: []
+          })
         );
         this.handleSaveToFavorites(data.collection.id);
         this.setState({open: true, anchorEl: currentTarget});
@@ -89,11 +89,11 @@ class SaveToFavoritesButton extends React.Component {
     const {currentTarget} = event;
     if (!this.props.session) {
       return this.props.handleMessageNew(
-        'You must be logged in to save favorites',
+        'You must be logged in to save favorites'
       );
     } else if (this.props.lists.length < 1) {
       this.handleCreateList(currentTarget);
-    } else if(this.state.open) {
+    } else if (this.state.open) {
       this.setState({open: false, anchorEl: null});
     } else {
       this.setState({open: true, anchorEl: event.currentTarget});
@@ -110,7 +110,7 @@ class SaveToFavoritesButton extends React.Component {
       handleListRemoveFavorite,
       handleMessageNew,
       resourceId,
-      session,
+      session
     } = this.props;
     deleteListFavorite(listId, resourceId, session).then(() => {
       handleListRemoveFavorite(listId, resourceId);
@@ -134,7 +134,7 @@ class SaveToFavoritesButton extends React.Component {
       handleMenuClose,
       handleMenuToggle,
       handleRemoveFavorite,
-      handleSaveToFavorites,
+      handleSaveToFavorites
     } = this;
     const {anchorEl, open} = this.state;
     const {
@@ -144,13 +144,13 @@ class SaveToFavoritesButton extends React.Component {
       handleListNew,
       lists,
       resourceId,
-      session,
+      session
     } = this.props;
     //console.log(resourceId);
     const isFavorite = lists.some(list =>
-      list.fetchable_list_items.some(item => item.fetchable_id === resourceId),
+      list.fetchable_list_items.some(item => item.fetchable_id === resourceId)
     );
-    
+
     const buttonLabel =
       theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
 
@@ -168,10 +168,11 @@ class SaveToFavoritesButton extends React.Component {
           anchorOrigin={{vertical: 'bottom'}}
           open={open}
           onClose={handleMenuClose}
-          PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}>
+          PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}
+        >
           {lists.map(list => {
             const isFavoriteItem = list.fetchable_list_items.some(
-              item => item.fetchable_id === resourceId,
+              item => item.fetchable_id === resourceId
             );
             return (
               <MenuItem
@@ -180,9 +181,15 @@ class SaveToFavoritesButton extends React.Component {
                 onClick={() =>
                   isFavoriteItem
                     ? handleRemoveFavorite(list.id)
-                    : handleSaveToFavorites(list.id)}>
+                    : handleSaveToFavorites(list.id)
+                }
+              >
                 <span>{list.title}</span>
-                <RedHeartIcon width={'24px'} fill={isFavoriteItem} style={{float: 'right'}} />
+                <RedHeartIcon
+                  width={'24px'}
+                  fill={isFavoriteItem}
+                  style={{float: 'right'}}
+                />
               </MenuItem>
             );
           })}
@@ -190,8 +197,10 @@ class SaveToFavoritesButton extends React.Component {
             className={classes.textBlue}
             onClick={() =>
               this.props.handleRequestOpen(
-                `listNew/saveToFavorites/${resourceId}`,
-              )}>
+                `listNew/saveToFavorites/${resourceId}`
+              )
+            }
+          >
             <span className={classes.textBlue}>+ Create New List</span>
           </MenuItem>
         </AsylumConnectPopUp>
@@ -202,7 +211,7 @@ class SaveToFavoritesButton extends React.Component {
 
 SaveToFavoritesButton.defaultProps = {
   session: null,
-  user: null,
+  user: null
 };
 
 SaveToFavoritesButton.propTypes = {
@@ -216,12 +225,12 @@ SaveToFavoritesButton.propTypes = {
   lists: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      id: PropTypes.number,
-    }),
+      id: PropTypes.number
+    })
   ).isRequired,
   resourceId: PropTypes.number.isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
+  user: PropTypes.number
 };
 
 export default withStyles(styles)(SaveToFavoritesButton);

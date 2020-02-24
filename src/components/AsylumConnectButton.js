@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
-import PropTypes from 'prop-types'
+import {withStyles} from 'material-ui/styles';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Typography from 'material-ui/Typography'
+import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
 // Define a custom style for button
@@ -14,7 +14,7 @@ const styles = theme => ({
     padding: '0px 40px',
     'border-radius': '50px',
     minHeight: '30px',
-    alignSelf: "center",
+    alignSelf: 'center',
     [theme.breakpoints.down('xs')]: {
       width: '100%',
       paddingTop: theme.spacing.unit * 1,
@@ -28,8 +28,8 @@ const styles = theme => ({
     '&:hover': {
       color: theme.palette.common.white,
       backgroundColor: theme.palette.primary[900],
-      borderColor: theme.palette.primary[900],
-    },
+      borderColor: theme.palette.primary[900]
+    }
   },
   secondary: {
     color: theme.palette.secondary[500],
@@ -38,8 +38,8 @@ const styles = theme => ({
     '&:hover': {
       color: theme.palette.common.white,
       backgroundColor: theme.palette.secondary[900],
-      borderColor: theme.palette.secondary[900],
-    },
+      borderColor: theme.palette.secondary[900]
+    }
   },
   disabledPrimary: {
     color: theme.palette.common.white,
@@ -54,7 +54,7 @@ const styles = theme => ({
       color: theme.palette.common.white,
       backgroundColor: theme.palette.primary[100],
       borderColor: theme.palette.primary[100]
-    },
+    }
   },
   disabledSecondary: {
     color: theme.palette.common.white,
@@ -69,27 +69,32 @@ const styles = theme => ({
       color: theme.palette.common.white,
       backgroundColor: theme.palette.secondary[100],
       borderColor: theme.palette.secondary[100]
-    },
+    }
   }
 });
 
 // Custom Button component with variant property
 function AsylumConnectButton(props) {
-  const { children, classes, className, variant, onClick, disabled } = props;
+  const {children, classes, className, variant, onClick, disabled} = props;
   return (
-    <Button disabled={disabled} className={classNames(
+    <Button
+      disabled={disabled}
+      className={classNames(
         classes.button,
         {
           [classes.primary]: variant === 'primary',
-          [classes.secondary]: variant === 'secondary',
+          [classes.secondary]: variant === 'secondary'
         },
         'hide--on-print',
-        className,
+        className
       )}
       onClick={onClick}
       type="submit"
       classes={{
-        disabled: variant == 'secondary' ? classes.disabledSecondary : classes.disabledPrimary
+        disabled:
+          variant == 'secondary'
+            ? classes.disabledSecondary
+            : classes.disabledPrimary
       }}
     >
       {children}
@@ -102,7 +107,7 @@ AsylumConnectButton.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  variant: PropTypes.oneOf(['primary','secondary']),
+  variant: PropTypes.oneOf(['primary', 'secondary'])
 };
 
 // Inject style to Custom Button component

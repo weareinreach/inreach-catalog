@@ -1,24 +1,28 @@
 const config = {
   development: {
-    mailgun:{
+    mailgun: {
       apiKey: process.env.MAILGUN_API_KEY,
-      domain: "email.asylumconnectcatalog.org",
-      defaultSubject: "This is a test message from AsylumConnect"
+      domain: 'email.asylumconnectcatalog.org',
+      defaultSubject: 'This is a test message from AsylumConnect'
     },
     notifications: {
-      "submission.new": ['romello@asylumconnect.org', 'katie@asylumconnect.org'],
-      "submission.update": ['romello@asylumconnect.org']
+      'submission.new': [
+        'romello@asylumconnect.org',
+        'katie@asylumconnect.org'
+      ],
+      'submission.update': ['romello@asylumconnect.org']
     }
   },
   production: {
     mailgun: {
       apiKey: process.env.MAILGUN_API_KEY,
-      domain: "email.asylumconnectcatalog.org",
-      defaultSubject: "Someone shared something with you on the AsylumConnect Catalog"
+      domain: 'email.asylumconnectcatalog.org',
+      defaultSubject:
+        'Someone shared something with you on the AsylumConnect Catalog'
     },
     notifications: {
-      "submission.new": ['catalog@asylumconnect.org'],
-      "submission.update": ['catalog@asylumconnect.org']
+      'submission.new': ['catalog@asylumconnect.org'],
+      'submission.update': ['catalog@asylumconnect.org']
     }
   }
 };

@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
-import { CollapseIcon } from './icons';
+import {CollapseIcon} from './icons';
 
 import Typography from 'material-ui/Typography';
-import ExpansionPanel, { ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui/ExpansionPanel';
+import ExpansionPanel, {
+  ExpansionPanelDetails,
+  ExpansionPanelSummary
+} from 'material-ui/ExpansionPanel';
 import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
-
 
 const styles = theme => ({
   rootClass: {
@@ -24,10 +26,10 @@ const styles = theme => ({
     }
   },
   borderTop: {
-    borderTop: '1px solid '+theme.palette.common.separator
+    borderTop: '1px solid ' + theme.palette.common.separator
   },
   borderBottom: {
-    paddingBottom: '1px solid '+theme.palette.common.separator
+    paddingBottom: '1px solid ' + theme.palette.common.separator
   },
   detailsRootClass: {
     paddingTop: theme.spacing.unit * 2,
@@ -35,16 +37,16 @@ const styles = theme => ({
     paddingLeft: 0
   },
   summaryRootClass: {
-    minHeight: "0!important",
-    paddingLeft: "0!important",
-    paddingRight: "0!important"
+    minHeight: '0!important',
+    paddingLeft: '0!important',
+    paddingRight: '0!important'
   },
   summaryExpandedClass: {
-    minHeight: "0!important",
-    margin: "0!important"
+    minHeight: '0!important',
+    margin: '0!important'
   },
   summaryContentClass: {
-    margin: "0!important"
+    margin: '0!important'
   },
   iconClass: {
     color: theme.palette.common.darkBlack,
@@ -52,15 +54,14 @@ const styles = theme => ({
   }
 });
 
-
 class AsylumConnectCollapsibleSection extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = {
-      expanded: props.expanded,
-    }
-    
-    this.handleToggle = this.handleToggle.bind(this)
+      expanded: props.expanded
+    };
+
+    this.handleToggle = this.handleToggle.bind(this);
     /*this.handleOutsideClick = this.handleOutsideClick.bind(this)
     this.handlePaperClick = this.handlePaperClick.bind(this)*/
   }
@@ -68,41 +69,79 @@ class AsylumConnectCollapsibleSection extends React.Component {
   handleToggle(event, expanded) {
     this.setState({
       expanded: expanded
-    })
+    });
   }
 
   render() {
-    const { content, title, summary, borderTop, borderBottom, className } = this.props;
-    const { expanded } = this.state;
-    const { iconClass, containerClass, rootClass, summaryRootClass, summaryExpandedClass, summaryContentClass, detailsRootClass } = this.props.classes;
-    const containerClasses = (borderTop ? this.props.classes.borderTop : '') + ' ' + (borderBottom ? this.props.classes.borderBottom : '') + ' ' + containerClass + ' ' + (className ? className : '');
+    const {
+      content,
+      title,
+      summary,
+      borderTop,
+      borderBottom,
+      className
+    } = this.props;
+    const {expanded} = this.state;
+    const {
+      iconClass,
+      containerClass,
+      rootClass,
+      summaryRootClass,
+      summaryExpandedClass,
+      summaryContentClass,
+      detailsRootClass
+    } = this.props.classes;
+    const containerClasses =
+      (borderTop ? this.props.classes.borderTop : '') +
+      ' ' +
+      (borderBottom ? this.props.classes.borderBottom : '') +
+      ' ' +
+      containerClass +
+      ' ' +
+      (className ? className : '');
     /*const listContainerClasses = (this.props.listContainerClass ? this.props.listContainerClass + ' ' : '') + selectList;*/
     //const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '');
 
     return (
-
       <div className={containerClasses}>
-        <ExpansionPanel className={rootClass} expanded={expanded} onChange={this.handleToggle}>
-          <ExpansionPanelSummary classes={{
-            root: summaryRootClass,
-            content: summaryContentClass,
-            expanded: summaryExpandedClass,
-            expandIcon: iconClass
-          }}  expandIcon={ <KeyboardArrowDownIcon /> }>
+        <ExpansionPanel
+          className={rootClass}
+          expanded={expanded}
+          onChange={this.handleToggle}
+        >
+          <ExpansionPanelSummary
+            classes={{
+              root: summaryRootClass,
+              content: summaryContentClass,
+              expanded: summaryExpandedClass,
+              expandIcon: iconClass
+            }}
+            expandIcon={<KeyboardArrowDownIcon />}
+          >
             <Typography variant="subheading">{title}</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails classes = {{
-            root: detailsRootClass
-          }}>
+          <ExpansionPanelDetails
+            classes={{
+              root: detailsRootClass
+            }}
+          >
             {content}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
     );
   }
-};
+}
 
-AsylumConnectCollapsibleSection.defaultProps = { borderTop: true, borderBottom: false, expanded: true }
-AsylumConnectCollapsibleSection.propTypes = { borderTop: PropTypes.bool, borderBottom: PropTypes.bool, expanded: PropTypes.bool }
+AsylumConnectCollapsibleSection.defaultProps = {
+  borderTop: true,
+  borderBottom: false,
+  expanded: true
+};
+AsylumConnectCollapsibleSection.propTypes = {
+  borderTop: PropTypes.bool,
+  borderBottom: PropTypes.bool,
+  expanded: PropTypes.bool
+};
 
 export default withStyles(styles)(AsylumConnectCollapsibleSection);

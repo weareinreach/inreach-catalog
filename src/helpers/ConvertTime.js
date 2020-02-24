@@ -47,60 +47,63 @@ function getPeriod(hour) {
 
 function toTwentyFourHourTime(time, format) {
   var match = time.match(TWELVE_HOUR_REGEX);
-  if (! match) return;
+  if (!match) return;
 
   var hour = match[1];
   var minute = match[2] || '00';
-  var period = match[3].replace(/\./g, '')
-                       .toLowerCase();
+  var period = match[3].replace(/\./g, '').toLowerCase();
 
   // Default argument for format
-  if (! format) {
+  if (!format) {
     format = 'hh:MM';
   }
 
   if (period == 'pm' && hour !== '12') {
-    return format.replace('hh', parseInt(hour, 10)+12)
-                 .replace('HH', maybePrependZero(hour))
-                 .replace('mm', minute)
-                 .replace('MM', maybePrependZero(minute));
+    return format
+      .replace('hh', parseInt(hour, 10) + 12)
+      .replace('HH', maybePrependZero(hour))
+      .replace('mm', minute)
+      .replace('MM', maybePrependZero(minute));
   } else {
-    return format.replace('hh', hour)
-                 .replace('HH', maybePrependZero(hour))
-                 .replace('mm', minute)
-                 .replace('MM', maybePrependZero(minute));
+    return format
+      .replace('hh', hour)
+      .replace('HH', maybePrependZero(hour))
+      .replace('mm', minute)
+      .replace('MM', maybePrependZero(minute));
   }
 }
 
 function toTwelveHourTime(time, format) {
   var match = time.match(TWENTY_FOUR_HOUR_REGEX);
-  if (! match) return;
+  if (!match) return;
 
   var hour = match[1];
   var minute = match[2];
 
   // Default argument for format
-  if (! format) {
+  if (!format) {
     format = 'hh:MM a';
   }
 
-    if (parseInt(hour) > 12) {
-      return format.replace('hh', parseInt(hour, 10)-12)
-                   .replace('HH', maybePrependZero(hour))
-                   .replace('mm', minute)
-                   .replace('MM', maybePrependZero(minute))
-                   .replace('a', 'pm')
-                   .replace('A', 'PM');
-    } else {
-      return format.replace('hh', parseInt(hour, 10))
-                   .replace('HH', maybePrependZero(hour))
-                   .replace('mm', minute)
-                   .replace('MM', maybePrependZero(minute))
-                   .replace('a', getPeriod(hour))
-                   .replace('A', getPeriod(hour).toUpperCase());
-    }
+  if (parseInt(hour) > 12) {
+    return format
+      .replace('hh', parseInt(hour, 10) - 12)
+      .replace('HH', maybePrependZero(hour))
+      .replace('mm', minute)
+      .replace('MM', maybePrependZero(minute))
+      .replace('a', 'pm')
+      .replace('A', 'PM');
+  } else {
+    return format
+      .replace('hh', parseInt(hour, 10))
+      .replace('HH', maybePrependZero(hour))
+      .replace('mm', minute)
+      .replace('MM', maybePrependZero(minute))
+      .replace('a', getPeriod(hour))
+      .replace('A', getPeriod(hour).toUpperCase());
   }
+}
 
-module.exports = function (time, format) {
+module.exports = function(time, format) {
   return toTwentyFourHourTime(time, format) || toTwelveHourTime(time, format);
 };

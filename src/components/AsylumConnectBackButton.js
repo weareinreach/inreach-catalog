@@ -5,25 +5,25 @@ import BackIcon from './icons/BackIcon';
 import Button from 'material-ui/Button';
 import {withStyles} from 'material-ui/styles';
 
-const styles = (theme) => ({
+const styles = theme => ({
   buttonRoot: {
     minWidth: '0',
     padding: '0',
-    textTransform: 'none' 
+    textTransform: 'none'
   },
-  'contrast': {
+  contrast: {
     color: theme.palette.common.white
   },
-  'default': {
+  default: {
     color: theme.palette.common.darkBlack
   },
-  'primary': {
+  primary: {
     color: theme.palette.primary[500],
     '&:hover': {
       color: theme.palette.primary[900]
     }
   },
-  'secondary': {
+  secondary: {
     color: theme.palette.secondary[500],
     '&:hover': {
       color: theme.palette.secondary[900]
@@ -31,8 +31,19 @@ const styles = (theme) => ({
   }
 });
 
-const AsylumConnectBackButton = ({onClick, classes, className="", width="24px", color="secondary", text=""}) => (
-  <Button className={classNames([classes[color], className])} classes={{root: classes.buttonRoot}} onClick={onClick}>
+const AsylumConnectBackButton = ({
+  onClick,
+  classes,
+  className = '',
+  width = '24px',
+  color = 'secondary',
+  text = ''
+}) => (
+  <Button
+    className={classNames([classes[color], className])}
+    classes={{root: classes.buttonRoot}}
+    onClick={onClick}
+  >
     <BackIcon width={width} color={'currentColor'} />
     {text}
   </Button>

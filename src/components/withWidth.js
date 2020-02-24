@@ -5,7 +5,7 @@ export default function withWidth(WrappedComponent) {
   return class extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { width: window.innerWidth };
+      this.state = {width: window.innerWidth};
 
       this.handleWindowSizeChange = this.handleWindowSizeChange.bind(this);
     }
@@ -19,11 +19,11 @@ export default function withWidth(WrappedComponent) {
     }
 
     handleWindowSizeChange() {
-      this.setState({ width: theWidth() });
+      this.setState({width: theWidth()});
     }
 
     render() {
       return <WrappedComponent width={this.state.width} {...this.props} />;
     }
-  }
+  };
 }
