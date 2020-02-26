@@ -13,7 +13,7 @@
     "web-dev-c9": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public/ --config webpack.config.js --port $PORT --host $IP --inline --hot --colors",
     "web-dev": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base public/ --config webpack.config.js --port 8080 --inline --hot --colors",
     "postinstall": "webpack -p",
-    "test": "echo 'test'"
+    "test": "echo 'testing'"
   },
   "dependencies": {
     "ajv": "^5.5.2",
