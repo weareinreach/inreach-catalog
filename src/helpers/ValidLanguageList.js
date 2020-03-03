@@ -3,10 +3,18 @@ import React from 'react';
 import langs from 'langs/data';
 
 var validLangs = [
+  {name: 'Arabic'},
+  {name: 'English'},
+  {name: 'French'},
+  {name: 'Hindi'},
+  {name: 'Russian'},
+  {name: 'Somali'},
+  {name: 'Spanish'},
+  {name: 'Chinese (Simplified)', '1': 'zh-cn', local: '廣東話'}, //
+  {name: 'Chinese (Traditional)', '1': 'zh-tw', local: '台語'}, //
   {name: 'Afrikaans'},
   {name: 'Albanian'},
   {name: 'Amharic'},
-  {name: 'Arabic'},
   {name: 'Armenian'},
   {name: 'Azerbaijani'},
   {name: 'Basque'},
@@ -16,19 +24,15 @@ var validLangs = [
   {name: 'Bulgarian'},
   {name: 'Catalan'},
   {name: 'Cebuano', '1': 'ceb', local: 'Bisaya'}, //
-  {name: 'Chinese (Simplified)', '1': 'zh-cn', local: '廣東話'}, //
-  {name: 'Chinese (Traditional)', '1': 'zh-tw', local: '台語'}, //
   {name: 'Corsican'},
   {name: 'Croatian'},
   {name: 'Czech'},
   {name: 'Danish'},
   {name: 'Dutch'},
-  {name: 'English'},
   {name: 'Esperanto'},
   {name: 'Estonian'},
   {name: 'Filipino', '1': 'tl', local: 'Wikang Filipino'},
   {name: 'Finnish'},
-  {name: 'French'},
   {name: 'Frisian', '1': 'fy', local: 'Noordfreesk'}, //
   {name: 'Galician'},
   {name: 'Georgian'},
@@ -39,7 +43,6 @@ var validLangs = [
   {name: 'Hausa'},
   {name: 'Hawaiian', '1': 'haw', local: 'ʻŌlelo Hawaiʻi'}, //
   {name: 'Hebrew'},
-  {name: 'Hindi'},
   {name: 'Hmong', '1': 'hmn', local: 'lol Hmongb'}, //
   {name: 'Hungarian'},
   {name: 'Icelandic', '1': 'is', local: 'Íslenska'}, //
@@ -78,7 +81,6 @@ var validLangs = [
   {name: 'Portuguese'},
   {name: 'Punjabi', '1': 'pa', local: 'पंजाबी'}, //
   {name: 'Romanian'},
-  {name: 'Russian'},
   {name: 'Samoan', '1': 'sm', local: 'Gagana Sāmoa'}, //
   {name: 'Gaelic'},
   {name: 'Serbian'},
@@ -88,8 +90,6 @@ var validLangs = [
   {name: 'Sinhala'},
   {name: 'Slovak'},
   {name: 'Slovene'},
-  {name: 'Somali'},
-  {name: 'Spanish'},
   {name: 'Sundanese'},
   {name: 'Swahili'},
   {name: 'Swedish'},
