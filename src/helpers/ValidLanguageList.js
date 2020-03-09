@@ -144,6 +144,11 @@ function getValidLanguageCodeByName(name) {
   }
 }
 
+/**
+ * this function filters the list of languages based on user input (both english and local spelling)
+ * @param {String} language
+ * return an array of languages matching the filter
+ */
 function getFilteredLanguageList(language) {
   return validLangs.filter(function(lang) {
     return (
