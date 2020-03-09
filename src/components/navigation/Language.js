@@ -138,7 +138,7 @@ class Language extends React.Component {
     super();
     this.state = {
       open: false,
-      initialLangsList: ValidLanguageList.all(),
+      langsList: ValidLanguageList.all(),
       selectedLang: 'English'
     };
     this.handleClick = this.handleClick.bind(this);
@@ -156,7 +156,7 @@ class Language extends React.Component {
   generateLanguageItems() {
     return (
       <Fragment>
-        {this.state.initialLangsList.map((lang, index) => (
+        {this.state.langsList.map((lang, index) => (
           <LangMenuItem
             key={index}
             langName={lang.local}
@@ -219,7 +219,7 @@ class Language extends React.Component {
   handleOnFilterChange(e) {
     const filteredList = ValidLanguageList.filteredLanguageList(e.target.value);
     this.setState({
-      initialLangsList: filteredList
+      langsList: filteredList
     });
   }
   handleOnFilterBarClick(e) {
@@ -288,7 +288,7 @@ class Language extends React.Component {
       label,
       triggerReload
     } = this.props;
-    const {open, selectedLang, initialLangsList} = this.state;
+    const {open, selectedLang, langsList} = this.state;
     const isMobile = this.props.width < breakpoints['sm'] && useMobile;
     if (triggerReload === true) {
       this.handleReload();
