@@ -30,7 +30,9 @@ const styles = theme => ({
     fontFamily: theme.typography.body2.fontFamily,
     fontSize: theme.typography.body2.fontSize,
     fontWeight: theme.typography.body2.fontWeight,
-    float: 'right',
+    position: 'absolute',
+    right: theme.spacing.unit * 2,
+    top: theme.spacing.unit * 2,
     textDecoration: 'none'
   },
   sectionHeader: {
