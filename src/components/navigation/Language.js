@@ -79,6 +79,12 @@ const styles = theme => ({
     paddingLeft: '4px',
     width: 'auto'
   },
+  filterInputBar: {
+    padding: '5px 24px 0px',
+    [theme.breakpoints.down('xs')]: {
+      padding: '0px 15px'
+    }
+  },
   blackTranslateColor: {
     display: 'inline',
     fontSize: '12px',
@@ -171,10 +177,12 @@ class Language extends React.Component {
           this.props.classes.mobilePadding
         ].join(' ')}
       >
-        <Filter
-          handleOnChange={this.handleOnFilterChange}
-          handleOnClick={this.handleOnFilterBarClick}
-        />
+        <div className={this.props.classes.filterInputBar}>
+          <Filter
+            handleOnChange={this.handleOnFilterChange}
+            handleOnClick={this.handleOnFilterBarClick}
+          />
+        </div>
         <ListSubheader className={this.props.classes.poweredByGoogle}>
           <span>Powered By</span>
           <a
