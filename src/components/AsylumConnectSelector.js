@@ -15,10 +15,9 @@ const styles = theme => ({
   },
   selectList: Object.assign(dropShadow(theme), {
     width: '100%',
-    marginTop: '-26px',
-    marginLeft: '-482px',
-    marginBottom: '10px',
-    paddingTop: '20px',
+    top: '100%',
+    position: 'absolute',
+    zIndex: '50',
     overflowY: 'auto'
   }),
   arrow: {
