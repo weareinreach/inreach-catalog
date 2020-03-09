@@ -14,10 +14,10 @@ import theWidth from '../theWidth';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginLeft: "2.5em",
-    marginRight: "2.5em",
-    borderBottom: "1px solid "+theme.palette.common.faintBlack,
-    boxShadow: "none"
+    marginLeft: '2.5em',
+    marginRight: '2.5em',
+    borderBottom: '1px solid ' + theme.palette.common.faintBlack,
+    boxShadow: 'none'
   },
   textCenter: {textAlign: 'center'},
   toolbarRoot: {
@@ -25,7 +25,7 @@ const styles = theme => ({
   },
   toolbarGutters: {
     paddingLeft: '0',
-    paddingRight: '0',
+    paddingRight: '0'
   }
 });
 
@@ -35,12 +35,18 @@ const PasswordMobile = ({
   handleMessageNew,
   handleRequestClose,
   handleConfirmSession,
-  session,
+  session
 }) => (
   <div>
     <Paper className={classes.root}>
-      <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
-        <AsylumConnectBackButton onClick={() => {handleRequestClose()}} />
+      <Toolbar
+        classes={{root: classes.toolbarRoot, gutters: classes.toolbarGutters}}
+      >
+        <AsylumConnectBackButton
+          onClick={() => {
+            handleRequestClose();
+          }}
+        />
       </Toolbar>
       <DialogTitle>Confirm Password</DialogTitle>
       <PasswordFormContainer

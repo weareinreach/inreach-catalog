@@ -14,10 +14,10 @@ import theWidth from '../theWidth';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginLeft: "2.5em",
-    marginRight: "2.5em",
-    borderBottom: "1px solid "+theme.palette.common.faintBlack,
-    boxShadow: "none"
+    marginLeft: '2.5em',
+    marginRight: '2.5em',
+    borderBottom: '1px solid ' + theme.palette.common.faintBlack,
+    boxShadow: 'none'
   },
   textCenter: {textAlign: 'center'},
   toolbarRoot: {
@@ -25,7 +25,7 @@ const styles = theme => ({
   },
   toolbarGutters: {
     paddingLeft: '0',
-    paddingRight: '0',
+    paddingRight: '0'
   }
 });
 
@@ -36,29 +36,35 @@ const ShareMobile = ({
   handleMessageNew,
   handleRequestClose,
   handleRequestOpen,
-  session,
+  session
 }) => (
   <div>
     <Paper className={classes.root}>
-      <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
-        <AsylumConnectBackButton onClick={() => {handleRequestClose()}} />
+      <Toolbar
+        classes={{root: classes.toolbarRoot, gutters: classes.toolbarGutters}}
+      >
+        <AsylumConnectBackButton
+          onClick={() => {
+            handleRequestClose();
+          }}
+        />
       </Toolbar>
       <DialogTitle>Share "{dialog.split('/')[3]}"</DialogTitle>
       <ShareFormContainer
-          handleLogIn={handleLogIn}
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleRequestClose}
-          handleRequestOpen={handleRequestOpen}
-          listId={dialog.split('/')[2]}
-          shareType={dialog.split('/')[1]}
-          session={session}
-        />
+        handleLogIn={handleLogIn}
+        handleMessageNew={handleMessageNew}
+        handleRequestClose={handleRequestClose}
+        handleRequestOpen={handleRequestOpen}
+        listId={dialog.split('/')[2]}
+        shareType={dialog.split('/')[1]}
+        session={session}
+      />
     </Paper>
   </div>
 );
 
 ShareMobile.defaultProps = {
-  session: null,
+  session: null
 };
 
 ShareMobile.propTypes = {

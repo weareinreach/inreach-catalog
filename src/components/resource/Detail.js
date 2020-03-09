@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Route,
-  Switch,
-  withRouter
-} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 
-import { withStyles } from 'material-ui/styles';
-import {bodyLink, boldFont, italicFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
+import {withStyles} from 'material-ui/styles';
+import {
+  bodyLink,
+  boldFont,
+  italicFont,
+  dividerSpacing,
+  mobilePadding
+} from '../../theme/sharedClasses';
 import Resource from './Resource';
 import Service from './Service';
 
-
-const styles = (theme) => ({
+const styles = theme => ({
   tabRoot: {
     minWidth: '0'
   },
@@ -21,10 +22,10 @@ const styles = (theme) => ({
     paddingRight: theme.spacing.unit
   },
   tabLabel: {
-    fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   },
   tabIndicator: {
-    height: "4px"
+    height: '4px'
   },
   container: {
     minHeight: '500px',
@@ -43,17 +44,17 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing.unit
   },
   separator: {
-    padding: "0 "+theme.spacing.unit,
-    fontSize: "1.25rem",
-    "&:after": {
-      content: "\" \"",
+    padding: '0 ' + theme.spacing.unit,
+    fontSize: '1.25rem',
+    '&:after': {
+      content: '" "'
     }
   },
   header: {
-    borderBottom: "1px solid "+theme.palette.common.darkGrey
+    borderBottom: '1px solid ' + theme.palette.common.darkGrey
   },
   contentSpacing: {
-    margin: (theme.spacing.unit * 3) + " 0"
+    margin: theme.spacing.unit * 3 + ' 0'
   },
   bottomSpacing: {
     marginBottom: theme.spacing.unit * 2
@@ -64,17 +65,17 @@ const styles = (theme) => ({
     }
   },
   lineSpacing: {
-    lineHeight: "1.4rem"
+    lineHeight: '1.4rem'
   },
   sectionSpacing: {
     marginBottom: theme.spacing.unit * 0
   },
   dividerSpacing: dividerSpacing(theme),
   orgName: {
-    fontSize: "21px",
+    fontSize: '21px',
     [theme.breakpoints.down('xs')]: {
       textAlign: 'center',
-      fontSize: "24px",
+      fontSize: '24px'
     }
   },
   serviceOrg: {
@@ -91,7 +92,7 @@ const styles = (theme) => ({
     }
   },
   serviceBadge: {
-    position: "absolute",
+    position: 'absolute',
     marginLeft: theme.spacing.unit * -1
   },
   serviceText: {
@@ -102,11 +103,11 @@ const styles = (theme) => ({
     marginBottom: 0,
     [theme.breakpoints.down('xs')]: {
       display: 'inline-block',
-      width: "90%",
-      verticalAlign: "top",
+      width: '90%',
+      verticalAlign: 'top',
       lineHeight: 1.6,
       paddingLeft: 0,
-      marginBottom: theme.spacing.unit,
+      marginBottom: theme.spacing.unit
     }
     //marginTop: theme.spacing.unit * 2,
     //marginBottom: theme.spacing.unit * 2
@@ -117,13 +118,16 @@ const styles = (theme) => ({
   },
   boldFont: boldFont(theme),
   italicFont: italicFont(theme),
-  moreInfo: Object.assign({
-    color: theme.palette.common.darkGrey,
-    [theme.breakpoints.down('xs')]: {
-      color: theme.palette.common.darkBlack,
-      textAlign: 'center'
-    }
-  }, boldFont(theme)),
+  moreInfo: Object.assign(
+    {
+      color: theme.palette.common.darkGrey,
+      [theme.breakpoints.down('xs')]: {
+        color: theme.palette.common.darkBlack,
+        textAlign: 'center'
+      }
+    },
+    boldFont(theme)
+  ),
   bodyLink: bodyLink(theme),
   mobileRatingSummary: {
     [theme.breakpoints.down('xs')]: {
@@ -133,29 +137,29 @@ const styles = (theme) => ({
   },
   listLink: {
     '& + &:before': {
-      content: '\", \"'
+      content: '", "'
     }
   },
   dialogBody: {
     minWidth: '600px',
     overflowY: 'auto',
-    padding: '5.5rem',
+    padding: '5.5rem'
   },
   toolbarRoot: {
     justifyContent: 'space-between'
   },
   toolbarGutters: {
     paddingLeft: '0',
-    paddingRight: '0',
+    paddingRight: '0'
   }
 });
 
 class Detail extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
 
     this.state = {
-      tab: 0,
+      tab: 0
       //userReview: null,
       //userComment: null
     };
@@ -163,23 +167,21 @@ class Detail extends React.Component {
     this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
     this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
     this.handleSwipeChange = this.handleSwipeChange.bind(this);
-  
   }
 
   componentWillMount() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
-  handleTabClickDesktop (e, tab) {
+  handleTabClickDesktop(e, tab) {
     this.setState({
       tab
     });
   }
 
-  handleTabClickMobile (e, tab) {
+  handleTabClickMobile(e, tab) {
     this.setState({
       tab
     });
@@ -192,67 +194,75 @@ class Detail extends React.Component {
   }
 
   render() {
-    const { classes, session, handleMessageNew, history } = this.props;
-    const { props } = this;
+    const {classes, session, handleMessageNew, history} = this.props;
+    const {props} = this;
     //console.log(this.props.resource, this.props.service)
     return (
       <Switch>
-        <Route path="/:locale/resource/:id/service/:serviceId" render={ props => (
-          <Service {...props}
-            defaultClasses={this.props.classes}
-            handleListAddFavorite={this.props.handleListAddFavorite}
-            handleListRemoveFavorite={this.props.handleListRemoveFavorite}
-            handleListNew={this.props.handleListNew}
-            handleLogOut={this.props.handleLogOut}
-            handleMessageNew={this.props.handleMessageNew}
-            handleRequestOpen={this.props.handleRequestOpen}
-            handleSwipeChange={this.handleSwipeChange}
-            handleTabClickDesktop={this.handleTabClickDesktop}
-            handleTabClickMobile={this.handleTabClickMobile}
-            lists={this.props.lists}
-            locale={this.props.locale}
-            mapResources={this.props.mapResources}
-            resource={this.props.resource}
-            service={this.props.service}
-            setSelectedResource={this.props.setSelectedResource}
-            setSelectedService={this.props.setSelectedService}
-            session={this.props.session}
-            tab={this.state.tab}
-            t={this.props.t}
-            user={this.props.user}
-          />)}
+        <Route
+          path="/:locale/resource/:id/service/:serviceId"
+          render={props => (
+            <Service
+              {...props}
+              defaultClasses={this.props.classes}
+              handleListAddFavorite={this.props.handleListAddFavorite}
+              handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+              handleListNew={this.props.handleListNew}
+              handleLogOut={this.props.handleLogOut}
+              handleMessageNew={this.props.handleMessageNew}
+              handleRequestOpen={this.props.handleRequestOpen}
+              handleSwipeChange={this.handleSwipeChange}
+              handleTabClickDesktop={this.handleTabClickDesktop}
+              handleTabClickMobile={this.handleTabClickMobile}
+              lists={this.props.lists}
+              locale={this.props.locale}
+              mapResources={this.props.mapResources}
+              resource={this.props.resource}
+              service={this.props.service}
+              setSelectedResource={this.props.setSelectedResource}
+              setSelectedService={this.props.setSelectedService}
+              session={this.props.session}
+              tab={this.state.tab}
+              t={this.props.t}
+              user={this.props.user}
+            />
+          )}
         />
-        <Route path="/:locale/resource/:id" render={ props => (
-          <Resource {...props}
-            defaultClasses={this.props.classes}
-            handleListAddFavorite={this.props.handleListAddFavorite}
-            handleListRemoveFavorite={this.props.handleListRemoveFavorite}
-            handleListNew={this.props.handleListNew}
-            handleLogOut={this.props.handleLogOut}
-            handleMessageNew={this.props.handleMessageNew}
-            handleRequestOpen={this.props.handleRequestOpen}
-            handleResourceBackButton={this.props.handleResourceBackButton}
-            handleSwipeChange={this.handleSwipeChange}
-            handleTabClickDesktop={this.handleTabClickDesktop}
-            handleTabClickMobile={this.handleTabClickMobile}
-            lists={this.props.lists}
-            locale={this.props.locale}
-            mapResources={this.props.mapResources}
-            resource={this.props.resource}
-            setSelectedResource={this.props.setSelectedResource}
-            session={this.props.session}
-            tab={this.state.tab}
-            t={this.props.t}
-            user={this.props.user}
-          />)}
+        <Route
+          path="/:locale/resource/:id"
+          render={props => (
+            <Resource
+              {...props}
+              defaultClasses={this.props.classes}
+              handleListAddFavorite={this.props.handleListAddFavorite}
+              handleListRemoveFavorite={this.props.handleListRemoveFavorite}
+              handleListNew={this.props.handleListNew}
+              handleLogOut={this.props.handleLogOut}
+              handleMessageNew={this.props.handleMessageNew}
+              handleRequestOpen={this.props.handleRequestOpen}
+              handleResourceBackButton={this.props.handleResourceBackButton}
+              handleSwipeChange={this.handleSwipeChange}
+              handleTabClickDesktop={this.handleTabClickDesktop}
+              handleTabClickMobile={this.handleTabClickMobile}
+              lists={this.props.lists}
+              locale={this.props.locale}
+              mapResources={this.props.mapResources}
+              resource={this.props.resource}
+              setSelectedResource={this.props.setSelectedResource}
+              session={this.props.session}
+              tab={this.state.tab}
+              t={this.props.t}
+              user={this.props.user}
+            />
+          )}
         />
       </Switch>
-    )
-  } 
+    );
+  }
 }
 
 Detail.propTypes = {
   handleMessageNew: PropTypes.func.isRequired
-}
+};
 
 export default withStyles(styles)(Detail);

@@ -13,17 +13,19 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   link: {
     color: theme.palette.secondary[500],
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   paddingAbove: {paddingTop: theme.spacing.unit * 5},
-  paddingVertical: {padding: (theme.spacing.unit * 5) + ' ' + (theme.spacing.unit * 10) },
-  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+  paddingVertical: {
+    padding: theme.spacing.unit * 5 + ' ' + theme.spacing.unit * 10
+  },
+  [`@media (max-width: ${breakpoints['sm']}px)`]: {
     paddingVertical: {
-      padding: (theme.spacing.unit * 3) + ' 0',
+      padding: theme.spacing.unit * 3 + ' 0'
     }
   }
 });
@@ -34,7 +36,7 @@ const LoginForm = ({
   handleChange,
   handleRequestOpen,
   handleSubmit,
-  password,
+  password
 }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <TextField
@@ -88,7 +90,7 @@ LoginForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(LoginForm);

@@ -1,13 +1,13 @@
 import React from 'react';
 import update from 'react-addons-update';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormControlLabel } from 'material-ui/Form';
+import Input, {InputLabel} from 'material-ui/Input';
+import {FormControl, FormControlLabel} from 'material-ui/Form';
 import Radio from 'material-ui/Radio';
 
 import Collapse from 'material-ui/transitions/Collapse';
@@ -18,16 +18,14 @@ import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import ResourceTagSelector from '../ResourceTagSelector';
 
 const styles = theme => ({
-  root: {
-  },
+  root: {},
   form: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     '& > div': {
-      margin: '15px 0 15px 0',
-    },
-    
+      margin: '15px 0 15px 0'
+    }
   },
   formType: {
     margin: '10% 0 10% 0'
@@ -37,7 +35,7 @@ const styles = theme => ({
     flexDirection: 'row',
     '& label': theme.custom.inputLabel,
     '&>div': {
-      width: '70%'      
+      width: '70%'
     },
     '& label': {
       width: '30%'
@@ -46,8 +44,8 @@ const styles = theme => ({
   settingsTypeFont: {
     fontSize: 13,
     fontWeight: 700,
-    fontFamily: "\"Open Sans\", sans-serif",
-    letterSpacing: "-.02em",
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '-.02em',
     color: theme.palette.secondary[500],
     display: 'flex',
     flexDirection: 'row',
@@ -79,8 +77,8 @@ const styles = theme => ({
         padding: 0,
         fontSize: 13,
         fontWeight: 700,
-        fontFamily: "\"Open Sans\", sans-serif",
-        letterSpacing: "-.02em",
+        fontFamily: '"Open Sans", sans-serif',
+        letterSpacing: '-.02em',
         color: theme.palette.common.lightBlack,
         '&>div': {
           display: 'flex'
@@ -96,43 +94,55 @@ const styles = theme => ({
 class SuggestAdditional extends React.Component {
   constructor(props) {
     super(props);
-    const {schedule} = this.props
+    const {schedule} = this.props;
     this.state = {
       openFeature: true,
       openRequirement: true,
-      openResourceTags: true,
+      openResourceTags: true
     };
-    this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
+    this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
   }
   handleToggleDropDown(menu) {
-    this.setState({ [menu]: !this.state[menu]});
+    this.setState({[menu]: !this.state[menu]});
   }
   render() {
-    const { classes,
-            handleRequirementSelect,
-            selectedRequirements,
-            handleFeatureSelect,
-            selectedFeatures,
-            handleTagSelect,
-            selectedTags } = this.props;
+    const {
+      classes,
+      handleRequirementSelect,
+      selectedRequirements,
+      handleFeatureSelect,
+      selectedFeatures,
+      handleTagSelect,
+      selectedTags
+    } = this.props;
     return (
       <div className={classes.root}>
         <form className={classes.form}>
           <div>
-            <div onClick={ref=> this.handleToggleDropDown('openFeature')} className={classes.settingsTypeFont}>
+            <div
+              onClick={ref => this.handleToggleDropDown('openFeature')}
+              className={classes.settingsTypeFont}
+            >
               <span>Feature</span>
               {this.state.openFeature ? <ExpandLess /> : <ExpandMore />}
             </div>
-            <Collapse in={this.state.openFeature} transitionDuration="auto" unmountOnExit>
+            <Collapse
+              in={this.state.openFeature}
+              transitionDuration="auto"
+              unmountOnExit
+            >
               <div>
-                {selectedFeatures? selectedFeatures.map((feature) =>                  
-                  <AsylumConnectCheckbox
-                  key={feature.name}
-                  label={feature.label}
-                  value={feature.name}
-                  onChange={ handleFeatureSelect } 
-                  checked={ feature.value } />
-                ):('')}
+                {selectedFeatures
+                  ? selectedFeatures.map(feature => (
+                      <AsylumConnectCheckbox
+                        key={feature.name}
+                        label={feature.label}
+                        value={feature.name}
+                        onChange={handleFeatureSelect}
+                        checked={feature.value}
+                      />
+                    ))
+                  : ''}
                 {/* <AsylumConnectCheckbox 
                   label='Has Free Services' 
                   value='HasFreeServices'
@@ -150,31 +160,42 @@ class SuggestAdditional extends React.Component {
                    checked={false} /> */}
               </div>
             </Collapse>
-          </div>          
+          </div>
           <div>
-            <div onClick={ref=> this.handleToggleDropDown('openRequirement')} className={classes.settingsTypeFont}>
+            <div
+              onClick={ref => this.handleToggleDropDown('openRequirement')}
+              className={classes.settingsTypeFont}
+            >
               <span>Requirement</span>
               {this.state.openRequirement ? <ExpandLess /> : <ExpandMore />}
             </div>
-            <Collapse in={this.state.openRequirement} transitionDuration="auto" unmountOnExit>
+            <Collapse
+              in={this.state.openRequirement}
+              transitionDuration="auto"
+              unmountOnExit
+            >
               <div>
-                {selectedRequirements? selectedRequirements.map((requirement) => 
-                  <AsylumConnectCheckbox 
-                  key={requirement.name}
-                  label={requirement.label}
-                  value={requirement.name}
-                  onChange={ handleRequirementSelect} 
-                   checked={ requirement.value} />
-                  ):('')}
+                {selectedRequirements
+                  ? selectedRequirements.map(requirement => (
+                      <AsylumConnectCheckbox
+                        key={requirement.name}
+                        label={requirement.label}
+                        value={requirement.name}
+                        onChange={handleRequirementSelect}
+                        checked={requirement.value}
+                      />
+                    ))
+                  : ''}
               </div>
             </Collapse>
-          </div>          
-          
-          <ResourceTagSelector 
-            onChange={ handleTagSelect} 
-            selectedResourceTags={ selectedTags}
+          </div>
+
+          <ResourceTagSelector
+            onChange={handleTagSelect}
+            selectedResourceTags={selectedTags}
             locale={this.props.locale}
-            t={this.props.t} />
+            t={this.props.t}
+          />
           {/* <TextField
             className={classes.inputLabel}
             label='Additional Information:'
@@ -189,12 +210,12 @@ class SuggestAdditional extends React.Component {
           /> */}
         </form>
       </div>
-    )
+    );
   }
 }
 
 SuggestAdditional.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(SuggestAdditional);

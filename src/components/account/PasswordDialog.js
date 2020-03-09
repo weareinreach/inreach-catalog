@@ -12,19 +12,19 @@ import theWidth from '../theWidth';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginLeft: "2.5em",
-    marginRight: "2.5em",
-    borderBottom: "1px solid "+theme.palette.common.faintBlack,
-    boxShadow: "none"
+    marginLeft: '2.5em',
+    marginRight: '2.5em',
+    borderBottom: '1px solid ' + theme.palette.common.faintBlack,
+    boxShadow: 'none'
   },
-  textCenter: {textAlign: 'center'},
+  textCenter: {textAlign: 'center'}
 });
 
 const PasswordMobile = ({
   handleConfirmSession,
   handleMessageNew,
   handleRequestClose,
-  session,
+  session
 }) => (
   <div>
     <Paper className={classes.root}>
@@ -43,7 +43,7 @@ PasswordMobile.propTypes = {
   handleConfirmSession: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  session: PropTypes.string.isRequired,
+  session: PropTypes.string.isRequired
 };
 
 export default PasswordMobile;

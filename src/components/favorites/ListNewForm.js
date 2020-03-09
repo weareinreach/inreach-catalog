@@ -12,18 +12,19 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  helperText:{
-    lineHeight: "1.54"
+  helperText: {
+    lineHeight: '1.54'
   },
-  spacingAbove: {marginTop: '3rem'},
+  spacingAbove: {marginTop: '3rem'}
 });
 
 const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <Typography variant="body1">
-      Your favorites lists are only visible to you and anyone you share them&nbsp;with.
+      Your favorites lists are only visible to you and anyone you share
+      them&nbsp;with.
     </Typography>
     <TextField
       id="name"
@@ -46,7 +47,7 @@ ListNewForm.propTypes = {
   classes: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(ListNewForm);

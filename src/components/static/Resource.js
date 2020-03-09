@@ -9,17 +9,17 @@ require('./Resource.scss');
 
 const styles = (theme, props) => ({
   resourceMargin: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 4
   },
   marginBottom: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   marginTop: {
-    marginTop: theme.spacing.unit*2,
+    marginTop: theme.spacing.unit * 2
   },
   infoItem: {
     fontWeight: theme.typography.fontWeightMedium,
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2
   },
   applyColor: {
     color: props.color
@@ -30,7 +30,7 @@ const styles = (theme, props) => ({
       color: theme.palette.secondary[900]
     }
   }
-})
+});
 
 const Resource = ({
   classes,
@@ -41,44 +41,97 @@ const Resource = ({
   who,
   how,
   visit,
-  email,
+  email
 }) => (
-    <div className={"resource--with-markdown "+classes.resourceMargin}>
-      {name && <Typography variant='subheading' className={classes.marginBottom}>{name}</Typography>}
-      {link && <a href={`${link}`} target="_blank"><Typography variant='body2' className={classes.linkColor+' '+classes.marginBottom}>{link}</Typography></a>}
-      {description && <Typography variant='body2' className={classes.marginTop}>
-        <ContentMarkdown 
+  <div className={'resource--with-markdown ' + classes.resourceMargin}>
+    {name && (
+      <Typography variant="subheading" className={classes.marginBottom}>
+        {name}
+      </Typography>
+    )}
+    {link && (
+      <a href={`${link}`} target="_blank">
+        <Typography
+          variant="body2"
+          className={classes.linkColor + ' ' + classes.marginBottom}
+        >
+          {link}
+        </Typography>
+      </a>
+    )}
+    {description && (
+      <Typography variant="body2" className={classes.marginTop}>
+        <ContentMarkdown
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
-          }} 
-          source={description} />
-      </Typography>}
-      {who && <Typography variant='body2' className={classes.infoItem}>Who this resource serves:</Typography>}
-      {who && <Typography variant='body2'>
-        <ContentMarkdown 
+            link: props => (
+              <a href={props.href} target={props.target}>
+                {props.children}
+              </a>
+            )
+          }}
+          source={description}
+        />
+      </Typography>
+    )}
+    {who && (
+      <Typography variant="body2" className={classes.infoItem}>
+        Who this resource serves:
+      </Typography>
+    )}
+    {who && (
+      <Typography variant="body2">
+        <ContentMarkdown
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
-          }} 
-          source={who} />
-      </Typography>}
-      {how && <Typography variant='body2' className={classes.infoItem}>How to use this resource:</Typography>}
-      {how && <Typography variant='body2'>
-        <ContentMarkdown 
+            link: props => (
+              <a href={props.href} target={props.target}>
+                {props.children}
+              </a>
+            )
+          }}
+          source={who}
+        />
+      </Typography>
+    )}
+    {how && (
+      <Typography variant="body2" className={classes.infoItem}>
+        How to use this resource:
+      </Typography>
+    )}
+    {how && (
+      <Typography variant="body2">
+        <ContentMarkdown
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
-          }} 
-          source={how} />
-      </Typography>}
-      {visit && <Typography variant='body2' className={classes.infoItem}>How to visit this resource:</Typography>}
-      {visit && <Typography variant='body2'>
-        <ContentMarkdown 
+            link: props => (
+              <a href={props.href} target={props.target}>
+                {props.children}
+              </a>
+            )
+          }}
+          source={how}
+        />
+      </Typography>
+    )}
+    {visit && (
+      <Typography variant="body2" className={classes.infoItem}>
+        How to visit this resource:
+      </Typography>
+    )}
+    {visit && (
+      <Typography variant="body2">
+        <ContentMarkdown
           renderers={{
-            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
-          }} 
-          source={visit} />
-      </Typography>}
-    </div>
-  );
+            link: props => (
+              <a href={props.href} target={props.target}>
+                {props.children}
+              </a>
+            )
+          }}
+          source={visit}
+        />
+      </Typography>
+    )}
+  </div>
+);
 
 Resource.propTypes = {
   name: PropTypes.string.isRequired,
@@ -88,7 +141,7 @@ Resource.propTypes = {
   who: PropTypes.string,
   how: PropTypes.string,
   visit: PropTypes.string,
-  email: PropTypes.string,
+  email: PropTypes.string
 };
 
 export default withStylesProps(styles)(Resource);

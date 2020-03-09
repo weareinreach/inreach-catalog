@@ -11,7 +11,7 @@ const SignupDialog = ({
   handleRequestOpen,
   history,
   locale,
-  session,
+  session
 }) => (
   <div>
     <DialogTitle>Sign Up</DialogTitle>
@@ -28,7 +28,7 @@ const SignupDialog = ({
 );
 
 SignupDialog.defaultProps = {
-  session: null,
+  session: null
 };
 
 SignupDialog.propTypes = {
@@ -37,7 +37,7 @@ SignupDialog.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  session: PropTypes.string,
+  session: PropTypes.string
 };
 
 export default SignupDialog;

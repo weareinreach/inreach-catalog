@@ -17,12 +17,12 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   flex: {display: 'flex'},
   link: {
     color: theme.palette.secondary[500],
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   paddingVertical: {padding: '2.5rem 0'},
   marginBottom: {marginBottom: '2rem'},
@@ -58,7 +58,7 @@ const SignupForm = ({
   organizationSelection,
   password,
   passwordConfirmation,
-  selection,
+  selection
 }) => (
   <div className={classes.container}>
     {activeStep === 0 && (
@@ -69,13 +69,15 @@ const SignupForm = ({
         <AsylumConnectButton
           className={classes.marginBottom}
           onClick={() => handleSelect('seeker')}
-          variant="primary">
+          variant="primary"
+        >
           I am an asylum seeker
         </AsylumConnectButton>
         <AsylumConnectButton
           className={classes.marginBottomLg}
           onClick={() => handleSelect('provider')}
-          variant="primary">
+          variant="primary"
+        >
           I am a service provider
         </AsylumConnectButton>
         <div onClick={() => handleRequestOpen('login')}>
@@ -99,7 +101,11 @@ const SignupForm = ({
         />
         <TextField
           error={password.length > 0 && password.length < 8}
-          helperText={password.length > 0 && password.length < 8 ? 'Password must be at least 8 characters.' : null}
+          helperText={
+            password.length > 0 && password.length < 8
+              ? 'Password must be at least 8 characters.'
+              : null
+          }
           id="password"
           label="Password"
           margin="normal"
@@ -135,20 +141,14 @@ const SignupForm = ({
     )}
     {activeStep === 2 && (
       <form onSubmit={handleCreateAffiliation}>
-        <Typography variant="display4">
-          Connect to Your Organization
-        </Typography>
+        <Typography variant="display4">Connect to Your Organization</Typography>
         <OrganizationAutocomplete
           handleBlurOrganizations={handleBlurOrganizations}
           handleMessageNew={handleMessageNew}
           handleOrganizationSearchChange={handleOrganizationSearchChange}
           handleOrganizationSelect={handleOrganizationSelect}
-          handleOrganizationsFetchRequested={
-            handleOrganizationsFetchRequested
-          }
-          handleOrganizationsClearRequested={
-            handleOrganizationsClearRequested
-          }
+          handleOrganizationsFetchRequested={handleOrganizationsFetchRequested}
+          handleOrganizationsClearRequested={handleOrganizationsClearRequested}
           handleRequestClose={handleRequestClose}
           isLoadingOrganizations={isLoadingOrganizations}
           locale={locale}
@@ -167,7 +167,7 @@ const SignupForm = ({
       </form>
     )}
     <MobileStepper
-      className={classes.spacingTop+' '+classes.backgroundTransparent}
+      className={classes.spacingTop + ' ' + classes.backgroundTransparent}
       type="dots"
       steps={selection === 'provider' ? 3 : 2}
       position="static"
@@ -187,7 +187,7 @@ const SignupForm = ({
 );
 
 SignupForm.defaultProps = {
-  organizationSelection: null,
+  organizationSelection: null
 };
 
 SignupForm.propTypes = {
@@ -212,7 +212,7 @@ SignupForm.propTypes = {
   organizationSelection: PropTypes.object,
   password: PropTypes.string.isRequired,
   passwordConfirmation: PropTypes.string.isRequired,
-  selection: PropTypes.string.isRequired,
+  selection: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(SignupForm);

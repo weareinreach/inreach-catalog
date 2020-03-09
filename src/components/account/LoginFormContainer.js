@@ -12,7 +12,7 @@ class LoginFormContainer extends React.Component {
 
     this.state = {
       email: '',
-      password: '',
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,16 +33,16 @@ class LoginFormContainer extends React.Component {
     const payload = JSON.stringify({
       session: {
         login_key: email,
-        password,
-      },
+        password
+      }
     });
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
+        OneDegreeSource: 'asylumconnect'
       },
-      body: payload,
+      body: payload
     };
     fetch(url, options)
       .then(response => {
@@ -75,7 +75,7 @@ class LoginFormContainer extends React.Component {
 LoginFormContainer.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
-  handleRequestClose: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired
 };
 
 export default LoginFormContainer;

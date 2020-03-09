@@ -7,7 +7,7 @@ import AccountNav from '../AccountNav';
 import RedHeartIcon from '../icons/RedHeartIcon';
 import FavoritesLink from '../FavoritesLink';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 
 const styles = theme => ({
@@ -25,23 +25,25 @@ const NavTablet = ({
   handleLogOut,
   handleRequestOpen,
   locale,
-  session,
-}) => { 
+  session
+}) => {
   return (
-    <Grid container spacing={0}
-          alignItems='center'
-          direction='row'
-          justify='space-around'
-          className={classes.root}>
-      
+    <Grid
+      container
+      spacing={0}
+      alignItems="center"
+      direction="row"
+      justify="space-around"
+      className={classes.root}
+    >
       <Grid item md={2}>
         <NavTabletMenu />
       </Grid>
-      
+
       <Grid item md={2}>
         <Language />
       </Grid>
-      
+
       <Grid item md={3}>
         <AccountNav
           handleLogOut={handleLogOut}
@@ -50,13 +52,13 @@ const NavTablet = ({
           session={session}
         />
       </Grid>
-      
+
       <Grid item md={5}>
-        <FavoritesLink locale={locale}/>
+        <FavoritesLink locale={locale} />
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 NavTablet.propTypes = {
   classes: PropTypes.object.isRequired

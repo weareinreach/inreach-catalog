@@ -1,19 +1,34 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
+import Input, {InputLabel} from 'material-ui/Input';
+import {FormControl} from 'material-ui/Form';
 
 function TextMaskCustom(props) {
   return (
     <MaskedInput
       {...props}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      mask={[
+        '(',
+        /[1-9]/,
+        /\d/,
+        /\d/,
+        ')',
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        '-',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/
+      ]}
       placeholderChar={'\u2000'}
       showMask
     />
@@ -21,8 +36,7 @@ function TextMaskCustom(props) {
 }
 
 const styles = theme => ({
-  root: {
-  },
+  root: {},
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -40,71 +54,82 @@ const styles = theme => ({
       marginTop: '20px'
     },
     '& input': theme.custom.inputText
-  },
+  }
 });
 
 class OrgSettingsInfo extends React.Component {
   constructor(props) {
     super(props);
-    const { initialData } = this.props;
+    const {initialData} = this.props;
     this.state = {
-      phone: initialData && initialData.phone? initialData.phone : '(  )   -   ',
-      description: initialData && initialData.description? initialData.description : '',
-      address: initialData && initialData.address? initialData.address : '', 
-      website: initialData && initialData.website? initialData.website : '',
-      name: initialData && initialData.name? initialData.name : '',
-      region: initialData && initialData.region? initialData.region : '',
-      city: initialData && initialData.city? initialData.city : '', 
-      state: initialData && initialData.state? initialData.state : '', 
-      zip_code: initialData && initialData.zip_code? initialData.zip_code : '',
-      target: '',
+      phone:
+        initialData && initialData.phone ? initialData.phone : '(  )   -   ',
+      description:
+        initialData && initialData.description ? initialData.description : '',
+      address: initialData && initialData.address ? initialData.address : '',
+      website: initialData && initialData.website ? initialData.website : '',
+      name: initialData && initialData.name ? initialData.name : '',
+      region: initialData && initialData.region ? initialData.region : '',
+      city: initialData && initialData.city ? initialData.city : '',
+      state: initialData && initialData.state ? initialData.state : '',
+      zip_code: initialData && initialData.zip_code ? initialData.zip_code : '',
+      target: ''
     };
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
-    const { name, value } = e.target;
-    if (['name','website','description','region'].includes(name)) {
-      this.props.onChange('info', name, value)
-    } else if (name === 'digits'){
-      this.props.onChange('phones', name, value)
+    const {name, value} = e.target;
+    if (['name', 'website', 'description', 'region'].includes(name)) {
+      this.props.onChange('info', name, value);
+    } else if (name === 'digits') {
+      this.props.onChange('phones', name, value);
     } else {
-      this.props.onChange('address', name, value)
+      this.props.onChange('address', name, value);
     }
-    
-  };
+  }
   render() {
-    const { classes, isSuggestion, name, website, region, description, address } = this.props;
-    const { digits } = address.phones && address.phones[0] ? address.phones[0]: '(   )   -   '
+    const {
+      classes,
+      isSuggestion,
+      name,
+      website,
+      region,
+      description,
+      address
+    } = this.props;
+    const {digits} =
+      address.phones && address.phones[0] ? address.phones[0] : '(   )   -   ';
     return (
       <div className={classes.root}>
         <form className={classes.form}>
-        { !isSuggestion ? (
-          <Typography variant="display2" className={classes.formType}>{name}</Typography>
-          ):(
+          {!isSuggestion ? (
+            <Typography variant="display2" className={classes.formType}>
+              {name}
+            </Typography>
+          ) : (
             <TextField
               className={classes.inputLabel}
-              label='Name:'
-              name='name'
+              label="Name:"
+              name="name"
               value={name}
               InputLabelProps={{
-                shrink: true,
+                shrink: true
               }}
-              placeholder='Organization Name'
+              placeholder="Organization Name"
               onChange={this.handleChange}
             />
-          )
-        }
+          )}
           <TextField
             className={classes.inputLabel}
-            label='About:'
-            name='description'
+            label="About:"
+            name="description"
             value={description}
             multiline={true}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='Organization Description'
+            placeholder="Organization Description"
             onChange={this.handleChange}
           />
           {/* <TextField
@@ -119,21 +144,19 @@ class OrgSettingsInfo extends React.Component {
           /> */}
           <TextField
             className={classes.inputLabel}
-            label='Websites:'
-            name='website'
+            label="Websites:"
+            name="website"
             value={website}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='URL'
+            placeholder="URL"
             onChange={this.handleChange}
           />
           <FormControl className={classes.inputLabel}>
-            <InputLabel 
-              children='Phone number:'
-              shrink />
+            <InputLabel children="Phone number:" shrink />
             <Input
-              name='digits'
+              name="digits"
               value={digits}
               inputComponent={TextMaskCustom}
               onChange={this.handleChange}
@@ -141,62 +164,62 @@ class OrgSettingsInfo extends React.Component {
           </FormControl>
           <TextField
             className={classes.inputLabel}
-            label='Address:'
-            name='address'
+            label="Address:"
+            name="address"
             value={address.address}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='Address'
+            placeholder="Address"
             onChange={this.handleChange}
           />
           <TextField
             className={classes.inputLabel}
-            label='Region:'
-            name='region'
+            label="Region:"
+            name="region"
             value={region}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='Region'
+            placeholder="Region"
             onChange={this.handleChange}
           />
           <TextField
             className={classes.inputLabel}
-            label='City:'
-            name='city'
-            value={address.city?address.city:''}
+            label="City:"
+            name="city"
+            value={address.city ? address.city : ''}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='City'
+            placeholder="City"
             onChange={this.handleChange}
           />
           <TextField
             className={classes.inputLabel}
-            label='State:'
-            name='state'
-            value={address.state?address.state:''}
+            label="State:"
+            name="state"
+            value={address.state ? address.state : ''}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='State'
+            placeholder="State"
             onChange={this.handleChange}
           />
           <TextField
             className={classes.inputLabel}
-            label='Zip code:'
-            name='zip_code'
-            value={address.zip_code?address.zip_code:''}
+            label="Zip code:"
+            name="zip_code"
+            value={address.zip_code ? address.zip_code : ''}
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='Zip code'
+            placeholder="Zip code"
             onChange={this.handleChange}
           />
         </form>
       </div>
-    )
+    );
   }
 }
 

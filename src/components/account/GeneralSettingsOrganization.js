@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  createAffiliation,
-  deleteAffiliation,
-} from '../../helpers/odasRequests';
+import {createAffiliation, deleteAffiliation} from '../../helpers/odasRequests';
 
 import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 import OrganizationAutocomplete from './OrganizationAutocomplete';
@@ -25,9 +22,9 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
-  marginVertical: { margin: '1rem 0' },
+  marginVertical: {margin: '1rem 0'}
 });
 
 class GeneralSettingsOrganization extends Component {
@@ -40,10 +37,10 @@ class GeneralSettingsOrganization extends Component {
   }
 
   handleAffiliationDelete() {
-    const { handleMessageNew, handleUserUpdate, session } = this.props;
+    const {handleMessageNew, handleUserUpdate, session} = this.props;
     deleteAffiliation(session)
       .then(response => {
-        handleUserUpdate({ affiliation: null });
+        handleUserUpdate({affiliation: null});
       })
       .catch(() => {
         handleMessageNew('Oops! Something went wrong.');
@@ -51,8 +48,8 @@ class GeneralSettingsOrganization extends Component {
   }
 
   handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const {name, value} = event.target;
+    this.setState({[name]: value});
   }
 
   handleSubmit(event) {
@@ -61,16 +58,14 @@ class GeneralSettingsOrganization extends Component {
       handleMessageNew,
       handleUserUpdate,
       organizationSelection,
-      session,
+      session
     } = this.props;
     if (organizationSelection === null) {
       handleMessageNew('Please select an organization');
     } else {
-      const { id, name } = organizationSelection;
-      createAffiliation({ id, name }, session)
-        .then(response =>
-          handleUserUpdate({ affiliation: { fetchable_id: id } })
-        )
+      const {id, name} = organizationSelection;
+      createAffiliation({id, name}, session)
+        .then(response => handleUserUpdate({affiliation: {fetchable_id: id}}))
         .catch(() => {
           handleMessageNew('Oops! Something went wrong.');
         });
@@ -78,7 +73,7 @@ class GeneralSettingsOrganization extends Component {
   }
 
   render() {
-    const { affiliation, classes, locale } = this.props;
+    const {affiliation, classes, locale} = this.props;
     return (
       <div>
         <span className={classes.settingsTypeFont}>Change Organization</span>
@@ -132,7 +127,7 @@ class GeneralSettingsOrganization extends Component {
 
 GeneralSettingsOrganization.defaultProps = {
   affiliation: null,
-  organizationSelection: null,
+  organizationSelection: null
 };
 
 GeneralSettingsOrganization.propTypes = {
@@ -147,7 +142,7 @@ GeneralSettingsOrganization.propTypes = {
   organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
   organizationSearch: PropTypes.string.isRequired,
   organizationSelection: PropTypes.object,
-  session: PropTypes.string.isRequired,
+  session: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(

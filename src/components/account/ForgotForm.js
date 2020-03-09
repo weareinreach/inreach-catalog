@@ -12,13 +12,13 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  spacingVertical: {margin: (theme.spacing.unit * 5) + ' 0'},
+  spacingVertical: {margin: theme.spacing.unit * 5 + ' 0'},
   link: {
     color: theme.palette.secondary[500],
-    cursor: 'pointer',
-  },
+    cursor: 'pointer'
+  }
 });
 
 const ForgotForm = ({
@@ -27,7 +27,7 @@ const ForgotForm = ({
   handleChange,
   handleRequestOpen,
   handleSubmit,
-  password,
+  password
 }) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <Typography variant="body1">
@@ -43,9 +43,7 @@ const ForgotForm = ({
       type="email"
       value={email}
     />
-    <AsylumConnectButton
-      className={classes.spacingVertical}
-      variant="primary">
+    <AsylumConnectButton className={classes.spacingVertical} variant="primary">
       Send
     </AsylumConnectButton>
     <div onClick={() => handleRequestOpen('login')}>
@@ -61,7 +59,7 @@ ForgotForm.propTypes = {
   email: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(ForgotForm);

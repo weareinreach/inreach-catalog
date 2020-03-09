@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
-const styles = (theme) => ({
+const styles = theme => ({
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: theme.spacing.unit * 4,
-  },
+    marginTop: theme.spacing.unit * 4
+  }
 });
 
 const DialogButton = ({children, classes, handleRequestClose}) => (
-    <div className={classes.buttonContainer}>
-      <AsylumConnectButton onClick={handleRequestClose} variant="primary">
-        { children }
-      </AsylumConnectButton>
-    </div>
+  <div className={classes.buttonContainer}>
+    <AsylumConnectButton onClick={handleRequestClose} variant="primary">
+      {children}
+    </AsylumConnectButton>
+  </div>
 );
 
 DialogButton.propTypes = {
@@ -26,7 +26,7 @@ DialogButton.propTypes = {
     buttonContainer: PropTypes.string
   }).isRequired,
   children: PropTypes.node.isRequired,
-  handleRequestClose: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(DialogButton);

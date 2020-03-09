@@ -10,7 +10,7 @@ class ForgotFormContainer extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
+      email: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,15 +33,15 @@ class ForgotFormContainer extends React.Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect',
+        OneDegreeSource: 'asylumconnect'
       },
-      body: payload,
+      body: payload
     };
     fetch(url, options)
       .then(({status}) => {
         if (status === 200) {
           handleMessageNew(
-            'Please check your inbox for instructions on how to reset your password.',
+            'Please check your inbox for instructions on how to reset your password.'
           );
           this.props.handleRequestClose();
         } else {
@@ -67,7 +67,7 @@ class ForgotFormContainer extends React.Component {
 
 ForgotFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
-  handleRequestClose: PropTypes.func.isRequired,
+  handleRequestClose: PropTypes.func.isRequired
 };
 
 export default ForgotFormContainer;

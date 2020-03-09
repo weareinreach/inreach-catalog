@@ -13,17 +13,12 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  spacingVertical: {margin: '2.5rem 0'},
+  spacingVertical: {margin: '2.5rem 0'}
 });
 
-const PasswordForm = ({
-  classes,
-  handleChange,
-  handleSubmit,
-  password,
-}) => (
+const PasswordForm = ({classes, handleChange, handleSubmit, password}) => (
   <form className={classes.container} onSubmit={handleSubmit}>
     <Typography variant="body1">
       Due to inactivity, please enter your password to confirm your identity.
@@ -38,10 +33,7 @@ const PasswordForm = ({
       type="password"
       value={password}
     />
-    <AsylumConnectButton
-      className={classes.spacingVertical}
-      variant="primary"
-    >
+    <AsylumConnectButton className={classes.spacingVertical} variant="primary">
       Confirm Password
     </AsylumConnectButton>
   </form>
@@ -51,7 +43,7 @@ PasswordForm.propTypes = {
   classes: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  password: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(PasswordForm);

@@ -6,7 +6,7 @@ import GeneralSettingsOrganization from './GeneralSettingsOrganization';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
 import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import breakpoints from '../../theme/breakpoints';
 
@@ -14,16 +14,28 @@ import Typography from 'material-ui/Typography';
 
 import 'whatwg-fetch';
 import config from '../../config/config.js';
-import {
-  updateUserEmail,
-  updateUserPassword,
-} from '../../helpers/odasRequests';
+import {updateUserEmail, updateUserPassword} from '../../helpers/odasRequests';
 
 function TextMaskCustom(props) {
   return (
     <MaskedInput
       {...props}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      mask={[
+        '(',
+        /[1-9]/,
+        /\d/,
+        /\d/,
+        ')',
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        '-',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/
+      ]}
       placeholderChar={'\u2000'}
       showMask
     />
@@ -44,7 +56,7 @@ const styles = theme => ({
       padding: '0 5% 0 5%'
     }
   },
-  [`@media (max-width: ${breakpoints['sm']}px)`]:{
+  [`@media (max-width: ${breakpoints['sm']}px)`]: {
     root: {
       width: 'auto',
       padding: '0'
@@ -57,11 +69,11 @@ const styles = theme => ({
     padding: '15px 0 25px 0',
     fontSize: 13,
     fontWeight: 700,
-    fontFamily: "\"Open Sans\", sans-serif",
-    letterSpacing: "-.02em",
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '-.02em',
     color: theme.palette.secondary[500],
     cursor: 'pointer'
-  },
+  }
 });
 
 class GeneralSettings extends React.Component {
@@ -73,10 +85,10 @@ class GeneralSettings extends React.Component {
       isPasswordUpdated: null,
       isEmailUpdated: null,
       dialog: 'none'
-    }
-    this.handleOdasError = this.handleOdasError.bind(this)
-    this.updateEmail = this.updateEmail.bind(this)
-    this.updatePassword = this.updatePassword.bind(this)
+    };
+    this.handleOdasError = this.handleOdasError.bind(this);
+    this.updateEmail = this.updateEmail.bind(this);
+    this.updatePassword = this.updatePassword.bind(this);
   }
 
   handleOdasError(error) {
@@ -91,34 +103,30 @@ class GeneralSettings extends React.Component {
     }
   }
 
-  updateEmail(newEmail){
+  updateEmail(newEmail) {
     const {handleMessageNew, session} = this.props;
-    const payload = Object.assign(
-      {},
-      this.state.user,
-      {email: newEmail},
-    );
+    const payload = Object.assign({}, this.state.user, {email: newEmail});
     updateUserEmail(payload, session)
       .then(data => {
-        this.setState({ user: data.user, isEmailUpdated:true })
+        this.setState({user: data.user, isEmailUpdated: true});
         handleMessageNew('Your email has been updated.');
       })
       .catch(error => this.handleOdasError(error));
   }
 
-  updatePassword(currentPassword, newPassword){
+  updatePassword(currentPassword, newPassword) {
     const {handleMessageNew, session} = this.props;
     const payload = {
-      'change_password': {
-        'current_password': currentPassword,
-        'password': newPassword,
-        'password_confirmation': newPassword,
+      change_password: {
+        current_password: currentPassword,
+        password: newPassword,
+        password_confirmation: newPassword
       }
     };
     updateUserPassword(payload, session)
       .then(data => {
-        this.setState({ isPasswordUpdated: true })
-        handleMessageNew('Password has been updated.')
+        this.setState({isPasswordUpdated: true});
+        handleMessageNew('Password has been updated.');
       })
       .catch(error => this.handleOdasError(error));
   }
@@ -133,18 +141,15 @@ class GeneralSettings extends React.Component {
       history,
       locale,
       session,
-      user: {
-        affiliation,
-        is_professional:
-        isProfessional,
-        email
-      },
+      user: {affiliation, is_professional: isProfessional, email}
     } = this.props;
-    const { isPasswordUpdated, isEmailUpdated, dialog } = this.state;
+    const {isPasswordUpdated, isEmailUpdated, dialog} = this.state;
     return (
       <div className={classes.root}>
         {affiliation && (
-          <Typography variant="display3" className={classes.formType}>Your Account</Typography>
+          <Typography variant="display3" className={classes.formType}>
+            Your Account
+          </Typography>
         )}
         {isProfessional && (
           <GeneralSettingsOrganization
@@ -155,25 +160,35 @@ class GeneralSettings extends React.Component {
             session={session}
           />
         )}
-        <GeneralSettingsEmail 
-          currentEmail={email} 
-          handleUpdateEmail={this.updateEmail} 
+        <GeneralSettingsEmail
+          currentEmail={email}
+          handleUpdateEmail={this.updateEmail}
           isEmailUpdated={isEmailUpdated}
           handleMessageNew={handleMessageNew}
         />
-        <GeneralSettingsPassword 
-          handleUpdatePassword={this.updatePassword} 
-          isPasswordUpdated={isPasswordUpdated} 
+        <GeneralSettingsPassword
+          handleUpdatePassword={this.updatePassword}
+          isPasswordUpdated={isPasswordUpdated}
           handleMessageNew={handleMessageNew}
         />
-        <div onClick={() => { history.push('/'); handleMessageNew('Logout successful.'); handleLogOut() }} className={classes.settingsTypeFont}>
+        <div
+          onClick={() => {
+            history.push('/');
+            handleMessageNew('Logout successful.');
+            handleLogOut();
+          }}
+          className={classes.settingsTypeFont}
+        >
           <span>Logout</span>
         </div>
-        <div onClick={() => handleRequestOpen('deleteAccount')} className={classes.settingsTypeFont}>
+        <div
+          onClick={() => handleRequestOpen('deleteAccount')}
+          className={classes.settingsTypeFont}
+        >
           <span>Delete Account</span>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -187,7 +202,7 @@ GeneralSettings.propTypes = {
   user: PropTypes.shape({
     affiliation: PropTypes.shape({}),
     is_professional: PropTypes.bool.isRequired,
-    email: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
   }).isRequired
 };
 

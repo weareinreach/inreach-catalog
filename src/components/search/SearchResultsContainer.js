@@ -2,12 +2,12 @@ import React from 'react';
 
 import Fa from 'react-fontawesome';
 
-import { withStyles } from 'material-ui/styles';
-import { CircularProgress } from 'material-ui/Progress';
+import {withStyles} from 'material-ui/styles';
+import {CircularProgress} from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Tooltip from 'material-ui/Tooltip';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Tabs, {Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -16,7 +16,7 @@ import breakpoints from '../../theme/breakpoints';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
-import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
+import AsylumConnectInfographicButton from '../AsylumConnectInfographicButton';
 import Loading from '../Loading';
 import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
@@ -25,11 +25,11 @@ import ResourceListItem from '../resource/ResourceListItem';
 import {mobilePadding, boldFont} from '../../theme/sharedClasses';
 
 const styles = theme => ({
-  tooltip: { fontFamily: 'sans-serif' },
+  tooltip: {fontFamily: 'sans-serif'},
   container: {
     minHeight: '500px',
-    paddingTop: theme.spacing.unit*8,
-    paddingBottom: theme.spacing.unit*8
+    paddingTop: theme.spacing.unit * 8,
+    paddingBottom: theme.spacing.unit * 8
   },
   tabContainer: {
     backgroundColor: theme.palette.secondary[500],
@@ -40,19 +40,19 @@ const styles = theme => ({
     backgroundColor: theme.palette.common.white
   },
   centerText: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   noResults: Object.assign(boldFont(theme), {
-    textAlign: "center"
+    textAlign: 'center'
   }),
   fullBottomMargin: {
-    marginBottom: theme.spacing.unit*4,
+    marginBottom: theme.spacing.unit * 4,
     [theme.breakpoints.down('xs')]: {
       marginBottom: 0
     }
   },
   halfBottomMargin: {
-    marginBottom: theme.spacing.unit*2
+    marginBottom: theme.spacing.unit * 2
   },
   secondary: {
     color: theme.palette.secondary[500],
@@ -65,7 +65,7 @@ const styles = theme => ({
   },
   [theme.breakpoints.up('sm')]: {
     filterContainer: {
-      marginTop: "-0.8rem"
+      marginTop: '-0.8rem'
     }
   },
   [theme.breakpoints.down('xs')]: {
@@ -73,12 +73,12 @@ const styles = theme => ({
       paddingTop: '0px',
       paddingBottom: '0px'
     },
-    containerSearchForm: Object.assign(mobilePadding(theme), { 
+    containerSearchForm: Object.assign(mobilePadding(theme), {
       backgroundColor: theme.palette.secondary[500],
-      paddingTop: "20px",
-      paddingBottom: "20px"
+      paddingTop: '20px',
+      paddingBottom: '20px'
     }),
-    containerSearchResults: Object.assign(mobilePadding(theme), { 
+    containerSearchResults: Object.assign(mobilePadding(theme), {
       backgroundColor: theme.palette.common.white
     }),
     formRow: {
@@ -96,8 +96,8 @@ const styles = theme => ({
       height: 0
     },
     noResults: {
-      paddingTop: theme.spacing.unit*2,
-      paddingBottom: theme.spacing.unit*2,
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2
     },
     loadingColor: {
       backgroundColor: 'transparent',
@@ -109,32 +109,53 @@ const styles = theme => ({
   }
 });
 
-const ResultsContainer = (props) => {
-  const { containerSearchResults, searching, searchResults, noResults, loadingColor } = props;
+const ResultsContainer = props => {
+  const {
+    containerSearchResults,
+    searching,
+    searchResults,
+    noResults,
+    loadingColor
+  } = props;
   return (
-    <div className={(searching && !searchResults.length ? loadingColor : containerSearchResults)}>
-      {searchResults.length ? 
-        searchResults.map((organization) => {
-          return (
-            <ResourceListItem key = {organization.id} resource={organization} {...props} />
-          )
-        })
-      : null }
-      { searching ? <Loading colorClass={searchResults.length ? null : loadingColor} /> : 
-        searchResults.length ? null :
-        <Typography variant="body2" className={noResults}>
-          We didn't currently find any verified resources within your search criteria.<br/>Try choosing different resource types or searching for a different location.
-        </Typography>
+    <div
+      className={
+        searching && !searchResults.length
+          ? loadingColor
+          : containerSearchResults
       }
+    >
+      {searchResults.length
+        ? searchResults.map(organization => {
+            return (
+              <ResourceListItem
+                key={organization.id}
+                resource={organization}
+                {...props}
+              />
+            );
+          })
+        : null}
+      {searching ? (
+        <Loading colorClass={searchResults.length ? null : loadingColor} />
+      ) : searchResults.length ? null : (
+        <Typography variant="body2" className={noResults}>
+          We didn't currently find any verified resources within your search
+          criteria.
+          <br />
+          Try choosing different resource types or searching for a different
+          location.
+        </Typography>
+      )}
     </div>
   );
-}
+};
 
 class SearchResultsContainer extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
 
-    this.state = { tab: 0 };
+    this.state = {tab: 0};
 
     this.handleSwipeChange = this.handleSwipeChange.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
@@ -146,7 +167,7 @@ class SearchResultsContainer extends React.Component {
     window.addEventListener('scroll', this.addPage.bind(this));
     let mapContainer = document.querySelector('.container--map');
     console.log(mapContainer);
-    if(mapContainer) {
+    if (mapContainer) {
       mapContainer.addEventListener('scroll', this.addPage.bind(this));
     }
   }
@@ -156,7 +177,7 @@ class SearchResultsContainer extends React.Component {
     window.removeEventListener('scroll', this.addPage.bind(this));
     let mapContainer = document.querySelector('.container--map');
     console.log(mapContainer);
-    if(mapContainer) {
+    if (mapContainer) {
       mapContainer.removeEventListener('scroll', this.addPage.bind(this));
     }
   }
@@ -167,20 +188,26 @@ class SearchResultsContainer extends React.Component {
   }
 
   addPage(ev) {
-    let searchContainer = document.querySelectorAll('.container--search'); 
+    let searchContainer = document.querySelectorAll('.container--search');
     let mapContainer = document.querySelector('.container--map');
-    if (searchContainer.length && 
-        ((window.innerHeight + window.scrollY) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight))
-        ||
-        (mapContainer && (mapContainer.scrollTop + mapContainer.clientHeight) >= (searchContainer[0].offsetTop + searchContainer[0].offsetHeight))
+    if (
+      (searchContainer.length &&
+        window.innerHeight + window.scrollY >=
+          searchContainer[0].offsetTop + searchContainer[0].offsetHeight) ||
+      (mapContainer &&
+        mapContainer.scrollTop + mapContainer.clientHeight >=
+          searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
     ) {
-        this.props.fetchNextSearchResultsPage();
+      this.props.fetchNextSearchResultsPage();
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.searchStatus === "refresh"  && prevProps.searchStatus === null) {
-      this.doSearch()
+    if (
+      this.props.searchStatus === 'refresh' &&
+      prevProps.searchStatus === null
+    ) {
+      this.doSearch();
     }
   }
 
@@ -197,16 +224,16 @@ class SearchResultsContainer extends React.Component {
   }
 
   render() {
-    const { 
+    const {
       backButton,
       centerText,
       checkboxDefault,
       checkboxLabel,
       container,
-      containerSearchForm, 
+      containerSearchForm,
       containerSearchResults,
       filterContainer,
-      fullBottomMargin, 
+      fullBottomMargin,
       halfBottomMargin,
       indicatorColor,
       loadingColor,
@@ -216,9 +243,10 @@ class SearchResultsContainer extends React.Component {
       t,
       tabContainer,
       tooltip
-      } = this.props.classes;
+    } = this.props.classes;
     const searchResultsProps = {
-      containerSearchResults: containerSearchResults + (this.state.tab !== 0 ? " "+shrinkTab : ""),
+      containerSearchResults:
+        containerSearchResults + (this.state.tab !== 0 ? ' ' + shrinkTab : ''),
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
       handleListNew: this.props.handleListNew,
@@ -237,127 +265,219 @@ class SearchResultsContainer extends React.Component {
       user: this.props.user
     };
     const {showWalkinCheckbox} = this.props;
-    const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin
+    const toolbarClass = showWalkinCheckbox
+      ? halfBottomMargin
+      : fullBottomMargin;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
-      <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
-        <Grid item xs={12} sm={11} md={10} lg={10} xl={11} >
-        <div className={containerSearchForm+' no-background'}>
-          {isMobile ?
-            <div className={backButton}>
-              <AsylumConnectBackButton color="contrast" onClick={() => {this.props.history.push('/')}} />
-            </div>
-          : null 
-          }
-          <SearchBar {...this.props} classes={null} inlineSearchButton={isMobile} />
-          <Grid container spacing={0} alignItems='flex-start'>
-            <Grid item xs={12} md={8} className={toolbarClass}>
-              {isMobile ? null :
-              <Grid container spacing={0} justify='space-between'>  
-                <Grid item xs>
-                  <AsylumConnectButton variant="primary" onClick={this.props.handleSearchButtonClick} disabled={this.props.searchDisabled}>
-                    Search
-                    {this.props.searchDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
-                  </AsylumConnectButton>
-                </Grid>
-                <Grid item xs className='pull-right'>
-                  <Tooltip
-                    className={tooltip}
-                    classes={{tooltipPlacementTop:"badge-tooltipTop"}}
-                    title='Print Results'
-                    placement="top"
-                  >
-                    <IconButton className={secondary} style={{height: 'auto'}} onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
-                      <Fa name="print" />
-                    </IconButton>
-                  </Tooltip>                  
-                  {/*<AsylumConnectButton variant="primary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
+      <Grid
+        container
+        alignItems="flex-start"
+        justify={
+          this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'
+        }
+        spacing={0}
+        className={container}
+      >
+        <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+          <div className={containerSearchForm + ' no-background'}>
+            {isMobile ? (
+              <div className={backButton}>
+                <AsylumConnectBackButton
+                  color="contrast"
+                  onClick={() => {
+                    this.props.history.push('/');
+                  }}
+                />
+              </div>
+            ) : null}
+            <SearchBar
+              {...this.props}
+              classes={null}
+              inlineSearchButton={isMobile}
+            />
+            <Grid container spacing={0} alignItems="flex-start">
+              <Grid item xs={12} md={8} className={toolbarClass}>
+                {isMobile ? null : (
+                  <Grid container spacing={0} justify="space-between">
+                    <Grid item xs>
+                      <AsylumConnectButton
+                        variant="primary"
+                        onClick={this.props.handleSearchButtonClick}
+                        disabled={this.props.searchDisabled}
+                      >
+                        Search
+                        {this.props.searchDisabled ? (
+                          <Fa
+                            name="spinner"
+                            spin
+                            style={{marginLeft: '0.5rem'}}
+                          />
+                        ) : null}
+                      </AsylumConnectButton>
+                    </Grid>
+                    <Grid item xs className="pull-right">
+                      <Tooltip
+                        className={tooltip}
+                        classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+                        title="Print Results"
+                        placement="top"
+                      >
+                        <IconButton
+                          className={secondary}
+                          style={{height: 'auto'}}
+                          onClick={this.props.handlePrintClick}
+                          disabled={this.props.printDisabled}
+                        >
+                          <Fa name="print" />
+                        </IconButton>
+                      </Tooltip>
+                      {/*<AsylumConnectButton variant="primary" onClick={this.props.handlePrintClick} disabled={this.props.printDisabled}>
                     Print
                     {this.props.printDisabled ? <Fa name="spinner" spin style={{marginLeft: "0.5rem"}} /> : null}
                   </AsylumConnectButton>*/}
-                </Grid>
-              </Grid>
-              }
-              {this.props.infographic ? 
-                <Grid container spacing={0} justify='space-between'>  
-                  <Grid item xs>
-                    <AsylumConnectInfographicButton type="link" url={this.props.infographic.url} text={this.props.infographic.name} />
+                    </Grid>
                   </Grid>
+                )}
+                {this.props.infographic ? (
+                  <Grid container spacing={0} justify="space-between">
+                    <Grid item xs>
+                      <AsylumConnectInfographicButton
+                        type="link"
+                        url={this.props.infographic.url}
+                        text={this.props.infographic.name}
+                      />
+                    </Grid>
+                  </Grid>
+                ) : null}
+              </Grid>
+              {!isMobile ? (
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  className={filterContainer + ' ' + toolbarClass}
+                >
+                  <SearchRefinementControls
+                    clearSearchFilters={this.props.clearSearchFilters}
+                    handleFilterSelect={this.props.handleFilterSelect}
+                    handleSortSelect={this.props.handleSortSelect}
+                    selectedFilters={this.props.selectedFilters.filter(
+                      item => item !== 'time-walk-in'
+                    )}
+                    selectedSort={this.props.selectedSort}
+                  />
                 </Grid>
-              : null}
+              ) : null}
+              {showWalkinCheckbox ? (
+                <Grid
+                  item
+                  xs={12}
+                  className={centerText + ' ' + halfBottomMargin}
+                >
+                  <AsylumConnectCheckbox
+                    label="Only show me resources that provide walk-in hours"
+                    value="time-walk-in"
+                    onChange={this.props.handleFilterSelect}
+                    checked={
+                      this.props.selectedFilters.indexOf('time-walk-in') >= 0
+                    }
+                    additionalClasses={{
+                      checkboxDefault: checkboxDefault,
+                      label: checkboxLabel
+                    }}
+                  />
+                </Grid>
+              ) : null}
             </Grid>
-            {!isMobile ? <Grid item xs={12} md={4} className={filterContainer+' '+toolbarClass}>
-              <SearchRefinementControls 
-                clearSearchFilters={this.props.clearSearchFilters}
-                handleFilterSelect={this.props.handleFilterSelect} 
-                handleSortSelect={this.props.handleSortSelect} 
-                selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
-                selectedSort={this.props.selectedSort}  />
-            </Grid>
-            : null }
-            {showWalkinCheckbox ? <Grid item xs={12} className={centerText+' '+halfBottomMargin}>
-              <AsylumConnectCheckbox label="Only show me resources that provide walk-in hours" value="time-walk-in" onChange={this.props.handleFilterSelect} checked={(this.props.selectedFilters.indexOf("time-walk-in") >= 0)} additionalClasses={{
-                checkboxDefault: checkboxDefault,
-                label: checkboxLabel
-              }} />
-            </Grid> 
-            : null}
-          </Grid>
-        </div>
-        {isMobile ? 
-          <div>
-            <Tabs
-              value={this.state.tab}
-              onChange={this.handleTabChange}
-              indicatorColor="white"
-              textColor="inherit"
-              centered
-              classes={{
-                flexContainer: tabContainer,
-                indicator: indicatorColor
-              }}
-            >
-              <Tab label="List" />
-              <Tab label="Map" />
-              <Tab label="Filter" />
-            </Tabs>
-            <SwipeableViews
-              index={this.state.tab}
-              onChangeIndex={this.handleSwipeChange}
-            >
-              <ResultsContainer {...searchResultsProps}/>
-              <div className={"position-relative" + (this.state.tab !== 1 ? " "+shrinkTab : "")}>
-                <AsylumConnectMap
-                  containerElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />}
-                  country={this.props.country}
-                  history={this.props.history}
-                  loadingElement={<div style={{ width:"100%", height: window.innerHeight-91+"px" }} />}
-                  locale={this.props.locale}
-                  mapElement={<div style={{ width:"100%",height: window.innerHeight-91+"px" }} />} 
-                  mapMaxDistance={this.props.mapMaxDistance}
-                  resources={this.props.mapResources}
-                  searchCenter={this.props.searchCenter}
-                  t={this.props.t}
-                />
-              </div>
-              <div className={"position-relative" + (this.state.tab !== 2 ? " "+shrinkTab : "")}>
-                <SearchRefinementControls 
-                  clearSearchFilters={this.props.clearSearchFilters}
-                  handleFilterSelect={this.props.handleFilterSelect} 
-                  handleSortSelect={this.props.handleSortSelect} 
-                  selectedFilters={this.props.selectedFilters.filter(item => (item!=='time-walk-in'))} 
-                  selectedSort={this.props.selectedSort}  />
-              </div>
-            </SwipeableViews>
           </div>
-          : <ResultsContainer {...searchResultsProps} /> 
-          }
+          {isMobile ? (
+            <div>
+              <Tabs
+                value={this.state.tab}
+                onChange={this.handleTabChange}
+                indicatorColor="white"
+                textColor="inherit"
+                centered
+                classes={{
+                  flexContainer: tabContainer,
+                  indicator: indicatorColor
+                }}
+              >
+                <Tab label="List" />
+                <Tab label="Map" />
+                <Tab label="Filter" />
+              </Tabs>
+              <SwipeableViews
+                index={this.state.tab}
+                onChangeIndex={this.handleSwipeChange}
+              >
+                <ResultsContainer {...searchResultsProps} />
+                <div
+                  className={
+                    'position-relative' +
+                    (this.state.tab !== 1 ? ' ' + shrinkTab : '')
+                  }
+                >
+                  <AsylumConnectMap
+                    containerElement={
+                      <div
+                        style={{
+                          width: '100%',
+                          height: window.innerHeight - 91 + 'px'
+                        }}
+                      />
+                    }
+                    country={this.props.country}
+                    history={this.props.history}
+                    loadingElement={
+                      <div
+                        style={{
+                          width: '100%',
+                          height: window.innerHeight - 91 + 'px'
+                        }}
+                      />
+                    }
+                    locale={this.props.locale}
+                    mapElement={
+                      <div
+                        style={{
+                          width: '100%',
+                          height: window.innerHeight - 91 + 'px'
+                        }}
+                      />
+                    }
+                    mapMaxDistance={this.props.mapMaxDistance}
+                    resources={this.props.mapResources}
+                    searchCenter={this.props.searchCenter}
+                    t={this.props.t}
+                  />
+                </div>
+                <div
+                  className={
+                    'position-relative' +
+                    (this.state.tab !== 2 ? ' ' + shrinkTab : '')
+                  }
+                >
+                  <SearchRefinementControls
+                    clearSearchFilters={this.props.clearSearchFilters}
+                    handleFilterSelect={this.props.handleFilterSelect}
+                    handleSortSelect={this.props.handleSortSelect}
+                    selectedFilters={this.props.selectedFilters.filter(
+                      item => item !== 'time-walk-in'
+                    )}
+                    selectedSort={this.props.selectedSort}
+                  />
+                </div>
+              </SwipeableViews>
+            </div>
+          ) : (
+            <ResultsContainer {...searchResultsProps} />
+          )}
         </Grid>
       </Grid>
     );
   }
-    
 }
-
 
 export default withWidth(withStyles(styles)(SearchResultsContainer));

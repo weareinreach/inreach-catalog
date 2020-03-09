@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const {spawn} = require('child_process');
 const request = require('request');
 const test = require('tape');
 
@@ -6,7 +6,7 @@ const test = require('tape');
 const env = Object.assign({}, process.env, {PORT: 5000});
 const child = spawn('node', ['index.js'], {env});
 
-test('responds to requests', (t) => {
+test('responds to requests', t => {
   t.plan(4);
 
   // Wait until the server is ready
@@ -21,8 +21,11 @@ test('responds to requests', (t) => {
       // Successful response
       t.equal(response.statusCode, 200);
       // Assert content checks
-      t.notEqual(body.indexOf("<title>Node.js Getting Started on Heroku</title>"), -1);
-      t.notEqual(body.indexOf("Getting Started with Node on Heroku"), -1);
+      t.notEqual(
+        body.indexOf('<title>Node.js Getting Started on Heroku</title>'),
+        -1
+      );
+      t.notEqual(body.indexOf('Getting Started with Node on Heroku'), -1);
     });
   });
 });

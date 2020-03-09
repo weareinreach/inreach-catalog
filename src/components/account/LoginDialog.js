@@ -8,7 +8,7 @@ const LoginDialog = ({
   handleLogIn,
   handleMessageNew,
   handleRequestClose,
-  handleRequestOpen,
+  handleRequestOpen
 }) => (
   <div>
     <DialogTitle>Log In</DialogTitle>
@@ -25,7 +25,7 @@ LoginDialog.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  handleRequestOpen: PropTypes.func.isRequired,
+  handleRequestOpen: PropTypes.func.isRequired
 };
 
 export default LoginDialog;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createAffiliation, createUser } from '../../helpers/odasRequests';
+import {createAffiliation, createUser} from '../../helpers/odasRequests';
 
 import SignupForm from './SignupForm';
 import withOrganizations from './withOrganizations';
@@ -14,7 +14,7 @@ class SignupFormContainer extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      selection: '',
+      selection: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,21 +26,21 @@ class SignupFormContainer extends React.Component {
   }
 
   handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const {name, value} = event.target;
+    this.setState({[name]: value});
   }
 
   handleSelect(selection) {
-    this.setState({ selection });
+    this.setState({selection});
     this.handleStepNext();
   }
 
   handleStepNext() {
-    this.setState(prevState => ({ activeStep: prevState.activeStep + 1 }));
+    this.setState(prevState => ({activeStep: prevState.activeStep + 1}));
   }
 
   handleStepBack() {
-    this.setState(prevState => ({ activeStep: prevState.activeStep - 1 }));
+    this.setState(prevState => ({activeStep: prevState.activeStep - 1}));
   }
 
   handleCreateAffiliation(event) {
@@ -49,10 +49,10 @@ class SignupFormContainer extends React.Component {
       handleMessageNew,
       handleRequestClose,
       organizationSelection,
-      session,
+      session
     } = this.props;
-    const { id, name } = organizationSelection;
-    createAffiliation({ id, name }, session)
+    const {id, name} = organizationSelection;
+    createAffiliation({id, name}, session)
       .then(() => handleRequestClose())
       .catch(() => {
         handleMessageNew(
@@ -63,11 +63,8 @@ class SignupFormContainer extends React.Component {
 
   handleSignUp(event) {
     event.preventDefault();
-    const {
-      handleMessageNew,
-      handleRequestClose,
-    } = this.props;
-    const { email, password, passwordConfirmation, selection } = this.state;
+    const {handleMessageNew, handleRequestClose} = this.props;
+    const {email, password, passwordConfirmation, selection} = this.state;
     const isProfessional = selection === 'provider';
 
     if (password.length < 8) {
@@ -79,8 +76,8 @@ class SignupFormContainer extends React.Component {
       return;
     }
 
-    createUser({ email, password, isProfessional })
-      .then(({ jwt }) => {
+    createUser({email, password, isProfessional})
+      .then(({jwt}) => {
         this.props.handleLogIn(jwt);
         if (!isProfessional) {
           handleRequestClose();
@@ -114,14 +111,14 @@ class SignupFormContainer extends React.Component {
 }
 
 SignupFormContainer.defaultProps = {
-  session: null,
+  session: null
 };
 
 SignupFormContainer.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  session: PropTypes.string,
+  session: PropTypes.string
 };
 
 export default withOrganizations(SignupFormContainer);

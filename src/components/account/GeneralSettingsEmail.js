@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
 import TextField from 'material-ui/TextField';
@@ -19,8 +19,8 @@ const styles = theme => ({
     padding: '15px 0 25px 0',
     fontSize: 13,
     fontWeight: 700,
-    fontFamily: "\"Open Sans\", sans-serif",
-    letterSpacing: "-.02em",
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '-.02em',
     color: theme.palette.secondary[500],
     display: 'flex',
     flexDirection: 'row',
@@ -57,58 +57,65 @@ class GeneralSettingsEmail extends React.Component {
       newEmail: '',
       confirmedEmail: ''
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleToggleDropDown = this.handleToggleDropDown.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
-  componentWillReceiveProps(nextProps){
-    if (nextProps.currentEmail !== this.props.currentEmail && this.props.currentEmail != null && this.props.currentEmail != null) {
-      this.setState({ 
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.currentEmail !== this.props.currentEmail &&
+      this.props.currentEmail != null &&
+      this.props.currentEmail != null
+    ) {
+      this.setState({
         currentEmail: nextProps.currentEmail,
         newEmail: '',
         confirmedEmail: ''
-      })
+      });
     }
-  }  
+  }
 
   handleChange(e) {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
-  };
-  
+  }
+
   handleToggleDropDown() {
-    this.setState({ open: !this.state.open });
-  };
+    this.setState({open: !this.state.open});
+  }
 
   handleSubmit(e) {
     e.preventDefault();
     const {handleMessageNew} = this.props;
 
-    const { currentEmail, newEmail, confirmedEmail } = this.state
+    const {currentEmail, newEmail, confirmedEmail} = this.state;
     if (!currentEmail || !newEmail || !confirmedEmail) {
-      handleMessageNew('Missing email input.')
+      handleMessageNew('Missing email input.');
     }
 
     if (currentEmail && newEmail && confirmedEmail) {
       if (newEmail === confirmedEmail) {
-        this.props.handleUpdateEmail(newEmail)
-      } else{
-        handleMessageNew('Your new email is not matching the confirmed email.')
+        this.props.handleUpdateEmail(newEmail);
+      } else {
+        handleMessageNew('Your new email is not matching the confirmed email.');
       }
     }
   }
-  
+
   render() {
-    const { classes } = this.props;
-    const { currentEmail, newEmail, confirmedEmail } = this.state
+    const {classes} = this.props;
+    const {currentEmail, newEmail, confirmedEmail} = this.state;
     return (
       <div>
-        <div onClick={this.handleToggleDropDown} className={classes.settingsTypeFont}>
-            <span>Change Email Address</span>
-            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        <div
+          onClick={this.handleToggleDropDown}
+          className={classes.settingsTypeFont}
+        >
+          <span>Change Email Address</span>
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </div>
         <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
           <form className={classes.form} onSubmit={this.handleSubmit}>
@@ -116,12 +123,12 @@ class GeneralSettingsEmail extends React.Component {
               className={classes.inputLabel}
               name="currentEmail"
               type="email"
-              label='Enter Old Email Address:'
+              label="Enter Old Email Address:"
               value={currentEmail}
               InputLabelProps={{
-                shrink: true,
+                shrink: true
               }}
-              placeholder='old_example@email.org'
+              placeholder="old_example@email.org"
               onChange={this.handleChange}
               required
             />
@@ -129,12 +136,12 @@ class GeneralSettingsEmail extends React.Component {
               className={classes.inputLabel}
               name="newEmail"
               type="email"
-              label='Enter New Email Address:'
+              label="Enter New Email Address:"
               value={newEmail}
               InputLabelProps={{
-                shrink: true,
+                shrink: true
               }}
-              placeholder='new_example@email.org'              
+              placeholder="new_example@email.org"
               onChange={this.handleChange}
               required
             />
@@ -142,20 +149,24 @@ class GeneralSettingsEmail extends React.Component {
               className={classes.inputLabel}
               name="confirmedEmail"
               type="email"
-              label='Confirm New Email Address:'
+              label="Confirm New Email Address:"
               value={confirmedEmail}
               InputLabelProps={{
-                shrink: true,
+                shrink: true
               }}
-              placeholder='new_example@email.org'              
+              placeholder="new_example@email.org"
               onChange={this.handleChange}
               required
             />
-            <div><AsylumConnectButton variant="secondary">Change Email Address</AsylumConnectButton></div>
+            <div>
+              <AsylumConnectButton variant="secondary">
+                Change Email Address
+              </AsylumConnectButton>
+            </div>
           </form>
         </Collapse>
       </div>
-    )
+    );
   }
 }
 

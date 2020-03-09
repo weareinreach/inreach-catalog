@@ -5,10 +5,10 @@ import Typography from 'material-ui/Typography';
 
 class ReviewCount extends React.Component {
   render() {
-    const { total } = this.props;
+    const {total} = this.props;
     return (
       <Typography variant="body2" className="center-align">
-        {total + ' review' + (total !== 1 ? 's' : '') }
+        {total + ' review' + (total !== 1 ? 's' : '')}
       </Typography>
     );
   }
@@ -17,7 +17,5 @@ class ReviewCount extends React.Component {
 ReviewCount.propTypes = {
   total: PropTypes.number.isRequired
 };
-
-
 
 export default ReviewCount;

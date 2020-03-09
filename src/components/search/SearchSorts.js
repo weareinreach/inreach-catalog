@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';
@@ -21,7 +21,7 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   dividerSpacing: {
-    marginTop: theme.spacing.unit * 2, 
+    marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2
   },
   radioLabel: {},
@@ -29,7 +29,7 @@ const styles = theme => ({
   radioCheckbox: {},
   [theme.breakpoints.down('xs')]: {
     radioLabel: {
-      color: theme.palette.common.white,
+      color: theme.palette.common.white
     },
     radioRoot: {
       color: theme.palette.common.white,
@@ -45,14 +45,12 @@ const styles = theme => ({
 });
 
 const sortCollection = [
-  [
-    {label: 'Sort by relevance (default)', name: 'best'},
-  ],
+  [{label: 'Sort by relevance (default)', name: 'best'}],
   [
     {label: 'Sort by distance', name: 'distance'},
     {label: 'Sort by popularity', name: 'popularity'},
-    {label: 'Sort by newest', name: 'newest'},
- ]
+    {label: 'Sort by newest', name: 'newest'}
+  ]
 ];
 
 class SearchSorts extends React.Component {
@@ -61,30 +59,44 @@ class SearchSorts extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div>
-        <Grid container spacing={0} className={props.classes.subfilterSpacing} >
-          {sortCollection[0].map((sort) => (
-            <Grid item xs={12} key={sort.name} >
-              <AsylumConnectRadio name="sort" label={sort.label} value={sort.name} onChange={props.onChange} checked={sort.name === props.selectedSort} additionalClasses={{
-                root: props.classes.radioRoot,
-                label: props.classes.radioLabel,
-                checkboxDefault: props.classes.radioCheckbox,
-                checkboxChecked: props.classes.radioCheckbox,
-              }} />
+        <Grid container spacing={0} className={props.classes.subfilterSpacing}>
+          {sortCollection[0].map(sort => (
+            <Grid item xs={12} key={sort.name}>
+              <AsylumConnectRadio
+                name="sort"
+                label={sort.label}
+                value={sort.name}
+                onChange={props.onChange}
+                checked={sort.name === props.selectedSort}
+                additionalClasses={{
+                  root: props.classes.radioRoot,
+                  label: props.classes.radioLabel,
+                  checkboxDefault: props.classes.radioCheckbox,
+                  checkboxChecked: props.classes.radioCheckbox
+                }}
+              />
             </Grid>
           ))}
-          {isMobile ? null :
-          <Grid item xs={12}> 
-            <Divider className={props.classes.dividerSpacing} />
-          </Grid>
-          }
-          {sortCollection[1].map((sort) => (
-            <Grid item xs={12} key={sort.name} >
-              <AsylumConnectRadio name="sort" label={sort.label} value={sort.name} onChange={props.onChange} checked={sort.name === props.selectedSort} additionalClasses={{
-                root: props.classes.radioRoot,
-                label: props.classes.radioLabel,
-                checkboxDefault: props.classes.radioCheckbox,
-                checkboxChecked: props.classes.radioCheckbox,
-              }} />
+          {isMobile ? null : (
+            <Grid item xs={12}>
+              <Divider className={props.classes.dividerSpacing} />
+            </Grid>
+          )}
+          {sortCollection[1].map(sort => (
+            <Grid item xs={12} key={sort.name}>
+              <AsylumConnectRadio
+                name="sort"
+                label={sort.label}
+                value={sort.name}
+                onChange={props.onChange}
+                checked={sort.name === props.selectedSort}
+                additionalClasses={{
+                  root: props.classes.radioRoot,
+                  label: props.classes.radioLabel,
+                  checkboxDefault: props.classes.radioCheckbox,
+                  checkboxChecked: props.classes.radioCheckbox
+                }}
+              />
             </Grid>
           ))}
         </Grid>

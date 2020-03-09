@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 
 import OrgSettings from './OrgSettings';
 import GeneralSettings from './GeneralSettings';
@@ -8,9 +8,9 @@ import PromptReconfirm from '../PromptReconfirm';
 
 import Typography from 'material-ui/Typography';
 import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Tabs, {Tab} from 'material-ui/Tabs';
 
-import { fetchUser } from '../../helpers/odasRequests';
+import {fetchUser} from '../../helpers/odasRequests';
 import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
 
@@ -19,29 +19,29 @@ const styles = theme => ({
     padding: '5% 0 5% 0',
     marginBottom: theme.spacing.unit * 9,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]: {
     root: {
-      padding: '5% 20px',
+      padding: '5% 20px'
     },
     marginBottom: {
-      marginBottom: '5%',
-    },
+      marginBottom: '5%'
+    }
   },
   formRow: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'baseline',
+    alignItems: 'baseline'
   },
   textAlignCenter: {
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
 
 function TabContainer(props) {
-  return <div style={{ marginTop: 50 }}>{props.children}</div>;
+  return <div style={{marginTop: 50}}>{props.children}</div>;
 }
 
 class AccountPage extends React.Component {
@@ -50,7 +50,7 @@ class AccountPage extends React.Component {
     this.state = {
       value: 0,
       isAuthenticated: false,
-      user: null,
+      user: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,7 +58,7 @@ class AccountPage extends React.Component {
   }
 
   componentDidMount() {
-    const { handleMessageNew, handleLogOut, session } = this.props;
+    const {handleMessageNew, handleLogOut, session} = this.props;
     if (!this.props.session) {
       this.handleNullSession();
     } else {
@@ -80,11 +80,11 @@ class AccountPage extends React.Component {
       handleLogOut,
       handleUnconfirmSession,
       history,
-      session,
+      session
     } = this.props;
     fetchUser(session)
       .then(data => {
-        this.setState({ isAuthenticated: true, user: data.user });
+        this.setState({isAuthenticated: true, user: data.user});
       })
       .catch(error => {
         if (error.response && error.response.status === 403) {
@@ -101,8 +101,8 @@ class AccountPage extends React.Component {
     this.setState(prevState => ({
       user: {
         ...prevState.user,
-        ...data,
-      },
+        ...data
+      }
     }));
   }
 
@@ -112,11 +112,11 @@ class AccountPage extends React.Component {
   }
 
   handleChange(event, value) {
-    this.setState({ value });
+    this.setState({value});
   }
 
   render() {
-    const { handleUserUpdate } = this;
+    const {handleUserUpdate} = this;
     const {
       classes,
       handleLogOut,
@@ -124,9 +124,9 @@ class AccountPage extends React.Component {
       handleRequestOpen,
       locale,
       session,
-      sessionConfirmed,
+      sessionConfirmed
     } = this.props;
-    const { isAuthenticated, user, value } = this.state;
+    const {isAuthenticated, user, value} = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
     let settings;
     if (isAuthenticated && user.affiliation) {
@@ -236,10 +236,11 @@ class AccountPage extends React.Component {
         >
           Your Account
         </Typography>
-        {this.props.sessionConfirmed
-          ? settings
-          : <PromptReconfirm handleRequestOpen={this.props.handleRequestOpen}/>
-        }
+        {this.props.sessionConfirmed ? (
+          settings
+        ) : (
+          <PromptReconfirm handleRequestOpen={this.props.handleRequestOpen} />
+        )}
       </div>
     );
   }
@@ -251,7 +252,7 @@ AccountPage.propTypes = {
   handleRequestOpen: PropTypes.func.isRequired,
   handleUnconfirmSession: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
-  sessionConfirmed: PropTypes.bool.isRequired,
+  sessionConfirmed: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(withWidth(AccountPage));

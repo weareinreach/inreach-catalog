@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
@@ -8,8 +8,8 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 
 import SearchForm from './SearchForm';
 import LocaleForm from '../locale/LocaleForm';
-import AsylumConnectBackButton from "../AsylumConnectBackButton";
-import AsylumConnectInfographicButton from "../AsylumConnectInfographicButton";
+import AsylumConnectBackButton from '../AsylumConnectBackButton';
+import AsylumConnectInfographicButton from '../AsylumConnectInfographicButton';
 import withWidth from '../withWidth';
 import locale from '../../helpers/Locale';
 import breakpoints from '../../theme/breakpoints';
@@ -43,13 +43,13 @@ const styles = theme => ({
     paddingBottom: '1rem',
     position: 'absolute',
     top: '0',
-    left:'0',
+    left: '0',
     right: '0',
     [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
       position: 'static',
-      paddingTop: "80px",
+      paddingTop: '80px',
       marginLeft: '0'
-    }),
+    })
   },
   containerSearchForm: {
     paddingTop: theme.spacing.unit * 8
@@ -64,14 +64,14 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit * 4
     },
     container: {
-      height: "100%",
+      height: '100%',
       backgroundColor: theme.palette.secondary[500]
     },
     containerSearchForm: Object.assign(mobilePadding(theme), {
       alignContent: 'flex-start',
       paddingTop: theme.spacing.unit * 4,
       paddingBottom: theme.spacing.unit * 8,
-      height: "75vh",
+      height: '75vh',
       backgroundColor: theme.palette.secondary[500]
     }),
     infographicSpacing: {
@@ -96,9 +96,9 @@ const styles = theme => ({
     }
   },
   backButtonLabel: {
-    textTransform: "none",
-    fontWeight: "600",
-    justifyContent: "left",
+    textTransform: 'none',
+    fontWeight: '600',
+    justifyContent: 'left',
     fontFamily: theme.typography.title.fontFamily
   },
   iconButton: {
@@ -110,52 +110,51 @@ const styles = theme => ({
     maxWidth: '65px',
     paddingLeft: '20px'
     //height: '100%',
-  },
+  }
 });
 
 class SearchFormContainer extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = {
-      locale: (locale.isLocaleSet() ? locale.getLocale() : false)
-    }
+      locale: locale.isLocaleSet() ? locale.getLocale() : false
+    };
 
     this.handleLocaleSelect = this.handleLocaleSelect.bind(this);
     this.handleLocaleReset = this.handleLocaleReset.bind(this);
   }
 
   componentWillMount() {
-    if(locale.isLocaleSet()) {
+    if (locale.isLocaleSet()) {
       this.handleLocaleSelect(locale.getLocale());
     }
   }
 
   handleLocaleSelect(locale, language, hasLanguageChanged) {
     let redirect = false;
-    switch(locale) {
+    switch (locale) {
       case 'es_MX':
-        redirect = "/"+locale+"/page/Mexico/";
-      break;
+        redirect = '/' + locale + '/page/Mexico/';
+        break;
       case 'intl':
-        redirect = "/intl/page/outside-US-and-Canada";
-      break;
-      default: 
-      this.setState({
-        locale: locale
-      });
-      break;
+        redirect = '/intl/page/outside-US-and-Canada';
+        break;
+      default:
+        this.setState({
+          locale: locale
+        });
+        break;
     }
 
-    if(redirect) {
-      if(hasLanguageChanged) {
-        window.location=redirect+'#googtrans('+language+')';
+    if (redirect) {
+      if (hasLanguageChanged) {
+        window.location = redirect + '#googtrans(' + language + ')';
       } else {
-        this.props.history.push(redirect)
+        this.props.history.push(redirect);
       }
-    } else if(hasLanguageChanged) {
-      location.reload()
+    } else if (hasLanguageChanged) {
+      location.reload();
     }
-    
   }
 
   handleLocaleReset() {
@@ -165,76 +164,115 @@ class SearchFormContainer extends React.Component {
   }
 
   render() {
-    const { 
-      container, 
+    const {
+      container,
       iconButton,
       logoFitHeight,
-      title, 
-      subheading, 
-      backButton, 
-      backButtonLabel, 
+      title,
+      subheading,
+      backButton,
+      backButtonLabel,
       changeCountryButton,
-      containerSearchForm, 
-      infographicSpacing, 
-      subAnnouncement} = this.props.classes; //console.log(this.props.width, breakpoints['sm']);
+      containerSearchForm,
+      infographicSpacing,
+      subAnnouncement
+    } = this.props.classes; //console.log(this.props.width, breakpoints['sm']);
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div style={{position: 'relative'}}>
-        {! isMobile ? <div className={subAnnouncement} style={{marginLeft: '-'+(this.props.width - 1300)/2 + 'px', paddingLeft: (this.props.width - 1300)/2 + 'px'}}>
-          <Grid container alignItems='center' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0}>
-            <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-              <SubAnnouncement />
+        {!isMobile ? (
+          <div
+            className={subAnnouncement}
+            style={{
+              marginLeft: '-' + (this.props.width - 1300) / 2 + 'px',
+              paddingLeft: (this.props.width - 1300) / 2 + 'px'
+            }}
+          >
+            <Grid
+              container
+              alignItems="center"
+              justify={
+                this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'
+              }
+              spacing={0}
+            >
+              <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+                <SubAnnouncement />
+              </Grid>
             </Grid>
-          </Grid>
-        </div> 
-        : null}
+          </div>
+        ) : null}
         {/*isMobile && this.state.locale ? 
           <Button onClick={this.handleLocaleReset} classes={{root: backButton, label: backButtonLabel }}>
             <ArrowBackIcon />&nbsp;Choose a different country
           </Button>
         : null*/}
-        <Grid container alignItems='flex-start' justify={this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'} spacing={0} className={container}>
+        <Grid
+          container
+          alignItems="flex-start"
+          justify={
+            this.props.width >= breakpoints['xl'] ? 'flex-start' : 'center'
+          }
+          spacing={0}
+          className={container}
+        >
           <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-            {!isMobile && this.state.locale ?
+            {!isMobile && this.state.locale ? (
               <Grid item xs={12}>
-                <AsylumConnectBackButton className={changeCountryButton} color='default' text="Choose a different country" onClick={this.handleLocaleReset} />
+                <AsylumConnectBackButton
+                  className={changeCountryButton}
+                  color="default"
+                  text="Choose a different country"
+                  onClick={this.handleLocaleReset}
+                />
               </Grid>
-            : null}
-            {isMobile ? 
-            <Grid item xs={12}>
-              <a href='https://www.asylumconnect.org'>
-                <IconButton
-                  className={iconButton}>
-                  <img src={this.props.logo} className={logoFitHeight} />
-                </IconButton>
-              </a>
-            </Grid> 
-            : null}
-            <Grid container spacing={0} className={containerSearchForm} >
-              {!isMobile ? 
+            ) : null}
+            {isMobile ? (
               <Grid item xs={12}>
-                {this.state.locale ?
-                  <Typography variant="title" className={title}>
-                    {this.props.t('Welcome to the United States AsylumConnect Catalog!')}
-                  </Typography>
-                :
-                  <Typography variant="title" className={title}>
-                    {this.props.t('Welcome to the AsylumConnect Catalog!')}
-                  </Typography>
-                }
+                <a href="https://www.asylumconnect.org">
+                  <IconButton className={iconButton}>
+                    <img src={this.props.logo} className={logoFitHeight} />
+                  </IconButton>
+                </a>
               </Grid>
-              : null }
+            ) : null}
+            <Grid container spacing={0} className={containerSearchForm}>
+              {!isMobile ? (
+                <Grid item xs={12}>
+                  {this.state.locale ? (
+                    <Typography variant="title" className={title}>
+                      {this.props.t(
+                        'Welcome to the United States AsylumConnect Catalog!'
+                      )}
+                    </Typography>
+                  ) : (
+                    <Typography variant="title" className={title}>
+                      {this.props.t('Welcome to the AsylumConnect Catalog!')}
+                    </Typography>
+                  )}
+                </Grid>
+              ) : null}
               <Grid item xs={12}>
                 <Typography variant="subheading" className={subheading}>
-                  Search for verified LGBTQ- and immigrant-friendly services near you
+                  Search for verified LGBTQ- and immigrant-friendly services
+                  near you
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-              {this.state.locale ?
-                <SearchForm {...this.props} classes={null} onLocaleReset={this.handleLocaleReset} onLocaleSelect={this.handleLocaleSelect} />
-              :
-                <LocaleForm {...this.props} classes={null} onLocaleSelect={this.handleLocaleSelect} /> 
-              }
+                {this.state.locale ? (
+                  <SearchForm
+                    {...this.props}
+                    classes={null}
+                    onLocaleReset={this.handleLocaleReset}
+                    onLocaleSelect={this.handleLocaleSelect}
+                  />
+                ) : (
+                  <LocaleForm
+                    {...this.props}
+                    classes={null}
+                    onLocaleSelect={this.handleLocaleSelect}
+                  />
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -242,6 +280,6 @@ class SearchFormContainer extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default withWidth(withStyles(styles)(SearchFormContainer));

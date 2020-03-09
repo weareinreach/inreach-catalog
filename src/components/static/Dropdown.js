@@ -8,21 +8,21 @@ import ContentMarkdown from '../../helpers/ContentMarkdown';
 
 require('./Resource.scss');
 
-import { searchInput } from '../../theme/sharedClasses';
+import {searchInput} from '../../theme/sharedClasses';
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import Resource from './Resource';
 
 const styles = (theme, props) => ({
   textAlignCenter: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   titleMargin: {
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit
   },
   italic: {
-    fontStyle: 'italic',
+    fontStyle: 'italic'
   },
   applyColor: {
     color: props.color
@@ -37,14 +37,13 @@ const styles = (theme, props) => ({
   }),
   listContainerClass: {
     fontFamily: theme.typography.fontFamily,
-    fontSize: theme.typography.fontSize,
+    fontSize: theme.typography.fontSize
   }
-})
-
+});
 
 class Dropdown extends React.Component {
   constructor(props, context) {
-    super(props,context);
+    super(props, context);
     this.state = {
       selected: this.props.selected
     };
@@ -56,14 +55,21 @@ class Dropdown extends React.Component {
   handleSelect(item) {
     this.setState({
       selected: item
-    })
-    if(typeof this.props.onSelect == 'function') {
+    });
+    if (typeof this.props.onSelect == 'function') {
       this.props.onSelect(item);
     }
   }
 
   render() {
-    const {classes, dropdown, label, color, className, dropdownClassName} = this.props;
+    const {
+      classes,
+      dropdown,
+      label,
+      color,
+      className,
+      dropdownClassName
+    } = this.props;
     let {keys} = this.props;
     const containerWidth = '100%';
     var removal = keys.indexOf('label');
@@ -73,15 +79,36 @@ class Dropdown extends React.Component {
     return (
       <div className={className}>
         <div className={dropdownClassName}>
-          <AsylumConnectSelector label={this.state.selected ? this.state.selected : label} selected={[]} containerWidth={containerWidth} containerClass={classes.dropdownInput} listContainerClass={classes.listContainerClass} closeOnClick={true}>
+          <AsylumConnectSelector
+            label={this.state.selected ? this.state.selected : label}
+            selected={[]}
+            containerWidth={containerWidth}
+            containerClass={classes.dropdownInput}
+            listContainerClass={classes.listContainerClass}
+            closeOnClick={true}
+          >
             <List>
-              {keys.map((item, index) => <AsylumConnectDropdownListItem button key={index} selected={this.state.selected === item} onClick={event => this.handleSelect(item)}>{item}</AsylumConnectDropdownListItem>)}
+              {keys.map((item, index) => (
+                <AsylumConnectDropdownListItem
+                  button
+                  key={index}
+                  selected={this.state.selected === item}
+                  onClick={event => this.handleSelect(item)}
+                >
+                  {item}
+                </AsylumConnectDropdownListItem>
+              ))}
             </List>
           </AsylumConnectSelector>
         </div>
-        {dropdown && this.state.selected && dropdown[this.state.selected] && dropdown[this.state.selected].length ?
-          dropdown[this.state.selected].map((resource, index) => <Resource key={index} color={color} {...resource} />)
-          :null}
+        {dropdown &&
+        this.state.selected &&
+        dropdown[this.state.selected] &&
+        dropdown[this.state.selected].length
+          ? dropdown[this.state.selected].map((resource, index) => (
+              <Resource key={index} color={color} {...resource} />
+            ))
+          : null}
       </div>
     );
   }

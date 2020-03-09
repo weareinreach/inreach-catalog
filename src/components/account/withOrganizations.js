@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import debounce from 'lodash/debounce';
 import fetchJsonp from 'fetch-jsonp';
 
@@ -13,7 +13,7 @@ const withOrganizations = WrappedComponent =>
         isLoadingOrganizations: false,
         organizations: [],
         organizationSearch: '',
-        organizationSelection: null,
+        organizationSelection: null
       };
 
       this.debouncedLoadOrganizations = debounce(this.loadOrganizations, 1000);
@@ -34,55 +34,54 @@ const withOrganizations = WrappedComponent =>
       this.setState(prevState =>
         Object.assign(
           {},
-          { organizations: [] },
+          {organizations: []},
           {
             organizationSearch: prevState.organizationSelection
               ? prevState.organizationSelection.name
-              : '',
+              : ''
           }
         )
       );
     }
 
-    handleOrganizationSelect(event, { suggestion }) {
+    handleOrganizationSelect(event, {suggestion}) {
       this.setState({
         organizations: [],
         organizationSearch: '',
-        organizationSelection: suggestion,
+        organizationSelection: suggestion
       });
     }
 
-    handleOrganizationSearchChange(event, { newValue }) {
+    handleOrganizationSearchChange(event, {newValue}) {
       this.setState({
         organizationSearch: newValue,
-        organizationSelection: null,
+        organizationSelection: null
       });
     }
 
     handleOrganizationsFetchRequested() {
       this.setState({
         isLoadingOrganizations: true,
-        organizationSelection: null,
+        organizationSelection: null
       });
       this.debouncedLoadOrganizations();
     }
 
     handleOrganizationsClearRequested() {
-      this.setState({ organizations: [] });
+      this.setState({organizations: []});
     }
 
     loadOrganizations() {
       const apiDomain = config[process.env.OD_API_ENV].odrs;
       const url = `${apiDomain}organizations.jsonp?`;
       const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
-      const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state
-        .organizationSearch}`;
+      const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state.organizationSearch}`;
       fetchJsonp(url + apiKeyParam + queryParams)
         .then(response => response.json())
         .then(data => {
           this.setState({
             isLoadingOrganizations: false,
-            organizations: data.organizations,
+            organizations: data.organizations
           });
         });
     }

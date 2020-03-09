@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
 import config from '../../config/config.js';
-import { confirmSession } from '../../helpers/odasRequests';
+import {confirmSession} from '../../helpers/odasRequests';
 
 import PasswordForm from './PasswordForm';
 
@@ -12,7 +12,7 @@ class PasswordFormContainer extends React.Component {
     super(props);
 
     this.state = {
-      password: '',
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,8 +20,8 @@ class PasswordFormContainer extends React.Component {
   }
 
   handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const {name, value} = event.target;
+    this.setState({[name]: value});
   }
 
   handleSubmit(event) {
@@ -30,7 +30,7 @@ class PasswordFormContainer extends React.Component {
       handleConfirmSession,
       handleMessageNew,
       handleRequestClose,
-      session,
+      session
     } = this.props;
     confirmSession(this.state.password, session)
       .then(response => {
@@ -63,7 +63,7 @@ PasswordFormContainer.propTypes = {
   handleConfirmSession: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  session: PropTypes.string.isRequired,
+  session: PropTypes.string.isRequired
 };
 
 export default PasswordFormContainer;

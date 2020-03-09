@@ -1,26 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  BrowserRouter as Router,
-  Link
-} from 'react-router-dom';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import breakpoints from '../../theme/breakpoints';
-import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
+import BottomNavigation, {
+  BottomNavigationAction
+} from 'material-ui/BottomNavigation';
 
-import SearchIcon from '../icons/SearchIcon'
-import FavoritesIcon from '../icons/FavoritesIcon'
-import LanguageIcon from '../icons/LanguageIcon'
-import AccountIcon from '../icons/AccountIcon'
-import PrivacyIcon from '../icons/PrivacyIcon'
-import MoreIcon from '../icons/MoreIcon'
+import SearchIcon from '../icons/SearchIcon';
+import FavoritesIcon from '../icons/FavoritesIcon';
+import LanguageIcon from '../icons/LanguageIcon';
+import AccountIcon from '../icons/AccountIcon';
+import PrivacyIcon from '../icons/PrivacyIcon';
+import MoreIcon from '../icons/MoreIcon';
 
 let theTheme;
 
 const styles = theme => {
   theTheme = theme; //console.log(theme.typography.body1);
-  return ({
+  return {
     root: {
       width: '100vw',
       display: 'flex',
@@ -29,13 +28,13 @@ const styles = theme => {
       height: 'auto'
     },
     BottomNavBar: {
-      position:'fixed',
-      bottom:'0',
+      position: 'fixed',
+      bottom: '0',
       zIndex: '100',
-      borderTop: "1px solid "+theme.palette.common.faintBlack 
+      borderTop: '1px solid ' + theme.palette.common.faintBlack
     },
     navButton: Object.assign({}, theme.typography.body1, {
-      fontSize: (theme.typography.body1.fontSize-2),
+      fontSize: theme.typography.body1.fontSize - 2,
       transition: 'none',
       minWidth: '20%',
       textTransform: 'uppercase',
@@ -46,28 +45,26 @@ const styles = theme => {
         color: theme.palette.common.darkBlack
       },
       [`@media (max-width: ${breakpoints['xs']}px)`]: {
-        fontSize: (theme.typography.body1.fontSize-4),
+        fontSize: theme.typography.body1.fontSize - 4
       }
     }),
     navButtonSelected: {
       paddingTop: '8px !important',
-      fontSize: (theme.typography.body1.fontSize-2) +'px !important',
+      fontSize: theme.typography.body1.fontSize - 2 + 'px !important',
       color: theme.palette.primary[500],
       '&:hover': {
         color: theme.palette.primary[500]
       },
       ['@media (max-width:359.95px)']: {
-        fontSize: (theme.typography.body1.fontSize-4) +'px !important',
+        fontSize: theme.typography.body1.fontSize - 4 + 'px !important'
       }
     }
-  })
+  };
 };
-
-
 
 class NavMobile extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       value: ''
     };
@@ -75,22 +72,22 @@ class NavMobile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.location) {
+    if (nextProps.location) {
       let value = this.state.value;
-      switch(nextProps.location.pathname) {
+      switch (nextProps.location.pathname) {
         case '/':
         case /^\/search/:
         case /^\/resource/:
           value = 0;
-        break;
+          break;
         case /^\/favorites/:
           value = 1;
-        break;
+          break;
         case /^\/account/:
           value = 4;
-        break;
+          break;
       }
-      if(value !== this.state.value) {
+      if (value !== this.state.value) {
         this.setState({
           value
         });
@@ -99,38 +96,38 @@ class NavMobile extends React.Component {
   }
 
   handleChange(event, value) {
-    const { handleRequestOpen, session, history } = this.props;
-    switch(value) {
+    const {handleRequestOpen, session, history} = this.props;
+    switch (value) {
       case 0:
         history.push('/');
         handleRequestOpen('none');
-      break;
+        break;
       case 1:
         history.push('/favorites');
         handleRequestOpen('none');
-      break;
+        break;
       case 2:
         handleRequestOpen('language');
-      break;
+        break;
       case 3:
-        if(session) {
+        if (session) {
           handleRequestOpen('none');
         } else {
           handleRequestOpen('login');
         }
         history.push('/account');
-      break;
+        break;
       case 4:
         handleRequestOpen('more');
-      break;
+        break;
     }
-    this.setState({ value });
-  };
-  iconColor(position){
+    this.setState({value});
+  }
+  iconColor(position) {
     if (position === null) {
       return theTheme.palette.common.darkBlack;
     }
-    
+
     if (this.state.value === position) {
       return theTheme.palette.primary[500];
     } else {
@@ -142,8 +139,8 @@ class NavMobile extends React.Component {
     const buttonStyles = {
       label: classes.navButton,
       selected: classes.navButtonSelected
-    }
-    const { value } = this.state;
+    };
+    const {value} = this.state;
     return (
       <div className={classes.BottomNavBar}>
         <BottomNavigation
@@ -152,19 +149,44 @@ class NavMobile extends React.Component {
           showLabels
           className={classes.root}
         >
-          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="search" icon={<SearchIcon width="30px" color={this.iconColor(0)}/>} />
-          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="favorites" icon={<FavoritesIcon width="30px" color={this.iconColor(1)}/>} />
-          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="language" icon={<LanguageIcon width="30px" color={this.iconColor(2)} />} />
-          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="account" icon={<AccountIcon width="30px" color={this.iconColor(3)} />} />
-          <BottomNavigationAction className={classes.navButton} classes={buttonStyles} label="more" icon={<MoreIcon width="30px" color={this.iconColor(4)}/>} />
+          <BottomNavigationAction
+            className={classes.navButton}
+            classes={buttonStyles}
+            label="search"
+            icon={<SearchIcon width="30px" color={this.iconColor(0)} />}
+          />
+          <BottomNavigationAction
+            className={classes.navButton}
+            classes={buttonStyles}
+            label="favorites"
+            icon={<FavoritesIcon width="30px" color={this.iconColor(1)} />}
+          />
+          <BottomNavigationAction
+            className={classes.navButton}
+            classes={buttonStyles}
+            label="language"
+            icon={<LanguageIcon width="30px" color={this.iconColor(2)} />}
+          />
+          <BottomNavigationAction
+            className={classes.navButton}
+            classes={buttonStyles}
+            label="account"
+            icon={<AccountIcon width="30px" color={this.iconColor(3)} />}
+          />
+          <BottomNavigationAction
+            className={classes.navButton}
+            classes={buttonStyles}
+            label="more"
+            icon={<MoreIcon width="30px" color={this.iconColor(4)} />}
+          />
         </BottomNavigation>
       </div>
-    )
+    );
   }
 }
 
 NavMobile.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavMobile);

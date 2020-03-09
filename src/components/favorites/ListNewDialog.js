@@ -13,7 +13,7 @@ const ListNewDialog = ({
   origin,
   originList,
   session,
-  user,
+  user
 }) => (
   <div>
     <DialogTitle>Create a New Favorites List</DialogTitle>
@@ -46,7 +46,7 @@ ListNewDialog.propTypes = {
   origin: PropTypes.string.isRequired,
   originList: PropTypes.string,
   session: PropTypes.string,
-  user: PropTypes.number,
+  user: PropTypes.number
 };
 
 export default ListNewDialog;

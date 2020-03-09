@@ -12,14 +12,11 @@ import SignupFormContainer from './SignupFormContainer';
 import breakpoints from '../../theme/breakpoints';
 import theWidth from '../theWidth';
 
-
 const TabContainer = ({children}) => {
   const isMobile = theWidth() < breakpoints['sm'];
   const tabPadding = isMobile ? '.5rem 1.5rem' : '2.5rem';
 
-  return(
-    <div style={{padding: tabPadding}}>{children}</div>
-  );
+  return <div style={{padding: tabPadding}}>{children}</div>;
 };
 
 TabContainer.propTypes = {children: PropTypes.node.isRequired};
@@ -27,12 +24,12 @@ TabContainer.propTypes = {children: PropTypes.node.isRequired};
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginLeft: "2.5em",
-    marginRight: "2.5em",
-    borderBottom: "1px solid "+theme.palette.common.faintBlack,
-    boxShadow: "none"
+    marginLeft: '2.5em',
+    marginRight: '2.5em',
+    borderBottom: '1px solid ' + theme.palette.common.faintBlack,
+    boxShadow: 'none'
   },
-  textCenter: {textAlign: 'center'},
+  textCenter: {textAlign: 'center'}
 });
 
 const AccountMobile = ({
@@ -43,7 +40,7 @@ const AccountMobile = ({
   handleRequestClose,
   handleRequestOpen,
   session,
-  tab,
+  tab
 }) => (
   <div>
     <Paper className={classes.root}>
@@ -56,29 +53,28 @@ const AccountMobile = ({
         onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'login' : 'signup')}
         indicatorColor="secondary"
         textColor="secondary"
-        centered>
+        centered
+      >
         <Tab label="LOG IN" />
         <Tab label="SIGN UP" />
       </Tabs>
     </Paper>
     <TabContainer>
-      {tab === 0 &&
-        dialog === 'login' && (
-          <LoginFormContainer
-            handleLogIn={handleLogIn}
-            handleMessageNew={handleMessageNew}
-            handleRequestClose={handleRequestClose}
-            handleRequestOpen={handleRequestOpen}
-          />
-        )}
-      {tab === 0 &&
-        dialog === 'forgot' && (
-          <ForgotFormContainer
-            handleMessageNew={handleMessageNew}
-            handleRequestClose={handleRequestClose}
-            handleRequestOpen={handleRequestOpen}
-          />
-        )}
+      {tab === 0 && dialog === 'login' && (
+        <LoginFormContainer
+          handleLogIn={handleLogIn}
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />
+      )}
+      {tab === 0 && dialog === 'forgot' && (
+        <ForgotFormContainer
+          handleMessageNew={handleMessageNew}
+          handleRequestClose={handleRequestClose}
+          handleRequestOpen={handleRequestOpen}
+        />
+      )}
       {tab === 1 && (
         <SignupFormContainer
           handleLogIn={handleLogIn}
@@ -93,7 +89,7 @@ const AccountMobile = ({
 );
 
 AccountMobile.defaultProps = {
-  session: null,
+  session: null
 };
 
 AccountMobile.propTypes = {
@@ -103,7 +99,7 @@ AccountMobile.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
-  tab: PropTypes.number.isRequired,
+  tab: PropTypes.number.isRequired
 };
 
 export default withStyles(styles)(AccountMobile);

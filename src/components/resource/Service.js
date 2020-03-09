@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import url from 'url';
 
 import Toolbar from 'material-ui/Toolbar';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Tabs, {Tab} from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
 
-import { Element, scroller } from 'react-scroll';
+import {Element, scroller} from 'react-scroll';
 import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
@@ -52,18 +52,21 @@ import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 import propertyMap from '../../helpers/OneDegreePropertyMap';
 import resourceTypes from '../../helpers/ResourceTypes';
 
-
-import {bodyLink, boldFont, italicFont, dividerSpacing, mobilePadding} from '../../theme/sharedClasses';
+import {
+  bodyLink,
+  boldFont,
+  italicFont,
+  dividerSpacing,
+  mobilePadding
+} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
 import ActionButton from '../ActionButton';
 
-
-const styles = (theme) => ({
-});
+const styles = theme => ({});
 
 class Service extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.odClient = new OneDegreeResourceClient();
     this.state = {
       tab: 0,
@@ -71,17 +74,17 @@ class Service extends React.Component {
       oppLoading: true,
       reviewLoading: true,
       reviewList: false,
-      resource: props.resource, 
+      resource: props.resource,
       service: props.service,
       userReview: null,
       userComment: null
     };
 
     this.tabs = [
-      {label: "ABOUT", value: "about"},
-      {label: "VISIT", mobileLabel: "VISIT (MAP)", value: "visit"},
-      {label: "REVIEWS", value: "reviews"}
-    ]
+      {label: 'ABOUT', value: 'about'},
+      {label: 'VISIT', mobileLabel: 'VISIT (MAP)', value: 'visit'},
+      {label: 'REVIEWS', value: 'reviews'}
+    ];
 
     this.handleOrganizationRequest = this.handleOrganizationRequest.bind(this);
     this.handleOpportunityRequest = this.handleOpportunityRequest.bind(this);
@@ -94,8 +97,8 @@ class Service extends React.Component {
   }
 
   componentWillMount() {
-    window.scroll(0,0);
-    if(this.props.resource == null) {
+    window.scroll(0, 0);
+    if (this.props.resource == null) {
       this.setState({
         orgLoading: true,
         oppLoading: true
@@ -125,13 +128,13 @@ class Service extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.user !== this.props.user) {
+    if (nextProps.user !== this.props.user) {
       //TODO: handle login while on the form
     }
   }
 
   handleOrganizationRequest(response) {
-    if(response.status && response.status == 'error') {
+    if (response.status && response.status == 'error') {
       //redirect
     } else {
       this.props.setSelectedResource(response);
@@ -144,41 +147,44 @@ class Service extends React.Component {
         id: this.props.match.params.serviceId,
         per_page: 1,
         callback: this.handleOpportunityRequest
-      })
-      
+      });
     }
   }
 
   handleOpportunityRequest(response) {
-    if(response.status && response.status == 'error') {
+    if (response.status && response.status == 'error') {
       //redirect
     } else {
       this.props.setSelectedService(response);
       this.setState(prevState => ({
         service: response,
         oppLoading: false
-      }))
+      }));
       this.getReviews();
     }
   }
 
-  handleNewReview({resourceType = 'organization', type, data } = {}) {
-    let reviewList = this.state.reviewList
-    reviewList = [data].concat(reviewList.filter(comment => comment.client_user_id !== data.client_user_id));
+  handleNewReview({resourceType = 'organization', type, data} = {}) {
+    let reviewList = this.state.reviewList;
+    reviewList = [data].concat(
+      reviewList.filter(
+        comment => comment.client_user_id !== data.client_user_id
+      )
+    );
     this.setState({
       reviewList: reviewList
     });
   }
 
   getReviews() {
-    const { handleCommentRequest } = this;
-    if(this.state.resource && this.state.service) {
+    const {handleCommentRequest} = this;
+    if (this.state.resource && this.state.service) {
       this.odClient.getCommentsFromId({
         resourceType: 'opportunity',
         id: this.state.resource.id,
         serviceId: this.state.service.id,
         callback: handleCommentRequest
-      })
+      });
     } else {
       this.setState({
         reviewList: []
@@ -203,13 +209,13 @@ class Service extends React.Component {
   }
 
   getUserRating(resource) {
-    if(resource.rating && this.props.user) {
+    if (resource.rating && this.props.user) {
       this.odClient.getOrganizationRatingByUserId({
         resourceType: 'organization',
         id: resource.id,
         user_id: this.props.user,
         callback: this.handleRatingRequest
-      })
+      });
     }
   }
 
@@ -217,9 +223,9 @@ class Service extends React.Component {
   handleCommentRequest(response) {
     //find user's comment
     let userComment = false;
-    if(this.props.user) {
-      response.comments.forEach((comment) => {
-        if(comment.client_user_id == this.props.user.toString()) {
+    if (this.props.user) {
+      response.comments.forEach(comment => {
+        if (comment.client_user_id == this.props.user.toString()) {
           userComment = comment;
         }
       });
@@ -233,7 +239,7 @@ class Service extends React.Component {
 
   handleRatingRequest(response) {
     let userReview = false;
-    if(response) {
+    if (response) {
       userReview = response;
     }
     this.setState({
@@ -242,7 +248,7 @@ class Service extends React.Component {
   }
 
   handleBackButtonClick() {
-    this.props.history.push('/resource/'+this.state.resource.slug);
+    this.props.history.push('/resource/' + this.state.resource.slug);
   }
 
   handleTabClickDesktop(e, tab) {
@@ -250,13 +256,13 @@ class Service extends React.Component {
       duration: 500,
       delay: 100,
       smooth: true
-    })
+    });
     this.props.handleTabClickDesktop(e, tab);
   }
 
   filterProperties(properties, map) {
     return Object.keys(properties)
-      .filter(item => (typeof map[item] !== 'undefined'))
+      .filter(item => typeof map[item] !== 'undefined')
       .map(item => ({
         slug: item,
         text: map[item],
@@ -265,206 +271,435 @@ class Service extends React.Component {
   }
 
   render() {
-    const { session, handleMessageNew, history, locale, t } = this.props;
+    const {session, handleMessageNew, history, locale, t} = this.props;
     const classes = this.props.defaultClasses;
-    const { props } = this;
-    const { resource, service } = this.state;
-    const languages = (service && service.properties ? 
-                        this.filterProperties(service.properties, propertyMap['language'])
-                      : null);
-    const communities = (service && service.properties ? 
-                        this.filterProperties(service.properties, propertyMap['community'])
-                      : null);
-    const additionalinfo = (service && service.properties ? this.filterProperties(service.properties, propertyMap['additional-info']) : null);
-    const eligibility = (service && service.properties ? this.filterProperties(service.properties, propertyMap['eligibility']) : null);
-    const moreabout = (service && service.properties ? this.filterProperties(service.properties, propertyMap['more-about']) : null);
-    const notrequired = (service && service.properties ? this.filterProperties(service.properties, propertyMap['not-required']) : null);
+    const {props} = this;
+    const {resource, service} = this.state;
+    const languages =
+      service && service.properties
+        ? this.filterProperties(service.properties, propertyMap['language'])
+        : null;
+    const communities =
+      service && service.properties
+        ? this.filterProperties(service.properties, propertyMap['community'])
+        : null;
+    const additionalinfo =
+      service && service.properties
+        ? this.filterProperties(
+            service.properties,
+            propertyMap['additional-info']
+          )
+        : null;
+    const eligibility =
+      service && service.properties
+        ? this.filterProperties(service.properties, propertyMap['eligibility'])
+        : null;
+    const moreabout =
+      service && service.properties
+        ? this.filterProperties(service.properties, propertyMap['more-about'])
+        : null;
+    const notrequired =
+      service && service.properties
+        ? this.filterProperties(service.properties, propertyMap['not-required'])
+        : null;
 
-    const sharePath = service ? 'resource' + '/' + service.id + '/' + service.title : '';
-    const showReviewForm = session 
-                && (this.state.userReview === false || this.state.userReview === null)
-                && (this.state.userComment === false ||  this.state.userComment === null);
+    const sharePath = service
+      ? 'resource' + '/' + service.id + '/' + service.title
+      : '';
+    const showReviewForm =
+      session &&
+      (this.state.userReview === false || this.state.userReview === null) &&
+      (this.state.userComment === false || this.state.userComment === null);
 
     const isMobile = this.props.width < breakpoints['sm'];
     return (
-      <Grid container alignItems='flex-start' justify='center' spacing={0} className={classes.container}>
-        <Grid item xs={12} sm={11} md={10} lg={10} xl={11} >
-          { this.state.orgLoading || this.state.oppLoading ? <Loading /> :
-          <div> {/******* MOBILE *******/}
-            {isMobile ?
-              <div>  
-                <Toolbar classes={{ root: classes.toolbarRoot, gutters: classes.toolbarGutters }}>
-                  <AsylumConnectBackButton onClick={this.handleBackButtonClick} />
-                  <div>
-                    <SaveToFavoritesButton className="center-align"
-                      handleListAddFavorite={props.handleListAddFavorite}
-                      handleListRemoveFavorite={props.handleListRemoveFavorite}
-                      handleListNew={props.handleListNew}
-                      handleLogOut={props.handleLogOut}
-                      handleRequestOpen={props.handleRequestOpen}
-                      handleMessageNew={props.handleMessageNew}
-                      lists={props.lists}
-                      resourceId={service.id}
-                      session={props.session}
-                      user={props.user}
+      <Grid
+        container
+        alignItems="flex-start"
+        justify="center"
+        spacing={0}
+        className={classes.container}
+      >
+        <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+          {this.state.orgLoading || this.state.oppLoading ? (
+            <Loading />
+          ) : (
+            <div>
+              {' '}
+              {/******* MOBILE *******/}
+              {isMobile ? (
+                <div>
+                  <Toolbar
+                    classes={{
+                      root: classes.toolbarRoot,
+                      gutters: classes.toolbarGutters
+                    }}
+                  >
+                    <AsylumConnectBackButton
+                      onClick={this.handleBackButtonClick}
                     />
-                    <IconButton className="center-align" onClick={() => (
-                        props.session 
-                        ? props.handleRequestOpen('share/'+sharePath) 
-                        : props.handleMessageNew('You must be logged in to share resources') )}>
-                      <ShareIcon />
-                    </IconButton>
-                  </div>
-                </Toolbar>
-                <DetailHeader 
-                  classes={classes}
-                  website={resource.website}
-                  name={service.title}
-                  rating={service.rating}
-                  totalRatings={null}
-                  phones={service.phones}
-                  isMobile={isMobile}
-                  isService={true}
-                  orgName={resource.name}
-                  orgLink={'/'+locale+'/resource/'+resource.slug}
-                />
-                <DetailHeaderTabs
-                  tabs={this.tabs}
-                  tab={this.props.tab}
-                  classes={classes}
-                  handleTabClick={this.props.handleTabClickMobile}
-                  isMobile={isMobile}
-                />
-                <Divider />
-                <SwipeableViews
-                  index={this.props.tab}
-                  onChangeIndex={this.props.handleSwipeChange}
-                >
-                  <div>
-                    <About classes={classes} resource={service} />
-                    {!this.state.oppLoading && communities && communities.length ? 
-                      <AsylumConnectStaticSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
-                    : null}
-                    {!this.state.oppLoading && service && service.tags ? <AsylumConnectStaticSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} isMobile={isMobile} />} />
-                    : null}
-                    {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectStaticSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
-                    : null}
-                    {!this.state.oppLoading && eligibility && eligibility.length ? <AsylumConnectStaticSection title={'Requirements'} content={<DetailPropertyList list={eligibility} classes={classes} />} />
-                    : null}
-                    {!this.state.oppLoading && notrequired && notrequired.length ? <AsylumConnectStaticSection title={'Not required'} content={<DetailPropertyList list={notrequired} classes={classes} />} />
-                    : null}
-                    {!this.state.oppLoading && additionalinfo && additionalinfo.length ? <AsylumConnectStaticSection title={'Additional information'} content={<DetailPropertyList list={additionalinfo} classes={classes} />} />
-                    : null}
-                    {!this.state.oppLoading && languages && languages.length ? 
-                      <AsylumConnectStaticSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
-                    : null}
-                  </div>
-                  <div className={classes.mobileSpacing}>
-                    <AsylumConnectCollapsibleSection borderTop={false} title={'Visit'} content={<DetailAccessInstructions 
-                      list={service.access_instructions}
-                      rawSchedule={service.schedule}
-                       />} />
-                    <AsylumConnectMap
-                      resources={this.props.mapResources}
-                      country={this.props.country}
-                      loadingElement={<div style={{ width:"100%", height: window.innerHeight/2+"px" }} />}
-                      locale={this.props.locale}
-                      containerElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />}
-                      mapElement={<div style={{ width:"100%",height: window.innerHeight/2+"px" }} />} 
-                      mapMaxDistance={this.props.mapMaxDistance}
-                      t={this.props.t}
+                    <div>
+                      <SaveToFavoritesButton
+                        className="center-align"
+                        handleListAddFavorite={props.handleListAddFavorite}
+                        handleListRemoveFavorite={
+                          props.handleListRemoveFavorite
+                        }
+                        handleListNew={props.handleListNew}
+                        handleLogOut={props.handleLogOut}
+                        handleRequestOpen={props.handleRequestOpen}
+                        handleMessageNew={props.handleMessageNew}
+                        lists={props.lists}
+                        resourceId={service.id}
+                        session={props.session}
+                        user={props.user}
+                      />
+                      <IconButton
+                        className="center-align"
+                        onClick={() =>
+                          props.session
+                            ? props.handleRequestOpen('share/' + sharePath)
+                            : props.handleMessageNew(
+                                'You must be logged in to share resources'
+                              )
+                        }
+                      >
+                        <ShareIcon />
+                      </IconButton>
+                    </div>
+                  </Toolbar>
+                  <DetailHeader
+                    classes={classes}
+                    website={resource.website}
+                    name={service.title}
+                    rating={service.rating}
+                    totalRatings={null}
+                    phones={service.phones}
+                    isMobile={isMobile}
+                    isService={true}
+                    orgName={resource.name}
+                    orgLink={'/' + locale + '/resource/' + resource.slug}
+                  />
+                  <DetailHeaderTabs
+                    tabs={this.tabs}
+                    tab={this.props.tab}
+                    classes={classes}
+                    handleTabClick={this.props.handleTabClickMobile}
+                    isMobile={isMobile}
+                  />
+                  <Divider />
+                  <SwipeableViews
+                    index={this.props.tab}
+                    onChangeIndex={this.props.handleSwipeChange}
+                  >
+                    <div>
+                      <About classes={classes} resource={service} />
+                      {!this.state.oppLoading &&
+                      communities &&
+                      communities.length ? (
+                        <AsylumConnectStaticSection
+                          title={'Who this service helps'}
+                          content={
+                            <Communities list={communities} classes={classes} />
+                          }
+                        />
+                      ) : null}
+                      {!this.state.oppLoading && service && service.tags ? (
+                        <AsylumConnectStaticSection
+                          title={'Service type'}
+                          content={
+                            <DetailServiceType
+                              list={resourceTypes.combineTags(service)}
+                              classes={classes}
+                              isMobile={isMobile}
+                            />
+                          }
+                        />
+                      ) : null}
+                      {!this.state.oppLoading &&
+                      moreabout &&
+                      moreabout.length ? (
+                        <AsylumConnectStaticSection
+                          title={'More about this service'}
+                          content={
+                            <DetailPropertyList
+                              list={moreabout}
+                              classes={classes}
+                            />
+                          }
+                        />
+                      ) : null}
+                      {!this.state.oppLoading &&
+                      eligibility &&
+                      eligibility.length ? (
+                        <AsylumConnectStaticSection
+                          title={'Requirements'}
+                          content={
+                            <DetailPropertyList
+                              list={eligibility}
+                              classes={classes}
+                            />
+                          }
+                        />
+                      ) : null}
+                      {!this.state.oppLoading &&
+                      notrequired &&
+                      notrequired.length ? (
+                        <AsylumConnectStaticSection
+                          title={'Not required'}
+                          content={
+                            <DetailPropertyList
+                              list={notrequired}
+                              classes={classes}
+                            />
+                          }
+                        />
+                      ) : null}
+                      {!this.state.oppLoading &&
+                      additionalinfo &&
+                      additionalinfo.length ? (
+                        <AsylumConnectStaticSection
+                          title={'Additional information'}
+                          content={
+                            <DetailPropertyList
+                              list={additionalinfo}
+                              classes={classes}
+                            />
+                          }
+                        />
+                      ) : null}
+                      {!this.state.oppLoading &&
+                      languages &&
+                      languages.length ? (
+                        <AsylumConnectStaticSection
+                          title="Non-English services"
+                          content={
+                            <Languages list={languages} classes={classes} />
+                          }
+                        />
+                      ) : null}
+                    </div>
+                    <div className={classes.mobileSpacing}>
+                      <AsylumConnectCollapsibleSection
+                        borderTop={false}
+                        title={'Visit'}
+                        content={
+                          <DetailAccessInstructions
+                            list={service.access_instructions}
+                            rawSchedule={service.schedule}
+                          />
+                        }
+                      />
+                      <AsylumConnectMap
+                        resources={this.props.mapResources}
+                        country={this.props.country}
+                        loadingElement={
+                          <div
+                            style={{
+                              width: '100%',
+                              height: window.innerHeight / 2 + 'px'
+                            }}
+                          />
+                        }
+                        locale={this.props.locale}
+                        containerElement={
+                          <div
+                            style={{
+                              width: '100%',
+                              height: window.innerHeight / 2 + 'px'
+                            }}
+                          />
+                        }
+                        mapElement={
+                          <div
+                            style={{
+                              width: '100%',
+                              height: window.innerHeight / 2 + 'px'
+                            }}
+                          />
+                        }
+                        mapMaxDistance={this.props.mapMaxDistance}
+                        t={this.props.t}
+                      />
+                    </div>
+                    <div className={classes.mobileSpacing}>
+                      {showReviewForm ? (
+                        <AsylumConnectCollapsibleSection
+                          borderTop={false}
+                          title={'Leave a review'}
+                          content={
+                            <ReviewForm
+                              resource={resource}
+                              session={props.session}
+                              user={props.user}
+                              onSubmit={this.handleNewReview}
+                            />
+                          }
+                        />
+                      ) : null}
+                      <AsylumConnectCollapsibleSection
+                        borderTop={showReviewForm}
+                        title={'Reviews'}
+                        content={
+                          <Reviews
+                            includeOrgReviews={false}
+                            oppReviews={this.state.reviewList}
+                            reviews={this.state.reviewList}
+                          />
+                        }
+                      />
+                    </div>
+                  </SwipeableViews>
+                </div>
+              ) : (
+                <div>
+                  {' '}
+                  {/******* DESKTOP *******/}
+                  <Tools
+                    {...props}
+                    backText={'Back to Organization'}
+                    classes={classes}
+                    handleBackButtonClick={this.handleBackButtonClick}
+                    handleTabClick={this.handleTabClickDesktop}
+                    handleRequestOpen={this.props.handleRequestOpen}
+                    resource={service}
+                    sharePath={sharePath}
+                    tabs={null}
+                  />
+                  <DetailHeader
+                    classes={classes}
+                    website={resource.website}
+                    name={service.title}
+                    rating={service.rating}
+                    totalRatings={null}
+                    phones={service.phones}
+                  />
+                  <Element name="about"></Element>
+                  <About classes={classes} resource={service} />
+                  {!this.state.oppLoading &&
+                  communities &&
+                  communities.length ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'Who this service helps'}
+                      content={
+                        <Communities list={communities} classes={classes} />
+                      }
                     />
-                  </div>
-                  <div className={classes.mobileSpacing}>
-                    {showReviewForm ?
-                      <AsylumConnectCollapsibleSection borderTop={false} title={'Leave a review'} content={<ReviewForm 
+                  ) : null}
+                  {!this.state.oppLoading && service && service.tags ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'Service type'}
+                      content={
+                        <DetailServiceType
+                          list={resourceTypes.combineTags(service)}
+                          classes={classes}
+                          isMobile={isMobile}
+                        />
+                      }
+                    />
+                  ) : null}
+                  {!this.state.oppLoading && moreabout && moreabout.length ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'More about this service'}
+                      content={
+                        <DetailPropertyList
+                          list={moreabout}
+                          classes={classes}
+                        />
+                      }
+                    />
+                  ) : null}
+                  {!this.state.oppLoading &&
+                  eligibility &&
+                  eligibility.length ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'Requirements'}
+                      content={
+                        <DetailPropertyList
+                          list={eligibility}
+                          classes={classes}
+                        />
+                      }
+                    />
+                  ) : null}
+                  {!this.state.oppLoading &&
+                  notrequired &&
+                  notrequired.length ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'Not required'}
+                      content={
+                        <DetailPropertyList
+                          list={notrequired}
+                          classes={classes}
+                        />
+                      }
+                    />
+                  ) : null}
+                  {!this.state.oppLoading &&
+                  additionalinfo &&
+                  additionalinfo.length ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'Additional information'}
+                      content={
+                        <DetailPropertyList
+                          list={additionalinfo}
+                          classes={classes}
+                        />
+                      }
+                    />
+                  ) : null}
+                  {!this.state.oppLoading && languages && languages.length ? (
+                    <AsylumConnectCollapsibleSection
+                      title="Non-English services"
+                      content={<Languages list={languages} classes={classes} />}
+                    />
+                  ) : null}
+                  <Element name="visit"></Element>
+                  <AsylumConnectCollapsibleSection
+                    title={'Visit'}
+                    content={
+                      <DetailAccessInstructions
+                        list={service.access_instructions}
+                        rawSchedule={service.schedule}
+                      />
+                    }
+                  />
+                  <Element name="reviews"></Element>
+                  {showReviewForm ? (
+                    <AsylumConnectCollapsibleSection
+                      title={'Leave a review'}
+                      content={
+                        <ReviewForm
                           resource={resource}
                           session={props.session}
                           user={props.user}
                           onSubmit={this.handleNewReview}
-                        />} 
-                      />
-                    : null}
-                    <AsylumConnectCollapsibleSection borderTop={showReviewForm} title={'Reviews'} content={<Reviews
+                        />
+                      }
+                    />
+                  ) : null}
+                  <AsylumConnectCollapsibleSection
+                    title={'Reviews'}
+                    content={
+                      <Reviews
                         includeOrgReviews={false}
                         oppReviews={this.state.reviewList}
                         reviews={this.state.reviewList}
-                      />} 
-                    />
-                  </div>
-                </SwipeableViews>
-              </div>
-            : 
-            <div> {/******* DESKTOP *******/}
-              <Tools 
-                {...props}
-                backText={"Back to Organization"}
-                classes={classes} 
-                handleBackButtonClick={this.handleBackButtonClick}
-                handleTabClick={this.handleTabClickDesktop}
-                handleRequestOpen={this.props.handleRequestOpen}
-                resource={service}
-                sharePath={sharePath}
-                tabs={null}
-              />
-              <DetailHeader 
-                classes={classes}
-                website={resource.website}
-                name={service.title}
-                rating={service.rating}
-                totalRatings={null}
-                phones={service.phones}
-              />
-              <Element name="about"></Element>
-              <About classes={classes} resource={service} />
-              {!this.state.oppLoading && communities && communities.length ? 
-                <AsylumConnectCollapsibleSection title={'Who this service helps'} content={<Communities list={communities} classes={classes} />} />
-              : null}
-              {!this.state.oppLoading && service && service.tags ? <AsylumConnectCollapsibleSection title={'Service type'} content={<DetailServiceType list={resourceTypes.combineTags(service)} classes={classes} isMobile={isMobile} />} />
-              : null}
-              {!this.state.oppLoading && moreabout && moreabout.length ? <AsylumConnectCollapsibleSection title={'More about this service'} content={<DetailPropertyList list={moreabout} classes={classes} />} />
-              : null}
-              {!this.state.oppLoading && eligibility && eligibility.length ? <AsylumConnectCollapsibleSection title={'Requirements'} content={<DetailPropertyList list={eligibility} classes={classes} />} />
-              : null}
-              {!this.state.oppLoading && notrequired && notrequired.length ? <AsylumConnectCollapsibleSection title={'Not required'} content={<DetailPropertyList list={notrequired} classes={classes} />} />
-              : null}
-              {!this.state.oppLoading && additionalinfo && additionalinfo.length ? <AsylumConnectCollapsibleSection title={'Additional information'} content={<DetailPropertyList list={additionalinfo} classes={classes} />} />
-              : null}
-              {!this.state.oppLoading && languages && languages.length ? 
-                <AsylumConnectCollapsibleSection title='Non-English services' content={<Languages list={languages} classes={classes} />} />
-              : null}
-              <Element name="visit"></Element>
-              <AsylumConnectCollapsibleSection title={'Visit'} content={<DetailAccessInstructions 
-                list={service.access_instructions}
-                rawSchedule={service.schedule}
-                 />} />
-              <Element name="reviews"></Element>
-              {showReviewForm ?
-                <AsylumConnectCollapsibleSection title={'Leave a review'} content={<ReviewForm 
-                    resource={resource}
-                    session={props.session}
-                    user={props.user}
-                    onSubmit={this.handleNewReview}
-                  />} 
-                />
-              : null}
-              <AsylumConnectCollapsibleSection title={'Reviews'} content={<Reviews
-                  includeOrgReviews={false}
-                  oppReviews={this.state.reviewList}
-                  reviews={this.state.reviewList}
-                />} 
-              />
-            </div>}
-          </div>
-          }
-        </Grid>       
+                      />
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        </Grid>
       </Grid>
-    )
-  } 
+    );
+  }
 }
 
 Service.propTypes = {
   handleMessageNew: PropTypes.func.isRequired
-}
+};
 
 export default withWidth(withStyles(styles)(Service));

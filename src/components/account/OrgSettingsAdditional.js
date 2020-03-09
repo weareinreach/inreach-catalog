@@ -3,21 +3,20 @@ import MaskedInput from 'react-text-mask';
 
 import ResourceTypeSelector from '../search/ResourceTypeSelector';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormControlLabel } from 'material-ui/Form';
+import Input, {InputLabel} from 'material-ui/Input';
+import {FormControl, FormControlLabel} from 'material-ui/Form';
 import Radio from 'material-ui/Radio';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 
 const styles = theme => ({
-  root: {
-  },
+  root: {},
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -43,14 +42,14 @@ const styles = theme => ({
     '& div': {
       marginTop: 0,
       '& input': theme.custom.inputText
-    },
+    }
   },
   settingsTypeFont: {
     marginRight: '20px',
     fontSize: 13,
     fontWeight: 700,
-    fontFamily: "\"Open Sans\", sans-serif",
-    letterSpacing: "-.02em",
+    fontFamily: '"Open Sans", sans-serif',
+    letterSpacing: '-.02em',
     color: theme.palette.common.lightBlack,
     display: 'flex',
     flexDirection: 'row',
@@ -67,8 +66,8 @@ const styles = theme => ({
         padding: 0,
         fontSize: 13,
         fontWeight: 700,
-        fontFamily: "\"Open Sans\", sans-serif",
-        letterSpacing: "-.02em",
+        fontFamily: '"Open Sans", sans-serif',
+        letterSpacing: '-.02em',
         color: theme.palette.common.lightBlack,
         '&>div': {
           display: 'flex'
@@ -89,54 +88,56 @@ class OrgSettingsAdditional extends React.Component {
       capacity: false,
       selectedResources: []
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleToggleCapacity = this.handleToggleCapacity.bind(this)
-    this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleToggleCapacity = this.handleToggleCapacity.bind(this);
+    this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this);
   }
 
   handleChange(e) {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
-  };
-  handleToggleCapacity(e) {
-    const { name } = e.target;
-    this.setState({
-      [name]: !this.state[name],
-    })
   }
-  handleResourceTypeSelect(event, checked) { 
+  handleToggleCapacity(e) {
+    const {name} = e.target;
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+  handleResourceTypeSelect(event, checked) {
     var index;
     const target = event.target;
     var selectedResources = this.state.selectedResources.slice();
-    if(checked && selectedResources.indexOf(target.value) < 0) {
-      selectedResources.push(target.value)
+    if (checked && selectedResources.indexOf(target.value) < 0) {
+      selectedResources.push(target.value);
       this.setState({
         selectedResources: selectedResources,
         searchStatus: null
       });
-    } else if(!checked && (index = selectedResources.indexOf(target.value)) >= 0) {
-      selectedResources.splice(index, 1)
+    } else if (
+      !checked &&
+      (index = selectedResources.indexOf(target.value)) >= 0
+    ) {
+      selectedResources.splice(index, 1);
       this.setState({
         selectedResources: selectedResources,
         searchStatus: null
       });
     }
-    
   }
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     return (
       <div className={classes.root}>
         <form className={classes.form}>
           <TextField
             className={classes.inputLabel}
-            label='Additional Information:'
+            label="Additional Information:"
             InputLabelProps={{
-              shrink: true,
+              shrink: true
             }}
-            placeholder='Additional Info'
+            placeholder="Additional Info"
           />
           <FormControl className={classes.formControl}>
             <div>
@@ -144,29 +145,32 @@ class OrgSettingsAdditional extends React.Component {
                 <span>Mark my organization as at capacity:</span>
               </div>
             </div>
-            <FormControlLabel 
+            <FormControlLabel
               control={
                 <Radio
-                  name='capacity'
+                  name="capacity"
                   checked={this.state.capacity}
-                  value={this.state.capacity?'on':'off'}
+                  value={this.state.capacity ? 'on' : 'off'}
                   onClick={this.handleToggleCapacity}
                 />
               }
-              label='Yes'
+              label="Yes"
             />
           </FormControl>
           <FormControl className={classes.modifiedSelector}>
-            <ResourceTypeSelector onChange={this.handleResourceTypeSelect} selectedResources={this.state.selectedResources} />
+            <ResourceTypeSelector
+              onChange={this.handleResourceTypeSelect}
+              selectedResources={this.state.selectedResources}
+            />
           </FormControl>
         </form>
       </div>
-    )
+    );
   }
 }
 
 OrgSettingsAdditional.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(OrgSettingsAdditional);

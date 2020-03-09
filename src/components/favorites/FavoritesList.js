@@ -20,16 +20,15 @@ import ResourceListItem from '../resource/ResourceListItem';
 const styles = theme => ({
   container: {
     maxWidth: '720px',
-    margin: '3rem 0 5rem',
+    margin: '3rem 0 5rem'
   },
   footer: {
     backgroundColor: theme.palette.common.blue,
     color: theme.palette.common.darkWhite,
     minHeight: '180px',
-    padding: '3rem 0',
-
+    padding: '3rem 0'
   },
-  minHeight350: { minHeight: '350px' },
+  minHeight350: {minHeight: '350px'},
   marginBottom: {marginBottom: '2rem'},
   marginLeft: {marginLeft: '1rem'},
   marginRight: {marginRight: '1rem'},
@@ -37,10 +36,10 @@ const styles = theme => ({
   mainRow: {
     borderBottom: `1px solid ${theme.palette.common.darkGrey}`,
     margin: '1rem 0px .5rem',
-    paddingBottom: '1rem',
+    paddingBottom: '1rem'
   },
   textWhite: {color: theme.palette.common.darkWhite},
-  tooltip: { fontFamily: 'sans-serif' },
+  tooltip: {fontFamily: 'sans-serif'}
 });
 
 const FavoritesList = ({
@@ -61,7 +60,7 @@ const FavoritesList = ({
   open,
   publicList,
   resources,
-  session,
+  session
 }) => (
   <Grid
     container
@@ -69,21 +68,20 @@ const FavoritesList = ({
     direction="column"
     alignItems="center"
     spacing={0}
-    >
+  >
     <Typography className={classes.marginTop} variant="display1">
       {publicList ? publicList : 'Favorites'}
     </Typography>
-    {session || publicList
-      ? (
-        <Typography variant="body1">
-          {!publicList && 'Your favorites lists are only visible to you and anyone you choose to share your lists with.'}
-        </Typography>
-      ) : (
-        <Typography className={classes.minHeight350} variant="body1">
-          You must be logged in to use favorites.
-        </Typography>
-      )
-    }
+    {session || publicList ? (
+      <Typography variant="body1">
+        {!publicList &&
+          'Your favorites lists are only visible to you and anyone you choose to share your lists with.'}
+      </Typography>
+    ) : (
+      <Typography className={classes.minHeight350} variant="body1">
+        You must be logged in to use favorites.
+      </Typography>
+    )}
     {(session || publicList) && (
       <Grid
         container
@@ -91,53 +89,69 @@ const FavoritesList = ({
         direction="row"
         justify="space-between"
         spacing={0}
-        >
-      {!publicList && (
-        <Grid 
-          container 
-          className={classes.mainRow} 
-          justify="space-between"
-          spacing={0}
+      >
+        {!publicList && (
+          <Grid
+            container
+            className={classes.mainRow}
+            justify="space-between"
+            spacing={0}
           >
-          <Button
-            aria-owns={open ? 'favorites-menu' : null}
-            aria-haspopup="true"
-            onClick={handleMenuOpen}>
-            {list ? list.title : 'Select A List'}
-            {` `}
-            <Fa
-              className={classes.marginLeft}
-              name={open ? 'chevron-up' : 'chevron-down'}
-            />
-          </Button>
-          <div>
-            {list && (
-              <Tooltip
-                className={classes.tooltip+' hide--on-print'}
-                classes={{tooltipPlacementTop:"badge-tooltipTop"}}
-                title='Print Favorites'
-                placement="top"
-              >
-                <IconButton color="secondary" style={{height: 'auto'}} onClick={() => {window.print()}}>
-                  <Fa name="print" />
-                </IconButton>
-              </Tooltip>
-            )}
-            {list && (
+            <Button
+              aria-owns={open ? 'favorites-menu' : null}
+              aria-haspopup="true"
+              onClick={handleMenuOpen}
+            >
+              {list ? list.title : 'Select A List'}
+              {` `}
+              <Fa
+                className={classes.marginLeft}
+                name={open ? 'chevron-up' : 'chevron-down'}
+              />
+            </Button>
+            <div>
+              {list && (
+                <Tooltip
+                  className={classes.tooltip + ' hide--on-print'}
+                  classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+                  title="Print Favorites"
+                  placement="top"
+                >
+                  <IconButton
+                    color="secondary"
+                    style={{height: 'auto'}}
+                    onClick={() => {
+                      window.print();
+                    }}
+                  >
+                    <Fa name="print" />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {list && (
                 <AsylumConnectButton
                   className={classes.marginLeft}
-                  onClick={() => (session 
-                    ? handleRequestOpen('share/collection/'+list.id+'/'+list.title)
-                    : handleMessageNew('You must be logged in to share resources'))}
-                  variant="secondary">
+                  onClick={() =>
+                    session
+                      ? handleRequestOpen(
+                          'share/collection/' + list.id + '/' + list.title
+                        )
+                      : handleMessageNew(
+                          'You must be logged in to share resources'
+                        )
+                  }
+                  variant="secondary"
+                >
                   Share
                 </AsylumConnectButton>
               )}
               <AsylumConnectButton
                 className={classes.marginLeft}
                 onClick={() => handleRequestOpen('listNew/favoritesList')}
-                variant="secondary">
-                <Fa className={classes.marginRight} name="plus" /> Create New List
+                variant="secondary"
+              >
+                <Fa className={classes.marginRight} name="plus" /> Create New
+                List
               </AsylumConnectButton>
             </div>
           </Grid>
@@ -148,7 +162,7 @@ const FavoritesList = ({
               <Loading />
             ) : (
               <div>
-                {resources.map(resource =>
+                {resources.map(resource => (
                   <ResourceListItem
                     isOnFavoritesList={true}
                     isOnPublicList={publicList}
@@ -157,9 +171,9 @@ const FavoritesList = ({
                     history={history}
                     key={resource.id}
                     resource={resource}
-                    format='favorites'
+                    format="favorites"
                   />
-                )}
+                ))}
               </div>
             )}
             {!loadingResources && list && resources.length === 0 && (
@@ -215,7 +229,8 @@ const FavoritesList = ({
       getContentAnchorEl={null}
       open={open}
       onRequestClose={handleMenuClose}
-      PaperProps={{style: {maxHeight: '300px'}}}>
+      PaperProps={{style: {maxHeight: '300px'}}}
+    >
       {lists.map(listOption => (
         <MenuItem
           key={listOption.id}
@@ -233,7 +248,7 @@ FavoritesList.defaultProps = {
   anchorEl: null,
   list: null,
   publicList: null,
-  session: null,
+  session: null
 };
 
 FavoritesList.propTypes = {
@@ -252,7 +267,7 @@ FavoritesList.propTypes = {
   open: PropTypes.bool.isRequired,
   publicList: PropTypes.string,
   resources: PropTypes.arrayOf(PropTypes.object).isRequired,
-  session: PropTypes.string,
+  session: PropTypes.string
 };
 
 export default withStyles(styles)(FavoritesList);

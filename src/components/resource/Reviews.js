@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';
@@ -13,13 +13,14 @@ import config from '../../config/config';
 
 const clientId = config[process.env.OD_API_ENV].client_id;
 
-const styles = (theme) => ({
+const styles = theme => ({
   bottomSpacing: {
-    marginBottom: "0.9rem"
+    marginBottom: '0.9rem'
   },
   boldFont: boldFont(theme),
-  dividerSpacing: Object.assign(dividerSpacing(theme),
-    {marginTop: dividerSpacing(theme).marginBottom}),
+  dividerSpacing: Object.assign(dividerSpacing(theme), {
+    marginTop: dividerSpacing(theme).marginBottom
+  }),
   switchInputRoot: {
     flexDirection: 'row-reverse',
     width: '100%',
@@ -40,7 +41,7 @@ const styles = (theme) => ({
   },
   reviewOD: {
     backgroundColor: '#30BCD5',
-    color: theme.palette.common.darkBlack 
+    color: theme.palette.common.darkBlack
   },
   reviewAC: {
     backgroundColor: theme.palette.secondary[500],
@@ -50,41 +51,54 @@ const styles = (theme) => ({
 
 const ReviewList = ({title, classes, list}) => (
   <div>
-    {title ?
-    <Typography variant="subheading" className={classes.boldFont+' '+classes.bottomSpacing} >
-      {title}
-    </Typography>
-    : null }
-    {list.length ? 
-      list.map((review) => (
-        <Grid key={review.client_user_id} container spacing={0} className={classes.bottomSpacing}>
+    {title ? (
+      <Typography
+        variant="subheading"
+        className={classes.boldFont + ' ' + classes.bottomSpacing}
+      >
+        {title}
+      </Typography>
+    ) : null}
+    {list.length ? (
+      list.map(review => (
+        <Grid
+          key={review.client_user_id}
+          container
+          spacing={0}
+          className={classes.bottomSpacing}
+        >
           <Grid item xs={12}>
-            <Typography variant="body2">
-              "{review.content}"
-            </Typography>
+            <Typography variant="body2">"{review.content}"</Typography>
           </Grid>
         </Grid>
       ))
-    :
+    ) : (
       <Typography variant="body2" className={classes.boldFont}>
         No Reviews
       </Typography>
-    }
+    )}
   </div>
-  
 );
 
-const Reviews = ({classes, includeOrgReviews = true, orgReviews, oppReviews, reviews, isMobile }) => (
-  <Grid container spacing={0} >
-    <Grid item xs={12} >
+const Reviews = ({
+  classes,
+  includeOrgReviews = true,
+  orgReviews,
+  oppReviews,
+  reviews,
+  isMobile
+}) => (
+  <Grid container spacing={0}>
+    <Grid item xs={12}>
       <Grid container spacing={0} justify="space-between">
         <Grid item xs={12} md={12}>
-        {reviews === false ? <Loading />
-        :
-          <ReviewList title='User reviews' list={reviews} classes={classes} />
-        }
+          {reviews === false ? (
+            <Loading />
+          ) : (
+            <ReviewList title="User reviews" list={reviews} classes={classes} />
+          )}
         </Grid>
-      {/*includeOrgReviews ?
+        {/*includeOrgReviews ?
         <Grid item xs={12} md={6}>
         {orgReviews === false ? <Loading />
         :

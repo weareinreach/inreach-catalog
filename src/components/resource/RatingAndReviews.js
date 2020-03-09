@@ -6,7 +6,7 @@ import ReviewCount from './ReviewCount';
 
 import {withStyles} from 'material-ui/styles';
 
-const styles = (theme) => ({
+const styles = theme => ({
   ratingSpacing: {
     marginRight: theme.spacing.unit * 2
   }
@@ -17,7 +17,7 @@ const RatingAndReviews = ({rating, total, classes}) => (
     <RatingControl rating={rating} className={classes.ratingSpacing} />
     {total ? <ReviewCount total={total} /> : null}
   </div>
-)
+);
 
 RatingAndReviews.propTypes = {
   total: PropTypes.number,

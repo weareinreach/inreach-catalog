@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PrivacyIcon = ({width, color}) => (
-  <svg xmlns='http://www.w3.org/2000/svg' width={width} viewBox='0 0 24 24'>
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} viewBox="0 0 24 24">
     <g fill="none" fillRule="evenodd">
       <path d="M-4-10h24v24H-4z" />
-      <g transform='translate(4 10)'>
+      <g transform="translate(4 10)">
         <path
           fill={color}
           fillRule="nonzero"
@@ -13,10 +13,10 @@ const PrivacyIcon = ({width, color}) => (
         />
       </g>
     </g>
-</svg>
+  </svg>
 );
 
-PrivacyIcon.defaultProps = { width: '100%', color: '#1D1F23' }
-PrivacyIcon.propTypes = { width: PropTypes.string, color: PropTypes.string }
+PrivacyIcon.defaultProps = {width: '100%', color: '#1D1F23'};
+PrivacyIcon.propTypes = {width: PropTypes.string, color: PropTypes.string};
 
 export default PrivacyIcon;

@@ -7,32 +7,33 @@ import langs from 'langs';
 
 import propertyMap from '../../helpers/OneDegreePropertyMap';
 
-const Languages = (props) => (
+const Languages = props => (
   <Grid item xs={12} className={props.classes.sectionSpacing}>
     <Grid container spacing={0}>
       <Grid item xs={12}>
-        {(props.list && props.list ?
-          props.list.map((item) => {
-            if(typeof propertyMap['language'][item.slug] !== "undefined") {
-              let property = propertyMap['language'][item.slug], text;
-              if(typeof property.name !== "undefined") {
-                text = property.name;
+        {props.list && props.list
+          ? props.list.map(item => {
+              if (typeof propertyMap['language'][item.slug] !== 'undefined') {
+                let property = propertyMap['language'][item.slug],
+                  text;
+                if (typeof property.name !== 'undefined') {
+                  text = property.name;
+                } else {
+                  text = langs.where('1', property.code).name;
+                }
+                return (
+                  <Typography key={text} variant="body2">
+                    {text}
+                  </Typography>
+                );
               } else {
-                text = langs.where('1', property.code).name;
+                return null;
               }
-              return (
-                <Typography key={text} variant="body2" >
-                  {text}
-                </Typography>
-              )
-            } else {
-              return null;
-            }
-          })
-        : null)}
+            })
+          : null}
       </Grid>
     </Grid>
   </Grid>
-)
+);
 
-export default Languages
+export default Languages;

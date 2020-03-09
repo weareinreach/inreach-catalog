@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 
 import config from '../../config/config.js';
 
-import { updateListPermissions } from '../../helpers/odasRequests';
+import {updateListPermissions} from '../../helpers/odasRequests';
 import ShareForm from './ShareForm';
 
 class ShareFormContainer extends React.Component {
@@ -27,15 +27,20 @@ class ShareFormContainer extends React.Component {
   }
 
   sendEmail() {
-    const {handleMessageNew, handleRequestClose, handleRequestOpen, session} = this.props;
+    const {
+      handleMessageNew,
+      handleRequestClose,
+      handleRequestOpen,
+      session
+    } = this.props;
 
     let url = window.location.origin + '/api/share';
     let payload = JSON.stringify({
-        recipients: this.state.email,
-        shareType: this.props.shareType,
-        shareUrl: this.state.shareUrl, 
-        jwt: session
-      });
+      recipients: this.state.email,
+      shareType: this.props.shareType,
+      shareUrl: this.state.shareUrl,
+      jwt: session
+    });
     const options = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -45,48 +50,57 @@ class ShareFormContainer extends React.Component {
     fetch(url, options)
       .then(response => {
         if (response.status === 200) {
-          response.json()
-            .then((responseData) => {
-              if(responseData.status === "success"){
-                handleRequestClose();
-                handleMessageNew('Email sent!');
-              } else{
-                if (responseData.statusCode && responseData.statusCode === 401) {
-                  handleMessageNew('Your session has expired. Please log in again.');
-                  handleLogOut();
-                } else if(responseData.statusCode && responseData.statusCode === 403) {
-                  handleMessageNew('It looks like you\'ve been idle. Please re-confirm your password and try sharing again.');
-                  handleRequestOpen('password');
-                } else {
-                  handleMessageNew(responseData.message);
-                }
+          response.json().then(responseData => {
+            if (responseData.status === 'success') {
+              handleRequestClose();
+              handleMessageNew('Email sent!');
+            } else {
+              if (responseData.statusCode && responseData.statusCode === 401) {
+                handleMessageNew(
+                  'Your session has expired. Please log in again.'
+                );
+                handleLogOut();
+              } else if (
+                responseData.statusCode &&
+                responseData.statusCode === 403
+              ) {
+                handleMessageNew(
+                  "It looks like you've been idle. Please re-confirm your password and try sharing again."
+                );
+                handleRequestOpen('password');
+              } else {
+                handleMessageNew(responseData.message);
               }
-            })
+            }
+          });
         }
       })
       .catch(error => {
         // console.log(error);
         handleMessageNew('Oops! Something went wrong.');
       });
-
   }
 
   handleSubmit(event) {
-    const {handleMessageNew, handleRequestClose, handleRequestOpen, handleLogOut, listId, session} = this.props;
-    event.preventDefault()
+    const {
+      handleMessageNew,
+      handleRequestClose,
+      handleRequestOpen,
+      handleLogOut,
+      listId,
+      session
+    } = this.props;
+    event.preventDefault();
 
-    if(
-      !this.state.email 
-      || !this.state.shareUrl
-      ){
-      handleMessageNew("Invalid request");
+    if (!this.state.email || !this.state.shareUrl) {
+      handleMessageNew('Invalid request');
       return;
     }
 
-    if(this.props.shareType == 'collection') {
+    if (this.props.shareType == 'collection') {
       updateListPermissions(listId, 'public', session)
-        .then((response) => {
-          if(response.collection) {
+        .then(response => {
+          if (response.collection) {
             this.sendEmail();
           }
         })
@@ -105,8 +119,6 @@ class ShareFormContainer extends React.Component {
     } else {
       this.sendEmail();
     }
-
-    
   }
 
   render() {

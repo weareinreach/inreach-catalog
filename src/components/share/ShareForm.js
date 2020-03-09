@@ -12,9 +12,9 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center',
+    textAlign: 'center'
   },
-  spacingAbove: {marginTop: '3rem'},
+  spacingAbove: {marginTop: '3rem'}
 });
 
 const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
@@ -30,7 +30,7 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
       value={email}
     />
     <AsylumConnectButton className={classes.spacingAbove} variant="primary">
-      Share {shareType === "collection" ? "List" : "Resource"}
+      Share {shareType === 'collection' ? 'List' : 'Resource'}
     </AsylumConnectButton>
   </form>
 );
@@ -39,7 +39,7 @@ ShareForm.propTypes = {
   classes: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(ShareForm);

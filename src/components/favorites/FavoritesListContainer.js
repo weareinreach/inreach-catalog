@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
 import breakpoints from '../../theme/breakpoints';
-import {deleteListFavorite, fetchPublicList, fetchUser} from '../../helpers/odasRequests';
+import {
+  deleteListFavorite,
+  fetchPublicList,
+  fetchUser
+} from '../../helpers/odasRequests';
 import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
@@ -20,7 +24,7 @@ class FavoritesListContainer extends React.Component {
       loadingResources: this.props.match.params.listId ? true : false,
       open: false,
       publicList: null,
-      resources: [],
+      resources: []
     };
 
     this.fetchListResources = this.fetchListResources.bind(this);
@@ -31,10 +35,10 @@ class FavoritesListContainer extends React.Component {
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
   }
 
-  componentDidMount() { 
-    const { listId } = this.props.match.params;
-    const { lists } = this.props;
-    const { resources } = this.state;
+  componentDidMount() {
+    const {listId} = this.props.match.params;
+    const {lists} = this.props;
+    const {resources} = this.state;
 
     if (lists.length && !listId) {
       this.setState({publicList: null});
@@ -49,8 +53,8 @@ class FavoritesListContainer extends React.Component {
       this.setState({publicList: null});
       this.props.history.replace(`/favorites/${nextProps.lists[0].slug}`);
     }
-    if (this.props.match.params.listId !== nextProps.match.params.listId) { 
-      this.setState({ loadingResources: true }); 
+    if (this.props.match.params.listId !== nextProps.match.params.listId) {
+      this.setState({loadingResources: true});
       this.fetchListResources(nextProps.match.params.listId);
     }
   }
@@ -67,52 +71,54 @@ class FavoritesListContainer extends React.Component {
   }
 
   fetchListResources(listId) {
-    const { user, session } = this.props;
-    const list = this.props.lists.find(
-      collection => collection.slug == listId,
-    );
+    const {user, session} = this.props;
+    const list = this.props.lists.find(collection => collection.slug == listId);
     if (list && list.fetchable_list_items.length) {
       this.fetchResources(list.fetchable_list_items);
     } else if (list && !list.fetchable_list_items.length) {
       this.setState({
         loadingResources: false,
-        resources: [],
+        resources: []
       });
     } else {
       fetchPublicList(listId)
         .then(({collection}) => {
           if (collection.fetchable_list_items) {
-            this.fetchResources(collection.fetchable_list_items)
+            this.fetchResources(collection.fetchable_list_items);
           } else {
             this.setState({
               loadingResources: false,
-              resources: [],
+              resources: []
             });
           }
-          if(session && !user) {
+          if (session && !user) {
             fetchUser(session)
-              .then((response) => {
+              .then(response => {
                 let publicList = null;
-                if(!response || !response.user || response.user.id !== collection.created_by_user_id) {
+                if (
+                  !response ||
+                  !response.user ||
+                  response.user.id !== collection.created_by_user_id
+                ) {
                   publicList = collection.title;
                 }
                 this.setState({publicList});
               })
-              .catch((error) => {
-                this.setState({ publicList: collection.title });
+              .catch(error => {
+                this.setState({publicList: collection.title});
               });
           } else {
             let publicList = null;
-            if(user !== collection.created_by_user_id) {
+            if (user !== collection.created_by_user_id) {
               publicList = collection.title;
             }
-            this.setState({publicList})
+            this.setState({publicList});
           }
         })
         .catch(error => {
           this.setState({
             loadingResources: false,
-            resources: [],
+            resources: []
           });
         });
     }
@@ -127,14 +133,14 @@ class FavoritesListContainer extends React.Component {
         callback: data => {
           this.setState({
             loadingResources: false,
-            resources: data,
+            resources: data
           });
-        },
+        }
       });
   }
 
-  handleListSelect(list) { 
-    const { history } = this.props;
+  handleListSelect(list) {
+    const {history} = this.props;
     history.push(`/favorites/${list.slug}`);
     console.log(list, history);
     this.handleMenuClose();
@@ -149,7 +155,7 @@ class FavoritesListContainer extends React.Component {
   }
 
   handleRemoveFavorite(resourceId) {
-    const { listId } = this.props.match.params;
+    const {listId} = this.props.match.params;
     const {session} = this.props;
 
     deleteListFavorite(listId, resourceId, session)
@@ -158,15 +164,11 @@ class FavoritesListContainer extends React.Component {
           resources: prevState.resources.filter(
             resource => resource.id !== resourceId
           )
-        }))
+        }));
         this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
       })
       .catch(error => {
-        const {
-          handleLogOut,
-          handleMessageNew,
-          handleRequestOpen,
-        } = this.props;
+        const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
         if (error.response && error.response.status === 401) {
           handleMessageNew('Your session has expired. Please log in again.');
           handleLogOut();
@@ -180,8 +182,9 @@ class FavoritesListContainer extends React.Component {
 
   render() {
     const currentList = this.props.lists.find(
-      list => list.slug == this.props.match.params.listId,
-    ); console.log(this.state.publicList);
+      list => list.slug == this.props.match.params.listId
+    );
+    console.log(this.state.publicList);
     const isMobile = this.props.width < breakpoints['sm'];
     if (isMobile) {
       return (
@@ -213,7 +216,7 @@ class FavoritesListContainer extends React.Component {
 
 FavoritesListContainer.defaultProps = {
   session: null,
-  user: null,
+  user: null
 };
 
 FavoritesListContainer.propTypes = {
@@ -225,7 +228,7 @@ FavoritesListContainer.propTypes = {
   handleRequestOpen: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
+  user: PropTypes.number
 };
 
 export default withRouter(withWidth(FavoritesListContainer));

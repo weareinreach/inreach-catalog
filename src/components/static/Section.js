@@ -15,7 +15,7 @@ import breakpoints from '../../theme/breakpoints';
 
 const styles = (theme, props) => ({
   textAlignCenter: {
-    textAlign: 'center',
+    textAlign: 'center'
   },
   textBold: {
     fontWeight: theme.typography.fontWeightHeavy
@@ -46,14 +46,15 @@ const styles = (theme, props) => ({
       width: '100%'
     }
   }
-})
-
+});
 
 class Section extends React.Component {
   constructor(props, context) {
-    super(props,context);
+    super(props, context);
     this.state = {
-      dropdownSelection: !(this.props.dropdown && Object.keys(this.props.dropdown).length > 0)
+      dropdownSelection: !(
+        this.props.dropdown && Object.keys(this.props.dropdown).length > 0
+      )
     };
     this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
     /*this.fetchPage = this.fetchPage.bind(this);
@@ -62,43 +63,80 @@ class Section extends React.Component {
 
   handleDropdownSelect(item) {
     this.setState({
-      dropdownSelection:item
+      dropdownSelection: item
     });
   }
 
   render() {
-  var {classes,
-  color,
-  icon,
-  type,
-  title,
-  description,
-  resources,
-  dropdown} = this.props;
-  const containerWidth = "auto";
-  const dropdownKeys = dropdown && Object.keys(dropdown).length ? Object.keys(dropdown) : false;
-  return (
-    <div>
-      <div className={classes.textAlignCenter}>
-        <div className={classes.inlineBlock}>
-          <StandaloneIcon className={classes.iconPadding} name={icon} fillColor={color} strokeColor={'#000'} />
+    var {
+      classes,
+      color,
+      icon,
+      type,
+      title,
+      description,
+      resources,
+      dropdown
+    } = this.props;
+    const containerWidth = 'auto';
+    const dropdownKeys =
+      dropdown && Object.keys(dropdown).length ? Object.keys(dropdown) : false;
+    return (
+      <div>
+        <div className={classes.textAlignCenter}>
+          <div className={classes.inlineBlock}>
+            <StandaloneIcon
+              className={classes.iconPadding}
+              name={icon}
+              fillColor={color}
+              strokeColor={'#000'}
+            />
+          </div>
         </div>
+        <Typography
+          variant="display4"
+          className={classes.textAlignCenter + ' ' + classes.textBold}
+        >
+          {type}
+        </Typography>
+        <Typography
+          variant="title"
+          className={[classes.applyColor, classes.titleMargin].join(' ')}
+        >
+          {title}
+        </Typography>
+        <Typography variant="body2">
+          <ContentMarkdown
+            renderers={{
+              link: props => (
+                <a href={props.href} target={props.target}>
+                  {props.children}
+                </a>
+              )
+            }}
+            source={description}
+          />
+        </Typography>
+        {dropdownKeys ? (
+          <Dropdown
+            label={dropdown.label}
+            keys={dropdownKeys}
+            dropdown={dropdown}
+            color={color}
+            selected={this.state.dropdownSelection}
+            onSelect={this.handleDropdownSelect}
+            dropdownClassName={classes.dropdown}
+          />
+        ) : null}
+        {this.state.dropdownSelection
+          ? resources.map((resource, index) => (
+              <Resource key={index} color={color} {...resource} />
+            ))
+          : null}
       </div>
-      <Typography variant='display4' className={classes.textAlignCenter+' '+classes.textBold}>{type}</Typography>
-      <Typography variant='title' className={[classes.applyColor, classes.titleMargin].join(' ')}>{title}</Typography>
-      <Typography variant='body2'>
-        <ContentMarkdown
-          renderers={{
-            link: (props) => (<a href={props.href} target={props.target} >{props.children}</a>)
-          }} 
-          source={description} 
-        />
-      </Typography>
-      {dropdownKeys ? <Dropdown label={dropdown.label} keys={dropdownKeys} dropdown={dropdown} color={color} selected={this.state.dropdownSelection} onSelect={this.handleDropdownSelect} dropdownClassName={classes.dropdown} /> : null}
-      {this.state.dropdownSelection ? resources.map((resource, index) => <Resource key={index} color={color} {...resource} />) : null}
-    </div>
-  )}
-};
+    );
+  }
+}
 
 Section.propTypes = {
   icon: PropTypes.string,
@@ -106,7 +144,7 @@ Section.propTypes = {
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  resources: PropTypes.array.isRequired,
+  resources: PropTypes.array.isRequired
 };
 
 export default withStylesProps(styles)(Section);
