@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import langs from 'langs';
 import url from 'url';
@@ -20,6 +20,7 @@ import {
   searchInputMobile,
   mobilePadding
 } from '../../theme/sharedClasses';
+import Filter from '../search/Filter';
 
 const styles = theme => ({
   root: {
@@ -141,6 +142,24 @@ class Language extends React.Component {
       this
     );
     this.generateLanguageList = this.generateLanguageList.bind(this);
+    this.generateLanguageList = this.generateLanguageList.bind(this);
+    this.handleOnFilterChange = this.handleOnFilterChange.bind(this);
+    this.handleOnFilterBarClick = this.handleOnFilterBarClick.bind(this);
+  }
+
+  generateLanguageItems() {
+    return (
+      <Fragment>
+        {this.state.initialLangsList.map((lang, index) => (
+          <LangMenuItem
+            key={index}
+            langName={lang.local}
+            langCode={lang['1']}
+            handleSelectLang={this.handleRequestCloseAfterSelect}
+          />
+        ))}
+      </Fragment>
+    );
   }
 
   generateLanguageList() {
@@ -152,6 +171,10 @@ class Language extends React.Component {
           this.props.classes.mobilePadding
         ].join(' ')}
       >
+        <Filter
+          handleOnChange={this.handleOnFilterChange}
+          handleOnClick={this.handleOnFilterBarClick}
+        />
         <ListSubheader className={this.props.classes.poweredByGoogle}>
           <span>Powered By</span>
           <a
@@ -171,18 +194,10 @@ class Language extends React.Component {
             </span>
           </a>
         </ListSubheader>
-        {this.state.initialLangsList.map((lang, index) => (
-          <LangMenuItem
-            key={index}
-            langName={lang.local}
-            langCode={lang['1']}
-            handleSelectLang={this.handleRequestCloseAfterSelect}
-          />
-        ))}
+        {this.generateLanguageItems()}
       </List>
     );
   }
-
   handleClick(event) {
     this.setState({open: !this.state.open});
   }
@@ -191,6 +206,16 @@ class Language extends React.Component {
     if (typeof this.props.onSelect == 'function') {
       this.props.onSelect(langCode, langName);
     }
+  }
+
+  handleOnFilterChange(e) {
+    const filteredList = ValidLanguageList.filteredLanguageList(e.target.value);
+    this.setState({
+      initialLangsList: filteredList
+    });
+  }
+  handleOnFilterBarClick(e) {
+    e.stopPropagation();
   }
 
   handleRequestCloseAfterSelect(langCode, langName) {

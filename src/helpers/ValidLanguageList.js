@@ -112,7 +112,8 @@ var validLangs = [
 var ValidLanguageList = {
   all: getValidLanguagueList,
   byCode: getValidLanguageByCode,
-  codeByName: getValidLanguageCodeByName
+  codeByName: getValidLanguageCodeByName,
+  filteredLanguageList: getFilteredLanguageList
 };
 
 function getValidLanguagueList() {
@@ -141,6 +142,15 @@ function getValidLanguageCodeByName(name) {
       return validLang['1'];
     }
   }
+}
+
+function getFilteredLanguageList(language) {
+  return validLangs.filter(function(lang) {
+    return (
+      lang.name.toLowerCase().indexOf(language.toLowerCase()) !== -1 ||
+      lang.local.toLowerCase().indexOf(language.toLowerCase()) !== -1
+    );
+  });
 }
 
 module.exports = ValidLanguageList;
