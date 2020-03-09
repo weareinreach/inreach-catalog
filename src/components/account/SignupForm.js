@@ -120,12 +120,12 @@ const SignupForm = ({
           value={passwordConfirmation}
         />
         <Typography variant="body1" className={classes.paddingVertical}>
-          By clicking "Sign Up," you agree to One Degree's{` `}
-          <a href="https://www.1degree.org/privacy" target="_blank">
+          By clicking "Sign Up," you agree to AsylumConnect's{` `}
+          <a href="https://asylumconnect.org/privacy" target="_blank">
             Privacy Policy
           </a>
           {` `}and{` `}
-          <a href="https://www.1degree.org/terms-of-use" target="_blank">
+          <a href="https://asylumconnect.org/terms-of-use" target="_blank">
             Terms of Use
           </a>
           .
