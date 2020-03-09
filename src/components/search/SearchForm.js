@@ -114,7 +114,14 @@ class SearchForm extends React.Component {
             />
             </Typography>
           </Grid>*/}
-          <Grid item xs={12} sm={12} md={4} className={searchButton}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            className={searchButton}
+            style={{paddingBottom: '10px'}}
+          >
             <AsylumConnectButton
               variant={variant}
               onClick={this.props.handleSearchButtonClick}
