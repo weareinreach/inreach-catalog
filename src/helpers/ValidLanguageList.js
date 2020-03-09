@@ -112,7 +112,8 @@ var validLangs = [
 var ValidLanguageList = {
   all: getValidLanguagueList,
   byCode: getValidLanguageByCode,
-  codeByName: getValidLanguageCodeByName
+  codeByName: getValidLanguageCodeByName,
+  filteredLanguageList: getFilteredLanguageList
 };
 
 function getValidLanguagueList() {
@@ -141,6 +142,20 @@ function getValidLanguageCodeByName(name) {
       return validLang['1'];
     }
   }
+}
+
+/**
+ * this function filters the list of languages based on user input (both english and local spelling)
+ * @param {String} language
+ * return an array of languages matching the filter
+ */
+function getFilteredLanguageList(language) {
+  return validLangs.filter(function(lang) {
+    return (
+      lang.name.toLowerCase().indexOf(language.toLowerCase()) !== -1 ||
+      lang.local.toLowerCase().indexOf(language.toLowerCase()) !== -1
+    );
+  });
 }
 
 module.exports = ValidLanguageList;
