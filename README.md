@@ -1,6 +1,6 @@
 # Asylum Connect Catalog
 
-[![Build Status](https://travis-ci.org/asylum-connect/onedegree-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/onedegree-catalog)
+[![Build Status](https://travis-ci.org/asylum-connect/onedegree-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/asylumconnect-catalog)
 
 A rebuild of the Asylum Connect Catalog using Node.js and ReactJS with Flask serving as the database backend.
 
