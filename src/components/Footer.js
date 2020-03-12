@@ -127,11 +127,7 @@ const Footer = ({classes, locale}) => {
 
       <div className={classNames(bgLightGrey, paddingVertical)}>
         <Typography variant="body2">
-          AsylumConnect, Inc. {new Date().getFullYear()}. All rights reserved.{' '}
-          <a href="https://www.1degree.org" className={footerLink}>
-            Powered by One Degree
-          </a>
-          .
+          AsylumConnect, Inc. {new Date().getFullYear()}. All rights reserved.
         </Typography>
       </div>
     </footer>

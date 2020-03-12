@@ -60,12 +60,12 @@ const LoginForm = ({
       value={password}
     />
     <Typography variant="body1" className={classes.paddingVertical}>
-      By clicking "Log In," you agree to One Degree's{` `}
-      <a href="https://www.1degree.org/privacy" target="_blank">
+      By clicking "Log In," you agree to AsylumConnect's{` `}
+      <a href="https://asylumconnect.org/privacy" target="_blank">
         Privacy Policy
       </a>
       {` `}and{` `}
-      <a href="https://www.1degree.org/terms-of-use" target="_blank">
+      <a href="https://asylumconnect.org/terms-of-use" target="_blank">
         Terms of&nbsp;Use
       </a>
       .

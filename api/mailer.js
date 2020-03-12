@@ -142,7 +142,7 @@ notify = function(req, res, event, data) {
         'New organization submission for the AsylumConnect Catalog';
       components.data = {
         message:
-          'There is a new submission from a user on the AsylumConnect Catalog.  Login to the One Degree portal to review and approve.'
+          'There is a new submission from a user on the AsylumConnect Catalog.  Login to the AsylumConnect portal to review and approve.'
       };
       break;
     case 'submission.update':
