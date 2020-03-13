@@ -113,7 +113,12 @@ class ResourceTypeSelector extends React.Component {
       resourceList,
       uncheckLink
     } = this.props.classes;
-    const {onChange, selectedResourceTypes, clearResourceTypes} = this.props;
+    const {
+      onChange,
+      selectedResourceTypes,
+      clearResourceTypes,
+      moveSearchButton
+    } = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
     const containerWidth = isMobile ? '100%' : this.props.containerWidth + 'px';
     const resourceTypes = ResourceTypes.getResourceTypesByGroup(
@@ -127,6 +132,7 @@ class ResourceTypeSelector extends React.Component {
         containerWidth={containerWidth}
         containerClass={searchInput}
         listContainerClass={resourceList}
+        moveSearchButton={moveSearchButton}
       >
         <a href="#" onClick={clearResourceTypes} className={uncheckLink}>
           Uncheck All

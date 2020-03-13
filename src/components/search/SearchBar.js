@@ -114,6 +114,8 @@ class SearchBar extends React.Component {
       inlineSearchButtonDisabled
     } = this.props.classes;
 
+    const {moveSearchButton} = this.props;
+
     const cssClasses = {
       root: searchInputContainer,
       input: searchInput,
@@ -182,6 +184,7 @@ class SearchBar extends React.Component {
             clearResourceTypes={this.props.clearResourceTypes}
             locale={this.props.locale}
             t={this.props.t}
+            moveSearchButton={moveSearchButton}
           />
         </Grid>
       </Grid>
