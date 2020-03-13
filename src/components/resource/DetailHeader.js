@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import RatingAndReviews from './RatingAndReviews';
 import Phone from './Phone';
 import {Link} from 'react-router-dom';
+import Disclaimer from '../static/Disclaimer';
 
 const DetailHeader = ({
   classes,

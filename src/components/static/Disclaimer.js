@@ -2,32 +2,40 @@ import React from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
-import Fa from 'react-fontawesome';
+import infoIcon from '../../../public/img/information_icon.svg';
 
 const styles = {
   disclaimerContainer: {
-    border: '3px solid #23386c',
-    backgroundColor: '#cad3e8',
+    border: '1px solid #2D4A80',
+    backgroundColor: '#D3DCEC',
     marginBottom: '40px'
   },
-  textParagraph: {
-    padding: '15px 30px'
+  texContainer: {
+    margin: 'auto',
+    position: 'relative',
+    '&:before': {
+      content: `url(${infoIcon})`,
+      position: 'absolute',
+      height: '14px',
+      width: '14px',
+      top: '18px',
+      left: '38px'
+    }
   },
-  moreInfo: {
-    fontWeight: '600',
-    color: '#23386c',
-    paddingRight: '5px'
-  }
+  textParagraph: {
+    padding: '15px 60px',
+    color: '#2D4A80'
+  },
+  moreInfo: {}
 };
 
 const Disclaimer = props => {
-  const {disclaimerContainer, textParagraph, moreInfo} = props.classes;
+  const {disclaimerContainer, textParagraph, texContainer} = props.classes;
   return (
     <div className={disclaimerContainer}>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={texContainer}>
           <Typography className={textParagraph} align="left">
-            <Fa name="info-circle" className={moreInfo} />
             {props.text}
           </Typography>
         </Grid>
