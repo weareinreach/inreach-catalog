@@ -23,6 +23,7 @@ import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
 import ResourceListItem from '../resource/ResourceListItem';
 import {mobilePadding, boldFont} from '../../theme/sharedClasses';
+import Disclaimer from '../static/Disclaimer';
 
 const styles = theme => ({
   tooltip: {fontFamily: 'sans-serif'},
@@ -79,7 +80,8 @@ const styles = theme => ({
       paddingBottom: '20px'
     }),
     containerSearchResults: Object.assign(mobilePadding(theme), {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: theme.palette.common.white,
+      paddingTop: '20px'
     }),
     formRow: {
       marginBottom: '0'
@@ -125,6 +127,11 @@ const ResultsContainer = props => {
           : containerSearchResults
       }
     >
+      <Disclaimer
+        text={
+          'Some organizations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services.'
+        }
+      />
       {searchResults.length
         ? searchResults.map(organization => {
             return (
