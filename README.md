@@ -1,8 +1,8 @@
-# Asylum Connect Catalog
+# Asylum Connect Catalog powerd by One Degree
 
-[![Build Status](https://travis-ci.org/asylum-connect/onedegree-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/asylumconnect-catalog)
+[![Build Status](https://travis-ci.org/asylum-connect/onedegree-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/onedegree-catalog)
 
-A rebuild of the Asylum Connect Catalog using Node.js and ReactJS with Flask serving as the database backend.
+A rebuild of the Asylum Connect Catalog using Node.js and ReactJS with One Degree serving as the database backend.
 
 ## Dependency Documentation
 

@@ -1,6 +1,6 @@
 {
   "name": "Asylum Connect Catalog",
-  "description": "The updated Asylum Connect Catalog",
+  "description": "The updated Asylum Connect Cataglog powered by One Degree",
   "repository": "https://github.com/jeremyhatter/asylum-connect-1deg-catalog",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
   "keywords": ["node", "react", "heroku"],
