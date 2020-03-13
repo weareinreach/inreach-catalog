@@ -80,7 +80,8 @@ const styles = theme => ({
       paddingBottom: '20px'
     }),
     containerSearchResults: Object.assign(mobilePadding(theme), {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: theme.palette.common.white,
+      paddingTop: '20px'
     }),
     formRow: {
       marginBottom: '0'

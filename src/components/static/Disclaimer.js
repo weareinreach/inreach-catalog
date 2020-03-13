@@ -4,11 +4,12 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 import infoIcon from '../../../public/img/information_icon.svg';
 
-const styles = {
+const styles = theme => ({
   disclaimerContainer: {
-    border: '1px solid #2D4A80',
-    backgroundColor: '#D3DCEC',
-    marginBottom: '40px'
+    border: '1px solid',
+    borderColor: theme.palette.secondary[900],
+    backgroundColor: theme.palette.common.separator,
+    marginBottom: theme.spacing.unit * 5
   },
   texContainer: {
     margin: 'auto',
@@ -24,10 +25,10 @@ const styles = {
   },
   textParagraph: {
     padding: '15px 60px',
-    color: '#2D4A80'
+    color: theme.palette.secondary[900]
   },
   moreInfo: {}
-};
+});
 
 const Disclaimer = props => {
   const {disclaimerContainer, textParagraph, texContainer} = props.classes;

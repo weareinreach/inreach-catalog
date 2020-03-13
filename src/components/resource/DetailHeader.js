@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import RatingAndReviews from './RatingAndReviews';
 import Phone from './Phone';
 import {Link} from 'react-router-dom';
+
 import Disclaimer from '../static/Disclaimer';
 
 const DetailHeader = ({
@@ -22,6 +23,11 @@ const DetailHeader = ({
 }) => (
   <Grid container spacing={0} alignItems="center">
     <Grid item xs={12} className={classes.bottomSpacing}>
+      <Disclaimer
+        text={
+          "Be aware the hours for this organization have changeed due to the coronavirus. Check the organization's social media for updates."
+        }
+      />
       <Grid
         container
         alignItems="flex-start"
