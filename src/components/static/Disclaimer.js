@@ -9,7 +9,8 @@ const styles = theme => ({
     border: '1px solid',
     borderColor: theme.palette.secondary[900],
     backgroundColor: theme.palette.common.separator,
-    marginBottom: theme.spacing.unit * 5
+    marginBottom: theme.spacing.unit * 5,
+    width: '100%'
   },
   texContainer: {
     margin: 'auto',
