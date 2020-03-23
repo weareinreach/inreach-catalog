@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
@@ -7,9 +7,12 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
+import Modal from 'react-modal';
+import SignupFormContainer from './account/SignupFormContainer';
 
 import AsylumConnectPopUp from './AsylumConnectPopUp';
 import RedHeartIcon from './icons/RedHeartIcon';
+import MediaQuery from 'react-responsive';
 
 import breakpoints from '../theme/breakpoints';
 import theWidth from './theWidth';
@@ -40,6 +43,10 @@ const styles = theme => ({
 class SaveToFavoritesButton extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      modal: false
+    };
 
     this.state = {
       anchorEl: null,
@@ -88,9 +95,7 @@ class SaveToFavoritesButton extends React.Component {
   handleMenuToggle(event) {
     const {currentTarget} = event;
     if (!this.props.session) {
-      return this.props.handleMessageNew(
-        'You must be logged in to save favorites'
-      );
+      this.setState({modal: true});
     } else if (this.props.lists.length < 1) {
       this.handleCreateList(currentTarget);
     } else if (this.state.open) {
@@ -161,6 +166,232 @@ class SaveToFavoritesButton extends React.Component {
         <IconButton onClick={handleMenuToggle}>
           <RedHeartIcon width={'24px'} fill={isFavorite} />
         </IconButton>
+        <MediaQuery minDeviceWidth={603}>
+          <Modal
+            ariaHideApp={false}
+            style={{
+              content: {
+                position: 'absolute',
+                top: '25%',
+                left: '30%',
+                bottom: 'auto',
+                width: '40%',
+                padding: 0,
+                fontFamily: '"Open Sans", sans-serif',
+                background: '#FFFFFF'
+              }
+            }}
+            isOpen={this.state.modal}
+          >
+            <div
+              style={{textAlign: 'left', paddingTop: '13px', height: '20px'}}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: 0,
+                  top: '38px',
+                  border: '1px solid #E9E9E9',
+                  zIndex: 0
+                }}
+              ></div>
+              <div
+                style={{
+                  left: '46%',
+                  position: 'absolute',
+                  display: 'inline-block',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#FFFFFF',
+                  zIndex: 1,
+                  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)'
+                }}
+              >
+                <div style={{paddingTop: '10px', textAlign: 'center'}}>
+                  <RedHeartIcon width={'24px'} />
+                </div>
+              </div>
+            </div>
+            <div style={{paddingTop: '40px', padding: '8%'}}>
+              <p>Oops! You need to be logged in to share resources.</p>
+              <p
+                style={{
+                  fontWeight: 'bold'
+                }}
+              >
+                With a free AsylumConnect account you can unlock additional
+                features:
+              </p>
+              <div>
+                <li>Save and share personalized resources lists</li>
+                <br />
+                <li>Leave public rating/reviews on resources</li>
+                <br />
+                <li>Suggest new resources in your area</li>
+                <br />
+                <li>Claim your organization's profile page</li>
+              </div>
+            </div>
+            <div style={{textAlign: 'center', paddingBottom: '15px'}}>
+              <Button
+                style={{
+                  display: 'inline-block',
+                  background: '#CC4747',
+                  borderRadius: '100px',
+                  fontWeight: 'bold',
+                  lineHeight: '22px',
+                  width: '220px',
+                  height: '34px',
+                  color: '#FFFFFF',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  paddingTop: '5px'
+                }}
+                onClick={() => this.props.handleRequestOpen('signup')}
+              >
+                sign up/sign in
+              </Button>
+            </div>
+            <div style={{paddingBottom: '20px', textAlign: 'center'}}>
+              <Button
+                style={{
+                  display: 'inline-block',
+                  background: '#FFFFFF',
+                  borderRadius: '100px',
+                  fontWeight: 'bold',
+                  lineHeight: '22px',
+                  width: '220px',
+                  height: '34px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  border: 'solid',
+                  color: '#5073B3',
+                  paddingTop: '5px'
+                }}
+                onClick={() => {
+                  this.setState({modal: false});
+                  this.state.modal;
+                }}
+              >
+                close
+              </Button>
+            </div>
+          </Modal>
+        </MediaQuery>
+        <MediaQuery maxDeviceWidth={602}>
+          <Modal
+            ariaHideApp={false}
+            style={{
+              content: {
+                position: 'absolute',
+                top: '5%',
+                bottom: 'auto',
+                padding: 0,
+                fontFamily: '"Open Sans", sans-serif',
+                background: '#FFFFFF'
+              }
+            }}
+            isOpen={this.state.modal}
+          >
+            <div
+              style={{textAlign: 'left', paddingTop: '13px', height: '20px'}}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: 0,
+                  top: '38px',
+                  border: '1px solid #E9E9E9',
+                  zIndex: 0
+                }}
+              ></div>
+              <div
+                style={{
+                  left: '46%',
+                  position: 'absolute',
+                  display: 'inline-block',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#FFFFFF',
+                  zIndex: 1,
+                  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)'
+                }}
+              >
+                <div style={{paddingTop: '10px', textAlign: 'center'}}>
+                  <RedHeartIcon width={'24px'} />
+                </div>
+              </div>
+            </div>
+            <div style={{paddingTop: '40px', padding: '8%', fontSize: '14px'}}>
+              <p>Oops! You need to be logged in to share resources.</p>
+              <p
+                style={{
+                  fontWeight: 'bold'
+                }}
+              >
+                With a free AsylumConnect account you can unlock additional
+                features:
+              </p>
+              <div>
+                <li>Save and share personalized resources lists</li>
+                <br />
+                <li>Leave public rating/reviews on resources</li>
+                <br />
+                <li>Suggest new resources in your area</li>
+                <br />
+                <li>Claim your organization's profile page</li>
+              </div>
+            </div>
+            <div style={{textAlign: 'center', paddingBottom: '15px'}}>
+              <Button
+                style={{
+                  display: 'inline-block',
+                  background: '#CC4747',
+                  borderRadius: '100px',
+                  fontWeight: 'bold',
+                  lineHeight: '22px',
+                  width: '220px',
+                  height: '34px',
+                  color: '#FFFFFF',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  paddingTop: '5px'
+                }}
+                onClick={() => this.props.handleRequestOpen('signup')}
+              >
+                sign up/sign in
+              </Button>
+            </div>
+            <div style={{paddingBottom: '20px', textAlign: 'center'}}>
+              <Button
+                style={{
+                  display: 'inline-block',
+                  background: '#FFFFFF',
+                  borderRadius: '100px',
+                  fontWeight: 'bold',
+                  lineHeight: '22px',
+                  width: '220px',
+                  height: '34px',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  border: 'solid',
+                  color: '#5073B3',
+                  paddingTop: '5px'
+                }}
+                onClick={() => {
+                  this.setState({modal: false});
+                  this.state.modal;
+                }}
+              >
+                close
+              </Button>
+            </div>
+          </Modal>
+        </MediaQuery>
         <AsylumConnectPopUp
           id="favorites-menu"
           className="stop-click-propagation"
