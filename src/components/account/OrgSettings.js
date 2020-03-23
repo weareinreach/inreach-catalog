@@ -10,6 +10,7 @@ import Loading from '../Loading';
 import OrgSettingsInfo from './OrgSettingsInfo';
 import OrgSettingsHour from './OrgSettingsHour';
 import OrgSettingsAdditional from './OrgSettingsAdditional';
+import OrgSettingsAlert from './OrgSettingsAlert';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
@@ -221,7 +222,7 @@ class OrgSettings extends React.Component {
     });
   }
   render() {
-    const {classes} = this.props;
+    const {classes, newAlertMessage} = this.props;
     const {orgData, selectedDays, isLoading, isSent} = this.state;
     let schedule =
       orgData && orgData.locations && orgData.locations[0]
@@ -270,6 +271,11 @@ class OrgSettings extends React.Component {
               selectedDays={selectedDays}
               onChange={this.handleChange}
               onSelect={this.handleSelect}
+            />
+
+            <OrgSettingsAlert
+              newAlertMessage={newAlertMessage}
+              onChange={this.handleChange}
             />
 
             {!isSent ? (

@@ -126,6 +126,7 @@ class AsylumConnectCatalog extends React.Component {
       handleUnconfirmSession,
       lists,
       locale,
+      newAlertMessage,
       session,
       sessionConfirmed,
       t,
@@ -294,6 +295,7 @@ class AsylumConnectCatalog extends React.Component {
                     lists={lists}
                     locale={locale}
                     nearAddress={this.state.nearAddress}
+                    newAlertMessage={newAlertMessage}
                     session={session}
                     t={t}
                     user={user}

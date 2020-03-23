@@ -194,7 +194,13 @@ class Detail extends React.Component {
   }
 
   render() {
-    const {classes, session, handleMessageNew, history} = this.props;
+    const {
+      classes,
+      session,
+      handleMessageNew,
+      history,
+      newAlertMessage
+    } = this.props;
     const {props} = this;
     //console.log(this.props.resource, this.props.service)
     return (
@@ -247,6 +253,7 @@ class Detail extends React.Component {
               lists={this.props.lists}
               locale={this.props.locale}
               mapResources={this.props.mapResources}
+              newAlertMessage={this.props.newAlertMessage}
               resource={this.props.resource}
               setSelectedResource={this.props.setSelectedResource}
               session={this.props.session}

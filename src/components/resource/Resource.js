@@ -25,6 +25,8 @@ import ACBadge from '../Badge';
 import IconButton from 'material-ui/IconButton';
 import ShareIcon from '../icons/ShareIcon';
 
+import Disclaimer from '../static/Disclaimer';
+
 import DetailHeader from './DetailHeader';
 import DetailHeaderTabs from './DetailHeaderTabs';
 import About from './DetailAbout';
@@ -73,7 +75,8 @@ class Resource extends React.Component {
       //this will be the organization or opportunity whose details are being viwed - potentially confusing terminology, but nothing stands out as a clearer option
       resource: props.resource,
       userReview: null,
-      userComment: null
+      userComment: null,
+      alerMessage: ''
     };
 
     this.tabs = [
@@ -89,6 +92,8 @@ class Resource extends React.Component {
     this.handleNewReview = this.handleNewReview.bind(this);
 
     this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
+
+    this.handleAlertMessage = this.handleAlertMessage.bind(this);
   }
 
   componentWillMount() {
@@ -262,8 +267,22 @@ class Resource extends React.Component {
     this.props.handleTabClickDesktop(e, tab);
   }
 
+  handleAlertMessage(newAlertMessage) {
+    if (newAlertMessage != this.state.alertMessage) {
+      this.setState({
+        alertMessage: this.props.newAlertMessage
+      });
+    }
+  }
+
   render() {
-    const {session, handleMessageNew, history, locale} = this.props;
+    const {
+      session,
+      handleMessageNew,
+      history,
+      locale,
+      newAlertMessage
+    } = this.props;
     const classes = this.props.defaultClasses;
     const {props} = this;
     const {resource} = this.state;
@@ -345,6 +364,9 @@ class Resource extends React.Component {
                       </IconButton>
                     </div>
                   </Toolbar>
+                  {this.state.alertMessage ? (
+                    <Disclaimer text={this.handleAlertMessage} />
+                  ) : null}
                   <DetailHeader
                     classes={classes}
                     website={resource.website}

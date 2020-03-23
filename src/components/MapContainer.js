@@ -609,6 +609,8 @@ class MapContainer extends React.Component {
       '/:locale/search/:in/:place/:near/:for/:filter/:sort'
         ? 100
         : null;
+
+    const {newAlertMessage} = this.props;
     return (
       <div className={'container--map ' + this.props.classes.containerMap}>
         <Grid container spacing={0} alignItems="stretch">

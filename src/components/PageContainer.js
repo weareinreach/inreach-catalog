@@ -27,6 +27,7 @@ class PageContainer extends React.Component {
       logo,
       locale,
       location,
+      newAlertMessage,
       session,
       sessionConfirmed,
       user,
@@ -86,6 +87,7 @@ class PageContainer extends React.Component {
                 handleUnconfirmSession={handleUnconfirmSession}
                 history={history}
                 locale={locale}
+                newAlertMessage={newAlertMessage}
                 session={session}
                 sessionConfirmed={sessionConfirmed}
                 user={user}

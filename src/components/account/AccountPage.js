@@ -123,6 +123,7 @@ class AccountPage extends React.Component {
       handleMessageNew,
       handleRequestOpen,
       locale,
+      newAlertMessage,
       session,
       sessionConfirmed
     } = this.props;
@@ -168,7 +169,11 @@ class AccountPage extends React.Component {
             Organization
           </Typography>
           <div className={classes.formRow}>
-            <OrgSettings handleMessageNew={handleMessageNew} user={user} />
+            <OrgSettings
+              handleMessageNew={handleMessageNew}
+              user={user}
+              newAlertMessage={newAlertMessage}
+            />
             <GeneralSettings
               handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
