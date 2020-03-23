@@ -595,9 +595,6 @@ class MapContainer extends React.Component {
 
     const isMobile = this.props.width < breakpoints['sm'];
     const infographic = this.getInfographic();
-
-    console.log('infographic', infographic);
-
     const selectedResourceTypes =
       typeof this.state.selectedResourceTypes !== 'undefined' &&
       this.state.selectedResourceTypes.length

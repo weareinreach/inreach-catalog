@@ -37,7 +37,7 @@ const Disclaimer = props => {
       <Grid container>
         <Grid item xs={12} className={texContainer}>
           <Typography className={textParagraph} align="left">
-            {props.text}
+            {props.children || props.text}
           </Typography>
         </Grid>
       </Grid>
