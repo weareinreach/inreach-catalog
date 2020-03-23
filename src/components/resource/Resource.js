@@ -41,6 +41,9 @@ import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
 import Phone from './Phone';
 
+import Modal from 'react-modal';
+import Button from 'react-bootstrap/Button';
+
 import Visit from './ResourceVisit';
 import Reviews from './Reviews';
 
@@ -61,6 +64,9 @@ const styles = theme => ({});
 class Resource extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      modal: false
+    };
     this.odClient = new OneDegreeResourceClient();
     this.state = {
       orgLoading: true,
@@ -336,13 +342,138 @@ class Resource extends React.Component {
                         onClick={() =>
                           props.session
                             ? props.handleRequestOpen('share/' + sharePath)
-                            : props.handleMessageNew(
-                                'You must be logged in to share resources'
-                              )
+                            : this.setState({modal: true})
                         }
                       >
                         <ShareIcon />
                       </IconButton>
+                      <Modal
+                        ariaHideApp={false}
+                        style={{
+                          content: {
+                            position: 'absolute',
+                            bottom: 'auto',
+                            padding: 0,
+                            fontFamily: '"Open Sans", sans-serif',
+                            background: '#FFFFFF'
+                          }
+                        }}
+                        isOpen={this.state.modal}
+                      >
+                        <div
+                          style={{
+                            textAlign: 'left',
+                            paddingTop: '13px',
+                            height: '20px'
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: 'absolute',
+                              width: '100%',
+                              height: 0,
+                              top: '38px',
+                              border: '1px solid #E9E9E9',
+                              zIndex: 0
+                            }}
+                          ></div>
+                          <div
+                            style={{
+                              left: '46%',
+                              position: 'absolute',
+                              display: 'inline-block',
+                              borderRadius: '50%',
+                              width: '40px',
+                              height: '40px',
+                              backgroundColor: '#FFFFFF',
+                              zIndex: 1,
+                              boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)'
+                            }}
+                          >
+                            <div
+                              style={{paddingTop: '10px', textAlign: 'center'}}
+                            >
+                              <ShareIcon size={'19px'} />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            paddingTop: '40px',
+                            padding: '8%',
+                            fontSize: '14px'
+                          }}
+                        >
+                          <p>
+                            Oops! You need to be logged in to share resources.
+                          </p>
+                          <p
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            With a free AsylumConnect account you can unlock
+                            additional features:
+                          </p>
+                          <div>
+                            <li>Save and share personalized resources lists</li>
+                            <br />
+                            <li>Leave public rating/reviews on resources</li>
+                            <br />
+                            <li>Suggest new resources in your area</li>
+                            <br />
+                            <li>Claim your organization's profile page</li>
+                          </div>
+                        </div>
+                        <div
+                          style={{textAlign: 'center', paddingBottom: '15px'}}
+                        >
+                          <Button
+                            style={{
+                              display: 'inline-block',
+                              background: '#CC4747',
+                              borderRadius: '100px',
+                              fontWeight: 'bold',
+                              lineHeight: '22px',
+                              width: '220px',
+                              height: '34px',
+                              color: '#FFFFFF',
+                              letterSpacing: '1px',
+                              textTransform: 'uppercase',
+                              paddingTop: '5px'
+                            }}
+                            onClick={() => props.handleRequestOpen('signup')}
+                          >
+                            sign up/sign in
+                          </Button>
+                        </div>
+                        <div
+                          style={{paddingBottom: '20px', textAlign: 'center'}}
+                        >
+                          <Button
+                            style={{
+                              display: 'inline-block',
+                              background: '#FFFFFF',
+                              borderRadius: '100px',
+                              fontWeight: 'bold',
+                              lineHeight: '22px',
+                              width: '220px',
+                              height: '34px',
+                              letterSpacing: '1px',
+                              textTransform: 'uppercase',
+                              border: 'solid',
+                              color: '#5073B3',
+                              paddingTop: '5px'
+                            }}
+                            onClick={() => {
+                              this.setState({modal: false});
+                              this.state.modal;
+                            }}
+                          >
+                            close
+                          </Button>
+                        </div>
+                      </Modal>
                     </div>
                   </Toolbar>
                   <DetailHeader
