@@ -48,6 +48,7 @@ import Phone from './Phone';
 import Visit from './ResourceVisit';
 import Reviews from './Reviews';
 
+import {getResourceAlertMessage} from '../../helpers/alertMessages';
 import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 import propertyMap from '../../helpers/OneDegreePropertyMap';
 import resourceTypes from '../../helpers/ResourceTypes';
@@ -312,6 +313,8 @@ class Service extends React.Component {
       (this.state.userComment === false || this.state.userComment === null);
 
     const isMobile = this.props.width < breakpoints['sm'];
+    const alertMessage = getResourceAlertMessage(props.resource);
+
     return (
       <Grid
         container
@@ -370,6 +373,7 @@ class Service extends React.Component {
                   </Toolbar>
                   <DetailHeader
                     classes={classes}
+                    alertMessage={alertMessage}
                     website={resource.website}
                     name={service.title}
                     rating={service.rating}
@@ -568,6 +572,7 @@ class Service extends React.Component {
                   />
                   <DetailHeader
                     classes={classes}
+                    alertMessage={alertMessage}
                     website={resource.website}
                     name={service.title}
                     rating={service.rating}

@@ -9,7 +9,8 @@ const styles = (theme, props) => ({
     border: '1px solid',
     borderColor: theme.palette.secondary[900],
     backgroundColor: theme.palette.common.separator,
-    marginBottom: props.marginBottom || theme.spacing.unit * 5
+    marginBottom: props.marginBottom || theme.spacing.unit * 5,
+    width: '100%'
   },
   texContainer: {
     margin: 'auto',
@@ -37,7 +38,7 @@ const Disclaimer = props => {
       <Grid container>
         <Grid item xs={12} className={texContainer}>
           <Typography className={textParagraph} align="left">
-            {props.text}
+            {props.children || props.text}
           </Typography>
         </Grid>
       </Grid>

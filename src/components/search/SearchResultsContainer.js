@@ -114,11 +114,33 @@ const styles = theme => ({
 const ResultsContainer = props => {
   const {
     containerSearchResults,
+    locale,
     searching,
     searchResults,
     noResults,
     loadingColor
   } = props;
+  const disclaimerProps = {};
+
+  if (locale === 'en_US') {
+    disclaimerProps.children = (
+      <span>
+        Some organizations are putting measures in place to respond to the
+        coronavirus outbreak. This may impact hours and accessibility to some
+        services. Check{' '}
+        <a href="https://asylumconnect.org/resource-list-for-lgbtq-asylum-seekers-and-other-lgbtq-people-during-covid-19/">
+          this blog post
+        </a>{' '}
+        for a list of verified LGBTQ+ affirming and immigrant friendly services
+        continuing to offer help in the United States during the coronavirus
+        (COVID-19) pandemic.
+      </span>
+    );
+  } else {
+    disclaimerProps.text =
+      'Some organizations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services.';
+  }
+
   return (
     <div
       className={
@@ -127,11 +149,7 @@ const ResultsContainer = props => {
           : containerSearchResults
       }
     >
-      <Disclaimer
-        text={
-          'Some organizations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services.'
-        }
-      />
+      <Disclaimer {...disclaimerProps} />
       {searchResults.length
         ? searchResults.map(organization => {
             return (
