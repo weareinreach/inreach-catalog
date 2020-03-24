@@ -61,6 +61,7 @@ class AsylumConnectSelector extends React.Component {
     this.handleToggleRequest = this.handleToggleRequest.bind(this);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.handlePaperClick = this.handlePaperClick.bind(this);
+    this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
   }
 
   handleOutsideClick(event) {
@@ -68,6 +69,7 @@ class AsylumConnectSelector extends React.Component {
     if (watch.length) {
       if (!watch[0].contains(event.target)) {
         this.handleToggleRequest();
+        this.handleOpenDrawer(event);
       }
     }
   }
@@ -87,6 +89,12 @@ class AsylumConnectSelector extends React.Component {
   handlePaperClick() {
     if (this.props.closeOnClick === true) {
       this.handleToggleRequest();
+    }
+  }
+
+  handleOpenDrawer(event) {
+    if (event) {
+      this.props.moveSearchButton(this.state.open);
     }
   }
 
@@ -114,7 +122,13 @@ class AsylumConnectSelector extends React.Component {
 
     return (
       <div className={rootClass}>
-        <div className={containerClasses} onClick={this.handleToggleRequest}>
+        <div
+          className={containerClasses}
+          onClick={() => {
+            this.handleToggleRequest();
+            this.handleOpenDrawer(event);
+          }}
+        >
           <div>
             <span className={selectedLabel}>{label}</span>
             {selected && selected.length ? (

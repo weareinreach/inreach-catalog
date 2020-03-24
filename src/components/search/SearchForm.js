@@ -38,6 +38,9 @@ const styles = theme => ({
       color: theme.palette.primary[900]
     }
   },
+  lowerButton: {
+    marginTop: '47vh'
+  },
   [theme.breakpoints.down('xs')]: {
     searchButtonContainer: {
       paddingTop: theme.spacing.unit * 4,
@@ -57,6 +60,27 @@ const styles = theme => ({
 });
 
 class SearchForm extends React.Component {
+  constructor() {
+    super();
+
+    (this.state = {
+      moveButton: false
+    }),
+      (this.onMoveButton = this.onMoveSearchButton.bind(this));
+  }
+
+  onMoveSearchButton(newPosition) {
+    if (newPosition != this.state.moveButton) {
+      this.setState({
+        moveButton: !this.state.moveButton
+      });
+    } else if (newPosition === this.state.moveButton) {
+      this.setState({
+        moveButton: !this.state.moveButton
+      });
+    }
+  }
+
   render() {
     const {locale} = this.props;
     const {
@@ -66,7 +90,8 @@ class SearchForm extends React.Component {
       link,
       callout,
       underline,
-      searchButtonContainer
+      searchButtonContainer,
+      lowerButton
     } = this.props.classes;
     const variant =
       /*this.props.width < breakpoints['sm'] ?  "secondary" :*/ 'primary';
@@ -98,7 +123,11 @@ class SearchForm extends React.Component {
             </Grid>
           </Grid>
         ) : null}
-        <SearchBar {...this.props} classes={null} />
+        <SearchBar
+          {...this.props}
+          classes={null}
+          moveSearchButton={this.onMoveButton}
+        />
         <Grid container spacing={0} className={searchButtonContainer}>
           {/*<Grid item xs={12} className={formRow}>
             <Typography variant="body2" className={body2}>
@@ -114,11 +143,19 @@ class SearchForm extends React.Component {
             />
             </Typography>
           </Grid>*/}
-          <Grid item xs={12} sm={12} md={4} className={searchButton}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            className={searchButton}
+            style={{paddingBottom: '10px'}}
+          >
             <AsylumConnectButton
               variant={variant}
               onClick={this.props.handleSearchButtonClick}
               disabled={this.props.searchDisabled}
+              className={this.state.moveButton ? lowerButton : null}
             >
               Search
               {this.props.searchDisabled ? (

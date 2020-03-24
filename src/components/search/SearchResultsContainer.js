@@ -108,6 +108,9 @@ const styles = theme => ({
   },
   backButton: {
     paddingBottom: '0.83em'
+  },
+  lowerButton: {
+    marginTop: '47vh'
   }
 });
 
@@ -180,10 +183,14 @@ class SearchResultsContainer extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {tab: 0};
+    this.state = {
+      tab: 0,
+      moveButton: false
+    };
 
     this.handleSwipeChange = this.handleSwipeChange.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
+    this.onMoveSearchButton = this.onMoveSearchButton.bind(this);
   }
 
   componentDidMount() {
@@ -248,6 +255,18 @@ class SearchResultsContainer extends React.Component {
     });
   }
 
+  onMoveSearchButton(newPosition) {
+    if (newPosition != this.state.moveButton) {
+      this.setState({
+        moveButton: !this.state.moveButton
+      });
+    } else if (newPosition === this.state.moveButton) {
+      this.setState({
+        moveButton: !this.state.moveButton
+      });
+    }
+  }
+
   render() {
     const {
       backButton,
@@ -262,6 +281,7 @@ class SearchResultsContainer extends React.Component {
       halfBottomMargin,
       indicatorColor,
       loadingColor,
+      lowerButton,
       noResults,
       secondary,
       shrinkTab,
@@ -320,6 +340,7 @@ class SearchResultsContainer extends React.Component {
               {...this.props}
               classes={null}
               inlineSearchButton={isMobile}
+              moveSearchButton={this.onMoveSearchButton}
             />
             <Grid container spacing={0} alignItems="flex-start">
               <Grid item xs={12} md={8} className={toolbarClass}>
@@ -330,6 +351,7 @@ class SearchResultsContainer extends React.Component {
                         variant="primary"
                         onClick={this.props.handleSearchButtonClick}
                         disabled={this.props.searchDisabled}
+                        className={this.state.moveButton ? lowerButton : null}
                       >
                         Search
                         {this.props.searchDisabled ? (
