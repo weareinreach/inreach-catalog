@@ -85,7 +85,7 @@ class LoginFormContainer extends React.Component {
         <Disclaimer className={paddingDisclaimer} marginBottom={'0'}>
           <p className={removeParagraphMargin}>
             Due to moving to a new technology system, we are asking all of our
-            users who created an account before March 20th, 2020 to create a new
+            users who created an account before March 28th, 2020 to create a new
             account. We apologize for any inconvenience. To create your new
             account, please click{' '}
             <u>
