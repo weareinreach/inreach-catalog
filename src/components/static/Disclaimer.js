@@ -1,15 +1,15 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import {withStyles} from 'material-ui/styles';
+import withStylesProps from '../withStylesProps';
 import infoIcon from '../../../public/img/information_icon.svg';
 
-const styles = theme => ({
+const styles = (theme, props) => ({
   disclaimerContainer: {
     border: '1px solid',
     borderColor: theme.palette.secondary[900],
     backgroundColor: theme.palette.common.separator,
-    marginBottom: theme.spacing.unit * 5,
+    marginBottom: props.marginBottom || theme.spacing.unit * 5,
     width: '100%'
   },
   texContainer: {
@@ -20,12 +20,12 @@ const styles = theme => ({
       position: 'absolute',
       height: '14px',
       width: '14px',
-      top: '18px',
-      left: '38px'
+      top: '26px',
+      left: '40px'
     }
   },
   textParagraph: {
-    padding: '15px 60px',
+    padding: props.padding || '24px 40px 24px 62px',
     color: theme.palette.secondary[900]
   },
   moreInfo: {}
@@ -46,4 +46,4 @@ const Disclaimer = props => {
   );
 };
 
-export default withStyles(styles)(Disclaimer);
+export default withStylesProps(styles)(Disclaimer);

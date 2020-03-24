@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import 'whatwg-fetch';
+
+import {withStyles} from 'material-ui/styles';
 
 import config from '../../config/config.js';
 
 import LoginForm from './LoginForm';
+import Disclaimer from '../../components/static/Disclaimer';
+
+const styles = theme => ({
+  paddingDisclaimer: {paddingTop: theme.spacing.unit * 1},
+  disclaimerLink: {
+    cursor: 'pointer',
+    color: theme.palette.secondary[900]
+  },
+  removeParagraphMargin: {
+    margin: '0'
+  }
+});
 
 class LoginFormContainer extends React.Component {
   constructor(props) {
@@ -61,13 +75,37 @@ class LoginFormContainer extends React.Component {
   }
 
   render() {
+    const {
+      paddingDisclaimer,
+      removeParagraphMargin,
+      disclaimerLink
+    } = this.props.classes;
     return (
-      <LoginForm
-        {...this.props}
-        {...this.state}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-      />
+      <Fragment>
+        <Disclaimer className={paddingDisclaimer} marginBottom={'0'}>
+          <p className={removeParagraphMargin}>
+            Due to moving to a new technology system, we are asking all of our
+            users who created an account before March 20th, 2020 to create a new
+            account. We apologize for any inconvenience. To create your new
+            account, please click{' '}
+            <u>
+              <span
+                onClick={() => this.props.handleRequestOpen('signup')}
+                className={disclaimerLink}
+              >
+                here
+              </span>
+            </u>
+            .
+          </p>
+        </Disclaimer>
+        <LoginForm
+          {...this.props}
+          {...this.state}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Fragment>
     );
   }
 }
@@ -78,4 +116,4 @@ LoginFormContainer.propTypes = {
   handleRequestClose: PropTypes.func.isRequired
 };
 
-export default LoginFormContainer;
+export default withStyles(styles)(LoginFormContainer);
