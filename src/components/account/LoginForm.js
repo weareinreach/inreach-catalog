@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from 'material-ui/TextField';
@@ -8,7 +8,6 @@ import breakpoints from '../../theme/breakpoints';
 
 import config from '../../config/config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
-import Disclaimer from '../static/Disclaimer';
 
 const styles = theme => ({
   container: {
@@ -21,17 +20,12 @@ const styles = theme => ({
     cursor: 'pointer'
   },
   paddingAbove: {paddingTop: theme.spacing.unit * 5},
-  paddingDisclaimer: {paddingTop: theme.spacing.unit * 1},
   paddingVertical: {
-    padding: '0 ' + theme.spacing.unit * 10
-  },
-  disclaimerLink: {
-    cursor: 'pointer',
-    color: theme.palette.secondary[900]
+    padding: theme.spacing.unit * 5 + ' ' + theme.spacing.unit * 10
   },
   [`@media (max-width: ${breakpoints['sm']}px)`]: {
     paddingVertical: {
-      padding: theme.spacing.unit * 1 + ' 0'
+      padding: theme.spacing.unit * 3 + ' 0'
     }
   }
 });
@@ -65,27 +59,6 @@ const LoginForm = ({
       type="password"
       value={password}
     />
-    <div className={classes.paddingDisclaimer}>
-      <Disclaimer
-        text={
-          <Fragment>
-            Due to moving to a new technology system, we are asking all of our
-            users who created an account before March 20th, 2020 to create a new
-            account. We apologize for any inconvenience. To create your new
-            account, please click{' '}
-            <u>
-              <span
-                onClick={() => handleRequestOpen('signup')}
-                className={classes.disclaimerLink}
-              >
-                here
-              </span>
-            </u>
-            .
-          </Fragment>
-        }
-      />
-    </div>
     <Typography variant="body1" className={classes.paddingVertical}>
       By clicking "Log In," you agree to AsylumConnect's{` `}
       <a href="https://asylumconnect.org/privacy" target="_blank">
