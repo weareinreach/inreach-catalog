@@ -14,6 +14,9 @@ const styles = theme => ({
   disclaimerLink: {
     cursor: 'pointer',
     color: theme.palette.secondary[900]
+  },
+  removeParagraphMargin: {
+    margin: '0'
   }
 });
 
@@ -72,29 +75,30 @@ class LoginFormContainer extends React.Component {
   }
 
   render() {
+    const {
+      paddingDisclaimer,
+      removeParagraphMargin,
+      disclaimerLink
+    } = this.props.classes;
     return (
       <Fragment>
-        <Disclaimer
-          className={this.props.classes.paddingDisclaimer}
-          text={
-            <Fragment>
-              Due to moving to a new technology system, we are asking all of our
-              users who created an account before March 20th, 2020 to create a
-              new account. We apologize for any inconvenience. To create your
-              new account, please click{' '}
-              <u>
-                <span
-                  onClick={() => this.props.handleRequestOpen('signup')}
-                  className={this.props.classes.disclaimerLink}
-                >
-                  here
-                </span>
-              </u>
-              .
-            </Fragment>
-          }
-          marginBottom={'0'}
-        />
+        <Disclaimer className={paddingDisclaimer} marginBottom={'0'}>
+          <p className={removeParagraphMargin}>
+            Due to moving to a new technology system, we are asking all of our
+            users who created an account before March 20th, 2020 to create a new
+            account. We apologize for any inconvenience. To create your new
+            account, please click{' '}
+            <u>
+              <span
+                onClick={() => this.props.handleRequestOpen('signup')}
+                className={disclaimerLink}
+              >
+                here
+              </span>
+            </u>
+            .
+          </p>
+        </Disclaimer>
         <LoginForm
           {...this.props}
           {...this.state}
