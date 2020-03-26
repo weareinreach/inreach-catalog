@@ -38,9 +38,6 @@ const styles = theme => ({
       color: theme.palette.primary[900]
     }
   },
-  lowerButton: {
-    marginTop: '47vh'
-  },
   [theme.breakpoints.down('xs')]: {
     searchButtonContainer: {
       paddingTop: theme.spacing.unit * 4,
@@ -55,6 +52,12 @@ const styles = theme => ({
     link: {
       color: theme.palette.common.white,
       textDecoration: 'underline'
+    }
+  },
+  [theme.breakpoints.down('xl')]: {
+    lowerButton: {
+      marginTop: theme.spacing.unit * 53,
+      marginBottom: theme.spacing.unit * 3
     }
   }
 });

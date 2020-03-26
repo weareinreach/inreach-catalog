@@ -106,11 +106,13 @@ const styles = theme => ({
       color: theme.palette.common.white
     }
   },
+  [theme.breakpoints.down('xl')]: {
+    lowerButton: {
+      marginTop: theme.spacing.unit * 53
+    }
+  },
   backButton: {
     paddingBottom: '0.83em'
-  },
-  lowerButton: {
-    marginTop: '47vh'
   }
 });
 
