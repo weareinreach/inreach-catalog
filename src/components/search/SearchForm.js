@@ -66,7 +66,7 @@ class SearchForm extends React.Component {
     (this.state = {
       moveButton: false
     }),
-      (this.onMoveButton = this.onMoveSearchButton.bind(this));
+      (this.onMoveSearchButton = this.onMoveSearchButton.bind(this));
   }
 
   onMoveSearchButton(newPosition) {
@@ -126,7 +126,7 @@ class SearchForm extends React.Component {
         <SearchBar
           {...this.props}
           classes={null}
-          moveSearchButton={this.onMoveButton}
+          moveSearchButton={this.onMoveSearchButton}
         />
         <Grid container spacing={0} className={searchButtonContainer}>
           {/*<Grid item xs={12} className={formRow}>
