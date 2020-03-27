@@ -4,9 +4,6 @@ import classNames from 'classnames';
 
 import Fa from 'react-fontawesome';
 import Button from 'material-ui/Button';
-import Close from 'material-ui-icons/Close';
-import IconButton from 'material-ui/IconButton';
-import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -18,7 +15,6 @@ import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import {bodyLink} from '../../theme';
 
 import ResourceListItem from '../resource/ResourceListItem';
-import ListNewFormContainer from './ListNewFormContainer';
 
 const styles = theme => ({
   bodyLink: bodyLink(theme),

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 
-import {withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import {withGoogleMap, GoogleMap, InfoWindow} from 'react-google-maps';
 
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
@@ -30,7 +29,7 @@ class AsylumConnectMap extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    /*if(typeof nextProps.mapProps.center == "undefined" 
+    /*if(typeof nextProps.mapProps.center === "undefined"
         && nextProps.resources.length) {
       this.updateBounds(nextProps.resources);
     }*/
@@ -39,14 +38,14 @@ class AsylumConnectMap extends React.Component {
   onMapMounted(ref) {
     this.map = ref;
 
-    /*google.maps.event.addListener(ref, 'zoom_changed', function() {
-      let referencePoint = new google.maps.LatLng(lat, lng);
+    /*window.google.maps.event.addListener(ref, 'zoom_changed', function() {
+      let referencePoint = new window.google.maps.LatLng(lat, lng);
       let nearestInfographic = false;
       infographics.some((infographic, index) => {
-        if(google.maps.geometry.spherical
+        if(window.google.maps.geometry.spherical
             .computeDistanceBetween(
-              referencePoint, 
-              new google.maps.LatLng(infographic.center.lat, infographic.center.lng)
+              referencePoint,
+              new window.google.maps.LatLng(infographic.center.lat, infographic.center.lng)
             ) <= milesToMeters(infographic.distance)
         ) {
           nearestInfographic = infographic;
@@ -58,8 +57,11 @@ class AsylumConnectMap extends React.Component {
 
   updateBounds(resources) {
     let self = this;
-    const bounds = new google.maps.LatLngBounds();
-    if (typeof this.props.searchCenter == 'object' && this.props.searchCenter) {
+    const bounds = new window.google.maps.LatLngBounds();
+    if (
+      typeof this.props.searchCenter === 'object' &&
+      this.props.searchCenter
+    ) {
       bounds.extend(this.props.searchCenter);
       bounds.extend({
         lat: this.props.searchCenter.lat - 0.1,
@@ -78,20 +80,20 @@ class AsylumConnectMap extends React.Component {
         if (!location.lat || (!location.lng && !location.long)) return null;
         //exclude from bounds calculations the locations more than 50 miles away
         if (
-          google &&
-          google.maps &&
-          google.maps.geometry &&
-          google.maps.geometry.spherical &&
-          google.maps.geometry.spherical.computeDistanceBetween &&
+          window.google &&
+          window.google.maps &&
+          window.google.maps.geometry &&
+          window.google.maps.geometry.spherical &&
+          window.google.maps.geometry.spherical.computeDistanceBetween &&
           self.props.searchCenter &&
           self.props.mapMaxDistance &&
           !isNaN(self.props.mapMaxDistance) &&
-          google.maps.geometry.spherical.computeDistanceBetween(
-            new google.maps.LatLng(
+          window.google.maps.geometry.spherical.computeDistanceBetween(
+            new window.google.maps.LatLng(
               self.props.searchCenter.lat,
               self.props.searchCenter.lng
             ),
-            new google.maps.LatLng(
+            new window.google.maps.LatLng(
               location.lat,
               location.long ? location.long : location.lng
             )
@@ -222,6 +224,7 @@ class AsylumConnectMap extends React.Component {
                                 (location.zip_code ? location.zip_code : '')
                               }
                               target="_blank"
+                              rel="noopener noreferrer"
                               className={classes.link}
                               onClick={ev => {
                                 ev.stopPropagation();

@@ -1,5 +1,4 @@
 import React from 'react';
-import {withRouter} from 'react-router';
 
 import locale, {fetchLocale, validLocales} from '../helpers/locale';
 
@@ -11,8 +10,6 @@ export default function withLocale(WrappedComponent) {
         locale: locale.getLocale(),
         content: fetchLocale(locale.getLocale())
       };
-
-      //this.content = fetchLocale(locale.getLocale());
 
       this.t = this.t.bind(this);
       this.changeLocale = this.changeLocale.bind(this);

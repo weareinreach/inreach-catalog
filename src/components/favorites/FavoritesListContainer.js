@@ -11,7 +11,6 @@ import {
 import OneDegreeResourceQuery from '../../helpers/oneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
-import ListNewFormContainer from './ListNewFormContainer';
 import FavoritesList from './FavoritesList';
 import FavoritesListMobile from './FavoritesListMobile';
 
@@ -72,7 +71,9 @@ class FavoritesListContainer extends React.Component {
 
   fetchListResources(listId) {
     const {user, session} = this.props;
-    const list = this.props.lists.find(collection => collection.slug == listId);
+    const list = this.props.lists.find(
+      collection => collection.slug === listId
+    );
     if (list && list.fetchable_list_items.length) {
       this.fetchResources(list.fetchable_list_items);
     } else if (list && !list.fetchable_list_items.length) {
@@ -182,7 +183,7 @@ class FavoritesListContainer extends React.Component {
 
   render() {
     const currentList = this.props.lists.find(
-      list => list.slug == this.props.match.params.listId
+      list => list.slug === this.props.match.params.listId
     );
     console.log(this.state.publicList);
     const isMobile = this.props.width < breakpoints['sm'];

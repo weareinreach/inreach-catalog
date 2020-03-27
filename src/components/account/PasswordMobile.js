@@ -8,9 +8,6 @@ import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import PasswordFormContainer from './PasswordFormContainer';
 import {DialogTitle} from '../dialog';
 
-import {breakpoints} from '../../theme';
-import theWidth from '../theWidth';
-
 const styles = theme => ({
   root: {
     flexGrow: 1,

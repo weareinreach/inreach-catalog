@@ -3,8 +3,6 @@ import React from 'react';
 import {withStyles} from 'material-ui/styles';
 import {ListItem} from 'material-ui/List';
 
-import {dropShadow} from '../theme';
-
 const styles = theme => ({
   rootClass: {
     '&:hover': {
@@ -15,10 +13,6 @@ const styles = theme => ({
 });
 
 class AsylumConnectDropdownListItem extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     let {rootClass} = this.props.classes;
     let properties = Object.assign({}, this.props);

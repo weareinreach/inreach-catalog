@@ -236,29 +236,34 @@ const milesToMeters = function(miles) {
 
 //fetch nearest infographic
 //  nearest = defaultInfographic;
-//  confirm google, google.maps, ... exists
+//  confirm google, window.google.maps, ... exists
 //
 export default {
   fetchNearestInfographic: function(lat, lng) {
     if (
       typeof google === 'undefined' ||
-      !google.maps ||
-      !google.maps.geometry
+      !window.google.maps ||
+      !window.google.maps.geometry
     ) {
       return false;
     }
-    let referencePoint = new google.maps.LatLng(lat, lng);
+    let referencePoint = new window.google.maps.LatLng(lat, lng);
     let nearestInfographic = false;
     infographics.some((infographic, index) => {
       if (
-        google.maps.geometry.spherical.computeDistanceBetween(
+        window.google.maps.geometry.spherical.computeDistanceBetween(
           referencePoint,
-          new google.maps.LatLng(infographic.center.lat, infographic.center.lng)
+          new window.google.maps.LatLng(
+            infographic.center.lat,
+            infographic.center.lng
+          )
         ) <= milesToMeters(infographic.distance)
       ) {
         nearestInfographic = infographic;
         return true;
       }
+
+      return false;
     });
     return nearestInfographic;
   },

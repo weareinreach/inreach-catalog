@@ -136,8 +136,8 @@ class OneDegreeResourceQuery {
 
     /*if(resources.length) {
       return resources.filter((resource) => (
-        typeof resource.properties == 'undefined'
-        || typeof resource.properties['at-capacity'] == 'undefined'
+        typeof resource.properties === 'undefined'
+        || typeof resource.properties['at-capacity'] === 'undefined'
         || resource.properties['at-capacity'] !== 'true'
       ));
     } else {

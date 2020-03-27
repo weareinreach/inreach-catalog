@@ -25,7 +25,12 @@ const styles = theme => ({
 
 const SubAnnouncement = ({classes, handleRequestOpen, url}) => (
   <Typography variant="body2">
-    <a href={url} target="_blank" className={classes.subAnnouncementText}>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={classes.subAnnouncementText}
+    >
       Download our free mobile app&nbsp;&nbsp;
       <KeyboardArrowRightIcon className={classes.subAnnouncementTextArrow} />
     </a>

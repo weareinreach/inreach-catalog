@@ -3,13 +3,10 @@ import React from 'react';
 import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
-import ArrowBackIcon from 'material-ui-icons/ArrowBack';
 
 import SearchForm from './SearchForm';
 import LocaleForm from '../locale/LocaleForm';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
-import AsylumConnectInfographicButton from '../AsylumConnectInfographicButton';
 import withWidth from '../withWidth';
 import locale from '../../helpers/locale';
 import {breakpoints} from '../../theme';
@@ -153,7 +150,7 @@ class SearchFormContainer extends React.Component {
         this.props.history.push(redirect);
       }
     } else if (hasLanguageChanged) {
-      location.reload();
+      window.location.reload();
     }
   }
 
@@ -170,11 +167,8 @@ class SearchFormContainer extends React.Component {
       logoFitHeight,
       title,
       subheading,
-      backButton,
-      backButtonLabel,
       changeCountryButton,
       containerSearchForm,
-      infographicSpacing,
       subAnnouncement
     } = this.props.classes; //console.log(this.props.width, breakpoints['sm']);
     const isMobile = this.props.width < breakpoints['sm'];
@@ -202,7 +196,7 @@ class SearchFormContainer extends React.Component {
             </Grid>
           </div>
         ) : null}
-        {/*isMobile && this.state.locale ? 
+        {/*isMobile && this.state.locale ?
           <Button onClick={this.handleLocaleReset} classes={{root: backButton, label: backButtonLabel }}>
             <ArrowBackIcon />&nbsp;Choose a different country
           </Button>
@@ -231,7 +225,11 @@ class SearchFormContainer extends React.Component {
               <Grid item xs={12}>
                 <a href="https://www.asylumconnect.org">
                   <IconButton className={iconButton}>
-                    <img src={this.props.logo} className={logoFitHeight} />
+                    <img
+                      src={this.props.logo}
+                      alt="asylumconnect logo"
+                      className={logoFitHeight}
+                    />
                   </IconButton>
                 </a>
               </Grid>

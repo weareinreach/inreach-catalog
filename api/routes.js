@@ -12,7 +12,7 @@ module.exports = function(app) {
         url.parse(req.originalUrl || req.url).pathname.toLowerCase();
       let cachedContent = memCache.get(key);
       if (
-        cachedContent == undefined ||
+        cachedContent === undefined ||
         (req.query && req.query.cachebust === 'true')
       ) {
         res.sendResponse = res.send;

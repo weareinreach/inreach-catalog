@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStylesProps from '../withStylesProps';
-import Typography from 'material-ui/Typography';
-import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
+import List from 'material-ui/List';
 
 import {searchInput} from '../../theme';
 import AsylumConnectSelector from '../AsylumConnectSelector';
@@ -54,7 +53,7 @@ class Dropdown extends React.Component {
     this.setState({
       selected: item
     });
-    if (typeof this.props.onSelect == 'function') {
+    if (typeof this.props.onSelect === 'function') {
       this.props.onSelect(item);
     }
   }

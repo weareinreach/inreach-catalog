@@ -58,7 +58,6 @@ class AccountPage extends React.Component {
   }
 
   componentDidMount() {
-    const {handleMessageNew, handleLogOut, session} = this.props;
     if (!this.props.session) {
       this.handleNullSession();
     } else {
@@ -79,7 +78,6 @@ class AccountPage extends React.Component {
       handleMessageNew,
       handleLogOut,
       handleUnconfirmSession,
-      history,
       session
     } = this.props;
     fetchUser(session)
@@ -123,8 +121,7 @@ class AccountPage extends React.Component {
       handleMessageNew,
       handleRequestOpen,
       locale,
-      session,
-      sessionConfirmed
+      session
     } = this.props;
     const {isAuthenticated, user, value} = this.state;
     const isMobile = this.props.width < breakpoints['sm'];

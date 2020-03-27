@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
 import AccountNav from '../AccountNav';
-import RedHeartIcon from '../icons/RedHeartIcon';
 import FavoritesLink from '../FavoritesLink';
 
 import {withStyles} from 'material-ui/styles';

@@ -5,7 +5,6 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
-import config from '../../config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 const styles = theme => ({

@@ -121,7 +121,7 @@ const Badge = ({
 
   const isMobile = window.innerWidth < breakpoints['sm'];
 
-  if (isMobile && (typeof useIcon == 'undefined' || useIcon == false)) {
+  if (isMobile && (typeof useIcon === 'undefined' || useIcon === false)) {
     return (
       <div className={classes.flair}>
         {mobileLabel ? mobileLabel : typeMapping[type].label}

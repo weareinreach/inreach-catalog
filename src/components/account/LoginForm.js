@@ -6,7 +6,6 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 import {breakpoints} from '../../theme';
 
-import config from '../../config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 const styles = theme => ({
@@ -61,11 +60,19 @@ const LoginForm = ({
     />
     <Typography variant="body1" className={classes.paddingVertical}>
       By clicking "Log In," you agree to AsylumConnect's{` `}
-      <a href="https://asylumconnect.org/privacy" target="_blank">
+      <a
+        href="https://asylumconnect.org/privacy"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         Privacy Policy
       </a>
       {` `}and{` `}
-      <a href="https://asylumconnect.org/terms-of-use" target="_blank">
+      <a
+        href="https://asylumconnect.org/terms-of-use"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         Terms of&nbsp;Use
       </a>
       .

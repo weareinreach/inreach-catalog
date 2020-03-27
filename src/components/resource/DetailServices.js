@@ -9,10 +9,6 @@ import {isACOpportunity} from '../../helpers/opportunities';
 import resourceTypes from '../../helpers/resourceTypes';
 import ACBadge from '../Badge';
 
-function groupedServices(list) {
-  let newList;
-}
-
 const Services = props => {
   var lastBadge = false;
   return (

@@ -4,7 +4,6 @@ import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
 // Define a custom style for button
@@ -92,7 +91,7 @@ function AsylumConnectButton(props) {
       type="submit"
       classes={{
         disabled:
-          variant == 'secondary'
+          variant === 'secondary'
             ? classes.disabledSecondary
             : classes.disabledPrimary
       }}

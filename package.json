@@ -110,7 +110,7 @@
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
-      "react/prop-types": "warn"
+      "react/prop-types": "off"
     }
   },
   "husky": {

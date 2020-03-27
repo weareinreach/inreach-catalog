@@ -1,22 +1,9 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
-} from 'react-router-dom';
 
 import Fa from 'react-fontawesome';
 
 import {withStyles} from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import {FormControlLabel} from 'material-ui/Form';
-import Checkbox from 'material-ui/Checkbox';
-import Snackbar from 'material-ui/Snackbar';
-import Slide from 'material-ui/transitions/Slide';
-
-import {Link} from 'react-router-dom';
 
 import AsylumConnectInfographicButton from '../AsylumConnectInfographicButton';
 import AsylumConnectButton from '../AsylumConnectButton';
@@ -66,14 +53,14 @@ class SearchForm extends React.Component {
   constructor() {
     super();
 
-    (this.state = {
+    this.state = {
       moveButton: false
-    }),
-      (this.onMoveSearchButton = this.onMoveSearchButton.bind(this));
+    };
+    this.onMoveSearchButton = this.onMoveSearchButton.bind(this);
   }
 
   onMoveSearchButton(newPosition) {
-    if (newPosition != this.state.moveButton) {
+    if (newPosition !== this.state.moveButton) {
       this.setState({
         moveButton: !this.state.moveButton
       });
@@ -85,14 +72,8 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    const {locale} = this.props;
     const {
-      formRow,
       searchButton,
-      body2,
-      link,
-      callout,
-      underline,
       searchButtonContainer,
       lowerButton
     } = this.props.classes;

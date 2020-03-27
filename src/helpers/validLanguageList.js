@@ -116,7 +116,7 @@ var ValidLanguageList = {
 
 function getValidLanguagueList() {
   for (var validLang of validLangs) {
-    langs.map(function(lang) {
+    langs.forEach(function(lang) {
       if (lang['name'] === validLang['name']) {
         validLang['1'] = lang['1'];
         validLang['local'] = lang['local'];

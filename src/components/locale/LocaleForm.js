@@ -1,31 +1,16 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
-} from 'react-router-dom';
 
 import Language from '../navigation/Language';
-
-import Fa from 'react-fontawesome';
 
 import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import List from 'material-ui/List';
 
-import {Link} from 'react-router-dom';
-
-import AsylumConnectSelector from '../AsylumConnectSelector';
-import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import AsylumConnectButton from '../AsylumConnectButton';
 import withWidth from '../withWidth';
 import locale from '../../helpers/locale';
 import LocaleSelector from './LocaleSelector';
-
-import {breakpoints} from '../../theme';
-import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
+import {searchInput, searchInputMobile} from '../../theme';
 
 const styles = theme => ({
   inputClass: Object.assign(searchInput(theme), {
@@ -146,21 +131,14 @@ class LocaleForm extends React.Component {
 
   render() {
     const {
-      formRow,
       labelRow,
       searchButton,
-      body2,
-      link,
-      callout,
-      underline,
       inputClass,
       listContainerClass,
       formContainer
     } = this.props.classes;
-    const variant =
-      /*this.props.width < breakpoints['sm'] ?  "secondary" :*/ 'primary';
+    const variant = 'primary';
     const localeLabel = 'Select country';
-    const languageLabel = 'Select language';
     return (
       <Grid
         container

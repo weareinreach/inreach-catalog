@@ -1,10 +1,8 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import langs from 'langs';
-import url from 'url';
 import ValidLanguageList from '../../helpers/validLanguageList';
 import language from '../../helpers/language';
-import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
+import List, {ListSubheader} from 'material-ui/List';
 import {withStyles} from 'material-ui/styles';
 import classNames from 'classnames';
 import Typography from 'material-ui/Typography';
@@ -12,7 +10,6 @@ import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import AsylumConnectSelector from '../AsylumConnectSelector';
 
-import ChevronIcon from '../icons/ChevronIcon';
 import withWidth from '../withWidth';
 import {breakpoints} from '../../theme';
 import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
@@ -185,6 +182,7 @@ class Language extends React.Component {
             className={this.props.classes.gooLogoLink}
             href="https://translate.google.com"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <img
               src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png"
@@ -207,7 +205,7 @@ class Language extends React.Component {
   }
 
   handleSelect(langCode, langName) {
-    if (typeof this.props.onSelect == 'function') {
+    if (typeof this.props.onSelect === 'function') {
       this.props.onSelect(langCode, langName);
     }
   }
@@ -229,12 +227,12 @@ class Language extends React.Component {
     //window.localStorage.setItem('lang', langName);
     this.handleSelect(langCode, langName);
     if (this.props.autoReload) {
-      location.reload();
+      window.location.reload();
     }
   }
 
   handleReload() {
-    location.reload();
+    window.location.reload();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -280,11 +278,10 @@ class Language extends React.Component {
       handleRequestOpen,
       useMobile,
       inputClass,
-      title,
       label,
       triggerReload
     } = this.props;
-    const {open, selectedLang, langsList} = this.state;
+    const {selectedLang} = this.state;
     const isMobile = this.props.width < breakpoints['sm'] && useMobile;
     if (triggerReload === true) {
       this.handleReload();

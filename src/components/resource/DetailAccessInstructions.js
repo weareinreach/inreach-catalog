@@ -59,8 +59,8 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
               switch (item.access_type) {
                 case 'phone':
                   let phone =
-                    item.access_value.replace(/[^0-9\(\)\-\.\s]/g, '').length ==
-                    item.access_value.length
+                    item.access_value.replace(/[^0-9\(\)\-\.\s]/g, '')
+                      .length === item.access_value.length
                       ? {digits: item.access_value}
                       : item.access_value;
                   if (phone && (phone.digits || phone.length > 0)) {
@@ -98,7 +98,6 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                   } else {
                     return null;
                   }
-                  break;
                 case 'email':
                   return (
                     <Typography
@@ -142,7 +141,6 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                       <Fa name="envelope" className={classes.mobileIcon} />
                     </Typography>
                   );
-                  break;
                 case 'location':
                   if (item.locations && item.locations.length) {
                     return (
@@ -203,7 +201,6 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                   } else {
                     return null;
                   }
-                  break;
                 case 'link':
                   return (
                     <Typography
@@ -219,6 +216,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                       <a
                         href={item.access_value}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className={classes.bodyLink + ' ' + classes.listLink}
                       >
                         {item.access_value}
@@ -232,7 +230,6 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                       <Fa name="link" className={classes.mobileIcon} />
                     </Typography>
                   );
-                  break;
                 case 'file':
                   break;
                 case 'other':
@@ -249,8 +246,9 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                       item.instructions
                     </Typography>
                   );
-                  break;
               }
+
+              return null;
             })
           : null}
       </Grid>

@@ -1,21 +1,13 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
-import update from 'react-addons-update';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
-import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Input, {InputLabel} from 'material-ui/Input';
 import {FormControl} from 'material-ui/Form';
 import {searchInput, searchInputMobile} from '../../theme';
-
-import Collapse from 'material-ui/transitions/Collapse';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
-
-import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import SuggestInfoNonEngServices from './SuggestInfoNonEngServices';
 
@@ -169,7 +161,7 @@ class SuggestInfo extends React.Component {
   }
   handleServiceDelete(service) {
     const index = this.props.nonEngServices.findIndex(s => {
-      return s == service;
+      return s === service;
     });
     if (index >= 0) {
       this.props.handleSelectNonEngServices('remove', service, index);
@@ -183,11 +175,9 @@ class SuggestInfo extends React.Component {
       description,
       address,
       emails,
-      notes,
       digits,
       nonEngServices,
       t,
-      locale,
       country
     } = this.props;
 
@@ -201,7 +191,7 @@ class SuggestInfo extends React.Component {
     };
     const options = {
       componentRestrictions: {
-        country: typeof country == 'string' ? country.toLowerCase() : 'us'
+        country: typeof country === 'string' ? country.toLowerCase() : 'us'
       }
     };
     const cssClasses = {
@@ -263,43 +253,43 @@ class SuggestInfo extends React.Component {
             </div>
             <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
               <div>
-                <AsylumConnectCheckbox 
-                  label='Infants (0-3)' 
+                <AsylumConnectCheckbox
+                  label='Infants (0-3)'
                   value='infants'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Kids (4-12)' 
+                <AsylumConnectCheckbox
+                  label='Kids (4-12)'
                   value='kids'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Infants (0-3)' 
+                <AsylumConnectCheckbox
+                  label='Infants (0-3)'
                   value='infants'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Teens (13-17)' 
+                <AsylumConnectCheckbox
+                  label='Teens (13-17)'
                   value='teens'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Young Adults (18-24)' 
+                <AsylumConnectCheckbox
+                  label='Young Adults (18-24)'
                   value='youth'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Adults (25-64)' 
+                <AsylumConnectCheckbox
+                  label='Adults (25-64)'
                   value='adult'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Seniors (65+)' 
+                <AsylumConnectCheckbox
+                  label='Seniors (65+)'
                   value='senior'
                   onChange={(ref)=>{return ref}}
                   checked={false} />
-                <AsylumConnectCheckbox 
-                  label='All Ages' 
+                <AsylumConnectCheckbox
+                  label='All Ages'
                   value='all'
                   onChange={(ref)=>{return ref}}
                   checked={false} />

@@ -2,7 +2,6 @@ import React from 'react';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Button from 'material-ui/Button';
 
 // Define a custom style for button
@@ -20,7 +19,7 @@ const styles = theme => ({
 
 // Custom Button component with variant property
 function ActionButton(props) {
-  const {children, classes, className, variant, onClick} = props;
+  const {children, classes, onClick} = props;
 
   return (
     <Button className={classes.button} onClick={onClick}>

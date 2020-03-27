@@ -1,20 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from 'material-ui/Dialog';
-import Button from 'material-ui/Button';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-  Link
-} from 'react-router-dom';
+import {Route, Redirect, Switch} from 'react-router-dom';
 
 import {withStyles} from 'material-ui/styles';
 import classNames from 'classnames';
@@ -26,14 +13,13 @@ import Announcement from './Announcement';
 import {AsylumConnectDialog} from './dialog';
 import Header from './Header';
 import Footer from './Footer';
-import {AccountMobile, LoginDialog, PasswordMobile} from './account';
-import {DisclaimerDialog, PrivacyDialog, PrivacyMobile} from './privacy';
+import {AccountMobile, PasswordMobile} from './account';
+import {PrivacyMobile} from './privacy';
 import PrivacyNotice from './privacy/PrivacyNotice';
 import MoreMobile from './navigation/MoreMobile';
 import ShareMobile from './share/ShareMobile';
 import ListNewMobile from './favorites/ListNewMobile';
 import Language from './navigation/Language';
-import AsylumConnectButton from './AsylumConnectButton';
 import withSession from './withSession';
 import withWidth from './withWidth';
 import withLocale from './withLocale';

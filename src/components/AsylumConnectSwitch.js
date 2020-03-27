@@ -6,13 +6,6 @@ import classNames from 'classnames';
 import {FormControlLabel} from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 
-const relativeSize = 1;
-
-const defaultIconSize = {
-  height: relativeSize + 'rem',
-  width: relativeSize + 'rem'
-};
-
 const styles = theme => ({
   root: {
     marginLeft: '0',
@@ -53,7 +46,6 @@ const AsylumConnectSwitch = props => {
     props.additionalClasses ? props.additionalClasses.checkboxBar : null
   );
 
-  const iconSize = Object.assign(defaultIconSize, props.iconSize);
   const labelClass = classNames(
     classes.label,
     props.additionalClasses ? props.additionalClasses.label : null

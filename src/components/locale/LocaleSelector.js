@@ -7,7 +7,7 @@ import locale from '../../helpers/locale';
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 
-import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
+import {searchInput, searchInputMobile} from '../../theme';
 
 const styles = theme => ({
   inputClass: Object.assign(searchInput(theme), {
@@ -68,7 +68,7 @@ class LocaleSelector extends React.Component {
   }
 
   componentWillMount() {
-    if (this.state.selectedLocale == false) {
+    if (this.state.selectedLocale === false) {
       this.setState({
         selectedLocale: locale.getLocale(),
         selectedLocaleName: this.getLocaleNameFromCode(locale.getLocale())
@@ -77,7 +77,7 @@ class LocaleSelector extends React.Component {
   }
 
   render() {
-    const {handleSelectLocale, localeLabel} = this.props;
+    const {localeLabel} = this.props;
     const {inputClass} = this.props.classes;
 
     return (

@@ -48,7 +48,7 @@ const NavDesktop = ({
     <div className={classes.root}>
       <Link to="/">
         <IconButton className={classes.IconButton}>
-          <img src={logo} className={classes.LogoFitHeight} />
+          <img src={logo} alt="logo button" className={classes.LogoFitHeight} />
         </IconButton>
       </Link>
       <a className="hide--on-screen" href="#">

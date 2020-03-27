@@ -1,11 +1,7 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask';
-
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-
 import TextField from 'material-ui/TextField';
-
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';

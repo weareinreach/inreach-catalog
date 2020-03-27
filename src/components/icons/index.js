@@ -1,3 +1,31 @@
+import React from 'react';
+import AccountIcon from './AccountIcon';
+import AirplaneIcon from './AirplaneIcon';
+import CollapseIcon from './CollapseIcon';
+import CommunitySupportIcon from './CommunitySupportIcon';
+import ComputersIcon from './ComputersIcon';
+import EducationEmploymentIcon from './EducationEmploymentIcon';
+import FavoritesIcon from './FavoritesIcon';
+import FoodIcon from './FoodIcon';
+import FiltersIcon from './FiltersIcon';
+import FlagIcon from './FlagIcon';
+import HousingIcon from './HousingIcon';
+import ClothingIcon from './ClothingIcon';
+import LanguageIcon from './LanguageIcon';
+import LegalIcon from './LegalIcon';
+import MailIcon from './MailIcon';
+import MedicalIcon from './MedicalIcon';
+import MentalHealthIcon from './MentalHealthIcon';
+import MiscIcon from './MiscIcon';
+import PinpointIcon from './PinpointIcon';
+import PrivacyIcon from './PrivacyIcon';
+import RecommendedStarIcon from './RecommendedStarIcon';
+import SearchIcon from './SearchIcon';
+import SpeechBubblesIcon from './SpeechBubblesIcon';
+import SportsEntertainmentIcon from './SportsEntertainmentIcon';
+import TransportationIcon from './TransportationIcon';
+import TravelIcon from './TravelIcon';
+
 export {default as AccountIcon} from './AccountIcon';
 export {default as AirplaneIcon} from './AirplaneIcon';
 export {default as CollapseIcon} from './CollapseIcon';
@@ -27,46 +55,8 @@ export {default as SportsEntertainmentIcon} from './SportsEntertainmentIcon';
 export {default as TransportationIcon} from './TransportationIcon';
 export {default as TravelIcon} from './TravelIcon';
 
-import React from 'react';
-import AccountIcon from './AccountIcon';
-import AirplaneIcon from './AirplaneIcon';
-import CollapseIcon from './CollapseIcon';
-import CommunitySupportIcon from './CommunitySupportIcon';
-import ComputersIcon from './ComputersIcon';
-import EducationEmploymentIcon from './EducationEmploymentIcon';
-import FavoritesIcon from './FavoritesIcon';
-import FoodIcon from './FoodIcon';
-import FiltersIcon from './FiltersIcon';
-import FlagIcon from './FlagIcon';
-import HousingIcon from './HousingIcon';
-import ClothingIcon from './ClothingIcon';
-import LanguageIcon from './LanguageIcon';
-import LegalIcon from './LegalIcon';
-import MailIcon from './MailIcon';
-import MedicalIcon from './MedicalIcon';
-import MentalHealthIcon from './MentalHealthIcon';
-import MiscIcon from './MiscIcon';
-import PinpointIcon from './PinpointIcon';
-import PrivacyIcon from './PrivacyIcon';
-import RecommendedStarIcon from './RecommendedStarIcon';
-import RedHeartIcon from './RedHeartIcon';
-import SearchIcon from './SearchIcon';
-import ShareIcon from './ShareIcon';
-import SpeechBubblesIcon from './SpeechBubblesIcon';
-import SportsEntertainmentIcon from './SportsEntertainmentIcon';
-import TransportationIcon from './TransportationIcon';
-import TravelIcon from './TravelIcon';
-
 const StandaloneIcon = function(props) {
-  const {
-    name,
-    height,
-    width,
-    fillColor,
-    strokeColor,
-    className,
-    expanded
-  } = props;
+  const {height, width, fillColor, strokeColor, className, expanded} = props;
   const typeMapping = {
     account: <AccountIcon />,
     airplane: (

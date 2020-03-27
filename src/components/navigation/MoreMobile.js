@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Fa from 'react-fontawesome';
 import {withStyles} from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
 
@@ -34,13 +33,14 @@ const LinkList = ({classes, list, onLinkClick}) => {
   return (
     <div>
       {list.map((item, index) => {
-        if (item.url.indexOf('http') == 0) {
+        if (item.url.indexOf('http') === 0) {
           return (
             <a
               key={index}
               className={classes.linkStyles}
               href={item.url}
               target="_blank"
+              rel="noopener noreferrer"
             >
               {item.label} <Fa name="link" />
             </a>

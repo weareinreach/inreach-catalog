@@ -5,7 +5,9 @@
 body {
   margin: 0;
   top: 0px !important;
-  a { text-decoration: none; }
+  a {
+    text-decoration: none;
+  }
   @media screen and (max-width: 600px) {
     overflow: hidden;
   }
@@ -25,10 +27,10 @@ body {
     min-width: 88px;
   }
 }
-a{
-  color: #5073B3;
+a {
+  color: #5073b3;
   &:hover {
-    color: #2D4A80;
+    color: #2d4a80;
   }
 }
 
@@ -49,26 +51,26 @@ a{
   display: none !important;
 }
 
-[data-placement="top"] .badge-tooltipTop{
+[data-placement='top'] .badge-tooltipTop {
   top: 15px;
   position: relative;
 }
 
-[data-placement="bottom"] .badge-tooltipTop{
+[data-placement='bottom'] .badge-tooltipTop {
   top: -10px;
   position: relative;
-} 
+}
 
-.nav-bottom-selectedLabel{
+.nav-bottom-selectedLabel {
   color: #f26f6f;
 }
 
-input[class*="inputSingleline"] {
-    height: 1.2em;
+input[class*='inputSingleline'] {
+  height: 1.2em;
 }
 
-@media screen and (max-width: 400px){
-  .nav-bottom-label{
+@media screen and (max-width: 400px) {
+  .nav-bottom-label {
     font-size: 10px !important;
   }
 }
@@ -84,19 +86,18 @@ input[class*="inputSingleline"] {
   margin-bottom: 0;
   position: fixed;
   -webkit-backface-visibility: hidden;
-          -moz-backface-visibility: hidden;
-       backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
-.sticky.sticky-fixed.is-sticky:not([style*="margin-top"]) {
+.sticky.sticky-fixed.is-sticky:not([style*='margin-top']) {
   margin-top: 0 !important;
 }
-.sticky.sticky-fixed.is-sticky:not([style*="margin-bottom"]) {
+.sticky.sticky-fixed.is-sticky:not([style*='margin-bottom']) {
   margin-bottom: 0 !important;
 }
 
-
-.sticky.sticky-fixed.is-absolute{
+.sticky.sticky-fixed.is-absolute {
   position: absolute;
 }
 

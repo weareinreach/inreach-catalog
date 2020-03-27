@@ -9,7 +9,6 @@ import Grid from 'material-ui/Grid';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 import {resetPassword} from '../../helpers/odasRequests';
-import {breakpoints} from '../../theme';
 import withWidth from '../withWidth';
 
 const styles = theme => ({
@@ -123,9 +122,8 @@ class ResetPasswordPage extends React.Component {
   }
 
   render() {
-    const {classes, handleLogOut, handleMessageNew, session} = this.props;
+    const {classes} = this.props;
     const {password, confirmPassword, submitted} = this.state;
-    const isMobile = this.props.width < breakpoints['sm'];
     return (
       <Grid
         container

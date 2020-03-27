@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
@@ -14,12 +13,10 @@ import Loading from '../Loading';
 import 'whatwg-fetch';
 import ContentMarkdown from '../ContentMarkdown';
 import {StandaloneIcon} from '../icons';
-import url from 'url';
 import queryString from 'query-string';
 import SubAnnouncement from '../SubAnnouncement';
 import {mobilePadding} from '../../theme';
 import LocaleSelector from '../locale/LocaleSelector';
-import locale from '../../helpers/locale';
 
 const styles = theme => ({
   root: {
@@ -199,7 +196,7 @@ class Static extends React.Component {
   }
 
   handlePageRequest(response) {
-    if (response && response.status == 'success') {
+    if (response && response.status === 'success') {
       this.setState({
         loading: false,
         data: response.data
@@ -229,6 +226,7 @@ class Static extends React.Component {
               <a href="https://www.asylumconnect.org">
                 <IconButton className={classes.iconButton}>
                   <img
+                    alt="asylumconnect logo"
                     src={this.props.logo}
                     className={classes.logoFitHeight}
                   />
@@ -275,7 +273,7 @@ class Static extends React.Component {
                 {this.state.data &&
                 this.state.data.length &&
                 this.state.data[0].heading &&
-                this.state.data[0].heading == 'Intro' ? (
+                this.state.data[0].heading === 'Intro' ? (
                   <div className={classes.header}>
                     <Typography variant="headline" className={classes.headline}>
                       <ContentMarkdown source={this.state.data[0].title} />
@@ -328,7 +326,7 @@ class Static extends React.Component {
               </div>
               <div>
                 {this.state.data.map((section, index) => {
-                  if (section.heading == 'Intro') return null;
+                  if (section.heading === 'Intro') return null;
                   return (
                     <div key={index}>
                       <div
@@ -372,29 +370,5 @@ class Static extends React.Component {
     );
   }
 }
-
-const data = Object.freeze({
-  color: '#E58C52',
-  icon: 'www.google.com',
-  type: 'online support',
-  title: 'Looking for LGBTQ chat rooms and support online?',
-  description:
-    'Sample organization who offer LGBTQ people emotional and psychological support online',
-  resources: [
-    {
-      name: "The Trevor Project's TrevorSpace",
-      link: 'www.TrevorSpace.org',
-      description:
-        'The Trevor Project is the leading U.S. organization providing crisis intervention and suicide prevention services to lesbian, gay, bisezual, transgender, queer and questioning youth.',
-      who: 'LGBTQ young people ages 13 to 24',
-      how:
-        'Note: Please know that visiting TrevorSpace may leave a record on your computer or browser'
-    }
-  ]
-});
-
-// Static.propTypes = {
-
-// };
 
 export default withStyles(styles)(withWidth(Static));

@@ -11,7 +11,6 @@ const withOrganizations = WrappedComponent =>
       this.state = {
         organizations: [],
         isLoadingOrganizations: false,
-        organizations: [],
         organizationSearch: '',
         organizationSelection: null
       };

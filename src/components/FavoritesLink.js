@@ -5,8 +5,6 @@ import {withStyles} from 'material-ui/styles';
 
 import Typography from 'material-ui/Typography';
 
-import RedHeartIcon from './icons/RedHeartIcon';
-
 const styles = theme => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],

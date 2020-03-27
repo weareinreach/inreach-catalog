@@ -1,8 +1,5 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
-var path = require('path');
-var express = require('express');
-
 var config = {
   entry: ['whatwg-fetch', './src/index.js'],
   output: {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Dialog from 'material-ui/Dialog';
-import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
 import {DisclaimerDialog, PrivacyDialog} from '../privacy';
@@ -42,7 +41,7 @@ const AsylumConnectDialog = ({
   user
 }) => (
   <Dialog
-    open={['none', 'more'].indexOf(dialog) == -1}
+    open={['none', 'more'].indexOf(dialog) === -1}
     onRequestClose={handleRequestClose}
   >
     <div className={classes.dialogBody}>

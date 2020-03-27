@@ -8,7 +8,6 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
-import config from '../../config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 import OrganizationAutocomplete from './OrganizationAutocomplete';
@@ -127,11 +126,19 @@ const SignupForm = ({
         />
         <Typography variant="body1" className={classes.paddingVertical}>
           By clicking "Sign Up," you agree to AsylumConnect's{` `}
-          <a href="https://asylumconnect.org/privacy" target="_blank">
+          <a
+            href="https://asylumconnect.org/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Privacy Policy
           </a>
           {` `}and{` `}
-          <a href="https://asylumconnect.org/terms-of-use" target="_blank">
+          <a
+            href="https://asylumconnect.org/terms-of-use"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Terms of Use
           </a>
           .

@@ -1,9 +1,6 @@
 import React from 'react';
 
 import {withStyles} from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
-import Typography from 'material-ui/Typography';
 
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import SearchFilters from './SearchFilters';
@@ -29,7 +26,6 @@ class SearchFilterSelector extends React.Component {
   render() {
     const {selectInput, filterList, rootClass} = this.props.classes;
     const {onChange, selectedFilters} = this.props;
-    const containerWidth = 'auto';
 
     return (
       <AsylumConnectSelector

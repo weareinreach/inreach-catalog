@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
-import {MenuList, MenuItem} from 'material-ui/Menu';
+import {MenuList} from 'material-ui/Menu';
 import Fa from 'react-fontawesome';
 import withWidth from './withWidth';
 import {withStyles} from 'material-ui/styles';
-import {breakpoints} from '../theme';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 
 import language from '../helpers/language';
@@ -137,9 +136,8 @@ class AsylumConnectInfographicButton extends React.Component {
 
   render() {
     const {classes, type} = this.props;
-    const isMobile = this.props.width < breakpoints['sm'];
     const containerClass =
-      type == 'link'
+      type === 'link'
         ? classes.infographicLinkContainer
         : classes.infographicButtonContainer;
     let list = false;
@@ -150,7 +148,7 @@ class AsylumConnectInfographicButton extends React.Component {
     }
     return (
       <div className={containerClass}>
-        {type == 'button' && (
+        {type === 'button' && (
           <Button
             variant="raised"
             href={this.props.url}
@@ -163,11 +161,12 @@ class AsylumConnectInfographicButton extends React.Component {
             <span>{this.props.text}</span>
           </Button>
         )}
-        {type == 'link' && (
+        {type === 'link' && (
           <a
             href={this.props.url ? this.props.url : '#'}
             className={classes.infographicLink}
             target="_blank"
+            rel="noopener noreferrer"
             onClick={this.handleOnClick}
           >
             <Fa name="download" className={classes.infographicButtonIcon} />
@@ -182,6 +181,7 @@ class AsylumConnectInfographicButton extends React.Component {
                   key={i}
                   href={item.url}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className={classes.infographicListLink}
                   onClick={this.handleListClick}
                 >

@@ -218,8 +218,6 @@ class Suggestion extends React.Component {
     this.setState({resourceData: updatedResourceData2});
   }
   handleChangeEmail(name, value) {
-    const {resourceData} = this.state;
-
     // Update current list of email
     let emailList = value.split(',');
     if (emailList.length > 1) {
@@ -232,15 +230,13 @@ class Suggestion extends React.Component {
     this.setState({emails: emailList});
   }
   handleSelectAddress(address) {
-    const {resourceData} = this.state;
-    let updatedResourceData, updatedAddress;
     let updatedLocation = {};
     this.setState({address});
 
     geocodeByAddress(address)
       .then(results => {
         if (results.length && results[0].address_components) {
-          results[0].address_components.map(piece => {
+          results[0].address_components.forEach(piece => {
             if (
               piece.types &&
               piece.types.indexOf('administrative_area_level_1') >= 0
@@ -280,7 +276,7 @@ class Suggestion extends React.Component {
       updatedProperties,
       updatedResourceData;
 
-    if (action == 'add') {
+    if (action === 'add') {
       // Add selected service to nonEngServices state
       updatedNonEngServices = update(nonEngServices, {$push: [nonEngService]});
       // Add selected service to request resource Data
@@ -321,7 +317,7 @@ class Suggestion extends React.Component {
     this.setState({selectedDays: updatedSelectedDays});
   }
   handleChangeSchedule(name, value) {
-    const {resourceData, selectedDays} = this.state;
+    const {resourceData} = this.state;
     let updatedResourceData = update(resourceData, {
       locations: {0: {schedule: {$merge: {[name]: value}}}}
     });
@@ -347,7 +343,7 @@ class Suggestion extends React.Component {
       });
     } else {
       let indexResource = resourceData.properties.findIndex(
-        p => Object.keys(p)[0] == value
+        p => Object.keys(p)[0] === value
       );
       if (indexResource >= 0) {
         updatedResourceData = update(resourceData, {
@@ -377,7 +373,7 @@ class Suggestion extends React.Component {
       });
     } else {
       let indexResource = resourceData.properties.findIndex(
-        p => Object.keys(p)[0] == value
+        p => Object.keys(p)[0] === value
       );
       if (indexResource >= 0) {
         updatedResourceData = update(resourceData, {
@@ -415,12 +411,7 @@ class Suggestion extends React.Component {
   }
   handleClick() {
     // Require authentication for submission
-    const {
-      handleMessageNew,
-      handleRequestOpen,
-      handleLogOut,
-      session
-    } = this.props;
+    const {handleMessageNew, handleRequestOpen, session} = this.props;
     if (!session) {
       handleRequestOpen('login');
       handleMessageNew('You need to log in to view your account.');
@@ -431,14 +422,7 @@ class Suggestion extends React.Component {
   }
 
   organizeData() {
-    const {
-      resourceData,
-      selectedDays,
-      features,
-      requirements,
-      tags,
-      location
-    } = this.state;
+    const {resourceData, selectedDays, location} = this.state;
     let updatedResourceData1,
       updatedEmailList,
       updatedResourceData2,
@@ -532,14 +516,7 @@ class Suggestion extends React.Component {
       tags,
       emails
     } = this.state;
-    const {
-      name,
-      website,
-      locations,
-      description,
-      phones,
-      properties
-    } = resourceData;
+    const {name, website, description, phones} = resourceData;
     return (
       <div className={classes.root}>
         <div>

@@ -1,20 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-
-import AsylumConnectButton from './AsylumConnectButton';
-import {
-  AccountIcon,
-  FavoritesIcon,
-  LanguageIcon,
-  PrivacyIcon,
-  SearchIcon
-} from './icons';
 
 const styles = theme => ({
   bgDarkGrey: {backgroundColor: theme.palette.common.darkGrey},
@@ -48,9 +38,6 @@ const Footer = ({classes, locale}) => {
   const {
     bgDarkGrey,
     bgLightGrey,
-    footerLink,
-    paddingBelow,
-    paddingBelowLarge,
     paddingVertical,
     textBlack,
     textCenter,
@@ -59,7 +46,12 @@ const Footer = ({classes, locale}) => {
 
   const ContactLink = ({link, icon}) => (
     <Grid item>
-      <a href={link} target="_blank" className={textBlack}>
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={textBlack}
+      >
         <FontAwesome name={icon} size="lg" />
       </a>
     </Grid>

@@ -2,7 +2,6 @@ import React from 'react';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import TextField from 'material-ui/TextField';
 
 // Define a custom style for button
@@ -34,7 +33,6 @@ const styles = theme => ({
 
 // Custom Button component with variant property
 function AsylumConnectTextField(props) {
-  const {classes, className} = props;
   let properties = Object.assign({}, props);
   console.log(properties);
   properties.classes = null;

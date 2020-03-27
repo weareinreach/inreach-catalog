@@ -1,21 +1,16 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import Menu, {MenuItem} from 'material-ui/Menu';
-import Typography from 'material-ui/Typography';
+import {MenuItem} from 'material-ui/Menu';
 import Modal from 'react-modal';
-import SignupFormContainer from './account/SignupFormContainer';
 
 import AsylumConnectPopUp from './AsylumConnectPopUp';
 import RedHeartIcon from './icons/RedHeartIcon';
 import MediaQuery from 'react-responsive';
 
-import {breakpoints} from '../theme';
-import theWidth from './theWidth';
 import {
   createList,
   createListFavorite,
@@ -111,12 +106,7 @@ class SaveToFavoritesButton extends React.Component {
 
   handleRemoveFavorite(listId) {
     this.handleMenuClose();
-    const {
-      handleListRemoveFavorite,
-      handleMessageNew,
-      resourceId,
-      session
-    } = this.props;
+    const {handleListRemoveFavorite, resourceId, session} = this.props;
     deleteListFavorite(listId, resourceId, session).then(() => {
       handleListRemoveFavorite(listId, resourceId);
     });
@@ -134,32 +124,17 @@ class SaveToFavoritesButton extends React.Component {
 
   render() {
     const {
-      handleCreateList,
-      handleMenuOpen,
       handleMenuClose,
       handleMenuToggle,
       handleRemoveFavorite,
       handleSaveToFavorites
     } = this;
     const {anchorEl, open} = this.state;
-    const {
-      classes,
-      handleListAddFavorite,
-      handleListRemoveFavorite,
-      handleListNew,
-      lists,
-      resourceId,
-      session
-    } = this.props;
+    const {classes, lists, resourceId} = this.props;
     //console.log(resourceId);
     const isFavorite = lists.some(list =>
       list.fetchable_list_items.some(item => item.fetchable_id === resourceId)
     );
-
-    const buttonLabel =
-      theWidth() < breakpoints['sm'] ? '' : 'Save to Favorites';
-
-    const isMobile = theWidth() < breakpoints['sm'];
 
     return (
       <div className={this.props.className}>
@@ -272,7 +247,6 @@ class SaveToFavoritesButton extends React.Component {
                 }}
                 onClick={() => {
                   this.setState({modal: false});
-                  this.state.modal;
                 }}
               >
                 close
@@ -384,7 +358,6 @@ class SaveToFavoritesButton extends React.Component {
                 }}
                 onClick={() => {
                   this.setState({modal: false});
-                  this.state.modal;
                 }}
               >
                 close

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { withRouter } from 'react-router'
+import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
@@ -61,14 +61,14 @@ function renderLoadingContainer(options) {
       marginBottom: '24px',
       left: 0,
       position: 'absolute',
-      right: 0,
+      right: 0
     },
     spinner: {
       display: 'flex',
       height: '40px',
       alignItems: 'center',
-      justifyContent: 'center',
-    },
+      justifyContent: 'center'
+    }
   };
   return (
     <Paper {...containerProps} style={styles.container} square>
@@ -89,17 +89,20 @@ function renderSuggestionsContainer(options) {
       marginBottom: '24px',
       left: 0,
       position: 'absolute',
-      right: 0,
-    },
+      right: 0
+    }
   };
   return (
     <Paper {...containerProps} style={styles.container} square>
       {children}
       {query.length > 0 && (
-        <Link to={"/"+locale+"/suggestions/new"} onMouseDown={(e) => {
-          history.push('/'+locale+'/suggestions/new');
-          handleRequestClose();
-        }}>
+        <Link
+          to={'/' + locale + '/suggestions/new'}
+          onMouseDown={e => {
+            history.push('/' + locale + '/suggestions/new');
+            handleRequestClose();
+          }}
+        >
           <MenuItem component="div">
             <span style={{fontWeight: 200}}>
               Can't find it? Add a new organization here...
@@ -119,26 +122,26 @@ const styles = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    zIndex: 1,
+    zIndex: 1
   },
   suggestionsContainerOpen: {
     position: 'absolute',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 3,
     left: 0,
-    right: 0,
+    right: 0
   },
   suggestion: {
-    display: 'block',
+    display: 'block'
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: 'none',
+    listStyleType: 'none'
   },
   textField: {
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 const OrganizationAutocomplete = ({
@@ -155,14 +158,14 @@ const OrganizationAutocomplete = ({
   locale,
   organizations,
   organizationSearch,
-  organizationSelection,
+  organizationSelection
 }) => (
   <Autosuggest
     theme={{
       container: classes.container,
       suggestionsContainerOpen: classes.suggestionsContainerOpen,
       suggestionsList: classes.suggestionsList,
-      suggestion: classes.suggestion,
+      suggestion: classes.suggestion
     }}
     suggestions={organizations}
     onSuggestionsFetchRequested={handleOrganizationsFetchRequested}
@@ -173,7 +176,10 @@ const OrganizationAutocomplete = ({
         ? renderLoadingContainer
         : !organizationSelection
         ? renderSuggestionsContainer.bind({
-            history, handleMessageNew, handleRequestClose, locale
+            history,
+            handleMessageNew,
+            handleRequestClose,
+            locale
           })
         : () => true
     }
@@ -190,13 +196,13 @@ const OrganizationAutocomplete = ({
           ? organizationSelection.name
           : ''),
       onBlur: handleBlurOrganizations,
-      onChange: handleOrganizationSearchChange,
+      onChange: handleOrganizationSearchChange
     }}
   />
 );
 
 OrganizationAutocomplete.defaultProps = {
-  handleRequestClose: () => true,
+  handleRequestClose: () => true
 };
 
 OrganizationAutocomplete.propTypes = {
@@ -209,7 +215,7 @@ OrganizationAutocomplete.propTypes = {
   handleRequestClose: PropTypes.func,
   isLoadingOrganizations: PropTypes.bool.isRequired,
   organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
-  organizationSearch: PropTypes.string.isRequired,
+  organizationSearch: PropTypes.string.isRequired
 };
 
 export default withRouter(withStyles(styles)(OrganizationAutocomplete));

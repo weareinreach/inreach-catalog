@@ -19,6 +19,8 @@ const Communities = props => (
                   ) {
                     return propertyMap['community'][item.slug];
                   }
+
+                  return '';
                 })
                 .join(', ')}
             </Typography>

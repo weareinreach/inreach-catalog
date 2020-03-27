@@ -50,7 +50,7 @@ const Resource = ({
       </Typography>
     )}
     {link && (
-      <a href={`${link}`} target="_blank">
+      <a href={`${link}`} target="_blank" rel="noopener noreferrer">
         <Typography
           variant="body2"
           className={classes.linkColor + ' ' + classes.marginBottom}

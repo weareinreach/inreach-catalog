@@ -1,10 +1,7 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask';
-
 import GeneralSettingsEmail from './GeneralSettingsEmail';
 import GeneralSettingsOrganization from './GeneralSettingsOrganization';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
-import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
@@ -13,34 +10,7 @@ import {breakpoints} from '../../theme';
 import Typography from 'material-ui/Typography';
 
 import 'whatwg-fetch';
-import config from '../../config.js';
 import {updateUserEmail, updateUserPassword} from '../../helpers/odasRequests';
-
-function TextMaskCustom(props) {
-  return (
-    <MaskedInput
-      {...props}
-      mask={[
-        '(',
-        /[1-9]/,
-        /\d/,
-        /\d/,
-        ')',
-        ' ',
-        /\d/,
-        /\d/,
-        /\d/,
-        '-',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/
-      ]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  );
-}
 
 const styles = theme => ({
   root: {
@@ -143,7 +113,7 @@ class GeneralSettings extends React.Component {
       session,
       user: {affiliation, is_professional: isProfessional, email}
     } = this.props;
-    const {isPasswordUpdated, isEmailUpdated, dialog} = this.state;
+    const {isPasswordUpdated, isEmailUpdated} = this.state;
     return (
       <div className={classes.root}>
         {affiliation && (

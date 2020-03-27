@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {withStyles} from 'material-ui/styles';
-
-import {CollapseIcon} from './icons';
-
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
 
@@ -50,23 +47,8 @@ const styles = theme => ({
 
 class AsylumConnectStaticSection extends React.Component {
   render() {
-    const {
-      content,
-      title,
-      summary,
-      borderTop,
-      borderBottom,
-      className
-    } = this.props;
-    const {
-      iconClass,
-      containerClass,
-      rootClass,
-      summaryRootClass,
-      summaryExpandedClass,
-      summaryContentClass,
-      detailsRootClass
-    } = this.props.classes;
+    const {content, title, borderTop, borderBottom, className} = this.props;
+    const {containerClass, rootClass, summaryRootClass} = this.props.classes;
     const containerClasses =
       (borderTop ? this.props.classes.borderTop : '') +
       ' ' +

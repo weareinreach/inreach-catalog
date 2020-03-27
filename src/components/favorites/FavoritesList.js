@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import Fa from 'react-fontawesome';
-import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
 import Menu, {MenuItem} from 'material-ui/Menu';
@@ -200,7 +197,7 @@ const FavoritesList = ({
             variant="display2">
             {`Share "${list.title}" Favorites List`}
           </Typography>
-          <Grid container 
+          <Grid container
             justify="center"
             spacing={0}
             >

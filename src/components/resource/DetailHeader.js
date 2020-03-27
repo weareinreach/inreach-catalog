@@ -64,7 +64,12 @@ const DetailHeader = ({
             variant="body1"
             className={classes.moreInfo + ' ' + classes.bottomSpacing}
           >
-            <a href={website} target="_blank" className={classes.bodyLink}>
+            <a
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.bodyLink}
+            >
               {isMobile ? url.parse(website).hostname : website}
             </a>
           </Typography>
@@ -75,7 +80,12 @@ const DetailHeader = ({
             variant="body1"
             className={classes.moreInfo + ' ' + classes.bottomSpacing}
           >
-            <a href={website} target="_blank" className={classes.bodyLink}>
+            <a
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.bodyLink}
+            >
               {isMobile ? url.parse(website).hostname : website}
             </a>{' '}
             {phones && phones.length ? '| ' : null}

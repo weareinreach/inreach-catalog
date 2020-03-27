@@ -83,26 +83,7 @@ const styles = theme => ({
   }
 });
 
-/*const resourceFieldsByFormat = {
-  'search': [
-    {fieldName: 'description', label: 'About'}
-  ],
-  'favoritesMobile': [
-    {fieldName: 'description', label: 'About'},
-    {fieldName: 'website', label: 'Website'},
-    {fieldName: 'phones', label: 'Phone'},
-    {fieldName: 'emails', label: 'Email'},
-    {fieldName: 'locations', label: 'Address'},
-    {fieldName: 'schedule', label: 'Hours'},
-    {fieldName: 'additional', label: 'Additional Information'},
-  ],
-}*/
-
 class ResourceListItem extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     const {
       format,
@@ -113,19 +94,16 @@ class ResourceListItem extends React.Component {
       handleListNew,
       handleLogOut,
       handleMessageNew,
-      handleRemoveFavorite,
       handleRequestOpen,
       history,
       isOnFavoritesList,
       isOnPublicList,
       locale,
-      slug,
       lists,
       session,
       user
     } = this.props;
     const {
-      rightSide,
       ratingSpacing,
       contentSpacing,
       lineSpacing,
@@ -152,10 +130,10 @@ class ResourceListItem extends React.Component {
       {fieldName: 'additional', label: 'Additional Information'},*/
     ];
 
-    const labelClass = format == 'search' ? 'hide--on-screen' : null;
+    const labelClass = format === 'search' ? 'hide--on-screen' : null;
     const name = resource.name || resource.title;
     const link =
-      resource.resource_type == 'Organization'
+      resource.resource_type === 'Organization'
         ? '/' + locale + '/resource/' + resource.slug
         : '/' +
           locale +
@@ -164,7 +142,7 @@ class ResourceListItem extends React.Component {
           '/service/' +
           resource.slug;
     const tags =
-      resource.resource_type == 'Organization'
+      resource.resource_type === 'Organization'
         ? resource.opportunity_tags
         : resource.tags.concat(
             resource.categories && resource.categories.length
@@ -181,7 +159,7 @@ class ResourceListItem extends React.Component {
           <Paper
             className={cardPointer}
             onClick={ev => {
-              if (ev.target.closest('.stop-click-propagation') == null) {
+              if (ev.target.closest('.stop-click-propagation') === null) {
                 history.push(link);
               }
             }}
@@ -232,7 +210,7 @@ class ResourceListItem extends React.Component {
                 </Grid>
               </Grid>
               {orgProperties.filter(
-                item => item.toLowerCase().indexOf('service-national') == 0
+                item => item.toLowerCase().indexOf('service-national') === 0
               ).length ? (
                 <Grid item xs={12}>
                   <Typography variant="body1" className={nationalOrg}>
@@ -268,6 +246,8 @@ class ResourceListItem extends React.Component {
                                 />
                               );
                             }
+
+                            return null;
                           });
                         })()
                       : null}
@@ -344,7 +324,7 @@ class ResourceListItem extends React.Component {
                 </Grid>
               </Grid>
               {orgProperties.filter(
-                item => item.toLowerCase().indexOf('service-national') == 0
+                item => item.toLowerCase().indexOf('service-national') === 0
               ).length ? (
                 <Grid item xs={12}>
                   <Typography variant="body1" className={nationalOrg}>
@@ -354,7 +334,7 @@ class ResourceListItem extends React.Component {
                   </Typography>
                 </Grid>
               ) : null}
-              {format == 'search' ? (
+              {format === 'search' ? (
                 <Grid item xs={12}>
                   <Link to={link}>
                     <Typography variant="body1" className={moreInfo}>
@@ -366,7 +346,6 @@ class ResourceListItem extends React.Component {
               <Grid item xs={12} className={contentSpacing}>
                 <Grid container spacing={0}>
                   {displayData.map((item, index) => {
-                    var Content, className;
                     var text = '';
 
                     if (isMobile && !isOnFavoritesList) {
@@ -416,12 +395,14 @@ class ResourceListItem extends React.Component {
                             ) {
                               return propertyMap['community'][item];
                             }
+
+                            return null;
                           })
                           .join(', ')}
                       </Typography>
                     </Grid>
                   ) : null}
-                  {resource.resource_type == 'Organization' ? (
+                  {resource.resource_type === 'Organization' ? (
                     <ResourceVisit
                       emails={resource.emails}
                       locations={resource.locations}
@@ -465,6 +446,8 @@ class ResourceListItem extends React.Component {
                                 />
                               );
                             }
+
+                            return null;
                           });
                         })()
                       : null}
