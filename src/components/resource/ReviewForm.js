@@ -8,13 +8,18 @@ import Divider from 'material-ui/Divider';
 import {withStyles} from 'material-ui/styles';
 
 import withWidth from '../withWidth';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import AsylumConnectButton from '../AsylumConnectButton';
 import RatingControl from './RatingControl';
 
-import {boldFont, bodyLink, italicFont, dividerSpacing} from '../../theme';
+import {
+  boldFont,
+  bodyLink,
+  italicFont,
+  dividerSpacing
+} from '../../theme/sharedClasses';
 
-import config from '../../config';
+import config from '../../config/config';
 
 const clientId = config[process.env.OD_API_ENV].client_id;
 

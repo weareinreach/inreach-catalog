@@ -1,6 +1,6 @@
 import React from 'react';
 import fetch from 'node-fetch';
-import config from '../config.js';
+import config from '../config/config.js';
 import {fetchUser, fetchUserLists} from '../helpers/odasRequests';
 
 export default function withSession(WrappedComponent) {

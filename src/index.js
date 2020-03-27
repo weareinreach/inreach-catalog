@@ -3,10 +3,11 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {render} from 'react-dom';
 import AsylumConnectCatalog from './components/AsylumConnectCatalog';
-import catalogTheme from './theme';
+import asylumConnectCatalogTheme from './theme/asylumConnectCatalogTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PromisePolyfill from 'promise-polyfill';
 import ReactGA from 'react-ga';
+import createHistory from 'history/createBrowserHistory';
 
 ReactGA.initialize('UA-76058112-1');
 ReactGA.set({
@@ -37,7 +38,7 @@ const logPageView = () => {
 const rootElement = document.getElementById('main');
 
 render(
-  <MuiThemeProvider theme={catalogTheme}>
+  <MuiThemeProvider theme={asylumConnectCatalogTheme}>
     <Router>
       <div>
         <Route path="/" component={logPageView} />

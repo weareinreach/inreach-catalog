@@ -21,11 +21,15 @@ import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import AsylumConnectButton from '../AsylumConnectButton';
 import withWidth from '../withWidth';
-import locale from '../../helpers/locale';
+import locale from '../../helpers/Locale';
 import LocaleSelector from './LocaleSelector';
 
-import {breakpoints} from '../../theme';
-import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
+import {
+  searchInput,
+  searchInputMobile,
+  mobilePadding
+} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   inputClass: Object.assign(searchInput(theme), {

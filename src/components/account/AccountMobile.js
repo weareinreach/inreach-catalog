@@ -9,7 +9,7 @@ import ForgotFormContainer from './ForgotFormContainer';
 import LoginFormContainer from './LoginFormContainer';
 import SignupFormContainer from './SignupFormContainer';
 
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import theWidth from '../theWidth';
 
 const TabContainer = ({children}) => {

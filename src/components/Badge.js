@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {breakpoints} from '../theme';
+import breakpoints from '../theme/breakpoints';
 
 import Tooltip from 'material-ui/Tooltip';
 import {withStyles} from 'material-ui/styles';

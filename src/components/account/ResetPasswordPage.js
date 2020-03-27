@@ -9,7 +9,7 @@ import Grid from 'material-ui/Grid';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 import {resetPassword} from '../../helpers/odasRequests';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
 
 const styles = theme => ({

@@ -1,8 +1,8 @@
 import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
-import locale from './locale';
-import ResourceTypes from './resourceTypes';
-import config from '../config.js';
+import config from '../config/config.js';
+import ResourceTypes from './ResourceTypes';
+import locale from './Locale';
 
 const serviceProperties = {
   en_CA: [
@@ -57,7 +57,7 @@ class OneDegreeResourceQuery {
       if (
         ((tag.title && tags.indexOf(tag.title) >= 0) ||
           tags.indexOf(tag.category) >= 0) &&
-        (typeof tag.iconOnly === 'undefined' || tag.iconOnly === false) &&
+        (typeof tag.iconOnly == 'undefined' || tag.iconOnly == false) &&
         this.filters.query.tags.indexOf(tag.odTag) < 0
       ) {
         this.filters.query.tags.push(tag.odTag);
@@ -73,15 +73,15 @@ class OneDegreeResourceQuery {
   }
 
   areAllResultsReturned() {
-    return this.pagingData.current_page === this.pagingData.total_pages;
+    return this.pagingData.current_page == this.pagingData.total_pages;
   }
 
   filterAtCapacity(resources) {
     if (resources.length) {
       return resources.filter(
         resource =>
-          typeof resource.properties === 'undefined' ||
-          typeof resource.properties['at-capacity'] === 'undefined' ||
+          typeof resource.properties == 'undefined' ||
+          typeof resource.properties['at-capacity'] == 'undefined' ||
           resource.properties['at-capacity'] !== 'true'
       );
     } else {
@@ -101,7 +101,7 @@ class OneDegreeResourceQuery {
               this.hasServiceProperty(
                 serviceProperties.en_CA,
                 Object.keys(resource.properties).filter(
-                  key => key.indexOf('service-state') === 0
+                  key => key.indexOf('service-state') == 0
                 )
               ) &&
               (!this.removeAtCapacity ||
@@ -119,7 +119,7 @@ class OneDegreeResourceQuery {
               !this.hasServiceProperty(
                 serviceProperties.en_CA,
                 Object.keys(resource.properties).filter(
-                  key => key.indexOf('service-state') === 0
+                  key => key.indexOf('service-state') == 0
                 )
               ) &&
               (!this.removeAtCapacity ||
@@ -136,7 +136,7 @@ class OneDegreeResourceQuery {
 
     /*if(resources.length) {
       return resources.filter((resource) => (
-        typeof resource.properties == 'undefined'
+        typeof resource.properties == 'undefined' 
         || typeof resource.properties['at-capacity'] == 'undefined'
         || resource.properties['at-capacity'] !== 'true'
       ));
@@ -300,7 +300,7 @@ class OneDegreeResourceQuery {
   }
 
   fetch({type = 'opportunities', callback = data => {}} = {}) {
-    if (type === 'both') {
+    if (type == 'both') {
       let aggregateList = [];
       fetchJsonp(
         this.baseURL +

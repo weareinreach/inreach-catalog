@@ -1,82 +1,12 @@
 import {createMuiTheme} from 'material-ui/styles';
-
-export const breakpoints = {
-  xs: 360,
-  sm: 600,
-  md: 960,
-  lg: 1280,
-  xl: 1500
-};
-
-export const searchInput = theme => ({
-  border: 'none',
-  boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
-  padding: '1.2rem',
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.fontSize,
-  width: '100%',
-  marginBottom: theme.spacing.unit * 3,
-  height: '3.4rem',
-  color: theme.palette.common.lightBlack,
-  backgroundColor: theme.palette.common.white,
-  borderRadius: '0.1px'
-});
-
-export const selectInput = theme => ({
-  border: 'none',
-  padding: '1.2rem',
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.fontSize,
-  width: '100%',
-  height: '3.4rem',
-  color: theme.palette.common.lightBlack,
-  backgroundColor: theme.palette.common.white,
-  borderRadius: '0.1px'
-});
-
-export const dropShadow = theme => ({
-  boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)'
-});
-
-export const searchInputMobile = theme => ({
-  padding: theme.spacing.unit * 2,
-  height: theme.spacing.unit * 6,
-  marginBottom: theme.spacing.unit * 2
-});
-
-export const bodyLink = theme => ({
-  color: theme.palette.secondary[500]
-});
-
-export const listLink = theme => ({
-  '& + &:before': {
-    content: '", "'
-  }
-});
-
-export const mobilePadding = theme => ({
-  paddingLeft: '20px',
-  paddingRight: '20px'
-});
-
-export const boldFont = theme => ({
-  fontWeight: '600'
-});
-
-export const italicFont = theme => ({
-  fontStyle: 'italic'
-});
-
-export const dividerSpacing = theme => ({
-  marginBottom: theme.spacing.unit * 4
-});
+import breakpoints from './breakpoints';
 
 /**
  *  Light Theme is the default theme used in material-ui. It is guaranteed to
  *  have all theme variables needed for every component. Variables not defined
  *  in a custom theme will default to these values.
  */
-const catalogTheme = createMuiTheme({
+export default createMuiTheme({
   maxColumnWidth: '1300px',
   direction: 'ltr',
   palette: {
@@ -455,9 +385,6 @@ const catalogTheme = createMuiTheme({
       underline: {
         '&:before': {
           height: '0.8px'
-        },
-        '&:after': {
-          backgroundColor: '#5073B3'
         }
       }
     },
@@ -485,6 +412,13 @@ const catalogTheme = createMuiTheme({
         }
       }
     },
+    MuiInput: {
+      underline: {
+        '&:after': {
+          backgroundColor: '#5073B3'
+        }
+      }
+    },
     MuiButton: {
       root: {
         '&:hover': {
@@ -501,5 +435,3 @@ const catalogTheme = createMuiTheme({
     }
   }
 });
-
-export default catalogTheme;

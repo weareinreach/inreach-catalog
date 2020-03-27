@@ -1196,12 +1196,12 @@ const filterResourceType = function(item, locale) {
   if (typeof item.title !== 'undefined') {
     return (
       typeof localeExclusions[locale] === 'undefined' ||
-      localeExclusions[locale].indexOf(item.title) === -1
+      localeExclusions[locale].indexOf(item.title) == -1
     );
   } else {
     return (
       typeof localeExclusions[locale] === 'undefined' ||
-      localeExclusions[locale].indexOf(item.category) === -1
+      localeExclusions[locale].indexOf(item.category) == -1
     );
   }
 };
@@ -1294,7 +1294,7 @@ const resourceCategoryIndex = getResourceCategoryIndex();
 const getBadge = tags => {
   let badge = 'misc';
   tags.forEach(tag => {
-    if (typeof resourceIndex[tag] !== 'undefined' && badge === 'misc') {
+    if (typeof resourceIndex[tag] !== 'undefined' && badge == 'misc') {
       badge = resourceIndex[tag].type;
     }
   });

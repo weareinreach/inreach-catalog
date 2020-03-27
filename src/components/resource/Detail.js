@@ -9,7 +9,7 @@ import {
   italicFont,
   dividerSpacing,
   mobilePadding
-} from '../../theme';
+} from '../../theme/sharedClasses';
 import Resource from './Resource';
 import Service from './Service';
 

@@ -13,7 +13,7 @@ import SuggestAdditional from './SuggestAdditional';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 import 'whatwg-fetch';
-import config from '../../config.js';
+import config from '../../config/config.js';
 
 const styles = theme => ({
   root: {

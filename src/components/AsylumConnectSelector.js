@@ -7,7 +7,7 @@ import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
 
 import AsylumConnectIndicator from './AsylumConnectIndicator';
 import withWidth from './withWidth';
-import {dropShadow} from '../theme';
+import {dropShadow} from '../theme/sharedClasses';
 
 const styles = theme => ({
   toggledSelect: {

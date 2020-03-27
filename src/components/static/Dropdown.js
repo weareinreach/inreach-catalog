@@ -4,12 +4,14 @@ import withStylesProps from '../withStylesProps';
 import Typography from 'material-ui/Typography';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 
-import {searchInput} from '../../theme';
+import ContentMarkdown from '../../helpers/ContentMarkdown';
+
+require('./Resource.scss');
+
+import {searchInput} from '../../theme/sharedClasses';
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 import Resource from './Resource';
-
-require('./Resource.scss');
 
 const styles = (theme, props) => ({
   textAlignCenter: {

@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
@@ -22,7 +22,7 @@ import AsylumConnectMap from '../AsylumConnectMap';
 import SearchBar from './SearchBar';
 import SearchRefinementControls from './SearchRefinementControls';
 import ResourceListItem from '../resource/ResourceListItem';
-import {mobilePadding, boldFont} from '../../theme';
+import {mobilePadding, boldFont} from '../../theme/sharedClasses';
 import Disclaimer from '../static/Disclaimer';
 
 const styles = theme => ({

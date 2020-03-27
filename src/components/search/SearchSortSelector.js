@@ -4,7 +4,7 @@ import {withStyles} from 'material-ui/styles';
 
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import SearchSorts from './SearchSorts';
-import {selectInput} from '../../theme';
+import {selectInput} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   selectInput: Object.assign(selectInput(theme), {

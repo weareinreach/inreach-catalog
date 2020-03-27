@@ -23,7 +23,7 @@ import AsylumConnectButton from '../AsylumConnectButton';
 import LocaleSelector from '../locale/LocaleSelector';
 import SearchBar from './SearchBar';
 import withWidth from '../withWidth';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 
 const styles = theme => ({
   formRow: {

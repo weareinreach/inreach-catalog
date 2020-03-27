@@ -8,7 +8,7 @@ import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import PasswordFormContainer from './PasswordFormContainer';
 import {DialogTitle} from '../dialog';
 
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import theWidth from '../theWidth';
 
 const styles = theme => ({

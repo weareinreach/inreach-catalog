@@ -5,21 +5,21 @@ import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
 
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import withWidth from '../withWidth';
 
 import Section from './Section';
 
 import Loading from '../Loading';
 import 'whatwg-fetch';
-import ContentMarkdown from '../ContentMarkdown';
+import ContentMarkdown from '../../helpers/ContentMarkdown';
 import {StandaloneIcon} from '../icons';
 import url from 'url';
 import queryString from 'query-string';
 import SubAnnouncement from '../SubAnnouncement';
-import {mobilePadding} from '../../theme';
+import {mobilePadding} from '../../theme/sharedClasses';
 import LocaleSelector from '../locale/LocaleSelector';
-import locale from '../../helpers/locale';
+import locale from '../../helpers/Locale';
 
 const styles = theme => ({
   root: {

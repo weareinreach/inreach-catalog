@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography';
 
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import SearchFilters from './SearchFilters';
-import {selectInput} from '../../theme';
+import {selectInput} from '../../theme/sharedClasses';
 
 const styles = theme => ({
   selectInput: Object.assign(selectInput(theme), {

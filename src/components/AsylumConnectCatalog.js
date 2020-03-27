@@ -19,9 +19,10 @@ import {
 import {withStyles} from 'material-ui/styles';
 import classNames from 'classnames';
 
-import RedirectWithParams from './RedirectWithParams';
+import RedirectWithParams from '../helpers/RedirectWithParams';
 import MapContainer from './MapContainer';
 import PageContainer from './PageContainer';
+require('./AsylumConnectCatalog.scss');
 import Announcement from './Announcement';
 import {AsylumConnectDialog} from './dialog';
 import Header from './Header';
@@ -43,11 +44,10 @@ import LogoImg from '../images/logo@2x.png';
 import LogoImgMobile from '../images/logo-mobile@3x.png';
 import LogoImgCA from '../images/logo-ca@2x.png';
 
-import {breakpoints} from '../theme';
+import breakpoints from '../theme/breakpoints';
 
 //polyfill for IE
 import 'element-closest-polyfill';
-require('./AsylumConnectCatalog.scss');
 
 const styles = theme => {
   console.log(theme.breakpoints.down('xs'));

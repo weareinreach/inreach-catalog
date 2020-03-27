@@ -15,7 +15,7 @@ import {Element, scroller} from 'react-scroll';
 import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
@@ -48,7 +48,7 @@ import Visit from './ResourceVisit';
 import Reviews from './Reviews';
 
 import {getResourceAlertMessage} from '../../helpers/alertMessages';
-import OneDegreeResourceClient from '../../helpers/oneDegreeResourceClient';
+import OneDegreeResourceClient from '../../helpers/OneDegreeResourceClient';
 
 import {
   bodyLink,
@@ -56,7 +56,7 @@ import {
   italicFont,
   dividerSpacing,
   mobilePadding
-} from '../../theme';
+} from '../../theme/sharedClasses';
 import ShareDialog from '../share/ShareDialog';
 import ActionButton from '../ActionButton';
 

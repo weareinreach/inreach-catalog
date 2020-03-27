@@ -11,9 +11,9 @@ import LocaleForm from '../locale/LocaleForm';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import AsylumConnectInfographicButton from '../AsylumConnectInfographicButton';
 import withWidth from '../withWidth';
-import locale from '../../helpers/locale';
-import {breakpoints} from '../../theme';
-import {mobilePadding} from '../../theme';
+import locale from '../../helpers/Locale';
+import breakpoints from '../../theme/breakpoints';
+import {mobilePadding} from '../../theme/sharedClasses';
 import SubAnnouncement from '../SubAnnouncement';
 import IconButton from 'material-ui/IconButton';
 

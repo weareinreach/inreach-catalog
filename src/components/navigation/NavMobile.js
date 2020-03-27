@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 import {withStyles} from 'material-ui/styles';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 import BottomNavigation, {
   BottomNavigationAction
 } from 'material-ui/BottomNavigation';

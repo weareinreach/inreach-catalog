@@ -6,10 +6,10 @@ import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';
 
-import {boldFont, dividerSpacing} from '../../theme';
+import {boldFont, dividerSpacing} from '../../theme/sharedClasses';
 import Loading from '../Loading';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
-import config from '../../config';
+import config from '../../config/config';
 
 const clientId = config[process.env.OD_API_ENV].client_id;
 

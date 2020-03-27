@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 
-import config from '../../config.js';
+import config from '../../config/config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 import OrganizationAutocomplete from './OrganizationAutocomplete';

@@ -20,7 +20,7 @@ import SearchSortSelector from './SearchSortSelector';
 import SearchSorts from './SearchSorts';
 
 import withWidth from '../withWidth';
-import {breakpoints} from '../../theme';
+import breakpoints from '../../theme/breakpoints';
 
 const styles = theme => ({
   fixedFab: {

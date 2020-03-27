@@ -12,16 +12,16 @@ import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import ReactDOM from 'react-dom';
 
 import withWidth from './withWidth';
-import {breakpoints} from '../theme';
-import infograph from '../helpers/infographics';
+import breakpoints from '../theme/breakpoints';
+import infograph from '../helpers/Infographics';
 import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
-import OneDegreeResourceQuery from '../helpers/oneDegreeResourceQuery';
+import OneDegreeResourceQuery from '../helpers/OneDegreeResourceQuery';
 import Resource from './resource/Resource';
 import Service from './resource/Service';
 import Detail from './resource/Detail';
-import ResourceTypes from '../helpers/resourceTypes';
+import ResourceTypes from '../helpers/ResourceTypes';
 
 const styles = theme => ({
   searchArea: {

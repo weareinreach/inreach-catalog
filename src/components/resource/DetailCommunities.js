@@ -3,7 +3,7 @@ import React from 'react';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-import propertyMap from '../../helpers/oneDegreePropertyMap';
+import propertyMap from '../../helpers/OneDegreePropertyMap';
 
 const Communities = props => (
   <Grid container spacing={0}>
