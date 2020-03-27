@@ -1,5 +1,4 @@
 import React from 'react';
-import url from 'url';
 import trim from 'trim';
 
 import {withStyles} from 'material-ui/styles';
@@ -7,10 +6,9 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Fa from 'react-fontawesome';
 
-import {scheduleParser, addressParser} from '../../helpers/Parser';
-import {fetchPhone} from '../../helpers/Opportunities';
+import {ScheduleParser, AddressParser} from '../../helpers/Parser';
 import Phone from './Phone';
-import {boldFont, bodyLink, listLink} from '../../theme/sharedClasses';
+import {boldFont, bodyLink, listLink} from '../../theme';
 
 const styles = theme => ({
   boldFont: boldFont(theme),
@@ -159,7 +157,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                               : item.locations[0].name}
                             :{' '}
                           </strong>
-                          {addressParser({address: item.locations[0]})}
+                          {AddressParser({address: item.locations[0]})}
 
                           <Fa
                             name="map-marker"
@@ -172,7 +170,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                         >
                           {rawSchedule &&
                           Object.keys(rawSchedule).length > 1 &&
-                          (schedule = scheduleParser({schedule: rawSchedule}))
+                          (schedule = ScheduleParser({schedule: rawSchedule}))
                             .length ? (
                             <span>
                               <strong
@@ -262,7 +260,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
 
 export default withStyles(styles)(DetailAccessInstructions);
 
-/*locations && locations.length ? 
+/*locations && locations.length ?
         locations.map((location) => {
           let schedule;
           return (
@@ -280,10 +278,10 @@ export default withStyles(styles)(DetailAccessInstructions);
                 }).join(', ')}
               </Typography>
             : null}
-            {location.schedule 
-              && Object.keys(location.schedule).length > 1 
-              && location.schedule.notes 
-              && trim(location.schedule.notes).length 
+            {location.schedule
+              && Object.keys(location.schedule).length > 1
+              && location.schedule.notes
+              && trim(location.schedule.notes).length
             ?
               <Typography variant="body2" className={classes.lineSpacing} >
                 <strong className={classes.boldFont}>Additional Information: </strong>

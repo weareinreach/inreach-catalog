@@ -15,7 +15,7 @@ import Loading from '../Loading';
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 
-import {bodyLink} from '../../theme/sharedClasses';
+import {bodyLink} from '../../theme';
 
 import ResourceListItem from '../resource/ResourceListItem';
 import ListNewFormContainer from './ListNewFormContainer';

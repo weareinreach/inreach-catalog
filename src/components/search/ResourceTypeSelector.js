@@ -8,10 +8,10 @@ import Typography from 'material-ui/Typography';
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import ACBadge from '../Badge';
-import {searchInput, searchInputMobile} from '../../theme/sharedClasses';
-import ResourceTypes from '../../helpers/ResourceTypes';
+import {searchInput, searchInputMobile} from '../../theme';
+import ResourceTypes from '../../helpers/resourceTypes';
 import withWidth from '../withWidth';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {

@@ -41,11 +41,9 @@ asylumconnect-catalog/
 ├── public            # Public assets
 ├── src               # Source code for the frontend
 ├── src/components    # tk
-├── src/config        # Frontend Config
 ├── src/helpers       # tk
-├── src/images        # tk
-├── src/locale.js     # tk
-├── src/theme.js      # tk
+├── src/images        # Image assets
+├── src/config.js     # Frontend Config
 ├── src/index.js      # Starting point for the frontend
 ├── views             # tk
 ├── index.js          # An express server, more tk

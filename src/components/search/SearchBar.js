@@ -14,9 +14,9 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
-import {searchInput, searchInputMobile} from '../../theme/sharedClasses';
+import {searchInput, searchInputMobile} from '../../theme';
 
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 
 const styles = theme => ({
   searchInput: searchInput(theme),

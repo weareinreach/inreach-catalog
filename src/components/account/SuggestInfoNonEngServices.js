@@ -10,7 +10,7 @@ import {MenuItem} from 'material-ui/Menu';
 import Chip from 'material-ui/Chip';
 import {withStyles} from 'material-ui/styles';
 
-import propertyMap from '../../helpers/OneDegreePropertyMap';
+import propertyMap from '../../helpers/oneDegreePropertyMap';
 
 const suggestions = Object.keys(propertyMap.language);
 for (let s in suggestions) {

@@ -1,4 +1,4 @@
-const config = require('../src/config/config');
+const config = require('../src/config');
 const serverConfig = require('../config/config');
 const fetch = require('node-fetch');
 const striptags = require('striptags');
@@ -87,7 +87,7 @@ let confirmLogin = function(authToken) {
  * @return {[type]}          [description]
  */
 let makeEmail = async function(req, res, components) {
-  /*if(!components.recipients 
+  /*if(!components.recipients
       || !components.recipients.length
       || !components.sender
       || !components.sender.length

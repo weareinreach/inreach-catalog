@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStylesProps from '../withStylesProps';
 import Typography from 'material-ui/Typography';
 
-import ContentMarkdown from '../../helpers/ContentMarkdown';
+import ContentMarkdown from '../ContentMarkdown';
 
 require('./Resource.scss');
 

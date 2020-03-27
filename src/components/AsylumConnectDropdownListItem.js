@@ -3,7 +3,7 @@ import React from 'react';
 import {withStyles} from 'material-ui/styles';
 import {ListItem} from 'material-ui/List';
 
-import {dropShadow} from '../theme/sharedClasses';
+import {dropShadow} from '../theme';
 
 const styles = theme => ({
   rootClass: {

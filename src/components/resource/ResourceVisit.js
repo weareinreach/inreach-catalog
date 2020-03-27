@@ -7,14 +7,9 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Fa from 'react-fontawesome';
 
-import {scheduleParser, addressParser} from '../../helpers/Parser';
+import {ScheduleParser, AddressParser} from '../../helpers/Parser';
 import Phone from './Phone';
-import {
-  boldFont,
-  bodyLink,
-  listLink,
-  dividerSpacing
-} from '../../theme/sharedClasses';
+import {boldFont, bodyLink, listLink, dividerSpacing} from '../../theme';
 
 const styles = theme => ({
   boldFont: boldFont(theme),
@@ -135,12 +130,12 @@ const Visit = ({
                   <strong className={classes.boldFont}>
                     {location.name ? location.name : 'Location'}:{' '}
                   </strong>
-                  {addressParser({address: location})}
+                  {AddressParser({address: location})}
                   <Fa name="map-marker" className={classes.mobileIcon} />
                 </Typography>
                 {location.schedule &&
                 Object.keys(location.schedule).length > 1 &&
-                (schedule = scheduleParser({schedule: location.schedule}))
+                (schedule = ScheduleParser({schedule: location.schedule}))
                   .length ? (
                   <Typography variant="body2" className={classes.lineSpacing}>
                     <strong

@@ -94,7 +94,7 @@ export const ScheduleParser = ({
   return final;
 };
 
-export const addressParser = ({address, format = 'inline'} = {}) => {
+export const AddressParser = ({address, format = 'inline'} = {}) => {
   let template;
   switch (format) {
     case 'inline':

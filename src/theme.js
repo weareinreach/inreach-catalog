@@ -76,7 +76,7 @@ export const dividerSpacing = theme => ({
  *  have all theme variables needed for every component. Variables not defined
  *  in a custom theme will default to these values.
  */
-const mainTheme = createMuiTheme({
+const catalogTheme = createMuiTheme({
   maxColumnWidth: '1300px',
   direction: 'ltr',
   palette: {
@@ -502,4 +502,4 @@ const mainTheme = createMuiTheme({
   }
 });
 
-export default mainTheme;
+export default catalogTheme;

@@ -2,16 +2,12 @@ import React from 'react';
 import List from 'material-ui/List';
 import {withStyles} from 'material-ui/styles';
 
-import locale from '../../helpers/Locale';
+import locale from '../../helpers/locale';
 
 import AsylumConnectSelector from '../AsylumConnectSelector';
 import AsylumConnectDropdownListItem from '../AsylumConnectDropdownListItem';
 
-import {
-  searchInput,
-  searchInputMobile,
-  mobilePadding
-} from '../../theme/sharedClasses';
+import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
 
 const styles = theme => ({
   inputClass: Object.assign(searchInput(theme), {

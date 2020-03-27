@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 
 import config from '../../config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
