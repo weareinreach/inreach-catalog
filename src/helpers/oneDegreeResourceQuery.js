@@ -1,8 +1,8 @@
 import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
-import config from '../config/config.js';
-import ResourceTypes from './ResourceTypes';
-import locale from './Locale';
+import locale from './locale';
+import ResourceTypes from './resourceTypes';
+import config from '../config.js';
 
 const serviceProperties = {
   en_CA: [
@@ -136,7 +136,7 @@ class OneDegreeResourceQuery {
 
     /*if(resources.length) {
       return resources.filter((resource) => (
-        typeof resource.properties == 'undefined' 
+        typeof resource.properties == 'undefined'
         || typeof resource.properties['at-capacity'] == 'undefined'
         || resource.properties['at-capacity'] !== 'true'
       ));

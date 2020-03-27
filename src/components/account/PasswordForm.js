@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 import {withStyles} from 'material-ui/styles';
 import breakpoints from '../../theme/breakpoints';
 
-import config from '../../config/config.js';
+import config from '../../config.js';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 const styles = theme => ({

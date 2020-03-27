@@ -1,4 +1,4 @@
-const convertTime = require('./ConvertTime');
+const convertTime = require('./convertTime');
 const days = [
   {name: 'Monday', abbr: 'Mon', oneletter: 'M'},
   {name: 'Tuesday', abbr: 'Tue', oneletter: 'T'},

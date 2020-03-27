@@ -14,7 +14,7 @@ import OrgSettingsAdditional from './OrgSettingsAdditional';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 import 'whatwg-fetch';
-import config from '../../config/config.js';
+import config from '../../config.js';
 import fetchJsonp from 'fetch-jsonp';
 import {boldFont} from '../../theme/sharedClasses';
 

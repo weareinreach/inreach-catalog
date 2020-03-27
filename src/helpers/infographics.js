@@ -1,5 +1,3 @@
-import ValidLanguageList from './ValidLanguageList';
-
 //LA, NYC, Philadelphia, San Francisco, Seattle, and Washington DC
 const infographics = [
   {

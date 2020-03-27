@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import fetchJsonp from 'fetch-jsonp';
-import config from '../config/config.js';
+import config from '../config.js';
 
 class OneDegreeResourceClient {
   constructor() {
