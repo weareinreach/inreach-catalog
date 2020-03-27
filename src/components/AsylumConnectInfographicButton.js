@@ -6,11 +6,11 @@ import {MenuList, MenuItem} from 'material-ui/Menu';
 import Fa from 'react-fontawesome';
 import withWidth from './withWidth';
 import {withStyles} from 'material-ui/styles';
-import breakpoints from '../theme/breakpoints';
+import {breakpoints} from '../theme';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 
-import language from '../helpers/Language';
-import ValidLanguageList from '../helpers/ValidLanguageList';
+import language from '../helpers/language';
+import validLanguageList from '../helpers/validLanguageList';
 
 const styles = theme => ({
   infographicButtonContainer: {
@@ -145,7 +145,7 @@ class AsylumConnectInfographicButton extends React.Component {
     let list = false;
     if (this.props.list) {
       list =
-        this.props.list[ValidLanguageList.codeByName(language.getLanguage())] ||
+        this.props.list[validLanguageList.codeByName(language.getLanguage())] ||
         this.props.list.default;
     }
     return (

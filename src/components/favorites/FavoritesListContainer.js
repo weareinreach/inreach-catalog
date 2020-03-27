@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 import {
   deleteListFavorite,
   fetchPublicList,
   fetchUser
 } from '../../helpers/odasRequests';
-import OneDegreeResourceQuery from '../../helpers/OneDegreeResourceQuery';
+import OneDegreeResourceQuery from '../../helpers/oneDegreeResourceQuery';
 import withWidth from '../withWidth';
 
 import ListNewFormContainer from './ListNewFormContainer';

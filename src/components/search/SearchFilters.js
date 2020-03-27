@@ -9,7 +9,7 @@ import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
 import AsylumConnectSwitch from '../AsylumConnectSwitch';
 
 import withWidth from '../withWidth';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 
 const styles = theme => ({
   sectionHeader: {

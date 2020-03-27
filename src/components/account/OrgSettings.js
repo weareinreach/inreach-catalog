@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import update from 'react-addons-update';
 
 import {withStyles} from 'material-ui/styles';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 import Typography from 'material-ui/Typography';
 
 import Loading from '../Loading';
@@ -14,9 +14,9 @@ import OrgSettingsAdditional from './OrgSettingsAdditional';
 import AsylumConnectButton from '../AsylumConnectButton';
 
 import 'whatwg-fetch';
-import config from '../../config/config.js';
+import config from '../../config.js';
 import fetchJsonp from 'fetch-jsonp';
-import {boldFont} from '../../theme/sharedClasses';
+import {boldFont} from '../../theme';
 
 const styles = theme => ({
   root: {

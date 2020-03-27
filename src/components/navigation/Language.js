@@ -2,8 +2,8 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import langs from 'langs';
 import url from 'url';
-import ValidLanguageList from '../../helpers/ValidLanguageList';
-import language from '../../helpers/Language';
+import ValidLanguageList from '../../helpers/validLanguageList';
+import language from '../../helpers/language';
 import List, {ListItem, ListItemText, ListSubheader} from 'material-ui/List';
 import {withStyles} from 'material-ui/styles';
 import classNames from 'classnames';
@@ -14,12 +14,8 @@ import AsylumConnectSelector from '../AsylumConnectSelector';
 
 import ChevronIcon from '../icons/ChevronIcon';
 import withWidth from '../withWidth';
-import breakpoints from '../../theme/breakpoints';
-import {
-  searchInput,
-  searchInputMobile,
-  mobilePadding
-} from '../../theme/sharedClasses';
+import {breakpoints} from '../../theme';
+import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
 import Filter from '../search/Filter';
 
 const styles = theme => ({

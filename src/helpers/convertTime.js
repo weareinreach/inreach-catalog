@@ -58,7 +58,7 @@ function toTwentyFourHourTime(time, format) {
     format = 'hh:MM';
   }
 
-  if (period == 'pm' && hour !== '12') {
+  if (period === 'pm' && hour !== '12') {
     return format
       .replace('hh', parseInt(hour, 10) + 12)
       .replace('HH', maybePrependZero(hour))

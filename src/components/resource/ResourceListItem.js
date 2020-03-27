@@ -10,19 +10,17 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 
-import {boldFont} from '../../theme/sharedClasses';
+import {boldFont} from '../../theme';
 import {withStyles} from 'material-ui/styles';
 import withWidth from '../withWidth';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
-import FavoritesLink from '../FavoritesLink';
 import RatingAndReviews from './RatingAndReviews';
 import Badge from '../Badge';
 import DetailAccessInstructions from './DetailAccessInstructions';
 import ResourceVisit from './ResourceVisit';
-import resourceTypes from '../../helpers/ResourceTypes';
-import propertyMap from '../../helpers/OneDegreePropertyMap';
-import {scheduleParser, addressParser} from '../../helpers/Parser';
+import resourceTypes from '../../helpers/resourceTypes';
+import propertyMap from '../../helpers/oneDegreePropertyMap';
 
 let resourceIndex = resourceTypes.resourceIndex;
 
@@ -370,17 +368,7 @@ class ResourceListItem extends React.Component {
                   {displayData.map((item, index) => {
                     var Content, className;
                     var text = '';
-                    /*if (format === 'favoritesMobile' && item.fieldName === 'phones') {
-                text = resource.phones.length ? resource.phones[0].digits : null;
-              } else if (format === 'favoritesMobile' && item.fieldName === 'emails') {
-                text = (resource.emails && resource.emails.length) ? resource.emails[0].email : null;
-              } else if (format === 'favoritesMobile' && item.fieldName === 'locations') {
-                text = (resource.locations && resource.locations.length) ? addressParser({ address: resource.locations[0] }) : null;
-              } else if (format === 'favoritesMobile' && item.fieldName === 'schedule') {
-                text = resource.schedule ? scheduleParser({schedule: resource.schedule}) : null;
-              } else if (format === 'favoritesMobile' && item.fieldName === 'additional') {
-                text = (resource.schedule && resource.schedule.note) ? resource.schedule.note : null;
-              }*/
+
                     if (isMobile && !isOnFavoritesList) {
                       text = (
                         <Truncate

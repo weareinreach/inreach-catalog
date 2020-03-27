@@ -8,12 +8,12 @@ import AsylumConnectDialog from '../dialog/AsylumConnectDialog';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 
 import Typography from 'material-ui/Typography';
 
 import 'whatwg-fetch';
-import config from '../../config/config.js';
+import config from '../../config.js';
 import {updateUserEmail, updateUserPassword} from '../../helpers/odasRequests';
 
 function TextMaskCustom(props) {

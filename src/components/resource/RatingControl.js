@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withWidth from '../withWidth';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 import {withStyles} from 'material-ui/styles';
 import StarRateIcon from 'material-ui-icons/Star';
 

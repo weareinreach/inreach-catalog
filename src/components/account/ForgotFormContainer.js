@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
-import config from '../../config/config.js';
+import config from '../../config.js';
 import ForgotForm from './ForgotForm';
 
 class ForgotFormContainer extends React.Component {

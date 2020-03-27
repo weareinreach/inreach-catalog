@@ -8,11 +8,7 @@ import Fa from 'react-fontawesome';
 
 import Cookies from 'js-cookie';
 
-import {
-  searchInput,
-  searchInputMobile,
-  mobilePadding
-} from '../../theme/sharedClasses';
+import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
 import PrivacyIcon from '../icons/PrivacyIcon';
 
 const styles = theme => ({

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import debounce from 'lodash/debounce';
 import fetchJsonp from 'fetch-jsonp';
 
-import config from '../../config/config.js';
+import config from '../../config.js';
 
 const withOrganizations = WrappedComponent =>
   class withOrganzations extends Component {

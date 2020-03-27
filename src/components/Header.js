@@ -6,7 +6,7 @@ import NavMobile from './navigation/NavMobile';
 import NavTablet from './navigation/NavTablet';
 
 import withWidth from './withWidth';
-import breakpoints from '../theme/breakpoints';
+import {breakpoints} from '../theme';
 
 const Header = ({
   handleRequestOpen,
