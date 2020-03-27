@@ -37,11 +37,11 @@ Folder structure
 ```
 asylumconnect-catalog/
 ├── api               # tk
-├── config            # Config for the api
+├── config            # Server Config
 ├── public            # Public assets
 ├── src               # Source code for the frontend
 ├── src/components    # tk
-├── src/config        # Config for the frontend
+├── src/config        # Frontend Config
 ├── src/helpers       # tk
 ├── src/images        # tk
 ├── src/locale.js     # tk
