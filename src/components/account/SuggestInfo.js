@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Input, {InputLabel} from 'material-ui/Input';
 import {FormControl} from 'material-ui/Form';
-import {searchInput, searchInputMobile} from '../../theme/sharedClasses';
+import {searchInput, searchInputMobile} from '../../theme';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';

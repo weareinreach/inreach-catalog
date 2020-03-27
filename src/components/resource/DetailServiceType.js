@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-import resourceTypes from '../../helpers/ResourceTypes';
+import resourceTypes from '../../helpers/resourceTypes';
 import ACBadge from '../Badge';
 
 //const tags = resourceTypes.resourceIndex;

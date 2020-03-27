@@ -11,7 +11,7 @@ import AppBar from 'material-ui/AppBar';
 import Tabs, {Tab} from 'material-ui/Tabs';
 
 import {fetchUser} from '../../helpers/odasRequests';
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 import withWidth from '../withWidth';
 
 const styles = theme => ({

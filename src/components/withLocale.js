@@ -1,9 +1,7 @@
 import React from 'react';
-import locale from '../helpers/Locale';
 import {withRouter} from 'react-router';
-import {fetchLocale} from '../locale';
 
-const validLocales = ['en_US', 'en_CA'];
+import locale, {fetchLocale, validLocales} from '../helpers/locale';
 
 export default function withLocale(WrappedComponent) {
   return class extends React.Component {

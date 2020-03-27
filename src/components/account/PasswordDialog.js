@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 import PasswordFormContainer from './PasswordFormContainer';
 import {DialogTitle} from '../dialog';
 
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 import theWidth from '../theWidth';
 
 const styles = theme => ({

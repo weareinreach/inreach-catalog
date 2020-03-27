@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-import {isACOpportunity} from '../../helpers/Opportunities';
-import resourceTypes from '../../helpers/ResourceTypes';
+import {isACOpportunity} from '../../helpers/opportunities';
+import resourceTypes from '../../helpers/resourceTypes';
 import ACBadge from '../Badge';
 
 function groupedServices(list) {

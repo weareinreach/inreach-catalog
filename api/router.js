@@ -2,7 +2,7 @@
 require('dotenv').load();
 const crypto = require('crypto');
 const fetch = require('node-fetch');
-const config = require('../src/config/config');
+const config = require('../src/config');
 const mailer = require('./mailer.js');
 const SheetsReader = require('./SheetsReader');
 const objectPath = require('object-path');

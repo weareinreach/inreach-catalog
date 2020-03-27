@@ -6,12 +6,12 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 
 import Resource from './Resource';
-import ContentMarkdown from '../../helpers/ContentMarkdown';
+import ContentMarkdown from '../ContentMarkdown';
 import {StandaloneIcon} from '../icons';
 
 import Dropdown from './Dropdown';
 
-import breakpoints from '../../theme/breakpoints';
+import {breakpoints} from '../../theme';
 
 const styles = (theme, props) => ({
   textAlignCenter: {

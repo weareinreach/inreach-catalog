@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 
 import {withStyles} from 'material-ui/styles';
 
-import config from '../../config/config.js';
+import config from '../../config.js';
 
 import LoginForm from './LoginForm';
 import Disclaimer from '../../components/static/Disclaimer';

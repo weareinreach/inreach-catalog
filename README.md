@@ -2,74 +2,64 @@
 
 [![Build Status](https://travis-ci.org/asylum-connect/onedegree-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/asylumconnect-catalog)
 
-A rebuild of the Asylum Connect Catalog using Node.js and ReactJS with Flask serving as the database backend.
+## Development
 
-## Dependency Documentation
+```
+$ cd to asylumconnect-catalog
 
-- [react](https://facebook.github.io/react/docs/hello-world.html)
-- [react-router](https://reacttraining.com/react-router/)
+$ npm i
+
+$ npm run dev
+```
+
+Local server is accessible at [http://localhost:8080](http://localhost:8080)
+
+## Production Simulation
+
+Build the production assets
+
+```
+$ npm run web-prod
+```
+
+Start the server:
+
+```
+$ npm run start
+```
+
+## Codebase
+
+Our routes documentation can be found at `/docs` on staging and production.
+
+Folder structure
+
+```
+asylumconnect-catalog/
+├── api               # tk
+├── config            # Server Config
+├── public            # Public assets
+├── src               # Source code for the frontend
+├── src/components    # tk
+├── src/helpers       # tk
+├── src/images        # Image assets
+├── src/config.js     # Frontend Config
+├── src/index.js      # Starting point for the frontend
+├── views             # tk
+├── index.js          # An express server, more tk
+└── server.js         # An express server, more tk
+```
+
+Technologies
+
+- [React](https://reactjs.org/)
+- [React-Router](https://reacttraining.com/react-router/)
 - [react-google-maps](https://www.npmjs.com/package/react-google-maps)
 - [material-ui](https://material-ui-1dab0.firebaseapp.com/getting-started/usage/)
+- [Express](https://expressjs.com/)
 
-## Design Mockups
+> For responsive handling, the `render()` methodology from [this reference](https://goshakkk.name/different-mobile-desktop-tablet-layouts-react/) should be used on all components that adjust based on resolution
 
-- [Desktop](https://projects.invisionapp.com/share/SBD7H2ODQ#/screens)
-- [Mobile](https://invis.io/CMD7ULZWJ#/screens)
+Code Standards
 
-For responsive handling, the `render()` methodology from [this reference](https://goshakkk.name/different-mobile-desktop-tablet-layouts-react/) should be used on all components that adjust based on resolution
-
-## Git Workflow
-
-[General workflow reference](http://nvie.com/posts/a-successful-git-branching-model/)
-
-There will be two main branches in the repo: `master` and `staging`.
-
-`master` will reference code that is on production or production-ready.
-
-`staging` will reference the main development code and will eventually be tested on staging.
-
-`feature/xxx` and `fix/xxx` branches should be made from `staging` and then merged back into `staging` using `git merge --no-ff feature/xxx`
-
-## Environment Setup
-
-### Prequisites
-
-- `node`
-- `npm`
-- `git`
-
-### Installation
-
-Install `npm` modules:
-
-```bash
-npm install
-```
-
-### Run
-
-#### Development
-
-Run dev server that watches for changes and re-builds:
-
-```bash
-npm run web-dev
-```
-
-Local server is accessible at [http://localhost:8080](http://localhost:8080)
-
-#### Production Simulation
-
-First build the production build process:
-
-```bash
-npm run web-prod
-```
-
-Next start the server:
-
-```bash
-npm run start
-```
-
-Local server is accessible at [http://localhost:8080](http://localhost:8080)
+In order to enforce code standards we use [eslint](https://eslint.org/) and [prettier](https://prettier.io/). Setting up eslint in your code editor is the easiest way to adhere to guidlines while programming but we also lint and prettify code during the commit process using [lint-staged](https://github.com/okonet/lint-staged).

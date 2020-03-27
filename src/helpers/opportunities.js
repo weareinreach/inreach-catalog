@@ -3,9 +3,9 @@ export const isACOpportunity = function(opportunity) {
     return (
       typeof opportunity.properties['community-asylum-seeker'] !==
         'undefined' &&
-      opportunity.properties['community-asylum-seeker'].trim() == 'true' &&
+      opportunity.properties['community-asylum-seeker'].trim() === 'true' &&
       typeof opportunity.properties['community-lgbt'] !== 'undefined' &&
-      opportunity.properties['community-lgbt'].trim() == 'true'
+      opportunity.properties['community-lgbt'].trim() === 'true'
     );
   } else {
     //if unsure, return true
@@ -18,7 +18,7 @@ export const fetchPhone = function(phones) {
   let selectedPhone = phones[0];
 
   //look for primary
-  phones.map(phone => {
+  phones.forEach(phone => {
     if (phone.is_primary) {
       selectedPhone = phone;
     }

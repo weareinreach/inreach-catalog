@@ -14,7 +14,7 @@ import AsylumConnectPopUp from './AsylumConnectPopUp';
 import RedHeartIcon from './icons/RedHeartIcon';
 import MediaQuery from 'react-responsive';
 
-import breakpoints from '../theme/breakpoints';
+import {breakpoints} from '../theme';
 import theWidth from './theWidth';
 import {
   createList,

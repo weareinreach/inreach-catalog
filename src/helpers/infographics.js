@@ -1,5 +1,3 @@
-import ValidLanguageList from './ValidLanguageList';
-
 //LA, NYC, Philadelphia, San Francisco, Seattle, and Washington DC
 const infographics = [
   {
@@ -265,8 +263,6 @@ export default {
     return nearestInfographic;
   },
   getDefaultInfographic: function(locale) {
-    console.log('getDefaultInfographic', locale);
-
     return typeof defaultInfographic[locale] !== 'undefined'
       ? defaultInfographic[locale]
       : false;
