@@ -1,3 +1,5 @@
+import React from 'react';
+
 const convertTime = require('./convertTime');
 const days = [
   {name: 'Monday', abbr: 'Mon', oneletter: 'M'},
@@ -9,7 +11,7 @@ const days = [
   {name: 'Sunday', abbr: 'Sun', oneletter: 'Su'}
 ];
 
-export const scheduleParser = ({
+export const ScheduleParser = ({
   schedule,
   format = 'condensed',
   hideClosed = true
@@ -27,6 +29,8 @@ export const scheduleParser = ({
         break;
       case 'minimal':
         name = item.oneletter;
+        break;
+      default:
         break;
     }
     if (
@@ -54,7 +58,7 @@ export const scheduleParser = ({
   for (let i = 0; i < openHours.length; i++) {
     switch (format) {
       case 'condensed':
-        if (i == 0 || openHours[i].times !== openHours[i - 1].times) {
+        if (i === 0 || openHours[i].times !== openHours[i - 1].times) {
           final.push({
             start: openHours[i].name,
             time: openHours[i].times
@@ -62,7 +66,7 @@ export const scheduleParser = ({
         } else if (openHours[i].times === openHours[i - 1].times) {
           final[final.length - 1].end = openHours[i].name;
         }
-        if (i + 1 == openHours.length) {
+        if (i + 1 === openHours.length) {
           final = final
             .map(item => {
               if (typeof item.end !== 'undefined') {
@@ -80,9 +84,11 @@ export const scheduleParser = ({
         break;
       case 'minimal':
         break;
+      default:
+        break;
     }
   }
-  if (final.length == 1 && final.time == 'Closed') {
+  if (final.length === 1 && final.time === 'Closed') {
     final = [];
   }
   return final;

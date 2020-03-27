@@ -455,6 +455,9 @@ const mainTheme = createMuiTheme({
       underline: {
         '&:before': {
           height: '0.8px'
+        },
+        '&:after': {
+          backgroundColor: '#5073B3'
         }
       }
     },
@@ -479,13 +482,6 @@ const mainTheme = createMuiTheme({
       root: {
         '&$focused': {
           color: '#5073B3'
-        }
-      }
-    },
-    MuiInput: {
-      underline: {
-        '&:after': {
-          backgroundColor: '#5073B3'
         }
       }
     },

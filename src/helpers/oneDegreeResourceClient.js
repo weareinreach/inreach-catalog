@@ -14,8 +14,8 @@ class OneDegreeResourceClient {
       index = [];
     opportunities.forEach(opportunity => {
       for (let property in opportunity.properties) {
-        if (/^(community|lang)\-/.test(property)) {
-          if (index.indexOf(property) == -1) {
+        if (/^(community|lang)-/.test(property)) {
+          if (index.indexOf(property) === -1) {
             index.push(property);
             properties.push({
               slug: property,
@@ -37,14 +37,14 @@ class OneDegreeResourceClient {
     this.fetch({
       url: 'organizations/' + id,
       callback: orgData => {
-        if ((orgData.status && orgData.status == 'error') || orgOnly) {
+        if ((orgData.status && orgData.status === 'error') || orgOnly) {
           callback(orgData);
         } else {
           self.getOpportunities({
             id: id,
             per_page: orgData.opportunity_count,
             callback: data => {
-              if (data.status && data.status == 'error') {
+              if (data.status && data.status === 'error') {
                 callback(orgData);
               } else {
                 orgData.opportunities = data.opportunities;
@@ -105,7 +105,6 @@ class OneDegreeResourceClient {
 
     switch (resourceType) {
       case 'organization':
-        url = url;
         break;
       case 'opportunity':
         url =
@@ -113,6 +112,8 @@ class OneDegreeResourceClient {
         break;
       case 'opportunities':
         url = url + '/' + resourceType;
+        break;
+      default:
         break;
     }
 

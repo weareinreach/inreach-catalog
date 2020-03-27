@@ -26,7 +26,6 @@ export const fetchLocale = locale => {
   switch (locale) {
     case 'en_CA':
       return enCA;
-      break;
     case 'en_US':
     default:
       return enUS;

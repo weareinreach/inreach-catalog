@@ -117,7 +117,7 @@ var ValidLanguageList = {
 function getValidLanguagueList() {
   for (var validLang of validLangs) {
     langs.map(function(lang) {
-      if (lang['name'] == validLang['name']) {
+      if (lang['name'] === validLang['name']) {
         validLang['1'] = lang['1'];
         validLang['local'] = lang['local'];
       }
@@ -128,7 +128,7 @@ function getValidLanguagueList() {
 
 function getValidLanguageByCode(code) {
   for (var validLang of validLangs) {
-    if (validLang['1'] == code) {
+    if (validLang['1'] === code) {
       return validLang['local'];
     }
   }
@@ -136,7 +136,7 @@ function getValidLanguageByCode(code) {
 
 function getValidLanguageCodeByName(name) {
   for (var validLang of validLangs) {
-    if (validLang['local'] == name) {
+    if (validLang['local'] === name) {
       return validLang['1'];
     }
   }
