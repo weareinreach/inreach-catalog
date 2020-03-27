@@ -1,27 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import url from 'url';
 
 import Toolbar from 'material-ui/Toolbar';
-import Tabs, {Tab} from 'material-ui/Tabs';
-import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import {withStyles} from 'material-ui/styles';
-import Dialog from 'material-ui/Dialog';
 
 import {Element, scroller} from 'react-scroll';
 import SwipeableViews from 'react-swipeable-views';
 
 import withWidth from '../withWidth';
 import {breakpoints} from '../../theme';
-import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
-import AsylumConnectSwitch from '../AsylumConnectSwitch';
 import AsylumConnectMap from '../AsylumConnectMap';
 import AsylumConnectCollapsibleSection from '../AsylumConnectCollapsibleSection';
-import ACBadge from '../Badge';
 import IconButton from 'material-ui/IconButton';
 import ShareIcon from '../icons/ShareIcon';
 
@@ -33,13 +25,9 @@ import Languages from './DetailLanguages';
 import Services from './DetailServices';
 
 import Tools from './Tools';
-import FavoritesLink from '../FavoritesLink';
-import RatingControl from './RatingControl';
 import ReviewForm from './ReviewForm';
-import RatingAndReviews from './RatingAndReviews';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
 import Loading from '../Loading';
-import Phone from './Phone';
 
 import Modal from 'react-modal';
 import Button from 'react-bootstrap/Button';
@@ -49,16 +37,6 @@ import Reviews from './Reviews';
 
 import {getResourceAlertMessage} from '../../helpers/alertMessages';
 import OneDegreeResourceClient from '../../helpers/oneDegreeResourceClient';
-
-import {
-  bodyLink,
-  boldFont,
-  italicFont,
-  dividerSpacing,
-  mobilePadding
-} from '../../theme';
-import ShareDialog from '../share/ShareDialog';
-import ActionButton from '../ActionButton';
 
 const styles = theme => ({});
 
@@ -100,7 +78,7 @@ class Resource extends React.Component {
 
   componentWillMount() {
     window.scroll(0, 0);
-    if (this.props.resource == null) {
+    if (this.props.resource === null) {
       this.setState({
         orgLoading: true,
         oppLoading: true
@@ -133,7 +111,7 @@ class Resource extends React.Component {
   }
 
   handleOrganizationRequest(response) {
-    if (response.status && response.status == 'error') {
+    if (response.status && response.status === 'error') {
       //redirect
     } else {
       this.resourceProperties = this.odClient.collectOpportunityProperties(
@@ -151,7 +129,7 @@ class Resource extends React.Component {
   }
 
   handleOpportunityRequest(response) {
-    if (response.status && response.status == 'error') {
+    if (response.status && response.status === 'error') {
       //redirect
     } else {
       this.resourceProperties = this.odClient.collectOpportunityProperties(
@@ -233,9 +211,9 @@ class Resource extends React.Component {
   handleCommentRequest(type, response) {
     //find user's comment
     let userComment = false;
-    if (this.props.user && type == 'organization') {
+    if (this.props.user && type === 'organization') {
       response.comments.forEach(comment => {
-        if (comment.client_user_id == this.props.user.toString()) {
+        if (comment.client_user_id === this.props.user.toString()) {
           userComment = comment;
         }
       });
@@ -270,7 +248,7 @@ class Resource extends React.Component {
   }
 
   render() {
-    const {session, handleMessageNew, history, locale} = this.props;
+    const {session, locale} = this.props;
     const classes = this.props.defaultClasses;
     const {props} = this;
     const {resource} = this.state;
@@ -288,7 +266,7 @@ class Resource extends React.Component {
         : null;
 
     const sharePath = resource
-      ? 'resource' + '/' + resource.id + '/' + resource.name
+      ? `resource/${resource.id}/${resource.name}`
       : '';
     const showReviewForm =
       session &&
@@ -470,7 +448,6 @@ class Resource extends React.Component {
                             }}
                             onClick={() => {
                               this.setState({modal: false});
-                              this.state.modal;
                             }}
                           >
                             close

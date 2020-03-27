@@ -12,10 +12,6 @@ const styles = theme => ({
 });
 
 class DetailPropertyList extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   replaceValue(target, value) {
     return target.replace(
       /\[value\]/,

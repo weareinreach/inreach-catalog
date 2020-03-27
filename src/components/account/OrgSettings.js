@@ -9,7 +9,6 @@ import Typography from 'material-ui/Typography';
 import Loading from '../Loading';
 import OrgSettingsInfo from './OrgSettingsInfo';
 import OrgSettingsHour from './OrgSettingsHour';
-import OrgSettingsAdditional from './OrgSettingsAdditional';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 
@@ -81,7 +80,6 @@ class OrgSettings extends React.Component {
   }
 
   componentDidMount() {
-    var jwt = localStorage.getItem('jwt');
     const {user, handleMessageNew} = this.props;
     const apiDomain = config[process.env.OD_API_ENV].odrs;
     const url = `${apiDomain}organizations/${user.affiliation.fetchable_id}.jsonp?`;

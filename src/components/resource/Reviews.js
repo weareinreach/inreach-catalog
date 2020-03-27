@@ -1,17 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';
 
 import {boldFont, dividerSpacing} from '../../theme';
 import Loading from '../Loading';
-import AsylumConnectSwitch from '../AsylumConnectSwitch';
-import config from '../../config';
-
-const clientId = config[process.env.OD_API_ENV].client_id;
 
 const styles = theme => ({
   bottomSpacing: {
@@ -106,7 +100,7 @@ const Reviews = ({
         }
         </Grid>
       : null }
-        {isMobile && includeOrgReviews ? 
+        {isMobile && includeOrgReviews ?
           <Grid container spacing={0}>
             <Grid item xs={12}>
               <Divider className={classes.dividerSpacing} />

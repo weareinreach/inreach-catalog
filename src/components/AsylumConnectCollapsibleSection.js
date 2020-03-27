@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 
 import {withStyles} from 'material-ui/styles';
 
-import {CollapseIcon} from './icons';
-
 import Typography from 'material-ui/Typography';
 import ExpansionPanel, {
   ExpansionPanelDetails,
   ExpansionPanelSummary
 } from 'material-ui/ExpansionPanel';
 import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
 
 const styles = theme => ({
   rootClass: {
@@ -73,14 +70,7 @@ class AsylumConnectCollapsibleSection extends React.Component {
   }
 
   render() {
-    const {
-      content,
-      title,
-      summary,
-      borderTop,
-      borderBottom,
-      className
-    } = this.props;
+    const {content, title, borderTop, borderBottom, className} = this.props;
     const {expanded} = this.state;
     const {
       iconClass,

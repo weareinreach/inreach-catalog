@@ -29,7 +29,7 @@ class OneDegreeResourceClient {
   }
 
   getOrganization({id = null, orgOnly = false, callback = data => {}} = {}) {
-    if (id == null) {
+    if (id === null) {
       console.error('[OneDegreeResourceClient] No resource ID passed');
       return false;
     }
@@ -63,7 +63,7 @@ class OneDegreeResourceClient {
     per_page = 20,
     callback = data => {}
   } = {}) {
-    if (id == null) {
+    if (id === null) {
       console.error(
         '[OneDegreeResourceClient::getOpportunities] No resource ID passed'
       );
@@ -94,7 +94,7 @@ class OneDegreeResourceClient {
     per_page = 20,
     callback = data => {}
   } = {}) {
-    if (id == null) {
+    if (id === null) {
       console.error(
         '[OneDegreeResourceClient::getComments] No resource ID passed'
       );
@@ -130,7 +130,7 @@ class OneDegreeResourceClient {
     user_id = null,
     callback = data => {}
   } = {}) {
-    if (id == null || user_id == null) {
+    if (id === null || user_id === null) {
       console.error(
         '[OneDegreeResourceClient::getOrganizationRatingByUserId] No resource or user ID passed'
       );

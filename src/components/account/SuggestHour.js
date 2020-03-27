@@ -1,14 +1,9 @@
 import React from 'react';
-import update from 'react-addons-update';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
-import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import Input, {InputLabel} from 'material-ui/Input';
-import {FormControl, FormControlLabel} from 'material-ui/Form';
-import Radio from 'material-ui/Radio';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
@@ -73,7 +68,6 @@ const styles = theme => ({
 class SuggestHour extends React.Component {
   constructor(props) {
     super(props);
-    const {schedule} = this.props;
     this.state = {
       open: false
     };

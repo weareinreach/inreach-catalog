@@ -3,7 +3,6 @@ import React from 'react';
 import Fa from 'react-fontawesome';
 
 import {withStyles} from 'material-ui/styles';
-import {CircularProgress} from 'material-ui/Progress';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Tooltip from 'material-ui/Tooltip';
@@ -258,7 +257,7 @@ class SearchResultsContainer extends React.Component {
   }
 
   onMoveSearchButton(newPosition) {
-    if (newPosition != this.state.moveButton) {
+    if (newPosition !== this.state.moveButton) {
       this.setState({
         moveButton: !this.state.moveButton
       });
@@ -287,7 +286,6 @@ class SearchResultsContainer extends React.Component {
       noResults,
       secondary,
       shrinkTab,
-      t,
       tabContainer,
       tooltip
     } = this.props.classes;
@@ -296,7 +294,6 @@ class SearchResultsContainer extends React.Component {
         containerSearchResults + (this.state.tab !== 0 ? ' ' + shrinkTab : ''),
       handleListAddFavorite: this.props.handleListAddFavorite,
       handleListRemoveFavorite: this.props.handleListRemoveFavorite,
-      handleListNew: this.props.handleListNew,
       handleListNew: this.props.handleListNew,
       handleLogOut: this.props.handleLogOut,
       handleMessageNew: this.props.handleMessageNew,

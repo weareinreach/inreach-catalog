@@ -65,8 +65,8 @@ class GeneralSettingsEmail extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.currentEmail !== this.props.currentEmail &&
-      this.props.currentEmail != null &&
-      this.props.currentEmail != null
+      this.props.currentEmail !== null &&
+      this.props.currentEmail !== null
     ) {
       this.setState({
         currentEmail: nextProps.currentEmail,

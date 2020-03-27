@@ -8,10 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import Fa from 'react-fontawesome';
 
 import Dimensions from 'react-dimensions';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng
-} from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
 import {searchInput, searchInputMobile} from '../../theme';
@@ -84,7 +81,7 @@ class SearchBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.nearAddress && nextProps.nearAddress != this.state.address) {
+    if (nextProps.nearAddress && nextProps.nearAddress !== this.state.address) {
       this.setState({
         address: nextProps.nearAddress
       });
@@ -135,7 +132,7 @@ class SearchBar extends React.Component {
     const options = {
       componentRestrictions: {
         country:
-          typeof this.props.country == 'string'
+          typeof this.props.country === 'string'
             ? this.props.country.toLowerCase()
             : 'us'
       }

@@ -94,7 +94,7 @@ class RatingControl extends React.Component {
     const {classes, mode, className} = this.props;
     const isMobile = this.props.width < breakpoints['sm'];
 
-    if (isMobile && this.props.mode == 'static') {
+    if (isMobile && this.props.mode === 'static') {
       return (
         <span>
           {this.props.rating < 1 ? null : (

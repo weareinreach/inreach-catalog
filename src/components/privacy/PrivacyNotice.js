@@ -8,7 +8,6 @@ import Fa from 'react-fontawesome';
 
 import Cookies from 'js-cookie';
 
-import {searchInput, searchInputMobile, mobilePadding} from '../../theme';
 import PrivacyIcon from '../icons/PrivacyIcon';
 
 const styles = theme => ({
@@ -85,14 +84,13 @@ class PrivacyNotice extends React.Component {
 
   handleLaunchPrivacyPage(ev) {
     console.log(ev);
-    if (ev.target.closest('.stop-click-propagation') == null) {
+    if (ev.target.closest('.stop-click-propagation') === null) {
       this.completeDismiss();
       this.props.handleRequestOpen('privacy');
     }
   }
 
   render() {
-    const {handleRequestOpen} = this.props;
     const {
       container,
       box,

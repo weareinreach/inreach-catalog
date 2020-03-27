@@ -52,7 +52,11 @@ class NavTabletMenu extends React.Component {
           onClick={this.handleClick}
           className={classes.root}
         >
-          <img src={LogoImg} className={classes.LogoFitHeight} />
+          <img
+            src={LogoImg}
+            alt="asylumconnect logo"
+            className={classes.LogoFitHeight}
+          />
           <ChevronIcon width={'40px'} />
         </IconButton>
         <Menu

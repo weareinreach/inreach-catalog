@@ -67,7 +67,12 @@ const Visit = ({
           Website:{' '}
         </strong>
         {website ? (
-          <a href={website} target="_blank" className={classes.bodyLink}>
+          <a
+            href={website}
+            target="_blank"
+            className={classes.bodyLink}
+            rel="noopener noreferrer"
+          >
             {isMobile ? url.parse(website).hostname : website}
           </a>
         ) : null}

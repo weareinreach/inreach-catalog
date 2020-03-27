@@ -2,22 +2,10 @@ import React from 'react';
 
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
-import Button from 'material-ui/Button';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import ArrowBackIcon from 'material-ui-icons/ArrowBack';
-import Typography from 'material-ui/Typography';
-import Badge from 'material-ui/Badge';
 
-import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import SearchFilterSelector from './SearchFilterSelector';
 import SearchFilters from './SearchFilters';
-import FiltersIcon from '../icons/FiltersIcon';
-import SearchSortSelector from './SearchSortSelector';
-import SearchSorts from './SearchSorts';
 
 import withWidth from '../withWidth';
 import {breakpoints} from '../../theme';
@@ -87,19 +75,7 @@ class SearchRefinementControls extends React.Component {
   }
 
   render() {
-    const {
-      fixedFab,
-      fixedFilters,
-      fabContent,
-      dividerSpacing,
-      toolbarRoot,
-      toolbarGutters,
-      buttonRoot,
-      badgeColorAccent,
-      refinementTitle,
-      placement,
-      secondaryColor
-    } = this.props.classes;
+    const {fixedFilters} = this.props.classes;
     const isMobile = this.props.width < breakpoints['sm'];
     return (
       <div className="hide--on-print">

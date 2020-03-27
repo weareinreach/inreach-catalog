@@ -4,7 +4,6 @@ import 'whatwg-fetch';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
 import {withStyles} from 'material-ui/styles';
 
 import withWidth from '../withWidth';

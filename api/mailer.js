@@ -130,7 +130,7 @@ let makeEmail = async function(req, res, components) {
  * @param  {[type]} event [description]
  * @return {[type]}       [description]
  */
-notify = function(req, res, event, data) {
+const notify = function(req, res, event, data) {
   let components = {
     template: 'asylum-connect-notification-stationary.ejs',
     sender: 'Catalog <system@email.asylumconnectcatalog.org>',
@@ -149,7 +149,6 @@ notify = function(req, res, event, data) {
       break;
     default:
       return false;
-      break;
   }
   makeEmail(req, res, components)
     .then(email => send(email))

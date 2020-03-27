@@ -3,10 +3,8 @@ import React from 'react';
 import {withStyles} from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
-import Typography from 'material-ui/Typography';
 
 import AsylumConnectRadio from '../AsylumConnectRadio';
-import AsylumConnectSwitch from '../AsylumConnectSwitch';
 
 import withWidth from '../withWidth';
 import {breakpoints} from '../../theme';

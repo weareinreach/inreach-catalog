@@ -1,14 +1,7 @@
 import React from 'react';
-import update from 'react-addons-update';
 
 import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Input, {InputLabel} from 'material-ui/Input';
-import {FormControl, FormControlLabel} from 'material-ui/Form';
-import Radio from 'material-ui/Radio';
 
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
@@ -94,7 +87,6 @@ const styles = theme => ({
 class SuggestAdditional extends React.Component {
   constructor(props) {
     super(props);
-    const {schedule} = this.props;
     this.state = {
       openFeature: true,
       openRequirement: true,
@@ -143,18 +135,18 @@ class SuggestAdditional extends React.Component {
                       />
                     ))
                   : ''}
-                {/* <AsylumConnectCheckbox 
-                  label='Has Free Services' 
+                {/* <AsylumConnectCheckbox
+                  label='Has Free Services'
                   value='HasFreeServices'
                   onChange={(ref)=>{return ref}}
                    checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Has Translation Services' 
+                <AsylumConnectCheckbox
+                  label='Has Translation Services'
                   value='HasTranslationServices'
                   onChange={(ref)=>{return ref}}
                    checked={false} />
-                <AsylumConnectCheckbox 
-                  label='Has Transportation Services' 
+                <AsylumConnectCheckbox
+                  label='Has Transportation Services'
                   value='HasTransportationServices'
                   onChange={(ref)=>{return ref}}
                    checked={false} /> */}

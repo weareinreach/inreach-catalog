@@ -107,7 +107,7 @@ export const AddressParser = ({address, format = 'inline'} = {}) => {
 
   let addr = template;
   for (let part in address) {
-    if (typeof part == 'string') {
+    if (typeof part === 'string') {
       addr = addr.replace('[' + part + ']', address[part]);
     }
   }

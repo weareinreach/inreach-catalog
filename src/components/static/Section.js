@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import withStylesProps from '../withStylesProps';
 
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
 
 import Resource from './Resource';
 import ContentMarkdown from '../ContentMarkdown';
@@ -78,7 +77,6 @@ class Section extends React.Component {
       resources,
       dropdown
     } = this.props;
-    const containerWidth = 'auto';
     const dropdownKeys =
       dropdown && Object.keys(dropdown).length ? Object.keys(dropdown) : false;
     return (

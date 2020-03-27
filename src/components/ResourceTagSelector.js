@@ -1,19 +1,15 @@
 import React from 'react';
 
 import {withStyles} from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
 import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';
 
 import AsylumConnectSelector from './AsylumConnectSelector';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
-import ACBadge from './Badge';
 import {searchInput, searchInputMobile} from '../theme';
 import ResourceTypes from '../helpers/resourceTypes';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
-
-const resourceTypes = ResourceTypes.types;
 
 const styles = theme => ({
   searchInput: Object.assign(searchInput(theme), {

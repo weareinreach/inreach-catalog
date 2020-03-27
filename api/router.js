@@ -13,6 +13,7 @@ let getNotificationType = function(path) {
   switch (path) {
     case 'submissions':
       return 'submission.new';
+    default:
       break;
   }
 };
@@ -109,10 +110,10 @@ module.exports = {
               ? userData.affiliation.organization_name
               : '',
           grammar: {
-            thisOrThese: req.body.shareType == 'collection' ? 'These' : 'This',
-            listOf: req.body.shareType == 'collection' ? 'list of ' : '',
+            thisOrThese: req.body.shareType === 'collection' ? 'These' : 'This',
+            listOf: req.body.shareType === 'collection' ? 'list of ' : '',
             resource:
-              req.body.shareType == 'collection' ? 'resources' : 'resource',
+              req.body.shareType === 'collection' ? 'resources' : 'resource',
             from:
               userData.affiliation && userData.affiliation.organization_name
                 ? 'from '
@@ -154,8 +155,6 @@ module.exports = {
         ? req.params.page_name.toLowerCase()
         : false;
 
-    let pageData = [];
-
     //check page name against a map of spreadsheet ids
     if (req.params && page_name && pageMap[page_name]) {
       const sheetsReader = new SheetsReader(
@@ -170,7 +169,7 @@ module.exports = {
             };
             return sheetsReader.getRows(tab).then(rowsData => {
               const regex = /\[([^\]]*)\]/gm;
-              rowsData.map(row => {
+              rowsData.forEach(row => {
                 let identifier = row[0];
                 let identifierRoot = identifier.replace(regex, '');
                 let path = [identifierRoot];
@@ -190,17 +189,18 @@ module.exports = {
                     }
                   }
                 }
-                for (var i = 1; i < row.length; i++) {
+                for (var i = 1; index < row.length; index++) {
                   let updatedPath = path.map(value => {
-                    if (value == ARRAY_PLACEHOLDER) {
-                      return (i - 1).toString();
-                    } else {
-                      return value;
+                    if (value === ARRAY_PLACEHOLDER) {
+                      return (index - 1).toString();
                     }
+
+                    return value;
                   });
                   objectPath.set(tabData, updatedPath.join('.'), row[i]);
                 }
               });
+
               return tabData;
             });
           })

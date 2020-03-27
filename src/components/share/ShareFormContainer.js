@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
-import config from '../../config.js';
-
 import {updateListPermissions} from '../../helpers/odasRequests';
 import ShareForm from './ShareForm';
 
@@ -28,6 +26,7 @@ class ShareFormContainer extends React.Component {
 
   sendEmail() {
     const {
+      handleLogOut,
       handleMessageNew,
       handleRequestClose,
       handleRequestOpen,
@@ -59,7 +58,10 @@ class ShareFormContainer extends React.Component {
                 handleMessageNew(
                   'Your session has expired. Please log in again.'
                 );
-                handleLogOut();
+
+                if (handleLogOut) {
+                  handleLogOut();
+                }
               } else if (
                 responseData.statusCode &&
                 responseData.statusCode === 403
@@ -97,7 +99,7 @@ class ShareFormContainer extends React.Component {
       return;
     }
 
-    if (this.props.shareType == 'collection') {
+    if (this.props.shareType === 'collection') {
       updateListPermissions(listId, 'public', session)
         .then(response => {
           if (response.collection) {

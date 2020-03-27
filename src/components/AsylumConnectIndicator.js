@@ -38,11 +38,9 @@ class AsylumConnectIndicator extends React.Component {
     return (
       <div
         className={
-          (this.props.className ? this.props.className : position) +
-          ' ' +
           circle +
           ' ' +
-          (this.props.color == 'secondary' ? secondary : primary)
+          (this.props.color === 'secondary' ? secondary : primary)
         }
       >
         {this.props.children}

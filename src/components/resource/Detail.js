@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 import {withStyles} from 'material-ui/styles';
 import {
@@ -194,9 +194,6 @@ class Detail extends React.Component {
   }
 
   render() {
-    const {classes, session, handleMessageNew, history} = this.props;
-    const {props} = this;
-    //console.log(this.props.resource, this.props.service)
     return (
       <Switch>
         <Route

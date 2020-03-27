@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {Link} from 'react-router-dom';
-
 import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 
 import resourceTypes from '../../helpers/resourceTypes';
 import ACBadge from '../Badge';
@@ -13,7 +10,6 @@ import ACBadge from '../Badge';
 
 const ServiceType = props => {
   let listedTags = [];
-  let tagDetails = [];
   let unfoundTags = [];
   let subcategories = [];
   let categories = [];
@@ -32,6 +28,8 @@ const ServiceType = props => {
       } else {
         unfoundTags.push(tag);
       }
+
+      return null;
     });
     //console.log(subcategories, categories, unfoundTags);
     list = subcategories
@@ -43,7 +41,7 @@ const ServiceType = props => {
                 return (
                   subcategories.filter(
                     subcategory => subcategory.category === category.category
-                  ).length == 0
+                  ).length === 0
                 );
               })
               .map(category => ({

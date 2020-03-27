@@ -3,7 +3,6 @@ import {Marker} from 'react-google-maps';
 
 class AsylumConnectMarker extends React.Component {
   constructor(props, context) {
-    //console.log(props);
     super(props, context);
     this.state = {
       open: false
@@ -28,17 +27,17 @@ class AsylumConnectMarker extends React.Component {
   render() {
     const {children} = this.props;
     const markerURL =
-      process.env.OD_API_ENV == 'development'
-        ? location.protocol +
+      process.env.OD_API_ENV === 'development'
+        ? window.location.protocol +
           '//asylum-connect-catalog-staging.herokuapp.com/img/icon-pinpoint.png'
-        : location.origin + '/img/icon-pinpoint.png';
+        : window.location.origin + '/img/icon-pinpoint.png';
     return (
       <Marker
         {...this.props}
         icon={{
           url: markerURL,
-          anchor: new google.maps.Point(11, 32),
-          scaledSize: new google.maps.Size(22, 32)
+          anchor: new window.google.maps.Point(11, 32),
+          scaledSize: new window.google.maps.Size(22, 32)
         }}
         onClick={this.handleMarkerClick}
       >

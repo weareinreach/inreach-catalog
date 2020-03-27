@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 import {withStyles} from 'material-ui/styles';
 import {breakpoints} from '../../theme';
@@ -12,7 +11,6 @@ import SearchIcon from '../icons/SearchIcon';
 import FavoritesIcon from '../icons/FavoritesIcon';
 import LanguageIcon from '../icons/LanguageIcon';
 import AccountIcon from '../icons/AccountIcon';
-import PrivacyIcon from '../icons/PrivacyIcon';
 import MoreIcon from '../icons/MoreIcon';
 
 let theTheme;
@@ -55,7 +53,7 @@ const styles = theme => {
       '&:hover': {
         color: theme.palette.primary[500]
       },
-      ['@media (max-width:359.95px)']: {
+      '@media (max-width:359.95px)': {
         fontSize: theme.typography.body1.fontSize - 4 + 'px !important'
       }
     }
@@ -85,6 +83,8 @@ class NavMobile extends React.Component {
           break;
         case /^\/account/:
           value = 4;
+          break;
+        default:
           break;
       }
       if (value !== this.state.value) {
@@ -119,6 +119,8 @@ class NavMobile extends React.Component {
         break;
       case 4:
         handleRequestOpen('more');
+        break;
+      default:
         break;
     }
     this.setState({value});

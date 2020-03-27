@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 
 import AsylumConnectBackButton from '../AsylumConnectBackButton';
 import SaveToFavoritesButton from '../SaveToFavoritesButton';
@@ -11,7 +10,6 @@ import IconButton from 'material-ui/IconButton';
 import ShareIcon from '../icons/ShareIcon';
 import Modal from 'react-modal';
 import Button from 'react-bootstrap/Button';
-import SignupFormContainer from '../account/SignupFormContainer';
 
 const Tools = props => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

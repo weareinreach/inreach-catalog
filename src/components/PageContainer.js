@@ -6,12 +6,7 @@ import AccountPage from './account/AccountPage';
 import ResetPasswordPage from './account/ResetPasswordPage';
 import Suggestion from './account/Suggestion';
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
-} from 'react-router-dom';
+import {Route, Redirect, Switch} from 'react-router-dom';
 
 class PageContainer extends React.Component {
   render() {

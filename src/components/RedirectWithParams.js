@@ -1,6 +1,6 @@
 import React from 'react';
 import pathToRegexp from 'path-to-regexp';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 
 const RedirectWithParams = ({exact, from, push, to}) => {
   const pathTo = pathToRegexp.compile(to);

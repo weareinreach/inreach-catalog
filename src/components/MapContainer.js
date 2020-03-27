@@ -1,12 +1,7 @@
 import React from 'react';
-
-import {Route, Redirect, Switch, withRouter} from 'react-router-dom';
-//import { StickyContainer, Sticky } from 'react-sticky';
-
+import {Route, Switch} from 'react-router-dom';
 import Sticky from 'react-sticky-state';
-
 import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 import {withStyles} from 'material-ui/styles';
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import ReactDOM from 'react-dom';
@@ -18,8 +13,6 @@ import AsylumConnectMap from './AsylumConnectMap';
 import SearchFormContainer from './search/SearchFormContainer';
 import SearchResultsContainer from './search/SearchResultsContainer';
 import OneDegreeResourceQuery from '../helpers/oneDegreeResourceQuery';
-import Resource from './resource/Resource';
-import Service from './resource/Service';
 import Detail from './resource/Detail';
 import ResourceTypes from '../helpers/resourceTypes';
 
@@ -55,7 +48,6 @@ class MapContainer extends React.Component {
       selectedSort
     } = this.parseParams(props.match.params);
     this.props.handleAddressChange(nearAddress);
-    let ACMap = null;
     this.state = {
       nearLatLng,
       inState,
@@ -102,7 +94,7 @@ class MapContainer extends React.Component {
 
     this.resizeMap();
     if (
-      this.props.match.path ==
+      this.props.match.path ===
       '/:locale/search/:in/:place/:near/:for/:filter/:sort'
     ) {
       localStorage.setItem('lastSearch', this.props.history.location.pathname);
@@ -118,32 +110,32 @@ class MapContainer extends React.Component {
   }
   componentWillUpdate(nextProps, nextState) {
     if (
-      nextProps.match.path == '/:locale/resource/:id' &&
-      (this.props.match.path != '/:locale/resource/:id' ||
+      nextProps.match.path === '/:locale/resource/:id' &&
+      (this.props.match.path !== '/:locale/resource/:id' ||
         (this.props.match.params &&
           nextProps.match.params &&
-          this.props.match.params.id != nextProps.match.params.id &&
-          this.props.match.path == '/:locale/resource/:id'))
+          this.props.match.params.id !== nextProps.match.params.id &&
+          this.props.match.path === '/:locale/resource/:id'))
     ) {
       this.setSelectedResource(
         this.getCachedResource(nextProps.match.params.id)
       );
     }
     if (
-      nextProps.match.path == '/:locale/resource/:id/service/:serviceId' &&
-      (this.props.match.path != '/:locale/resource/:id/service/:serviceId' ||
+      nextProps.match.path === '/:locale/resource/:id/service/:serviceId' &&
+      (this.props.match.path !== '/:locale/resource/:id/service/:serviceId' ||
         (this.props.match.params &&
           nextProps.match.params &&
-          this.props.match.params.serviceId !=
+          this.props.match.params.serviceId !==
             nextProps.match.params.serviceId &&
-          this.props.match.path == '/:locale/resource/:id/service/:serviceId'))
+          this.props.match.path === '/:locale/resource/:id/service/:serviceId'))
     ) {
       this.setSelectedResource(
         this.getCachedResource(nextProps.match.params.id)
       );
     }
     if (
-      nextProps.match.path ==
+      nextProps.match.path ===
       '/:locale/search/:in/:place/:near/:for/:filter/:sort'
     ) {
       localStorage.setItem('lastSearch', nextProps.history.location.pathname);
@@ -346,13 +338,13 @@ class MapContainer extends React.Component {
       });
     };
 
-    if (this.state.nearLatLng == null) {
+    if (this.state.nearLatLng === null) {
       geocodeByAddress(this.props.nearAddress)
         .then(results => {
           //console.log(results);
           let state = {};
           if (results.length && results[0].address_components) {
-            results[0].address_components.map(piece => {
+            results[0].address_components.forEach(piece => {
               if (
                 piece.types &&
                 piece.types.indexOf('administrative_area_level_1') >= 0
@@ -447,7 +439,7 @@ class MapContainer extends React.Component {
   findResource(slug) {
     const searchResults = this.state.searchResults.slice();
     for (let i = 0; i < this.state.searchResults.length; i++) {
-      if (searchResults[i].slug == slug) {
+      if (searchResults[i].slug === slug) {
         return searchResults[i];
       }
     }
@@ -602,7 +594,7 @@ class MapContainer extends React.Component {
         : [];
     //on the search results, enforce a distance limitation of 100 miles
     const mapMaxDistance =
-      this.props.match.path ==
+      this.props.match.path ===
       '/:locale/search/:in/:place/:near/:for/:filter/:sort'
         ? 100
         : null;
@@ -679,7 +671,7 @@ class MapContainer extends React.Component {
                             typeof ResourceTypes.resourceCategoryIndex[item] !==
                               'undefined' &&
                             ResourceTypes.resourceCategoryIndex[item]
-                              .category == 'Legal'
+                              .category === 'Legal'
                           );
                         }).length > 0
                       }
@@ -752,7 +744,7 @@ class MapContainer extends React.Component {
                     country={this.props.country}
                     history={this.props.history}
                     infographic={
-                      this.props.match.path ==
+                      this.props.match.path ===
                         '/:locale/search/:in/:place/:near/:for/:filter/:sort' &&
                       infographic
                     }

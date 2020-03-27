@@ -40,9 +40,6 @@ function renderInput(inputProps) {
 }
 
 class RenderSuggestion extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {suggestion, query, isHighlighted} = this.props.suggestions;
     const matches = match(suggestion, query);
