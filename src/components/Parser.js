@@ -1,6 +1,6 @@
 import React from 'react';
 
-const convertTime = require('./convertTime');
+const convertTime = require('../helpers/convertTime');
 const days = [
   {name: 'Monday', abbr: 'Mon', oneletter: 'M'},
   {name: 'Tuesday', abbr: 'Tue', oneletter: 'T'},

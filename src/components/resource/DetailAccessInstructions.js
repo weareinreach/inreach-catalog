@@ -6,7 +6,7 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Fa from 'react-fontawesome';
 
-import {ScheduleParser, AddressParser} from '../../helpers/Parser';
+import {ScheduleParser, AddressParser} from '../Parser';
 import Phone from './Phone';
 import {boldFont, bodyLink, listLink} from '../../theme';
 
