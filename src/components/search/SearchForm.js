@@ -70,7 +70,11 @@ const BannerContainer = props => {
         On March 20, 2020, the US announced that travel across the border with
         Canada will be stopped. Canada will turn back asylum seekers who cross
         the US border. For more information on how COVID-19 is impacting refugee
-        claims in Canada, see this blog post.
+        claims in Canada, see{' '}
+        <a href="https://asylumconnect.org/information-on-how-covid-19-is-impacting-refugee-claims-in-canada">
+          this blog post
+        </a>
+        .
       </span>
     );
   }
