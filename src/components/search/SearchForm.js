@@ -58,8 +58,8 @@ const BannerContainer = props => {
     disclaimerProps.children = (
       <span>
         <strong>United States Borders Close Due to Coronavirus:</strong> On
-        March 20, 2020, the United States announced the borders with mexico and
-        Canada will be closed. Asylum seekers will be turend back from all
+        March 20, 2020, the United States announced the borders with Mexico and
+        Canada will be closed. Asylum seekers will be turned back from all
         borders.
       </span>
     );

@@ -12,3 +12,6 @@ Dockerfile
 docker-compose.yml
 
 hash-test*
+
+# Build js
+public/js
