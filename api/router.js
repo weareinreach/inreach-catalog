@@ -155,6 +155,8 @@ module.exports = {
         ? req.params.page_name.toLowerCase()
         : false;
 
+    let pageData = [];
+
     //check page name against a map of spreadsheet ids
     if (req.params && page_name && pageMap[page_name]) {
       const sheetsReader = new SheetsReader(
@@ -169,7 +171,7 @@ module.exports = {
             };
             return sheetsReader.getRows(tab).then(rowsData => {
               const regex = /\[([^\]]*)\]/gm;
-              rowsData.forEach(row => {
+              rowsData.map(row => {
                 let identifier = row[0];
                 let identifierRoot = identifier.replace(regex, '');
                 let path = [identifierRoot];
@@ -189,18 +191,17 @@ module.exports = {
                     }
                   }
                 }
-                for (var i = 1; index < row.length; index++) {
+                for (var i = 1; i < row.length; i++) {
                   let updatedPath = path.map(value => {
-                    if (value === ARRAY_PLACEHOLDER) {
-                      return (index - 1).toString();
+                    if (value == ARRAY_PLACEHOLDER) {
+                      return (i - 1).toString();
+                    } else {
+                      return value;
                     }
-
-                    return value;
                   });
                   objectPath.set(tabData, updatedPath.join('.'), row[i]);
                 }
               });
-
               return tabData;
             });
           })

@@ -94,7 +94,9 @@ class AsylumConnectSelector extends React.Component {
 
   handleOpenDrawer(event) {
     if (event) {
-      this.props.moveSearchButton(this.state.open);
+      if (this.props.moveSearchButton) {
+        this.props.moveSearchButton(this.state.open);
+      }
     }
   }
 
