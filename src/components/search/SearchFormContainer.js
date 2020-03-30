@@ -13,6 +13,7 @@ import {breakpoints} from '../../theme';
 import {mobilePadding} from '../../theme';
 import SubAnnouncement from '../SubAnnouncement';
 import IconButton from 'material-ui/IconButton';
+import Disclaimer from '../static/Disclaimer';
 
 const styles = theme => ({
   title: {
@@ -109,6 +110,41 @@ const styles = theme => ({
     //height: '100%',
   }
 });
+
+const BannerContainer = props => {
+  const {locale} = props;
+  const disclaimerProps = {};
+  if (locale === 'en_US') {
+    disclaimerProps.children = (
+      <span>
+        <strong>United States Borders Close Due to Coronavirus:</strong> On
+        March 20, 2020, the United States announced the borders with Mexico and
+        Canada will be closed. Asylum seekers will be turned back from all
+        borders.
+      </span>
+    );
+  } else if (locale === 'en_CA') {
+    disclaimerProps.children = (
+      <span>
+        <strong>United States-Canada Border Closes Due to Coronavirus:</strong>{' '}
+        On March 20, 2020, the US announced that travel across the border with
+        Canada will be stopped. Canada will turn back asylum seekers who cross
+        the US border. For more information on how COVID-19 is impacting refugee
+        claims in Canada, see{' '}
+        <a href="https://asylumconnect.org/information-on-how-covid-19-is-impacting-refugee-claims-in-canada">
+          this blog post
+        </a>
+        .
+      </span>
+    );
+  }
+
+  return (
+    <div>
+      <Disclaimer {...disclaimerProps} />
+    </div>
+  );
+};
 
 class SearchFormContainer extends React.Component {
   constructor(props, context) {
@@ -235,6 +271,9 @@ class SearchFormContainer extends React.Component {
               </Grid>
             ) : null}
             <Grid container spacing={0} className={containerSearchForm}>
+              {this.state.locale && (
+                <BannerContainer locale={this.state.locale} />
+              )}
               {!isMobile ? (
                 <Grid item xs={12}>
                   {this.state.locale ? (
