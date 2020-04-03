@@ -1,6 +1,7 @@
 import React from 'react';
 
-const convertTime = require('../helpers/convertTime');
+import convertTime from '../utils/convertTime';
+
 const days = [
   {name: 'Monday', abbr: 'Mon', oneletter: 'M'},
   {name: 'Tuesday', abbr: 'Tue', oneletter: 'T'},
@@ -8,17 +9,17 @@ const days = [
   {name: 'Thursday', abbr: 'Thu', oneletter: 'Th'},
   {name: 'Friday', abbr: 'Fri', oneletter: 'F'},
   {name: 'Saturday', abbr: 'Sat', oneletter: 'S'},
-  {name: 'Sunday', abbr: 'Sun', oneletter: 'Su'}
+  {name: 'Sunday', abbr: 'Sun', oneletter: 'Su'},
 ];
 
 export const ScheduleParser = ({
   schedule,
   format = 'condensed',
-  hideClosed = true
+  hideClosed = true,
 } = {}) => {
   let openHours = [],
     final = [];
-  days.forEach(item => {
+  days.forEach((item) => {
     let name;
     switch (format) {
       case 'condensed':
@@ -46,12 +47,12 @@ export const ScheduleParser = ({
 
       openHours.push({
         name: name,
-        times: times
+        times: times,
       });
     } else {
       openHours.push({
         name: name,
-        times: 'Closed'
+        times: 'Closed',
       });
     }
   });
@@ -61,21 +62,21 @@ export const ScheduleParser = ({
         if (i === 0 || openHours[i].times !== openHours[i - 1].times) {
           final.push({
             start: openHours[i].name,
-            time: openHours[i].times
+            time: openHours[i].times,
           });
         } else if (openHours[i].times === openHours[i - 1].times) {
           final[final.length - 1].end = openHours[i].name;
         }
         if (i + 1 === openHours.length) {
           final = final
-            .map(item => {
+            .map((item) => {
               if (typeof item.end !== 'undefined') {
                 return {days: item.start + '-' + item.end, time: item.time};
               } else {
                 return {days: item.start, time: item.time};
               }
             })
-            .filter(item => {
+            .filter((item) => {
               return !hideClosed || (hideClosed && item.time !== 'Closed');
             });
         }

@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Static from './static/';
-import FavoritesListContainer from './favorites/FavoritesListContainer';
-import AccountPage from './account/AccountPage';
-import ResetPasswordPage from './account/ResetPasswordPage';
-import Suggestion from './account/Suggestion';
-
+import React from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
+
+import AccountPage from './AccountPage';
+import FavoritesListContainer from './FavoritesListContainer';
+import ResetPasswordPage from './ResetPasswordPage';
+import Suggestion from './Suggestion';
+import Static from '../pages/Static';
 
 class PageContainer extends React.Component {
   render() {
@@ -25,7 +25,7 @@ class PageContainer extends React.Component {
       session,
       sessionConfirmed,
       user,
-      t
+      t,
     } = this.props;
     const favoritesListProps = {
       country: country,
@@ -40,7 +40,7 @@ class PageContainer extends React.Component {
       locale: locale,
       session: this.props.session,
       user: this.props.user,
-      t: t
+      t: t,
     };
     return (
       <div className="page-container">
@@ -106,7 +106,7 @@ class PageContainer extends React.Component {
           />
           <Route
             path="/:locale/page/:pageName"
-            render={props => (
+            render={(props) => (
               <Static
                 changeLocale={changeLocale}
                 handleMessageNew={handleMessageNew}
@@ -121,7 +121,7 @@ class PageContainer extends React.Component {
             )}
           />
           <Route
-            render={props => (
+            render={(props) => (
               <Redirect
                 to={
                   window.location.pathname.indexOf(
@@ -143,7 +143,7 @@ class PageContainer extends React.Component {
 
 PageContainer.propTypes = {
   handleUnconfirmSession: PropTypes.func.isRequired,
-  sessionConfirmed: PropTypes.bool.isRequired
+  sessionConfirmed: PropTypes.bool.isRequired,
 };
 
 export default PageContainer;

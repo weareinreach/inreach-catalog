@@ -1,21 +1,20 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import {MenuItem} from 'material-ui/Menu';
+import React from 'react';
 import Modal from 'react-modal';
+import MediaQuery from 'react-responsive';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectPopUp from './AsylumConnectPopUp';
-import RedHeartIcon from './icons/RedHeartIcon';
-import MediaQuery from 'react-responsive';
+import {RedHeartIcon} from './icons';
 
 import {
   createList,
   createListFavorite,
   deleteListFavorite
-} from '../helpers/odasRequests';
+} from '../utils/api';
 
 const styles = theme => ({
   viewYourFavoritesText: {

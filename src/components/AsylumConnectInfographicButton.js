@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
-import Paper from 'material-ui/Paper';
-import {MenuList} from 'material-ui/Menu';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import MenuList from '@material-ui/core/MenuList';
 import Fa from 'react-fontawesome';
 import withWidth from './withWidth';
-import {withStyles} from 'material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 
-import language from '../helpers/language';
-import validLanguageList from '../helpers/validLanguageList';
+import language from '../utils/language';
+import validLanguageList from '../utils/validLanguageList';
 
-const styles = theme => ({
+const styles = (theme) => ({
   infographicButtonContainer: {
     height: '1em',
     left: '10px',
@@ -27,8 +27,8 @@ const styles = theme => ({
       left: 'auto',
       zIndex: '1',
       marginTop: '1rem',
-      marginRight: '0'
-    }
+      marginRight: '0',
+    },
   },
   infographicLinkContainer: {
     position: 'static',
@@ -41,18 +41,18 @@ const styles = theme => ({
     textAlign: 'right',
     [theme.breakpoints.down('md')]: {
       marginTop: '1rem',
-      textAlign: 'left'
+      textAlign: 'left',
     },
     [theme.breakpoints.down('xs')]: {
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   },
   infographicButton: {
     backgroundColor: theme.palette.common.white,
-    minHeight: '0px'
+    minHeight: '0px',
   },
   infographicButtonIcon: {
-    paddingRight: '0.5rem'
+    paddingRight: '0.5rem',
   },
   smallerButton: {
     textTransform: 'none',
@@ -61,7 +61,7 @@ const styles = theme => ({
     fontFamily: 'Roboto,sans-serif',
     letterSpacing: '0',
     lineHeight: '1.2',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   infographicLink: {
     fontWeight: theme.typography.fontWeightMedium,
@@ -70,12 +70,12 @@ const styles = theme => ({
       fontWeight: 'normal',
       textDecoration: 'underline',
       '&:hover': {
-        textDecoration: 'none'
-      }
-    }
+        textDecoration: 'none',
+      },
+    },
   },
   infographicListLink: {
-    color: theme.palette.common.black
+    color: theme.palette.common.black,
   },
   infographicListItem: {
     [theme.breakpoints.down('xs')]: {
@@ -83,16 +83,16 @@ const styles = theme => ({
       lineHeight: '1rem',
       paddingTop: '5px',
       paddingBottom: '5px',
-      height: 'auto'
-    }
-  }
+      height: 'auto',
+    },
+  },
 });
 
 class AsylumConnectInfographicButton extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      open: false
+      open: false,
     };
     this.id = 'infographic--' + Date.now().toString();
 
@@ -119,7 +119,7 @@ class AsylumConnectInfographicButton extends React.Component {
     }
 
     this.setState({
-      open: !this.state.open
+      open: !this.state.open,
     });
   }
 
@@ -193,10 +193,6 @@ class AsylumConnectInfographicButton extends React.Component {
                   </AsylumConnectDropdownListItem>
                 </a>
               ))}
-              {/*resourceTypes.map((filter, i) => (
-                  <List key={i} index={i} classes={listClasses} onChange={onChange} selected={selected} {...filter} />
-                )
-              )*/}
             </MenuList>
           </Paper>
         ) : null}
@@ -208,7 +204,7 @@ class AsylumConnectInfographicButton extends React.Component {
 AsylumConnectInfographicButton.propTypes = {
   text: PropTypes.string.isRequired,
   url: PropTypes.string,
-  list: PropTypes.array
+  list: PropTypes.array,
 };
 
-export default withWidth(withStyles(styles)(AsylumConnectInfographicButton));
+export default withStyles(styles)(withWidth(AsylumConnectInfographicButton));

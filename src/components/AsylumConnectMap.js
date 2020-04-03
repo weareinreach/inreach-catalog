@@ -3,61 +3,47 @@ import PropTypes from 'prop-types';
 
 import {withGoogleMap, GoogleMap, InfoWindow} from 'react-google-maps';
 
-import Typography from 'material-ui/Typography';
-import {withStyles} from 'material-ui/styles';
+import Typography from '@material-ui/core/Typography';
+import {withStyles} from '@material-ui/core/styles';
 import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 
 import AsylumConnectMarker from './AsylumConnectMarker';
 
-const styles = theme => ({
+const getLatLong = (location) => {
+  const lat = location.lat;
+  const lng = location.lng || location.long;
+  const parsedLat = parseInt(lat, 10);
+  const parsedLng = parseInt(lng, 10);
+
+  return {lat: parsedLat, lng: parsedLng};
+};
+
+const styles = (theme) => ({
   link: {
     color: theme.palette.secondary[500],
-    fontWeight: '600'
+    fontWeight: '600',
   },
   infoWindow: {
     lineHeight: '1.4rem',
-    cursor: 'pointer'
-  }
+    cursor: 'pointer',
+  },
 });
 
 class AsylumConnectMap extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.updateBounds = this.updateBounds.bind(this);
     this.onMapMounted = this.onMapMounted.bind(this);
   }
 
-  componentWillUpdate(nextProps) {
-    /*if(typeof nextProps.mapProps.center === "undefined"
-        && nextProps.resources.length) {
-      this.updateBounds(nextProps.resources);
-    }*/
-  }
-
   onMapMounted(ref) {
     this.map = ref;
-
-    /*window.google.maps.event.addListener(ref, 'zoom_changed', function() {
-      let referencePoint = new window.google.maps.LatLng(lat, lng);
-      let nearestInfographic = false;
-      infographics.some((infographic, index) => {
-        if(window.google.maps.geometry.spherical
-            .computeDistanceBetween(
-              referencePoint,
-              new window.google.maps.LatLng(infographic.center.lat, infographic.center.lng)
-            ) <= milesToMeters(infographic.distance)
-        ) {
-          nearestInfographic = infographic;
-          return true;
-        }
-      });
-    });*/
   }
 
   updateBounds(resources) {
-    let self = this;
     const bounds = new window.google.maps.LatLngBounds();
+
     if (
       typeof this.props.searchCenter === 'object' &&
       this.props.searchCenter
@@ -65,56 +51,59 @@ class AsylumConnectMap extends React.Component {
       bounds.extend(this.props.searchCenter);
       bounds.extend({
         lat: this.props.searchCenter.lat - 0.1,
-        lng: this.props.searchCenter.lng - 0.1
+        lng: this.props.searchCenter.lng - 0.1,
       });
       bounds.extend({
         lat: this.props.searchCenter.lat + 0.1,
-        lng: this.props.searchCenter.lng + 0.1
+        lng: this.props.searchCenter.lng + 0.1,
       });
     }
-    resources.map(resource => {
-      let points = resource.locations.length
-        ? resource.locations
-        : [{lat: resource.lat, lng: resource.lng, region: resource.region}];
-      points.map(location => {
-        if (!location.lat || (!location.lng && !location.long)) return null;
-        //exclude from bounds calculations the locations more than 50 miles away
+
+    resources.forEach((resource) => {
+      const locations = resource?.locations || [];
+      let points = locations.length
+        ? locations
+        : resource.lat && resource.lng && resource.region
+        ? [{lat: resource.lat, lng: resource.lng, region: resource.region}]
+        : [];
+
+      points.forEach((location) => {
+        const {lat, lng} = getLatLong(location);
+
+        if (!lat || !lng) {
+          return;
+        }
+
+        // exclude from bounds calculations the locations more than 50 miles away
         if (
-          window.google &&
-          window.google.maps &&
-          window.google.maps.geometry &&
-          window.google.maps.geometry.spherical &&
-          window.google.maps.geometry.spherical.computeDistanceBetween &&
-          self.props.searchCenter &&
-          self.props.mapMaxDistance &&
-          !isNaN(self.props.mapMaxDistance) &&
+          this.props.searchCenter &&
+          this.props.mapMaxDistance &&
+          !isNaN(this.props.mapMaxDistance) &&
+          window?.google?.maps?.geometry?.spherical?.computeDistanceBetween &&
           window.google.maps.geometry.spherical.computeDistanceBetween(
             new window.google.maps.LatLng(
-              self.props.searchCenter.lat,
-              self.props.searchCenter.lng
+              this.props.searchCenter.lat,
+              this.props.searchCenter.lng
             ),
-            new window.google.maps.LatLng(
-              location.lat,
-              location.long ? location.long : location.lng
-            )
+            new window.google.maps.LatLng(lat, lng)
           ) >
-            self.props.mapMaxDistance * 1609.34
-        )
-          return null;
+            this.props.mapMaxDistance * 1609.34
+        ) {
+          return;
+        }
+
+        bounds.extend({lat, lng});
         bounds.extend({
-          lat: location.lat,
-          lng: location.long ? location.long : location.lng
+          lat: lat - 0.1,
+          lng: lng - 0.1,
         });
         bounds.extend({
-          lat: location.lat - 0.1,
-          lng: location.long ? location.long - 0.1 : location.lng - 0.1
-        });
-        bounds.extend({
-          lat: location.lat + 0.1,
-          lng: location.long ? location.long + 0.1 : location.lng + 0.1
+          lat: lat + 0.1,
+          lng: lng + 0.1,
         });
       });
     });
+
     if (this.map) {
       this.map.fitBounds(bounds);
     }
@@ -124,7 +113,7 @@ class AsylumConnectMap extends React.Component {
     const {classes, history, resources, infographic, t} = this.props;
     const defaultCenter = {
       lat: parseFloat(t('39.8333333')),
-      lng: parseFloat(t('-98.585522'))
+      lng: parseFloat(t('-98.585522')),
     };
     const defaultZoom = 4;
 
@@ -163,34 +152,34 @@ class AsylumConnectMap extends React.Component {
           zoom={zoom}
         >
           {resources && resources.length
-            ? resources.map(resource => {
-                var points = resource.locations.length
+            ? resources.map((resource) => {
+                const points = resource.locations.length
                   ? resource.locations
                   : [
                       {
                         lat: resource.lat,
                         lng: resource.lng,
-                        region: resource.region
-                      }
+                        region: resource.region,
+                      },
                     ];
 
-                return points.map(location => {
-                  if (!location.lat || (!location.lng && !location.long))
+                return points.map((location) => {
+                  const {lat, lng} = getLatLong(location);
+
+                  if (!lat || !lng) {
                     return null;
+                  }
 
                   return (
                     <AsylumConnectMarker
                       key={location.id}
-                      position={{
-                        lat: location.lat,
-                        lng: location.long ? location.long : location.lng
-                      }}
+                      position={{lat, lng}}
                     >
                       <InfoWindow>
                         <Typography
                           variant="body2"
                           className={classes.infoWindow}
-                          onClick={ev => {
+                          onClick={(ev) => {
                             history.push('/resource/' + resource.slug);
                           }}
                         >
@@ -226,7 +215,7 @@ class AsylumConnectMap extends React.Component {
                               target="_blank"
                               rel="noopener noreferrer"
                               className={classes.link}
-                              onClick={ev => {
+                              onClick={(ev) => {
                                 ev.stopPropagation();
                               }}
                             >
@@ -249,7 +238,7 @@ class AsylumConnectMap extends React.Component {
 AsylumConnectMap.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object,
-  resources: PropTypes.array
+  resources: PropTypes.array,
 };
 
 export default withGoogleMap(withStyles(styles)(AsylumConnectMap));

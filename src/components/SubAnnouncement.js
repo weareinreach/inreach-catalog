@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Typography from 'material-ui/Typography';
-import {withStyles} from 'material-ui/styles';
-import KeyboardArrowRightIcon from 'material-ui-icons/KeyboardArrowRight';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 const styles = theme => ({
   subAnnouncementText: {

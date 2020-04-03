@@ -1,61 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {withStyles} from 'material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 
-import Typography from 'material-ui/Typography';
-import ExpansionPanel, {
-  ExpansionPanelDetails,
-  ExpansionPanelSummary
-} from 'material-ui/ExpansionPanel';
-import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
+import Typography from '@material-ui/core/Typography';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
-const styles = theme => ({
+const styles = (theme) => ({
   rootClass: {
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   containerClass: {
-    paddingTop: theme.spacing.unit * 5,
-    paddingBottom: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
     [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing.unit * 2,
-      paddingBottom: theme.spacing.unit * 2
-    }
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
   },
   borderTop: {
-    borderTop: '1px solid ' + theme.palette.common.separator
+    borderTop: '1px solid ' + theme.palette.common.separator,
   },
   borderBottom: {
-    paddingBottom: '1px solid ' + theme.palette.common.separator
+    paddingBottom: '1px solid ' + theme.palette.common.separator,
   },
   detailsRootClass: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     paddingBottom: 0,
-    paddingLeft: 0
+    paddingLeft: 0,
   },
   summaryRootClass: {
     minHeight: '0!important',
     paddingLeft: '0!important',
-    paddingRight: '0!important'
+    paddingRight: '0!important',
   },
   summaryExpandedClass: {
     minHeight: '0!important',
-    margin: '0!important'
+    margin: '0!important',
   },
   summaryContentClass: {
-    margin: '0!important'
+    margin: '0!important',
   },
   iconClass: {
     color: theme.palette.common.darkBlack,
-    right: 0
-  }
+    right: 0,
+  },
 });
 
 class AsylumConnectCollapsibleSection extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      expanded: props.expanded
+      expanded: props.expanded,
     };
 
     this.handleToggle = this.handleToggle.bind(this);
@@ -65,7 +64,7 @@ class AsylumConnectCollapsibleSection extends React.Component {
 
   handleToggle(event, expanded) {
     this.setState({
-      expanded: expanded
+      expanded: expanded,
     });
   }
 
@@ -79,7 +78,7 @@ class AsylumConnectCollapsibleSection extends React.Component {
       summaryRootClass,
       summaryExpandedClass,
       summaryContentClass,
-      detailsRootClass
+      detailsRootClass,
     } = this.props.classes;
     const containerClasses =
       (borderTop ? this.props.classes.borderTop : '') +
@@ -104,15 +103,15 @@ class AsylumConnectCollapsibleSection extends React.Component {
               root: summaryRootClass,
               content: summaryContentClass,
               expanded: summaryExpandedClass,
-              expandIcon: iconClass
+              expandIcon: iconClass,
             }}
             expandIcon={<KeyboardArrowDownIcon />}
           >
-            <Typography variant="subheading">{title}</Typography>
+            <Typography variant="subtitle2">{title}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
             classes={{
-              root: detailsRootClass
+              root: detailsRootClass,
             }}
           >
             {content}
@@ -126,12 +125,12 @@ class AsylumConnectCollapsibleSection extends React.Component {
 AsylumConnectCollapsibleSection.defaultProps = {
   borderTop: true,
   borderBottom: false,
-  expanded: true
+  expanded: true,
 };
 AsylumConnectCollapsibleSection.propTypes = {
   borderTop: PropTypes.bool,
   borderBottom: PropTypes.bool,
-  expanded: PropTypes.bool
+  expanded: PropTypes.bool,
 };
 
 export default withStyles(styles)(AsylumConnectCollapsibleSection);
