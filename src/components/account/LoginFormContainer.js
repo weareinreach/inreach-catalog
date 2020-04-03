@@ -9,15 +9,15 @@ import config from '../../config.js';
 import LoginForm from './LoginForm';
 import Disclaimer from '../../components/static/Disclaimer';
 
-const styles = theme => ({
+const styles = (theme) => ({
   paddingDisclaimer: {paddingTop: theme.spacing.unit * 1},
   disclaimerLink: {
     cursor: 'pointer',
-    color: theme.palette.secondary[900]
+    color: theme.palette.secondary[900],
   },
   removeParagraphMargin: {
-    margin: '0'
-  }
+    margin: '0',
+  },
 });
 
 class LoginFormContainer extends React.Component {
@@ -26,7 +26,7 @@ class LoginFormContainer extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,19 +47,19 @@ class LoginFormContainer extends React.Component {
     const payload = JSON.stringify({
       session: {
         login_key: email,
-        password
-      }
+        password,
+      },
     });
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        OneDegreeSource: 'asylumconnect'
+        OneDegreeSource: 'asylumconnect',
       },
-      body: payload
+      body: payload,
     };
     fetch(url, options)
-      .then(response => {
+      .then((response) => {
         if (response.status === 201) {
           response.json().then(({jwt}) => {
             this.props.handleLogIn(jwt);
@@ -69,7 +69,7 @@ class LoginFormContainer extends React.Component {
           handleMessageNew('The email or password you entered was incorrect.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         handleMessageNew('Oops! Something went wrong.');
       });
   }
@@ -78,14 +78,14 @@ class LoginFormContainer extends React.Component {
     const {
       paddingDisclaimer,
       removeParagraphMargin,
-      disclaimerLink
+      disclaimerLink,
     } = this.props.classes;
     return (
       <Fragment>
         <Disclaimer className={paddingDisclaimer} marginBottom={'0'}>
           <p className={removeParagraphMargin}>
             Due to moving to a new technology system, we are asking all of our
-            users who created an account before April 4th, 2020 to create a new
+            users who created an account before April 11th, 2020 to create a new
             account. We apologize for any inconvenience. To create your new
             account, please click{' '}
             <u>
@@ -113,7 +113,7 @@ class LoginFormContainer extends React.Component {
 LoginFormContainer.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
-  handleRequestClose: PropTypes.func.isRequired
+  handleRequestClose: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(LoginFormContainer);
