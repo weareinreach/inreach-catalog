@@ -14,6 +14,7 @@ import ListNewMobile from './components/ListNewMobile';
 import Message from './components/Message';
 import PasswordMobile from './components/PasswordMobile';
 import Language from './components/Language';
+import MapPage from './components/MapPage';
 import MoreMobile from './components/MoreMobile';
 import PageContainer from './components/PageContainer';
 import PrivacyMobile from './components/PrivacyMobile';
@@ -24,7 +25,6 @@ import withWidth from './components/withWidth';
 import LogoImg from './images/logo@2x.png';
 import LogoImgMobile from './images/logo-mobile@3x.png';
 import LogoImgCA from './images/logo-ca@2x.png';
-import MapPage from './pages/MapPage';
 import {breakpoints} from './theme';
 import {catalogGet, catalogPost} from './utils/api';
 import {

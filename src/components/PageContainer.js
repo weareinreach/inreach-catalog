@@ -6,7 +6,7 @@ import AccountPage from './AccountPage';
 import FavoritesListContainer from './FavoritesListContainer';
 import ResetPasswordPage from './ResetPasswordPage';
 import Suggestion from './Suggestion';
-import Static from '../pages/Static';
+import Static from './Static';
 
 class PageContainer extends React.Component {
   render() {

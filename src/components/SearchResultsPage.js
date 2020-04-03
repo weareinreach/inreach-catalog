@@ -9,17 +9,17 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import IconButton from '@material-ui/core/IconButton';
 
-import AsylumConnectBackButton from '../components/AsylumConnectBackButton';
-import AsylumConnectButton from '../components/AsylumConnectButton';
-import AsylumConnectCheckbox from '../components/AsylumConnectCheckbox';
-import AsylumConnectInfographicButton from '../components/AsylumConnectInfographicButton';
-import AsylumConnectMap from '../components/AsylumConnectMap';
-import Loading from '../components/Loading';
-import ResourceListItem from '../components/ResourceListItem';
-import SearchBar from '../components/SearchBar';
-import SearchRefinementControls from '../components/SearchRefinementControls';
-import Disclaimer from '../components/Disclaimer';
-import withWidth from '../components/withWidth';
+import AsylumConnectBackButton from './/AsylumConnectBackButton';
+import AsylumConnectButton from './/AsylumConnectButton';
+import AsylumConnectCheckbox from './/AsylumConnectCheckbox';
+import AsylumConnectInfographicButton from './/AsylumConnectInfographicButton';
+import AsylumConnectMap from './/AsylumConnectMap';
+import Loading from './/Loading';
+import ResourceListItem from './/ResourceListItem';
+import SearchBar from './/SearchBar';
+import SearchRefinementControls from './/SearchRefinementControls';
+import Disclaimer from './/Disclaimer';
+import withWidth from './/withWidth';
 import {boldFont, breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({

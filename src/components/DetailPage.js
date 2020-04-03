@@ -10,26 +10,26 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import {withStyles} from '@material-ui/core/styles';
 
-import AsylumConnectBackButton from '../components/AsylumConnectBackButton';
-import AsylumConnectCollapsibleSection from '../components/AsylumConnectCollapsibleSection';
-import AsylumConnectMap from '../components/AsylumConnectMap';
-import Loading from '../components/Loading';
-import About from '../components/DetailAbout';
-import Header from '../components/DetailHeader';
-import Communities from '../components/DetailCommunities';
-import Languages from '../components/DetailLanguages';
-import ServiceType from '../components/DetailServiceType';
-import Services from '../components/DetailServices';
-import Reviews from '../components/DetailReviews';
-import ReviewForm from '../components/DetailReviewForm';
-import Tools from '../components/DetailTools';
-import AccessInstructions from '../components/ResourceAccessInstructions';
-import HeaderTabs from '../components/ResourceHeaderTabs';
-import PropertyList from '../components/ResourcePropertyList';
-import Visit from '../components/ResourceVisit';
-import SaveToFavoritesButton from '../components/SaveToFavoritesButton';
-import {ShareIcon} from '../components/icons';
-import withWidth from '../components/withWidth';
+import AsylumConnectBackButton from './/AsylumConnectBackButton';
+import AsylumConnectCollapsibleSection from './/AsylumConnectCollapsibleSection';
+import AsylumConnectMap from './/AsylumConnectMap';
+import Loading from './/Loading';
+import About from './/DetailAbout';
+import Header from './/DetailHeader';
+import Communities from './/DetailCommunities';
+import Languages from './/DetailLanguages';
+import ServiceType from './/DetailServiceType';
+import Services from './/DetailServices';
+import Reviews from './/DetailReviews';
+import ReviewForm from './/DetailReviewForm';
+import Tools from './/DetailTools';
+import AccessInstructions from './/ResourceAccessInstructions';
+import HeaderTabs from './/ResourceHeaderTabs';
+import PropertyList from './/ResourcePropertyList';
+import Visit from './/ResourceVisit';
+import SaveToFavoritesButton from './/SaveToFavoritesButton';
+import {ShareIcon} from './/icons';
+import withWidth from './/withWidth';
 import {
   getCommentsAndReview,
   getOrganizationBySlug,
