@@ -185,13 +185,13 @@ const propertyMap = {
     'cost-suggested-donation': 'Costs: suggested donation',
     'has-confidentiality-policy': 'Has a confidentiality policy',
   },
-  'not-required': {
-    'not-req-medical-insurance': 'Medical insurance',
-    'not-req-photo-id': 'Photo ID',
-    'not-req-proof-of-age': 'Proof of age',
-    'not-req-proof-of-income': 'Proof of income',
-    'not-req-proof-of-residence': 'Proof of residence',
-    'not-req-referral': 'Referral',
+  'required': {
+    'req-medical-insurance': 'Medical insurance',
+    'req-photo-id': 'Photo ID',
+    'req-proof-of-age': 'Proof of age',
+    'req-proof-of-income': 'Proof of income',
+    'req-proof-of-residence': 'Proof of residence',
+    'req-referral': 'Referral',
   },
 };
 

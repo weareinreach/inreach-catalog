@@ -1,16 +1,19 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MaskedInput from 'react-text-mask';
-
 import {withStyles} from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-
-import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import {searchInput, searchInputMobile} from '../theme';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import PlaceIcon from '@material-ui/icons/Place';
+import TextField from '@material-ui/core/TextField';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import SuggestInfoNonEngServices from './SuggestInfoNonEngServices';
+
+import {searchInput, searchInputMobile} from '../theme';
 
 function TextMaskCustom(props) {
   return (
@@ -30,7 +33,7 @@ function TextMaskCustom(props) {
         /\d/,
         /\d/,
         /\d/,
-        /\d/
+        /\d/,
       ]}
       placeholderChar={'\u2000'}
       showMask
@@ -38,25 +41,25 @@ function TextMaskCustom(props) {
   );
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {},
   form: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     '& > div': {
-      margin: '15px 0 15px 0'
-    }
+      margin: '15px 0 15px 0',
+    },
   },
   formType: {
-    marginTop: '10%'
+    marginTop: '10%',
   },
   inputLabel: {
     '& label': theme.custom.inputLabel,
     '&>div': {
-      marginTop: '20px'
+      marginTop: '20px',
     },
-    '& input': theme.custom.inputText
+    '& input': theme.custom.inputText,
   },
   settingsTypeFont: {
     fontSize: 13,
@@ -68,62 +71,61 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   inputAddressLabel: {
     '& label': theme.custom.inputLabel,
     '&>div': {
-      marginTop: '40px'
-    }
+      marginTop: '40px',
+    },
   },
   searchInput: searchInput(theme),
   [theme.breakpoints.down('xs')]: {
-    searchInput: searchInputMobile(theme)
+    searchInput: searchInputMobile(theme),
   },
   searchInputContainer: {
-    position: 'relative'
+    position: 'relative',
   },
   placesContainer: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[2],
-    position: 'absolute',
-    zIndex: '20',
-    top: 'calc(100% - 1.5rem)',
+    border: 'none',
     width: '100%',
-    right: '0',
-    left: '0',
-    '& div': theme.custom.inputText
+    '& div': theme.custom.inputText,
+  },
+  placesContainer2: {
+    padding: '20px',
   },
   container: {
     flexGrow: 1,
     position: 'relative',
-    height: 200
+    height: 200,
   },
   suggestionsContainerOpen: {
     position: 'absolute',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(3),
     left: 0,
-    right: 0
+    right: 0,
   },
   suggestion: {
-    display: 'block'
+    display: 'block',
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: 'none'
+    listStyleType: 'none',
   },
   textField: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });
 
 class SuggestInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true
+      open: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
@@ -161,7 +163,7 @@ class SuggestInfo extends React.Component {
     }
   }
   handleServiceDelete(service) {
-    const index = this.props.nonEngServices.findIndex(s => {
+    const index = this.props.nonEngServices.findIndex((s) => {
       return s === service;
     });
     if (index >= 0) {
@@ -179,27 +181,15 @@ class SuggestInfo extends React.Component {
       digits,
       nonEngServices,
       t,
-      country
+      country,
     } = this.props;
 
-    const inputPropsAutoAddress = {
-      value: address,
-      onChange: this.handleChangeAutoAddress,
-      type: 'text',
-      placeholder: t('Start typing address, city or zip code in the US…'),
-      name: 'search--near',
-      id: 'search--near'
-    };
-    const options = {
+    const searchOptions = {
       componentRestrictions: {
-        country: typeof country === 'string' ? country.toLowerCase() : 'us'
-      }
+        country: typeof country === 'string' ? country.toLowerCase() : 'us',
+      },
     };
-    const cssClasses = {
-      root: classes.searchInputContainer,
-      input: classes.searchInput,
-      autocompleteContainer: classes.placesContainer
-    };
+
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -209,7 +199,7 @@ class SuggestInfo extends React.Component {
             name="name"
             value={name}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             placeholder="Resource Name"
             onChange={this.handleChange}
@@ -217,13 +207,58 @@ class SuggestInfo extends React.Component {
           <FormControl className={classes.inputAddressLabel}>
             <InputLabel children="Address:" shrink />
             <PlacesAutocomplete
+              onChange={this.handlePlaceSelect}
               onSelect={this.handlePlaceSelect}
-              onEnterKeyDown={this.handlePlaceSelect}
-              inputProps={inputPropsAutoAddress}
-              classNames={cssClasses}
-              options={options}
+              searchOptions={searchOptions}
+              value={address}
             >
-              {() => <p>places todo</p>}
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <div className={classes.searchInputContainer}>
+                  <input
+                    {...getInputProps({
+                      type: 'text',
+                      className:
+                        classes.placesContainer +
+                        ' ' +
+                        classes.placesContainer2,
+                      placeholder: t(
+                        'Start typing address, city or zip code in the US…'
+                      ),
+                      name: 'search--near',
+                      id: 'search--near',
+                    })}
+                  />
+                  <div className={classes.placesContainer}>
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map((suggestion) => {
+                      return (
+                        <ListItem
+                          button
+                          key={suggestion.id}
+                          divider={true}
+                          dense={true}
+                          {...getSuggestionItemProps(suggestion)}
+                        >
+                          <ListItemIcon>
+                            <PlaceIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={suggestion?.formattedSuggestion?.mainText}
+                            secondary={
+                              suggestion?.formattedSuggestion?.secondaryText
+                            }
+                          />
+                        </ListItem>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </PlacesAutocomplete>
           </FormControl>
           <TextField
@@ -233,7 +268,7 @@ class SuggestInfo extends React.Component {
             value={description}
             multiline={true}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             placeholder="Short description of resource"
             onChange={this.handleChange}
@@ -252,7 +287,7 @@ class SuggestInfo extends React.Component {
             name="website"
             value={website}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             placeholder="URL"
             onChange={this.handleChange}
@@ -273,7 +308,7 @@ class SuggestInfo extends React.Component {
             type="text"
             value={emails.join(', ')}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             placeholder="Contact email(s) for resource"
             onChange={this.handleChangeEmail}
@@ -287,7 +322,7 @@ class SuggestInfo extends React.Component {
 SuggestInfo.propTypes = {
   classes: PropTypes.object.isRequired,
   info: PropTypes.object,
-  handleCollectInfoData: PropTypes.func
+  handleCollectInfoData: PropTypes.func,
 };
 
 export default withStyles(styles)(SuggestInfo);

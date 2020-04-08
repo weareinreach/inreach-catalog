@@ -167,12 +167,12 @@ class SuggestAdditional extends React.Component {
             </Collapse>
           </div>
 
-          <ResourceTagSelector
+          {/* <ResourceTagSelector
             onChange={handleTagSelect}
             selectedResourceTags={selectedTags}
             locale={this.props.locale}
             t={this.props.t}
-          />
+          /> */}
         </form>
       </div>
     );

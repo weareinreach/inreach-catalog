@@ -544,6 +544,7 @@ class AppConnectCatalog extends React.Component {
                     handleRequestOpen={this.handleRequestOpen}
                     handleUnconfirmSession={this.handleUnconfirmSession}
                     logo={logo}
+                    t={t}
                   />
                 )}
               />

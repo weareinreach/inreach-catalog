@@ -9,20 +9,18 @@ import Typography from '@material-ui/core/Typography';
 import SuggestInfo from './SuggestInfo';
 import SuggestHour from './SuggestHour';
 import SuggestAdditional from './SuggestAdditional';
-
 import AsylumConnectButton from './AsylumConnectButton';
+import {catalogPost} from '../utils/api';
 
-import config from '../config';
-
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    padding: '0 10% 10% 10%'
+    padding: '0 10% 10% 10%',
   },
   formType: {
-    margin: '5% 0 5% 0'
+    margin: '5% 0 5% 0',
   },
   extraMargin: {
-    margin: '20px 0 20px 0'
+    margin: '20px 0 20px 0',
   },
   settingsTypeFont: {
     marginRight: '20px',
@@ -35,8 +33,8 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    cursor: 'pointer'
-  }
+    cursor: 'pointer',
+  },
 });
 
 const defaultSchedule = {
@@ -54,7 +52,7 @@ const defaultSchedule = {
   saturday_end: '',
   sunday_start: '',
   sunday_end: '',
-  notes: ''
+  notes: '',
 };
 
 const defaultResource = {
@@ -68,13 +66,13 @@ const defaultResource = {
       title: '',
       first_name: '',
       last_name: '',
-      email: ''
-    }
+      email: '',
+    },
   ],
   properties: {
     'source-name': 'asylumconnect',
     'community-asylum-seeker': 'true',
-    'community-lgbt': 'true'
+    'community-lgbt': 'true',
   },
   locations: [
     {
@@ -89,8 +87,8 @@ const defaultResource = {
         {
           digits: '',
           phone_type: 'Office',
-          is_primary: true
-        }
+          is_primary: true,
+        },
       ],
       schedule: {
         monday_start: '',
@@ -107,17 +105,17 @@ const defaultResource = {
         saturday_end: '',
         sunday_start: '',
         sunday_end: '',
-        notes: ''
-      }
-    }
+        notes: '',
+      },
+    },
   ],
   phones: [
     {
       digits: '',
       phone_type: 'Office',
-      is_primary: true
-    }
-  ]
+      is_primary: true,
+    },
+  ],
 };
 
 class Suggestion extends React.Component {
@@ -133,7 +131,7 @@ class Suggestion extends React.Component {
         thursday: false,
         friday: false,
         saturday: false,
-        sunday: false
+        sunday: false,
       },
       resourceData: defaultResource,
       nonEngServices: [],
@@ -141,46 +139,46 @@ class Suggestion extends React.Component {
       features: [
         {
           label: 'Has A Confidentiality Policy',
-          name: 'has-a-confidentiality-policy',
-          value: false
+          name: 'has-confidentiality-policy',
+          value: false,
         },
-        {label: 'Cost Free', name: 'cost-free', value: false}
+        {label: 'Cost Free', name: 'cost-free', value: false},
       ],
       requirements: [
         {
-          label: 'Photo ID not required',
-          name: 'not-req-photo-id',
-          value: false
+          label: 'Photo ID required',
+          name: 'req-photo-id',
+          value: false,
         },
         {
-          label: 'Proof of income not required',
-          name: 'not-req-proof-of-income',
-          value: false
+          label: 'Proof of income required',
+          name: 'req-proof-of-income',
+          value: false,
         },
         {
-          label: 'Proof of age not required',
-          name: 'not-req-proof-of-age',
-          value: false
+          label: 'Proof of age required',
+          name: 'req-proof-of-age',
+          value: false,
         },
         {
-          label: 'Medical insurance not required',
-          name: 'not-req-medical-insurance',
-          value: false
+          label: 'Medical insurance required',
+          name: 'req-medical-insurance',
+          value: false,
         },
         {
-          label: 'Proof of residence not required',
-          name: 'not-req-proof-of-residence',
-          value: false
+          label: 'Proof of residence required',
+          name: 'req-proof-of-residence',
+          value: false,
         },
         {
-          label: 'A referral not required',
-          name: 'not-req-referral',
-          value: false
-        }
+          label: 'A referral required',
+          name: 'req-referral',
+          value: false,
+        },
       ],
       tags: [],
       emails: [],
-      location: {}
+      location: {},
     };
     this.handleChangeGeneralInfo = this.handleChangeGeneralInfo.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
@@ -209,10 +207,10 @@ class Suggestion extends React.Component {
     const {resourceData} = this.state;
     let updatedResourceData1, updatedResourceData2;
     updatedResourceData1 = update(resourceData, {
-      phones: {0: {$merge: {[name]: value}}}
+      phones: {0: {$merge: {[name]: value}}},
     });
     updatedResourceData2 = update(updatedResourceData1, {
-      locations: {0: {phones: {0: {$merge: {[name]: value}}}}}
+      locations: {0: {phones: {0: {$merge: {[name]: value}}}}},
     });
     this.setState({resourceData: updatedResourceData2});
   }
@@ -233,9 +231,9 @@ class Suggestion extends React.Component {
     this.setState({address});
 
     geocodeByAddress(address)
-      .then(results => {
+      .then((results) => {
         if (results.length && results[0].address_components) {
-          results[0].address_components.forEach(piece => {
+          results[0].address_components.forEach((piece) => {
             if (
               piece.types &&
               piece.types.indexOf('administrative_area_level_1') >= 0
@@ -261,7 +259,7 @@ class Suggestion extends React.Component {
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.props.handleMessageNew(
           'Unable to find your location, please try entering your city, state in the box above.'
         );
@@ -281,7 +279,7 @@ class Suggestion extends React.Component {
       // Add selected service to request resource Data
       requestService = {['lang-' + nonEngService.split(' ').join('-')]: 'true'};
       updatedResourceData = update(resourceData, {
-        properties: {$merge: requestService}
+        properties: {$merge: requestService},
       });
     } else {
       // Remove selected service from nonEngServices
@@ -293,12 +291,12 @@ class Suggestion extends React.Component {
       delete updatedProperties[requestService];
 
       updatedResourceData = update(resourceData, {
-        properties: {$set: updatedProperties}
+        properties: {$set: updatedProperties},
       });
     }
     this.setState({
       nonEngServices: updatedNonEngServices,
-      resourceData: updatedResourceData
+      resourceData: updatedResourceData,
     });
   }
   handleDaySelect(select, value, startValue, endValue) {
@@ -306,11 +304,11 @@ class Suggestion extends React.Component {
     let updatedSelectedDays;
     if (select === 'select') {
       updatedSelectedDays = update(selectedDays, {
-        $merge: {[value]: !selectedDays[value]}
+        $merge: {[value]: !selectedDays[value]},
       });
     } else {
       updatedSelectedDays = update(selectedDays, {
-        $merge: {[value.split('_')[0]]: true}
+        $merge: {[value.split('_')[0]]: true},
       });
     }
     this.setState({selectedDays: updatedSelectedDays});
@@ -318,7 +316,7 @@ class Suggestion extends React.Component {
   handleChangeSchedule(name, value) {
     const {resourceData} = this.state;
     let updatedResourceData = update(resourceData, {
-      locations: {0: {schedule: {$merge: {[name]: value}}}}
+      locations: {0: {schedule: {$merge: {[name]: value}}}},
     });
     this.setState({resourceData: updatedResourceData});
   }
@@ -327,9 +325,9 @@ class Suggestion extends React.Component {
     const {features, resourceData} = this.state;
 
     // update current status of a feature
-    let index = features.findIndex(f => f.name === value);
+    let index = features.findIndex((f) => f.name === value);
     let updatedFeatures = update(features, {
-      [index]: {$merge: {value: checked}}
+      [index]: {$merge: {value: checked}},
     });
     this.setState({features: updatedFeatures});
 
@@ -338,15 +336,15 @@ class Suggestion extends React.Component {
     if (checked) {
       let updatedFeature = {[value]: checked.toString()};
       updatedResourceData = update(resourceData, {
-        properties: {$merge: updatedFeature}
+        properties: {$merge: updatedFeature},
       });
     } else {
       let indexResource = resourceData.properties.findIndex(
-        p => Object.keys(p)[0] === value
+        (p) => Object.keys(p)[0] === value
       );
       if (indexResource >= 0) {
         updatedResourceData = update(resourceData, {
-          properties: {$splice: [[1, indexResource]]}
+          properties: {$splice: [[1, indexResource]]},
         });
       }
     }
@@ -357,9 +355,9 @@ class Suggestion extends React.Component {
     const {requirements, resourceData} = this.state;
 
     // update current status of a requirement
-    const index = requirements.findIndex(f => f.name === value);
+    const index = requirements.findIndex((f) => f.name === value);
     let updatedRequirements = update(requirements, {
-      [index]: {$merge: {value: checked}}
+      [index]: {$merge: {value: checked}},
     });
     this.setState({requirements: updatedRequirements});
 
@@ -368,15 +366,15 @@ class Suggestion extends React.Component {
     if (checked) {
       let updatedRequirement = {[value]: checked.toString()};
       updatedResourceData = update(resourceData, {
-        properties: {$merge: updatedRequirement}
+        properties: {$merge: updatedRequirement},
       });
     } else {
       let indexResource = resourceData.properties.findIndex(
-        p => Object.keys(p)[0] === value
+        (p) => Object.keys(p)[0] === value
       );
       if (indexResource >= 0) {
         updatedResourceData = update(resourceData, {
-          properties: {$splice: [[1, indexResource]]}
+          properties: {$splice: [[1, indexResource]]},
         });
       }
     }
@@ -391,7 +389,7 @@ class Suggestion extends React.Component {
     if (checked && selectedResourceTypes.indexOf(target.value) < 0) {
       selectedResourceTypes.push(target.value);
       this.setState({
-        tags: selectedResourceTypes
+        tags: selectedResourceTypes,
       });
     } else if (
       !checked &&
@@ -399,12 +397,12 @@ class Suggestion extends React.Component {
     ) {
       selectedResourceTypes.splice(index, 1);
       this.setState({
-        tags: selectedResourceTypes
+        tags: selectedResourceTypes,
       });
     }
 
     let updatedResourceData = update(resourceData, {
-      tags: {$set: selectedResourceTypes}
+      tags: {$set: selectedResourceTypes},
     });
     this.setState({resourceData: updatedResourceData});
   }
@@ -437,15 +435,15 @@ class Suggestion extends React.Component {
       }
     }
     updatedResourceData1 = update(resourceData, {
-      locations: {0: {schedule: {$merge: schedule}}}
+      locations: {0: {schedule: {$merge: schedule}}},
     });
 
     // 2: Update current email list
-    updatedEmailList = this.state.emails.map(e => {
+    updatedEmailList = this.state.emails.map((e) => {
       return {title: '', first_name: '', last_name: '', email: e};
     });
     updatedResourceData2 = update(updatedResourceData1, {
-      emails: {$set: updatedEmailList}
+      emails: {$set: updatedEmailList},
     });
 
     // 3: Update locations object
@@ -453,53 +451,60 @@ class Suggestion extends React.Component {
       locations: {
         0: {
           address: {
-            $set: location ? location.street_number + ' ' + location.route : ''
+            $set: location ? location.street_number + ' ' + location.route : '',
           },
           city: {$set: location ? location.city : ''},
           state: {$set: location ? location.state : ''},
-          zip_code: {$set: location ? location.zip_code : ''}
-        }
-      }
+          zip_code: {$set: location ? location.zip_code : ''},
+        },
+      },
     });
 
     // 4: Update region
     updatedResourceData4 = update(updatedResourceData3, {
-      region: {$set: location.area + ', ' + location.state}
+      region: {$set: location.area + ', ' + location.state},
     });
 
     this.setState({resourceData: updatedResourceData4});
 
-    //console.log(updatedResourceData4)
-    this.submitResource(updatedResourceData4);
+    const {
+      name,
+      website,
+      description,
+      emails,
+      properties,
+      locations,
+      phones,
+      schedules,
+    } = updatedResourceData4;
+
+    const finalResource = {
+      description,
+      emails,
+      name,
+      is_published: false,
+      locations,
+      phones,
+      properties,
+      schedules,
+      slug: name.split(' ').join('-'),
+      website,
+    };
+
+    this.submitResource(finalResource);
   }
 
   submitResource(data) {
-    // const {user, handleMessageNew} = this.props;
-    // const client_user_id = user ? user : 0;
-    // const payload = {
-    //   api_key: config[process.env.OD_API_ENV].odApiKey,
-    //   submission: {
-    //     resource_id: 0,
-    //     resource_type: 'Organization',
-    //     client_user_id: client_user_id,
-    //     content: JSON.stringify(data),
-    //     submitter_type: 'PublicForm'
-    //   }
-    // };
-    // fetch(window.location.origin + '/api/submissions', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8'
-    //   },
-    //   body: JSON.stringify(payload)
-    // }).then(response => {
-    //   if (response.status === 200) {
-    //     this.setState({isSent: true});
-    //     handleMessageNew('Your information has been submitted to be reviewed.');
-    //   } else {
-    //     handleMessageNew('Oops! Something went wrong.');
-    //   }
-    // });
+    catalogPost('/organizations', data)
+      .then(() => {
+        this.setState({isSent: true});
+        this.props.handleMessageNew(
+          'Your information has been submitted to be reviewed.'
+        );
+      })
+      .catch(() => {
+        this.props.handleMessageNew('Oops! Something went wrong.');
+      });
   }
 
   render() {
@@ -513,7 +518,7 @@ class Suggestion extends React.Component {
       features,
       requirements,
       tags,
-      emails
+      emails,
     } = this.state;
     const {name, website, description, phones} = resourceData;
     return (
@@ -604,7 +609,7 @@ class Suggestion extends React.Component {
 }
 
 Suggestion.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Suggestion);

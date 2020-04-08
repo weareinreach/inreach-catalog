@@ -58,12 +58,12 @@ const filterCollection = [
     //{label: 'Has service in my language', name: 'lang-'},
   ],
   [
-    {label: 'Photo ID', name: 'not-req-photo-id'},
-    {label: 'Proof of income', name: 'not-req-proof-of-income'},
-    {label: 'Proof of age', name: 'not-req-proof-of-age'},
-    {label: 'Medical insurance', name: 'not-req-medical-insurance'},
-    {label: 'Proof of residence', name: 'not-req-proof-of-residence'},
-    {label: 'A referral', name: 'not-req-referral'},
+    {label: 'Photo ID', name: 'req-photo-id'},
+    {label: 'Proof of income', name: 'req-proof-of-income'},
+    {label: 'Proof of age', name: 'req-proof-of-age'},
+    {label: 'Medical insurance', name: 'req-medical-insurance'},
+    {label: 'Proof of residence', name: 'req-proof-of-residence'},
+    {label: 'A referral', name: 'req-referral'},
   ],
   [
     {

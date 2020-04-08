@@ -4,13 +4,13 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
-import ContentMarkdown from './/ContentMarkdown';
-import Loading from './/Loading';
-import LocaleSelector from './/LocaleSelector';
-import Section from './/StaticSection';
-import SubAnnouncement from './/SubAnnouncement';
-import {StandaloneIcon} from './/icons';
-import withWidth from './/withWidth';
+import ContentMarkdown from './ContentMarkdown';
+import Loading from './Loading';
+import LocaleSelector from './LocaleSelector';
+import Section from './StaticSection';
+import SubAnnouncement from './SubAnnouncement';
+import {StandaloneIcon} from './icons';
+import withWidth from './withWidth';
 import {getStaticPage} from '../utils/api';
 import {breakpoints, mobilePadding} from '../theme';
 
