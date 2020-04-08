@@ -9,7 +9,7 @@ import {breakpoints} from '../theme';
 
 import Typography from '@material-ui/core/Typography';
 
-// import {updateUserEmail, updateUserPassword} from '../utils/api';
+import {updateUser, updateUserPassword} from '../utils/api';
 
 const styles = (theme) => ({
   root: {
@@ -73,31 +73,21 @@ class GeneralSettings extends React.Component {
   }
 
   updateEmail(newEmail) {
-    const {handleMessageNew, session} = this.props;
-    const payload = Object.assign({}, this.state.user, {email: newEmail});
-    // updateUserEmail(payload, session)
-    //   .then((data) => {
-    //     this.setState({user: data.user, isEmailUpdated: true});
-    //     handleMessageNew('Your email has been updated.');
-    //   })
-    //   .catch((error) => this.handleOdasError(error));
+    updateUser(this.state.user, {email: newEmail})
+      .then((data) => {
+        this.setState({user: data.user, isEmailUpdated: true});
+        this.props.handleMessageNew('Your email has been updated.');
+      })
+      .catch((error) => this.handleOdasError(error));
   }
 
   updatePassword(currentPassword, newPassword) {
-    const {handleMessageNew, session} = this.props;
-    const payload = {
-      change_password: {
-        current_password: currentPassword,
-        password: newPassword,
-        password_confirmation: newPassword,
-      },
-    };
-    // updateUserPassword(payload, session)
-    //   .then((data) => {
-    //     this.setState({isPasswordUpdated: true});
-    //     handleMessageNew('Password has been updated.');
-    //   })
-    //   .catch((error) => this.handleOdasError(error));
+    updateUserPassword(this.state.user, newPassword)
+      .then((data) => {
+        this.setState({isPasswordUpdated: true});
+        this.props.handleMessageNew('Password has been updated.');
+      })
+      .catch((error) => this.handleOdasError(error));
   }
 
   render() {
@@ -142,7 +132,6 @@ class GeneralSettings extends React.Component {
         />
         <div
           onClick={() => {
-            history.push('/');
             handleMessageNew('Logout successful.');
             handleLogOut();
           }}

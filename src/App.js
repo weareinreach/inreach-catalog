@@ -535,6 +535,7 @@ class AppConnectCatalog extends React.Component {
                     {...props}
                     session={session}
                     sessionConfirmed={sessionConfirmed}
+                    handleLogOut={this.handleLogOut}
                     handleMessageNew={this.handleMessageNew}
                     handleRequestOpen={this.handleRequestOpen}
                     handleUnconfirmSession={this.handleUnconfirmSession}

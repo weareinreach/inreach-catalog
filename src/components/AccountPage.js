@@ -76,8 +76,6 @@ class AccountPage extends React.Component {
   handleFetchUser() {
     fetchUser(this.props.session)
       .then((data) => {
-        console.log('ACCOUNT PAGE data', data);
-
         this.setState({isAuthenticated: true, user: data});
       })
       .catch((err) => {

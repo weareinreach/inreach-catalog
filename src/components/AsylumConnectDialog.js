@@ -38,6 +38,7 @@ const AsylumConnectDialog = ({
   locale,
   session,
   user,
+  userData,
 }) => (
   <Dialog
     open={['none', 'more'].indexOf(dialog) === -1}
@@ -46,7 +47,11 @@ const AsylumConnectDialog = ({
     <div className={classes.dialogBody}>
       <ActionButton onClick={handleRequestClose}>&times;</ActionButton>
       {dialog === 'disclaimer' && (
-        <DisclaimerDialog handleRequestClose={handleRequestClose} />
+        <DisclaimerDialog
+          handleRequestClose={handleRequestClose}
+          user={user}
+          userData={userData}
+        />
       )}
       {dialog === 'forgot' && (
         <ForgotDialog
@@ -54,6 +59,8 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
           locale={locale}
+          user={user}
+          userData={userData}
         />
       )}
       {/^listNew/.test(dialog) && (
@@ -69,6 +76,7 @@ const AsylumConnectDialog = ({
           originList={dialog.split('/')[2]}
           session={session}
           user={user}
+          userData={userData}
         />
       )}
       {/^share/.test(dialog) && (
@@ -82,6 +90,8 @@ const AsylumConnectDialog = ({
           listId={dialog.split('/')[2]}
           listTitle={dialog.split('/')[3]}
           shareType={dialog.split('/')[1]}
+          user={user}
+          userData={userData}
         />
       )}
       {dialog === 'login' && (
@@ -91,6 +101,8 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
           locale={locale}
+          user={user}
+          userData={userData}
         />
       )}
       {dialog === 'password' && (
@@ -101,6 +113,8 @@ const AsylumConnectDialog = ({
           handleRequestClose={handleRequestClose}
           locale={locale}
           session={session}
+          user={user}
+          userData={userData}
         />
       )}
       {dialog === 'privacy' && (
@@ -126,6 +140,8 @@ const AsylumConnectDialog = ({
           history={history}
           locale={locale}
           session={session}
+          user={user}
+          userData={userData}
         />
       )}
     </div>

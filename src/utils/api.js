@@ -13,7 +13,7 @@ const handleErr = (err) => {
 export const catalogDelete = (path, body, options) => {
   const url = `${CATALOG_API_URL}${path}`;
 
-  console.log('DELETE', url);
+  // console.log('DELETE', url);
 
   return httpDelete(url, body, options)
     .then(({data, status}) => {
@@ -25,7 +25,7 @@ export const catalogDelete = (path, body, options) => {
 export const catalogGet = (path, options) => {
   const url = `${CATALOG_API_URL}${path}`;
 
-  console.log('GET', url);
+  // console.log('GET', url);
 
   return get(url, options)
     .then(({data, status}) => {
@@ -37,7 +37,7 @@ export const catalogGet = (path, options) => {
 export const catalogPatch = (path, body, options) => {
   const url = `${CATALOG_API_URL}${path}`;
 
-  console.log('PATCH', url);
+  // console.log('PATCH', url);
 
   return patch(url, body, options)
     .then(({data, status}) => {
@@ -49,7 +49,7 @@ export const catalogPatch = (path, body, options) => {
 export const catalogPost = (path, body, options) => {
   const url = `${CATALOG_API_URL}${path}`;
 
-  console.log('POST', url);
+  // console.log('POST', url);
 
   return post(url, body, options)
     .then(({data, status}) => {
@@ -181,13 +181,29 @@ export const fetchUser = (session) => {
 
   return catalogPost('/auth/check', body)
     .then((authData) => {
-      console.log('authData', authData);
       return catalogGet(`/users/${authData._id}`)
-        .then((userData) => {
-          console.log('userData', userData);
-          return userData;
-        })
+        .then((userData) => userData)
         .catch(handleErr);
     })
     .catch(handleErr);
+};
+
+export const updateUser = (user, update) => {
+  return catalogPatch(`/users/${user._id}`, update)
+    .then(() => {
+      return {...user, ...update};
+    })
+    .catch((err) => err);
+};
+
+export const updateUserPassword = (user, password) => {
+  return catalogPatch(`/users/${user._id}/password`, {password})
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const deleteUser = (user, update) => {
+  return catalogDelete(`/users/${user._id}`)
+    .then(() => ({}))
+    .catch((err) => err);
 };

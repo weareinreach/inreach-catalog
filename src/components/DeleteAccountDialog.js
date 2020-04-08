@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
-// import {deleteUser} from '../utils/api';
+import {deleteUser} from '../utils/api';
 
 const styles = (theme) => ({
   container: {
@@ -39,18 +39,16 @@ class DeleteAccountDialog extends React.Component {
   confirmDelete() {
     const {handleMessageNew, handleLogOut, history} = this.props;
 
-    // deleteUser(this.state.password, this.props.session).then((data) => {
-    //   if (data.message === 'User deleted') {
-    //     history.push('/');
-    //     handleMessageNew('Your account has been deleted.');
-    //     handleLogOut();
-    //   } else {
-    //     handleMessageNew('Your password is incorrect.');
-    //   }
-    // });
-    //this.props.handleDeleteAccount(this.state.password)
-    this.props.handleRequestClose();
-    this.setState({password: ''});
+    deleteUser(this.props.userData)
+      .then(() => {
+        this.props.handleRequestClose();
+        this.setState({password: ''});
+        handleMessageNew('Your account has been deleted.');
+        handleLogOut();
+      })
+      .catch(() => {
+        handleMessageNew('Oops! Something went wrong.');
+      });
   }
 
   render() {
