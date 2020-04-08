@@ -9,27 +9,27 @@ import {
   FavoritesIcon,
   LanguageIcon,
   MoreIcon,
-  SearchIcon
+  SearchIcon,
 } from './icons';
 import {breakpoints} from '../theme';
 
 let theTheme;
 
-const styles = theme => {
-  theTheme = theme; //console.log(theme.typography.body1);
+const styles = (theme) => {
+  theTheme = theme;
   return {
     root: {
       width: '100vw',
       display: 'flex',
       flexDirection: 'row',
       justify: 'space-between',
-      height: 'auto'
+      height: 'auto',
     },
     BottomNavBar: {
       position: 'fixed',
       bottom: '0',
       zIndex: '100',
-      borderTop: '1px solid ' + theme.palette.common.faintBlack
+      borderTop: '1px solid ' + theme.palette.common.faintBlack,
     },
     navButton: Object.assign({}, theme.typography.body1, {
       fontSize: theme.typography.body1.fontSize - 2,
@@ -40,23 +40,23 @@ const styles = theme => {
       paddingTop: '8px',
       color: theme.palette.common.darkBlack,
       '&:hover': {
-        color: theme.palette.common.darkBlack
+        color: theme.palette.common.darkBlack,
       },
       [`@media (max-width: ${breakpoints['xs']}px)`]: {
-        fontSize: theme.typography.body1.fontSize - 4
-      }
+        fontSize: theme.typography.body1.fontSize - 4,
+      },
     }),
     navButtonSelected: {
       paddingTop: '8px !important',
       fontSize: theme.typography.body1.fontSize - 2 + 'px !important',
       color: theme.palette.primary[500],
       '&:hover': {
-        color: theme.palette.primary[500]
+        color: theme.palette.primary[500],
       },
       '@media (max-width:359.95px)': {
-        fontSize: theme.typography.body1.fontSize - 4 + 'px !important'
-      }
-    }
+        fontSize: theme.typography.body1.fontSize - 4 + 'px !important',
+      },
+    },
   };
 };
 
@@ -64,7 +64,7 @@ class NavMobile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -89,7 +89,7 @@ class NavMobile extends React.Component {
       }
       if (value !== this.state.value) {
         this.setState({
-          value
+          value,
         });
       }
     }
@@ -140,7 +140,7 @@ class NavMobile extends React.Component {
     const classes = this.props.classes;
     const buttonStyles = {
       label: classes.navButton,
-      selected: classes.navButtonSelected
+      selected: classes.navButtonSelected,
     };
     const {value} = this.state;
     return (
@@ -188,7 +188,7 @@ class NavMobile extends React.Component {
 }
 
 NavMobile.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(NavMobile);

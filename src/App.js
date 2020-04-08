@@ -26,7 +26,7 @@ import LogoImg from './images/logo@2x.png';
 import LogoImgMobile from './images/logo-mobile@3x.png';
 import LogoImgCA from './images/logo-ca@2x.png';
 import {breakpoints} from './theme';
-import {catalogGet, catalogPost} from './utils/api';
+import {fetchUser} from './utils/api';
 import {
   clearLocale,
   fetchLocale,
@@ -149,18 +149,13 @@ class AppConnectCatalog extends React.Component {
   }
 
   handleFetchUser(session) {
-    const body = {token: session};
     const handleErr = () => this.handleLogOut();
 
-    catalogPost('/auth/check', body)
-      .then((authData) => {
-        catalogGet(`/users/${authData._id}`)
-          .then((userData) => {
-            this.setState({userData});
-            window.localStorage.setItem('user', userData._id);
-            this.handleStorageChange();
-          })
-          .catch(handleErr);
+    fetchUser(session)
+      .then((userData) => {
+        this.setState({userData});
+        window.localStorage.setItem('user', userData._id);
+        this.handleStorageChange();
       })
       .catch(handleErr);
   }

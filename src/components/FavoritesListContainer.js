@@ -6,7 +6,7 @@ import FavoritesList from './FavoritesList';
 import FavoritesListMobile from './FavoritesListMobile';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
-import {deleteListFavorite, fetchPublicList, fetchUser} from '../utils/api';
+// import {deleteListFavorite, fetchPublicList, fetchUser} from '../utils/api';
 
 const OneDegreeResourceQuery = class {};
 
@@ -78,68 +78,67 @@ class FavoritesListContainer extends React.Component {
         resources: [],
       });
     } else {
-      fetchPublicList(listId)
-        .then(({collection}) => {
-          if (collection.fetchable_list_items) {
-            this.fetchResources(collection.fetchable_list_items);
-          } else {
-            this.setState({
-              loadingResources: false,
-              resources: [],
-            });
-          }
-          if (session && !user) {
-            fetchUser(session)
-              .then((response) => {
-                let publicList = null;
-                if (
-                  !response ||
-                  !response.user ||
-                  response.user.id !== collection.created_by_user_id
-                ) {
-                  publicList = collection.title;
-                }
-                this.setState({publicList});
-              })
-              .catch((error) => {
-                this.setState({publicList: collection.title});
-              });
-          } else {
-            let publicList = null;
-            if (user !== collection.created_by_user_id) {
-              publicList = collection.title;
-            }
-            this.setState({publicList});
-          }
-        })
-        .catch((error) => {
-          this.setState({
-            loadingResources: false,
-            resources: [],
-          });
-        });
+      // fetchPublicList(listId)
+      //   .then(({collection}) => {
+      //     if (collection.fetchable_list_items) {
+      //       this.fetchResources(collection.fetchable_list_items);
+      //     } else {
+      //       this.setState({
+      //         loadingResources: false,
+      //         resources: [],
+      //       });
+      //     }
+      //     if (session && !user) {
+      //       fetchUser(session)
+      //         .then((response) => {
+      //           let publicList = null;
+      //           if (
+      //             !response ||
+      //             !response.user ||
+      //             response.user.id !== collection.created_by_user_id
+      //           ) {
+      //             publicList = collection.title;
+      //           }
+      //           this.setState({publicList});
+      //         })
+      //         .catch((error) => {
+      //           this.setState({publicList: collection.title});
+      //         });
+      //     } else {
+      //       let publicList = null;
+      //       if (user !== collection.created_by_user_id) {
+      //         publicList = collection.title;
+      //       }
+      //       this.setState({publicList});
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     this.setState({
+      //       loadingResources: false,
+      //       resources: [],
+      //     });
+      //   });
     }
   }
 
   fetchResources(resources) {
-    this.queryOneDegree = new OneDegreeResourceQuery();
-    this.queryOneDegree
-      .setIds(resources.map((resource) => resource.fetchable_id))
-      .fetch({
-        type: 'both',
-        callback: (data) => {
-          this.setState({
-            loadingResources: false,
-            resources: data,
-          });
-        },
-      });
+    // this.queryOneDegree = new OneDegreeResourceQuery();
+    // this.queryOneDegree
+    //   .setIds(resources.map((resource) => resource.fetchable_id))
+    //   .fetch({
+    //     type: 'both',
+    //     callback: (data) => {
+    //       this.setState({
+    //         loadingResources: false,
+    //         resources: data,
+    //       });
+    //     },
+    //   });
   }
 
   handleListSelect(list) {
     const {history} = this.props;
     history.push(`/favorites/${list.slug}`);
-    console.log(list, history);
     this.handleMenuClose();
   }
 
@@ -155,33 +154,32 @@ class FavoritesListContainer extends React.Component {
     const {listId} = this.props.match.params;
     const {session} = this.props;
 
-    deleteListFavorite(listId, resourceId, session)
-      .then(() => {
-        this.setState((prevState) => ({
-          resources: prevState.resources.filter(
-            (resource) => resource.id !== resourceId
-          ),
-        }));
-        this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
-      })
-      .catch((error) => {
-        const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
-        if (error.response && error.response.status === 401) {
-          handleMessageNew('Your session has expired. Please log in again.');
-          handleLogOut();
-        } else if (error.response && error.response.status === 403) {
-          handleRequestOpen('password');
-        } else {
-          handleMessageNew('Oops! Something went wrong.');
-        }
-      });
+    // deleteListFavorite(listId, resourceId, session)
+    //   .then(() => {
+    //     this.setState((prevState) => ({
+    //       resources: prevState.resources.filter(
+    //         (resource) => resource.id !== resourceId
+    //       ),
+    //     }));
+    //     this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
+    //   })
+    //   .catch((error) => {
+    //     const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
+    //     if (error.response && error.response.status === 401) {
+    //       handleMessageNew('Your session has expired. Please log in again.');
+    //       handleLogOut();
+    //     } else if (error.response && error.response.status === 403) {
+    //       handleRequestOpen('password');
+    //     } else {
+    //       handleMessageNew('Oops! Something went wrong.');
+    //     }
+    //   });
   }
 
   render() {
     const currentList = this.props.lists.find(
       (list) => list.slug === this.props.match.params.listId
     );
-    console.log(this.state.publicList);
     const isMobile = this.props.width < breakpoints['sm'];
     if (isMobile) {
       return (

@@ -25,8 +25,6 @@ const Languages = (props) => (
               );
             }
 
-            console.log('nah');
-
             return null;
           })}
       </Grid>

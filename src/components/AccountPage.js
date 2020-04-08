@@ -46,6 +46,7 @@ function TabContainer(props) {
 class AccountPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       value: 0,
       isAuthenticated: false,
@@ -73,34 +74,17 @@ class AccountPage extends React.Component {
   }
 
   handleFetchUser() {
-    console.log('handleFetchUser');
+    fetchUser(this.props.session)
+      .then((data) => {
+        console.log('ACCOUNT PAGE data', data);
 
-    return;
-
-    const {
-      handleMessageNew,
-      handleLogOut,
-      handleUnconfirmSession,
-      session,
-    } = this.props;
-
-    fetchUser(session).then((data) => {
-      console.log('data', data);
-
-      if (data.error) {
-        if (data.status === 403) {
-          handleUnconfirmSession();
-          return;
-        }
-        handleLogOut();
-        this.props.history.push('/');
-        handleMessageNew('Oops! Something went wrong.');
+        this.setState({isAuthenticated: true, user: data});
+      })
+      .catch((err) => {
+        this.props.handleMessageNew('Oops! Something went wrong.');
 
         return;
-      }
-
-      this.setState({isAuthenticated: true, user: data.user});
-    });
+      });
   }
 
   handleUserUpdate(data) {

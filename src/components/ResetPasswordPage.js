@@ -1,29 +1,29 @@
 import React from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 import AsylumConnectButton from './AsylumConnectButton';
-import {resetPassword} from '../utils/api';
+// import {resetPassword} from '../utils/api';
 import withWidth from './withWidth';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
-    minHeight: '50%'
+    minHeight: '50%',
   },
   bottomSpacing: {
-    marginBottom: '0.9rem'
+    marginBottom: '0.9rem',
   },
   [theme.breakpoints.down('xs')]: {
     container: {
       minHeight: '100%',
-      paddingBottom: '91px'
-    }
-  }
+      paddingBottom: '91px',
+    },
+  },
 });
 
 class ResetPasswordPage extends React.Component {
@@ -32,7 +32,7 @@ class ResetPasswordPage extends React.Component {
     this.state = {
       password: '',
       confirmPassword: '',
-      submitted: false
+      submitted: false,
     };
     this.token = null;
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -47,7 +47,7 @@ class ResetPasswordPage extends React.Component {
       handleLogOut,
       session,
       location,
-      history
+      history,
     } = this.props;
     if (session) {
       handleLogOut();
@@ -64,18 +64,17 @@ class ResetPasswordPage extends React.Component {
   componentDidMount() {}
   handleChangePassword(event, value) {
     this.setState({
-      password: event.target.value
+      password: event.target.value,
     });
   }
   handleChangeConfirmPassword(event, value) {
     this.setState({
-      confirmPassword: event.target.value
+      confirmPassword: event.target.value,
     });
   }
 
   handleSubmit(event) {
     const {handleMessageNew, history} = this.props;
-    //console.log('submitted!');
     event.preventDefault();
 
     //check token
@@ -89,36 +88,36 @@ class ResetPasswordPage extends React.Component {
       handleMessageNew('Passwords do not match. Please try again.');
       this.setState({
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
       });
       return;
     }
 
     //submit request
-    let payload = {
-      reset_token: this.token,
-      password: this.state.password,
-      password_confirmation: this.state.confirmPassword
-    };
-    resetPassword(payload)
-      .then(response => {
-        let submitted = false;
-        if (response) {
-          handleMessageNew('Failed to reset password, please try again.');
-        } else {
-          submitted = true;
-        }
-        this.setState({
-          password: '',
-          confirmPassword: '',
-          submitted: submitted
-        });
-      })
-      .catch(error => {
-        handleMessageNew(
-          'Failed to reset password, please request a new reset link.'
-        );
-      });
+    // let payload = {
+    //   reset_token: this.token,
+    //   password: this.state.password,
+    //   password_confirmation: this.state.confirmPassword,
+    // };
+    // resetPassword(payload)
+    //   .then((response) => {
+    //     let submitted = false;
+    //     if (response) {
+    //       handleMessageNew('Failed to reset password, please try again.');
+    //     } else {
+    //       submitted = true;
+    //     }
+    //     this.setState({
+    //       password: '',
+    //       confirmPassword: '',
+    //       submitted: submitted,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     handleMessageNew(
+    //       'Failed to reset password, please request a new reset link.'
+    //     );
+    //   });
   }
 
   render() {
@@ -204,7 +203,7 @@ ResetPasswordPage.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   session: PropTypes.string,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withWidth(ResetPasswordPage));

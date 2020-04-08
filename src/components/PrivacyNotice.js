@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import {PrivacyIcon} from './icons';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     position: 'fixed',
     bottom: '85px',
@@ -16,34 +16,34 @@ const styles = theme => ({
     right: '0',
     textAlign: 'center',
     paddingLeft: '20px',
-    paddingRight: '20px'
+    paddingRight: '20px',
   },
   hidingBox: {
     display: 'inline-block',
     padding: theme.spacing(2),
-    backgroundColor: 'rgba(29, 31, 35, 0.5)'
+    backgroundColor: 'rgba(29, 31, 35, 0.5)',
   },
   box: {
     display: 'inline-block',
     padding: theme.spacing(1),
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   valignMiddle: {
     display: 'inline-block',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
   title: {
     lineHeight: '25px',
-    paddingLeft: theme.spacing(1)
+    paddingLeft: theme.spacing(1),
   },
   hidingBoxTitle: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   closeButton: {
     width: '25px',
-    minWidth: '25px'
+    minWidth: '25px',
   },
-  [theme.breakpoints.down('xs')]: {}
+  [theme.breakpoints.down('xs')]: {},
 });
 
 class PrivacyNotice extends React.Component {
@@ -51,7 +51,7 @@ class PrivacyNotice extends React.Component {
     super(props);
     this.state = {
       display: this.shouldBeDisplayed(),
-      hiding: false
+      hiding: false,
     };
 
     this.shouldBeDisplayed = this.shouldBeDisplayed.bind(this);
@@ -68,20 +68,19 @@ class PrivacyNotice extends React.Component {
     Cookies.set('privacy-prompt', 'off');
     this.setState({
       hiding: false,
-      display: false
+      display: false,
     });
   }
 
   handleDismiss() {
     //Cookies.set('privacy-prompt', "off");
     this.setState({
-      hiding: true
+      hiding: true,
     });
     setTimeout(this.completeDismiss, 3000);
   }
 
   handleLaunchPrivacyPage(ev) {
-    console.log(ev);
     if (ev.target.closest('.stop-click-propagation') === null) {
       this.completeDismiss();
       this.props.handleRequestOpen('privacy');
@@ -96,7 +95,7 @@ class PrivacyNotice extends React.Component {
       closeButton,
       title,
       hidingBox,
-      hidingBoxTitle
+      hidingBoxTitle,
     } = this.props.classes;
     if (this.state.display) {
       return (

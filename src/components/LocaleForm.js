@@ -97,7 +97,6 @@ class LocaleForm extends React.Component {
 
   handleNextClick(ev) {
     if (this.state.selectedLocale) {
-      //console.log('changing locale from form');
       this.props.changeLocale(this.state.selectedLocale);
     }
     if (typeof this.props.onLocaleSelect === 'function') {

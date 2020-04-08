@@ -224,8 +224,6 @@ class Detail extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    console.log('constructor userData', props.userData);
-
     const {id, serviceId} = this.props?.match?.params;
 
     this.state = {

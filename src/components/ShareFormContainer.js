@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
-import {updateListPermissions} from '../utils/api';
+// import {updateListPermissions} from '../utils/api';
 import ShareForm from './ShareForm';
 
 class ShareFormContainer extends React.Component {
@@ -11,7 +10,7 @@ class ShareFormContainer extends React.Component {
 
     this.state = {
       email: '',
-      shareUrl: window.location.href
+      shareUrl: window.location.href,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +29,7 @@ class ShareFormContainer extends React.Component {
       handleMessageNew,
       handleRequestClose,
       handleRequestOpen,
-      session
+      session,
     } = this.props;
 
     let url = window.location.origin + '/api/share';
@@ -38,18 +37,18 @@ class ShareFormContainer extends React.Component {
       recipients: this.state.email,
       shareType: this.props.shareType,
       shareUrl: this.state.shareUrl,
-      jwt: session
+      jwt: session,
     });
     const options = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: payload
+      body: payload,
     };
 
     fetch(url, options)
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
-          response.json().then(responseData => {
+          response.json().then((responseData) => {
             if (responseData.status === 'success') {
               handleRequestClose();
               handleMessageNew('Email sent!');
@@ -77,8 +76,7 @@ class ShareFormContainer extends React.Component {
           });
         }
       })
-      .catch(error => {
-        // console.log(error);
+      .catch((error) => {
         handleMessageNew('Oops! Something went wrong.');
       });
   }
@@ -90,7 +88,7 @@ class ShareFormContainer extends React.Component {
       handleRequestOpen,
       handleLogOut,
       listId,
-      session
+      session,
     } = this.props;
     event.preventDefault();
 
@@ -100,24 +98,24 @@ class ShareFormContainer extends React.Component {
     }
 
     if (this.props.shareType === 'collection') {
-      updateListPermissions(listId, 'public', session)
-        .then(response => {
-          if (response.collection) {
-            this.sendEmail();
-          }
-        })
-        .catch(error => {
-          if (error.response && error.response.status === 401) {
-            handleMessageNew('Your session has expired. Please log in again.');
-            handleLogOut();
-            handleRequestClose();
-          } else if (error.response && error.response.status === 403) {
-            handleRequestOpen('password');
-          } else {
-            handleMessageNew('Oops! Something went wrong.');
-            handleRequestClose();
-          }
-        });
+      // updateListPermissions(listId, 'public', session)
+      //   .then((response) => {
+      //     if (response.collection) {
+      //       this.sendEmail();
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     if (error.response && error.response.status === 401) {
+      //       handleMessageNew('Your session has expired. Please log in again.');
+      //       handleLogOut();
+      //       handleRequestClose();
+      //     } else if (error.response && error.response.status === 403) {
+      //       handleRequestOpen('password');
+      //     } else {
+      //       handleMessageNew('Oops! Something went wrong.');
+      //       handleRequestClose();
+      //     }
+      //   });
     } else {
       this.sendEmail();
     }
@@ -140,7 +138,7 @@ ShareFormContainer.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
   session: PropTypes.string.isRequired,
-  shareType: PropTypes.string.isRequired
+  shareType: PropTypes.string.isRequired,
 };
 
 export default ShareFormContainer;

@@ -379,9 +379,6 @@ class MapContainer extends React.Component {
             });
           }
 
-          console.log('state', state);
-          console.log('city', city);
-
           const page = nextPage ? this.state.page + 1 : 1;
           const nextState = {
             inState,

@@ -1,7 +1,7 @@
 import React from 'react';
 import trim from 'trim';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Fa from 'react-fontawesome';
@@ -10,24 +10,24 @@ import {ScheduleParser, AddressParser} from './Parser';
 import Phone from './ResourcePhone';
 import {boldFont, bodyLink, listLink} from '../theme';
 
-const styles = theme => ({
+const styles = (theme) => ({
   boldFont: boldFont(theme),
   bodyLink: bodyLink(theme),
   listLink: listLink(theme),
   bottomSpacing: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   lineSpacing: {
     lineHeight: '1.4rem',
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
       paddingLeft: theme.spacing(4),
-      position: 'relative'
-    }
+      position: 'relative',
+    },
   },
   locationSpacing: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
   },
   instructions: {},
   mobileIcon: {
@@ -37,19 +37,18 @@ const styles = theme => ({
       position: 'absolute',
       left: 0,
       top: theme.spacing(1) / 2,
-      width: '22px'
-    }
+      width: '22px',
+    },
   },
   mobileHide: {
     [theme.breakpoints.down('xs')]: {
-      display: 'none'
-    }
-  }
+      display: 'none',
+    },
+  },
 });
 //TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
 const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
-  //console.log(list, rawSchedule)
   let schedule;
   return (
     <Grid container spacing={0}>
@@ -111,7 +110,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                         Email:{' '}
                       </strong>
                       {item.emails &&
-                        item.emails.map(email => {
+                        item.emails.map((email) => {
                           let name = trim(
                             (email.title ? email.title : '') +
                               ' ' +
@@ -179,7 +178,7 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                                 Hours:{' '}
                               </strong>
                               {schedule
-                                .map(sch => {
+                                .map((sch) => {
                                   return sch.days + ' ' + sch.time;
                                 })
                                 .join(', ')}

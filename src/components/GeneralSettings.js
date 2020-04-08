@@ -9,8 +9,7 @@ import {breakpoints} from '../theme';
 
 import Typography from '@material-ui/core/Typography';
 
-
-import {updateUserEmail, updateUserPassword} from '../utils/api';
+// import {updateUserEmail, updateUserPassword} from '../utils/api';
 
 const styles = (theme) => ({
   root: {
@@ -76,12 +75,12 @@ class GeneralSettings extends React.Component {
   updateEmail(newEmail) {
     const {handleMessageNew, session} = this.props;
     const payload = Object.assign({}, this.state.user, {email: newEmail});
-    updateUserEmail(payload, session)
-      .then((data) => {
-        this.setState({user: data.user, isEmailUpdated: true});
-        handleMessageNew('Your email has been updated.');
-      })
-      .catch((error) => this.handleOdasError(error));
+    // updateUserEmail(payload, session)
+    //   .then((data) => {
+    //     this.setState({user: data.user, isEmailUpdated: true});
+    //     handleMessageNew('Your email has been updated.');
+    //   })
+    //   .catch((error) => this.handleOdasError(error));
   }
 
   updatePassword(currentPassword, newPassword) {
@@ -93,12 +92,12 @@ class GeneralSettings extends React.Component {
         password_confirmation: newPassword,
       },
     };
-    updateUserPassword(payload, session)
-      .then((data) => {
-        this.setState({isPasswordUpdated: true});
-        handleMessageNew('Password has been updated.');
-      })
-      .catch((error) => this.handleOdasError(error));
+    // updateUserPassword(payload, session)
+    //   .then((data) => {
+    //     this.setState({isPasswordUpdated: true});
+    //     handleMessageNew('Password has been updated.');
+    //   })
+    //   .catch((error) => this.handleOdasError(error));
   }
 
   render() {
