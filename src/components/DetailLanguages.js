@@ -16,7 +16,9 @@ const Languages = (props) => (
             if (propertyMap?.['language']?.[item?.slug]) {
               const property = propertyMap['language'][item?.slug];
               const text =
-                property?.name || langs.where('1', property.code).name;
+                (item.text === '[value]' && item.value) ||
+                property?.name ||
+                langs.where('1', property?.code)?.name;
 
               return (
                 <Typography key={text} variant="body2">

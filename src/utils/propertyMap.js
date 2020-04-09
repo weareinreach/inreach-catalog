@@ -49,8 +49,9 @@ const propertyMap = {
     'community-veteran': 'Military veterans',
   },
   eligibility: {
-    'elig-age-or-over': 'Ages [value] or older',
-    'elig-age-or-under': 'Ages [value] or under',
+    'elig-age-or-over': 'Ages [value] and over',
+    'elig-age-or-under': 'Ages [value] and under',
+    'elig-age-range': 'Ages [value]',
     'elig-annual-income-or-over': 'Annual income of $[value] or more',
     'elig-annual-income-or-under': 'Annual income of $[value] or less',
     'elig-asylee': 'Asylee',
@@ -89,9 +90,7 @@ const propertyMap = {
   },
   language: {
     'lang-american-sign-language': {name: 'American Sign Language'},
-    'lang-all-languages-by-interpreter': {
-      name: '',
-    },
+    'lang-all-languages-by-interpreter': '[value]',
     'lang-albanian': {code: 'sq'},
     'lang-amharic': {code: 'am'},
     'lang-arabic': {code: 'ar'},

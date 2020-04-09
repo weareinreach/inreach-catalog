@@ -69,20 +69,17 @@ const seperateProperties = (properties) => {
           result[mapKey] = [];
         }
 
-        const desiredValue =
-          propValue === 'true' || propValue === true
-            ? propertyMap[mapKey][propKey]
-            : propValue;
-
         result[mapKey].push({
           key: propKey,
           slug: propKey,
-          text: desiredValue,
-          value: desiredValue,
+          text: propertyMap[mapKey][propKey],
+          value: propValue,
         });
       }
     });
   });
+
+  return result;
 };
 
 const styles = (theme) => ({
@@ -446,14 +443,22 @@ class Detail extends React.Component {
     }
 
     const detailHeaderProps = {
-      alertMessage,
       classes,
       isMobile,
       name,
-      phones,
       rating: average_rating,
       totalRatings: ratings?.length,
-      website,
+      ...(this.isServicePage
+        ? {
+            alertMessage: organization?.alertMessage,
+            phones: organization?.phones,
+            website: organization?.website,
+          }
+        : {
+            alertMessage,
+            phones,
+            website,
+          }),
     };
 
     return (
@@ -728,7 +733,7 @@ class Detail extends React.Component {
                               ) : null}
                               {propsByType?.['required']?.length > 0 ? (
                                 <AsylumConnectCollapsibleSection
-                                  title="Not required"
+                                  title="Required"
                                   content={
                                     <PropertyList
                                       list={propsByType['required']}
@@ -925,7 +930,7 @@ class Detail extends React.Component {
                           ) : null}
                           {propsByType?.['required']?.length > 0 ? (
                             <AsylumConnectCollapsibleSection
-                              title="Not required"
+                              title="Required"
                               content={
                                 <PropertyList
                                   list={propsByType['required']}

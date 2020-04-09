@@ -5,7 +5,10 @@ import Typography from '@material-ui/core/Typography';
 
 // TODO: move to utils and test
 const replaceValue = (target, value) => {
-  return isNaN(parseFloat(value)) ? value : parseFloat(value);
+  return target.replace(
+    /\[value\]/,
+    isNaN(parseFloat(value)) ? value : parseFloat(value)
+  );
 };
 
 const styles = (theme) => ({
