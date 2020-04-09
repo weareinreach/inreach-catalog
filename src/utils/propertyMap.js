@@ -90,8 +90,7 @@ const propertyMap = {
   language: {
     'lang-american-sign-language': {name: 'American Sign Language'},
     'lang-all-languages-by-interpreter': {
-      name:
-        'Translation services available. Contact organization for more information.',
+      name: '',
     },
     'lang-albanian': {code: 'sq'},
     'lang-amharic': {code: 'am'},
@@ -185,7 +184,7 @@ const propertyMap = {
     'cost-suggested-donation': 'Costs: suggested donation',
     'has-confidentiality-policy': 'Has a confidentiality policy',
   },
-  'required': {
+  required: {
     'req-medical-insurance': 'Medical insurance',
     'req-photo-id': 'Photo ID',
     'req-proof-of-age': 'Proof of age',
