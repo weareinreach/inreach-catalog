@@ -35,8 +35,8 @@ import {
   getOrganizationBySlug,
   getServiceBySlug,
 } from '../utils/api';
-import {localeTagMap} from '../utils/locale';
 import propertyMap, {propertyMapKeys} from '../utils/propertyMap';
+import {getTags} from '../utils/tags';
 import {
   bodyLink,
   boldFont,
@@ -269,6 +269,8 @@ class Detail extends React.Component {
       params.id !== oldParams.id ||
       params.serviceId !== oldParams.serviceId
     ) {
+      this.isServicePage = Boolean(params.id && params.serviceId);
+
       this.requestData();
     }
   }
@@ -460,6 +462,7 @@ class Detail extends React.Component {
             website,
           }),
     };
+    const resourceTags = getTags(resource, locale);
 
     return (
       <Grid
@@ -695,26 +698,24 @@ class Detail extends React.Component {
                           )}
                           {this.isServicePage && (
                             <>
-                              {resource?.tags?.[localeTagMap?.[locale]] && (
+                              {resourceTags && (
                                 <AsylumConnectCollapsibleSection
-                                  title="Service Type"
+                                  title=""
                                   content={
                                     <ServiceType
-                                      list={
-                                        resource?.tags?.[localeTagMap?.[locale]]
-                                      }
+                                      list={resourceTags}
                                       classes={classes}
                                       isMobile={isMobile}
                                     />
                                   }
                                 />
                               )}
-                              {propsByType?.['more-about']?.length > 0 ? (
+                              {propsByType?.['cost']?.length > 0 ? (
                                 <AsylumConnectCollapsibleSection
-                                  title="More about this Service"
+                                  title="Cost"
                                   content={
                                     <PropertyList
-                                      list={propsByType['more-about']}
+                                      list={propsByType['cost']}
                                       classes={classes}
                                     />
                                   }
@@ -892,26 +893,24 @@ class Detail extends React.Component {
                       )}
                       {this.isServicePage && (
                         <>
-                          {resource?.tags?.[localeTagMap?.[locale]] && (
+                          {resourceTags && (
                             <AsylumConnectCollapsibleSection
                               title="Service Type"
                               content={
                                 <ServiceType
-                                  list={
-                                    resource?.tags?.[localeTagMap?.[locale]]
-                                  }
+                                  list={resourceTags}
                                   classes={classes}
                                   isMobile={isMobile}
                                 />
                               }
                             />
                           )}
-                          {propsByType?.['more-about']?.length > 0 ? (
+                          {propsByType?.['cost']?.length > 0 ? (
                             <AsylumConnectCollapsibleSection
-                              title="More about this Service"
+                              title="Cost"
                               content={
                                 <PropertyList
-                                  list={propsByType['more-about']}
+                                  list={propsByType['cost']}
                                   classes={classes}
                                 />
                               }
