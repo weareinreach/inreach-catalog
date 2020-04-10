@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NavDesktop from './navigation/NavDesktop';
-import NavMobile from './navigation/NavMobile';
-import NavTablet from './navigation/NavTablet';
-
-import withWidth from './withWidth';
+import NavDesktop from './NavDesktop';
+import NavMobile from './NavMobile';
+import NavTablet from './NavTablet';
 import {breakpoints} from '../theme';
+import withWidth from './withWidth';
 
 const Header = ({
   handleRequestOpen,
@@ -17,7 +16,7 @@ const Header = ({
   locale,
   location,
   history,
-  match
+  match,
 }) => {
   const isMobile = width < breakpoints['sm'];
   const isTablet = width < breakpoints['md'];
@@ -64,7 +63,7 @@ Header.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
 };
 
 export default withWidth(Header);

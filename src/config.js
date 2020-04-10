@@ -1,24 +1,22 @@
-const config = {
-  development: {
-    odrs: 'http://demo-odrs.1degree.org/v1/',
-    odas: 'http://demo.1degree.org/',
-    odApiKey: '116a982084a50135de470e09a2d30796',
-    client_id: 26,
-    basicAuth: 'Basic ZGVtbzpwZW9wbGVmaXJzdA=='
-  },
-  /*development: {
-    odrs: "https://data.1degree.org/v1/",
-    odas: "https://www.1degree.org/",
-    odApiKey: "244a9ed0545c013590490614a1d2fcd4",
-    client_id: 26
-  },*/
-  production: {
-    odrs: 'https://data.1degree.org/v1/',
-    odas: 'https://www.1degree.org/',
-    odApiKey: '244a9ed0545c013590490614a1d2fcd4',
-    client_id: 26
-  }
+// Dev/Staging config is the base
+const base = {
+  apiDomain: 'https://asylum-connect-api-staging.herokuapp.com',
+  apiBasePath: '/v1',
+  googleAnalyticsKey: 'UA-76058112-1',
 };
 
-//use ES5 for this because it is being imported into the local API scripts that aren't being transpiled
-module.exports = config;
+const local = {
+  apiDomain: 'http://localhost:8080',
+};
+
+const prod = {
+  apiDomain: 'https://asylum-connect-api.herokuapp.com',
+};
+
+const env = process.env.REACT_APP_APP_ENV;
+
+export default {
+  ...base,
+  ...(env === 'local' ? local : {}),
+  ...(env === 'production' ? prod : {}),
+};

@@ -36,26 +36,23 @@ Folder structure
 
 ```
 asylumconnect-catalog/
-├── api               # tk
-├── config            # Server Config
-├── public            # Public assets
-├── src               # Source code for the frontend
-├── src/components    # tk
-├── src/helpers       # tk
-├── src/images        # Image assets
-├── src/config.js     # Frontend Config
-├── src/index.js      # Starting point for the frontend
-├── views             # tk
-├── index.js          # An express server, more tk
-└── server.js         # An express server, more tk
+├── public          # Static assets
+├── src             # All of the source code for the app
+├── src/components  # React components used throughout the app
+├── src/images      # Image assets
+├── src/utils       # Shared utilities
+├── src/config.js   # Frontend Config
+├── src/index.js    # Starting point for the frontend
+└── src/server.js   # Express server used to serve the app in production
 ```
 
 Technologies
 
+- [create-react-app](https://create-react-app.dev/)
 - [React](https://reactjs.org/)
 - [React-Router](https://reacttraining.com/react-router/)
 - [react-google-maps](https://www.npmjs.com/package/react-google-maps)
-- [material-ui](https://material-ui-1dab0.firebaseapp.com/getting-started/usage/)
+- [material-ui](https://material-ui.com/)
 - [Express](https://expressjs.com/)
 
 > For responsive handling, the `render()` methodology from [this reference](https://goshakkk.name/different-mobile-desktop-tablet-layouts-react/) should be used on all components that adjust based on resolution

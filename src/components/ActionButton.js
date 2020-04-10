@@ -1,8 +1,7 @@
-import React from 'react';
-
-import {withStyles} from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import {withStyles} from '@material-ui/core/styles';
 
 // Define a custom style for button
 const styles = theme => ({

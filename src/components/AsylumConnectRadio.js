@@ -1,42 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {withStyles} from 'material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
-import {FormControlLabel} from 'material-ui/Form';
-import Radio from 'material-ui/Radio';
-import CheckCircleIcon from 'material-ui-icons/CheckCircle';
-import RadioUncheckedIcon from 'material-ui-icons/RadioButtonUnchecked';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import RadioUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 const relativeSize = 1;
 
 const defaultIconSize = {
   height: relativeSize + 'rem',
-  width: relativeSize + 'rem'
+  width: relativeSize + 'rem',
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     marginLeft: '0',
     color: theme.palette.common.lightBlack, //fix this for non-resource-type checkboxes
     '&:hover': {
-      color: theme.palette.secondary[500]
-    }
+      color: theme.palette.secondary[500],
+    },
   },
   checkboxDefault: {
     color: 'inherit',
     width: relativeSize * 2 + 'rem',
-    height: relativeSize * 2 + 'rem'
+    height: relativeSize * 2 + 'rem',
   },
   checkboxChecked: {
     color: theme.palette.secondary[500],
     width: relativeSize * 2 + 'rem',
-    height: relativeSize * 2 + 'rem'
+    height: relativeSize * 2 + 'rem',
   },
-  label: {}
+  label: {},
 });
 
-const AsylumConnectRadio = props => {
+const AsylumConnectRadio = (props) => {
   const classes = Object.assign(props.classes, props.overrideClasses);
 
   const rootClass = classNames(
@@ -69,7 +69,7 @@ const AsylumConnectRadio = props => {
           checked={props.checked}
           classes={{
             default: checkboxDefault,
-            checked: checkboxChecked
+            checked: checkboxChecked,
           }}
           onChange={props.onChange}
         />
@@ -77,7 +77,7 @@ const AsylumConnectRadio = props => {
       label={props.label}
       classes={{
         root: rootClass,
-        label: labelClass
+        label: labelClass,
       }}
     />
   );
@@ -88,7 +88,7 @@ AsylumConnectRadio.propTypes = {
   checked: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(AsylumConnectRadio);

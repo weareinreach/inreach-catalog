@@ -1,42 +1,41 @@
 import React from 'react';
 
-import {withStyles} from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import KeyboardArrowDownIcon from 'material-ui-icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from 'material-ui-icons/KeyboardArrowUp';
+import {withStyles} from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 import AsylumConnectIndicator from './AsylumConnectIndicator';
 import withWidth from './withWidth';
 import {dropShadow} from '../theme';
 
-const styles = theme => ({
+const styles = (theme) => ({
   toggledSelect: {
-    backgroundColor: theme.palette.secondary[100] + ' !important'
+    backgroundColor: theme.palette.secondary[100] + ' !important',
   },
   selectList: Object.assign(dropShadow(theme), {
     width: '100%',
     top: '100%',
     position: 'absolute',
     zIndex: '50',
-    overflowY: 'auto'
+    overflowY: 'auto',
   }),
   arrow: {
     width: '20px',
     height: '20px',
     color: theme.palette.common.lightBlack,
-    float: 'right'
+    float: 'right',
   },
   relative: {
-    position: 'relative'
+    position: 'relative',
   },
   selectContainer: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   selectedLabel: {
     fontWeight: theme.typography.fontWeightMedium,
-    //textTransform: 'uppercase',
     fontSize: theme.typography.fontSize - 1,
-    lineHeight: 1.25
+    lineHeight: 1.25,
   },
   indicator: {
     display: 'inline-block',
@@ -45,16 +44,16 @@ const styles = theme => ({
     marginRight: '0.2rem',
     [theme.breakpoints.down('xs')]: {
       position: 'absolute',
-      right: '20px'
-    }
-  }
+      right: '20px',
+    },
+  },
 });
 
 class AsylumConnectSelector extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      open: false
+      open: false,
     };
     this.id = 'selector--' + Date.now().toString();
 
@@ -82,7 +81,7 @@ class AsylumConnectSelector extends React.Component {
     }
 
     this.setState({
-      open: !this.state.open
+      open: !this.state.open,
     });
   }
 
@@ -93,10 +92,8 @@ class AsylumConnectSelector extends React.Component {
   }
 
   handleOpenDrawer(event) {
-    if (event) {
-      if (this.props.moveSearchButton) {
-        this.props.moveSearchButton(this.state.open);
-      }
+    if (event && this.props.moveSearchButton) {
+      this.props.moveSearchButton(this.state.open);
     }
   }
 
@@ -108,7 +105,7 @@ class AsylumConnectSelector extends React.Component {
       selectList,
       selectedLabel,
       selectContainer,
-      indicator
+      indicator,
     } = this.props.classes;
     const {selected, label, containerWidth} = this.props;
     const containerClasses =
@@ -126,7 +123,7 @@ class AsylumConnectSelector extends React.Component {
       <div className={rootClass}>
         <div
           className={containerClasses}
-          onClick={() => {
+          onClick={(event) => {
             this.handleToggleRequest();
             this.handleOpenDrawer(event);
           }}
@@ -153,10 +150,6 @@ class AsylumConnectSelector extends React.Component {
             onClick={this.handlePaperClick}
           >
             {this.props.children}
-            {/*resourceTypes.map((filter, i) => (
-                <List key={i} index={i} classes={listClasses} onChange={onChange} selected={selected} {...filter} />
-              )
-            )*/}
           </Paper>
         ) : null}
       </div>
@@ -164,4 +157,4 @@ class AsylumConnectSelector extends React.Component {
   }
 }
 
-export default withWidth(withStyles(styles)(AsylumConnectSelector));
+export default withStyles(styles)(withWidth(AsylumConnectSelector));
