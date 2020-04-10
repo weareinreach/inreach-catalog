@@ -4,17 +4,16 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import ACBadge from './Badge';
-import {localeTagMap} from '../utils/locale';
-import resourceTypes from '../utils/resourceTypes';
+import resourceTypes, {getTags} from '../utils/tags';
 
 // TODO: move to utils and test
 const addBadges = (list, locale) => {
   return (
     list
       ?.map((item) => {
-        const localeTags = item?.tags?.[localeTagMap?.[locale]] || [];
+        const itemTags = getTags(item, locale);
         const badgeList = [
-          ...(localeTags?.length ? localeTags : []),
+          ...(itemTags?.length ? itemTags : []),
           ...(item?.categories?.length ? item.categories : []),
           ...(item?.areas?.length ? item.areas : []),
         ].sort();
@@ -38,7 +37,7 @@ const addBadges = (list, locale) => {
 };
 
 const Services = (props) => {
-  const {classes, list, isMobile, locale, resource} = props;
+  const {classes, list, isMobile, locale, resource, resourceTags} = props;
   const itemsWithBadges = addBadges(list, locale);
   let lastBadge = false;
 

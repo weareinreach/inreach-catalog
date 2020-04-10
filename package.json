@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "local": "REACT_APP_APP_ENV=local npm start",
+    "prod": "REACT_APP_APP_ENV=production npm start",
     "dev": "npm run start",
     "start": "react-scripts start",
     "build": "react-scripts build",

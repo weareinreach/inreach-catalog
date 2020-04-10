@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import ACBadge from './Badge';
-import resourceTypes from '../utils/resourceTypes';
+import resourceTypes from '../utils/tags';
 
 const ServiceType = (props) => {
   const tags = resourceTypes.getResourceIndex(props.locale);

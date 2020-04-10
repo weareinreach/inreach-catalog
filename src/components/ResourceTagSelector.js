@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import AsylumConnectSelector from './AsylumConnectSelector';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import {breakpoints, searchInput, searchInputMobile} from '../theme';
-import ResourceTypes from '../utils/resourceTypes';
+import ResourceTypes from '../utils/tags';
 import withWidth from './withWidth';
 
 const styles = (theme) => ({
@@ -42,11 +42,11 @@ const FilterCollection = (props) => (
           props.t(props.category) +
           ' > ' +
           (props.title ? props.t(props.title) + ' > ' : '') +
-          props.t(props.odTag)
+          props.t(props.acTag)
         }
-        value={props.odTag}
+        value={props.acTag}
         onChange={props.onChange}
-        checked={props.selectedResourceTags.indexOf(props.odTag) >= 0}
+        checked={props.selectedResourceTags.indexOf(props.acTag) >= 0}
       />
     </Typography>
   </div>

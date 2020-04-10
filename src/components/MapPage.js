@@ -14,7 +14,7 @@ import withWidth from './withWidth';
 import {breakpoints} from '../theme';
 import {fetchSearchResults} from '../utils/api';
 import infograph from '../utils/infographics';
-import ResourceTypes from '../utils/resourceTypes';
+import ResourceTypes from '../utils/tags';
 
 const styles = (theme) => ({
   searchArea: {

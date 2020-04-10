@@ -9,7 +9,7 @@ import AsylumConnectSelector from './AsylumConnectSelector';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import ACBadge from './Badge';
 import {breakpoints, searchInput, searchInputMobile} from '../theme';
-import ResourceTypes from '../utils/resourceTypes';
+import ResourceTypes from '../utils/tags';
 import withWidth from './withWidth';
 
 const styles = (theme) => ({

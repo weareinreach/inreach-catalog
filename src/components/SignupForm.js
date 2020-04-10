@@ -12,6 +12,10 @@ import AsylumConnectButton from './AsylumConnectButton';
 
 import OrganizationAutocomplete from './OrganizationAutocomplete';
 
+const LAWYER_TYPE = 'lawyer';
+const PROVIDER_TYPE = 'provider';
+const SEEKER_TYPE = 'seeker';
+
 const styles = (theme) => ({
   container: {
     display: 'flex',
@@ -67,21 +71,21 @@ const SignupForm = ({
         </Typography>
         <AsylumConnectButton
           className={classes.marginBottom}
-          onClick={() => handleSelect('seeker')}
+          onClick={() => handleSelect(SEEKER_TYPE)}
           variant="primary"
         >
           I am looking for help for myself
         </AsylumConnectButton>
         <AsylumConnectButton
           className={classes.marginBottom}
-          onClick={() => handleSelect('lawyer')}
+          onClick={() => handleSelect(LAWYER_TYPE)}
           variant="primary"
         >
           I am an attorney or law student
         </AsylumConnectButton>
         <AsylumConnectButton
           className={classes.marginBottomLg}
-          onClick={() => handleSelect('provider')}
+          onClick={() => handleSelect(PROVIDER_TYPE)}
           variant="primary"
         >
           I am a non-legal service provider

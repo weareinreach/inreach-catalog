@@ -32,6 +32,10 @@ const propertyMap = {
       'Transgender, non-binary and gender non-conforming community',
     'community-undocumented': 'Undocumented community',
   },
+  cost: {
+    'cost-fees': 'Costs: [value]',
+    'cost-free': 'Free of cost',
+  },
   eligibility: {
     'elig-age-or-over': 'Ages [value] and over',
     'elig-age-or-under': 'Ages [value] and under',
@@ -126,17 +130,13 @@ const propertyMap = {
     'lang-vietnamese': {code: 'vi'},
     'lang-wolof': {code: 'wo'},
   },
-  'more-about': {
-    'cost-fees': 'Costs: [value]',
-    'cost-free': 'Free of cost',
-  },
   required: {
-    'req-medical-insurance': 'REQUIRES medical insurance',
-    'req-photo-id': 'REQUIRES a photo ID',
-    'req-proof-of-age': 'REQUIRES proof of age',
-    'req-proof-of-income': 'REQUIRES proof of income',
-    'req-proof-of-residence': 'REQUIRES proof of residence',
-    'req-referral': 'REQUIRES a referral',
+    'req-medical-insurance': 'Medical insurance',
+    'req-photo-id': 'A photo ID',
+    'req-proof-of-age': 'Proof of age',
+    'req-proof-of-income': 'Proof of income',
+    'req-proof-of-residence': 'Proof of residence',
+    'req-referral': 'A referral',
   },
 };
 

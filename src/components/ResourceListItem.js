@@ -17,7 +17,7 @@ import ResourceVisit from './ResourceVisit';
 import SaveToFavoritesButton from './SaveToFavoritesButton';
 import withWidth from './withWidth';
 import propertyMap from '../utils/propertyMap';
-import resourceTypes from '../utils/resourceTypes';
+import resourceTypes from '../utils/tags';
 import {boldFont, breakpoints} from '../theme';
 
 let resourceIndex = resourceTypes.resourceIndex;
