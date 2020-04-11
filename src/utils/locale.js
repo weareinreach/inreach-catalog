@@ -52,5 +52,6 @@ export const setLocale = (locale) => {
 
 export const localeTagMap = {
   en_CA: 'canada',
+  en_MX: 'mexico',
   en_US: 'united_states',
 };

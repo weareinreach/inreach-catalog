@@ -1,4 +1,6 @@
 import _forEach from 'lodash/forEach';
+import _reduce from 'lodash/reduce';
+import _uniq from 'lodash/uniq';
 
 import {localeTagMap} from '../utils/locale';
 
@@ -365,6 +367,23 @@ export const getTags = (item, locale) => {
   });
 
   return tags;
+};
+
+export const getOrgTags = (org, locale) => {
+  const {services = []} = org || {};
+  const orgTags = getTags(org, locale);
+
+  return _uniq(
+    _reduce(
+      services,
+      (result, service = {}) => {
+        result = result.concat(getTags(service, locale));
+
+        return result;
+      },
+      orgTags
+    )
+  );
 };
 
 export default {

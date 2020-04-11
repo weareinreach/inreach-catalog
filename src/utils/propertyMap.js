@@ -1,3 +1,5 @@
+import _forEach from 'lodash/forEach';
+
 const propertyMap = {
   'additional-info': {
     'at-capacity': 'At capacity',
@@ -152,3 +154,48 @@ export const propertyMapKeys = Object.keys(propertyMap).reduce(
   },
   {}
 );
+
+/**
+ * Combine a list of properties
+ * @param  {Array[]} list list of properties
+ * @return {Object} An object of all of the properties
+ */
+export const combineProperties = (list) => {
+  return (
+    list?.reduce((result, item) => {
+      if (item?.properties) {
+        return {...result, ...item.properties};
+      }
+
+      return result;
+    }, {}) || {}
+  );
+};
+
+/**
+ * Seperate the properties by the corresponding type in the propertyMap
+ * @param  {Object} properties List of properties
+ * @return {} Properties seperated into their correct type
+ */
+export const seperatePropsByType = (properties) => {
+  const result = {};
+
+  _forEach(propertyMapKeys, (mapValues, mapKey) => {
+    _forEach(properties, (propValue, propKey) => {
+      if (mapValues.indexOf(propKey) !== -1) {
+        if (!result[mapKey]) {
+          result[mapKey] = [];
+        }
+
+        result[mapKey].push({
+          key: propKey,
+          slug: propKey,
+          text: propertyMap[mapKey][propKey],
+          value: propValue,
+        });
+      }
+    });
+  });
+
+  return result;
+};

@@ -16,8 +16,8 @@ import RatingAndReviews from './ResourceRatingAndReviews';
 import ResourceVisit from './ResourceVisit';
 import SaveToFavoritesButton from './SaveToFavoritesButton';
 import withWidth from './withWidth';
-import propertyMap from '../utils/propertyMap';
-import resourceTypes from '../utils/tags';
+import propertyMap, {combineProperties} from '../utils/propertyMap';
+import resourceTypes, {getTags, getOrgTags} from '../utils/tags';
 import {boldFont, breakpoints} from '../theme';
 
 let resourceIndex = resourceTypes.resourceIndex;
@@ -123,22 +123,18 @@ class ResourceListItem extends React.Component {
     ];
     const labelClass = format === 'search' ? 'hide--on-screen' : null;
     const name = resource.name || resource.title;
-    const link =
-      resource.resource_type === 'Organization'
-        ? `/${locale}/resource/${resource.slug}`
-        : `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
-    const tags =
-      resource.resource_type === 'Organization'
-        ? resource.opportunity_tags
-        : resource.tags.concat(
-            resource.categories && resource.categories.length
-              ? resource.categories
-              : [],
-            resource.areas && resource.areas.length ? resource.areas : []
-          );
-    const orgProperties = Object.keys(resource.properties);
+    const isOrganizationItem = resource.resource_type === 'Organization';
+    const link = isOrganizationItem
+      ? `/${locale}/resource/${resource.slug}`
+      : `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
+    const tags = isOrganizationItem
+      ? getOrgTags(resource, locale)
+      : getTags(resource.tags, locale);
+    const allProperties = isOrganizationItem
+      ? resource.properties
+      : combineProperties([resource, ...resource.services]);
+    const propKeys = Object.keys(allProperties);
 
-    //this.props.fetchSearchResults();
     return (
       <div className={paperPadding}>
         {isMobile ? (
@@ -195,7 +191,7 @@ class ResourceListItem extends React.Component {
                   </Grid>
                 </Grid>
               </Grid>
-              {orgProperties.filter(
+              {propKeys.filter(
                 (item) => item.toLowerCase().indexOf('service-national') === 0
               ).length ? (
                 <Grid item xs={12}>
@@ -309,7 +305,7 @@ class ResourceListItem extends React.Component {
                   </Grid>
                 </Grid>
               </Grid>
-              {orgProperties.filter(
+              {propKeys.filter(
                 (item) => item.toLowerCase().indexOf('service-national') === 0
               ).length ? (
                 <Grid item xs={12}>
@@ -388,7 +384,7 @@ class ResourceListItem extends React.Component {
                       </Typography>
                     </Grid>
                   ) : null}
-                  {resource.resource_type === 'Organization' ? (
+                  {isOrganizationItem ? (
                     <ResourceVisit
                       emails={resource.emails}
                       locations={resource.locations}

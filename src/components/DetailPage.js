@@ -1,4 +1,3 @@
-import _forEach from 'lodash/forEach';
 import React from 'react';
 import Modal from 'react-modal';
 import {Element, scroller} from 'react-scroll';
@@ -35,7 +34,7 @@ import {
   getOrganizationBySlug,
   getServiceBySlug,
 } from '../utils/api';
-import propertyMap, {propertyMapKeys} from '../utils/propertyMap';
+import {combineProperties, seperatePropsByType} from '../utils/propertyMap';
 import {getTags} from '../utils/tags';
 import {
   bodyLink,
@@ -45,42 +44,6 @@ import {
   dividerSpacing,
   mobilePadding,
 } from '../theme';
-
-// TODO: move to utils and test
-const combineProperties = (list) => {
-  return (
-    list?.reduce((result, item) => {
-      if (item?.properties) {
-        return {...result, ...item.properties};
-      }
-
-      return result;
-    }, {}) || {}
-  );
-};
-
-const seperateProperties = (properties) => {
-  const result = {};
-
-  _forEach(propertyMapKeys, (mapValues, mapKey) => {
-    _forEach(properties, (propValue, propKey) => {
-      if (mapValues.indexOf(propKey) !== -1) {
-        if (!result[mapKey]) {
-          result[mapKey] = [];
-        }
-
-        result[mapKey].push({
-          key: propKey,
-          slug: propKey,
-          text: propertyMap[mapKey][propKey],
-          value: propValue,
-        });
-      }
-    });
-  });
-
-  return result;
-};
 
 const styles = (theme) => ({
   tabRoot: {
@@ -427,7 +390,7 @@ class Detail extends React.Component {
     const allProperties = this.isServicePage
       ? properties
       : combineProperties([resource, ...services]);
-    const propsByType = seperateProperties(allProperties);
+    const propsByType = seperatePropsByType(allProperties);
     const userComment =
       comments.find(
         (comment) => comment.userId === this.props?.userData?._id
