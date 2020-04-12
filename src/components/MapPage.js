@@ -12,7 +12,7 @@ import SearchResultsPage from './SearchResultsPage';
 import AsylumConnectMap from './AsylumConnectMap';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
-import {fetchSearchResults} from '../utils/api';
+import {fetchOrganizations} from '../utils/api';
 import infograph from '../utils/infographics';
 import ResourceTypes from '../utils/tags';
 
@@ -403,7 +403,7 @@ class MapContainer extends React.Component {
 
           this.setState(nextState);
 
-          fetchSearchResults(params).then(this.processSearchResults);
+          fetchOrganizations(params).then(this.processSearchResults);
         })
         .catch((error) => {
           this.props.handleMessageNew('An error occured. Please try again');

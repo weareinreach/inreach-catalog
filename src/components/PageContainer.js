@@ -25,6 +25,7 @@ class PageContainer extends React.Component {
       session,
       sessionConfirmed,
       user,
+      userData,
       t,
     } = this.props;
     const favoritesListProps = {
@@ -40,6 +41,7 @@ class PageContainer extends React.Component {
       locale: locale,
       session: this.props.session,
       user: this.props.user,
+      userData: this.props.userData,
       t: t,
     };
     return (
@@ -84,6 +86,7 @@ class PageContainer extends React.Component {
                 session={session}
                 sessionConfirmed={sessionConfirmed}
                 user={user}
+                userData={userData}
                 t={t}
               />
             )}
@@ -100,6 +103,7 @@ class PageContainer extends React.Component {
                 locale={locale}
                 session={session}
                 user={user}
+                userData={userData}
                 t={t}
               />
             )}
@@ -115,6 +119,7 @@ class PageContainer extends React.Component {
                 history={history}
                 session={session}
                 user={user}
+                userData={userData}
                 logo={logo}
                 {...props}
               />

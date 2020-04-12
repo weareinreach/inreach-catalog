@@ -153,7 +153,7 @@ class AppConnectCatalog extends React.Component {
 
     fetchUser(session)
       .then((userData) => {
-        this.setState({userData});
+        this.setState({userData, lists: userData?.lists || []});
         window.localStorage.setItem('user', userData._id);
         this.handleStorageChange();
       })
@@ -172,24 +172,21 @@ class AppConnectCatalog extends React.Component {
     this.setState({sessionConfirmed: false});
   }
 
+  handleListNew(list) {
+    this.setState((prevState) => ({lists: [...prevState.lists, list]}));
+  }
+
   handleListAddFavorite(listId, favorite) {
     this.setState((prevState) => ({
       lists: prevState.lists.map((list) =>
         list.id === listId
           ? {
               ...list,
-              fetchable_list_items: [
-                ...list.fetchable_list_items,
-                {fetchable_id: favorite},
-              ],
+              items: [...list.items, {fetchable_id: favorite}],
             }
           : list
       ),
     }));
-  }
-
-  handleListNew(list) {
-    this.setState((prevState) => ({lists: [...prevState.lists, list]}));
   }
 
   handleListRemoveFavorite(listId, favorite) {
@@ -198,7 +195,7 @@ class AppConnectCatalog extends React.Component {
         list.id === listId
           ? {
               ...list,
-              fetchable_list_items: list.fetchable_list_items.filter(
+              items: list.items.filter(
                 (item) => item.fetchable_id !== favorite
               ),
             }

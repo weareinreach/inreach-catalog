@@ -43,7 +43,7 @@ class ListNewFormContainer extends React.Component {
     //     } = this.props;
     //     handleListNew(
     //       Object.assign({}, payload, data.collection, {
-    //         fetchable_list_items: [],
+    //         items: [],
     //       })
     //     );
     //     if (origin === 'saveToFavorites') {

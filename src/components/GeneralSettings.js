@@ -97,7 +97,6 @@ class GeneralSettings extends React.Component {
       handleMessageNew,
       handleRequestOpen,
       handleUserUpdate,
-      history,
       locale,
       session,
       user: {affiliation, is_professional: isProfessional, email},

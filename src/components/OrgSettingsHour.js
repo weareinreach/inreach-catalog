@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
@@ -8,29 +8,29 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {},
   form: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     '& > div': {
-      margin: '15px 0 15px 0'
-    }
+      margin: '15px 0 15px 0',
+    },
   },
   formType: {
-    margin: '10% 0 10% 0'
+    margin: '10% 0 10% 0',
   },
   formControl: {
     display: 'flex',
     flexDirection: 'row',
-    '& label': theme.custom.inputLabel,
-    '&>div': {
-      width: '70%'
-    },
     '& label': {
-      width: '30%'
-    }
+      ...theme.custom.inputLabel,
+      width: '30%',
+    },
+    '&>div': {
+      width: '70%',
+    },
   },
   settingsTypeFont: {
     padding: '15px 0 25px 0',
@@ -43,30 +43,30 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   textField: {
     display: 'flex',
     flexDirection: 'row',
     '& div': {
-      flex: 1
+      flex: 1,
     },
-    '& input': theme.custom.inputText
+    '& input': theme.custom.inputText,
   },
   inputLabel: {
     '& label': theme.custom.inputLabel,
     '& div': {
-      marginTop: '20px'
+      marginTop: '20px',
     },
-    '& input': theme.custom.inputText
-  }
+    '& input': theme.custom.inputText,
+  },
 });
 
 class OrgSettingsHour extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true
+      open: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
@@ -95,7 +95,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Monday"
                 value="monday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -111,10 +111,10 @@ class OrgSettingsHour extends React.Component {
                   name="monday_start"
                   defaultValue={schedule.monday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -128,10 +128,10 @@ class OrgSettingsHour extends React.Component {
                   name="monday_end"
                   defaultValue={schedule.monday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -146,7 +146,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Tuesday"
                 value="tuesday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -162,10 +162,10 @@ class OrgSettingsHour extends React.Component {
                   name="tuesday_start"
                   defaultValue={schedule.tuesday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -179,10 +179,10 @@ class OrgSettingsHour extends React.Component {
                   name="tuesday_end"
                   defaultValue={schedule.tuesday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -197,7 +197,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Wednesday"
                 value="wednesday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -213,10 +213,10 @@ class OrgSettingsHour extends React.Component {
                   name="wednesday_start"
                   defaultValue={schedule.wednesday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -230,10 +230,10 @@ class OrgSettingsHour extends React.Component {
                   name="wednesday_end"
                   defaultValue={schedule.wednesday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -248,7 +248,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Thursday"
                 value="thursday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -264,10 +264,10 @@ class OrgSettingsHour extends React.Component {
                   name="thursday_start"
                   defaultValue={schedule.thursday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -281,10 +281,10 @@ class OrgSettingsHour extends React.Component {
                   name="thursday_end"
                   defaultValue={schedule.thursday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -299,7 +299,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Friday"
                 value="friday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -315,10 +315,10 @@ class OrgSettingsHour extends React.Component {
                   name="friday_start"
                   defaultValue={schedule.friday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -332,10 +332,10 @@ class OrgSettingsHour extends React.Component {
                   name="friday_end"
                   defaultValue={schedule.friday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -350,7 +350,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Saturday"
                 value="saturday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -366,10 +366,10 @@ class OrgSettingsHour extends React.Component {
                   name="saturday_start"
                   defaultValue={schedule.saturday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -383,10 +383,10 @@ class OrgSettingsHour extends React.Component {
                   name="saturday_end"
                   defaultValue={schedule.saturday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -401,7 +401,7 @@ class OrgSettingsHour extends React.Component {
               <AsylumConnectCheckbox
                 label="Sunday"
                 value="sunday"
-                onChange={ref =>
+                onChange={(ref) =>
                   onSelect(
                     'select',
                     ref.target.value,
@@ -417,10 +417,10 @@ class OrgSettingsHour extends React.Component {
                   name="sunday_start"
                   defaultValue={schedule.sunday_start}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -434,10 +434,10 @@ class OrgSettingsHour extends React.Component {
                   name="sunday_end"
                   defaultValue={schedule.sunday_end}
                   InputLabelProps={{
-                    shrink: true
+                    shrink: true,
                   }}
                   onChange={this.handleChange}
-                  onKeyUp={ref =>
+                  onKeyUp={(ref) =>
                     onSelect(
                       'autoSelect',
                       ref.target.name,
@@ -455,7 +455,7 @@ class OrgSettingsHour extends React.Component {
               multiline={true}
               name="notes"
               InputLabelProps={{
-                shrink: true
+                shrink: true,
               }}
               onChange={this.handleChange}
               placeholder="i.e: closed on holidays."
@@ -468,7 +468,7 @@ class OrgSettingsHour extends React.Component {
 }
 
 OrgSettingsHour.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(OrgSettingsHour);

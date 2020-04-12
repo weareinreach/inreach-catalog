@@ -100,6 +100,7 @@ class ResourceListItem extends React.Component {
       lists,
       session,
       user,
+      userData,
       width,
     } = this.props;
     const {
@@ -176,14 +177,15 @@ class ResourceListItem extends React.Component {
                         handleMessageNew={handleMessageNew}
                         handleRequestOpen={handleRequestOpen}
                         lists={lists}
-                        resourceId={resource.id}
+                        resourceId={resource._id}
                         session={session}
                         user={user}
+                        userData={userData}
                       />
                     )}
                     {isOnFavoritesList && !isOnPublicList && (
                       <Button
-                        onClick={() => handleListRemoveFavorite(resource.id)}
+                        onClick={() => handleListRemoveFavorite(resource._id)}
                       >
                         <Fa name="times" />
                       </Button>
@@ -290,14 +292,14 @@ class ResourceListItem extends React.Component {
                         handleMessageNew={handleMessageNew}
                         handleRequestOpen={handleRequestOpen}
                         lists={lists}
-                        resourceId={resource.id}
+                        resourceId={resource._id}
                         session={session}
                         user={user}
                       />
                     )}
                     {isOnFavoritesList && !isOnPublicList && (
                       <Button
-                        onClick={() => handleListRemoveFavorite(resource.id)}
+                        onClick={() => handleListRemoveFavorite(resource._id)}
                       >
                         <Fa name="times" />
                       </Button>

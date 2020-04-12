@@ -135,9 +135,9 @@ class ResourceTypeSelector extends React.Component {
         listContainerClass={resourceList}
         moveSearchButton={moveSearchButton}
       >
-        <a href="#" onClick={clearResourceTypes} className={uncheckLink}>
+        <span href="#" onClick={clearResourceTypes} className={uncheckLink}>
           Uncheck All
-        </a>
+        </span>
         {resourceTypes.map((filter, i) => (
           <FilterCollection
             key={i}

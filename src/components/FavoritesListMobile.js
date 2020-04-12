@@ -59,6 +59,7 @@ const FavoritesListMobile = ({
   resources,
   session,
   user,
+  userData,
 }) => (
   <Grid container className={classes.container} direction="column">
     <div className={classes.backButton}>
@@ -114,12 +115,12 @@ const FavoritesListMobile = ({
               </Typography>
               <Typography className={classes.spacingTop} variant="body1">
                 Select one of your favorites lists or{` `}
-                <a
+                <span
                   className={classes.bodyLink}
                   onClick={() => handleRequestOpen('listNew/favoritesList')}
                 >
                   create a new list.
-                </a>
+                </span>
               </Typography>
               <AsylumConnectButton
                 variant="primary"
@@ -127,7 +128,7 @@ const FavoritesListMobile = ({
                 onClick={() =>
                   session
                     ? handleRequestOpen(
-                        'share/collection/' + list.id + '/' + list.title
+                        'share/collection/' + list._id + '/' + list.name
                       )
                     : handleMessageNew(
                         'You must be logged in to share resources'
@@ -142,7 +143,7 @@ const FavoritesListMobile = ({
                 className={classes.spacingTop}
                 onClick={handleMenuOpen}
               >
-                {list ? list.title : 'Select A List'}
+                {list ? list.name : 'Select A List'}
                 {` `}
                 <Fa className={classes.spacingLeft} name="chevron-down" />
               </Button>
@@ -163,10 +164,11 @@ const FavoritesListMobile = ({
                       isOnFavoritesList
                       history={history}
                       locale={locale}
-                      key={resource.id}
+                      key={resource._id}
                       resource={resource}
                       session={session}
                       user={user}
+                      userData={userData}
                     />
                   ))}
                 </div>
@@ -188,8 +190,8 @@ const FavoritesListMobile = ({
             PaperProps={{style: {maxHeight: '300px'}}}
           >
             {lists.map((list) => (
-              <MenuItem key={list.id} onClick={() => handleListSelect(list)}>
-                {list.title}
+              <MenuItem key={list._id} onClick={() => handleListSelect(list)}>
+                {list.name}
               </MenuItem>
             ))}
           </Menu>

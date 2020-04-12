@@ -45,6 +45,22 @@ import {
   mobilePadding,
 } from '../theme';
 
+const getOrgItem = (id, list = []) => {
+  const itemWithId = list.find((item) => item._id === id);
+
+  if (itemWithId) {
+    return itemWithId;
+  }
+
+  const primaryItem = list.find((item) => item.is_primary);
+
+  if (primaryItem) {
+    return primaryItem;
+  }
+
+  return null;
+};
+
 const styles = (theme) => ({
   tabRoot: {
     minWidth: '0',
@@ -370,23 +386,36 @@ class Detail extends React.Component {
       modal,
       loading,
       ratings,
-      organization,
-      service,
+      organization = {},
+      service = {},
       tab,
     } = this.state;
-    const resource = this.isServicePage ? service : organization;
     const type = this.isServicePage ? 'service' : 'organization';
-    const {
-      _id,
-      alertMessage,
-      emails,
-      locations,
-      name,
-      phones,
-      properties = {},
-      services = [],
-      website,
-    } = resource || {};
+    const resource = this.isServicePage ? service : organization;
+    // These fields exist on both orgs and services
+    const {_id, name, properties = {}, services = []} = resource || {};
+    const {alertMessage, emails, locations, phones, schedules, website} = this
+      .isServicePage
+      ? {
+          alertMessage: organization?.alert_message,
+          emails: [getOrgItem(service?.email_id, organization?.emails)],
+          locations: [
+            getOrgItem(service?.location_id, organization?.locations),
+          ],
+          phones: [getOrgItem(service?.phone_id, organization?.phones)],
+          schedules: [
+            getOrgItem(service?.schedule_id, organization?.schedules),
+          ],
+          website: organization?.website,
+        }
+      : {
+          alertMessage: organization?.alert_message,
+          emails: organization?.emails,
+          locations: organization?.locations,
+          phones: organization?.phones,
+          schedules: organization?.schedules,
+          website: organization?.website,
+        };
     const allProperties = this.isServicePage
       ? properties
       : combineProperties([resource, ...services]);
@@ -406,24 +435,14 @@ class Detail extends React.Component {
     if (this.isServicePage) {
       sharePath += `/service/${service?.name}`;
     }
-
     const detailHeaderProps = {
       classes,
       isMobile,
       name,
+      phones,
       rating: average_rating,
       totalRatings: ratings?.length,
-      ...(this.isServicePage
-        ? {
-            alertMessage: organization?.alertMessage,
-            phones: organization?.phones,
-            website: organization?.website,
-          }
-        : {
-            alertMessage,
-            phones,
-            website,
-          }),
+      website,
     };
     const resourceTags = getTags(resource, locale);
 
@@ -738,13 +757,23 @@ class Detail extends React.Component {
                         borderTop={false}
                         title="Visit"
                         content={
-                          <Visit
-                            emails={emails}
-                            locations={locations}
-                            phones={phones}
-                            website={website}
-                            isMobile={isMobile}
-                          />
+                          this.isServicePage ? (
+                            <AccessInstructions
+                              email={emails[0]}
+                              list={service.access_instructions}
+                              location={locations[0]}
+                              phone={phones[0]}
+                              rawSchedule={schedules[0]}
+                              website={website}
+                            />
+                          ) : (
+                            <Visit
+                              emails={emails}
+                              locations={locations}
+                              phones={phones}
+                              website={website}
+                            />
+                          )
                         }
                       />
                       <AsylumConnectMap
@@ -821,6 +850,7 @@ class Detail extends React.Component {
                     sharePath={sharePath}
                     tab={tab}
                     tabs={this.tabs}
+                    userData={userData}
                   />
                   <Header {...detailHeaderProps} />
                   <Element name="about" />
@@ -933,8 +963,12 @@ class Detail extends React.Component {
                     content={
                       this.isServicePage ? (
                         <AccessInstructions
+                          email={emails[0]}
                           list={service.access_instructions}
-                          rawSchedule={service.schedule}
+                          location={locations[0]}
+                          phone={phones[0]}
+                          rawSchedule={schedules[0]}
+                          website={website}
                         />
                       ) : (
                         <Visit

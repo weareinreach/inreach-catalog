@@ -6,9 +6,7 @@ import FavoritesList from './FavoritesList';
 import FavoritesListMobile from './FavoritesListMobile';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
-// import {deleteListFavorite, fetchPublicList, fetchUser} from '../utils/api';
-
-const OneDegreeResourceQuery = class {};
+import {deleteListFavorite, fetchOrganizations} from '../utils/api';
 
 class FavoritesListContainer extends React.Component {
   constructor(props) {
@@ -37,7 +35,7 @@ class FavoritesListContainer extends React.Component {
 
     if (lists.length && !listId) {
       this.setState({publicList: null});
-      this.props.history.replace(`/favorites/${lists[0].slug}`);
+      this.props.history.replace(`/favorites/${lists[0]._id}`);
     } else if (/*lists.length &&*/ !resources.length && listId) {
       this.fetchListResources(listId);
     }
@@ -46,7 +44,7 @@ class FavoritesListContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.lists.length && !nextProps.match.params.listId) {
       this.setState({publicList: null});
-      this.props.history.replace(`/favorites/${nextProps.lists[0].slug}`);
+      this.props.history.replace(`/favorites/${nextProps.lists[0]._id}`);
     }
     if (this.props.match.params.listId !== nextProps.match.params.listId) {
       this.setState({loadingResources: true});
@@ -66,79 +64,34 @@ class FavoritesListContainer extends React.Component {
   }
 
   fetchListResources(listId) {
-    const {user, session} = this.props;
     const list = this.props.lists.find(
-      (collection) => collection.slug === listId
+      (collection) => collection._id === listId
     );
-    if (list && list.fetchable_list_items.length) {
-      this.fetchResources(list.fetchable_list_items);
-    } else if (list && !list.fetchable_list_items.length) {
+
+    if (list && list.items.length) {
+      this.fetchResources(list.items);
+    } else if (list && !list.items.length) {
       this.setState({
         loadingResources: false,
         resources: [],
       });
-    } else {
-      // fetchPublicList(listId)
-      //   .then(({collection}) => {
-      //     if (collection.fetchable_list_items) {
-      //       this.fetchResources(collection.fetchable_list_items);
-      //     } else {
-      //       this.setState({
-      //         loadingResources: false,
-      //         resources: [],
-      //       });
-      //     }
-      //     if (session && !user) {
-      //       fetchUser(session)
-      //         .then((response) => {
-      //           let publicList = null;
-      //           if (
-      //             !response ||
-      //             !response.user ||
-      //             response.user.id !== collection.created_by_user_id
-      //           ) {
-      //             publicList = collection.title;
-      //           }
-      //           this.setState({publicList});
-      //         })
-      //         .catch((error) => {
-      //           this.setState({publicList: collection.title});
-      //         });
-      //     } else {
-      //       let publicList = null;
-      //       if (user !== collection.created_by_user_id) {
-      //         publicList = collection.title;
-      //       }
-      //       this.setState({publicList});
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     this.setState({
-      //       loadingResources: false,
-      //       resources: [],
-      //     });
-      //   });
     }
   }
 
   fetchResources(resources) {
-    // this.queryOneDegree = new OneDegreeResourceQuery();
-    // this.queryOneDegree
-    //   .setIds(resources.map((resource) => resource.fetchable_id))
-    //   .fetch({
-    //     type: 'both',
-    //     callback: (data) => {
-    //       this.setState({
-    //         loadingResources: false,
-    //         resources: data,
-    //       });
-    //     },
-    //   });
+    const ids = resources.map(({fetchable_id}) => fetchable_id);
+
+    fetchOrganizations({ids}).then(({organizations}) => {
+      this.setState({
+        loadingResources: false,
+        resources: organizations,
+      });
+    });
   }
 
   handleListSelect(list) {
     const {history} = this.props;
-    history.push(`/favorites/${list.slug}`);
+    history.push(`/favorites/${list._id}`);
     this.handleMenuClose();
   }
 
@@ -152,33 +105,28 @@ class FavoritesListContainer extends React.Component {
 
   handleRemoveFavorite(resourceId) {
     const {listId} = this.props.match.params;
-    const {session} = this.props;
 
-    // deleteListFavorite(listId, resourceId, session)
-    //   .then(() => {
-    //     this.setState((prevState) => ({
-    //       resources: prevState.resources.filter(
-    //         (resource) => resource.id !== resourceId
-    //       ),
-    //     }));
-    //     this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
-    //   })
-    //   .catch((error) => {
-    //     const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
-    //     if (error.response && error.response.status === 401) {
-    //       handleMessageNew('Your session has expired. Please log in again.');
-    //       handleLogOut();
-    //     } else if (error.response && error.response.status === 403) {
-    //       handleRequestOpen('password');
-    //     } else {
-    //       handleMessageNew('Oops! Something went wrong.');
-    //     }
-    //   });
+    deleteListFavorite({
+      listId,
+      itemId: resourceId,
+      userId: this.props?.userData?._id,
+    })
+      .then(() => {
+        this.setState((prevState) => ({
+          resources: prevState.resources.filter(
+            (resource) => resource._id !== resourceId
+          ),
+        }));
+        this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
+      })
+      .catch((error) => {
+        this.props.handleMessageNew('Oops! Something went wrong.');
+      });
   }
 
   render() {
     const currentList = this.props.lists.find(
-      (list) => list.slug === this.props.match.params.listId
+      (list) => list._id === this.props.match.params.listId
     );
     const isMobile = this.props.width < breakpoints['sm'];
     if (isMobile) {
@@ -191,6 +139,7 @@ class FavoritesListContainer extends React.Component {
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
           handleRemoveFavorite={this.handleRemoveFavorite}
+          userData={this.props.userData}
         />
       );
     } else {
@@ -203,6 +152,7 @@ class FavoritesListContainer extends React.Component {
           handleMenuOpen={this.handleMenuOpen}
           handleMenuClose={this.handleMenuClose}
           handleRemoveFavorite={this.handleRemoveFavorite}
+          userData={this.props.userData}
         />
       );
     }

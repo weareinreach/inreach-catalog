@@ -121,6 +121,7 @@ const ResultsContainer = (props) => {
     searchResults,
     noResults,
     loadingColor,
+    userData,
   } = props;
   const disclaimerProps = {};
 
@@ -158,6 +159,7 @@ const ResultsContainer = (props) => {
               <ResourceListItem
                 key={organization.id}
                 resource={organization}
+                userData={userData}
                 {...props}
               />
             );

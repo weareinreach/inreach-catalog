@@ -12,9 +12,6 @@ import OrgSettingsHour from './OrgSettingsHour';
 
 import AsylumConnectButton from './AsylumConnectButton';
 
-import config from '../config';
-import fetchJsonp from 'fetch-jsonp';
-
 const styles = (theme) => ({
   root: {
     width: '43%',

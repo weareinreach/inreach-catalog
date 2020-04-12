@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import debounce from 'lodash/debounce';
-import fetchJsonp from 'fetch-jsonp';
 
-import config from '../config';
-
-const withOrganizations = WrappedComponent =>
+const withOrganizations = (WrappedComponent) =>
   class withOrganzations extends Component {
     constructor(props) {
       super(props);
@@ -12,7 +9,7 @@ const withOrganizations = WrappedComponent =>
         organizations: [],
         isLoadingOrganizations: false,
         organizationSearch: '',
-        organizationSelection: null
+        organizationSelection: null,
       };
 
       this.debouncedLoadOrganizations = debounce(this.loadOrganizations, 1000);
@@ -30,14 +27,14 @@ const withOrganizations = WrappedComponent =>
     }
 
     handleBlurOrganizations(event) {
-      this.setState(prevState =>
+      this.setState((prevState) =>
         Object.assign(
           {},
           {organizations: []},
           {
             organizationSearch: prevState.organizationSelection
               ? prevState.organizationSelection.name
-              : ''
+              : '',
           }
         )
       );
@@ -47,21 +44,21 @@ const withOrganizations = WrappedComponent =>
       this.setState({
         organizations: [],
         organizationSearch: '',
-        organizationSelection: suggestion
+        organizationSelection: suggestion,
       });
     }
 
     handleOrganizationSearchChange(event, {newValue}) {
       this.setState({
         organizationSearch: newValue,
-        organizationSelection: null
+        organizationSelection: null,
       });
     }
 
     handleOrganizationsFetchRequested() {
       this.setState({
         isLoadingOrganizations: true,
-        organizationSelection: null
+        organizationSelection: null,
       });
       this.debouncedLoadOrganizations();
     }

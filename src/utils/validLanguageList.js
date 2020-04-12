@@ -116,6 +116,7 @@ var ValidLanguageList = {
 
 function getValidLanguagueList() {
   for (var validLang of validLangs) {
+    // eslint-disable-next-line
     langs.forEach(function (lang) {
       if (lang['name'] === validLang['name']) {
         validLang['1'] = lang['1'];

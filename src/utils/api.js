@@ -58,11 +58,22 @@ export const catalogPost = (path, body, options) => {
     .catch(handleErr);
 };
 
-export const fetchSearchResults = (params) => {
-  const {city, locale, page, selectedFilters, selectedResourceTypes, state} =
-    params || {};
+export const fetchOrganizations = (params) => {
+  const {
+    city,
+    ids,
+    locale,
+    page,
+    selectedFilters,
+    selectedResourceTypes,
+    state,
+  } = params || {};
   const tagLocale = localeTagMap[locale] || '';
   const query = {};
+
+  if (ids) {
+    query.ids = ids;
+  }
 
   if (page) {
     query.page = page;
@@ -204,6 +215,24 @@ export const updateUserPassword = (user, password) => {
 
 export const deleteUser = (user, update) => {
   return catalogDelete(`/users/${user._id}`)
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const createList = ({name, userId}) => {
+  return catalogPost(`/users/${userId}/lists`, {name})
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const createListFavorite = ({listId, itemId, userId}) => {
+  return catalogPost(`/users/${userId}/lists/${listId}/items`, {itemId})
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const deleteListFavorite = ({listId, itemId, userId}) => {
+  return catalogDelete(`/users/${userId}/lists/${listId}/items/${itemId}`)
     .then(() => ({}))
     .catch((err) => err);
 };

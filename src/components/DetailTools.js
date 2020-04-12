@@ -30,6 +30,7 @@ const Tools = (props) => {
     tab,
     tabs,
     user,
+    userData,
   } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -83,6 +84,7 @@ const Tools = (props) => {
             resourceId={resource?._id}
             session={session}
             user={user}
+            userData={userData}
           />
         </div>
         <div className={classnames(classes.separator, 'center-align')}></div>

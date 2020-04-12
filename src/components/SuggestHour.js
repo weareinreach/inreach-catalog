@@ -27,12 +27,12 @@ const styles = (theme) => ({
   formControl: {
     display: 'flex',
     flexDirection: 'row',
-    '& label': theme.custom.inputLabel,
+    '& label': {
+      ...theme.custom.inputLabel,
+      width: '30%',
+    },
     '&>div': {
       width: '70%',
-    },
-    '& label': {
-      width: '30%',
     },
   },
   settingsTypeFont: {

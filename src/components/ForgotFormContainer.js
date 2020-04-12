@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import config from '../config';
 import ForgotForm from './ForgotForm';
 
 class ForgotFormContainer extends React.Component {
@@ -9,7 +8,7 @@ class ForgotFormContainer extends React.Component {
     super(props);
 
     this.state = {
-      email: ''
+      email: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -66,7 +65,7 @@ class ForgotFormContainer extends React.Component {
 
 ForgotFormContainer.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
-  handleRequestClose: PropTypes.func.isRequired
+  handleRequestClose: PropTypes.func.isRequired,
 };
 
 export default ForgotFormContainer;

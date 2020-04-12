@@ -9,8 +9,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectPopUp from './AsylumConnectPopUp';
 import {RedHeartIcon} from './icons';
-
-// import {createList, createListFavorite, deleteListFavorite} from '../utils/api';
+import {createList, createListFavorite, deleteListFavorite} from '../utils/api';
 
 const styles = (theme) => ({
   viewYourFavoritesText: {
@@ -52,22 +51,19 @@ class SaveToFavoritesButton extends React.Component {
   }
 
   handleCreateList(currentTarget) {
-    const {session, user} = this.props;
-    const payload = {
-      created_by_user_id: user,
-      title: 'My List',
-    };
-    // createList(payload, session)
-    //   .then((data) => {
-    //     this.props.handleListNew(
-    //       Object.assign({}, payload, data.collection, {
-    //         fetchable_list_items: [],
-    //       })
-    //     );
-    //     this.handleSaveToFavorites(data.collection.id);
-    //     this.setState({open: true, anchorEl: currentTarget});
-    //   })
-    //   .catch(this.handleFetchError);
+    const {userData} = this.props;
+
+    createList({name: 'My List', userId: userData?._id})
+      .then((data) => {
+        // this.props.handleListNew(
+        //   Object.assign({}, payload, data.collection, {
+        //     items: [],
+        //   })
+        // );
+        // this.handleSaveToFavorites(data.collection.id);
+        // this.setState({open: true, anchorEl: currentTarget});
+      })
+      .catch(this.handleFetchError);
   }
 
   handleFetchError(error) {
@@ -86,7 +82,7 @@ class SaveToFavoritesButton extends React.Component {
     const {currentTarget} = event;
     if (!this.props.session) {
       this.setState({modal: true});
-    } else if (this.props.lists.length < 1) {
+    } else if (true && this.props.lists.length < 1) {
       this.handleCreateList(currentTarget);
     } else if (this.state.open) {
       this.setState({open: false, anchorEl: null});
@@ -101,20 +97,23 @@ class SaveToFavoritesButton extends React.Component {
 
   handleRemoveFavorite(listId) {
     this.handleMenuClose();
-    const {handleListRemoveFavorite, resourceId, session} = this.props;
-    // deleteListFavorite(listId, resourceId, session).then(() => {
-    //   handleListRemoveFavorite(listId, resourceId);
-    // });
+    const {handleListRemoveFavorite, resourceId, userData} = this.props;
+
+    deleteListFavorite({listId, itemId: resourceId, userId: userData._id}).then(
+      () => {
+        handleListRemoveFavorite(listId, resourceId);
+      }
+    );
   }
 
   handleSaveToFavorites(listId) {
     this.handleMenuClose();
-    const {resourceId, session} = this.props;
-    // createListFavorite(listId, resourceId, session)
-    //   .then(() => {
-    //     this.props.handleListAddFavorite(listId, this.props.resourceId);
-    //   })
-    //   .catch(this.handleFetchError);
+    const {resourceId, userData} = this.props;
+    createListFavorite({listId, itemId: resourceId, userId: userData._id})
+      .then(() => {
+        this.props.handleListAddFavorite(listId, this.props.resourceId);
+      })
+      .catch(this.handleFetchError);
   }
 
   render() {
@@ -127,7 +126,7 @@ class SaveToFavoritesButton extends React.Component {
     const {anchorEl, open} = this.state;
     const {classes, lists, resourceId} = this.props;
     const isFavorite = lists.some((list) =>
-      list.fetchable_list_items.some((item) => item.fetchable_id === resourceId)
+      list.items.some((item) => item.fetchable_id === resourceId)
     );
 
     return (
@@ -369,20 +368,20 @@ class SaveToFavoritesButton extends React.Component {
           PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}
         >
           {lists.map((list) => {
-            const isFavoriteItem = list.fetchable_list_items.some(
+            const isFavoriteItem = list.items.some(
               (item) => item.fetchable_id === resourceId
             );
             return (
               <MenuItem
                 className={classes.favoriteItem}
-                key={list.id}
+                key={list._id}
                 onClick={() =>
                   isFavoriteItem
-                    ? handleRemoveFavorite(list.id)
-                    : handleSaveToFavorites(list.id)
+                    ? handleRemoveFavorite(list._id)
+                    : handleSaveToFavorites(list._id)
                 }
               >
-                <span>{list.title}</span>
+                <span>{list.name}</span>
                 <RedHeartIcon
                   width={'24px'}
                   fill={isFavoriteItem}

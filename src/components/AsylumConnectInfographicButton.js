@@ -50,6 +50,9 @@ const styles = (theme) => ({
   infographicButton: {
     backgroundColor: theme.palette.common.white,
     minHeight: '0px',
+    '&:hover': {
+      backgroundColor: theme.palette.common.white,
+    },
   },
   infographicButtonIcon: {
     paddingRight: '0.5rem',
@@ -150,7 +153,7 @@ class AsylumConnectInfographicButton extends React.Component {
       <div className={containerClass}>
         {type === 'button' && (
           <Button
-            variant="raised"
+            variant="text"
             href={this.props.url}
             target="_blank"
             onClick={this.handleOnClick}
@@ -204,7 +207,7 @@ class AsylumConnectInfographicButton extends React.Component {
 AsylumConnectInfographicButton.propTypes = {
   text: PropTypes.string.isRequired,
   url: PropTypes.string,
-  list: PropTypes.array,
+  list: PropTypes.oneOf([PropTypes.array, PropTypes.shape({})]),
 };
 
 export default withStyles(styles)(withWidth(AsylumConnectInfographicButton));

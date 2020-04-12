@@ -37,7 +37,7 @@ class DeleteAccountDialog extends React.Component {
   }
 
   confirmDelete() {
-    const {handleMessageNew, handleLogOut, history} = this.props;
+    const {handleMessageNew, handleLogOut} = this.props;
 
     deleteUser(this.props.userData)
       .then(() => {

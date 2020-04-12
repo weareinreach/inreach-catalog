@@ -48,21 +48,27 @@ const styles = (theme) => ({
 });
 //TODO: Update each of these to utilize components where the code is shared with ResourceVisit.js
 
-const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
+const DetailAccessInstructions = (props) => {
+  const {classes, email, list, location, phone, rawSchedule, website} = props;
   let schedule;
+
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
-        {list.length
+        {list?.length
           ? list.map((item, index) => {
               switch (item.access_type) {
                 case 'phone':
-                  let phone =
-                    item.access_value.replace(/[^0-9\(\)\-\.\s]/g, '')
-                      .length === item.access_value.length
+                  let phoneValue = item.access_value
+                    ? item.access_value.replace(/[^0-9\(\)\-\.\s]/g, '')
+                        .length === item.access_value.length
                       ? {digits: item.access_value}
-                      : item.access_value;
-                  if (phone && (phone.digits || phone.length > 0)) {
+                      : item.access_value
+                    : phone;
+                  if (
+                    phoneValue &&
+                    (phoneValue.digits || phoneValue.length > 0)
+                  ) {
                     return (
                       <Typography
                         key={index}
@@ -76,14 +82,14 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                         >
                           Phone:{' '}
                         </strong>
-                        {typeof phone.digits !== 'undefined' ? (
+                        {typeof phoneValue.digits !== 'undefined' ? (
                           <Phone
-                            phone={phone}
+                            phone={phoneValue}
                             classes={classes}
                             includeType={true}
                           />
                         ) : (
-                          phone
+                          phoneValue
                         )}
                         {item.instructions ? (
                           <span className={classes.instructions}>
@@ -98,6 +104,10 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                     return null;
                   }
                 case 'email':
+                  const emailValue = item.access_value
+                    ? {email: item.access_value}
+                    : email;
+
                   return (
                     <Typography
                       key={index}
@@ -109,28 +119,27 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                       >
                         Email:{' '}
                       </strong>
-                      {item.emails &&
-                        item.emails.map((email) => {
-                          let name = trim(
-                            (email.title ? email.title : '') +
-                              ' ' +
-                              (email.first_name ? email.first_name : '') +
-                              ' ' +
-                              (email.last_name ? email.last_name : '')
-                          );
-                          return (
-                            <a
-                              href={'mailto:' + email.email}
-                              key={email.id}
-                              className={
-                                classes.bodyLink + ' ' + classes.listLink
-                              }
-                            >
-                              {email.email}
-                              {name ? '(' + name + ')' : ''}
-                            </a>
-                          );
-                        })}
+                      {[emailValue].map((email) => {
+                        let name = trim(
+                          (email.title ? email.title : '') +
+                            ' ' +
+                            (email.first_name ? email.first_name : '') +
+                            ' ' +
+                            (email.last_name ? email.last_name : '')
+                        );
+                        return (
+                          <a
+                            href={'mailto:' + email.email}
+                            key={email.id}
+                            className={
+                              classes.bodyLink + ' ' + classes.listLink
+                            }
+                          >
+                            {email.email}
+                            {name ? '(' + name + ')' : ''}
+                          </a>
+                        );
+                      })}
                       {item.instructions ? (
                         <span className={classes.instructions}>
                           <br />
@@ -142,6 +151,8 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                   );
                 case 'location':
                   if (item.locations && item.locations.length) {
+                    const locationValue = item.access_value || location;
+
                     return (
                       <div key={index}>
                         <Typography
@@ -149,12 +160,9 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                           className={classes.lineSpacing}
                         >
                           <strong className={classes.boldFont}>
-                            {item.access_value
-                              ? item.access_value
-                              : item.locations[0].name}
-                            :{' '}
+                            {locationValue}:{' '}
                           </strong>
-                          {AddressParser({address: item.locations[0]})}
+                          {locationValue || AddressParser({address: location})}
 
                           <Fa
                             name="map-marker"
@@ -201,6 +209,8 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                     return null;
                   }
                 case 'link':
+                  const linkValue = item.access_value || website;
+
                   return (
                     <Typography
                       key={index}
@@ -213,12 +223,12 @@ const DetailAccessInstructions = ({list, rawSchedule, classes}) => {
                         Website:{' '}
                       </strong>
                       <a
-                        href={item.access_value}
+                        href={linkValue}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={classes.bodyLink + ' ' + classes.listLink}
                       >
-                        {item.access_value}
+                        {linkValue}
                       </a>
                       {item.instructions ? (
                         <span className={classes.instructions}>

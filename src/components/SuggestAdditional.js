@@ -8,7 +8,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
-import ResourceTagSelector from './ResourceTagSelector';
+// TODO: Restore with new tags by locale
+// import ResourceTagSelector from './ResourceTagSelector';
 
 const styles = (theme) => ({
   root: {},
@@ -26,12 +27,9 @@ const styles = (theme) => ({
   formControl: {
     display: 'flex',
     flexDirection: 'row',
-    '& label': theme.custom.inputLabel,
+    '& label': {...theme.custom.inputLabel, width: '30%'},
     '&>div': {
       width: '70%',
-    },
-    '& label': {
-      width: '30%',
     },
   },
   settingsTypeFont: {
@@ -104,8 +102,6 @@ class SuggestAdditional extends React.Component {
       selectedRequirements,
       handleFeatureSelect,
       selectedFeatures,
-      handleTagSelect,
-      selectedTags,
     } = this.props;
     return (
       <div className={classes.root}>
@@ -166,7 +162,6 @@ class SuggestAdditional extends React.Component {
               </div>
             </Collapse>
           </div>
-
           {/* <ResourceTagSelector
             onChange={handleTagSelect}
             selectedResourceTags={selectedTags}

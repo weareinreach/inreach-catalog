@@ -59,6 +59,7 @@ const FavoritesList = ({
   publicList,
   resources,
   session,
+  userData,
 }) => (
   <Grid
     container
@@ -100,7 +101,7 @@ const FavoritesList = ({
               aria-haspopup="true"
               onClick={handleMenuOpen}
             >
-              {list ? list.title : 'Select A List'}
+              {list ? list.name : 'Select A List'}
               {` `}
               <Fa
                 className={classes.marginLeft}
@@ -132,7 +133,7 @@ const FavoritesList = ({
                   onClick={() =>
                     session
                       ? handleRequestOpen(
-                          'share/collection/' + list.id + '/' + list.title
+                          'share/collection/' + list._id + '/' + list.name
                         )
                       : handleMessageNew(
                           'You must be logged in to share resources'
@@ -167,9 +168,10 @@ const FavoritesList = ({
                     handleMessageNew={handleMessageNew}
                     handleListRemoveFavorite={handleRemoveFavorite}
                     history={history}
-                    key={resource.id}
+                    key={resource._id}
                     resource={resource}
                     format="favorites"
+                    userData={userData}
                   />
                 ))}
               </div>
@@ -194,11 +196,11 @@ const FavoritesList = ({
     >
       {lists.map((listOption) => (
         <MenuItem
-          key={listOption.id}
+          key={listOption._id}
           onClick={() => handleListSelect(listOption)}
-          selected={list && listOption.id === list.id}
+          selected={list && listOption._id === list._id}
         >
-          {listOption.title}
+          {listOption.name}
         </MenuItem>
       ))}
     </Menu>
