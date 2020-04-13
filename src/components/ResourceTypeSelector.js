@@ -59,49 +59,67 @@ const styles = (theme) => ({
   },
 });
 
-const FilterCollection = (props) => (
-  <div>
-    <Typography variant="body2" className={props.classes.sectionHeader}>
-      <ACBadge type={props.type} width="45px" height="45px" useIcon={true} />
-      <span className={props.classes.sectionTitle}>
-        {props.t(props.category)}
-      </span>
-      {typeof props.value !== 'undefined' ? (
-        <span className={props.classes.sectionTitle}>
-          <AsylumConnectCheckbox
-            label=""
-            value={props.category}
-            onChange={props.onChange}
-            checked={props.selectedResourceTypes.indexOf(props.category) >= 0}
-          />
-        </span>
-      ) : null}
-    </Typography>
-    {typeof props.children !== 'undefined' && props.children.length ? (
-      <Grid container spacing={0} className={props.classes.subfilterSpacing}>
-        {props.children.map((filter, i) => (
-          <Grid item key={i} xs={12} sm={6} md={4}>
+const FilterCollection = (props) => {
+  const {
+    category,
+    children,
+    classes,
+    index,
+    onChange,
+    resourceTypes,
+    selectedResourceTypes,
+    t,
+    type,
+  } = props;
+  const hasChildren = typeof children !== 'undefined' && children.length > 0;
+  const categoryValue = hasChildren
+    ? children?.map((item) => `${props.value}.${item.title}`).join(',')
+    : props.value;
+
+  return (
+    <div>
+      <Typography variant="body2" className={classes.sectionHeader}>
+        <ACBadge type={type} width="45px" height="45px" useIcon={true} />
+        <span className={classes.sectionTitle}>{t(category)}</span>
+        {typeof categoryValue !== 'undefined' ? (
+          <span className={classes.sectionTitle}>
             <AsylumConnectCheckbox
-              label={props.t(filter.title)}
-              value={filter.title}
-              onChange={props.onChange}
-              disabled={
-                props.selectedResourceTypes.indexOf(props.category) >= 0
-              }
-              checked={
-                props.selectedResourceTypes.indexOf(filter.title) >= 0 ||
-                props.selectedResourceTypes.indexOf(props.category) >= 0
-              }
+              label=""
+              value={categoryValue}
+              onChange={onChange}
+              checked={selectedResourceTypes.indexOf(categoryValue) >= 0}
             />
-          </Grid>
-        ))}
-      </Grid>
-    ) : null}
-    {props.index + 1 !== props.resourceTypes.length ? (
-      <Divider className={props.classes.dividerSpacing} />
-    ) : null}
-  </div>
-);
+          </span>
+        ) : null}
+      </Typography>
+      {hasChildren ? (
+        <Grid container spacing={0} className={classes.subfilterSpacing}>
+          {children.map((filter, i) => {
+            const itemValue = `${props.value}.${filter.title}`;
+
+            return (
+              <Grid item key={i} xs={12} sm={6} md={4}>
+                <AsylumConnectCheckbox
+                  label={t(filter.title)}
+                  value={itemValue}
+                  onChange={onChange}
+                  disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}
+                  checked={
+                    selectedResourceTypes.indexOf(itemValue) >= 0 ||
+                    selectedResourceTypes.indexOf(categoryValue) >= 0
+                  }
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      ) : null}
+      {index + 1 !== resourceTypes.length ? (
+        <Divider className={classes.dividerSpacing} />
+      ) : null}
+    </div>
+  );
+};
 
 class ResourceTypeSelector extends React.Component {
   render() {

@@ -397,7 +397,14 @@ class MapContainer extends React.Component {
             nearLatLng,
             page,
             selectedFilters,
-            selectedResourceTypes,
+            selectedResourceTypes: selectedResourceTypes.reduce(
+              (result, resource) => {
+                result = [...result, ...resource.split(',')];
+
+                return result;
+              },
+              []
+            ),
             state,
           };
 
@@ -434,26 +441,6 @@ class MapContainer extends React.Component {
     this.setState((prevState) => ({
       searchResults: prevState.searchResults.concat(newOrgs),
     }));
-
-    // var newOrgIds = [],
-    //   newOrgs = [],
-    //   newOrgSlugs = [];
-    // data.organizations.forEach((organization, index) => {
-    //   if (this.state.searchResultsIndex.indexOf(organization.id) === -1) {
-    //     newOrgIds.push(organization.id);
-    //     newOrgSlugs.push(organization.slug);
-    //     newOrgs.push(organization);
-    //   }
-    // });
-    //
-    // this.setState((prevState) => ({
-    //   searchResultsIndex: prevState.searchResultsIndex.concat(newOrgIds),
-    //   searchResultSlugs: prevState.searchResultSlugs.concat(newOrgSlugs),
-    //   searchResults: prevState.searchResults.concat(newOrgs),
-    //   searchDisabled: false,
-    //   printDisabled: false,
-    //   searching: false,
-    // }));
   }
 
   setSelectedResource(resource) {
