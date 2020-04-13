@@ -79,12 +79,38 @@ class FavoritesListContainer extends React.Component {
   }
 
   fetchResources(resources) {
-    const ids = resources.map(({fetchable_id}) => fetchable_id);
+    const ids = resources.map(({fetchable_id, orgId}) => orgId || fetchable_id);
 
     fetchOrganizations({ids}).then(({organizations}) => {
+      const orgDict = organizations?.reduce((result, org) => {
+        result[org?._id] = org;
+
+        return result;
+      }, {});
+
+      const orgs =
+        resources?.map((resource) => {
+          const org =
+            orgDict?.[resource?.orgId] || orgDict?.[resource?.fetchable_id];
+
+          if (resource.orgId && org) {
+            const service = org?.services?.find(
+              (service) => service._id === resource.fetchable_id
+            );
+
+            if (service) {
+              service.organization = org;
+            }
+
+            return service || null;
+          }
+
+          return org;
+        }) || [];
+
       this.setState({
         loadingResources: false,
-        resources: organizations,
+        resources: orgs,
       });
     });
   }

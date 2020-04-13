@@ -303,7 +303,9 @@ class SearchResultsContainer extends React.Component {
       searchResults: this.props.searchResults,
       searching: this.props.searching,
       user: this.props.user,
+      userData: this.props.userData,
     };
+
     const {showWalkinCheckbox} = this.props;
     const toolbarClass = showWalkinCheckbox
       ? halfBottomMargin

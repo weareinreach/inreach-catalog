@@ -161,19 +161,22 @@ const FavoritesList = ({
               <Loading />
             ) : (
               <div>
-                {resources.map((resource) => (
-                  <ResourceListItem
-                    isOnFavoritesList={true}
-                    isOnPublicList={publicList}
-                    handleMessageNew={handleMessageNew}
-                    handleListRemoveFavorite={handleRemoveFavorite}
-                    history={history}
-                    key={resource._id}
-                    resource={resource}
-                    format="favorites"
-                    userData={userData}
-                  />
-                ))}
+                {resources.map(
+                  (resource) =>
+                    resource && (
+                      <ResourceListItem
+                        isOnFavoritesList={true}
+                        isOnPublicList={publicList}
+                        handleMessageNew={handleMessageNew}
+                        handleListRemoveFavorite={handleRemoveFavorite}
+                        history={history}
+                        key={resource._id}
+                        resource={resource}
+                        format="favorites"
+                        userData={userData}
+                      />
+                    )
+                )}
               </div>
             )}
             {!loadingResources && list && resources.length === 0 && (

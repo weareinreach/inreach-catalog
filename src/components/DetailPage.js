@@ -483,6 +483,7 @@ class Detail extends React.Component {
                         handleRequestOpen={handleRequestOpen}
                         handleMessageNew={handleMessageNew}
                         lists={lists}
+                        parentResourceId={resource?.organization?._id}
                         resourceId={_id}
                         session={session}
                         user={user}

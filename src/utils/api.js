@@ -230,8 +230,8 @@ export const createList = ({name, userId}) => {
     .catch((err) => err);
 };
 
-export const createListFavorite = ({listId, itemId, userId}) => {
-  return catalogPost(`/users/${userId}/lists/${listId}/items`, {itemId})
+export const createListFavorite = ({listId, itemId, orgId, userId}) => {
+  return catalogPost(`/users/${userId}/lists/${listId}/items`, {itemId, orgId})
     .then(() => ({}))
     .catch((err) => err);
 };

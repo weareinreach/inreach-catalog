@@ -81,6 +81,7 @@ const Tools = (props) => {
             handleMessageNew={handleMessageNew}
             handleRequestOpen={handleRequestOpen}
             lists={lists}
+            parentResourceId={resource?.organization?._id}
             resourceId={resource?._id}
             session={session}
             user={user}

@@ -120,12 +120,16 @@ const DetailAccessInstructions = (props) => {
                         Email:{' '}
                       </strong>
                       {[emailValue].map((email) => {
+                        if (!email) {
+                          return null;
+                        }
+
                         let name = trim(
-                          (email.title ? email.title : '') +
+                          (email?.title ? email?.title : '') +
                             ' ' +
-                            (email.first_name ? email.first_name : '') +
+                            (email?.first_name ? email?.first_name : '') +
                             ' ' +
-                            (email.last_name ? email.last_name : '')
+                            (email?.last_name ? email?.last_name : '')
                         );
                         return (
                           <a

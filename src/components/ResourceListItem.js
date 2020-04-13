@@ -130,10 +130,10 @@ class ResourceListItem extends React.Component {
       : `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
     const tags = isOrganizationItem
       ? getOrgTags(resource, locale)
-      : getTags(resource.tags, locale);
+      : getTags(resource || {}, locale);
     const allProperties = isOrganizationItem
-      ? resource.properties
-      : combineProperties([resource, ...resource.services]);
+      ? combineProperties([resource, ...resource?.services])
+      : resource.properties;
     const propKeys = Object.keys(allProperties);
 
     return (
@@ -177,6 +177,9 @@ class ResourceListItem extends React.Component {
                         handleMessageNew={handleMessageNew}
                         handleRequestOpen={handleRequestOpen}
                         lists={lists}
+                        parentResourceId={
+                          !isOrganizationItem && resource?.organization?._id
+                        }
                         resourceId={resource._id}
                         session={session}
                         user={user}
@@ -292,9 +295,13 @@ class ResourceListItem extends React.Component {
                         handleMessageNew={handleMessageNew}
                         handleRequestOpen={handleRequestOpen}
                         lists={lists}
+                        parentResourceId={
+                          !isOrganizationItem && resource?.organization?._id
+                        }
                         resourceId={resource._id}
                         session={session}
                         user={user}
+                        userData={userData}
                       />
                     )}
                     {isOnFavoritesList && !isOnPublicList && (

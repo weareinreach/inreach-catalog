@@ -155,22 +155,25 @@ const FavoritesListMobile = ({
                 <Loading />
               ) : (
                 <div>
-                  {resources.map((resource) => (
-                    <ResourceListItem
-                      format={'favoritesMobile'}
-                      isOnPublicList={publicList}
-                      handleMessageNew={handleMessageNew}
-                      handleListRemoveFavorite={handleRemoveFavorite}
-                      isOnFavoritesList
-                      history={history}
-                      locale={locale}
-                      key={resource._id}
-                      resource={resource}
-                      session={session}
-                      user={user}
-                      userData={userData}
-                    />
-                  ))}
+                  {resources.map(
+                    (resource) =>
+                      resource && (
+                        <ResourceListItem
+                          format={'favoritesMobile'}
+                          isOnPublicList={publicList}
+                          handleMessageNew={handleMessageNew}
+                          handleListRemoveFavorite={handleRemoveFavorite}
+                          isOnFavoritesList
+                          history={history}
+                          locale={locale}
+                          key={resource._id}
+                          resource={resource}
+                          session={session}
+                          user={user}
+                          userData={userData}
+                        />
+                      )
+                  )}
                 </div>
               )}
               {!loadingResources && list && resources.length === 0 && (

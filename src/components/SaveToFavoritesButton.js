@@ -55,13 +55,7 @@ class SaveToFavoritesButton extends React.Component {
 
     createList({name: 'My List', userId: userData?._id})
       .then((data) => {
-        // this.props.handleListNew(
-        //   Object.assign({}, payload, data.collection, {
-        //     items: [],
-        //   })
-        // );
         // this.handleSaveToFavorites(data.collection.id);
-        // this.setState({open: true, anchorEl: currentTarget});
       })
       .catch(this.handleFetchError);
   }
@@ -109,7 +103,13 @@ class SaveToFavoritesButton extends React.Component {
   handleSaveToFavorites(listId) {
     this.handleMenuClose();
     const {resourceId, userData} = this.props;
-    createListFavorite({listId, itemId: resourceId, userId: userData._id})
+
+    createListFavorite({
+      listId,
+      itemId: resourceId,
+      orgId: this.props?.parentResourceId,
+      userId: userData._id,
+    })
       .then(() => {
         this.props.handleListAddFavorite(listId, this.props.resourceId);
       })
