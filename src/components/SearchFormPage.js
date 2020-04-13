@@ -193,7 +193,11 @@ class SearchFormContainer extends React.Component {
           Canada will be stopped. Canada will turn back asylum seekers who cross
           the US border. For more information on how COVID-19 is impacting
           refugee claims in Canada, see{' '}
-          <a href="https://asylumconnect.org/information-on-how-covid-19-is-impacting-refugee-claims-in-canada">
+          <a
+            href="https://asylumconnect.org/information-on-how-covid-19-is-impacting-refugee-claims-in-canada"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             this blog post
           </a>
           .

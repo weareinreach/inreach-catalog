@@ -156,6 +156,7 @@ class AsylumConnectInfographicButton extends React.Component {
             variant="text"
             href={this.props.url}
             target="_blank"
+            rel="noopener noreferrer"
             onClick={this.handleOnClick}
             className={classes.infographicButton}
             classes={{label: classes.smallerButton}}

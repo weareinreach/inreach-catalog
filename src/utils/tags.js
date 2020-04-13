@@ -360,10 +360,14 @@ export const getTags = (item, locale) => {
 
   const tags = [];
 
-  _forEach(tagList, (category) => {
-    _forEach(category, (value, tagName) => {
-      tags.push(tagName);
-    });
+  _forEach(tagList, (subCategory, category) => {
+    if (typeof subCategory === 'object') {
+      _forEach(subCategory, (value, tagName) => {
+        tags.push(tagName);
+      });
+    } else {
+      tags.push(category);
+    }
   });
 
   return tags;
