@@ -63,6 +63,7 @@ export const fetchOrganizations = (params) => {
     city,
     ids,
     locale,
+    owner,
     page,
     selectedFilters,
     selectedResourceTypes,
@@ -73,6 +74,10 @@ export const fetchOrganizations = (params) => {
 
   if (ids) {
     query.ids = ids;
+  }
+
+  if (owner) {
+    query.owner = owner;
   }
 
   if (page) {
@@ -233,6 +238,30 @@ export const createListFavorite = ({listId, itemId, userId}) => {
 
 export const deleteListFavorite = ({listId, itemId, userId}) => {
   return catalogDelete(`/users/${userId}/lists/${listId}/items/${itemId}`)
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const createOrgOwner = ({email, orgId, userId}) => {
+  return catalogPost(`/organizations/${orgId}/owners`, {
+    email,
+    userId,
+  })
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const deleteOrgOwner = ({orgId, userId}) => {
+  return catalogDelete(`/organizations/${orgId}/owners/${userId}`)
+    .then(() => ({}))
+    .catch((err) => err);
+};
+
+export const createSuggestion = ({email, orgId, suggestions}) => {
+  return catalogPost(`/organizations/${orgId}/suggestions`, {
+    email,
+    suggestions,
+  })
     .then(() => ({}))
     .catch((err) => err);
 };

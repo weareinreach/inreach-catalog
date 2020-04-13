@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-// import {createAffiliation, deleteAffiliation} from '../utils/api';
+import {createOrgOwner, deleteOrgOwner} from '../utils/api';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -37,14 +37,15 @@ class GeneralSettingsOrganization extends Component {
   }
 
   handleAffiliationDelete() {
-    // const {handleMessageNew, handleUserUpdate, session} = this.props;
-    // deleteAffiliation(session)
-    //   .then((response) => {
-    //     handleUserUpdate({affiliation: null});
-    //   })
-    //   .catch(() => {
-    //     handleMessageNew('Oops! Something went wrong.');
-    //   });
+    const {affiliation, handleMessageNew, userData} = this.props;
+
+    deleteOrgOwner({orgId: affiliation._id, userId: userData._id})
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(() => {
+        handleMessageNew('Oops! Something went wrong.');
+      });
   }
 
   handleChange(event) {
@@ -54,26 +55,30 @@ class GeneralSettingsOrganization extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // const {
-    //   handleMessageNew,
-    //   handleUserUpdate,
-    //   organizationSelection,
-    //   session,
-    // } = this.props;
-    // if (organizationSelection === null) {
-    //   handleMessageNew('Please select an organization');
-    // } else {
-    //   const {id, name} = organizationSelection;
-    //   createAffiliation({id, name}, session)
-    //     .then((response) => handleUserUpdate({affiliation: {fetchable_id: id}}))
-    //     .catch(() => {
-    //       handleMessageNew('Oops! Something went wrong.');
-    //     });
-    // }
+    const {
+      handleMessageNew,
+      organizationSelection,
+      session,
+      userData,
+    } = this.props;
+    if (organizationSelection === null) {
+      handleMessageNew('Please select an organization');
+    } else {
+      const {_id} = organizationSelection;
+      createOrgOwner(
+        {email: userData.email, orgId: _id, userId: userData._id},
+        session
+      )
+        .then(() => ({}))
+        .catch(() => {
+          handleMessageNew('Oops! Something went wrong.');
+        });
+    }
   }
 
   render() {
     const {affiliation, classes, locale} = this.props;
+
     return (
       <div>
         <span className={classes.settingsTypeFont}>Change Organization</span>

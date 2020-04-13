@@ -42,6 +42,7 @@ const AccountMobile = ({
   session,
   tab,
   width,
+  userData,
 }) => (
   <div>
     <Paper className={classes.root}>
@@ -83,6 +84,7 @@ const AccountMobile = ({
           handleRequestClose={handleRequestClose}
           handleRequestOpen={handleRequestOpen}
           session={session}
+          userData={userData}
         />
       )}
     </TabContainer>

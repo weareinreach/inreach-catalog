@@ -49,7 +49,7 @@ class GeneralSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user,
+      userData: this.props.userData,
       errorMessage: '',
       isPasswordUpdated: null,
       isEmailUpdated: null,
@@ -73,16 +73,16 @@ class GeneralSettings extends React.Component {
   }
 
   updateEmail(newEmail) {
-    updateUser(this.state.user, {email: newEmail})
+    updateUser(this.state.userData, {email: newEmail})
       .then((data) => {
-        this.setState({user: data.user, isEmailUpdated: true});
+        this.setState({userData: data.user, isEmailUpdated: true});
         this.props.handleMessageNew('Your email has been updated.');
       })
       .catch((error) => this.handleOdasError(error));
   }
 
   updatePassword(currentPassword, newPassword) {
-    updateUserPassword(this.state.user, newPassword)
+    updateUserPassword(this.state.userData, newPassword)
       .then((data) => {
         this.setState({isPasswordUpdated: true});
         this.props.handleMessageNew('Password has been updated.');
@@ -92,6 +92,7 @@ class GeneralSettings extends React.Component {
 
   render() {
     const {
+      affiliation,
       classes,
       handleLogOut,
       handleMessageNew,
@@ -99,9 +100,11 @@ class GeneralSettings extends React.Component {
       handleUserUpdate,
       locale,
       session,
-      user: {affiliation, is_professional: isProfessional, email},
+      userData,
+      userData: {isProfessional, email},
     } = this.props;
     const {isPasswordUpdated, isEmailUpdated} = this.state;
+
     return (
       <div className={classes.root}>
         {affiliation && (
@@ -111,11 +114,12 @@ class GeneralSettings extends React.Component {
         )}
         {isProfessional && (
           <GeneralSettingsOrganization
+            affiliation={affiliation}
             handleMessageNew={handleMessageNew}
             handleUserUpdate={handleUserUpdate}
-            affiliation={affiliation}
             locale={locale}
             session={session}
+            userData={userData}
           />
         )}
         <GeneralSettingsEmail
@@ -156,7 +160,7 @@ GeneralSettings.propTypes = {
   handleRequestOpen: PropTypes.func.isRequired,
   handleUserUpdate: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
-  user: PropTypes.shape({
+  userData: PropTypes.shape({
     affiliation: PropTypes.shape({}),
     is_professional: PropTypes.bool.isRequired,
     email: PropTypes.string.isRequired,

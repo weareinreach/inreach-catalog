@@ -8,9 +8,8 @@ import Typography from '@material-ui/core/Typography';
 
 import Loading from './Loading';
 import OrgSettingsInfo from './OrgSettingsInfo';
-import OrgSettingsHour from './OrgSettingsHour';
-
 import AsylumConnectButton from './AsylumConnectButton';
+import {createSuggestion} from '../utils/api';
 
 const styles = (theme) => ({
   root: {
@@ -55,10 +54,14 @@ const styles = (theme) => ({
 class OrgSettings extends React.Component {
   constructor(props) {
     super(props);
+
+    const {alert_message, description, name, website} =
+      props?.affiliation || {};
+
     this.state = {
-      isLoading: true,
+      isLoading: false,
       isSent: false,
-      orgData: {},
+      orgData: {...{alert_message, description, name, website}},
       selectedDays: {
         monday: false,
         tuesday: false,
@@ -74,67 +77,6 @@ class OrgSettings extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  componentDidMount() {
-    // const {user, handleMessageNew} = this.props;
-    // const apiDomain = config[process.env.OD_API_ENV].odrs;
-    // const url = `${apiDomain}organizations/${user.affiliation.fetchable_id}.jsonp?`;
-    // const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
-    //
-    // fetchJsonp(url + apiKeyParam)
-    //   .then(response => {
-    //     if (response.ok) {
-    //       response.json().then(orgData => {
-    //         // Add properties array as submission requirement
-    //         /*orgData.properties = [
-    //           {
-    //               "name": "approval-asylumconnect",
-    //               "value": "false"
-    //           },
-    //           {
-    //               "name": "source-name",
-    //               "value": "asylumconnect"
-    //           },
-    //           {
-    //               "name": "community-asylum-seeker",
-    //               "value": "true"
-    //           },
-    //           {
-    //               "name": "community-lgbt",
-    //               "value": "true"
-    //           }
-    //         ]*/
-    //         this.setState({orgData, isLoading: false});
-    //         // Capture selected day
-    //         if (
-    //           orgData.locations &&
-    //           orgData.locations[0] &&
-    //           orgData.locations[0].schedule
-    //         ) {
-    //           let selectedDays;
-    //           const {schedule} = orgData.locations[0];
-    //           for (let day in schedule) {
-    //             // if initial hour field is empty, checkbox of the day will be unchecked initially
-    //             if (schedule[day]) {
-    //               selectedDays = update(this.state.selectedDays, {
-    //                 $merge: {[day.split('_')[0]]: true}
-    //               });
-    //             } else {
-    //               selectedDays = update(this.state.selectedDays, {
-    //                 $merge: {[day.split('_')[0]]: false}
-    //               });
-    //             }
-    //           }
-    //           this.setState({selectedDays});
-    //         }
-    //       });
-    //     } else {
-    //       handleMessageNew('Sorry, please try logging in again');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     handleMessageNew('Oops! Something went wrong. Error:' + error);
-    //   });
-  }
   handleChange(parent, name, value) {
     const {orgData} = this.state;
     let updatedOrgData;
@@ -173,61 +115,67 @@ class OrgSettings extends React.Component {
     this.setState({selectedDays: updatedSelectedDays});
   }
   handleClick() {
-    // const {orgData, selectedDays} = this.state;
-    // const {user, handleMessageNew} = this.props;
-    // // Remove unselected time in schedule object
-    // let {schedule} = orgData.locations[0];
-    // let updatedOrgData;
-    // for (let timeKey in schedule) {
-    //   let day = timeKey.split('_')[0];
-    //   if (!selectedDays[day]) {
-    //     schedule = update(schedule, {$merge: {[timeKey]: ''}});
-    //   }
-    // }
-    // updatedOrgData = update(orgData, {
-    //   locations: {0: {schedule: {$merge: schedule}}}
-    // });
-    // // Submit
-    // const payload = {
-    //   api_key: config[process.env.OD_API_ENV].odApiKey,
-    //   submission: {
-    //     resource_id: updatedOrgData.id,
-    //     resource_type: 'Organization',
-    //     client_user_id: user.id,
-    //     content: JSON.stringify(updatedOrgData),
-    //     submitter_type: 'PublicForm'
-    //   }
-    // };
-    // fetch(window.location.origin + '/api/submissions', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8'
-    //   },
-    //   body: JSON.stringify(payload)
-    // }).then(response => {
-    //   if (response.status === 200) {
-    //     this.setState({isSent: true});
-    //     handleMessageNew('Your information has been submitted for reviewing.');
-    //   } else {
-    //     handleMessageNew('Oops! Something went wrong.');
-    //   }
-    // });
+    const {alert_message, description, name, website} =
+      this.state?.orgData || {};
+
+    const suggestions = [];
+
+    if (
+      alert_message &&
+      alert_message !== this.props?.affiliation?.alert_message
+    ) {
+      suggestions.push({field: 'Alert Message', value: alert_message});
+    }
+
+    if (description && description !== this.props?.affiliation?.description) {
+      suggestions.push({field: 'Description', value: description});
+    }
+
+    if (name && name !== this.props?.affiliation?.name) {
+      suggestions.push({field: 'Name', value: name});
+    }
+
+    if (website && website !== this.props?.affiliation?.website) {
+      suggestions.push({field: 'Website', value: website});
+    }
+
+    if (suggestions.length > 0) {
+      createSuggestion({
+        email: this.props?.userData?.email,
+        orgId: this.props?.affiliation?._id,
+        suggestions,
+      })
+        .then(() => {
+          this.setState({isSent: true});
+        })
+        .catch((error) => {
+          this.props.handleMessageNew(
+            'Oops! Something went wrong. Error:' + error
+          );
+        });
+    }
   }
   render() {
     const {classes} = this.props;
-    const {orgData, selectedDays, isLoading, isSent} = this.state;
-    let schedule =
-      orgData && orgData.locations && orgData.locations[0]
-        ? orgData.locations[0].schedule
-        : {};
-    let name = orgData && orgData.name ? orgData.name : '';
-    let website = orgData && orgData.website ? orgData.website : '';
-    let region = orgData && orgData.region ? orgData.region : '';
-    let description = orgData && orgData.description ? orgData.description : '';
-    let address =
-      orgData && orgData.locations && orgData.locations[0]
-        ? orgData.locations[0]
-        : {};
+    const {
+      orgData,
+      // selectedDays,
+      isLoading,
+      isSent,
+    } = this.state;
+    const {
+      alert_message,
+      description,
+      // locations,
+      name,
+      // phones,
+      // region,
+      // schedules,
+      website,
+    } = orgData;
+    // let address = locations?.[0] || {};
+    // let schedule = schedules?.[0] || {};
+
     return (
       <div className={classes.root}>
         <Typography variant="h5" className={classes.formType}>
@@ -237,7 +185,9 @@ class OrgSettings extends React.Component {
           <Loading />
         ) : (
           <div>
-            {orgData.has_pending_submission ? (
+            {/* TODO: Add this check back into the API / Control Panel */}
+            {/* TODO: {orgData.has_pending_submission ? */}
+            {false && (
               <div className={classes.note}>
                 <Typography type="body1">
                   We are still reviewing your recent edits. Below reflects the
@@ -245,25 +195,24 @@ class OrgSettings extends React.Component {
                   requested changes, they will be live on the site in 1-3 days.
                 </Typography>
               </div>
-            ) : (
-              ''
             )}
-
             <OrgSettingsInfo
-              name={name}
-              website={website}
-              region={region}
+              // address={address}
+              alert_message={alert_message}
               description={description}
-              address={address}
+              name={name}
               onChange={this.handleChange}
+              // phones={phones}
+              // region={region}
+              website={website}
             />
 
-            <OrgSettingsHour
+            {/* <OrgSettingsHour
               schedule={schedule}
               selectedDays={selectedDays}
               onChange={this.handleChange}
               onSelect={this.handleSelect}
-            />
+            /> */}
 
             {!isSent ? (
               <div>

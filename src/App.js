@@ -340,6 +340,7 @@ class AppConnectCatalog extends React.Component {
                   handleRequestClose={this.handleRequestClose}
                   handleRequestOpen={this.handleRequestOpen}
                   session={session}
+                  userData={userData}
                 />
               )}
               {isDialogPassword && (

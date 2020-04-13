@@ -129,6 +129,7 @@ const AsylumConnectDialog = ({
           history={history}
           locale={locale}
           session={session}
+          userData={userData}
         />
       )}
       {dialog === 'deleteAccount' && (

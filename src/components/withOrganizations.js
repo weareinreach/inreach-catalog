@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import debounce from 'lodash/debounce';
 
+import {fetchOrganizations} from '../utils/api';
+
 const withOrganizations = (WrappedComponent) =>
   class withOrganzations extends Component {
     constructor(props) {
@@ -68,18 +70,12 @@ const withOrganizations = (WrappedComponent) =>
     }
 
     loadOrganizations() {
-      // const apiDomain = config[process.env.OD_API_ENV].odrs;
-      // const url = `${apiDomain}organizations.jsonp?`;
-      // const apiKeyParam = `api_key=${config[process.env.OD_API_ENV].odApiKey}`;
-      // const queryParams = `&locale=en&per_page=6&query%5Btext%5D=${this.state.organizationSearch}`;
-      // fetchJsonp(url + apiKeyParam + queryParams)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.setState({
-      //       isLoadingOrganizations: false,
-      //       organizations: data.organizations,
-      //     });
-      //   });
+      fetchOrganizations({name: this.state.organizationSearch}).then((data) => {
+        this.setState({
+          isLoadingOrganizations: false,
+          organizations: data.organizations,
+        });
+      });
     }
 
     render() {

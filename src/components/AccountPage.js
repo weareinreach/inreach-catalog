@@ -11,7 +11,7 @@ import OrgSettings from './OrgSettings';
 import PromptReconfirm from './PromptReconfirm';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
-import {fetchUser} from '../utils/api';
+import {fetchOrganizations, fetchUser} from '../utils/api';
 
 const styles = (theme) => ({
   root: {
@@ -75,8 +75,26 @@ class AccountPage extends React.Component {
 
   handleFetchUser() {
     fetchUser(this.props.session)
-      .then((data) => {
-        this.setState({isAuthenticated: true, user: data});
+      .then((user) => {
+        fetchOrganizations({owner: user.email})
+          .then(({organizations}) => {
+            const affiliation = organizations?.[0] || null;
+            const isApproved =
+              affiliation?.owners?.some(
+                (owner) => owner.userId === user._id && owner.isApproved
+              ) || false;
+
+            this.setState({
+              affiliation: isApproved ? affiliation : null,
+              isAuthenticated: true,
+              userData: user,
+            });
+          })
+          .catch((err) => {
+            this.props.handleMessageNew('Oops! Something went wrong.');
+
+            return;
+          });
       })
       .catch((err) => {
         this.props.handleMessageNew('Oops! Something went wrong.');
@@ -113,10 +131,10 @@ class AccountPage extends React.Component {
       locale,
       session,
     } = this.props;
-    const {isAuthenticated, user, value} = this.state;
+    const {affiliation, isAuthenticated, userData, value} = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
     let settings;
-    if (isAuthenticated && user.affiliation) {
+    if (isAuthenticated && affiliation) {
       settings = isMobile ? (
         <div>
           <AppBar position="static">
@@ -133,19 +151,24 @@ class AccountPage extends React.Component {
           {value === 0 && (
             <TabContainer>
               <GeneralSettings
+                affiliation={affiliation}
                 handleLogOut={handleLogOut}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
                 handleUserUpdate={handleUserUpdate}
                 locale={locale}
                 session={session}
-                user={user}
+                userData={userData}
               />
             </TabContainer>
           )}
           {value === 1 && (
             <TabContainer>
-              <OrgSettings handleMessageNew={handleMessageNew} user={user} />
+              <OrgSettings
+                affiliation={affiliation}
+                handleMessageNew={handleMessageNew}
+                userData={userData}
+              />
             </TabContainer>
           )}
         </div>
@@ -155,20 +178,25 @@ class AccountPage extends React.Component {
             Organization
           </Typography>
           <div className={classes.formRow}>
-            <OrgSettings handleMessageNew={handleMessageNew} user={user} />
+            <OrgSettings
+              affiliation={affiliation}
+              handleMessageNew={handleMessageNew}
+              userData={userData}
+            />
             <GeneralSettings
+              affiliation={affiliation}
               handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
               handleUserUpdate={handleUserUpdate}
               locale={locale}
               session={session}
-              user={user}
+              userData={userData}
             />
           </div>
         </div>
       );
-    } else if (isAuthenticated && !user.affiliation) {
+    } else if (isAuthenticated && !affiliation) {
       settings = isMobile ? (
         <div>
           <AppBar position="static">
@@ -185,6 +213,7 @@ class AccountPage extends React.Component {
           {value === 0 && (
             <TabContainer>
               <GeneralSettings
+                affiliation={affiliation}
                 handleLogOut={handleLogOut}
                 handleMessageNew={handleMessageNew}
                 handleRequestOpen={handleRequestOpen}
@@ -192,7 +221,7 @@ class AccountPage extends React.Component {
                 history={this.props.history}
                 locale={locale}
                 session={session}
-                user={user}
+                userData={userData}
               />
             </TabContainer>
           )}
@@ -201,13 +230,14 @@ class AccountPage extends React.Component {
         <div>
           <div className={classes.formRow}>
             <GeneralSettings
+              affiliation={affiliation}
               handleLogOut={handleLogOut}
               handleMessageNew={handleMessageNew}
               handleRequestOpen={handleRequestOpen}
               handleUserUpdate={handleUserUpdate}
               locale={locale}
               session={session}
-              user={user}
+              userData={userData}
             />
           </div>
         </div>

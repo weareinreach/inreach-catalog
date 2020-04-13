@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import {createAffiliation} from '../utils/api';
+import {createOrgOwner} from '../utils/api';
 import {catalogPost} from '../utils/api';
 
 import SignupForm from './SignupForm';
@@ -52,15 +52,20 @@ class SignupFormContainer extends React.Component {
       handleRequestClose,
       organizationSelection,
       session,
+      userData,
     } = this.props;
-    const {id, name} = organizationSelection;
-    // createAffiliation({id, name}, session)
-    //   .then(() => handleRequestClose())
-    //   .catch(() => {
-    //     handleMessageNew(
-    //       `Sorry. Something went wrong connecting you to your organization.`
-    //     );
-    //   });
+    const {_id} = organizationSelection;
+
+    createOrgOwner(
+      {email: userData.email, orgId: _id, userId: userData._id},
+      session
+    )
+      .then(() => handleRequestClose())
+      .catch(() => {
+        handleMessageNew(
+          `Sorry. Something went wrong connecting you to your organization.`
+        );
+      });
   }
 
   handleSignUp(event) {

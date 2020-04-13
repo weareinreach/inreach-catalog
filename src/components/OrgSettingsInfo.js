@@ -81,7 +81,12 @@ class OrgSettingsInfo extends React.Component {
 
   handleChange(e) {
     const {name, value} = e.target;
-    if (['name', 'website', 'description', 'region'].includes(name)) {
+
+    if (
+      ['alert_message', 'name', 'website', 'description', 'region'].includes(
+        name
+      )
+    ) {
       this.props.onChange('info', name, value);
     } else if (name === 'digits') {
       this.props.onChange('phones', name, value);
@@ -91,16 +96,18 @@ class OrgSettingsInfo extends React.Component {
   }
   render() {
     const {
+      address,
+      alert_message,
       classes,
+      description,
       isSuggestion,
       name,
-      website,
+      phones,
       region,
-      description,
-      address,
+      website,
     } = this.props;
-    const {digits} =
-      address.phones && address.phones[0] ? address.phones[0] : '(   )   -   ';
+    const {digits} = phones?.[0] || '(   )   -   ';
+
     return (
       <div className={classes.root}>
         <form className={classes.form}>
@@ -135,6 +142,18 @@ class OrgSettingsInfo extends React.Component {
           />
           <TextField
             className={classes.inputLabel}
+            label="Alert Message:"
+            name="alert_message"
+            value={alert_message}
+            multiline={true}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder="A message to display to users that is urgent or pressing"
+            onChange={this.handleChange}
+          />
+          <TextField
+            className={classes.inputLabel}
             label="Websites:"
             name="website"
             value={website}
@@ -144,7 +163,7 @@ class OrgSettingsInfo extends React.Component {
             placeholder="URL"
             onChange={this.handleChange}
           />
-          <FormControl className={classes.inputLabel}>
+          {/* <FormControl className={classes.inputLabel}>
             <InputLabel children="Phone number:" shrink />
             <Input
               name="digits"
@@ -152,19 +171,19 @@ class OrgSettingsInfo extends React.Component {
               inputComponent={TextMaskCustom}
               onChange={this.handleChange}
             />
-          </FormControl>
-          <TextField
+          </FormControl> */}
+          {/* <TextField
             className={classes.inputLabel}
             label="Address:"
             name="address"
-            value={address.address}
+            value={address?.address}
             InputLabelProps={{
               shrink: true,
             }}
             placeholder="Address"
             onChange={this.handleChange}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             className={classes.inputLabel}
             label="Region:"
             name="region"
@@ -174,8 +193,8 @@ class OrgSettingsInfo extends React.Component {
             }}
             placeholder="Region"
             onChange={this.handleChange}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             className={classes.inputLabel}
             label="City:"
             name="city"
@@ -185,8 +204,8 @@ class OrgSettingsInfo extends React.Component {
             }}
             placeholder="City"
             onChange={this.handleChange}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             className={classes.inputLabel}
             label="State:"
             name="state"
@@ -196,8 +215,8 @@ class OrgSettingsInfo extends React.Component {
             }}
             placeholder="State"
             onChange={this.handleChange}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             className={classes.inputLabel}
             label="Zip code:"
             name="zip_code"
@@ -207,7 +226,7 @@ class OrgSettingsInfo extends React.Component {
             }}
             placeholder="Zip code"
             onChange={this.handleChange}
-          />
+          /> */}
         </form>
       </div>
     );
