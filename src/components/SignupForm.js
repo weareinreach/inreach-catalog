@@ -101,7 +101,11 @@ const SignupForm = ({
       <form className={classes.container} onSubmit={handleSignUp}>
         <TextField
           id="email"
-          label={selection === 'seeker' ? 'Email' : 'Organization Email'}
+          label={
+            selection === 'seeker'
+              ? 'Email'
+              : 'Firm, Organization or School Email'
+          }
           margin="normal"
           name="email"
           onChange={handleChange}

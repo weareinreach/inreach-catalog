@@ -43,7 +43,7 @@ const propertyMap = {
     'elig-age-or-under': 'Ages [value] and under',
     'elig-age-range': 'Ages [value]',
     'elig-description': '[value]',
-    'time-appointment-required': 'Time Appointment Required',
+    'time-appointment-required': 'Appointment Required',
   },
   language: {
     'lang-american-sign-language': {name: 'American Sign Language'},

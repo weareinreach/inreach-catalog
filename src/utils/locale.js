@@ -9,7 +9,7 @@ const enCA = {
   'LGBTQ centers': 'LGBTQ centres',
   'Cultural centers': 'Cultural centres',
   'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-  'Welcome to the AsylumConnect Catalog!':
+  'Welcome to the United States AsylumConnect Catalog!':
     'Welcome to the Canada AsylumConnect Catalog!',
   'Physical evaluations for asylum claim':
     'Physical evaluations for refugee claim',
