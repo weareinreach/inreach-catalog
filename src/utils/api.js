@@ -257,11 +257,8 @@ export const deleteOrgOwner = ({orgId, userId}) => {
     .catch((err) => err);
 };
 
-export const createSuggestion = ({email, orgId, suggestions}) => {
-  return catalogPost(`/organizations/${orgId}/suggestions`, {
-    email,
-    suggestions,
-  })
+export const createSuggestion = (suggestions) => {
+  return catalogPost(`/suggestions`, {suggestions})
     .then(() => ({}))
     .catch((err) => err);
 };

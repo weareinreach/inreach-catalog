@@ -119,32 +119,40 @@ class OrgSettings extends React.Component {
       this.state?.orgData || {};
 
     const suggestions = [];
+    const sharedValues = {
+      organizationId: this.props?.affiliation?._id,
+      userEmail: this.props?.userData?.email,
+    };
 
     if (
       alert_message &&
       alert_message !== this.props?.affiliation?.alert_message
     ) {
-      suggestions.push({field: 'Alert Message', value: alert_message});
+      suggestions.push({
+        ...sharedValues,
+        field: 'Alert Message',
+        value: alert_message,
+      });
     }
 
     if (description && description !== this.props?.affiliation?.description) {
-      suggestions.push({field: 'Description', value: description});
+      suggestions.push({
+        ...sharedValues,
+        field: 'Description',
+        value: description,
+      });
     }
 
     if (name && name !== this.props?.affiliation?.name) {
-      suggestions.push({field: 'Name', value: name});
+      suggestions.push({...sharedValues, field: 'Name', value: name});
     }
 
     if (website && website !== this.props?.affiliation?.website) {
-      suggestions.push({field: 'Website', value: website});
+      suggestions.push({...sharedValues, field: 'Website', value: website});
     }
 
     if (suggestions.length > 0) {
-      createSuggestion({
-        email: this.props?.userData?.email,
-        orgId: this.props?.affiliation?._id,
-        suggestions,
-      })
+      createSuggestion(suggestions)
         .then(() => {
           this.setState({isSent: true});
         })
