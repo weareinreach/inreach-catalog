@@ -436,6 +436,7 @@ class Detail extends React.Component {
       sharePath += `/service/${service?.name}`;
     }
     const detailHeaderProps = {
+      alertMessage,
       classes,
       isMobile,
       name,
