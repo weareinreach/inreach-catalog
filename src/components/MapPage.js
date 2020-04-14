@@ -49,6 +49,7 @@ class MapContainer extends React.Component {
       inState,
       mapWidth: '100%',
       page: 1,
+      endOfList: false,
       searchStatus: null,
       selectedResourceTypes,
       selectedFilters,
@@ -103,39 +104,40 @@ class MapContainer extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (
-      nextProps.match.path === '/:locale/resource/:id' &&
-      (this.props.match.path !== '/:locale/resource/:id' ||
-        (this.props.match.params &&
-          nextProps.match.params &&
-          this.props.match.params.id !== nextProps.match.params.id &&
-          this.props.match.path === '/:locale/resource/:id'))
-    ) {
-      this.setSelectedResource(
-        this.getCachedResource(nextProps.match.params.id)
-      );
-    }
-
-    if (
-      nextProps.match.path === '/:locale/resource/:id/service/:serviceId' &&
-      (this.props.match.path !== '/:locale/resource/:id/service/:serviceId' ||
-        (this.props.match.params &&
-          nextProps.match.params &&
-          this.props.match.params.serviceId !==
-            nextProps.match.params.serviceId &&
-          this.props.match.path === '/:locale/resource/:id/service/:serviceId'))
-    ) {
-      this.setSelectedResource(
-        this.getCachedResource(nextProps.match.params.id)
-      );
-    }
-
-    if (
-      nextProps.match.path ===
-      '/:locale/search/:in/:place/:near/:for/:filter/:sort'
-    ) {
-      localStorage.setItem('lastSearch', nextProps.history.location.pathname);
-    }
+    // TODO: drastically slowed the page down by causing constant re-rendering
+    // if (
+    //   nextProps.match.path === '/:locale/resource/:id' &&
+    //   (this.props.match.path !== '/:locale/resource/:id' ||
+    //     (this.props.match.params &&
+    //       nextProps.match.params &&
+    //       this.props.match.params.id !== nextProps.match.params.id &&
+    //       this.props.match.path === '/:locale/resource/:id'))
+    // ) {
+    //   this.setSelectedResource(
+    //     this.getCachedResource(nextProps.match.params.id)
+    //   );
+    // }
+    //
+    // if (
+    //   nextProps.match.path === '/:locale/resource/:id/service/:serviceId' &&
+    //   (this.props.match.path !== '/:locale/resource/:id/service/:serviceId' ||
+    //     (this.props.match.params &&
+    //       nextProps.match.params &&
+    //       this.props.match.params.serviceId !==
+    //         nextProps.match.params.serviceId &&
+    //       this.props.match.path === '/:locale/resource/:id/service/:serviceId'))
+    // ) {
+    //   this.setSelectedResource(
+    //     this.getCachedResource(nextProps.match.params.id)
+    //   );
+    // }
+    //
+    // if (
+    //   nextProps.match.path ===
+    //   '/:locale/search/:in/:place/:near/:for/:filter/:sort'
+    // ) {
+    //   localStorage.setItem('lastSearch', nextProps.history.location.pathname);
+    // }
   }
 
   clearSearchStatus() {
@@ -350,6 +352,10 @@ class MapContainer extends React.Component {
   }
 
   fetchSearchResults(nextPage) {
+    if ((nextPage && this.state.endOfList) || this.state.searching) {
+      return;
+    }
+
     let {
       inState,
       nearAddress,
@@ -362,6 +368,12 @@ class MapContainer extends React.Component {
     } = this.checkForURLUpdates();
 
     if (nearLatLng !== null) {
+      this.setState({
+        searching: true,
+        searchDisabled: true,
+        printDisabled: true,
+      });
+
       this.props.handleAddressChange(nearAddress);
 
       geocodeByAddress(nearAddress)
@@ -439,6 +451,10 @@ class MapContainer extends React.Component {
     }));
 
     this.setState((prevState) => ({
+      endOfList: newOrgs.length === 0,
+      searching: false,
+      searchDisabled: false,
+      printDisabled: false,
       searchResults: prevState.searchResults.concat(newOrgs),
     }));
   }
@@ -595,6 +611,7 @@ class MapContainer extends React.Component {
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
                       infographic={infographic}
                       nearAddress={this.props.nearAddress}
+                      searching={this.state.searching}
                       searchDisabled={this.state.searchDisabled}
                       classes={null}
                     />
@@ -637,6 +654,7 @@ class MapContainer extends React.Component {
                       nearAddress={this.props.nearAddress}
                       printDisabled={this.state.printDisabled}
                       searchDisabled={this.state.searchDisabled}
+                      searching={this.state.searching}
                       searchCenter={this.state.nearLatLng}
                       session={this.props.session}
                       showWalkinCheckbox={
