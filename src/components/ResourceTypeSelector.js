@@ -80,7 +80,7 @@ const FilterCollection = (props) => {
     <div>
       <Typography variant="body2" className={classes.sectionHeader}>
         <ACBadge type={type} width="45px" height="45px" useIcon={true} />
-        <span className={classes.sectionTitle}>{t(category)}</span>
+        <span className={classes.sectionTitle}>{category}</span>
         {typeof categoryValue !== 'undefined' ? (
           <span className={classes.sectionTitle}>
             <AsylumConnectCheckbox
@@ -100,7 +100,7 @@ const FilterCollection = (props) => {
             return (
               <Grid item key={i} xs={12} sm={6} md={4}>
                 <AsylumConnectCheckbox
-                  label={t(filter.title)}
+                  label={filter.title}
                   value={itemValue}
                   onChange={onChange}
                   disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}

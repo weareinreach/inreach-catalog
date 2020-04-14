@@ -59,8 +59,8 @@ const resourceTypes = [
   {
     category: 'Education and Employment',
     type: 'educationEmployment',
-    acTag: 'Educational support for LGBT youth',
-    title: 'Educational support for LGBT youth',
+    acTag: 'Educational support for LGBTQ youth',
+    title: 'Educational support for LGBTQ youth',
   },
   {
     category: 'Education and Employment',
@@ -372,6 +372,10 @@ const localeExclusions = {
     'Gender-neutral restrooms',
     'Gender-neutral washrooms',
     'LGBTQ centres',
+    'Language classes',
+    'Refugee claim',
+    'Physical evaluations for refugee claim',
+    'Psychological evaluations for refugee claim',
   ],
   en_CA: [
     'Asylum application in Mexico',
