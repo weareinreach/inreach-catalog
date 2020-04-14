@@ -422,7 +422,9 @@ class MapContainer extends React.Component {
 
           this.setState(nextState);
 
-          fetchOrganizations(params).then(this.processSearchResults);
+          fetchOrganizations(params).then((data) =>
+            this.processSearchResults(data, nextPage)
+          );
         })
         .catch((error) => {
           this.props.handleMessageNew('An error occured. Please try again');
@@ -444,7 +446,7 @@ class MapContainer extends React.Component {
     return null;
   }
 
-  processSearchResults(data) {
+  processSearchResults(data, nextPage) {
     const newOrgs = (data?.organizations || []).map((org) => ({
       ...org,
       resource_type: 'Organization',
@@ -455,7 +457,9 @@ class MapContainer extends React.Component {
       searching: false,
       searchDisabled: false,
       printDisabled: false,
-      searchResults: prevState.searchResults.concat(newOrgs),
+      searchResults: nextPage
+        ? prevState.searchResults.concat(newOrgs)
+        : newOrgs,
     }));
   }
 
