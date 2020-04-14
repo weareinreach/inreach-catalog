@@ -87,7 +87,11 @@ export const fetchOrganizations = (params) => {
     query.page = page;
   }
 
+  // START: formatting properties
+
   query.properties = [];
+
+  let serviceArea = '';
 
   if (locale) {
     const countryProperty =
@@ -98,7 +102,7 @@ export const fetchOrganizations = (params) => {
         : '';
 
     if (serviceAreaCoverage.national[countryProperty]) {
-      query.serviceNational = countryProperty;
+      serviceArea += countryProperty;
     }
   }
 
@@ -106,7 +110,7 @@ export const fetchOrganizations = (params) => {
     const stateProperty = `service-state-${getAreaId(state)}`;
 
     if (serviceAreaCoverage.state[stateProperty]) {
-      query.serviceState = stateProperty;
+      serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
     }
 
     if (city) {
@@ -115,9 +119,13 @@ export const fetchOrganizations = (params) => {
       )}`;
 
       if (serviceAreaCoverage.county[countyProperty]) {
-        query.serviceCounty = countyProperty;
+        serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
       }
     }
+  }
+
+  if (serviceArea) {
+    query.serviceArea = serviceArea;
   }
 
   if (selectedFilters) {
@@ -125,6 +133,8 @@ export const fetchOrganizations = (params) => {
 
     query.properties = query.properties.concat(filterProps);
   }
+
+  // END: formatting properties
 
   if (tagLocale && selectedResourceTypes?.length > 0) {
     query.tagLocale = tagLocale;
