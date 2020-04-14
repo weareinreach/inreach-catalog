@@ -3,6 +3,7 @@ import qs from 'query-string';
 import config from '../config';
 
 import {localeTagMap} from './locale';
+import serviceAreaCoverage from './serviceAreaCoverage.json';
 
 export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
 
@@ -58,6 +59,8 @@ export const catalogPost = (path, body, options) => {
     .catch(handleErr);
 };
 
+const getAreaId = (location) => location.toLowerCase().split(' ').join('-');
+
 export const fetchOrganizations = (params) => {
   const {
     city,
@@ -86,23 +89,34 @@ export const fetchOrganizations = (params) => {
 
   query.properties = [];
 
-  // TODO: restore nationwide
-  // if (locale === 'en_US') {
-  //   query.properties.push('service-national-united-states=true');
-  // } else if (locale === 'en_CA') {
-  //   query.properties.push('service-national-canada=true');
-  // }
+  if (locale) {
+    const countryProperty =
+      locale === 'en_US'
+        ? 'service-national-united-states'
+        : locale === 'en_CA'
+        ? 'service-national-canada'
+        : '';
+
+    if (serviceAreaCoverage.national[countryProperty]) {
+      query.serviceNational = countryProperty;
+    }
+  }
 
   if (state) {
-    const getServceAreaId = (location) =>
-      location.toLowerCase().split(' ').join('-');
+    const stateProperty = `service-state-${getAreaId(state)}`;
 
-    query.properties.push(`service-state-${getServceAreaId(state)}=true`);
+    if (serviceAreaCoverage.state[stateProperty]) {
+      query.serviceState = stateProperty;
+    }
 
-    if (city && state !== 'District of Columbia') {
-      query.properties.push(
-        `service-county-${getServceAreaId(state)}-${getServceAreaId(city)}=true`
-      );
+    if (city) {
+      const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
+        city
+      )}`;
+
+      if (serviceAreaCoverage.county[countyProperty]) {
+        query.serviceCounty = countyProperty;
+      }
     }
   }
 
