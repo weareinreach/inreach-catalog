@@ -2,11 +2,11 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
-import {withStyles} from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+import {withStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const styles = (theme) => ({
   bgDarkGrey: {backgroundColor: theme.palette.common.darkGrey},
   bgLightGrey: {backgroundColor: theme.palette.common.lightGrey},
   paddingBelow: {paddingBottom: '0.5rem'},
@@ -14,7 +14,7 @@ const styles = theme => ({
   paddingVertical: {padding: '2rem 0'},
   centerColumn: {
     maxWidth: theme.maxColumnWidth,
-    margin: '0 auto'
+    margin: '0 auto',
   },
   textBlack: {color: theme.palette.common.darkBlack},
   textCenter: {textAlign: 'center'},
@@ -22,16 +22,16 @@ const styles = theme => ({
     color: theme.typography.body2.color,
     textDecoration: 'underline',
     '&:link': {
-      color: theme.typography.body2.color
+      color: theme.typography.body2.color,
     },
     '&:hover': {
       color: theme.typography.body2.color,
-      textDecoration: 'none'
+      textDecoration: 'none',
     },
     '&:active': {
-      color: theme.typography.body2.color
-    }
-  }
+      color: theme.typography.body2.color,
+    },
+  },
 });
 
 const Footer = ({classes, locale}) => {
@@ -41,7 +41,7 @@ const Footer = ({classes, locale}) => {
     paddingVertical,
     textBlack,
     textCenter,
-    centerColumn
+    centerColumn,
   } = classes;
 
   const ContactLink = ({link, icon}) => (
@@ -66,7 +66,7 @@ const Footer = ({classes, locale}) => {
         className={classNames(centerColumn, paddingVertical)}
       >
         <Grid item xs={12} md={6}>
-          <Grid container spacing={16} justify="center">
+          <Grid container spacing={2} justify="center">
             <ContactLink
               link="https://www.facebook.com/asylumconnect"
               icon="facebook-f"
@@ -98,19 +98,17 @@ const Footer = ({classes, locale}) => {
           <Grid container spacing={0}>
             <Grid item xs>
               <Link to={'/' + locale + '/suggestions/new'}>
-                <Typography variant="display3">Suggest a Resource</Typography>
+                <Typography variant="h5">Suggest a Resource</Typography>
               </Link>
             </Grid>
             <Grid item xs>
               <a href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL">
-                <Typography variant="display3">Share Feedback</Typography>
+                <Typography variant="h5">Share Feedback</Typography>
               </a>
             </Grid>
             <Grid item xs>
-              <a href="https://asylumconnect.org/contact/">
-                <Typography variant="display3">
-                  Subscribe to our Newsletter
-                </Typography>
+              <a href="https://asylumconnect.org/newsletter/">
+                <Typography variant="h5">Subscribe to Newsletter</Typography>
               </a>
             </Grid>
           </Grid>

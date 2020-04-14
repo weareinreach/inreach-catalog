@@ -1,1 +1,1 @@
-web: node --inspect=5858 server.js
+web: npm run serve

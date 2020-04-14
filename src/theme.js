@@ -1,28 +1,28 @@
-import {createMuiTheme} from 'material-ui/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 
 export const breakpoints = {
   xs: 360,
   sm: 600,
   md: 960,
   lg: 1280,
-  xl: 1500
+  xl: 1500,
 };
 
-export const searchInput = theme => ({
+export const searchInput = (theme) => ({
   border: 'none',
   boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
   padding: '1.2rem',
   fontFamily: theme.typography.fontFamily,
   fontSize: theme.typography.fontSize,
   width: '100%',
-  marginBottom: theme.spacing.unit * 3,
+  marginBottom: theme.spacing(3),
   height: '3.4rem',
   color: theme.palette.common.lightBlack,
   backgroundColor: theme.palette.common.white,
-  borderRadius: '0.1px'
+  borderRadius: '0.1px',
 });
 
-export const selectInput = theme => ({
+export const selectInput = (theme) => ({
   border: 'none',
   padding: '1.2rem',
   fontFamily: theme.typography.fontFamily,
@@ -31,44 +31,44 @@ export const selectInput = theme => ({
   height: '3.4rem',
   color: theme.palette.common.lightBlack,
   backgroundColor: theme.palette.common.white,
-  borderRadius: '0.1px'
+  borderRadius: '0.1px',
 });
 
-export const dropShadow = theme => ({
-  boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)'
+export const dropShadow = (theme) => ({
+  boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
 });
 
-export const searchInputMobile = theme => ({
-  padding: theme.spacing.unit * 2,
-  height: theme.spacing.unit * 6,
-  marginBottom: theme.spacing.unit * 2
+export const searchInputMobile = (theme) => ({
+  padding: theme.spacing(2),
+  height: theme.spacing(6),
+  marginBottom: theme.spacing(2),
 });
 
-export const bodyLink = theme => ({
-  color: theme.palette.secondary[500]
+export const bodyLink = (theme) => ({
+  color: theme.palette.secondary[500],
 });
 
-export const listLink = theme => ({
+export const listLink = (theme) => ({
   '& + &:before': {
-    content: '", "'
-  }
+    content: '", "',
+  },
 });
 
-export const mobilePadding = theme => ({
+export const mobilePadding = (theme) => ({
   paddingLeft: '20px',
-  paddingRight: '20px'
+  paddingRight: '20px',
 });
 
-export const boldFont = theme => ({
-  fontWeight: '600'
+export const boldFont = (theme) => ({
+  fontWeight: '600',
 });
 
-export const italicFont = theme => ({
-  fontStyle: 'italic'
+export const italicFont = (theme) => ({
+  fontStyle: 'italic',
 });
 
-export const dividerSpacing = theme => ({
-  marginBottom: theme.spacing.unit * 4
+export const dividerSpacing = (theme) => ({
+  marginBottom: theme.spacing(4),
 });
 
 /**
@@ -102,7 +102,7 @@ const catalogTheme = createMuiTheme({
       green: '#15B58A',
       cyan: '#23BCD7',
       success: '#00C419',
-      error: '#E1001C'
+      error: '#E1001C',
     },
     type: 'light',
     primary: {
@@ -120,7 +120,7 @@ const catalogTheme = createMuiTheme({
       A200: '#CC4747',
       A400: '#CC4747',
       A700: '#CC4747',
-      contrastDefaultColor: 'light'
+      contrastDefaultColor: 'light',
     },
     secondary: {
       '50': '#E3E9F3',
@@ -137,7 +137,7 @@ const catalogTheme = createMuiTheme({
       A200: '#5073B3',
       A400: '#5073B3',
       A700: '#5073B3',
-      contrastDefaultColor: 'light'
+      contrastDefaultColor: 'light',
     },
     error: {
       '50': '#ffebee',
@@ -154,7 +154,7 @@ const catalogTheme = createMuiTheme({
       A200: '#ff5252',
       A400: '#ff1744',
       A700: '#d50000',
-      contrastDefaultColor: 'light'
+      contrastDefaultColor: 'light',
     },
     grey: {
       '50': '#fafafa',
@@ -171,7 +171,7 @@ const catalogTheme = createMuiTheme({
       A200: '#aaaaaa',
       A400: '#303030',
       A700: '#616161',
-      contrastDefaultColor: 'dark'
+      contrastDefaultColor: 'dark',
     },
     shades: {
       dark: {
@@ -182,26 +182,26 @@ const catalogTheme = createMuiTheme({
           hint: 'rgba(255, 255, 255, 0.5)',
           icon: 'rgba(255, 255, 255, 0.5)',
           divider: 'rgba(255, 255, 255, 0.12)',
-          lightDivider: 'rgba(255, 255, 255, 0.075)'
+          lightDivider: 'rgba(255, 255, 255, 0.075)',
         },
         input: {
           bottomLine: 'rgba(255, 255, 255, 0.7)',
           helperText: 'rgba(255, 255, 255, 0.7)',
           labelText: 'rgba(255, 255, 255, 0.7)',
           inputText: 'rgba(255, 255, 255, 1)',
-          disabled: 'rgba(255, 255, 255, 0.5)'
+          disabled: 'rgba(255, 255, 255, 0.5)',
         },
         action: {
           active: 'rgba(255, 255, 255, 1)',
-          disabled: 'rgba(255, 255, 255, 0.3)'
+          disabled: 'rgba(255, 255, 255, 0.3)',
         },
         background: {
           default: '#303030',
           paper: '#424242',
           appBar: '#212121',
           contentFrame: '#212121',
-          status: '#000'
-        }
+          status: '#000',
+        },
       },
       light: {
         text: {
@@ -211,26 +211,26 @@ const catalogTheme = createMuiTheme({
           hint: 'rgba(0, 0, 0, 0.38)',
           icon: 'rgba(0, 0, 0, 0.38)',
           divider: 'rgba(0, 0, 0, 0.12)',
-          lightDivider: 'rgba(0, 0, 0, 0.075)'
+          lightDivider: 'rgba(0, 0, 0, 0.075)',
         },
         input: {
           bottomLine: 'rgba(0, 0, 0, 0.42)',
           helperText: 'rgba(0, 0, 0, 0.54)',
           labelText: 'rgba(0, 0, 0, 0.54)',
           inputText: 'rgba(0, 0, 0, 0.87)',
-          disabled: 'rgba(0, 0, 0, 0.42)'
+          disabled: 'rgba(0, 0, 0, 0.42)',
         },
         action: {
           active: 'rgba(0, 0, 0, 0.54)',
-          disabled: 'rgba(0, 0, 0, 0.26)'
+          disabled: 'rgba(0, 0, 0, 0.26)',
         },
         background: {
           default: '#fafafa',
           paper: '#fff',
           appBar: '#fff',
-          contentFrame: '#eeeeee'
-        }
-      }
+          contentFrame: '#eeeeee',
+        },
+      },
     },
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
@@ -239,25 +239,25 @@ const catalogTheme = createMuiTheme({
       hint: 'rgba(0, 0, 0, 0.38)',
       icon: 'rgba(0, 0, 0, 0.38)',
       divider: 'rgba(0, 0, 0, 0.12)',
-      lightDivider: 'rgba(0, 0, 0, 0.075)'
+      lightDivider: 'rgba(0, 0, 0, 0.075)',
     },
     input: {
       bottomLine: 'rgba(0, 0, 0, 0.42)',
       helperText: 'rgba(0, 0, 0, 0.54)',
       labelText: 'rgba(0, 0, 0, 0.54)',
       inputText: 'rgba(0, 0, 0, 0.87)',
-      disabled: 'rgba(0, 0, 0, 0.42)'
+      disabled: 'rgba(0, 0, 0, 0.42)',
     },
     action: {
       active: 'rgba(0, 0, 0, 0.54)',
-      disabled: 'rgba(0, 0, 0, 0.26)'
+      disabled: 'rgba(0, 0, 0, 0.26)',
     },
     background: {
       default: '#fafafa',
       paper: '#fff',
       appBar: 'rgba(0, 0, 0, 0.87)',
-      contentFrame: '#eeeeee'
-    }
+      contentFrame: '#eeeeee',
+    },
   },
   typography: {
     fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
@@ -266,101 +266,101 @@ const catalogTheme = createMuiTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightHeavy: 700,
-    display4: {
+    h1: {
+      fontSize: 32,
+      fontWeight: 700,
+      fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+      lineHeight: 1.2,
+      color: 'rgba(29, 31, 35, 1)',
+    },
+    h2: {
+      fontSize: 24,
+      fontWeight: 600,
+      fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+      lineHeight: 1.2,
+      color: 'rgba(29, 31, 35, 1)',
+    },
+    h3: {
+      fontSize: 22,
+      fontWeight: 700,
+      fontFamily: '"Open Sans", sans-serif',
+      lineHeight: '40px',
+      color: 'rgba(29, 31, 35, 1)',
+    },
+    h4: {
+      fontSize: 18,
+      fontWeight: 500,
+      fontFamily: '"Open Sans", sans-serif',
+      lineHeight: 'inherit',
+      color: 'rgba(29, 31, 35, 1)',
+    },
+    h5: {
+      fontSize: 16,
+      fontWeight: 700,
+      fontFamily: '"Open Sans", sans-serif',
+      letterSpacing: '-.02em',
+      lineHeight: 1.35,
+      color: 'rgba(29, 31, 35, 1)',
+    },
+    h6: {
       fontSize: 12,
       fontWeight: 600,
       fontFamily: '"Open Sans", sans-serif',
       letterSpacing: '-.04em',
       lineHeight: 1,
       color: 'rgba(29, 31, 35, 1)',
-      textTransform: 'uppercase'
+      textTransform: 'uppercase',
     },
-    display3: {
-      fontSize: 16,
-      fontWeight: 700,
-      fontFamily: '"Open Sans", sans-serif',
-      letterSpacing: '-.02em',
-      lineHeight: 1.35,
-      color: 'rgba(29, 31, 35, 1)'
-    },
-    display2: {
-      fontSize: 18,
-      fontWeight: 500,
-      fontFamily: '"Open Sans", sans-serif',
-      lineHeight: 'inherit',
-      color: 'rgba(29, 31, 35, 1)'
-    },
-    display1: {
-      fontSize: 22,
-      fontWeight: 700,
-      fontFamily: '"Open Sans", sans-serif',
-      lineHeight: '40px',
-      color: 'rgba(29, 31, 35, 1)'
-    },
-    headline: {
-      fontSize: 32,
-      fontWeight: 700,
-      fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
-      lineHeight: 1.2,
-      color: 'rgba(29, 31, 35, 1)'
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 600,
-      fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
-      lineHeight: 1.2,
-      color: 'rgba(29, 31, 35, 1)'
-    },
-    subheading: {
+    subtitle2: {
       fontSize: 18,
       fontWeight: 600,
       fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
       lineHeight: 1.2,
-      color: 'rgba(29, 31, 35, 1)'
-    },
-    body2: {
-      fontSize: 16,
-      fontWeight: 400,
-      fontFamily: '"Open Sans", sans-serif',
-      lineHeight: '20px',
-      color: 'rgba(29, 31, 35, 1)'
+      color: 'rgba(29, 31, 35, 1)',
     },
     body1: {
       fontSize: 14,
       fontWeight: 400,
       fontFamily: '"Open Sans", sans-serif',
       lineHeight: '20px',
-      color: 'rgba(29, 31, 35, 1)'
+      color: 'rgba(29, 31, 35, 1)',
+    },
+    body2: {
+      fontSize: 16,
+      fontWeight: 400,
+      fontFamily: '"Open Sans", sans-serif',
+      lineHeight: '20px',
+      color: 'rgba(29, 31, 35, 1)',
     },
     caption: {
       fontSize: 14,
       fontWeight: 400,
       fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
       lineHeight: '20px',
-      color: 'rgba(0, 0, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)',
     },
     button: {
       fontSize: 16,
       textTransform: 'uppercase',
       fontWeight: 700,
       fontFamily: '"Open Sans", sans-serif',
-      letterSpacing: '1px'
-    }
+      letterSpacing: '1px',
+    },
   },
   mixins: {
     toolbar: {
       minHeight: 56,
       '@media (min-width:0px) and (orientation: landscape)': {
-        minHeight: 48
+        minHeight: 48,
       },
       '@media (min-width:600px)': {
-        minHeight: 64
-      }
-    }
+        minHeight: 64,
+      },
+    },
   },
   breakpoints: {
     keys: Object.keys(breakpoints),
-    values: breakpoints
+    values: breakpoints,
   },
   shadows: [
     'none',
@@ -387,14 +387,15 @@ const catalogTheme = createMuiTheme({
     '0px 10px 13px -6px rgba(0, 0, 0, 0.2),0px 21px 33px 3px rgba(0, 0, 0, 0.14),0px 8px 40px 7px rgba(0, 0, 0, 0.12)',
     '0px 10px 14px -6px rgba(0, 0, 0, 0.2),0px 22px 35px 3px rgba(0, 0, 0, 0.14),0px 8px 42px 7px rgba(0, 0, 0, 0.12)',
     '0px 11px 14px -7px rgba(0, 0, 0, 0.2),0px 23px 36px 3px rgba(0, 0, 0, 0.14),0px 9px 44px 8px rgba(0, 0, 0, 0.12)',
-    '0px 11px 15px -7px rgba(0, 0, 0, 0.2),0px 24px 38px 3px rgba(0, 0, 0, 0.14),0px 9px 46px 8px rgba(0, 0, 0, 0.12)'
+    '0px 11px 15px -7px rgba(0, 0, 0, 0.2),0px 24px 38px 3px rgba(0, 0, 0, 0.14),0px 9px 46px 8px rgba(0, 0, 0, 0.12)',
   ],
+  spacing: 8,
   transitions: {
     easing: {
       easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
       easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
       easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
-      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)'
+      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
     },
     duration: {
       shortest: 150,
@@ -403,11 +404,8 @@ const catalogTheme = createMuiTheme({
       standard: 300,
       complex: 375,
       enteringScreen: 225,
-      leavingScreen: 195
-    }
-  },
-  spacing: {
-    unit: 8
+      leavingScreen: 195,
+    },
   },
   zIndex: {
     mobileStepper: 900,
@@ -420,7 +418,7 @@ const catalogTheme = createMuiTheme({
     layer: 2000,
     popover: 2100,
     snackbar: 2900,
-    tooltip: 3000
+    tooltip: 3000,
   },
   custom: {
     inputLabel: {
@@ -431,75 +429,75 @@ const catalogTheme = createMuiTheme({
       '& p': {
         fontSize: 12,
         fontWeight: 600,
-        color: '#000'
+        color: '#000',
       },
       '& span': {
         height: '20px',
-        fontSize: '20px'
-      }
+        fontSize: '20px',
+      },
     },
     inputText: {
       fontSize: 13,
       fontWeight: 400,
       fontFamily: '"Open Sans", sans-serif',
-      color: 'rgba(0, 0, 0, 0.90)'
-    }
+      color: 'rgba(0, 0, 0, 0.90)',
+    },
   },
   overrides: {
     MuiBottomNavigation: {
       root: {
-        height: 'auto'
-      }
+        height: 'auto',
+      },
     },
     MuiInput: {
       underline: {
         '&:before': {
-          height: '0.8px'
+          height: '0.8px',
         },
         '&:after': {
-          backgroundColor: '#5073B3'
-        }
-      }
+          backgroundColor: '#5073B3',
+        },
+      },
     },
     MuiAppBar: {
       colorPrimary: {
         backgroundColor: '#fff',
-        color: 'rgba(0, 0, 0, 0.87)'
-      }
+        color: 'rgba(0, 0, 0, 0.87)',
+      },
     },
     MuiPaper: {
       shadow4: {
-        boxShadow: '0px 1px 0px 0px rgba(0, 0, 0, 0.2)'
-      }
+        boxShadow: '0px 1px 0px 0px rgba(0, 0, 0, 0.2)',
+      },
     },
     MuiTextarea: {
       root: {
         width: '100%',
-        marginTop: '0px'
-      }
+        marginTop: '0px',
+      },
     },
     MuiFormLabel: {
       root: {
         '&$focused': {
-          color: '#5073B3'
-        }
-      }
+          color: '#5073B3',
+        },
+      },
     },
     MuiButton: {
       root: {
         '&:hover': {
-          backgroundColor: 'transparent'
-        }
-      }
+          backgroundColor: 'transparent',
+        },
+      },
     },
     MuiIconButton: {
       root: {
         '&:hover': {
-          backgroundColor: 'transparent'
-        }
-      }
-    }
-  }
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+  },
 });
 
 export default catalogTheme;

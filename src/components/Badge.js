@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {breakpoints} from '../theme';
 
-import Tooltip from 'material-ui/Tooltip';
-import {withStyles} from 'material-ui/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 
 import {
   CommunitySupportIcon,
@@ -27,16 +27,16 @@ const styles = theme => ({
   icon: {
     display: 'inline-block',
     verticalAlign: 'middle',
-    padding: theme.spacing.unit
+    padding: theme.spacing(1)
   },
   flair: {
     display: 'inline-block',
     backgroundColor: theme.palette.secondary[100],
     color: theme.palette.secondary[500],
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    fontSize: theme.typography.display4.fontSize,
-    padding: theme.spacing.unit,
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    fontSize: theme.typography.h4.fontSize,
+    padding: theme.spacing(1),
     borderRadius: '2px'
   }
 });

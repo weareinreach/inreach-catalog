@@ -1,70 +1,39 @@
 import 'normalize.css';
-import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {render} from 'react-dom';
-import AsylumConnectCatalog from './components/AsylumConnectCatalog';
-import catalogTheme from './theme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import PromisePolyfill from 'promise-polyfill';
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+import {ThemeProvider} from '@material-ui/core/styles';
+import React, {useEffect} from 'react';
+import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-ReactGA.initialize('UA-76058112-1');
+import AppCatalog from './App';
+import config from './config';
+import catalogTheme from './theme';
+
+ReactGA.initialize(config.googleAnalyticsKey);
 ReactGA.set({
-  anonymizeIp: true
+  anonymizeIp: true,
 });
-/**
- * Polyfill Promises
- */
-// Add Promise to window
-if (!window.Promise) {
-  window.Promise = PromisePolyfill;
-}
 
-/**
- * Log Google Analytics Pageview
- * @return {[type]} [description]
- */
-const logPageView = () => {
-  ReactGA.set({page: window.location.pathname + window.location.search});
-  ReactGA.pageview(window.location.pathname + window.location.search);
-  return null;
+const App = () => {
+  useEffect(() => {
+    const page = `${window.location.pathname}${window.location.search}`;
+
+    ReactGA.set({page});
+    ReactGA.pageview(page);
+  }, []);
+
+  return (
+    <ThemeProvider theme={catalogTheme}>
+      <Router>
+        <Switch>
+          <Route path="/:locale" component={AppCatalog} />
+          <Route path="/" component={AppCatalog} />
+        </Switch>
+      </Router>
+    </ThemeProvider>
+  );
 };
 
-/**
- * App entry file
- */
-
-const rootElement = document.getElementById('main');
-
-render(
-  <MuiThemeProvider theme={catalogTheme}>
-    <Router>
-      <div>
-        <Route path="/" component={logPageView} />
-        <Switch>
-          <Route
-            path="/:locale"
-            render={props => (
-              <AsylumConnectCatalog
-                match={props.match}
-                location={props.location}
-                history={props.history}
-              />
-            )}
-          />
-          <Route
-            path="/"
-            render={props => (
-              <AsylumConnectCatalog
-                match={props.match}
-                location={props.location}
-                history={props.history}
-              />
-            )}
-          />
-        </Switch>
-      </div>
-    </Router>
-  </MuiThemeProvider>,
-  rootElement
-);
+ReactDOM.render(<App />, document.getElementById('root'));

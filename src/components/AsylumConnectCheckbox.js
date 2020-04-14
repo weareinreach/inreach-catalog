@@ -1,45 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {withStyles} from 'material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
-import {FormControlLabel} from 'material-ui/Form';
-import Checkbox from 'material-ui/Checkbox';
-import CheckBoxIcon from 'material-ui-icons/CheckBox';
-import CheckBoxOutlineBlankIcon from 'material-ui-icons/CheckBoxOutlineBlank';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 const relativeSize = 1;
 
 const defaultIconSize = {
   height: relativeSize + 'rem',
-  width: relativeSize + 'rem'
+  width: relativeSize + 'rem',
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     marginLeft: '0',
     color: theme.palette.common.lightBlack, //fix this for non-resource-type checkboxes
     '&:hover': {
-      color: theme.palette.secondary[500]
-    }
+      color: theme.palette.secondary[500],
+    },
   },
   checkboxDefault: {
     color: 'inherit',
     width: relativeSize * 2 + 'rem',
-    height: relativeSize * 2 + 'rem'
+    height: relativeSize * 2 + 'rem',
   },
   checkboxChecked: {
     color: theme.palette.secondary[500],
     width: relativeSize * 2 + 'rem',
-    height: relativeSize * 2 + 'rem'
+    height: relativeSize * 2 + 'rem',
   },
   checkboxDisabled: {
-    color: theme.palette.common.lightBlack
+    color: theme.palette.common.lightBlack,
   },
-  labelClass: {}
+  labelClass: {},
 });
 
-const AsylumConnectCheckbox = props => {
+const AsylumConnectCheckbox = (props) => {
   const classes = Object.assign(props.classes, props.overrideClasses);
 
   const rootClass = classNames(
@@ -77,7 +77,7 @@ const AsylumConnectCheckbox = props => {
           classes={{
             root: checkboxDefault,
             checked: checkboxChecked,
-            disabled: checkboxDisabled
+            disabled: checkboxDisabled,
           }}
           onChange={props.onChange}
           disabled={props.disabled ? true : false}
@@ -86,7 +86,7 @@ const AsylumConnectCheckbox = props => {
       label={props.label}
       classes={{
         root: rootClass,
-        label: labelClass
+        label: labelClass,
       }}
     />
   );
@@ -97,7 +97,7 @@ AsylumConnectCheckbox.propTypes = {
   checked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(AsylumConnectCheckbox);

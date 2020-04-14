@@ -1,15 +1,15 @@
 import React from 'react';
 
-import {withStyles} from 'material-ui/styles';
-import {ListItem} from 'material-ui/List';
+import {withStyles} from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
 
-const styles = theme => ({
+const styles = (theme) => ({
   rootClass: {
     '&:hover': {
       color: theme.palette.common.white,
-      backgroundColor: theme.palette.secondary[900]
-    }
-  }
+      backgroundColor: theme.palette.secondary[900],
+    },
+  },
 });
 
 class AsylumConnectDropdownListItem extends React.Component {

@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {withStyles} from 'material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
-import {FormControlLabel} from 'material-ui/Form';
-import Switch from 'material-ui/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     marginLeft: '0',
     color: theme.palette.common.lightBlack, //fix this for non-resource-type checkboxes
     '&:hover': {
-      color: theme.palette.secondary[500]
-    }
+      color: theme.palette.secondary[500],
+    },
   },
   switchRoot: {},
   checkboxDefault: {},
@@ -20,12 +20,12 @@ const styles = theme => ({
   checkboxChecked: {
     color: theme.palette.secondary[500],
     '& + $bar': {
-      backgroundColor: theme.palette.secondary[500]
-    }
-  }
+      backgroundColor: theme.palette.secondary[500],
+    },
+  },
 });
 
-const AsylumConnectSwitch = props => {
+const AsylumConnectSwitch = (props) => {
   const classes = Object.assign(props.classes, props.overrideClasses);
 
   const rootClass = classNames(
@@ -60,7 +60,7 @@ const AsylumConnectSwitch = props => {
           classes={{
             default: checkboxDefault,
             checked: checkboxChecked,
-            bar: checkboxBar
+            bar: checkboxBar,
           }}
           onChange={props.onChange}
         />
@@ -68,7 +68,7 @@ const AsylumConnectSwitch = props => {
       label={props.label}
       classes={{
         root: rootClass,
-        label: labelClass
+        label: labelClass,
       }}
     />
   );
@@ -78,7 +78,7 @@ AsylumConnectSwitch.propTypes = {
   onChange: PropTypes.func.isRequired,
   checked: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(AsylumConnectSwitch);

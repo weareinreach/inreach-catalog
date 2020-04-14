@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {withStyles} from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Paper from 'material-ui/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   rootClass: {
     boxShadow: 'none'
   },
   containerClass: {
-    paddingTop: theme.spacing.unit * 5,
-    paddingBottom: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
     [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing.unit * 2,
-      paddingBottom: theme.spacing.unit * 2
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2)
     }
   },
   borderTop: {
@@ -24,11 +24,11 @@ const styles = theme => ({
     paddingBottom: '1px solid ' + theme.palette.common.separator
   },
   detailsRootClass: {
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
     paddingBottom: 0
   },
   summaryRootClass: {
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2)
   },
   summaryExpandedClass: {
     minHeight: '0!important',
@@ -63,7 +63,7 @@ class AsylumConnectStaticSection extends React.Component {
     return (
       <div className={containerClasses}>
         <Paper className={rootClass}>
-          <Typography variant="title" className={summaryRootClass}>
+          <Typography variant="h2" className={summaryRootClass}>
             {title}
           </Typography>
           <Typography variant="body1">{content}</Typography>

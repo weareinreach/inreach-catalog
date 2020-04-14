@@ -1,38 +1,32 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import {MenuItem} from 'material-ui/Menu';
+import React from 'react';
 import Modal from 'react-modal';
+import MediaQuery from 'react-responsive';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectPopUp from './AsylumConnectPopUp';
-import RedHeartIcon from './icons/RedHeartIcon';
-import MediaQuery from 'react-responsive';
+import {RedHeartIcon} from './icons';
+import {createList, createListFavorite, deleteListFavorite} from '../utils/api';
 
-import {
-  createList,
-  createListFavorite,
-  deleteListFavorite
-} from '../helpers/odasRequests';
-
-const styles = theme => ({
+const styles = (theme) => ({
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
     '&:hover': {
-      color: theme.palette.secondary[900]
+      color: theme.palette.secondary[900],
     },
     fontWeight: theme.typography.fontWeightMedium,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textBlue: {color: theme.palette.common.blue},
   favoriteItem: {
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
 
 class SaveToFavoritesButton extends React.Component {
@@ -40,12 +34,12 @@ class SaveToFavoritesButton extends React.Component {
     super(props);
 
     this.state = {
-      modal: false
+      modal: false,
     };
 
     this.state = {
       anchorEl: null,
-      open: false
+      open: false,
     };
 
     this.handleCreateList = this.handleCreateList.bind(this);
@@ -57,20 +51,11 @@ class SaveToFavoritesButton extends React.Component {
   }
 
   handleCreateList(currentTarget) {
-    const {session, user} = this.props;
-    const payload = {
-      created_by_user_id: user,
-      title: 'My List'
-    };
-    createList(payload, session)
-      .then(data => {
-        this.props.handleListNew(
-          Object.assign({}, payload, data.collection, {
-            fetchable_list_items: []
-          })
-        );
-        this.handleSaveToFavorites(data.collection.id);
-        this.setState({open: true, anchorEl: currentTarget});
+    const {userData} = this.props;
+
+    createList({name: 'My List', userId: userData?._id})
+      .then((data) => {
+        // this.handleSaveToFavorites(data.collection.id);
       })
       .catch(this.handleFetchError);
   }
@@ -91,7 +76,7 @@ class SaveToFavoritesButton extends React.Component {
     const {currentTarget} = event;
     if (!this.props.session) {
       this.setState({modal: true});
-    } else if (this.props.lists.length < 1) {
+    } else if (true && this.props.lists.length < 1) {
       this.handleCreateList(currentTarget);
     } else if (this.state.open) {
       this.setState({open: false, anchorEl: null});
@@ -106,16 +91,25 @@ class SaveToFavoritesButton extends React.Component {
 
   handleRemoveFavorite(listId) {
     this.handleMenuClose();
-    const {handleListRemoveFavorite, resourceId, session} = this.props;
-    deleteListFavorite(listId, resourceId, session).then(() => {
-      handleListRemoveFavorite(listId, resourceId);
-    });
+    const {handleListRemoveFavorite, resourceId, userData} = this.props;
+
+    deleteListFavorite({listId, itemId: resourceId, userId: userData._id}).then(
+      () => {
+        handleListRemoveFavorite(listId, resourceId);
+      }
+    );
   }
 
   handleSaveToFavorites(listId) {
     this.handleMenuClose();
-    const {resourceId, session} = this.props;
-    createListFavorite(listId, resourceId, session)
+    const {resourceId, userData} = this.props;
+
+    createListFavorite({
+      listId,
+      itemId: resourceId,
+      orgId: this.props?.parentResourceId,
+      userId: userData._id,
+    })
       .then(() => {
         this.props.handleListAddFavorite(listId, this.props.resourceId);
       })
@@ -127,13 +121,12 @@ class SaveToFavoritesButton extends React.Component {
       handleMenuClose,
       handleMenuToggle,
       handleRemoveFavorite,
-      handleSaveToFavorites
+      handleSaveToFavorites,
     } = this;
     const {anchorEl, open} = this.state;
     const {classes, lists, resourceId} = this.props;
-    //console.log(resourceId);
-    const isFavorite = lists.some(list =>
-      list.fetchable_list_items.some(item => item.fetchable_id === resourceId)
+    const isFavorite = lists.some((list) =>
+      list.items.some((item) => item.fetchable_id === resourceId)
     );
 
     return (
@@ -153,8 +146,8 @@ class SaveToFavoritesButton extends React.Component {
                 width: '40%',
                 padding: 0,
                 fontFamily: '"Open Sans", sans-serif',
-                background: '#FFFFFF'
-              }
+                background: '#FFFFFF',
+              },
             }}
             isOpen={this.state.modal}
           >
@@ -168,7 +161,7 @@ class SaveToFavoritesButton extends React.Component {
                   height: 0,
                   top: '38px',
                   border: '1px solid #E9E9E9',
-                  zIndex: 0
+                  zIndex: 0,
                 }}
               ></div>
               <div
@@ -181,7 +174,7 @@ class SaveToFavoritesButton extends React.Component {
                   height: '40px',
                   backgroundColor: '#FFFFFF',
                   zIndex: 1,
-                  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)'
+                  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)',
                 }}
               >
                 <div style={{paddingTop: '10px', textAlign: 'center'}}>
@@ -193,7 +186,7 @@ class SaveToFavoritesButton extends React.Component {
               <p>Oops! You need to be logged in to share resources.</p>
               <p
                 style={{
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
                 }}
               >
                 With a free AsylumConnect account you can unlock additional
@@ -222,7 +215,7 @@ class SaveToFavoritesButton extends React.Component {
                   color: '#FFFFFF',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
-                  paddingTop: '5px'
+                  paddingTop: '5px',
                 }}
                 onClick={() => this.props.handleRequestOpen('signup')}
               >
@@ -243,7 +236,7 @@ class SaveToFavoritesButton extends React.Component {
                   textTransform: 'uppercase',
                   border: 'solid',
                   color: '#5073B3',
-                  paddingTop: '5px'
+                  paddingTop: '5px',
                 }}
                 onClick={() => {
                   this.setState({modal: false});
@@ -264,8 +257,8 @@ class SaveToFavoritesButton extends React.Component {
                 bottom: 'auto',
                 padding: 0,
                 fontFamily: '"Open Sans", sans-serif',
-                background: '#FFFFFF'
-              }
+                background: '#FFFFFF',
+              },
             }}
             isOpen={this.state.modal}
           >
@@ -279,7 +272,7 @@ class SaveToFavoritesButton extends React.Component {
                   height: 0,
                   top: '38px',
                   border: '1px solid #E9E9E9',
-                  zIndex: 0
+                  zIndex: 0,
                 }}
               ></div>
               <div
@@ -292,7 +285,7 @@ class SaveToFavoritesButton extends React.Component {
                   height: '40px',
                   backgroundColor: '#FFFFFF',
                   zIndex: 1,
-                  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)'
+                  boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)',
                 }}
               >
                 <div style={{paddingTop: '10px', textAlign: 'center'}}>
@@ -304,7 +297,7 @@ class SaveToFavoritesButton extends React.Component {
               <p>Oops! You need to be logged in to share resources.</p>
               <p
                 style={{
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
                 }}
               >
                 With a free AsylumConnect account you can unlock additional
@@ -333,7 +326,7 @@ class SaveToFavoritesButton extends React.Component {
                   color: '#FFFFFF',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
-                  paddingTop: '5px'
+                  paddingTop: '5px',
                 }}
                 onClick={() => this.props.handleRequestOpen('signup')}
               >
@@ -354,7 +347,7 @@ class SaveToFavoritesButton extends React.Component {
                   textTransform: 'uppercase',
                   border: 'solid',
                   color: '#5073B3',
-                  paddingTop: '5px'
+                  paddingTop: '5px',
                 }}
                 onClick={() => {
                   this.setState({modal: false});
@@ -374,21 +367,21 @@ class SaveToFavoritesButton extends React.Component {
           onClose={handleMenuClose}
           PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}
         >
-          {lists.map(list => {
-            const isFavoriteItem = list.fetchable_list_items.some(
-              item => item.fetchable_id === resourceId
+          {lists.map((list) => {
+            const isFavoriteItem = list.items.some(
+              (item) => item.fetchable_id === resourceId
             );
             return (
               <MenuItem
                 className={classes.favoriteItem}
-                key={list.id}
+                key={list._id}
                 onClick={() =>
                   isFavoriteItem
-                    ? handleRemoveFavorite(list.id)
-                    : handleSaveToFavorites(list.id)
+                    ? handleRemoveFavorite(list._id)
+                    : handleSaveToFavorites(list._id)
                 }
               >
-                <span>{list.title}</span>
+                <span>{list.name}</span>
                 <RedHeartIcon
                   width={'24px'}
                   fill={isFavoriteItem}
@@ -415,7 +408,7 @@ class SaveToFavoritesButton extends React.Component {
 
 SaveToFavoritesButton.defaultProps = {
   session: null,
-  user: null
+  user: null,
 };
 
 SaveToFavoritesButton.propTypes = {
@@ -429,12 +422,12 @@ SaveToFavoritesButton.propTypes = {
   lists: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      id: PropTypes.number
+      id: PropTypes.number,
     })
   ).isRequired,
   resourceId: PropTypes.number.isRequired,
   session: PropTypes.string,
-  user: PropTypes.number
+  user: PropTypes.number,
 };
 
 export default withStyles(styles)(SaveToFavoritesButton);
