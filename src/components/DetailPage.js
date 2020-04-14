@@ -45,6 +45,27 @@ import {
   mobilePadding,
 } from '../theme';
 
+const formatOrganization = (organization) => {
+  return {
+    ...organization,
+    alertMessage: organization?.alert_message,
+  };
+};
+
+const formatService = (service) => {
+  const organization = service?.organization;
+
+  return {
+    ...service,
+    alertMessage: organization?.alert_message,
+    emails: [getOrgItem(service?.email_id, organization?.emails)],
+    locations: [getOrgItem(service?.location_id, organization?.locations)],
+    phones: [getOrgItem(service?.phone_id, organization?.phones)],
+    schedules: [getOrgItem(service?.schedule_id, organization?.schedules)],
+    website: organization?.website,
+  };
+};
+
 const getOrgItem = (id, list = []) => {
   const itemWithId = list.find((item) => item._id === id);
 
@@ -272,13 +293,15 @@ class Detail extends React.Component {
     this.setState({loading: true});
 
     getOrganizationBySlug(orgSlug).then((organization) => {
+      const formattedOrg = formatOrganization(organization);
+
       this.setState({
         loading: false,
-        organization,
+        organization: formattedOrg,
       });
 
       if (this.props.setSelectedResource) {
-        this.props.setSelectedResource(organization);
+        this.props.setSelectedResource(formattedOrg);
       }
       this.handleSupplementalInfoRequest(organization);
     });
@@ -288,18 +311,21 @@ class Detail extends React.Component {
     this.setState({loading: true});
 
     getServiceBySlug(orgSlug, serviceSlug).then((service) => {
-      const organization = service?.organization;
+      const formattedService = formatService(service);
 
       this.setState({
         loading: false,
-        organization,
-        service,
+        organization: formattedService.organization,
+        service: formattedService,
       });
 
       if (this.props.setSelectedService) {
-        this.props.setSelectedService(service);
+        this.props.setSelectedService(formattedService);
       }
-      this.handleSupplementalInfoRequest(organization, service);
+      this.handleSupplementalInfoRequest(
+        formattedService.organization,
+        formattedService
+      );
     });
   }
 
@@ -392,30 +418,18 @@ class Detail extends React.Component {
     } = this.state;
     const type = this.isServicePage ? 'service' : 'organization';
     const resource = this.isServicePage ? service : organization;
-    // These fields exist on both orgs and services
-    const {_id, name, properties = {}, services = []} = resource || {};
-    const {alertMessage, emails, locations, phones, schedules, website} = this
-      .isServicePage
-      ? {
-          alertMessage: organization?.alert_message,
-          emails: [getOrgItem(service?.email_id, organization?.emails)],
-          locations: [
-            getOrgItem(service?.location_id, organization?.locations),
-          ],
-          phones: [getOrgItem(service?.phone_id, organization?.phones)],
-          schedules: [
-            getOrgItem(service?.schedule_id, organization?.schedules),
-          ],
-          website: organization?.website,
-        }
-      : {
-          alertMessage: organization?.alert_message,
-          emails: organization?.emails,
-          locations: organization?.locations,
-          phones: organization?.phones,
-          schedules: organization?.schedules,
-          website: organization?.website,
-        };
+    const {
+      _id,
+      alertMessage,
+      emails,
+      locations,
+      name,
+      phones,
+      properties = {},
+      schedules,
+      services = [],
+      website,
+    } = resource || {};
     const allProperties = this.isServicePage
       ? properties
       : combineProperties([resource, ...services]);

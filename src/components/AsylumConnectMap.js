@@ -12,8 +12,8 @@ import AsylumConnectMarker from './AsylumConnectMarker';
 const getLatLong = (location) => {
   const lat = location.lat;
   const lng = location.lng || location.long;
-  const parsedLat = parseInt(lat, 10);
-  const parsedLng = parseInt(lng, 10);
+  const parsedLat = parseFloat(lat, 10);
+  const parsedLng = parseFloat(lng, 10);
 
   return {lat: parsedLat, lng: parsedLng};
 };
@@ -63,8 +63,8 @@ class AsylumConnectMap extends React.Component {
       const locations = resource?.locations || [];
       let points = locations.length
         ? locations
-        : resource.lat && resource.lng && resource.region
-        ? [{lat: resource.lat, lng: resource.lng, region: resource.region}]
+        : resource.lat && resource.lng
+        ? [{lat: resource.lat, lng: resource.lng}]
         : [];
 
       points.forEach((location) => {
@@ -129,6 +129,7 @@ class AsylumConnectMap extends React.Component {
 
     if (this.map && (resources.length || !this.props.searchCenter)) {
       let centerLatLng = this.map.getCenter();
+
       center = {lat: centerLatLng.lat(), lng: centerLatLng.lng()};
       zoom = this.map.getZoom();
     }
