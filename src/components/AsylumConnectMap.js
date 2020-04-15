@@ -9,9 +9,9 @@ import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 
 import AsylumConnectMarker from './AsylumConnectMarker';
 
-const getLatLong = (location) => {
-  const lat = location.lat;
-  const lng = location.lng || location.long;
+const getLatLong = (location = {}) => {
+  const lat = location?.lat;
+  const lng = location?.lng || location?.long;
   const parsedLat = parseFloat(lat, 10);
   const parsedLng = parseFloat(lng, 10);
 
@@ -50,12 +50,12 @@ class AsylumConnectMap extends React.Component {
     ) {
       bounds.extend(this.props.searchCenter);
       bounds.extend({
-        lat: this.props.searchCenter.lat - 0.1,
-        lng: this.props.searchCenter.lng - 0.1,
+        lat: this.props.searchCenter?.lat - 0.1,
+        lng: this.props.searchCenter?.lng - 0.1,
       });
       bounds.extend({
-        lat: this.props.searchCenter.lat + 0.1,
-        lng: this.props.searchCenter.lng + 0.1,
+        lat: this.props.searchCenter?.lat + 0.1,
+        lng: this.props.searchCenter?.lng + 0.1,
       });
     }
 
@@ -82,8 +82,8 @@ class AsylumConnectMap extends React.Component {
           window?.google?.maps?.geometry?.spherical?.computeDistanceBetween &&
           window.google.maps.geometry.spherical.computeDistanceBetween(
             new window.google.maps.LatLng(
-              this.props.searchCenter.lat,
-              this.props.searchCenter.lng
+              this.props.searchCenter?.lat,
+              this.props.searchCenter?.lng
             ),
             new window.google.maps.LatLng(lat, lng)
           ) >
