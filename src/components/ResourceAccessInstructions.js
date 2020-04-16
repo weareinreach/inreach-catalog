@@ -154,9 +154,9 @@ const DetailAccessInstructions = (props) => {
                     </Typography>
                   );
                 case 'location':
-                  if (item.locations && item.locations.length) {
-                    const locationValue = item.access_value || location;
+                  const locationValue = item?.access_value || location;
 
+                  if (locationValue) {
                     return (
                       <div key={index}>
                         <Typography
@@ -164,10 +164,10 @@ const DetailAccessInstructions = (props) => {
                           className={classes.lineSpacing}
                         >
                           <strong className={classes.boldFont}>
-                            {locationValue}:{' '}
+                            Location:{' '}
                           </strong>
-                          {locationValue || AddressParser({address: location})}
-
+                          {item?.access_value ||
+                            AddressParser({address: location})}
                           <Fa
                             name="map-marker"
                             className={classes.mobileIcon}
