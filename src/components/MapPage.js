@@ -31,7 +31,7 @@ const styles = (theme) => ({
   },
 });
 
-class MapContainer extends React.Component {
+class MapPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -464,9 +464,9 @@ class MapContainer extends React.Component {
   }
 
   setSelectedResource(resource) {
-    if (resource) {
-      this.recentResourceCache[resource.slug.toLowerCase()] = resource;
-    }
+    // if (resource) {
+    //   this.recentResourceCache[resource?.slug?.toLowerCase()] = resource;
+    // }
     this.setState({
       selectedResource: resource,
     });
@@ -792,4 +792,4 @@ class MapContainer extends React.Component {
   }
 }
 
-export default withStyles(styles)(withWidth(MapContainer));
+export default withStyles(styles)(withWidth(MapPage));
