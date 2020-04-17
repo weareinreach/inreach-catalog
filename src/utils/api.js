@@ -66,6 +66,7 @@ export const fetchOrganizations = (params) => {
     city,
     ids,
     locale,
+    name,
     owner,
     page,
     selectedFilters,
@@ -77,6 +78,10 @@ export const fetchOrganizations = (params) => {
 
   if (ids) {
     query.ids = ids;
+  }
+
+  if (name) {
+    query.name = name;
   }
 
   if (owner) {
@@ -129,7 +134,13 @@ export const fetchOrganizations = (params) => {
   }
 
   if (selectedFilters) {
-    const filterProps = selectedFilters.map((property) => `${property}=true`);
+    const filterProps = selectedFilters.map((property) => {
+      if (property === 'at-capacity') {
+        return `${property}=$existsFalse`;
+      } else {
+        return `${property}=true`;
+      }
+    });
 
     query.properties = query.properties.concat(filterProps);
   }
