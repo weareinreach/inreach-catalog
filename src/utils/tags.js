@@ -59,7 +59,7 @@ const resourceTypes = [
   {
     category: 'Education and Employment',
     type: 'educationEmployment',
-    acTag: 'Career counselling',
+    acTag: 'Career counseling',
     title: 'Career counselling',
   },
   {
@@ -310,7 +310,7 @@ const resourceTypes = [
   {
     category: 'Mental Health',
     type: 'mentalHealth',
-    acTag: 'Private therapy and counselling',
+    acTag: 'Private therapy and counseling',
     title: 'Private therapy and counselling',
   },
   {
