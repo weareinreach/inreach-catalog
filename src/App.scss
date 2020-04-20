@@ -72,27 +72,6 @@ input[class*='inputSingleline'] {
   }
 }
 
-.safetyExit {
-  @media screen and (min-width: 1260px) {
-    left: 45%
-  }
-  @media screen and (max-width: 1259px) and (min-width: 1187px) {
-    left: 43%
-  }
-  @media screen and (max-width: 1186px) and (min-width: 1072px) {
-    left: 40%
-  }
-  @media screen and (max-width: 1071px) and (min-width: 1000px) {
-    left: 38%
-  }
-  @media screen and (max-width: 999px) {
-    left: 37%
-  }
-  @media screen and (max-width: 976px) {
-    left: 36.5%
-  }
-}
-
 
 .sticky {
   position: -webkit-sticky;
