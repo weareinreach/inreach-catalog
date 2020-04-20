@@ -91,9 +91,9 @@ class NavTabletMenu extends React.Component {
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
-            <Link to="/">
-              <Typography type="h4">find resource</Typography>
-            </Link>
+            <a href="https://www.google.com/">
+              <Typography type="h4">safety exit</Typography>
+            </a>
           </MenuItem>
         </Menu>
       </div>
