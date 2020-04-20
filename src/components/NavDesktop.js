@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Typography from '@material-ui/core/Typography';
 
 import AccountNav from './AccountNav';
@@ -36,22 +35,22 @@ const styles = (theme) => ({
      boxSizing: "none",
      backgroundColor: "transparent",
      width: '180px'
+  },
+  safetyExitStyle : {
+    zIndex: '2',
+    textAlign: 'center',
+    margin: '20px auto 0 auto',
+    top: '5px',
+    position: 'fixed',
+    '@media (min-width:1260px)': { left: '45%' },
+    '@media (max-width: 1259px)': { left: '43%' },
+    '@media (max-width: 1186px)': { left: '40%' },
+    '@media (max-width: 1071px)': { left: '38%' },
+    '@media (max-width: 999px)': { left: '37%' },
+    '@media (max-width: 976px)': { left: ' 36.5%' }
   }
 });
 
-const safetyExitStyle  = {
-      zIndex: '2',
-      textAlign: 'center',
-      margin: '20px auto 0 auto',
-      top: '5px',
-      position: 'fixed',
-      '@media (min-width:1260px)': { left: '45%' },
-      [`@media screen and (max-width: 1259px) and (min-width: 1187px)`]: { left: '43%' },
-      [`@media screen and (max-width: 1186px) and (min-width: 1072px`]: { left: '40%' },
-      [`@media screen and (max-width: 1071px) and (min-width: 1000px)`]: { left: '38%' },
-      [`@media screen and (max-width: 999px)`]: { left: '37%' },
-      [`@media screen and and (max-width: 976px)`]: { left: ' 36.5%' }
-}
 
 const NavDesktop = ({
   classes,
@@ -97,7 +96,7 @@ const NavDesktop = ({
         />
         <FavoritesLink locale={locale}>view your favorites</FavoritesLink>
       </div>
-      <div class="safetyExit" style={safetyExitStyle} >
+      <div class="safetyExit" className={classes.safetyExitStyle} >
       <a className="hide--on-print" href="https://www.google.com/">
         <AsylumConnectButton variant="primary">
           safety exit
