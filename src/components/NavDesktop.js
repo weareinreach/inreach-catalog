@@ -2,28 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Typography from '@material-ui/core/Typography';
 
 import AccountNav from './AccountNav';
 import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
 import Language from './Language';
-import '../App.scss'
-
-const transparentSpace = {
-  outline: "none",
-   border: "0px",
-   boxSizing: "none",
-   backgroundColor: "transparent",
-   width: '180px'
-}
-const safetyExitStyle  = {
-      zIndex: '2',
-      textAlign: 'center',
-      margin: '20px auto 0 auto',
-      top: '5px',
-      position: 'fixed'
-}
 
 const styles = (theme) => ({
   root: {
@@ -45,7 +30,28 @@ const styles = (theme) => ({
     width: 'auto',
     maxWidth: '65px',
   },
+  transparentSpace: {
+    outline: "none",
+     border: "0px",
+     boxSizing: "none",
+     backgroundColor: "transparent",
+     width: '180px'
+  }
 });
+
+const safetyExitStyle  = {
+      zIndex: '2',
+      textAlign: 'center',
+      margin: '20px auto 0 auto',
+      top: '5px',
+      position: 'fixed',
+      '@media (min-width:1260px)': { left: '45%' },
+      [`@media screen and (max-width: 1259px) and (min-width: 1187px)`]: { left: '43%' },
+      [`@media screen and (max-width: 1186px) and (min-width: 1072px`]: { left: '40%' },
+      [`@media screen and (max-width: 1071px) and (min-width: 1000px)`]: { left: '38%' },
+      [`@media screen and (max-width: 999px)`]: { left: '37%' },
+      [`@media screen and and (max-width: 976px)`]: { left: ' 36.5%' }
+}
 
 const NavDesktop = ({
   classes,
@@ -80,7 +86,7 @@ const NavDesktop = ({
           <Typography variant="h6">contact us</Typography>
         </a>
         <a className="hide--on-print" href="/">
-          <div style={transparentSpace}></div>
+          <div className={classes.transparentSpace}></div>
         </a>
         <Language />
         <AccountNav
