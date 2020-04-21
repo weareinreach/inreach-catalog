@@ -11,13 +11,34 @@ import Language from './Language';
 
 const styles = (theme) => ({
   root: {
+    position: 'sticky',
+    top: '0px',
+    zIndex: '1000',
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 0',
-    maxWidth: theme.maxColumnWidth,
     margin: '0 auto',
+    backgroundColor: 'white',
+    '@media(min-width:1640px)': {
+      padding: '10px 15%'
+    },
+    '@media(max-width:1639px)': {
+      padding: '10px 9%'
+    },
+    '@media(max-width:1550px)': {
+      padding: '10px 7%'
+    },
+    '@media(max-width:1440px)': {
+      padding: '10px 5%'
+    },
+    '@media(max-width:1400px)': {
+      padding: '10px 2%'
+    },
+    '@media(max-width:1315px)': {
+      padding: '10px 0'
+    },
   },
   displayInherit: {
     display: 'inherit',
@@ -27,7 +48,7 @@ const styles = (theme) => ({
     height: '60px',
     width: 'auto',
     maxWidth: '65px',
-  },
+  }
 });
 
 const NavDesktop = ({
@@ -61,11 +82,11 @@ const NavDesktop = ({
       <a className="hide--on-print" href="https://asylumconnect.org/contact/">
         <Typography variant="h6">contact us</Typography>
       </a>
-      <Link className="hide--on-print" to="/">
-        <AsylumConnectButton variant="secondary">
-          find resources
+      <a className="hide--on-print" href="https://www.google.com/">
+        <AsylumConnectButton variant="primary">
+          safety exit
         </AsylumConnectButton>
-      </Link>
+      </a>
       <Language />
       <AccountNav
         handleLogOut={handleLogOut}
