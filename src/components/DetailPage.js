@@ -516,6 +516,9 @@ class Detail extends React.Component {
                       <Modal
                         ariaHideApp={false}
                         style={{
+                          overlay: {
+                            zIndex: 9999,
+                          },
                           content: {
                             position: 'absolute',
                             bottom: 'auto',

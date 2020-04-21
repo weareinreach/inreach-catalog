@@ -102,6 +102,9 @@ const Tools = (props) => {
         <Modal
           ariaHideApp={false}
           style={{
+            overlay: {
+              zIndex: 9999,
+            },
             content: {
               position: 'absolute',
               top: '25%',

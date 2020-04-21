@@ -138,6 +138,9 @@ class SaveToFavoritesButton extends React.Component {
           <Modal
             ariaHideApp={false}
             style={{
+              overlay: {
+                zIndex: 9999,
+              },
               content: {
                 position: 'absolute',
                 top: '25%',
@@ -251,6 +254,9 @@ class SaveToFavoritesButton extends React.Component {
           <Modal
             ariaHideApp={false}
             style={{
+              overlay: {
+                zIndex: 9999,
+              },
               content: {
                 position: 'absolute',
                 top: '5%',
