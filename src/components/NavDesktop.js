@@ -11,14 +11,34 @@ import Language from './Language';
 
 const styles = (theme) => ({
   root: {
+    position: 'sticky',
+    top: '0px',
+    zIndex: '1000',
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 0',
-    maxWidth: theme.maxColumnWidth,
     margin: '0 auto',
-    zIndex: '1'
+    backgroundColor: 'white',
+    '@media(min-width:1640px)': {
+      padding: '10px 15%'
+    },
+    '@media(max-width:1639px)': {
+      padding: '10px 9%'
+    },
+    '@media(max-width:1550px)': {
+      padding: '10px 7%'
+    },
+    '@media(max-width:1440px)': {
+      padding: '10px 5%'
+    },
+    '@media(max-width:1400px)': {
+      padding: '10px 2%'
+    },
+    '@media(max-width:1315px)': {
+      padding: '10px 0'
+    },
   },
   displayInherit: {
     display: 'inherit',
@@ -28,29 +48,8 @@ const styles = (theme) => ({
     height: '60px',
     width: 'auto',
     maxWidth: '65px',
-  },
-  transparentSpace: {
-    outline: "none",
-     border: "0px",
-     boxSizing: "none",
-     backgroundColor: "transparent",
-     width: '180px'
-  },
-  safetyExitStyle : {
-    zIndex: '2',
-    textAlign: 'center',
-    margin: '20px auto 0 auto',
-    top: '5px',
-    position: 'fixed',
-    '@media (min-width:1260px)': { left: '45%' },
-    '@media (max-width: 1259px)': { left: '43%' },
-    '@media (max-width: 1186px)': { left: '40%' },
-    '@media (max-width: 1071px)': { left: '38%' },
-    '@media (max-width: 999px)': { left: '37%' },
-    '@media (max-width: 976px)': { left: ' 36.5%' }
   }
 });
-
 
 const NavDesktop = ({
   classes,
@@ -61,48 +60,41 @@ const NavDesktop = ({
   session,
 }) => {
   return (
-    <div>
-      <div className={classes.root}>
-        <Link to="/">
-          <img src={logo} alt="logo button" className={classes.IconButton} />
-        </Link>
-        <a className="hide--on-screen" href="/#">
-          <Typography variant="h1">AsylumConnect Catalog</Typography>
-        </a>
-        <a className="hide--on-print" href="https://asylumconnect.org/mission/">
-          <Typography variant="h6">about us</Typography>
-        </a>
-        <a className="hide--on-print" href="https://asylumconnect.org/donate/">
-          <Typography variant="h6">take action</Typography>
-        </a>
-        <a
-          className="hide--on-print"
-          href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/"
-        >
-          <Typography variant="h6">get help</Typography>
-        </a>
-        <a className="hide--on-print" href="https://asylumconnect.org/contact/">
-          <Typography variant="h6">contact us</Typography>
-        </a>
-        <a className="hide--on-print" href="/">
-          <div className={classes.transparentSpace}></div>
-        </a>
-        <Language />
-        <AccountNav
-          handleLogOut={handleLogOut}
-          handleRequestOpen={handleRequestOpen}
-          locale={locale}
-          session={session}
-        />
-        <FavoritesLink locale={locale}>view your favorites</FavoritesLink>
-      </div>
-      <div class="safetyExit" className={classes.safetyExitStyle} >
+    <div className={classes.root}>
+      <Link to="/">
+        <img src={logo} alt="logo button" className={classes.IconButton} />
+      </Link>
+      <a className="hide--on-screen" href="/#">
+        <Typography variant="h1">AsylumConnect Catalog</Typography>
+      </a>
+      <a className="hide--on-print" href="https://asylumconnect.org/mission/">
+        <Typography variant="h6">about us</Typography>
+      </a>
+      <a className="hide--on-print" href="https://asylumconnect.org/donate/">
+        <Typography variant="h6">take action</Typography>
+      </a>
+      <a
+        className="hide--on-print"
+        href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/"
+      >
+        <Typography variant="h6">get help</Typography>
+      </a>
+      <a className="hide--on-print" href="https://asylumconnect.org/contact/">
+        <Typography variant="h6">contact us</Typography>
+      </a>
       <a className="hide--on-print" href="https://www.google.com/">
         <AsylumConnectButton variant="primary">
           safety exit
         </AsylumConnectButton>
       </a>
-      </div>
+      <Language />
+      <AccountNav
+        handleLogOut={handleLogOut}
+        handleRequestOpen={handleRequestOpen}
+        locale={locale}
+        session={session}
+      />
+      <FavoritesLink locale={locale}>view your favorites</FavoritesLink>
     </div>
   );
 };
