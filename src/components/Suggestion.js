@@ -540,17 +540,19 @@ class Suggestion extends React.Component {
             published.{' '}
             {locale === 'en_US' ? (
               <>
-                Note: This form is to suggest new resources in the United
-                States. If you would like to suggest a new resource in Canada,
-                please <a href="/en_CA/suggestions/new">click here</a> to fill
-                out our Canadian form.
+                <strong>Note:</strong> This form is to suggest new resources in
+                the United States. If you would like to suggest a new resource
+                in Canada, please{' '}
+                <a href="/en_CA/suggestions/new">click here</a> to fill out our
+                Canadian form.
               </>
             ) : (
               <>
-                Note: This form is to suggest new resources in Canada. If you
-                would like to suggest a new resource in the United States,
-                please <a href="/en_US/suggestions/new">click here</a> to fill
-                out our United States form.
+                <strong>Note:</strong> This form is to suggest new resources in
+                Canada. If you would like to suggest a new resource in the
+                United States, please{' '}
+                <a href="/en_US/suggestions/new">click here</a> to fill out our
+                United States form.
               </>
             )}
           </Typography>
