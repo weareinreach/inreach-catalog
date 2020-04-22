@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import update from 'react-addons-update';
-import {geocodeByAddress} from 'react-places-autocomplete';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import SuggestInfo from './SuggestInfo';
 import SuggestHour from './SuggestHour';
 import SuggestAdditional from './SuggestAdditional';
 import AsylumConnectButton from './AsylumConnectButton';
-import {catalogPost} from '../utils/api';
+import { catalogPost } from '../utils/api';
 
 const styles = (theme) => ({
   root: {
@@ -142,7 +142,7 @@ class Suggestion extends React.Component {
           name: 'has-confidentiality-policy',
           value: false,
         },
-        {label: 'Cost Free', name: 'cost-free', value: false},
+        { label: 'Cost Free', name: 'cost-free', value: false },
       ],
       requirements: [
         {
@@ -198,21 +198,21 @@ class Suggestion extends React.Component {
   }
 
   handleChangeGeneralInfo(name, value) {
-    const {resourceData} = this.state;
+    const { resourceData } = this.state;
     let updatedResourceData;
-    updatedResourceData = update(resourceData, {$merge: {[name]: value}});
-    this.setState({resourceData: updatedResourceData});
+    updatedResourceData = update(resourceData, { $merge: { [name]: value } });
+    this.setState({ resourceData: updatedResourceData });
   }
   handleChangePhone(name, value) {
-    const {resourceData} = this.state;
+    const { resourceData } = this.state;
     let updatedResourceData1, updatedResourceData2;
     updatedResourceData1 = update(resourceData, {
-      phones: {0: {$merge: {[name]: value}}},
+      phones: { 0: { $merge: { [name]: value } } },
     });
     updatedResourceData2 = update(updatedResourceData1, {
-      locations: {0: {phones: {0: {$merge: {[name]: value}}}}},
+      locations: { 0: { phones: { 0: { $merge: { [name]: value } } } } },
     });
-    this.setState({resourceData: updatedResourceData2});
+    this.setState({ resourceData: updatedResourceData2 });
   }
   handleChangeEmail(name, value) {
     // Update current list of email
@@ -224,11 +224,11 @@ class Suggestion extends React.Component {
     } else {
       emailList[0] = value;
     }
-    this.setState({emails: emailList});
+    this.setState({ emails: emailList });
   }
   handleSelectAddress(address) {
     let updatedLocation = {};
-    this.setState({address});
+    this.setState({ address });
 
     geocodeByAddress(address)
       .then((results) => {
@@ -264,10 +264,10 @@ class Suggestion extends React.Component {
           'Unable to find your location, please try entering your city, state in the box above.'
         );
       });
-    this.setState({location: updatedLocation});
+    this.setState({ location: updatedLocation });
   }
   handleSelectNonEngServices(action, nonEngService, index) {
-    const {resourceData, nonEngServices} = this.state;
+    const { resourceData, nonEngServices } = this.state;
     let updatedNonEngServices,
       requestService,
       updatedProperties,
@@ -275,15 +275,15 @@ class Suggestion extends React.Component {
 
     if (action === 'add') {
       // Add selected service to nonEngServices state
-      updatedNonEngServices = update(nonEngServices, {$push: [nonEngService]});
+      updatedNonEngServices = update(nonEngServices, { $push: [nonEngService] });
       // Add selected service to request resource Data
-      requestService = {['lang-' + nonEngService.split(' ').join('-')]: 'true'};
+      requestService = { ['lang-' + nonEngService.split(' ').join('-')]: 'true' };
       updatedResourceData = update(resourceData, {
-        properties: {$merge: requestService},
+        properties: { $merge: requestService },
       });
     } else {
       // Remove selected service from nonEngServices
-      updatedNonEngServices = update(nonEngServices, {$splice: [[index, 1]]});
+      updatedNonEngServices = update(nonEngServices, { $splice: [[index, 1]] });
       // Remove select service from request resourceData
       requestService = 'lang-' + nonEngService.split(' ').join('-');
       // Find index of the select service in resourceData.properties array
@@ -291,7 +291,7 @@ class Suggestion extends React.Component {
       delete updatedProperties[requestService];
 
       updatedResourceData = update(resourceData, {
-        properties: {$set: updatedProperties},
+        properties: { $set: updatedProperties },
       });
     }
     this.setState({
@@ -300,43 +300,43 @@ class Suggestion extends React.Component {
     });
   }
   handleDaySelect(select, value, startValue, endValue) {
-    const {selectedDays} = this.state;
+    const { selectedDays } = this.state;
     let updatedSelectedDays;
     if (select === 'select') {
       updatedSelectedDays = update(selectedDays, {
-        $merge: {[value]: !selectedDays[value]},
+        $merge: { [value]: !selectedDays[value] },
       });
     } else {
       updatedSelectedDays = update(selectedDays, {
-        $merge: {[value.split('_')[0]]: true},
+        $merge: { [value.split('_')[0]]: true },
       });
     }
-    this.setState({selectedDays: updatedSelectedDays});
+    this.setState({ selectedDays: updatedSelectedDays });
   }
   handleChangeSchedule(name, value) {
-    const {resourceData} = this.state;
+    const { resourceData } = this.state;
     let updatedResourceData = update(resourceData, {
-      locations: {0: {schedule: {$merge: {[name]: value}}}},
+      locations: { 0: { schedule: { $merge: { [name]: value } } } },
     });
-    this.setState({resourceData: updatedResourceData});
+    this.setState({ resourceData: updatedResourceData });
   }
   handleFeatureSelect(event, checked) {
-    const {value} = event.target;
-    const {features, resourceData} = this.state;
+    const { value } = event.target;
+    const { features, resourceData } = this.state;
 
     // update current status of a feature
     let index = features.findIndex((f) => f.name === value);
     let updatedFeatures = update(features, {
-      [index]: {$merge: {value: checked}},
+      [index]: { $merge: { value: checked } },
     });
-    this.setState({features: updatedFeatures});
+    this.setState({ features: updatedFeatures });
 
     // add/remove feature to/from resourceData
     let updatedResourceData;
     if (checked) {
-      let updatedFeature = {[value]: checked.toString()};
+      let updatedFeature = { [value]: checked.toString() };
       updatedResourceData = update(resourceData, {
-        properties: {$merge: updatedFeature},
+        properties: { $merge: updatedFeature },
       });
     } else {
       let indexResource = resourceData.properties.findIndex(
@@ -344,29 +344,29 @@ class Suggestion extends React.Component {
       );
       if (indexResource >= 0) {
         updatedResourceData = update(resourceData, {
-          properties: {$splice: [[1, indexResource]]},
+          properties: { $splice: [[1, indexResource]] },
         });
       }
     }
-    this.setState({resourceData: updatedResourceData});
+    this.setState({ resourceData: updatedResourceData });
   }
   handleRequirementSelect(event, checked) {
-    const {value} = event.target;
-    const {requirements, resourceData} = this.state;
+    const { value } = event.target;
+    const { requirements, resourceData } = this.state;
 
     // update current status of a requirement
     const index = requirements.findIndex((f) => f.name === value);
     let updatedRequirements = update(requirements, {
-      [index]: {$merge: {value: checked}},
+      [index]: { $merge: { value: checked } },
     });
-    this.setState({requirements: updatedRequirements});
+    this.setState({ requirements: updatedRequirements });
 
     // add/remove feature to/from resourceData
     let updatedResourceData;
     if (checked) {
-      let updatedRequirement = {[value]: checked.toString()};
+      let updatedRequirement = { [value]: checked.toString() };
       updatedResourceData = update(resourceData, {
-        properties: {$merge: updatedRequirement},
+        properties: { $merge: updatedRequirement },
       });
     } else {
       let indexResource = resourceData.properties.findIndex(
@@ -374,16 +374,16 @@ class Suggestion extends React.Component {
       );
       if (indexResource >= 0) {
         updatedResourceData = update(resourceData, {
-          properties: {$splice: [[1, indexResource]]},
+          properties: { $splice: [[1, indexResource]] },
         });
       }
     }
-    this.setState({resourceData: updatedResourceData});
+    this.setState({ resourceData: updatedResourceData });
   }
   handleTagSelect(event, checked) {
     var index;
     const target = event.target;
-    const {resourceData} = this.state;
+    const { resourceData } = this.state;
     var selectedResourceTypes = this.state.tags.slice();
 
     if (checked && selectedResourceTypes.indexOf(target.value) < 0) {
@@ -402,13 +402,13 @@ class Suggestion extends React.Component {
     }
 
     let updatedResourceData = update(resourceData, {
-      tags: {$set: selectedResourceTypes},
+      tags: { $set: selectedResourceTypes },
     });
-    this.setState({resourceData: updatedResourceData});
+    this.setState({ resourceData: updatedResourceData });
   }
   handleClick() {
     // Require authentication for submission
-    const {handleMessageNew, handleRequestOpen, session} = this.props;
+    const { handleMessageNew, handleRequestOpen, session } = this.props;
     if (!session) {
       handleRequestOpen('login');
       handleMessageNew('You need to log in to view your account.');
@@ -419,7 +419,7 @@ class Suggestion extends React.Component {
   }
 
   organizeData() {
-    const {resourceData, selectedDays, location} = this.state;
+    const { resourceData, selectedDays, location } = this.state;
     let updatedResourceData1,
       updatedEmailList,
       updatedResourceData2,
@@ -427,23 +427,23 @@ class Suggestion extends React.Component {
       updatedResourceData4;
     // Update/reformat resourceData
     // 1: Remove unselected time in schedule object
-    let {schedule} = resourceData.locations[0];
+    let { schedule } = resourceData.locations[0];
     for (let timeKey in schedule) {
       let day = timeKey.split('_')[0];
       if (!selectedDays[day]) {
-        schedule = update(schedule, {$merge: {[timeKey]: ''}});
+        schedule = update(schedule, { $merge: { [timeKey]: '' } });
       }
     }
     updatedResourceData1 = update(resourceData, {
-      locations: {0: {schedule: {$merge: schedule}}},
+      locations: { 0: { schedule: { $merge: schedule } } },
     });
 
     // 2: Update current email list
     updatedEmailList = this.state.emails.map((e) => {
-      return {title: '', first_name: '', last_name: '', email: e};
+      return { title: '', first_name: '', last_name: '', email: e };
     });
     updatedResourceData2 = update(updatedResourceData1, {
-      emails: {$set: updatedEmailList},
+      emails: { $set: updatedEmailList },
     });
 
     // 3: Update locations object
@@ -453,19 +453,19 @@ class Suggestion extends React.Component {
           address: {
             $set: location ? location.street_number + ' ' + location.route : '',
           },
-          city: {$set: location ? location.city : ''},
-          state: {$set: location ? location.state : ''},
-          zip_code: {$set: location ? location.zip_code : ''},
+          city: { $set: location ? location.city : '' },
+          state: { $set: location ? location.state : '' },
+          zip_code: { $set: location ? location.zip_code : '' },
         },
       },
     });
 
     // 4: Update region
     updatedResourceData4 = update(updatedResourceData3, {
-      region: {$set: location.area + ', ' + location.state},
+      region: { $set: location.area + ', ' + location.state },
     });
 
-    this.setState({resourceData: updatedResourceData4});
+    this.setState({ resourceData: updatedResourceData4 });
 
     const {
       name,
@@ -497,7 +497,7 @@ class Suggestion extends React.Component {
   submitResource(data) {
     catalogPost('/organizations', data)
       .then(() => {
-        this.setState({isSent: true});
+        this.setState({ isSent: true });
         this.props.handleMessageNew(
           'Your information has been submitted to be reviewed.'
         );
@@ -508,7 +508,7 @@ class Suggestion extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     const {
       selectedDays,
       isSent,
@@ -520,7 +520,9 @@ class Suggestion extends React.Component {
       tags,
       emails,
     } = this.state;
-    const {name, website, description, phones} = resourceData;
+    const locale = this?.props?.match?.params?.locale;
+    const { name, website, description, phones } = resourceData;
+
     return (
       <div className={classes.root}>
         <div>
@@ -535,7 +537,16 @@ class Suggestion extends React.Component {
             we'll do the rest! We appreciate your submission and thank you for
             helping to connect asylum seekers to helpful services. All suggested
             resources are subject to review by AsylumConnect staff before being
-            published.
+            published. {' '}
+            {locale === 'en_US' ? (
+              <>
+                Note: This form is to suggest new resources in the United States. If you would like to suggest a new resource in Canada, please <a href="/en_CA/suggestions/new">click here</a> to fill out our Canadian form.
+              </>
+            ) : (
+                <>
+                  Note: This form is to suggest new resources in Canada. If you would like to suggest a new resource in the United States, please <a href="/en_US/suggestions/new">click here</a> to fill out our United States form.
+              </>
+              )}
           </Typography>
           <SuggestInfo
             address={address}
@@ -587,21 +598,21 @@ class Suggestion extends React.Component {
               </Typography>
             </div>
           ) : (
-            <div className={classes.settingsTypeFont}>
-              <span>
-                Thank you for your request! All changes will be reviewed by the
-                AsylumConnect team and verification permitting, published as
+              <div className={classes.settingsTypeFont}>
+                <span>
+                  Thank you for your request! All changes will be reviewed by the
+                  AsylumConnect team and verification permitting, published as
                 soon as possible. Question? Please email{' '}
-                <a
-                  href="mailto:catalog@asylumconnect.org"
-                  className={classes.boldFont}
-                >
-                  catalog@asylumconnect.org
+                  <a
+                    href="mailto:catalog@asylumconnect.org"
+                    className={classes.boldFont}
+                  >
+                    catalog@asylumconnect.org
                 </a>
                 .
               </span>
-            </div>
-          )}
+              </div>
+            )}
         </div>
       </div>
     );

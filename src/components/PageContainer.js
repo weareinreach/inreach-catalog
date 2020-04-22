@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Route, Redirect, Switch} from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 import AccountPage from './AccountPage';
 import FavoritesListContainer from './FavoritesListContainer';
@@ -44,6 +44,7 @@ class PageContainer extends React.Component {
       userData: this.props.userData,
       t: t,
     };
+
     return (
       <div className="page-container">
         <Switch>
@@ -93,7 +94,7 @@ class PageContainer extends React.Component {
           />
           <Route
             path="/:locale/suggestions/new"
-            render={() => (
+            render={(props) => (
               <Suggestion
                 country={country}
                 handleMessageNew={handleMessageNew}
@@ -105,6 +106,7 @@ class PageContainer extends React.Component {
                 user={user}
                 userData={userData}
                 t={t}
+                {...props}
               />
             )}
           />
@@ -133,8 +135,8 @@ class PageContainer extends React.Component {
                     localStorage.getItem('locale') || 'en_US'
                   ) < 0
                     ? '/' +
-                      (localStorage.getItem('locale') || 'en_US') +
-                      window.location.pathname
+                    (localStorage.getItem('locale') || 'en_US') +
+                    window.location.pathname
                     : '/'
                 }
               />
