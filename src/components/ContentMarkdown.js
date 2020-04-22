@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-const ContentMarkdown = props => {
+const ContentMarkdown = (props) => {
   return (
     <ReactMarkdown
       {...props}

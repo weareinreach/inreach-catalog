@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 
-const styles = theme => ({
+const styles = (theme) => ({
   arrow: {
     width: '20px',
     height: '20px',
     color: theme.palette.common.lightBlack,
     float: 'right',
     [theme.breakpoints.down('xs')]: {
-      display: 'none'
-    }
-  }
+      display: 'none',
+    },
+  },
 });
 
 class AsylumConnectPopUp extends React.Component {

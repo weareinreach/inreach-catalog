@@ -36,7 +36,7 @@ const CommunitySupportIcon = ({width, fillColor}) => (
 CommunitySupportIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 CommunitySupportIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default CommunitySupportIcon;

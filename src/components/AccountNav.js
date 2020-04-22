@@ -4,29 +4,29 @@ import {Link} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const styles = (theme) => ({
   accountNav: {
     display: 'flex',
-    flex: '0 0 200px'
+    flex: '0 0 200px',
   },
   root: {
     display: 'flex',
-    padding: '0 5px 0'
+    padding: '0 5px 0',
   },
   accountLinks: {
-    padding: '5px 10px'
+    padding: '5px 10px',
   },
   divider: {
     borderRight: '1px solid',
-    borderColor: theme.palette.text.divider
+    borderColor: theme.palette.text.divider,
   },
   lowercaseText: {
     textTransform: 'capitalize',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   cursor: {
-    cursor: 'pointer'
-  }
+    cursor: 'pointer',
+  },
 });
 
 const AccountNav = ({
@@ -34,7 +34,7 @@ const AccountNav = ({
   session,
   handleLogOut,
   handleRequestOpen,
-  locale
+  locale,
 }) => (
   <div className={classes.accountNav + ' hide--on-print'}>
     {session && (
@@ -61,7 +61,7 @@ const AccountNav = ({
           className={[
             classes.divider,
             classes.accountLinks,
-            classes.cursor
+            classes.cursor,
           ].join(' ')}
           onClick={() => handleRequestOpen('login')}
         >
@@ -86,7 +86,7 @@ AccountNav.propTypes = {
   classes: PropTypes.object.isRequired,
   handleLogOut: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
-  session: PropTypes.string
+  session: PropTypes.string,
 };
 
 export default withStyles(styles)(AccountNav);

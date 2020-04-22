@@ -5,10 +5,10 @@ import {withStyles} from '@material-ui/core/styles';
 import RatingControl from './ResourceRatingControl';
 import ReviewCount from './ResourceReviewCount';
 
-const styles = theme => ({
+const styles = (theme) => ({
   ratingSpacing: {
-    marginRight: theme.spacing(2)
-  }
+    marginRight: theme.spacing(2),
+  },
 });
 
 const RatingAndReviews = ({rating, total, classes}) => (
@@ -20,7 +20,7 @@ const RatingAndReviews = ({rating, total, classes}) => (
 
 RatingAndReviews.propTypes = {
   total: PropTypes.number,
-  rating: PropTypes.number.isRequired
+  rating: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(RatingAndReviews);

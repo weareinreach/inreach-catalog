@@ -11,7 +11,7 @@ const ShareDialog = ({
   listId,
   listTitle,
   session,
-  shareType
+  shareType,
 }) => (
   <div>
     <DialogTitle>Share "{listTitle}"</DialogTitle>
@@ -31,7 +31,7 @@ ShareDialog.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   listId: PropTypes.string.isRequired,
   listTitle: PropTypes.string.isRequired,
-  session: PropTypes.string.isRequired
+  session: PropTypes.string.isRequired,
 };
 
 export default ShareDialog;

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
-const styles = theme => ({
-  title: {paddingBottom: theme.spacing(2), textAlign: 'center'}
+const styles = (theme) => ({
+  title: {paddingBottom: theme.spacing(2), textAlign: 'center'},
 });
 
 const DialogTitle = ({children, classes}) => (

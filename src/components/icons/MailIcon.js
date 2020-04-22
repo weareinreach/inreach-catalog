@@ -38,7 +38,7 @@ const ResourceMailIcon = ({width, fillColor}) => (
 ResourceMailIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 ResourceMailIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default ResourceMailIcon;

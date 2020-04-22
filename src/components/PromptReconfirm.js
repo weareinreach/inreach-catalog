@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center'
+    textAlign: 'center',
   },
-  spacingVertical: {margin: '2.5rem 0'}
+  spacingVertical: {margin: '2.5rem 0'},
 });
 
 const PromptReconfirm = ({classes, handleRequestOpen}) => (
@@ -33,7 +33,7 @@ const PromptReconfirm = ({classes, handleRequestOpen}) => (
 );
 
 PromptReconfirm.propTypes = {
-  handleRequestOpen: PropTypes.func.isRequired
+  handleRequestOpen: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(PromptReconfirm);

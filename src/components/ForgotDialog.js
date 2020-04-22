@@ -7,7 +7,7 @@ import ForgotFormContainer from './ForgotFormContainer';
 const ForgotDialog = ({
   handleMessageNew,
   handleRequestClose,
-  handleRequestOpen
+  handleRequestOpen,
 }) => (
   <div>
     <DialogTitle>Reset Password</DialogTitle>
@@ -22,7 +22,7 @@ const ForgotDialog = ({
 ForgotDialog.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  handleRequestOpen: PropTypes.func.isRequired
+  handleRequestOpen: PropTypes.func.isRequired,
 };
 
 export default ForgotDialog;

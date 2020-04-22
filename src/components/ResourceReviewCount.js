@@ -15,7 +15,7 @@ class ReviewCount extends React.Component {
 }
 
 ReviewCount.propTypes = {
-  total: PropTypes.number.isRequired
+  total: PropTypes.number.isRequired,
 };
 
 export default ReviewCount;

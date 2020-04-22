@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {breakpoints} from '../theme';
 
 import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import {
   CommunitySupportIcon,
@@ -19,15 +19,15 @@ import {
   MiscIcon,
   SpeechBubblesIcon,
   SportsEntertainmentIcon,
-  TransportationIcon
+  TransportationIcon,
 } from './icons';
 
-const styles = theme => ({
+const styles = (theme) => ({
   tooltip: {fontFamily: 'sans-serif'},
   icon: {
     display: 'inline-block',
     verticalAlign: 'middle',
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   flair: {
     display: 'inline-block',
@@ -37,8 +37,8 @@ const styles = theme => ({
     marginBottom: theme.spacing(1),
     fontSize: theme.typography.h4.fontSize,
     padding: theme.spacing(1),
-    borderRadius: '2px'
-  }
+    borderRadius: '2px',
+  },
 });
 
 const Badge = ({
@@ -48,65 +48,65 @@ const Badge = ({
   width,
   extraClasses,
   useIcon,
-  mobileLabel
+  mobileLabel,
 }) => {
   const typeMapping = {
     communitySupport: {
       label: 'Community Support',
-      icon: <CommunitySupportIcon />
+      icon: <CommunitySupportIcon />,
     },
     computers: {
       label: 'Computers and Internet',
-      icon: <ComputersIcon />
+      icon: <ComputersIcon />,
     },
     educationEmployment: {
       label: 'Education / Employment',
-      icon: <EducationEmploymentIcon />
+      icon: <EducationEmploymentIcon />,
     },
     food: {
       label: 'Food',
-      icon: <FoodIcon />
+      icon: <FoodIcon />,
     },
     housing: {
       label: 'Housing',
-      icon: <HousingIcon />
+      icon: <HousingIcon />,
     },
     hygiene: {
       label: 'Hygiene',
-      icon: <ClothingIcon />
+      icon: <ClothingIcon />,
     },
     legal: {
       label: 'Legal',
-      icon: <LegalIcon />
+      icon: <LegalIcon />,
     },
     mail: {
       label: 'Mail Services',
-      icon: <MailIcon />
+      icon: <MailIcon />,
     },
     medical: {
       label: 'Medical',
-      icon: <MedicalIcon />
+      icon: <MedicalIcon />,
     },
     mentalHealth: {
       label: 'Mental Health',
-      icon: <MentalHealthIcon />
+      icon: <MentalHealthIcon />,
     },
     misc: {
       label: 'Other Services',
-      icon: <MiscIcon />
+      icon: <MiscIcon />,
     },
     speechBubble: {
       label: 'Translation and interpretation',
-      icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />
+      icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />,
     },
     sportsEntertainment: {
       label: 'Sports / Entertainment',
-      icon: <SportsEntertainmentIcon />
+      icon: <SportsEntertainmentIcon />,
     },
     transportation: {
       label: 'Transportation',
-      icon: <TransportationIcon />
-    }
+      icon: <TransportationIcon />,
+    },
   };
 
   const iconWidth = width ? width : '75px';
@@ -161,8 +161,8 @@ Badge.propTypes = {
     'misc',
     'speechBubble',
     'sportsEntertainment',
-    'transportation'
-  ]).isRequired
+    'transportation',
+  ]).isRequired,
 };
 
 export default withStyles(styles)(Badge);

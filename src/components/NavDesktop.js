@@ -22,22 +22,22 @@ const styles = (theme) => ({
     margin: '0 auto',
     backgroundColor: 'white',
     '@media(min-width:1640px)': {
-      padding: '10px 15%'
+      padding: '10px 15%',
     },
     '@media(max-width:1639px)': {
-      padding: '10px 9%'
+      padding: '10px 9%',
     },
     '@media(max-width:1550px)': {
-      padding: '10px 7%'
+      padding: '10px 7%',
     },
     '@media(max-width:1440px)': {
-      padding: '10px 5%'
+      padding: '10px 5%',
     },
     '@media(max-width:1400px)': {
-      padding: '10px 2%'
+      padding: '10px 2%',
     },
     '@media(max-width:1315px)': {
-      padding: '10px 0'
+      padding: '10px 0',
     },
   },
   displayInherit: {
@@ -48,7 +48,7 @@ const styles = (theme) => ({
     height: '60px',
     width: 'auto',
     maxWidth: '65px',
-  }
+  },
 });
 
 const NavDesktop = ({
@@ -83,9 +83,7 @@ const NavDesktop = ({
         <Typography variant="h6">contact us</Typography>
       </a>
       <a className="hide--on-print" href="https://www.google.com/">
-        <AsylumConnectButton variant="primary">
-          safety exit
-        </AsylumConnectButton>
+        <AsylumConnectButton variant="primary">safety exit</AsylumConnectButton>
       </a>
       <Language />
       <AccountNav

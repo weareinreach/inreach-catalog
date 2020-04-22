@@ -111,7 +111,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
 SportsEntertainmentIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 SportsEntertainmentIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default SportsEntertainmentIcon;

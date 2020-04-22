@@ -9,7 +9,7 @@ const PasswordMobile = ({
   handleConfirmSession,
   handleMessageNew,
   handleRequestClose,
-  session
+  session,
 }) => (
   <div>
     <Paper>
@@ -28,7 +28,7 @@ PasswordMobile.propTypes = {
   handleConfirmSession: PropTypes.func.isRequired,
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
-  session: PropTypes.string.isRequired
+  session: PropTypes.string.isRequired,
 };
 
 export default PasswordMobile;

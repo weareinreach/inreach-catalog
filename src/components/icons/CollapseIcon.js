@@ -30,7 +30,7 @@ CollapseIcon.defaultProps = {width: '100%', color: '#1D1F23', expanded: true};
 CollapseIcon.propTypes = {
   width: PropTypes.string,
   color: PropTypes.string,
-  expanded: PropTypes.bool
+  expanded: PropTypes.bool,
 };
 
 export default CollapseIcon;

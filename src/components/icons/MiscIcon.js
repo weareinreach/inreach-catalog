@@ -23,12 +23,12 @@ const ResourceMiscIcon = ({width, fillColor, strokeColor}) => (
 ResourceMiscIcon.defaultProps = {
   width: '100%',
   fillColor: '#5073B3',
-  strokeColor: '#FFF'
+  strokeColor: '#FFF',
 };
 ResourceMiscIcon.propTypes = {
   width: PropTypes.string,
   fillColor: PropTypes.string,
-  strokeColor: PropTypes.string
+  strokeColor: PropTypes.string,
 };
 
 export default ResourceMiscIcon;

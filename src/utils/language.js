@@ -5,10 +5,10 @@ export default {
   getLanguage: () => {
     return window.localStorage.getItem('lang') || 'English';
   },
-  setLanguage: langauge => {
+  setLanguage: (langauge) => {
     window.localStorage.setItem('lang', langauge);
   },
   clearLanguage: () => {
     window.localStorage.removeItem('lang');
-  }
+  },
 };

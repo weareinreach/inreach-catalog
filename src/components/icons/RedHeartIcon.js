@@ -23,12 +23,12 @@ const RedHeartIcon = ({fill, width}) => (
 
 RedHeartIcon.defaultProps = {
   fill: false,
-  width: '100%'
+  width: '100%',
 };
 
 RedHeartIcon.propTypes = {
   fill: PropTypes.bool,
-  width: PropTypes.string
+  width: PropTypes.string,
 };
 
 export default RedHeartIcon;

@@ -22,7 +22,7 @@ const ComputersIcon = ({width, fillColor}) => (
 ComputersIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 ComputersIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default ComputersIcon;

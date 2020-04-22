@@ -29,12 +29,12 @@ const SpeechBubblesIcon = ({width, fillColor, strokeColor}) => (
 SpeechBubblesIcon.defaultProps = {
   width: '100%',
   fillColor: '#5073B3',
-  strokeColor: '#FFF'
+  strokeColor: '#FFF',
 };
 SpeechBubblesIcon.propTypes = {
   width: PropTypes.string,
   fillColor: PropTypes.string,
-  strokeColor: PropTypes.string
+  strokeColor: PropTypes.string,
 };
 
 export default SpeechBubblesIcon;

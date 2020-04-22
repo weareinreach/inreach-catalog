@@ -1,25 +1,25 @@
 import React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectSelector from './AsylumConnectSelector';
 import SearchSorts from './SearchSorts';
 import {selectInput} from '../theme';
 
-const styles = theme => ({
+const styles = (theme) => ({
   selectInput: Object.assign(selectInput(theme), {
     cursor: 'pointer',
-    position: 'relative'
+    position: 'relative',
   }),
   filterList: {
     padding: theme.spacing(4),
     left: '0',
     maxHeight: '420px',
-    minWidth: '320px'
+    minWidth: '320px',
   },
   rootClass: {
-    display: 'inline-block'
-  }
+    display: 'inline-block',
+  },
 });
 
 class SearchOrderSelector extends React.Component {

@@ -38,7 +38,7 @@ const MentalHealthIcon = ({width, fillColor}) => (
 MentalHealthIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 MentalHealthIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default MentalHealthIcon;

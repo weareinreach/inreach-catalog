@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 
@@ -8,22 +8,22 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import ListNewFormContainer from './ListNewFormContainer';
 import DialogTitle from './DialogTitle';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
     marginLeft: '2.5em',
     marginRight: '2.5em',
     borderBottom: '1px solid ' + theme.palette.common.faintBlack,
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   textCenter: {textAlign: 'center'},
   toolbarRoot: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   toolbarGutters: {
     paddingLeft: '0',
-    paddingRight: '0'
-  }
+    paddingRight: '0',
+  },
 });
 
 const ListNewMobile = ({
@@ -36,7 +36,7 @@ const ListNewMobile = ({
   handleRequestClose,
   locale,
   session,
-  user
+  user,
 }) => (
   <div>
     <Paper className={classes.root}>
@@ -67,7 +67,7 @@ const ListNewMobile = ({
 );
 
 ListNewMobile.defaultProps = {
-  session: null
+  session: null,
 };
 
 ListNewMobile.propTypes = {
@@ -76,7 +76,7 @@ ListNewMobile.propTypes = {
   handleMessageNew: PropTypes.func.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
-  session: PropTypes.string
+  session: PropTypes.string,
 };
 
 export default withStyles(styles)(ListNewMobile);

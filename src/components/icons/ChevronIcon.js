@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 const styles = {
   arrowDown: {
     transform: 'rotate3D(1,0,0,0deg)',
-    transition: 'all 0.2s'
+    transition: 'all 0.2s',
   },
   arrowUp: {
     transform: 'rotate3D(1,0,0,-180deg)',
-    transition: 'all 0.2s'
-  }
+    transition: 'all 0.2s',
+  },
 };
 
 const ChevronIcon = ({width, direction}) => (

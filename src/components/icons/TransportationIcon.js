@@ -47,7 +47,7 @@ const TransportationIcon = ({width, fillColor}) => (
 TransportationIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 TransportationIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default TransportationIcon;

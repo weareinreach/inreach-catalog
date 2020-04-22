@@ -6,17 +6,17 @@ import Language from './Language';
 import AccountNav from './AccountNav';
 import FavoritesLink from './FavoritesLink';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    padding: '10 0 10 0'
+    padding: '10 0 10 0',
   },
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],
-    fontWeight: '300'
-  }
+    fontWeight: '300',
+  },
 });
 
 const NavTablet = ({
@@ -24,7 +24,7 @@ const NavTablet = ({
   handleLogOut,
   handleRequestOpen,
   locale,
-  session
+  session,
 }) => {
   return (
     <Grid
@@ -60,7 +60,7 @@ const NavTablet = ({
 };
 
 NavTablet.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(NavTablet);

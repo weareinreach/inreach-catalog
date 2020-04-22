@@ -25,7 +25,7 @@ const EducationEmploymentIcon = ({width, fillColor}) => (
 EducationEmploymentIcon.defaultProps = {width: '100%', fillColor: '#5073B3'};
 EducationEmploymentIcon.propTypes = {
   width: PropTypes.string,
-  fillColor: PropTypes.string
+  fillColor: PropTypes.string,
 };
 
 export default EducationEmploymentIcon;
