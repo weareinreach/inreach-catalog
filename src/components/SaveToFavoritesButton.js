@@ -48,6 +48,7 @@ class SaveToFavoritesButton extends React.Component {
     this.handleMenuClose = this.handleMenuClose.bind(this);
     this.handleRemoveFavorite = this.handleRemoveFavorite.bind(this);
     this.handleSaveToFavorites = this.handleSaveToFavorites.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
 
   handleCreateList(currentTarget) {
@@ -61,12 +62,12 @@ class SaveToFavoritesButton extends React.Component {
   }
 
   handleFetchError(error) {
-    const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
+    const {handleLogOut, handleMessageNew} = this.props;
     if (error.response && error.response.status === 401) {
       handleMessageNew('Your session has expired. Please log in again.');
       handleLogOut();
     } else if (error.response && error.response.status === 403) {
-      handleRequestOpen('password');
+      this.handleOpen('password');
     } else {
       handleMessageNew('Oops! Something went wrong.');
     }
@@ -114,6 +115,11 @@ class SaveToFavoritesButton extends React.Component {
         this.props.handleListAddFavorite(listId, this.props.resourceId);
       })
       .catch(this.handleFetchError);
+  }
+
+  handleOpen(type) {
+    this.setState({modal: false});
+    this.props.handleRequestOpen(type);
   }
 
   render() {
@@ -220,7 +226,7 @@ class SaveToFavoritesButton extends React.Component {
                   textTransform: 'uppercase',
                   paddingTop: '5px',
                 }}
-                onClick={() => this.props.handleRequestOpen('signup')}
+                onClick={() => this.handleOpen('signup')}
               >
                 sign up/sign in
               </Button>
@@ -334,7 +340,7 @@ class SaveToFavoritesButton extends React.Component {
                   textTransform: 'uppercase',
                   paddingTop: '5px',
                 }}
-                onClick={() => this.props.handleRequestOpen('signup')}
+                onClick={() => this.handleOpen('signup')}
               >
                 sign up/sign in
               </Button>
@@ -399,9 +405,7 @@ class SaveToFavoritesButton extends React.Component {
           <MenuItem
             className={classes.textBlue}
             onClick={() =>
-              this.props.handleRequestOpen(
-                `listNew/saveToFavorites/${resourceId}`
-              )
+              this.handleOpen(`listNew/saveToFavorites/${resourceId}`)
             }
           >
             <span className={classes.textBlue}>+ Create New List</span>

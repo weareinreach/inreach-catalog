@@ -244,6 +244,7 @@ class Detail extends React.Component {
 
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.handleNewReview = this.handleNewReview.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
     this.handleOrganizationRequest = this.handleOrganizationRequest.bind(this);
     this.handleServiceRequest = this.handleServiceRequest.bind(this);
     this.handleSupplementalInfoRequest = this.handleSupplementalInfoRequest.bind(
@@ -386,6 +387,11 @@ class Detail extends React.Component {
     });
   }
 
+  handleOpen(type) {
+    this.setState({modal: false});
+    this.props.handleRequestOpen(type);
+  }
+
   render() {
     const {
       classes,
@@ -395,7 +401,6 @@ class Detail extends React.Component {
       handleListNew,
       handleLogOut,
       handleMessageNew,
-      handleRequestOpen,
       lists,
       locale,
       mapResources,
@@ -494,7 +499,7 @@ class Detail extends React.Component {
                         handleListRemoveFavorite={handleListRemoveFavorite}
                         handleListNew={handleListNew}
                         handleLogOut={handleLogOut}
-                        handleRequestOpen={handleRequestOpen}
+                        handleRequestOpen={this.handleOpen}
                         handleMessageNew={handleMessageNew}
                         lists={lists}
                         parentResourceId={resource?.organization?._id}
@@ -507,7 +512,7 @@ class Detail extends React.Component {
                         className="center-align"
                         onClick={() =>
                           session
-                            ? handleRequestOpen('share/' + sharePath)
+                            ? this.handleOpen('share/' + sharePath)
                             : this.setState({modal: true})
                         }
                       >
@@ -611,7 +616,7 @@ class Detail extends React.Component {
                               textTransform: 'uppercase',
                               paddingTop: '5px',
                             }}
-                            onClick={() => handleRequestOpen('signup')}
+                            onClick={() => this.handleOpen('signup')}
                           >
                             sign up/sign in
                           </Button>
@@ -864,7 +869,7 @@ class Detail extends React.Component {
                     classes={classes}
                     handleBackButtonClick={this.handleBackButtonClick}
                     handleTabClick={this.handleTabClickDesktop}
-                    handleRequestOpen={handleRequestOpen}
+                    handleRequestOpen={this.handleOpen}
                     resource={resource}
                     sharePath={sharePath}
                     tab={tab}

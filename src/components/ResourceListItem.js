@@ -135,6 +135,9 @@ class ResourceListItem extends React.Component {
       ? combineProperties([resource, ...resource?.services])
       : resource.properties;
     const propKeys = Object.keys(allProperties);
+    const rating = resource.rating || resource.opportunity_aggregate_ratings;
+    const commentCount =
+      resource.opportunity_comment_count + resource.comment_count;
 
     return (
       <div className={paperPadding}>
@@ -239,24 +242,16 @@ class ResourceListItem extends React.Component {
                         })()
                       : null}
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                    className={'pull-right ' + pullLeft}
-                  >
-                    <RatingAndReviews
-                      rating={
-                        resource.rating
-                          ? resource.rating
-                          : resource.opportunity_aggregate_ratings
-                      }
-                      total={
-                        resource.opportunity_comment_count +
-                        resource.comment_count
-                      }
-                    />
-                  </Grid>
+                  {rating && (
+                    <Grid
+                      item
+                      xs={12}
+                      md={6}
+                      className={'pull-right ' + pullLeft}
+                    >
+                      <RatingAndReviews rating={rating} total={commentCount} />
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
@@ -449,17 +444,7 @@ class ResourceListItem extends React.Component {
                     md={6}
                     className={'pull-right ' + pullLeft}
                   >
-                    <RatingAndReviews
-                      rating={
-                        resource.rating
-                          ? resource.rating
-                          : resource.opportunity_aggregate_ratings
-                      }
-                      total={
-                        resource.opportunity_comment_count +
-                        resource.comment_count
-                      }
-                    />
+                    <RatingAndReviews rating={rating} total={commentCount} />
                   </Grid>
                 </Grid>
               </Grid>

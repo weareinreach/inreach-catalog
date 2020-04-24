@@ -33,6 +33,10 @@ const Tools = (props) => {
     userData,
   } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleOpen = (type) => {
+    setModalIsOpen(false);
+    handleRequestOpen(type);
+  };
 
   return (
     <Grid
@@ -79,7 +83,7 @@ const Tools = (props) => {
             handleListNew={handleListNew}
             handleLogOut={handleLogOut}
             handleMessageNew={handleMessageNew}
-            handleRequestOpen={handleRequestOpen}
+            handleRequestOpen={handleOpen}
             lists={lists}
             parentResourceId={resource?.organization?._id}
             resourceId={resource?._id}
@@ -92,9 +96,7 @@ const Tools = (props) => {
         <IconButton
           className="center-align"
           onClick={() => {
-            session
-              ? handleRequestOpen('share/' + sharePath)
-              : setModalIsOpen(true);
+            session ? handleOpen('share/' + sharePath) : setModalIsOpen(true);
           }}
         >
           <ShareIcon />
@@ -182,7 +184,7 @@ const Tools = (props) => {
                 textTransform: 'uppercase',
                 paddingTop: '5px',
               }}
-              onClick={() => handleRequestOpen('signup')}
+              onClick={() => handleOpen('signup')}
             >
               sign up/sign in
             </Button>
