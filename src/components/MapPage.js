@@ -105,39 +105,39 @@ class MapPage extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     // TODO: drastically slowed the page down by causing constant re-rendering
-    // if (
-    //   nextProps.match.path === '/:locale/resource/:id' &&
-    //   (this.props.match.path !== '/:locale/resource/:id' ||
-    //     (this.props.match.params &&
-    //       nextProps.match.params &&
-    //       this.props.match.params.id !== nextProps.match.params.id &&
-    //       this.props.match.path === '/:locale/resource/:id'))
-    // ) {
-    //   this.setSelectedResource(
-    //     this.getCachedResource(nextProps.match.params.id)
-    //   );
-    // }
-    //
-    // if (
-    //   nextProps.match.path === '/:locale/resource/:id/service/:serviceId' &&
-    //   (this.props.match.path !== '/:locale/resource/:id/service/:serviceId' ||
-    //     (this.props.match.params &&
-    //       nextProps.match.params &&
-    //       this.props.match.params.serviceId !==
-    //         nextProps.match.params.serviceId &&
-    //       this.props.match.path === '/:locale/resource/:id/service/:serviceId'))
-    // ) {
-    //   this.setSelectedResource(
-    //     this.getCachedResource(nextProps.match.params.id)
-    //   );
-    // }
-    //
-    // if (
-    //   nextProps.match.path ===
-    //   '/:locale/search/:in/:place/:near/:for/:filter/:sort'
-    // ) {
-    //   localStorage.setItem('lastSearch', nextProps.history.location.pathname);
-    // }
+    if (
+      nextProps.match.path === '/:locale/resource/:id' &&
+      (this.props.match.path !== '/:locale/resource/:id' ||
+        (this.props.match.params &&
+          nextProps.match.params &&
+          this.props.match.params.id !== nextProps.match.params.id &&
+          this.props.match.path === '/:locale/resource/:id'))
+    ) {
+      this.setSelectedResource(
+        this.getCachedResource(nextProps.match.params.id)
+      );
+    }
+    
+    if (
+      nextProps.match.path === '/:locale/resource/:id/service/:serviceId' &&
+      (this.props.match.path !== '/:locale/resource/:id/service/:serviceId' ||
+        (this.props.match.params &&
+          nextProps.match.params &&
+          this.props.match.params.serviceId !==
+            nextProps.match.params.serviceId &&
+          this.props.match.path === '/:locale/resource/:id/service/:serviceId'))
+    ) {
+      this.setSelectedResource(
+        this.getCachedResource(nextProps.match.params.id)
+      );
+    }
+    
+    if (
+      nextProps.match.path ===
+      '/:locale/search/:in/:place/:near/:for/:filter/:sort'
+    ) {
+      localStorage.setItem('lastSearch', nextProps.history.location.pathname);
+    }
   }
 
   clearSearchStatus() {
