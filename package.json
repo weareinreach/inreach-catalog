@@ -21,7 +21,7 @@
     "js-cookie": "^2.2.1",
     "langs": "^2.0.0",
     "lodash": "^4.17.15",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
