@@ -208,10 +208,8 @@ class Static extends React.Component {
             <Grid item xs={12}>
               <LocaleSelector
                 label={localeLabel}
-                setOnChange={true}
                 locale={this.props.match.params.locale}
                 handleSelectLocale={this.handleLocaleSelect}
-                changeLocale={this.props.changeLocale}
               />
             </Grid>
           </Grid>
