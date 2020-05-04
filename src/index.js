@@ -6,6 +6,7 @@ import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import HttpsRedirect from 'react-https-redirect';
 
 import AppCatalog from './App';
 import config from './config';
@@ -25,14 +26,16 @@ const App = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={catalogTheme}>
-      <Router>
-        <Switch>
-          <Route path="/:locale" component={AppCatalog} />
-          <Route path="/" component={AppCatalog} />
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <HttpsRedirect>
+      <ThemeProvider theme={catalogTheme}>
+        <Router>
+          <Switch>
+            <Route path="/:locale" component={AppCatalog} />
+            <Route path="/" component={AppCatalog} />
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </HttpsRedirect>
   );
 };
 

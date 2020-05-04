@@ -33,6 +33,7 @@
     "react-fontawesome": "^1.7.1",
     "react-ga": "^2.7.0",
     "react-google-maps": "^9.4.5",
+    "react-https-redirect": "^1.1.0",
     "react-markdown": "^4.3.1",
     "react-modal": "^3.11.2",
     "react-places-autocomplete": "^7.2.1",
