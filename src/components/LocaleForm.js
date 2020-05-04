@@ -89,16 +89,15 @@ class LocaleForm extends React.Component {
   }
 
   handleSelectLanguage(languageCode, languageName) {
-    this.setState({
-      selectedLanguage: languageCode,
-      selectedLanguageName: languageName,
-    });
+    if (languageName !== 'English') {
+      this.setState({
+        selectedLanguage: languageCode,
+        selectedLanguageName: languageName,
+      });
+    }
   }
 
   handleNextClick(ev) {
-    if (this.state.selectedLocale) {
-      this.props.changeLocale(this.state.selectedLocale);
-    }
     if (typeof this.props.onLocaleSelect === 'function') {
       this.props.onLocaleSelect(
         this.state.selectedLocale,
@@ -116,6 +115,7 @@ class LocaleForm extends React.Component {
   handleSelectLocale(localeCode, localeName) {
     this.setState({
       selectedLocale: localeCode,
+      selectedLocaleName: localeName,
     });
   }
 
@@ -127,6 +127,7 @@ class LocaleForm extends React.Component {
   }
 
   render() {
+    const {newLocale} = this.props;
     const {
       labelRow,
       searchButton,
@@ -163,6 +164,7 @@ class LocaleForm extends React.Component {
           <LocaleSelector
             label={localeLabel}
             handleSelectLocale={this.handleSelectLocale}
+            setNewLocale={newLocale}
           />
         </Grid>
         <Grid item xs={12} className={searchButton}>
