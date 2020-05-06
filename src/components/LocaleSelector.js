@@ -42,6 +42,7 @@ class LocaleSelector extends React.Component {
 
     this.handleSelectLocale = this.handleSelectLocale.bind(this);
     this.getLocaleNameFromCode = this.getLocaleNameFromCode.bind(this);
+    this.setNewLocale = this.setNewLocale.bind(this);
   }
 
   handleSelectLocale(localeCode, localeName) {
