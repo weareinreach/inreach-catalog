@@ -50,15 +50,20 @@ class LocaleSelector extends React.Component {
       selectedLocale: localeCode,
       selectedLocaleName: localeName,
     });
+
     if (typeof this.props.handleSelectLocale === 'function') {
       this.props.handleSelectLocale(localeCode, localeName);
     }
   }
 
   setNewLocale(newLocale) {
+    console.log('what');
+    console.log(this.state.selectedLocale);
+    console.log(newLocale);
     if (newLocale !== this.state.selectedLocale) {
       if (typeof this.props.setNewLocale === 'function') {
         this.props.setNewLocale(this.state.selectedLocale);
+        // window.location.reload(false);
       }
     }
   }

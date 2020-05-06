@@ -126,6 +126,7 @@ class SearchFormContainer extends React.Component {
   }
 
   handleLocaleSelect(locale, language, hasLanguageChanged) {
+    console.log('setting' + locale + language + hasLanguageChanged);
     let redirect = false;
     switch (locale) {
       case 'es_MX':
