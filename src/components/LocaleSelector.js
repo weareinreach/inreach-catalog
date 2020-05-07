@@ -63,7 +63,6 @@ class LocaleSelector extends React.Component {
     if (newLocale !== this.state.selectedLocale) {
       if (typeof this.props.setNewLocale === 'function') {
         this.props.setNewLocale(this.state.selectedLocale);
-        // window.location.reload(false);
       }
     }
   }
