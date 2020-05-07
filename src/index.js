@@ -26,16 +26,14 @@ const App = () => {
   }, []);
 
   return (
-    <HttpsRedirect>
-      <ThemeProvider theme={catalogTheme}>
-        <Router>
-          <Switch>
-            <Route path="/:locale" component={AppCatalog} />
-            <Route path="/" component={AppCatalog} />
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </HttpsRedirect>
+    <ThemeProvider theme={catalogTheme}>
+      <Router>
+        <Switch>
+          <Route path="/:locale" component={AppCatalog} />
+          <Route path="/" component={AppCatalog} />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 };
 
