@@ -135,8 +135,8 @@ class AppConnectCatalog extends React.Component {
         locale: newLocale,
         content: fetchLocale(getLocale()),
       });
-      setLocale(newLocale);
     }
+    setLocale(newLocale);
   }
 
   translate(key) {
