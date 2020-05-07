@@ -104,7 +104,9 @@ class LocaleForm extends React.Component {
         this.state.selectedLanguage,
         this.state.selectedLanguageName !== this.state.startingLang
       );
+      window.location.reload(false);
     }
+
     /*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
       this.setState({
         reload: true

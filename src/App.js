@@ -128,6 +128,7 @@ class AppConnectCatalog extends React.Component {
 
   changeLocale(newLocale) {
     //localStorage newLocale
+
     if (validLocales.indexOf(newLocale) < 0) {
       clearLocale();
     } else if (newLocale !== this.state.locale) {
