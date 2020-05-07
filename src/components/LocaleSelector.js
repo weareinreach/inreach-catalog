@@ -46,10 +46,13 @@ class LocaleSelector extends React.Component {
   }
 
   handleSelectLocale(localeCode, localeName) {
-    this.setState({
-      selectedLocale: localeCode,
-      selectedLocaleName: localeName,
-    });
+    this.setState(
+      {
+        selectedLocale: localeCode,
+        selectedLocaleName: localeName,
+      },
+      this.setNewLocale(localeCode)
+    );
 
     if (typeof this.props.handleSelectLocale === 'function') {
       this.props.handleSelectLocale(localeCode, localeName);
@@ -57,12 +60,9 @@ class LocaleSelector extends React.Component {
   }
 
   setNewLocale(newLocale) {
-    console.log('what');
-    console.log(this.state.selectedLocale);
-    console.log(newLocale);
     if (newLocale !== this.state.selectedLocale) {
       if (typeof this.props.setNewLocale === 'function') {
-        this.props.setNewLocale(this.state.selectedLocale);
+        this.props.setNewLocale(newLocale);
       }
     }
   }
@@ -109,7 +109,6 @@ class LocaleSelector extends React.Component {
               onClick={(event) => {
                 this.handleSelectLocale(item.code, item.name);
               }}
-              setNewLocale={this.setNewLocale()}
             >
               {item.name}
             </AsylumConnectDropdownListItem>

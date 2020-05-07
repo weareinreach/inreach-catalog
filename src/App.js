@@ -128,6 +128,7 @@ class AppConnectCatalog extends React.Component {
 
   changeLocale(newLocale) {
     //localStorage newLocale
+
     if (validLocales.indexOf(newLocale) < 0) {
       clearLocale();
     } else if (newLocale !== this.state.locale) {
@@ -135,8 +136,8 @@ class AppConnectCatalog extends React.Component {
         locale: newLocale,
         content: fetchLocale(getLocale()),
       });
-      setLocale(newLocale);
     }
+    setLocale(newLocale);
   }
 
   translate(key) {
