@@ -133,7 +133,7 @@ class SearchFormContainer extends React.Component {
         break;
       case 'intl':
         window.open(
-          'https://catalog.asylumconnect.org//intl/page/outside-US-and-Canada'
+          'https://catalog.asylumconnect.org/intl/page/outside-US-and-Canada'
         );
         break;
       default:
