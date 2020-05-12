@@ -104,13 +104,16 @@ class LocaleForm extends React.Component {
         this.state.selectedLanguage,
         this.state.selectedLanguageName !== this.state.startingLang
       );
-      if (
-        this.state.selectedLocaleName &&
-        (this.state.selectedLanguage !== 'es_MX' ||
-          this.state.selectedLanguage !== 'intl')
-      ) {
-        window.location.reload(false);
-      }
+    }
+    // do not reload if selectedLocaleName is undefined or country is mexico or intel
+    if (
+      !(
+        this.state.selectedLocale === 'es_MX' ||
+        this.state.selectedLocale === 'intl' ||
+        this.state.selectedLocaleName === undefined
+      )
+    ) {
+      window.location.reload(false);
     }
 
     /*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
