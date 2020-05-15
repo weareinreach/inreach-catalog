@@ -557,7 +557,6 @@ class MapPage extends React.Component {
   }
 
   render() {
-    const {setNewLocale} = this.props;
     let mapResources = [];
 
     if (
@@ -616,7 +615,6 @@ class MapPage extends React.Component {
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
                       infographic={infographic}
                       nearAddress={this.props.nearAddress}
-                      newLocale={setNewLocale}
                       searching={this.state.searching}
                       searchDisabled={this.state.searchDisabled}
                       classes={null}
