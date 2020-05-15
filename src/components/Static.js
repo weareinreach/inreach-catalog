@@ -55,7 +55,7 @@ const styles = (theme) => ({
   },
   changeCountryButton: {
     marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(7),
+    marginLeft: theme.spacing(-1),
   },
   subAnnouncement: {
     backgroundColor: '#e9e9e9',
@@ -244,7 +244,7 @@ class Static extends React.Component {
             <Grid item xs={12} className={classes.subAnnouncement}>
               <SubAnnouncement />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
               <AsylumConnectBackButton
                 className={classes.changeCountryButton}
                 color="default"
