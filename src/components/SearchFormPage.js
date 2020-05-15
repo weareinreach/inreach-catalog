@@ -127,20 +127,32 @@ class SearchFormContainer extends React.Component {
 
   // First called when selecting a different country
   handleLocaleSelect(locale, language, hasLanguageChanged) {
+    let redirect = false;
     switch (locale) {
       case 'es_MX':
-        window.open('https://catalog.asylumconnect.org/es_MX/page/Mexico/');
+        redirect = `/${locale}/page/Mexico/`;
         break;
       case 'intl':
-        window.open(
-          'https://catalog.asylumconnect.org/intl/page/outside-US-and-Canada'
-        );
+        redirect = '/intl/page/outside-US-and-Canada';
         break;
       default:
         this.setState({
           locale: locale,
         });
+        if (this.state.locale !== locale) {
+          window.location.reload();
+        }
         break;
+    }
+
+    if (redirect) {
+      if (hasLanguageChanged) {
+        window.location = redirect + '#googtrans(' + language + ')';
+      } else {
+        this.props.history.push(redirect);
+      }
+    } else if (hasLanguageChanged) {
+      window.location.reload();
     }
   }
 
@@ -275,7 +287,7 @@ class SearchFormContainer extends React.Component {
                     {...this.props}
                     classes={null}
                     onLocaleReset={this.handleLocaleReset}
-                    // onLocaleSelect={this.handleLocaleSelect}
+                    onLocaleSelect={this.handleLocaleSelect}
                   />
                 ) : (
                   <LocaleForm

@@ -85,7 +85,9 @@ class SearchForm extends React.Component {
             <Grid item xs={12}>
               <LocaleSelector
                 label={localeLabel}
+                setOnChange={true}
                 handleSelectLocale={this.props.onLocaleSelect}
+                changeLocale={this.props.changeLocale}
               />
             </Grid>
           </Grid>

@@ -11,6 +11,7 @@ import Static from './Static';
 class PageContainer extends React.Component {
   render() {
     const {
+      changeLocale,
       country,
       handleLogOut,
       handleMessageNew,
@@ -113,6 +114,7 @@ class PageContainer extends React.Component {
             path="/:locale/page/:pageName"
             render={(props) => (
               <Static
+                changeLocale={changeLocale}
                 handleMessageNew={handleMessageNew}
                 handleLogOut={handleLogOut}
                 handleRequestOpen={handleRequestOpen}
