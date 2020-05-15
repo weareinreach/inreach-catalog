@@ -178,8 +178,9 @@ class Static extends React.Component {
     const isMobile = this.props.width < breakpoints['sm'];
     const localeLabel = 'Select country';
 
-    if (isMobile) {
-      return (
+    return (
+      <>
+        {isMobile ?
         <Grid
           container
           alignItems="center"
@@ -208,17 +209,15 @@ class Static extends React.Component {
             <Grid item xs={12}>
               <LocaleSelector
                 label={localeLabel}
+                setOnChange={true}
                 locale={this.props.match.params.locale}
                 handleSelectLocale={this.handleLocaleSelect}
+                changeLocale={this.props.changeLocale}
               />
             </Grid>
           </Grid>
         </Grid>
-      );
-    }
-
-    return (
-      <>
+        : null}
         <Grid
           container
           alignItems="center"
@@ -226,9 +225,11 @@ class Static extends React.Component {
           spacing={0}
           className={classes.localeHeader}
         >
+        {!isMobile ?
           <Grid item xs={12} className={classes.subAnnouncement}>
             <SubAnnouncement />
           </Grid>
+        : null}
         </Grid>
         <div className="static--page-container">
           {this.state.loading ? (

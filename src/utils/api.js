@@ -6,7 +6,9 @@ import {localeTagMap} from './locale';
 import serviceAreaCoverage from './serviceAreaCoverage.json';
 
 export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
+// /* Local deloy */ export const CATALOG_API_URL = `http://localhost:8080/v1`;
 
+const jwt = localStorage.getItem('jwt');
 const handleErr = (err) => {
   return {error: true, status: err.response.status};
 };
@@ -14,9 +16,7 @@ const handleErr = (err) => {
 export const catalogDelete = (path, body, options) => {
   const url = `${CATALOG_API_URL}${path}`;
 
-  // console.log('DELETE', url);
-
-  return httpDelete(url, body, options)
+  return httpDelete(url, {headers: {'x-json-web-token': jwt}}, options)
     .then(({data, status}) => {
       return {status, ...data};
     })
@@ -40,7 +40,7 @@ export const catalogPatch = (path, body, options) => {
 
   // console.log('PATCH', url);
 
-  return patch(url, body, options)
+  return patch(url, body, {headers: {'x-json-web-token': jwt}}, options)
     .then(({data, status}) => {
       return {status, ...data};
     })
@@ -52,7 +52,7 @@ export const catalogPost = (path, body, options) => {
 
   // console.log('POST', url);
 
-  return post(url, body, options)
+  return post(url, body, {headers: {'x-json-web-token': jwt}}, options)
     .then(({data, status}) => {
       return {status, ...data};
     })
@@ -248,6 +248,7 @@ export const updateUser = (user, update) => {
 };
 
 export const updateUserPassword = (user, password) => {
+
   return catalogPatch(`/users/${user._id}/password`, {password})
     .then(() => ({}))
     .catch((err) => err);
