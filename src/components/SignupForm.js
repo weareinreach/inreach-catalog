@@ -196,10 +196,26 @@ const SignupForm = ({
           </Typography>
         </form>
       )}
+      {activeStep === 3 && (
+        <form onSubmit={handleRequestClose}>
+          <Typography variant="h6">Confirmation</Typography>
+          <div className={classes.marginVertical}>
+            <Typography variant="body1">
+              Thank you for requesting to join an organization's profile page on AsylumConnect. Our team will review your request shortly. We will reach out if we need more information to verify your connection to the requested organization.
+            </Typography>
+          </div>
+          <div className={classes.marginVertical}>
+            <AsylumConnectButton
+              variant="primary">
+              Finish Registration
+            </AsylumConnectButton>
+          </div>
+        </form>
+      )}
       <MobileStepper
         className={classes.spacingTop + ' ' + classes.backgroundTransparent}
         type="dots"
-        steps={selection === 'provider' ? 3 : 2}
+        steps={selection === 'provider'|| selection === 'lawyer' ? 4 : 2}
         position="static"
         activeStep={activeStep}
         nextButton={<div />}
