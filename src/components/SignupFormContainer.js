@@ -49,7 +49,6 @@ class SignupFormContainer extends React.Component {
     event.preventDefault();
     const {
       handleMessageNew,
-      handleRequestClose,
       organizationSelection,
       session,
       userData,
@@ -60,7 +59,10 @@ class SignupFormContainer extends React.Component {
       {email: userData.email, orgId: _id, userId: userData._id},
       session
     )
-      .then(() => handleRequestClose())
+      .then(() => {
+        this.handleStepNext()
+        return;
+      })
       .catch(() => {
         handleMessageNew(
           `Sorry. Something went wrong connecting you to your organization.`

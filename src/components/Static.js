@@ -9,6 +9,7 @@ import Loading from './Loading';
 import LocaleSelector from './LocaleSelector';
 import Section from './StaticSection';
 import SubAnnouncement from './SubAnnouncement';
+import AsylumConnectBackButton from './AsylumConnectBackButton';
 import {StandaloneIcon} from './icons';
 import withWidth from './withWidth';
 import {getStaticPage} from '../utils/api';
@@ -51,6 +52,10 @@ const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       backgroundColor: theme.palette.secondary[500],
     },
+  },
+  changeCountryButton: {
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(-1),
   },
   subAnnouncement: {
     backgroundColor: '#e9e9e9',
@@ -125,6 +130,7 @@ class Static extends React.Component {
     };
     this.fetchPage = this.fetchPage.bind(this);
     this.handleLocaleSelect = this.handleLocaleSelect.bind(this);
+    this.handleLocaleReset = this.handleLocaleReset.bind(this);
   }
 
   componentWillMount() {
@@ -170,6 +176,14 @@ class Static extends React.Component {
     if (redirect) {
       this.props.history.push(redirect);
     }
+  }
+
+  handleLocaleReset() {
+    this.setState({
+      locale: false,
+    });
+    this.handleLocaleSelect();
+    console.log('Its been pushed');
   }
 
   render() {
@@ -226,9 +240,19 @@ class Static extends React.Component {
           className={classes.localeHeader}
         >
         {!isMobile ?
-          <Grid item xs={12} className={classes.subAnnouncement}>
-            <SubAnnouncement />
-          </Grid>
+          <>
+            <Grid item xs={12} className={classes.subAnnouncement}>
+              <SubAnnouncement />
+            </Grid>
+            <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+              <AsylumConnectBackButton
+                className={classes.changeCountryButton}
+                color="default"
+                text="Choose a different country"
+                onClick={this.handleLocaleReset}
+              />
+            </Grid>
+          </>
         : null}
         </Grid>
         <div className="static--page-container">
