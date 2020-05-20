@@ -242,16 +242,6 @@ class ResourceListItem extends React.Component {
                         })()
                       : null}
                   </Grid>
-                  {rating && (
-                    <Grid
-                      item
-                      xs={12}
-                      md={6}
-                      className={'pull-right ' + pullLeft}
-                    >
-                      <RatingAndReviews rating={rating} total={commentCount} />
-                    </Grid>
-                  )}
                 </Grid>
               </Grid>
             </Grid>
@@ -437,14 +427,6 @@ class ResourceListItem extends React.Component {
                           });
                         })()
                       : null}
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                    className={'pull-right ' + pullLeft}
-                  >
-                    <RatingAndReviews rating={rating} total={commentCount} />
                   </Grid>
                 </Grid>
               </Grid>
