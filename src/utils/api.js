@@ -6,11 +6,13 @@ import {localeTagMap} from './locale';
 import serviceAreaCoverage from './serviceAreaCoverage.json';
 
 export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
+// export const CATALOG_API_URL = `http://localhost:8080/v1`;
+
 // /* Local deloy */ export const CATALOG_API_URL = `http://localhost:8080/v1`;
 
 const jwt = localStorage.getItem('jwt');
 const handleErr = (err) => {
-  return {error: true, status: err.response.status};
+  return {error: true, status: err};
 };
 
 export const catalogDelete = (path, body, options) => {
@@ -61,6 +63,7 @@ export const catalogPost = (path, body, options) => {
 
 const getAreaId = (location) => location.toLowerCase().split(' ').join('-');
 
+// Get Organizations
 export const fetchOrganizations = (params) => {
   const {
     city,
@@ -72,6 +75,7 @@ export const fetchOrganizations = (params) => {
     selectedFilters,
     selectedResourceTypes,
     state,
+    state_short,
   } = params || {};
   const tagLocale = localeTagMap[locale] || '';
   const query = {};
@@ -113,12 +117,15 @@ export const fetchOrganizations = (params) => {
 
   if (state) {
     const stateProperty = `service-state-${getAreaId(state)}`;
+    query.state = state;
+    query.state_short = state_short;
 
     if (serviceAreaCoverage.state[stateProperty]) {
       serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
     }
 
     if (city) {
+      query.city = city;
       const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
         city
       )}`;
@@ -248,7 +255,6 @@ export const updateUser = (user, update) => {
 };
 
 export const updateUserPassword = (user, password) => {
-
   return catalogPatch(`/users/${user._id}/password`, {password})
     .then(() => ({}))
     .catch((err) => err);
