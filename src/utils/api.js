@@ -72,7 +72,6 @@ export const fetchOrganizations = (params) => {
     name,
     owner,
     page,
-    nearLatLng,
     selectedFilters,
     selectedResourceTypes,
     state,
@@ -80,9 +79,6 @@ export const fetchOrganizations = (params) => {
   } = params || {};
   const tagLocale = localeTagMap[locale] || '';
   const query = {};
-
-  console.log('params in fetchOrganization');
-  console.log(params);
 
   if (ids) {
     query.ids = ids;
@@ -162,15 +158,8 @@ export const fetchOrganizations = (params) => {
     query.tagLocale = tagLocale;
     query.tags = selectedResourceTypes;
   }
-  if (Object.values(nearLatLng).length > 0) {
-    query.lat = nearLatLng['lat'];
-    query.lng = nearLatLng['lng'];
-  }
 
   const queryString = qs.stringify(query, {arrayFormat: 'comma'});
-
-  console.log('helloooooooo');
-  console.log(queryString);
 
   return catalogGet(`/organizations?${queryString}`);
 };
