@@ -5,8 +5,8 @@ import config from '../config';
 import {localeTagMap} from './locale';
 import serviceAreaCoverage from './serviceAreaCoverage.json';
 
-// export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
-export const CATALOG_API_URL = `http://localhost:8080/v1`;
+export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
+// export const CATALOG_API_URL = `http://localhost:8080/v1`;
 
 // /* Local deloy */ export const CATALOG_API_URL = `http://localhost:8080/v1`;
 
