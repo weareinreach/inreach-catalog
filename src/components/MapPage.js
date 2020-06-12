@@ -117,6 +117,7 @@ class MapPage extends React.Component {
     //     this.getCachedResource(nextProps.match.params.id)
     //   );
     // }
+    
     // if (
     //   nextProps.match.path === '/:locale/resource/:id/service/:serviceId' &&
     //   (this.props.match.path !== '/:locale/resource/:id/service/:serviceId' ||
@@ -130,6 +131,7 @@ class MapPage extends React.Component {
     //     this.getCachedResource(nextProps.match.params.id)
     //   );
     // }
+    
     // if (
     //   nextProps.match.path ===
     //   '/:locale/search/:in/:place/:near/:for/:filter/:sort'
@@ -377,14 +379,12 @@ class MapPage extends React.Component {
       geocodeByAddress(nearAddress)
         .then((results) => {
           let state = '';
-          let state_short = '';
           let city = '';
 
           if (results.length && results[0].address_components) {
             results[0].address_components.forEach((piece) => {
               if (piece?.types?.indexOf('administrative_area_level_1') !== -1) {
                 state = piece?.long_name;
-                state_short = piece?.short_name;
               } else if (piece?.types?.indexOf('locality') !== -1) {
                 city = piece?.long_name;
               }
@@ -418,7 +418,6 @@ class MapPage extends React.Component {
               []
             ),
             state,
-            state_short,
           };
 
           this.setState(nextState);
