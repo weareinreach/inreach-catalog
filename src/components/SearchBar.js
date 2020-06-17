@@ -108,9 +108,7 @@ const SearchBar = (props) => {
             <div className={searchInputContainer}>
               <input
                 {...getInputProps({
-                  placeholder: t(
-                    'Start typing address, city or zip code in the US…'
-                  ),
+                  placeholder: t('Start typing county or state in the US…'),
                   className: searchInput,
                 })}
               />
