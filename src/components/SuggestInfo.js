@@ -227,7 +227,7 @@ class SuggestInfo extends React.Component {
                         ' ' +
                         classes.placesContainer2,
                       placeholder: t(
-                        'Start typing address, city or zip code in the US…'
+                        'Start typing county, city or state in the US…'
                       ),
                       name: 'search--near',
                       id: 'search--near',

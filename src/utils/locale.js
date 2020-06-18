@@ -1,8 +1,8 @@
 const enUS = {};
 
 const enCA = {
-  'Start typing address, city or zip code in the US…':
-    'Start typing address, city or postal code in Canada…',
+  'Start typing county, city or state in the US…':
+    'Start typing city, province or territory in Canada…',
   'Download Legal Guides on LGBTQ Asylum in the U.S.':
     'Download Legal Guides on LGBTQ Asylum in Canada',
   'English classes': 'Language classes',
