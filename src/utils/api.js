@@ -10,7 +10,7 @@ export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
 
 const jwt = localStorage.getItem('jwt');
 const handleErr = (err) => {
-  return {error: true, status: err.response.status};
+  return {error: true, status: err.response};
 };
 
 export const catalogDelete = (path, body, options) => {
@@ -248,7 +248,6 @@ export const updateUser = (user, update) => {
 };
 
 export const updateUserPassword = (user, password) => {
-
   return catalogPatch(`/users/${user._id}/password`, {password})
     .then(() => ({}))
     .catch((err) => err);
