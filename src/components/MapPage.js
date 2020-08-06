@@ -39,6 +39,7 @@ class MapPage extends React.Component {
       inState,
       nearAddress,
       nearLatLng,
+      isNational,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
@@ -47,6 +48,7 @@ class MapPage extends React.Component {
     this.state = {
       nearLatLng,
       inState,
+      isNational,
       mapWidth: '100%',
       page: 1,
       endOfList: false,
@@ -68,6 +70,7 @@ class MapPage extends React.Component {
     this.recentResourceCache = {};
 
     this.handlePlaceChange = this.handlePlaceChange.bind(this);
+    this.handleNationalCheckBox = this.handleNationalCheckBox.bind(this);
     this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this);
     this.handleResourceBackButton = this.handleResourceBackButton.bind(this);
     this.handleFilterSelect = this.handleFilterSelect.bind(this);
@@ -93,7 +96,7 @@ class MapPage extends React.Component {
 
     if (
       this.props.match.path ===
-      '/:locale/search/:in/:place/:near/:for/:filter/:sort'
+      '/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
     ) {
       localStorage.setItem('lastSearch', this.props.history.location.pathname);
     }
@@ -134,7 +137,7 @@ class MapPage extends React.Component {
     
     // if (
     //   nextProps.match.path ===
-    //   '/:locale/search/:in/:place/:near/:for/:filter/:sort'
+    //   '/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
     // ) {
     //   localStorage.setItem('lastSearch', nextProps.history.location.pathname);
     // }
@@ -200,6 +203,10 @@ class MapPage extends React.Component {
   handlePlaceChange(address) {
     this.setState({nearLatLng: null});
     this.props.handleAddressChange(address);
+  }
+
+  handleNationalCheckBox(event){
+    this.setState({isNational: event.target.checked})
   }
 
   handleResourceTypeSelect(event, checked) {
@@ -294,14 +301,18 @@ class MapPage extends React.Component {
       const inState = encodeURIComponent(state.long_name);
       const nearAddress = encodeURIComponent(this.props.nearAddress);
       const nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
+      const isNational = encodeURIComponent(
+        this.state.isNational
+        ? 'national'
+        : 'local'
+      );
       const filters = encodeURIComponent(
         this.state.selectedFilters.length
           ? this.state.selectedFilters.join(',')
           : 'all'
       );
       const sort = encodeURIComponent(this.state.selectedSort);
-      const url = `/${this.props.locale}/search/${inState}/${nearAddress}/${nearLatLng}/${resourceTypes}/${filters}/${sort}`;
-
+      const url = `/${this.props.locale}/search/${inState}/${nearAddress}/${nearLatLng}/${isNational}/${resourceTypes}/${filters}/${sort}`;
       this.props.history.push(url);
       this.setState({
         searchStatus: 'refresh',
@@ -360,6 +371,7 @@ class MapPage extends React.Component {
       inState,
       nearAddress,
       nearLatLng,
+      isNational,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
@@ -396,6 +408,7 @@ class MapPage extends React.Component {
             inState,
             nearAddress,
             nearLatLng,
+            isNational,
             page,
             selectedResourceTypes,
             selectedFilters,
@@ -418,8 +431,8 @@ class MapPage extends React.Component {
               []
             ),
             state,
+            isNational,
           };
-
           this.setState(nextState);
 
           fetchOrganizations(params).then((data) =>
@@ -482,6 +495,7 @@ class MapPage extends React.Component {
     var inState = {},
       nearAddress = '',
       nearLatLng = null,
+      isNational = true,
       selectedResourceTypes = [],
       selectedFilters = [],
       selectedSort = 'best';
@@ -499,6 +513,10 @@ class MapPage extends React.Component {
         lat: parseFloat(latLng[0]),
         lng: parseFloat(latLng[1]),
       };
+    }
+
+    if (params.national && params.national == 'local') {
+      isNational = false;
     }
 
     if (params.for && params.for !== 'any') {
@@ -520,6 +538,7 @@ class MapPage extends React.Component {
       inState,
       nearAddress,
       nearLatLng,
+      isNational,
       selectedFilters,
       selectedSort,
     };
@@ -530,6 +549,7 @@ class MapPage extends React.Component {
       inState,
       nearAddress,
       nearLatLng,
+      isNational,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
@@ -537,6 +557,7 @@ class MapPage extends React.Component {
     let updated = false;
     let stringified = JSON.stringify({
       nearLatLng,
+      isNational,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
@@ -548,6 +569,7 @@ class MapPage extends React.Component {
       inState,
       nearAddress,
       nearLatLng,
+      isNational,
       selectedResourceTypes,
       selectedFilters,
       selectedSort,
@@ -591,7 +613,7 @@ class MapPage extends React.Component {
     //on the search results, enforce a distance limitation of 100 miles
     const mapMaxDistance =
       this.props.match.path ===
-      '/:locale/search/:in/:place/:near/:for/:filter/:sort'
+      '/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
         ? 100
         : null;
 
@@ -612,6 +634,7 @@ class MapPage extends React.Component {
                       clearResourceTypes={this.clearResourceTypes}
                       handlePlaceChange={this.handlePlaceChange}
                       handleSearchButtonClick={this.handleSearchButtonClick}
+                      handleNationalCheckBox={this.handleNationalCheckBox}
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
                       infographic={infographic}
                       nearAddress={this.props.nearAddress}
@@ -623,7 +646,7 @@ class MapPage extends React.Component {
                 />
                 }
                 <Route
-                  path="/:locale/search/:in/:place/:near/:for/:filter/:sort"
+                  path="/:locale/search/:in/:place/:near/:national/:for/:filter/:sort"
                   render={(props) => (
                     <SearchResultsPage
                       {...props}
@@ -646,6 +669,7 @@ class MapPage extends React.Component {
                       handlePlaceChange={this.handlePlaceChange}
                       handlePrintClick={this.handlePrintClick}
                       handleSearchButtonClick={this.handleSearchButtonClick}
+                      handleNationalCheckBox={this.handleNationalCheckBox}
                       handleResourceTypeSelect={this.handleResourceTypeSelect}
                       handleRequestOpen={this.props.handleRequestOpen}
                       handleFilterSelect={this.handleFilterSelect}
@@ -756,7 +780,7 @@ class MapPage extends React.Component {
                     history={this.props.history}
                     infographic={
                       this.props.match.path ===
-                        '/:locale/search/:in/:place/:near/:for/:filter/:sort' &&
+                        '/:locale/search/:in/:place/:near/:national/:for/:filter/:sort' &&
                       infographic
                     }
                     loadingElement={

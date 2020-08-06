@@ -71,6 +71,7 @@ export const fetchOrganizations = (params) => {
     selectedFilters,
     selectedResourceTypes,
     state,
+    isNational,
   } = params || {};
   const tagLocale = localeTagMap[locale] || '';
   const query = {};
@@ -97,7 +98,7 @@ export const fetchOrganizations = (params) => {
 
   let serviceArea = '';
 
-  if (locale) {
+  if (locale && isNational) {
     const countryProperty =
       locale === 'en_US'
         ? 'service-national-united-states'

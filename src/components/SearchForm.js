@@ -4,8 +4,9 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import AsylumConnectButton from './AsylumConnectButton';
-import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
+import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import LocaleSelector from './LocaleSelector';
+import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 import SearchBar from './SearchBar';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
@@ -24,6 +25,10 @@ const styles = (theme) => ({
     },
   },
   [theme.breakpoints.down('xs')]: {
+    nationalOrgCheckboxContainer: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
     searchButtonContainer: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(10),
@@ -40,6 +45,9 @@ const styles = (theme) => ({
     },
   },
   [theme.breakpoints.down('xl')]: {
+    nationalOrgCheckboxContainer: {
+      paddingBottom: theme.spacing(3),
+    },
     lowerButton: {
       marginTop: theme.spacing(53),
       marginBottom: theme.spacing(3),
@@ -68,9 +76,9 @@ class SearchForm extends React.Component {
       });
     }
   }
-
   render() {
     const {
+      nationalOrgCheckboxContainer,
       searchButton,
       searchButtonContainer,
       lowerButton,
@@ -97,6 +105,19 @@ class SearchForm extends React.Component {
           classes={null}
           moveSearchButton={this.onMoveSearchButton}
         />
+        <Grid container spacing={0} className={nationalOrgCheckboxContainer}>
+            <Grid item>
+              <AsylumConnectCheckbox
+                label = {this.props.locale
+                  ? this.props.t(
+                      'Show me national organizations who can help anyone located in the United States'
+                    )
+                  : this.props.t('Show me national organizations who can help anyone located in the country')}
+                checked = {this.props.isNational}
+                onChange= {this.props.handleNationalCheckBox}
+              />
+            </Grid>
+        </Grid>
         <Grid container spacing={0} className={searchButtonContainer}>
           <Grid
             item
