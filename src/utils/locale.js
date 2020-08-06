@@ -11,6 +11,8 @@ const enCA = {
   'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
   'Welcome to the United States AsylumConnect Catalog!':
     'Welcome to the Canada AsylumConnect Catalog!',
+  'Show me national organizations who can help anyone located in the United States':
+   'Show me national organizations who can help anyone located in the Canada',
   'Physical evaluations for asylum claim':
     'Physical evaluations for refugee claim',
   'Asylum application': 'Refugee claim',
