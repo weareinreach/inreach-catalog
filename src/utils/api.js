@@ -3,7 +3,6 @@ import qs from 'query-string';
 import config from '../config';
 
 import {localeTagMap} from './locale';
-import serviceAreaCoverage from './serviceAreaCoverage.json';
 
 export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
 // /* Local deloy */ export const CATALOG_API_URL = `http://localhost:8080/v1`;
@@ -72,6 +71,7 @@ export const fetchOrganizations = (params) => {
     selectedFilters,
     selectedResourceTypes,
     state,
+    isNational,
   } = params || {};
   const tagLocale = localeTagMap[locale] || '';
   const query = {};
@@ -98,7 +98,7 @@ export const fetchOrganizations = (params) => {
 
   let serviceArea = '';
 
-  if (locale) {
+  if (locale && isNational) {
     const countryProperty =
       locale === 'en_US'
         ? 'service-national-united-states'
@@ -106,26 +106,20 @@ export const fetchOrganizations = (params) => {
         ? 'service-national-canada'
         : '';
 
-    if (serviceAreaCoverage.national[countryProperty]) {
-      serviceArea += countryProperty;
-    }
+    serviceArea += countryProperty;
   }
 
   if (state) {
     const stateProperty = `service-state-${getAreaId(state)}`;
 
-    if (serviceAreaCoverage.state[stateProperty]) {
-      serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
-    }
+    serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
 
     if (city) {
       const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
         city
       )}`;
 
-      if (serviceAreaCoverage.county[countyProperty]) {
-        serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
-      }
+      serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
     }
   }
 

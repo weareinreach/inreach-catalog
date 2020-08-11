@@ -487,7 +487,7 @@ class AppConnectCatalog extends React.Component {
                 )}
               />
               <Route
-                path="/:locale/search/:in/:place/:near/:for/:filter/:sort"
+                path="/:locale/search/:in/:place/:near/:national/:for/:filter/:sort"
                 render={(props) => (
                   <MapPage
                     {...props}
@@ -511,16 +511,20 @@ class AppConnectCatalog extends React.Component {
                 )}
               />
               <RedirectWithParams
-                from={'/:locale/search/:in/:place/:near/:for/:filter'}
-                to={'/search/:in/:place/:near/:for/:filter/default'}
+                from={'/:locale/search/:in/:place/:near/:national/:for/:filter'}
+                to={'/search/:in/:place/:near/:national/:for/:filter/default'}
               />
               <RedirectWithParams
-                from={'/:locale/search/:in/:place/:near/:for'}
-                to={'/search/:in/:place/:near/:for/all/default'}
+                from={'/:locale/search/:in/:place/:near/:national/:for'}
+                to={'/search/:in/:place/:near/:national/:for/all/default'}
               />
               <RedirectWithParams
-                from={'/:locale/search/:in/:place/:near/'}
-                to={'/search/:in/:place/:near/any/all/default'}
+                from={'/:locale/search/:in/:place/:near/:national/'}
+                to={'/search/:in/:place/:near/:national/any/all/default'}
+              />
+              <RedirectWithParams
+                from={'/:locale/search/:in/:place/:near/:national/'}
+                to={'/search/:in/:place/:near/:national/any/all/default'}
               />
               <Redirect from="/:locale/search" to="/" />
               <Redirect from="/:locale/resource" to="/" />

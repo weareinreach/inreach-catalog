@@ -67,6 +67,10 @@ const styles = (theme) => ({
     },
   },
   [theme.breakpoints.down('xs')]: {
+    nationalOrgCheckboxContainer: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
     container: {
       paddingTop: '0px',
       paddingBottom: '0px',
@@ -104,6 +108,9 @@ const styles = (theme) => ({
     },
   },
   [theme.breakpoints.down('xl')]: {
+    nationalOrgCheckboxContainer: {
+      paddingBottom: theme.spacing(3),
+    },
     lowerButton: {
       marginTop: theme.spacing(53),
     },
@@ -284,6 +291,7 @@ class SearchResultsContainer extends React.Component {
       shrinkTab,
       tabContainer,
       tooltip,
+      nationalOrgCheckboxContainer,
     } = this.props.classes;
     const searchResultsProps = {
       containerSearchResults:
@@ -339,6 +347,19 @@ class SearchResultsContainer extends React.Component {
               inlineSearchButton={isMobile}
               moveSearchButton={this.onMoveSearchButton}
             />
+            <Grid container spacing={0} className={nationalOrgCheckboxContainer}>
+              <Grid item>
+                <AsylumConnectCheckbox
+                  label = {this.props.locale
+                    ? this.props.t(
+                        'Show me national organizations who can help anyone located in the United States'
+                      )
+                    : this.props.t('Show me national organizations who can help anyone located in the country')}
+                  checked = {this.props.isNational}
+                  onChange= {this.props.handleNationalCheckBox}
+                />
+              </Grid>
+            </Grid>
             <Grid container spacing={0} alignItems="flex-start">
               <Grid item xs={12} md={8} className={toolbarClass}>
                 {isMobile ? null : (
