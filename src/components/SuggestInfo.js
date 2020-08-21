@@ -12,6 +12,7 @@ import PlaceIcon from '@material-ui/icons/Place';
 import TextField from '@material-ui/core/TextField';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import SuggestInfoNonEngServices from './SuggestInfoNonEngServices';
+import OrganizationAutoSuggest from './OrganizationAutoSuggest';
 
 import {searchInput, searchInputMobile} from '../theme';
 
@@ -136,9 +137,11 @@ class SuggestInfo extends React.Component {
     this.handleServiceSelect = this.handleServiceSelect.bind(this);
     this.handleServiceDelete = this.handleServiceDelete.bind(this);
   }
-  handleChange(e) {
-    const {name, value} = e.target;
-    this.props.handleChangeGeneralInfo(name, value);
+  handleChange(value) {
+    // Checks value from resource search to prevent infinite setState
+    if (value !== undefined) {
+      this.props.handleChangeGeneralInfo(value);
+    }
   }
   handleChangePhone(e) {
     const {name, value} = e.target;
@@ -193,17 +196,7 @@ class SuggestInfo extends React.Component {
     return (
       <div className={classes.root}>
         <form className={classes.form}>
-          <TextField
-            className={classes.inputLabel}
-            label="Resource Name:"
-            name="name"
-            value={name}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder="Resource Name"
-            onChange={this.handleChange}
-          />
+          <OrganizationAutoSuggest handleChange={this.handleChange} locale={this.props.locale} />
           <FormControl className={classes.inputAddressLabel}>
             <InputLabel children="Address:" shrink />
             <PlacesAutocomplete
