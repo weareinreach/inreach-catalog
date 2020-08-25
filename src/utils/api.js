@@ -166,6 +166,10 @@ export const getStaticPage = (name) => {
     .catch(() => ({error: true}));
 };
 
+export const getOrgsByName = (name) => {
+  return catalogGet(`/organizations/name/${name}`);
+}
+
 export const getOrganizationBySlug = (slug) => {
   return catalogGet(`/slug/organizations/${slug}`);
 };
