@@ -621,7 +621,6 @@ class MapPage extends React.Component {
                     />
                   )}
                 />
-                }
                 <Route
                   path="/:locale/search/:in/:place/:near/:for/:filter/:sort"
                   render={(props) => (
