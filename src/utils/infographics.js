@@ -118,6 +118,11 @@ const defaultInfographic = {
           url:
             'https://asylumconnect.org/wp-content/uploads/2020/02/Know-Your-Rights-Canada-French-compressed.pdf',
         },
+        {
+          name: 'Preliminary Document Checklist',
+          url:
+            'https://asylumconnect.org/wp-content/uploads/2020/07/translated-preliminarychecklistcanada_compressed-compressed.pdf',
+        },
       ],
     },
   },
