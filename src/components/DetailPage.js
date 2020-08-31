@@ -263,6 +263,8 @@ class Detail extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    window.scrollTo(0, 0);
+
     const params = this.props?.match?.params;
     const oldParams = prevProps?.match?.params;
 
