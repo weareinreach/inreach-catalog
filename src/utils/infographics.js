@@ -1,4 +1,4 @@
-//LA, NYC, Philadelphia, San Francisco, Seattle, and Washington DC
+//LA, NYC, Philadelphia, San Francisco, San Diego, Seattle, and Washington DC
 const infographics = [
   {
     center: {
@@ -39,6 +39,16 @@ const infographics = [
     name: "Asylum Seeker's Guide to San Francisco",
     url:
       'http://asylumconnect.org/wp-content/uploads/2019/10/sfinfographic-1_compressed.pdf',
+  },
+  {
+    center: {
+      lat: 32.715736,
+      lng:-117.161087,
+    },
+    distance: 20, //miles
+    name: "Asylum Seeker's Guide to San Diego",
+    url:
+      'https://asylumconnect.org/wp-content/uploads/2020/07/San-Diego-city-guide-asylumconnect-compressed.pdf',
   },
   {
     center: {
