@@ -16,10 +16,13 @@ const styles = (theme) => ({
     maxWidth: theme.maxColumnWidth,
     margin: '0 auto',
   },
-  textBlack: {color: theme.palette.common.darkBlack},
+  textColor: {
+    color: '#5073B3',
+  },
   textCenter: {textAlign: 'center'},
+  footer: {
+  },
   footerLink: {
-    color: theme.typography.body2.color,
     textDecoration: 'underline',
     '&:link': {
       color: theme.typography.body2.color,
@@ -39,9 +42,10 @@ const Footer = ({classes, locale}) => {
     bgDarkGrey,
     bgLightGrey,
     paddingVertical,
-    textBlack,
+    textColor,
     textCenter,
     centerColumn,
+    footer
   } = classes;
 
   const ContactLink = ({link, icon}) => (
@@ -50,7 +54,7 @@ const Footer = ({classes, locale}) => {
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className={textBlack}
+        className={textColor}
       >
         <FontAwesome name={icon} size="lg" />
       </a>
@@ -58,7 +62,7 @@ const Footer = ({classes, locale}) => {
   );
 
   return (
-    <footer className={classNames(textCenter, bgDarkGrey)}>
+    <footer className={classNames(textCenter, bgDarkGrey, footer)}>
       <Grid
         container
         spacing={0}
@@ -98,17 +102,17 @@ const Footer = ({classes, locale}) => {
           <Grid container spacing={0}>
             <Grid item xs>
               <Link to={'/' + locale + '/suggestions/new'}>
-                <Typography variant="h5">Suggest a Resource</Typography>
+                <Typography className={textColor} variant="h5">Suggest a Resource</Typography>
               </Link>
             </Grid>
             <Grid item xs>
               <a href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL">
-                <Typography variant="h5">Share Feedback</Typography>
+                <Typography className={textColor} variant="h5">Share Feedback</Typography>
               </a>
             </Grid>
             <Grid item xs>
               <a href="https://asylumconnect.org/newsletter/">
-                <Typography variant="h5">Subscribe to Newsletter</Typography>
+                <Typography className={textColor} variant="h5">Subscribe to Newsletter</Typography>
               </a>
             </Grid>
           </Grid>

@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
+import LanguageButtonImage from '../images/language-button.svg';
 
 import Filter from './Filter';
 
@@ -23,10 +24,21 @@ import {
 
 const styles = (theme) => ({
   root: {
-    display: 'block',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  languageImage: {
+    marginRight: '10px'
   },
   languageListContainer: {
     width: 'auto',
+  },
+  languageSelector: {
+    color: '#5073B3',
+    width: '100%',
+    '& .MuiSvgIcon-root': {
+      color: '#5073B3 !important'
+    }
   },
   bodySelector: Object.assign(searchInput(theme), {
     borderLeft: '2px solid ' + theme.palette.common.lightGrey,
@@ -293,22 +305,23 @@ class Language extends React.Component {
     if (triggerReload === true) {
       this.handleReload();
     }
-
     return (
       <div className={classes.root + ' hide--on-print'}>
         {!isMobile ? (
-          <AsylumConnectSelector
-            label={label || selectedLang}
-            containerClass={inputClass}
-            selected={[]}
-            closeOnClick={true}
-            listContainerClass={classNames([
-              classes.languageListContainer,
-              this.props.listContainerClass,
-            ])}
-          >
-            {this.generateLanguageList()}
-          </AsylumConnectSelector>
+            <AsylumConnectSelector
+              label={label || selectedLang}
+              icon={<img src={LanguageButtonImage} className={classes.languageImage} />}
+              containerClass={inputClass}
+              selected={[]}
+              rootClass={classes.languageSelector}
+              closeOnClick={true}
+              listContainerClass={classNames([
+                classes.languageListContainer,
+                this.props.listContainerClass,
+              ])}
+            >
+              {this.generateLanguageList()}
+            </AsylumConnectSelector>
         ) : (
           <div className={classes.mobilePadding + ' ' + classes.topPadding}>
             <AsylumConnectBackButton

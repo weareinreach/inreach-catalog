@@ -21,6 +21,7 @@ const styles = (theme) => ({
     alignItems: 'center',
     margin: '0 auto',
     backgroundColor: 'white',
+    boxShadow: '0px 2px 5px rgba(0,0,0,0.3)',
     '@media(min-width:1640px)': {
       padding: '10px 15%',
     },

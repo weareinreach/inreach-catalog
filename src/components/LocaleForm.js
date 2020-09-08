@@ -16,7 +16,6 @@ const styles = (theme) => ({
     position: 'relative',
     boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
     marginBottom: '0',
-    //boxShadow: '-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
     [theme.breakpoints.down('md')]: {
       boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
       borderLeft: 'none',
@@ -24,7 +23,7 @@ const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: searchInputMobile(theme),
   }),
   listContainerClass: {
-    width: '100%!important',
+    width: '100%!important'
   },
   labelRow: {
     marginBottom: theme.spacing(2),

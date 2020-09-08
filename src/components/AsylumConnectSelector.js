@@ -25,6 +25,7 @@ const styles = (theme) => ({
     height: '20px',
     color: theme.palette.common.lightBlack,
     float: 'right',
+    marginLeft: 'auto'
   },
   relative: {
     position: 'relative',
@@ -34,8 +35,9 @@ const styles = (theme) => ({
   },
   selectedLabel: {
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: theme.typography.fontSize - 1,
+    fontSize: theme.typography.fontSize,
     lineHeight: 1.25,
+    position: 'relative'
   },
   indicator: {
     display: 'inline-block',
@@ -47,6 +49,13 @@ const styles = (theme) => ({
       right: '20px',
     },
   },
+  labelContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    boxSizing: 'border-box'
+  }
 });
 
 class AsylumConnectSelector extends React.Component {
@@ -106,8 +115,9 @@ class AsylumConnectSelector extends React.Component {
       selectedLabel,
       selectContainer,
       indicator,
+      labelContainer
     } = this.props.classes;
-    const {selected, label, containerWidth} = this.props;
+    const {selected, label, containerWidth, icon} = this.props;
     const containerClasses =
       (this.props.containerClass ? this.props.containerClass + ' ' : '') +
       (this.state.open ? toggledSelect + ' ' : '') +
@@ -128,7 +138,8 @@ class AsylumConnectSelector extends React.Component {
             this.handleOpenDrawer(event);
           }}
         >
-          <div>
+          <div className={labelContainer}>
+            {icon}
             <span className={selectedLabel}>{label}</span>
             {selected && selected.length ? (
               <AsylumConnectIndicator className={indicator} color="secondary">
