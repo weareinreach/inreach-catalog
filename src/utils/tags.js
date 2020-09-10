@@ -33,6 +33,12 @@ const resourceTypes = [
   {
     category: 'Community Support',
     type: 'communitySupport',
+    acTag: 'Reception Services',
+    title: 'Reception Services',
+  },
+  {
+    category: 'Community Support',
+    type: 'communitySupport',
     acTag: 'LGBTQ centres',
     title: 'LGBTQ centres',
   },
@@ -385,6 +391,7 @@ const localeExclusions = {
     'Gender-neutral restrooms',
     'Gender-neutral washrooms',
     'LGBTQ centres',
+    'Reception Services',
     'Language classes',
     'Private therapy and counselling',
     'Physical evaluations for refugee claim',
@@ -408,7 +415,7 @@ const localeExclusions = {
     'Psychological evaluations for asylum claim',
     'Special Immigrant Juvenile Status (SIJS)',
   ],
-  en_MX: ['Gender-neutral bathrooms', 'Gender-neutral washrooms'],
+  en_MX: ['Gender-neutral bathrooms', 'Gender-neutral washrooms', 'Reception Services'],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
