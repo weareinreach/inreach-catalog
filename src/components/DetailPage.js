@@ -263,11 +263,8 @@ class Detail extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    window.scrollTo(0, 0);
-
     const params = this.props?.match?.params;
     const oldParams = prevProps?.match?.params;
-
     if (
       params.id !== oldParams.id ||
       params.serviceId !== oldParams.serviceId
@@ -275,6 +272,17 @@ class Detail extends React.Component {
       this.isServicePage = Boolean(params.id && params.serviceId);
 
       this.requestData();
+    }
+
+    // Checks current path from url and compares to path from prev page url
+    // If paths don't match, window will scroll to top
+    const newPath = this.props?.match?.path;
+    const oldPath = prevProps?.match?.path;
+    if (
+      newPath === '/:locale/resource/:id/service/:serviceId' &&
+      oldPath !== '/:locale/resource/:id/service/:serviceId'
+    ) {
+      window.scroll(0, 0);
     }
   }
 
