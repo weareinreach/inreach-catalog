@@ -468,7 +468,8 @@ class Detail extends React.Component {
       verified: organization?.updated_at,
     };
     const resourceTags = getTags(resource, locale);
-    console.log(organization);
+    console.log(organization); //object from staging API
+
     return (
       <Grid
         container
