@@ -2,7 +2,7 @@
 
 <!-- Describe your changes here -->
 
-- Asana ticket:
+- Asana ticket: Add clear “Verified Information” badge to each organization’s profile page
 
 ## PR Checklist
 
