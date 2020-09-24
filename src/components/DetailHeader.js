@@ -4,6 +4,7 @@ import url from 'url';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import RatingAndReviews from './ResourceRatingAndReviews';
 import Phone from './ResourcePhone';
@@ -110,9 +111,14 @@ const DetailHeader = ({
           {verified && verified.length ? (
             <Badge>
               <VerifiedIcon />
-              <Typography color="secondary">
-                Verified Information {verified}
-              </Typography>
+              <Tooltip
+                classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+                title={`Verified Information  ${Date(verified)}`}
+                arrow
+                placement="bottom"
+              >
+                <Typography color="secondary">Verified Information</Typography>
+              </Tooltip>
             </Badge>
           ) : null}
         </Grid>
