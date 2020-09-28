@@ -22,9 +22,6 @@ const styles = (theme) => ({
     },
     inputLabel: {
         '& label': theme.custom.inputLabel,
-        // '&>div': {
-        //   marginTop: '20px',
-        // },
         '& input': theme.custom.inputText,
         marginTop: '-5px',
         fontWeight: 'bold',
@@ -200,7 +197,7 @@ const AutoSuggestNew = (props, {inputProps}) => {
                 )}
             </FormControl>
             {!display && search === hovered.name ?
-              <p style={{lineHeight:"25px"}}>Thank you for your interest in contributing to the AsylumConnect resource catalog but it looks like we've already had 
+              <p style={{lineHeight:"25px"}}>Thank you for your interest in contributing to the AsylumConnect resource catalog! It seems we already have
                 <Link to={'/' + props.locale + '/resource/' + hovered.slug} className="hide--on-print"> {search} </Link>
                 on the catalog. You can join this organization by signing up for a provider account 
                 <Link to={'/' + props.locale + '/resource/' + hovered.slug}> here.</Link></p>
