@@ -42,6 +42,12 @@ const resourceTypes = [
     acTag: 'LGBTQ centres',
     title: 'LGBTQ centres',
   },
+  {
+    category: 'Community Support',
+    type: 'communitySupport',
+    acTag: 'Sponsors',
+    title: 'Sponsors',
+  },
 
   /* AC Computers and Internet Category */
   {
@@ -414,8 +420,9 @@ const localeExclusions = {
     'Private therapy and counseling',
     'Psychological evaluations for asylum claim',
     'Special Immigrant Juvenile Status (SIJS)',
+    'Sponsors'
   ],
-  en_MX: ['Gender-neutral bathrooms', 'Gender-neutral washrooms', 'Reception Services'],
+  en_MX: ['Gender-neutral bathrooms', 'Gender-neutral washrooms', 'Reception Services', 'Sponsors'],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
