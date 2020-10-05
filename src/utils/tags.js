@@ -422,7 +422,12 @@ const localeExclusions = {
     'Special Immigrant Juvenile Status (SIJS)',
     'Sponsors'
   ],
-  en_MX: ['Gender-neutral bathrooms', 'Gender-neutral washrooms', 'Reception services', 'Sponsors'],
+  es_MX: [
+    'Cultural centers',
+    'Gender-neutral bathrooms', 
+    'Gender-neutral washrooms', 
+    'LGBTQ centers', 
+    'Reception Services'],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
