@@ -26,7 +26,7 @@ const enCA = {
 
 const enMX = {
   'Start typing county, city or state in the US…':
-    'Start typing city, province or territory in Mexico…',
+    'Start typing city or state in Mexico…',
   'Download Legal Guides on LGBTQ Asylum in the U.S.':
     'Download Legal Guides on LGBTQ Asylum in Mexico',
   'English classes': 'Language classes',
@@ -52,7 +52,7 @@ export const fetchLocale = (locale) => {
   switch (locale) {
     case 'en_CA':
       return enCA;
-    case 'es_MX':
+    case 'en_MX':
       return enMX;
     case 'en_US':
     default:
@@ -60,7 +60,7 @@ export const fetchLocale = (locale) => {
   }
 };
 
-export const validLocales = ['en_US', 'en_CA', 'es_MX'];
+export const validLocales = ['en_US', 'en_CA', 'en_MX'];
 
 export const clearLocale = () => {
   window.localStorage.removeItem('locale');
@@ -80,6 +80,6 @@ export const setLocale = (locale) => {
 
 export const localeTagMap = {
   en_CA: 'canada',
-  es_MX: 'mexico',
+  en_MX: 'mexico',
   en_US: 'united_states',
 };
