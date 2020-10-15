@@ -423,11 +423,25 @@ const localeExclusions = {
     'Sponsors'
   ],
   en_MX: [
-    'Cultural centers',
-    'Gender-neutral bathrooms', 
+    'Asylum application',
+    'Career counselling',
+    'Cultural centres',
+    'Deferred Action for Childhood Arrivals (DACA)',
+    'Drop-in centres for LGBTQ youth',
+    'English classes',
+    'Gender-neutral restrooms', 
     'Gender-neutral washrooms', 
-    'LGBTQ centers', 
-    'Reception Services'],
+    'Legal hotlines',
+    'LGBTQ centres', 
+    'Mail',
+    'Physical evaluations for refugee claim',
+    'Private therapy and counselling',
+    'Psychological evaluations for refugee claim',
+    'Reception services',
+    'Refugee claim',
+    'Short-term housing',
+    'Special Immigrant Juvenile Status (SIJS)',
+    'Sponsors'],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
