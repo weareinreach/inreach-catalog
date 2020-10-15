@@ -15,21 +15,21 @@ const HousingIcon = ({width, fillColor, strokeColor}) => (
         stroke={strokeColor}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.5"
+        strokeWidth="1.5"
         d="M11.194 27.476h12.615V16.2H11.194z"
       />
       <path
         stroke={strokeColor}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.5"
+        strokeWidth="1.5"
         d="M18.06 27.476h3.41v-5.638h-3.41zM19.988 12.106l-2.502-1.653L8.785 16.2h17.4l-4.35-2.874"
       />
       <path
         stroke={strokeColor}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.5"
+        strokeWidth="1.5"
         d="M21.835 9.702h-1.847v2.404l1.847 1.22z"
       />
     </g>

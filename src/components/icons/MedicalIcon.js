@@ -26,7 +26,7 @@ const MedicalIcon = ({width, fillColor}) => (
         stroke="#FFF"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.618"
+        strokeWidth="1.5"
         d="M25.76 16.183h-5.13v-5.131h-5.738v5.131H9.761v5.737h5.131v5.132h5.737V21.92h5.132z"
       />
     </g>

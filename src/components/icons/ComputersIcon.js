@@ -13,7 +13,7 @@ const ComputersIcon = ({width, fillColor}) => (
         stroke="#FFF"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.5"
+        strokeWidth="1.5"
       />
     </g>
   </svg>
