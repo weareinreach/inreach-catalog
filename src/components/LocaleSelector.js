@@ -25,7 +25,7 @@ const styles = (theme) => ({
 
 const supportedLocales = [
   {name: '🇨🇦 Canada', code: 'en_CA'},
-  {name: '🇲🇽 Mexico', code: 'es_MX'},
+  {name: '🇲🇽 Mexico', code: 'en_MX'},
   {name: '🇺🇸 United States', code: 'en_US'},
   {name: '🌎 Other / Travel Support', code: 'intl'},
 ];

@@ -422,7 +422,7 @@ const localeExclusions = {
     'Special Immigrant Juvenile Status (SIJS)',
     'Sponsors'
   ],
-  es_MX: [
+  en_MX: [
     'Cultural centers',
     'Gender-neutral bathrooms', 
     'Gender-neutral washrooms', 
