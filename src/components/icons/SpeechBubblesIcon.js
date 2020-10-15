@@ -12,14 +12,14 @@ const SpeechBubblesIcon = ({width, fillColor, strokeColor}) => (
         stroke={strokeColor}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.7"
+        strokeWidth="1.5"
         d="M9.729 20.765c0-2.164 2.266-3.918 5.062-3.918 2.797 0 5.063 1.754 5.063 3.918s-2.266 3.919-5.063 3.919a6.383 6.383 0 0 1-1.7-.232l-2.237 1.364.925-1.907c-1.242-.714-2.05-1.854-2.05-3.144z"
       />
       <path
         stroke={strokeColor}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.7"
+        strokeWidth="1.5"
         d="M20.8 22.255a7.044 7.044 0 0 0 1.696-.398l2.42 1.156-1.234-1.743c1.432-.909 2.36-2.332 2.36-3.937 0-2.746-2.701-4.971-6.032-4.971-2.657 0-4.905 1.418-5.71 3.384"
       />
     </g>

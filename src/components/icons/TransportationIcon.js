@@ -22,7 +22,7 @@ const TransportationIcon = ({width, fillColor}) => (
           mask="url(#b)"
         />
       </g>
-      <g stroke="#FFF" strokeWidth="0.5">
+      <g stroke="#FFF" strokeWidth="1.5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
