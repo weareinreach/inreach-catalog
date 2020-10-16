@@ -160,9 +160,9 @@ class Static extends React.Component {
   handleLocaleSelect(locale, language) {
     let redirect = false;
     switch (locale) {
-      // case 'es_MX':
-      //   redirect = `/${locale}/page/Mexico/`;
-      //   break;
+      case 'en_MX':
+        redirect = `/${locale}/page/Mexico/`;
+        break;
       case 'intl':
         redirect = '/intl/page/outside-US-and-Canada';
         break;
