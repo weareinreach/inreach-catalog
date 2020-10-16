@@ -26,7 +26,7 @@ const ResourceMailIcon = ({width, fillColor}) => (
         stroke="#FFF"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.5"
+        strokeWidth="1.5"
       >
         <path d="M25.62 17.254H11.983a3.41 3.41 0 0 0-3.409 3.41v5.454c0 .376.306.682.682.682h18.41a.682.682 0 0 0 .681-.682v-6.136c0-1.5-1.227-2.728-2.727-2.728z" />
         <path d="M11.983 17.254a3.41 3.41 0 0 1 3.41 3.41v5.454a.682.682 0 0 1-.682.682M18.802 20.664v-8.182h4.09v2.045h-3.75" />

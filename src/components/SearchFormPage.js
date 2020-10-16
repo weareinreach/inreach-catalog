@@ -129,7 +129,7 @@ class SearchFormContainer extends React.Component {
   handleLocaleSelect(locale, language, hasLanguageChanged) {
     let redirect = false;
     switch (locale) {
-      case 'es_MX':
+      case 'en_MX':
         redirect = `/${locale}/page/Mexico/`;
         break;
       case 'intl':
@@ -263,7 +263,7 @@ class SearchFormContainer extends React.Component {
               </Grid>
             ) : null}
             <Grid container spacing={0} className={containerSearchForm}>
-              {locale && <Disclaimer {...disclaimerProps} />}
+              {locale && disclaimerProps.children && <Disclaimer {...disclaimerProps} />}
               {!isMobile ? (
                 <Grid item xs={12}>
                   <Typography variant="h2" className={title}>

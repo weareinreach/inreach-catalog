@@ -12,7 +12,7 @@ const EducationEmploymentIcon = ({width, fillColor}) => (
         stroke="#FFF"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.5"
+        strokeWidth="1.5"
       >
         <path d="M8.838 17.686l6.153 1.926c1.606.389 3.876.443 5.539 0l6.154-1.926" />
         <path d="M26.068 26.074H9.453c-.428 0-.615-.495-.615-.923V13.766c0-.428.187-.615.615-.615h16.615c.429 0 .616.187.616.615v11.385c0 .428-.187.923-.616.923zM19.915 10.69h-4.308c-.428 0-.616.186-.616.615v1.846h5.539v-1.846c0-.429-.187-.616-.615-.616z" />
