@@ -211,26 +211,6 @@ class SearchFormContainer extends React.Component {
 
     return (
       <div style={{position: 'relative'}}>
-        {!isMobile ? (
-          <div
-            className={subAnnouncement}
-            style={{
-              marginLeft: '-' + (width - 1300) / 2 + 'px',
-              paddingLeft: (width - 1300) / 2 + 'px',
-            }}
-          >
-            <Grid
-              container
-              alignItems="center"
-              justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
-              spacing={0}
-            >
-              <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-                <SubAnnouncement />
-              </Grid>
-            </Grid>
-          </div>
-        ) : null}
         <Grid
           container
           alignItems="flex-start"
