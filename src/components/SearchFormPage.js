@@ -8,7 +8,6 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import Disclaimer from './Disclaimer';
 import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
-import SubAnnouncement from './SubAnnouncement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
@@ -30,22 +29,6 @@ const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       paddingTop: 0,
     },
-  },
-  subAnnouncement: {
-    backgroundColor: '#e9e9e9',
-    marginLeft: '-34px',
-    paddingLeft: '34px',
-    paddingTop: '1rem',
-    paddingBottom: '1rem',
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    right: '0',
-    [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
-      position: 'static',
-      paddingTop: '80px',
-      marginLeft: '0',
-    }),
   },
   containerSearchForm: {
     paddingTop: theme.spacing(8),
@@ -173,7 +156,6 @@ class SearchFormContainer extends React.Component {
       subheading,
       changeCountryButton,
       containerSearchForm,
-      subAnnouncement,
     } = classes;
     const isMobile = width < breakpoints['sm'];
     let disclaimerProps = {};
