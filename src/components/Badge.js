@@ -12,6 +12,7 @@ import {
   FoodIcon,
   HousingIcon,
   ClothingIcon,
+  LanguageIcon,
   LegalIcon,
   MailIcon,
   MedicalIcon,
@@ -74,6 +75,10 @@ const Badge = ({
     hygiene: {
       label: 'Hygiene',
       icon: <ClothingIcon />,
+    },
+    language: {
+      label: 'Language',
+      icon: <LanguageIcon />,
     },
     legal: {
       label: 'Legal',
@@ -154,6 +159,7 @@ Badge.propTypes = {
     'food',
     'housing',
     'hygiene',
+    'language',
     'legal',
     'mail',
     'medical',
