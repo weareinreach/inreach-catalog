@@ -90,7 +90,6 @@ const NavDesktop = ({
         <AsylumConnectButton variant="primary">safety exit</AsylumConnectButton>
       </a>
       <Language colorClass={classes.languageIconColor} useIcon />
-      <Language />
       <AccountNav
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
