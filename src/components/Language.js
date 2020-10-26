@@ -75,6 +75,8 @@ const styles = (theme) => ({
   },
   filterInput: {
     width: '100%',
+    border: '2px solid #E9E9E9',
+    borderRadius: '4px',
   },
   filterInputBar: {
     padding: `5px ${theme.spacing(2)}px 0px`,
