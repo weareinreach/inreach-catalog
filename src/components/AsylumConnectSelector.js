@@ -4,6 +4,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import classNames from 'classnames';
 
 import AsylumConnectIndicator from './AsylumConnectIndicator';
 import withWidth from './withWidth';
@@ -36,6 +37,11 @@ const styles = (theme) => ({
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: theme.typography.fontSize - 1,
     lineHeight: 1.25,
+  },
+  labelContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   indicator: {
     display: 'inline-block',
@@ -105,17 +111,12 @@ class AsylumConnectSelector extends React.Component {
       selectList,
       selectedLabel,
       selectContainer,
+      labelContainer,
       indicator,
     } = this.props.classes;
-    const {selected, label, containerWidth} = this.props;
-    const containerClasses =
-      (this.props.containerClass ? this.props.containerClass + ' ' : '') +
-      (this.state.open ? toggledSelect + ' ' : '') +
-      selectContainer;
-    const listContainerClasses =
-      (this.props.listContainerClass
-        ? this.props.listContainerClass + ' '
-        : '') + selectList;
+    const {selected, label, containerWidth, containerClass, listContainerClass, colorClass} = this.props;
+    const containerClasses = classNames(containerClass, this.state.open ? toggledSelect : '', selectContainer)
+    const listContainerClasses = listContainerClass ? classNames(listContainerClass, selectList) : selectList;
     const rootClass =
       (this.props.rootClass ? this.props.rootClass + ' ' : '') + relative;
 
@@ -128,7 +129,7 @@ class AsylumConnectSelector extends React.Component {
             this.handleOpenDrawer(event);
           }}
         >
-          <div>
+          <div className={labelContainer}>
             <span className={selectedLabel}>{label}</span>
             {selected && selected.length ? (
               <AsylumConnectIndicator className={indicator} color="secondary">
@@ -136,9 +137,9 @@ class AsylumConnectSelector extends React.Component {
               </AsylumConnectIndicator>
             ) : null}
             {this.state.open ? (
-              <KeyboardArrowUpIcon className={arrow} />
+              <KeyboardArrowUpIcon className={classNames(arrow, colorClass)} />
             ) : (
-              <KeyboardArrowDownIcon className={arrow} />
+              <KeyboardArrowDownIcon className={classNames(arrow, colorClass)} />
             )}
           </div>
         </div>
