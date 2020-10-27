@@ -8,6 +8,7 @@ import {withStyles} from '@material-ui/core/styles';
 import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 
 import AsylumConnectMarker from './AsylumConnectMarker';
+import AsylumConnectMexicoMapContainer from './AsylumConnectMexicoMapContainer'
 
 const getLatLong = (location = {}) => {
   const lat = location?.lat;
@@ -230,6 +231,7 @@ class AsylumConnectMap extends React.Component {
                 });
               })
             : null}
+            {!(resources && resources.length) && this.props.locale == 'en_MX' ? <AsylumConnectMexicoMapContainer/> : null}
         </GoogleMap>
       </div>
     );
