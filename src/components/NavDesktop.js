@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {withStyles} from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import AccountNav from './AccountNav';
@@ -49,6 +49,10 @@ const styles = (theme) => ({
     width: 'auto',
     maxWidth: '65px',
   },
+  languageIconColor: {
+    fill: theme.palette.secondary[400],
+    color: theme.palette.secondary[400],
+  }
 });
 
 const NavDesktop = ({
@@ -85,7 +89,7 @@ const NavDesktop = ({
       <a className="hide--on-print" href="https://www.google.com/">
         <AsylumConnectButton variant="primary">safety exit</AsylumConnectButton>
       </a>
-      <Language />
+      <Language colorClass={classes.languageIconColor} useIcon />
       <AccountNav
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}
@@ -97,7 +101,7 @@ const NavDesktop = ({
   );
 };
 
-NavDesktop.defaultProps = {session: null};
+NavDesktop.defaultProps = { session: null };
 
 NavDesktop.propTypes = {
   classes: PropTypes.object.isRequired,

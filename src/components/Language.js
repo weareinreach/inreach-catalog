@@ -1,18 +1,17 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ValidLanguageList from '../utils/validLanguageList';
 import language from '../utils/language';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/List';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
-
+import { LanguageIcon } from './icons'
 import Filter from './Filter';
-
 import withWidth from './withWidth';
 import {
   breakpoints,
@@ -111,6 +110,16 @@ const styles = (theme) => ({
       paddingTop: '8px',
     },
   },
+  languageSelect: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  languageIcon: {
+    width: '35px',
+    height: '30px',
+    paddingRight: '3px',
+  },
 });
 
 class LangMenuItem extends React.Component {
@@ -145,8 +154,9 @@ class Language extends React.Component {
     this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(
       this
     );
+    this.generateLanguageItems = this.generateLanguageItems.bind(this);
     this.generateLanguageList = this.generateLanguageList.bind(this);
-    this.generateLanguageList = this.generateLanguageList.bind(this);
+    this.generateLabelWithIcon = this.generateLabelWithIcon.bind(this);
     this.handleOnFilterChange = this.handleOnFilterChange.bind(this);
     this.handleOnFilterBarClick = this.handleOnFilterBarClick.bind(this);
   }
@@ -207,8 +217,20 @@ class Language extends React.Component {
       </List>
     );
   }
+
+  generateLabelWithIcon(label, colorClass) {
+    return (
+      <div className={classNames(this.props.classes.languageSelect, colorClass)}>
+        <div className={this.props.classes.languageIcon}>
+          <LanguageIcon extraStyle={colorClass} />
+        </div>
+        {label}
+      </div>
+    )
+  }
+
   handleClick(event) {
-    this.setState({open: !this.state.open});
+    this.setState({ open: !this.state.open });
   }
 
   handleSelect(langCode, langName) {
@@ -228,7 +250,7 @@ class Language extends React.Component {
   }
 
   handleRequestCloseAfterSelect(langCode, langName) {
-    this.setState({open: false, selectedLang: langName});
+    this.setState({ open: false, selectedLang: langName });
     window.location.hash = '#googtrans(' + langCode + ')';
     language.setLanguage(langName);
     //window.localStorage.setItem('lang', langName);
@@ -257,7 +279,7 @@ class Language extends React.Component {
         .toLowerCase();
       currentLang = ValidLanguageList.byCode(langCode);
     }
-    this.setState({selectedLang: currentLang});
+    this.setState({ selectedLang: currentLang });
     this.handleSelect(ValidLanguageList.codeByName(currentLang), currentLang);
     if (currentLang === 'English') {
       document.cookie =
@@ -268,8 +290,8 @@ class Language extends React.Component {
       var domain =
         hostComponents.length >= 2
           ? hostComponents[hostComponents.length - 2] +
-            '.' +
-            hostComponents[hostComponents.length - 1]
+          '.' +
+          hostComponents[hostComponents.length - 1]
           : window.location.host;
       document.cookie =
         'googtrans=;domain=' +
@@ -287,8 +309,10 @@ class Language extends React.Component {
       inputClass,
       label,
       triggerReload,
+      colorClass,
     } = this.props;
-    const {selectedLang} = this.state;
+    const { selectedLang } = this.state;
+    const selectorLabel = label || selectedLang
     const isMobile = this.props.width < breakpoints['sm'] && useMobile;
     if (triggerReload === true) {
       this.handleReload();
@@ -298,7 +322,7 @@ class Language extends React.Component {
       <div className={classes.root + ' hide--on-print'}>
         {!isMobile ? (
           <AsylumConnectSelector
-            label={label || selectedLang}
+            label={this.props.useIcon ? this.generateLabelWithIcon(selectorLabel, colorClass) : selectorLabel}
             containerClass={inputClass}
             selected={[]}
             closeOnClick={true}
@@ -306,24 +330,25 @@ class Language extends React.Component {
               classes.languageListContainer,
               this.props.listContainerClass,
             ])}
+            colorClass={colorClass}
           >
             {this.generateLanguageList()}
           </AsylumConnectSelector>
         ) : (
-          <div className={classes.mobilePadding + ' ' + classes.topPadding}>
-            <AsylumConnectBackButton
-              color="default"
-              onClick={() => {
-                handleRequestOpen('none');
-                history.push('/');
-              }}
-            />
-            <Typography className={classes.textCenter} variant="h3">
-              Select Language
+            <div className={classes.mobilePadding + ' ' + classes.topPadding}>
+              <AsylumConnectBackButton
+                color="default"
+                onClick={() => {
+                  handleRequestOpen('none');
+                  history.push('/');
+                }}
+              />
+              <Typography className={classes.textCenter} variant="h3">
+                Select Language
             </Typography>
-            {this.generateLanguageList()}
-          </div>
-        )}
+              {this.generateLanguageList()}
+            </div>
+          )}
       </div>
     );
   }
@@ -332,6 +357,7 @@ class Language extends React.Component {
 Language.defaultProps = {
   useMobile: true,
   autoReload: true,
+  useIcon: false,
 };
 
 Language.propTypes = {

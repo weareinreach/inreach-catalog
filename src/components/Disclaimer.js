@@ -37,14 +37,14 @@ const Disclaimer = (props) => {
     textContainer,
     textParagraph,
   } = props.classes;
-
+ const {icon} = props
   return (
     <div className={disclaimerContainer}>
       <Grid container>
         <Grid item xs={12} className={textContainer}>
           <Typography className={textParagraph} align="left">
             <span className={iconContainer}>
-              <InformationIcon />
+              {icon ? icon : <InformationIcon />}
             </span>
             {props.children || props.text}
           </Typography>

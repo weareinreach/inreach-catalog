@@ -62,6 +62,10 @@ const styles = (theme) => ({
       marginTop: theme.spacing(1),
     },
   },
+  languageIconColor: {
+    fill: theme.palette.secondary[400],
+    color: theme.palette.secondary[400],
+  }
 });
 
 class LocaleForm extends React.Component {
@@ -133,6 +137,7 @@ class LocaleForm extends React.Component {
       inputClass,
       listContainerClass,
       formContainer,
+      languageIconColor
     } = this.props.classes;
     const variant = 'primary';
     const localeLabel = 'Select country';
@@ -149,6 +154,8 @@ class LocaleForm extends React.Component {
           </Typography>
           <Language
             useMobile={false}
+            useIcon={true}
+            colorClass={languageIconColor} 
             inputClass={inputClass}
             autoReload={false}
             listContainerClass={listContainerClass}
