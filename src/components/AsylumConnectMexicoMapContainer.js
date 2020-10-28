@@ -1,12 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import {
-  Card,
-  CardContent,
-  Paper,
-  Typography,
-} from '@material-ui/core/';
-import classNames from 'classnames'
+import {Card, CardContent, Paper, Typography} from '@material-ui/core/';
+import classNames from 'classnames';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectMexicoCrimeMap from './AsylumConnectMexicoCrimeMap';
 
@@ -50,24 +45,24 @@ const styles = (theme) => ({
   legend: {
     display: 'flex',
     marginTop: '20px',
-    width: '100%'
+    width: '100%',
   },
-  legendItem:{
+  legendItem: {
     flex: 1,
     minHeight: '10px',
-    marginBottom: '5px'
+    marginBottom: '5px',
   },
-  legendKey:{
-      textAlign: 'center'
+  legendKey: {
+    textAlign: 'center',
   },
   low: {
     backgroundColor: '#F2D0D0',
   },
   medium: {
-      backgroundColor: '#CC4747',
+    backgroundColor: '#CC4747',
   },
   high: {
-      backgroundColor: '#991F1F',
+    backgroundColor: '#991F1F',
   },
   listItem: {
     [theme.breakpoints.down('xs')]: {
@@ -80,6 +75,7 @@ const styles = (theme) => ({
   },
 });
 const AsylumConnectMexicoMapContainer = ({classes}) => {
+  const [displayMap, setDisplayMap] = useState(true);
   const menuId = 'mexico-map-container-menu--' + Date.now().toString();
   const legendId = 'mexico-map-container-legend--' + Date.now().toString();
 
@@ -90,37 +86,45 @@ const AsylumConnectMexicoMapContainer = ({classes}) => {
           <AsylumConnectDropdownListItem
             button={true}
             additionalClass={classes.listItem}
+            onClick={()=> setDisplayMap(!displayMap)}
           >
             Generalized Murder
           </AsylumConnectDropdownListItem>
         </Paper>
       </div>
-      <AsylumConnectMexicoCrimeMap />
-      <Card className={classes.legendContainer} id={legendId}>
-        <CardContent>
-          <Typography variant="h5">2020 MAY CRIME RATES</Typography>
-          <Typography variant="caption">
-            Rates are calculated per 100,000 people in 30 days.
-          </Typography>
-          <div className={classes.legend}>
-              <div className={classes.legendItem}>
-                  <div className={classNames(classes.legendItem,classes.low)}> 
-                 </div>
-                 <Typography className={classes.legendKey}>1-15</Typography>
+      {displayMap && (
+        <>
+          <AsylumConnectMexicoCrimeMap />
+          <Card className={classes.legendContainer} id={legendId}>
+            <CardContent>
+              <Typography variant="h5">2020 MAY CRIME RATES</Typography>
+              <Typography variant="caption">
+                Rates are calculated per 100,000 people in 30 days.
+              </Typography>
+              <div className={classes.legend}>
+                <div className={classes.legendItem}>
+                  <div
+                    className={classNames(classes.legendItem, classes.low)}
+                  ></div>
+                  <Typography className={classes.legendKey}>1-15</Typography>
+                </div>
+                <div className={classes.legendItem}>
+                  <div
+                    className={classNames(classes.legendItem, classes.medium)}
+                  ></div>
+                  <Typography className={classes.legendKey}>16-30</Typography>
+                </div>
+                <div className={classes.legendItem}>
+                  <div
+                    className={classNames(classes.legendItem, classes.high)}
+                  ></div>
+                  <Typography className={classes.legendKey}> &gt;30</Typography>
+                </div>
               </div>
-              <div className={classes.legendItem}>
-              <div className={classNames(classes.legendItem,classes.medium)}> 
-              </div>
-              <Typography className={classes.legendKey}>16-30</Typography>
-              </div>
-              <div className={classes.legendItem}>
-              <div className={classNames(classes.legendItem,classes.high)}>
-                 </div> 
-                 <Typography className={classes.legendKey}> &gt;30</Typography>
-              </div>
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </>
+      )}
     </>
   );
 };
