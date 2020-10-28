@@ -12,6 +12,7 @@ import SubAnnouncement from './SubAnnouncement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
+import WarningIcon from './icons/WarningIcon'
 
 const styles = (theme) => ({
   title: {
@@ -207,6 +208,12 @@ class SearchFormContainer extends React.Component {
           .
         </span>
       );
+    }
+    else if (locale === 'en_MX'){
+      disclaimerProps.children=(
+        <span className="notranslate" translate="no">Advertencia: Actualmente, toda la información se proporciona en inglés (con más de 100 idiomas adicionales disponibles a través de Google Translate). Traducciones nativas al español se esperan para finales de año.</span>
+      )
+      disclaimerProps.icon = (<WarningIcon width="16px"/> )
     }
 
     return (
