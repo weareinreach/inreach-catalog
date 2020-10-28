@@ -104,6 +104,7 @@ export const fetchOrganizations = (params) => {
         ? 'service-national-united-states'
         : locale === 'en_CA'
         ? 'service-national-canada'
+        : locale === 'en_MX' ? 'service-national-mexico'
         : '';
 
     serviceArea += countryProperty;
@@ -153,7 +154,6 @@ export const fetchOrganizations = (params) => {
 
 export const getStaticPage = (name) => {
   const path = {
-    Mexico: 'mexico',
     'outside-US-and-Canada': 'international',
   }[name];
 
