@@ -130,9 +130,6 @@ class SearchFormContainer extends React.Component {
   handleLocaleSelect(locale, language, hasLanguageChanged) {
     let redirect = false;
     switch (locale) {
-      // case 'es_MX':
-      //   redirect = `/${locale}/page/Mexico/`;
-      //   break;
       case 'intl':
         redirect = '/intl/page/outside-US-and-Canada';
         break;
