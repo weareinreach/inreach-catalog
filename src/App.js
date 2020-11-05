@@ -25,6 +25,8 @@ import withWidth from './components/withWidth';
 import LogoImg from './images/logo@2x.png';
 import LogoImgMobile from './images/logo-mobile@3x.png';
 import LogoImgCA from './images/logo-ca@2x.png';
+import LogoImgMXMobile from './images/logo-mx@2x.png';
+import LogoImgMX from './images/logo-mx.png';
 import {breakpoints} from './theme';
 import {fetchUser} from './utils/api';
 import {
@@ -266,6 +268,9 @@ class AppConnectCatalog extends React.Component {
     let logo;
 
     switch (locale) {
+      case 'en_MX':
+        logo = isMobile ? LogoImgMXMobile : LogoImgMX;
+        break;
       case 'en_CA':
         logo = isMobile ? LogoImgMobile : LogoImgCA;
         break;
