@@ -8,6 +8,7 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import Disclaimer from './Disclaimer';
 import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
+import SubAnnouncement from './SubAnnouncement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
@@ -29,6 +30,22 @@ const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       paddingTop: 0,
     },
+  },
+  subAnnouncement: {
+    backgroundColor: '#e9e9e9',
+    marginLeft: '-34px',
+    paddingLeft: '34px',
+    paddingTop: '1rem',
+    paddingBottom: '1rem',
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    right: '0',
+    [theme.breakpoints.down('xs')]: Object.assign(mobilePadding(theme), {
+      position: 'static',
+      paddingTop: '80px',
+      marginLeft: '0',
+    }),
   },
   containerSearchForm: {
     paddingTop: theme.spacing(8),
@@ -156,6 +173,7 @@ class SearchFormContainer extends React.Component {
       subheading,
       changeCountryButton,
       containerSearchForm,
+      subAnnouncement,
     } = classes;
     const isMobile = width < breakpoints['sm'];
     let disclaimerProps = {};
@@ -193,6 +211,26 @@ class SearchFormContainer extends React.Component {
 
     return (
       <div style={{position: 'relative'}}>
+        {!isMobile ? (
+          <div
+            className={subAnnouncement}
+            style={{
+              marginLeft: '-' + (width - 1300) / 2 + 'px',
+              paddingLeft: (width - 1300) / 2 + 'px',
+            }}
+          >
+            <Grid
+              container
+              alignItems="center"
+              justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
+              spacing={0}
+            >
+              <Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+                <SubAnnouncement />
+              </Grid>
+            </Grid>
+          </div>
+        ) : null}
         <Grid
           container
           alignItems="flex-start"
