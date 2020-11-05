@@ -89,7 +89,7 @@ const NavDesktop = ({
       <a className="hide--on-print" href="https://www.google.com/">
         <AsylumConnectButton variant="primary">safety exit</AsylumConnectButton>
       </a>
-      <Language colorClass={classes.languageIconColor} useIcon />
+      <Language colorClass={classes.languageIconColor} useIcon enableOverlay />
       <AccountNav
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}

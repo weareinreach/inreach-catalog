@@ -310,6 +310,9 @@ class Language extends React.Component {
       label,
       triggerReload,
       colorClass,
+      useIcon,
+      listContainerClass,
+      enableOverlay,
     } = this.props;
     const { selectedLang } = this.state;
     const selectorLabel = label || selectedLang
@@ -322,15 +325,16 @@ class Language extends React.Component {
       <div className={classes.root + ' hide--on-print'}>
         {!isMobile ? (
           <AsylumConnectSelector
-            label={this.props.useIcon ? this.generateLabelWithIcon(selectorLabel, colorClass) : selectorLabel}
+            label={useIcon ? this.generateLabelWithIcon(selectorLabel, colorClass) : selectorLabel}
             containerClass={inputClass}
             selected={[]}
             closeOnClick={true}
             listContainerClass={classNames([
               classes.languageListContainer,
-              this.props.listContainerClass,
+              listContainerClass,
             ])}
             colorClass={colorClass}
+            enableOverlay={enableOverlay}
           >
             {this.generateLanguageList()}
           </AsylumConnectSelector>
@@ -358,6 +362,7 @@ Language.defaultProps = {
   useMobile: true,
   autoReload: true,
   useIcon: false,
+  enableOverlay: false,
 };
 
 Language.propTypes = {
