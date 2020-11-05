@@ -34,7 +34,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
         stroke="#FFF"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="0.618"
+        strokeWidth="1.5"
       >
         <path d="M25.614 18.925a7.89 7.89 0 1 1-15.782-.002 7.89 7.89 0 0 1 15.782.002z" />
         <path d="M17.723 16.382l2.674 1.942-1.02 3.144H16.07l-1.022-3.144zM17.295 13.457l.428 2.925M12.633 17.591l2.416.733M16.07 21.468l-1.682 2.163M19.376 21.468l1.593 1.756M20.397 18.325l2.396-.966" />
@@ -47,7 +47,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
           stroke="#FFF"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="0.618"
+          strokeWidth="1.5"
           d="M1.709.936L5.5.043l.796 3.041-2.491 2.172L.87 3.858z"
           mask="url(#d)"
         />
@@ -60,7 +60,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
           stroke="#FFF"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="0.618"
+          strokeWidth="1.5"
           d="M.533 4.97L.953.14l2.65-.605 1.772 3.208L3.255 6.5z"
           mask="url(#f)"
         />
@@ -73,7 +73,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
           stroke="#FFF"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="0.618"
+          strokeWidth="1.5"
           d="M3.035 3.07L.199 1.372l.739-3.223 3.292-.292L5.526.897z"
           mask="url(#h)"
         />
@@ -86,7 +86,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
           stroke="#FFF"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="0.618"
+          strokeWidth="1.5"
           d="M3.373 4.203l-2.94 1.51-2.345-2.33L-.42.433 2.546.34z"
           mask="url(#j)"
         />
@@ -99,7 +99,7 @@ const SportsEntertainmentIcon = ({width, fillColor}) => (
           stroke="#FFF"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="0.618"
+          strokeWidth="1.5"
           d="M-.173.085l3.3.158L4 3.432 1.235 5.245l-2.58-2.07z"
           mask="url(#l)"
         />

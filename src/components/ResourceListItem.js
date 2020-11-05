@@ -259,7 +259,7 @@ class ResourceListItem extends React.Component {
                 >
                   <Grid item xs={8} md lg xl>
                     <Link to={link}>
-                      <Typography variant="subtitle2" className={orgName}>
+                      <Typography variant="subtitle2" color="secondary" className={orgName}>
                         {name}
                       </Typography>
                     </Link>
@@ -308,15 +308,6 @@ class ResourceListItem extends React.Component {
                     organization can help people located anywhere in the
                     country.
                   </Typography>
-                </Grid>
-              ) : null}
-              {format === 'search' ? (
-                <Grid item xs={12}>
-                  <Link to={link}>
-                    <Typography variant="body1" className={moreInfo}>
-                      See more information
-                    </Typography>
-                  </Link>
                 </Grid>
               ) : null}
               <Grid item xs={12} className={contentSpacing}>

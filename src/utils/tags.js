@@ -33,14 +33,20 @@ const resourceTypes = [
   {
     category: 'Community Support',
     type: 'communitySupport',
-    acTag: 'Reception Services',
-    title: 'Reception Services',
+    acTag: 'Reception services',
+    title: 'Reception services',
   },
   {
     category: 'Community Support',
     type: 'communitySupport',
     acTag: 'LGBTQ centres',
     title: 'LGBTQ centres',
+  },
+  {
+    category: 'Community Support',
+    type: 'communitySupport',
+    acTag: 'Sponsors',
+    title: 'Sponsors',
   },
 
   /* AC Computers and Internet Category */
@@ -391,7 +397,7 @@ const localeExclusions = {
     'Gender-neutral restrooms',
     'Gender-neutral washrooms',
     'LGBTQ centres',
-    'Reception Services',
+    'Reception services',
     'Language classes',
     'Private therapy and counselling',
     'Physical evaluations for refugee claim',
@@ -414,8 +420,28 @@ const localeExclusions = {
     'Private therapy and counseling',
     'Psychological evaluations for asylum claim',
     'Special Immigrant Juvenile Status (SIJS)',
+    'Sponsors'
   ],
-  en_MX: ['Gender-neutral bathrooms', 'Gender-neutral washrooms', 'Reception Services'],
+  en_MX: [
+    'Asylum application',
+    'Career counselling',
+    'Cultural centres',
+    'Deferred Action for Childhood Arrivals (DACA)',
+    'Drop-in centres for LGBTQ youth',
+    'English classes',
+    'Gender-neutral restrooms', 
+    'Gender-neutral washrooms', 
+    'Legal hotlines',
+    'LGBTQ centres', 
+    'Mail',
+    'Physical evaluations for refugee claim',
+    'Private therapy and counselling',
+    'Psychological evaluations for refugee claim',
+    'Reception services',
+    'Refugee claim',
+    'Short-term housing',
+    'Special Immigrant Juvenile Status (SIJS)',
+    'Sponsors'],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
