@@ -137,12 +137,39 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(0),
   },
   dividerSpacing: dividerSpacing(theme),
-  orgName: {
-    fontSize: '21px',
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center',
+  orgName: Object.assign(
+    {
       fontSize: '24px',
+      display: 'inline-block',
+      [theme.breakpoints.down('xs')]: {
+        textAlign: 'center',
+        fontSize: '24px',
+      },
     },
+    boldFont(theme)
+  ),
+  headerBadge: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(0.5),
+  },
+  bottomHeaderBadge:{
+    [theme.breakpoints.down('xs')]:{
+      marginLeft: 0
+    },
+  },
+  bottomVerifiedBadge: {
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+      width: '100%',
+    },
+  },
+  verifiedHeaderText: {
+    display: 'inline-block',
+    fontSize: '16px',
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.text.secondary,
   },
   serviceOrg: {
     [theme.breakpoints.down('xs')]: {
@@ -479,7 +506,6 @@ class Detail extends React.Component {
       verified: organization?.updated_at,
     };
     const resourceTags = getTags(resource, locale);
-    // console.log(organization); //object from staging API
 
     return (
       <Grid

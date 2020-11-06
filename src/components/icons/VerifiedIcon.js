@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const VerifiedIcon = ({fillColor}) => (
+const VerifiedIcon = ({width, fillColor, extraClasses}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -9,6 +9,7 @@ const VerifiedIcon = ({fillColor}) => (
     width="24"
     height="24"
     viewBox="0 0 24 24"
+    className={extraClasses ? extraClasses : null}
   >
     <path
       fill={fillColor}
@@ -17,7 +18,11 @@ const VerifiedIcon = ({fillColor}) => (
   </svg>
 );
 
-VerifiedIcon.defaultProps = {fillColor: '#5073B3'};
-VerifiedIcon.propTypes = {fillColor: PropTypes.string};
+VerifiedIcon.defaultProps = {fillColor: '#5073B3', width:'100%'}; 
+VerifiedIcon.propTypes = {
+  fillColor: PropTypes.string,
+  width: PropTypes.string,
+  extraClasses: PropTypes.string
+};
 
 export default VerifiedIcon;
