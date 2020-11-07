@@ -73,15 +73,18 @@ const styles = (theme) => ({
     paddingLeft: '4px',
     width: 'auto',
   },
-  filterInput: {
+  filterFormControl: {
     width: '100%',
     border: '2px solid #E9E9E9',
     borderRadius: '4px',
   },
+  filterInput: {
+    padding: '0 10px'
+  },
   filterInputBar: {
-    padding: `5px ${theme.spacing(2)}px 0px`,
+    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px`,
     [theme.breakpoints.down('xs')]: {
-      padding: '0px 15px',
+      padding: '10px',
     },
   },
   blackTranslateColor: {
@@ -190,9 +193,10 @@ class Language extends React.Component {
       >
         <div className={this.props.classes.filterInputBar}>
           <Filter
-            className={this.props.classes.filterInput}
+            className={this.props.classes.filterFormControl}
             handleOnChange={this.handleOnFilterChange}
             handleOnClick={this.handleOnFilterBarClick}
+            inputClassName={this.props.classes.filterInput}
           />
         </div>
         <ListSubheader className={this.props.classes.poweredByGoogle}>
@@ -333,6 +337,7 @@ class Language extends React.Component {
               this.props.listContainerClass,
             ])}
             colorClass={colorClass}
+            containerWidth='250px'
           >
             {this.generateLanguageList()}
           </AsylumConnectSelector>
