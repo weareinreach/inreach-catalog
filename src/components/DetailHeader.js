@@ -57,7 +57,7 @@ const DetailHeader = ({
             <Grid
               item
               xs={12}
-              md={5}
+              md={3}
               className={isMobile ? classes.mobileRatingSummary : 'pull-right'}
             >
               <RatingAndReviews total={totalRatings} rating={rating} />
