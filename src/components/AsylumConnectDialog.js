@@ -42,7 +42,7 @@ const AsylumConnectDialog = ({
 }) => (
   <Dialog
     open={['none', 'more'].indexOf(dialog) === -1}
-    onRequestClose={handleRequestClose}
+    onClose={handleRequestClose}
   >
     <div className={classes.dialogBody}>
       <ActionButton onClick={handleRequestClose}>&times;</ActionButton>
