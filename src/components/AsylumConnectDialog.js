@@ -166,7 +166,7 @@ AsylumConnectDialog.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
+  user: PropTypes.string,
 };
 
 export default withStyles(styles)(AsylumConnectDialog);
