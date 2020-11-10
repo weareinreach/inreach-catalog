@@ -162,7 +162,7 @@ GeneralSettings.propTypes = {
   session: PropTypes.string.isRequired,
   userData: PropTypes.shape({
     affiliation: PropTypes.shape({}),
-    is_professional: PropTypes.bool.isRequired,
+    isProfessional: PropTypes.bool.isRequired,
     email: PropTypes.string.isRequired,
   }).isRequired,
 };
