@@ -223,7 +223,7 @@ const SignupForm = ({
       />
       {activeStep === 1 && (
         <div className={classes.flex}>
-          <Button dense onClick={handleStepBack}>
+          <Button size="small" onClick={handleStepBack}>
             <KeyboardArrowLeft />
             Back
           </Button>
