@@ -85,8 +85,9 @@ class AccountPage extends React.Component {
               ) || false;
 
             this.setState({
-              affiliation: isApproved ? affiliation : null,
+              affiliation: affiliation,
               isAuthenticated: true,
+              isApproved: isApproved,
               userData: user,
             });
           })
@@ -131,10 +132,10 @@ class AccountPage extends React.Component {
       locale,
       session,
     } = this.props;
-    const {affiliation, isAuthenticated, userData, value} = this.state;
+    const {affiliation, isAuthenticated, userData, value, isApproved} = this.state;
     const isMobile = this.props.width < breakpoints['sm'];
     let settings;
-    if (isAuthenticated && affiliation) {
+    if (isAuthenticated && affiliation && isApproved) {
       settings = isMobile ? (
         <div>
           <AppBar position="static">
@@ -159,6 +160,7 @@ class AccountPage extends React.Component {
                 locale={locale}
                 session={session}
                 userData={userData}
+                isApproved={isApproved}
               />
             </TabContainer>
           )}
@@ -192,11 +194,12 @@ class AccountPage extends React.Component {
               locale={locale}
               session={session}
               userData={userData}
+              isApproved={isApproved}
             />
           </div>
         </div>
       );
-    } else if (isAuthenticated && !affiliation) {
+    } else if (isAuthenticated && (!affiliation || !isApproved)) {
       settings = isMobile ? (
         <div>
           <AppBar position="static">
@@ -222,6 +225,7 @@ class AccountPage extends React.Component {
                 locale={locale}
                 session={session}
                 userData={userData}
+                isApproved={isApproved}
               />
             </TabContainer>
           )}
@@ -238,6 +242,7 @@ class AccountPage extends React.Component {
               locale={locale}
               session={session}
               userData={userData}
+              isApproved={isApproved}
             />
           </div>
         </div>
