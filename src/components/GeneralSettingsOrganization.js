@@ -63,24 +63,32 @@ class GeneralSettingsOrganization extends Component {
     } = this.props;
     if (organizationSelection === null) {
       handleMessageNew('Please select an organization');
-    } else if(organizationSelection.owners.length){
-     const affiliate =  organizationSelection.owners.find(owner => owner.email === userData.email)
-     if(affiliate.isApproved){
-     handleMessageNew(`You are already affiliated with ${organizationSelection.name}`);
-     }
-     else {
-      handleMessageNew(`Your request to be affiliated with ${organizationSelection.name} is pending.`);
-     }
-    }
-    else {
+    } else {
+      if (organizationSelection.owners.length) {
+        const affiliate = organizationSelection.owners.find(
+          (owner) => owner.email === userData.email
+        );
+        if (affiliate) {
+          affiliate.isApproved
+            ? handleMessageNew(
+                `You are already affiliated with ${organizationSelection.name}`
+              )
+            : handleMessageNew(
+                `Your request to be affiliated with ${organizationSelection.name} is pending.`
+              );
+          return;
+        }
+      }
       const {_id} = organizationSelection;
       createOrgOwner(
         {email: userData.email, orgId: _id, userId: userData._id},
         session
       )
         .then(() => {
+          handleMessageNew(
+            `Request to be affiliated with ${organizationSelection.name} received. You will be notified when it is approved.`
+          );
           window.location.reload();
-          handleMessageNew(`Request to be affiliated with ${organizationSelection.name} received. You will be notified when it is approved.`);
         })
         .catch(() => {
           handleMessageNew('Oops! Something went wrong.');
@@ -93,28 +101,27 @@ class GeneralSettingsOrganization extends Component {
 
     return (
       <div>
-        { affiliation && !isApproved ? (
-            <div>
+        {affiliation && !isApproved ? (
+          <div>
             <Typography>
               Your request to join {affiliation.name} is pending.
             </Typography>
           </div>
-          ) : affiliation && isApproved ? (
-            <div>
-              <Typography>
-                Before joining a new organization, you must leave your current
-                organization.
-              </Typography>
-              <AsylumConnectButton
-                className={classes.marginVertical}
-                onClick={this.handleAffiliationDelete}
-                variant="secondary"
-              >
-                Leave Organization
-              </AsylumConnectButton>
-            </div>
-          )
-          : (
+        ) : affiliation && isApproved ? (
+          <div>
+            <Typography>
+              Before joining a new organization, you must leave your current
+              organization.
+            </Typography>
+            <AsylumConnectButton
+              className={classes.marginVertical}
+              onClick={this.handleAffiliationDelete}
+              variant="secondary"
+            >
+              Leave Organization
+            </AsylumConnectButton>
+          </div>
+        ) : (
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <OrganizationAutocomplete
               handleBlurOrganizations={this.props.handleBlurOrganizations}
@@ -142,8 +149,7 @@ class GeneralSettingsOrganization extends Component {
               Join Organization
             </AsylumConnectButton>
           </form>
-        )
-        }
+        )}
       </div>
     );
   }
@@ -167,7 +173,7 @@ GeneralSettingsOrganization.propTypes = {
   organizationSearch: PropTypes.string.isRequired,
   organizationSelection: PropTypes.object,
   session: PropTypes.string.isRequired,
-  isApproved: PropTypes.bool.isRequired
+  isApproved: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(
