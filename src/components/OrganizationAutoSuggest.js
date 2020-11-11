@@ -58,7 +58,6 @@ const AutoSuggestNew = (props, {inputProps}) => {
     // Fetches organization data if user is typing in search box
     useEffect(() => {
         if (search) {
-            console.log('getting it!');
             getOrgsByName(search).then((data) => {
                 setOptions([...data.organizations]);
             })
@@ -86,7 +85,6 @@ const AutoSuggestNew = (props, {inputProps}) => {
 
     // Updates the search term when user erases/edits input
     const updateOrganizations = orgs => {
-        console.log('name', orgs.name)
         setSearch(orgs.name);
         setDisplay(false);
         setCursor(0);
