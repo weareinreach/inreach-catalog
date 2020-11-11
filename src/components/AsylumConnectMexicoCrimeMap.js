@@ -15,8 +15,8 @@ const styles = (theme) => ({
   },
 });
 const AsylumConnectMexicoCrimeMap = ({classes}) => {
-  const opacity = 0.8;
-  const strokeWeight = 0.5;
+  const opacity = '0.8';
+  const strokeWeight = '0.5';
   const strokeColor = '#F2D0D0';
   const getColor = (value) => {
     if (value <= 15) {

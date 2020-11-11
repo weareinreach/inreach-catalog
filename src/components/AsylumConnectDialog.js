@@ -42,7 +42,7 @@ const AsylumConnectDialog = ({
 }) => (
   <Dialog
     open={['none', 'more'].indexOf(dialog) === -1}
-    onRequestClose={handleRequestClose}
+    onClose={handleRequestClose}
   >
     <div className={classes.dialogBody}>
       <ActionButton onClick={handleRequestClose}>&times;</ActionButton>
@@ -166,7 +166,7 @@ AsylumConnectDialog.propTypes = {
   handleRequestClose: PropTypes.func.isRequired,
   handleRequestOpen: PropTypes.func.isRequired,
   session: PropTypes.string,
-  user: PropTypes.number,
+  user: PropTypes.string,
 };
 
 export default withStyles(styles)(AsylumConnectDialog);

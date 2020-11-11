@@ -73,7 +73,7 @@ const Footer = ({ classes, locale }) => {
               icon="twitter"
             />
             <ContactLink
-              link="https://www.linkedin.com/company/6454603/"
+              link="https://www.linkedin.com/company/asylumconnect"
               icon="linkedin"
             />
             <ContactLink
@@ -88,7 +88,7 @@ const Footer = ({ classes, locale }) => {
               link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
               icon="youtube-play"
             />
-            <Grid container xs={6} spacing={2} align="center" justify="center">
+            <Grid container item xs={6} spacing={2} align="center" justify="center">
               <Grid item>
                 <a
                   href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
