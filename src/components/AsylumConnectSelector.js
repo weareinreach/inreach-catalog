@@ -17,9 +17,10 @@ const styles = (theme) => ({
   selectList: Object.assign(dropShadow(theme), {
     width: '100%',
     top: '100%',
-    position: 'absolute',
+    [theme.breakpoints.up('sm')]: {
+      position: 'absolute',
+    },
     zIndex: '50',
-    overflowY: 'auto',
   }),
   arrow: {
     width: '20px',
