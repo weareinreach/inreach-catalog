@@ -36,8 +36,8 @@ const styles = (theme) => ({
     top: theme.spacing(2),
     textDecoration: 'none',
   },
-  filterLayout : {
-    [theme.breakpoints.up('sm')]:{
+  filterLayout: {
+    [theme.breakpoints.up('sm')]: {
       display: 'flex',
       width: '100%',
       '& > div:first-child': {
@@ -54,7 +54,7 @@ const styles = (theme) => ({
         height: '420px',
         marginLeft: '50%',
       },
-    }
+    },
   },
   sectionHeader: {
     color: theme.palette.common.darkBlack,
@@ -90,14 +90,14 @@ const styles = (theme) => ({
     color: '#5073B3',
     position: 'absolute',
     right: '0',
-    [theme.breakpoints.down('xs')]:{
+    [theme.breakpoints.down('xs')]: {
       height: '48px',
       width: '40px',
-    }
+    },
   },
   subfilterSpacing: {
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up('sm')]:{
+    [theme.breakpoints.up('sm')]: {
       position: 'absolute',
       left: '50%',
       top: theme.spacing(2),
@@ -105,15 +105,16 @@ const styles = (theme) => ({
       height: '100%',
       display: 'block',
     },
-    [theme.breakpoints.down('xs')]:{
+    [theme.breakpoints.down('xs')]: {
       marginLeft: '20px',
     },
   },
   resourceList: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
     right: '0',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       maxHeight: '420px',
+      padding: theme.spacing(4),
     },
   },
 });
@@ -139,14 +140,18 @@ const FilterCollectionMobile = (props) => {
 
   return (
     <div>
-      <Typography variant="body2" className={classes.sectionHeader} onClick={onClick}>
+      <Typography
+        variant="body2"
+        className={classes.sectionHeader}
+        onClick={onClick}
+      >
         {typeof categoryValue !== 'undefined' ? (
           <span className={classes.sectionTitle}>
             <AsylumConnectCheckbox
               label=""
               value={categoryValue}
               classes={{
-                checkboxDefault: classes.filterCheckBox
+                checkboxDefault: classes.filterCheckBox,
               }}
               onChange={onChange}
               checked={selectedResourceTypes.indexOf(categoryValue) >= 0}
@@ -155,9 +160,7 @@ const FilterCollectionMobile = (props) => {
         ) : null}
         <ACBadge type={type} width="45px" height="45px" useIcon={true} />
         <span className={classes.sectionTitle}>{category}</span>
-        {hasChildren ? (
-          <ExpandMoreIcon className={classes.arrowIcon}/>
-        ) : null}
+        {hasChildren ? <ExpandMoreIcon className={classes.arrowIcon} /> : null}
       </Typography>
       {hasChildren && clickedCategory == index ? (
         <Grid container spacing={0} className={classes.subfilterSpacing}>
@@ -209,11 +212,11 @@ const FilterCollection = (props) => {
     ? children?.map((item) => `${props.value}.${item.title}`).join(',')
     : props.value;
 
-  var backgroundColor = '#FFFFFF'
-  if (clickedCategory == index){
-    backgroundColor = '#E9E9E9'
-  }else if (hoveredCategory == index){
-    backgroundColor = '#D3DCEC'
+  var backgroundColor = '#FFFFFF';
+  if (clickedCategory == index) {
+    backgroundColor = '#E9E9E9';
+  } else if (hoveredCategory == index) {
+    backgroundColor = '#D3DCEC';
   }
 
   return (
@@ -228,7 +231,7 @@ const FilterCollection = (props) => {
             <AsylumConnectCheckbox
               label=""
               classes={{
-                checkboxDefault: classes.filterCheckBox
+                checkboxDefault: classes.filterCheckBox,
               }}
               value={categoryValue}
               onChange={onChange}
@@ -239,16 +242,17 @@ const FilterCollection = (props) => {
         <ACBadge type={type} width="45px" height="45px" useIcon={true} />
         <span className={classes.sectionTitle}>{category}</span>
         {hasChildren ? (
-          <ArrowForwardIosIcon className={classes.arrowIcon}/>
+          <ArrowForwardIosIcon className={classes.arrowIcon} />
         ) : null}
       </Typography>
       {index + 1 !== resourceTypes.length ? (
-        <Divider/>
-      ) : <Divider className={[classes.dividerwithoutColor].join(' ')} />}
+        <Divider />
+      ) : (
+        <Divider className={[classes.dividerwithoutColor].join(' ')} />
+      )}
     </div>
   );
 };
-
 
 const FilterSubCollection = (props) => {
   const {
@@ -283,7 +287,7 @@ const FilterSubCollection = (props) => {
                   value={itemValue}
                   classes={{
                     checkboxDefault: classes.subFilterCheckBox,
-                    labelClass: classes.subFilterCheckBoxLabel
+                    labelClass: classes.subFilterCheckBoxLabel,
                   }}
                   labelClass={classes.subFilterCheckBoxLabel}
                   onChange={onChange}
@@ -315,7 +319,6 @@ class ResourceTypeSelector extends React.Component {
     this.handleCategorySelect = this.handleCategorySelect.bind(this);
   }
 
-
   handleCategoryHover(index) {
     this.setState({
       hoveredCategory: index,
@@ -324,10 +327,17 @@ class ResourceTypeSelector extends React.Component {
   }
 
   handleCategorySelect(index) {
-    this.setState({
-      clickedCategory: index,
-      hoveredCategory: -1,
-    });
+    if (index === this.state.clickedCategory) {
+      this.setState({
+        clickedCategory: -1,
+        hoveredCategory: -1,
+      });
+    } else {
+      this.setState({
+        clickedCategory: index,
+        hoveredCategory: -1,
+      });
+    }
   }
 
   render() {
@@ -370,29 +380,31 @@ class ResourceTypeSelector extends React.Component {
         <span href="#" onClick={clearResourceTypes} className={uncheckLink}>
           Uncheck All
         </span>
-        {isMobile ? resourceTypes.map((filter, i) => (
-          <FilterCollectionMobile
-            key={i}
-            index={i}
-            classes={{
-              sectionHeader,
-              sectionTitle,
-              filterCheckBox,
-              subfilterSpacing,
-              dividerSpacing,
-              arrowIcon,
-            }}
-            onChange={onChange}
-            onClick={(ev) => {
-              this.handleCategorySelect(i);
-            }}
-            clickedCategory={this.state.clickedCategory}
-            selectedResourceTypes={selectedResourceTypes}
-            resourceTypes={resourceTypes}
-            t={this.props.t}
-            {...filter}
-          />
-        )) :
+        {isMobile ? (
+          resourceTypes.map((filter, i) => (
+            <FilterCollectionMobile
+              key={i}
+              index={i}
+              classes={{
+                sectionHeader,
+                sectionTitle,
+                filterCheckBox,
+                subfilterSpacing,
+                dividerSpacing,
+                arrowIcon,
+              }}
+              onChange={onChange}
+              onClick={(ev) => {
+                this.handleCategorySelect(i);
+              }}
+              clickedCategory={this.state.clickedCategory}
+              selectedResourceTypes={selectedResourceTypes}
+              resourceTypes={resourceTypes}
+              t={this.props.t}
+              {...filter}
+            />
+          ))
+        ) : (
           <div className={filterLayout}>
             <div>
               {resourceTypes.map((filter, i) => (
@@ -448,7 +460,7 @@ class ResourceTypeSelector extends React.Component {
               ))}
             </div>
           </div>
-        }
+        )}
       </AsylumConnectSelector>
     );
   }
