@@ -472,6 +472,7 @@ class Detail extends React.Component {
       schedules,
       services = [],
       website,
+      owners
     } = resource || {};
     const allProperties = this.isServicePage
       ? properties
@@ -498,12 +499,12 @@ class Detail extends React.Component {
       classes,
       isMobile,
       name,
-      emails,
       phones,
       rating: average_rating,
       totalRatings: ratings?.length,
       website,
       verified: organization?.updated_at,
+      owners
     };
     const resourceTags = getTags(resource, locale);
 

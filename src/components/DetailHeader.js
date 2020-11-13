@@ -17,7 +17,6 @@ const DetailHeader = ({
   name,
   website,
   rating,
-  emails,
   totalRatings,
   phones,
   isMobile,
@@ -25,6 +24,7 @@ const DetailHeader = ({
   orgName,
   orgLink,
   verified,
+  owners
 }) => (
   <Fragment>
     <Grid container spacing={0} alignItems="center">
@@ -34,7 +34,7 @@ const DetailHeader = ({
           <Grid item xs md lg xl>
             <Typography variant="h2" className={classes.orgName}>
               {name}
-              {emails && emails.length ? (
+              {owners && owners.length ? (
                 <>
                   <VerifiedIcon
                     extraClasses={classes.headerBadge}
