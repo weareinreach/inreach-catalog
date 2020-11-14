@@ -389,8 +389,8 @@ const resourceTypes = [
 //use this to exclude certain resource types from the list for certain locales
 const localeExclusions = {
   en_US: [
-    'Asylum application in Mexico',
-    'Asylum application in the US from Mexico',
+    'Asylum application in Mexico (Affirmative Asylum)',
+    'Asylum application in the US from Mexico (Affirmative Asylum)',
     'Career counselling',
     'Cultural centres',
     'Drop-in centres for LGBTQ youth',
@@ -405,9 +405,9 @@ const localeExclusions = {
     'Refugee claim',
   ],
   en_CA: [
-    'Asylum application',
-    'Asylum application in Mexico',
-    'Asylum application in the US from Mexico',
+    'Asylum application (Affirmative Asylum)',
+    'Asylum application in Mexico (Affirmative Asylum)',
+    'Asylum application in the US from Mexico (Affirmative Asylum)',
     'Career counseling',
     'Cultural centers',
     'Deferred Action for Childhood Arrivals (DACA)',
@@ -423,7 +423,7 @@ const localeExclusions = {
     'Sponsors'
   ],
   en_MX: [
-    'Asylum application',
+    'Asylum application (Affirmative Asylum)',
     'Career counselling',
     'Cultural centres',
     'Deferred Action for Childhood Arrivals (DACA)',
