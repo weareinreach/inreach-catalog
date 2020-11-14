@@ -194,19 +194,19 @@ const resourceTypes = [
     category: 'Legal',
     type: 'legal',
     acTag: 'Asylum application in Mexico',
-    title: 'Asylum application in Mexico',
+    title: 'Asylum application in Mexico (Affirmative Asylum)',
   },
   {
     category: 'Legal',
     type: 'legal',
     acTag: 'Asylum application in the US from Mexico',
-    title: 'Asylum application in the US from Mexico',
+    title: 'Asylum application in the US from Mexico (Affirmative Asylum)',
   },
   {
     category: 'Legal',
     type: 'legal',
     acTag: 'Asylum application',
-    title: 'Asylum application',
+    title: 'Asylum application (Affirmative Asylum)',
   },
   {
     category: 'Legal',
@@ -224,7 +224,7 @@ const resourceTypes = [
     category: 'Legal',
     type: 'legal',
     acTag: 'Deportation or removal',
-    title: 'Deportation or removal',
+    title: 'Deportation or removal (Defensive Asylum)',
   },
   {
     category: 'Legal',
@@ -470,6 +470,7 @@ const getResourceTypesByGroup = (locale = defaultLocale) => {
   resourceTypes
     .filter((item) => filterResourceType(item, locale))
     .forEach((item) => {
+      // if resource type category not in categorized list then add it
       if (typeof categorized[item.category] === 'undefined') {
         categorized[item.category] = {
           category: item.category,
@@ -477,6 +478,8 @@ const getResourceTypesByGroup = (locale = defaultLocale) => {
         };
         index.push(item.category);
       }
+      // if resource type is subcategory then add it as child of parent category in
+      // categorized list
       if (typeof item.title !== 'undefined') {
         if (typeof categorized[item.category].children === 'undefined') {
           categorized[item.category].children = {};
