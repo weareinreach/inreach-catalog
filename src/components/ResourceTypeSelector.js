@@ -104,6 +104,7 @@ const styles = (theme) => ({
       bottom: '0',
       height: '100%',
       display: 'block',
+      width: 'inherit'
     },
     [theme.breakpoints.down('xs')]: {
       marginLeft: '20px',
@@ -276,7 +277,7 @@ const FilterSubCollection = (props) => {
   return (
     <div>
       {hasChildren && (clickedCategory == index || hoveredCategory == index) ? (
-        <Grid container spacing={0} className={classes.subfilterSpacing}>
+        <Grid container spacing={1} className={classes.subfilterSpacing}>
           {children.map((filter, i) => {
             const itemValue = `${props.value}.${filter.value}`;
 
