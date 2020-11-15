@@ -420,7 +420,7 @@ const localeExclusions = {
     'Private therapy and counseling',
     'Psychological evaluations for asylum claim',
     'Special Immigrant Juvenile Status (SIJS)',
-    'Sponsors'
+    'Sponsors',
   ],
   en_MX: [
     'Asylum application (Affirmative Asylum)',
@@ -429,10 +429,10 @@ const localeExclusions = {
     'Deferred Action for Childhood Arrivals (DACA)',
     'Drop-in centres for LGBTQ youth',
     'English classes',
-    'Gender-neutral restrooms', 
-    'Gender-neutral washrooms', 
+    'Gender-neutral restrooms',
+    'Gender-neutral washrooms',
     'Legal hotlines',
-    'LGBTQ centres', 
+    'LGBTQ centres',
     'Mail',
     'Physical evaluations for refugee claim',
     'Private therapy and counselling',
@@ -441,7 +441,8 @@ const localeExclusions = {
     'Refugee claim',
     'Short-term housing',
     'Special Immigrant Juvenile Status (SIJS)',
-    'Sponsors'],
+    'Sponsors',
+  ],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
@@ -464,51 +465,46 @@ const getResourceTypes = (locale = defaultLocale) => {
 };
 
 const getResourceTypesByGroup = (locale = defaultLocale) => {
-  let categorized = {},
-    index = [],
-    final = [];
+  let categorized = [],
+    categoryIndex;
   resourceTypes
     .filter((item) => filterResourceType(item, locale))
     .forEach((item) => {
-      // if resource type category not in categorized list then add it
-      if (typeof categorized[item.category] === 'undefined') {
-        categorized[item.category] = {
+      // if parent category does not exist in array, create corresponding object
+      if (
+        categorized.findIndex(({category}) => category === item.category) ===
+        -1
+      ) {
+        let category = {
           category: item.category,
           type: item.type,
         };
-        index.push(item.category);
+        categorized.push(category);
       }
+      // get array index for item category
+      categoryIndex = categorized.findIndex(
+        ({category}) => category === item.category
+      );
       // if resource type is subcategory then add it as child of parent category in
       // categorized list
       if (typeof item.title !== 'undefined') {
-        if (typeof categorized[item.category].children === 'undefined') {
-          categorized[item.category].children = {};
+        if (!categorized[categoryIndex].children) {
+          categorized[categoryIndex].children = [];
         }
         if (
-          typeof categorized[item.category].children[item.title] === 'undefined'
-        ) {
-          categorized[item.category].children[item.title] = [];
-        }
-        categorized[item.category].children[item.title].push(item.acTag);
+          !categorized[categoryIndex].children.find(
+            ({title}) => title === item.title
+          )
+        ){
+          categorized[categoryIndex].children.push({
+            title: item.title,
+            value: item.acTag,
+          });}
       } else {
-        categorized[item.category].value = item.acTag;
+        categorized[categoryIndex].value = item.acTag;
       }
     });
-  index.forEach((category) => {
-    let collection = categorized[category];
-    if (typeof collection.children !== 'undefined') {
-      let childArray = [];
-      for (let child in collection.children) {
-        childArray.push({
-          title: child,
-          value: collection.children[child].join(','),
-        });
-      }
-      collection.children = childArray;
-    }
-    final.push(collection);
-  });
-  return final;
+  return categorized;
 };
 
 const resourceTypesByGroup = getResourceTypesByGroup();
