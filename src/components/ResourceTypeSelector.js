@@ -104,6 +104,7 @@ const styles = (theme) => ({
       bottom: '0',
       height: '100%',
       display: 'block',
+      width: 'inherit'
     },
     [theme.breakpoints.down('xs')]: {
       marginLeft: '20px',
@@ -135,7 +136,7 @@ const FilterCollectionMobile = (props) => {
   } = props;
   const hasChildren = typeof children !== 'undefined' && children.length > 0;
   const categoryValue = hasChildren
-    ? children?.map((item) => `${props.value}.${item.title}`).join(',')
+    ? children?.map((item) => `${props.value}.${item.value}`).join(',')
     : props.value;
 
   return (
@@ -165,7 +166,7 @@ const FilterCollectionMobile = (props) => {
       {hasChildren && clickedCategory == index ? (
         <Grid container spacing={0} className={classes.subfilterSpacing}>
           {children.map((filter, i) => {
-            const itemValue = `${props.value}.${filter.title}`;
+            const itemValue = `${props.value}.${filter.value}`;
 
             return (
               <Grid item key={i} xs={12} sm={6} md={4}>
@@ -209,7 +210,7 @@ const FilterCollection = (props) => {
   } = props;
   const hasChildren = typeof children !== 'undefined' && children.length > 0;
   const categoryValue = hasChildren
-    ? children?.map((item) => `${props.value}.${item.title}`).join(',')
+    ? children?.map((item) => `${props.value}.${item.value}`).join(',')
     : props.value;
 
   var backgroundColor = '#FFFFFF';
@@ -276,9 +277,9 @@ const FilterSubCollection = (props) => {
   return (
     <div>
       {hasChildren && (clickedCategory == index || hoveredCategory == index) ? (
-        <Grid container spacing={0} className={classes.subfilterSpacing}>
+        <Grid container spacing={1} className={classes.subfilterSpacing}>
           {children.map((filter, i) => {
-            const itemValue = `${props.value}.${filter.title}`;
+            const itemValue = `${props.value}.${filter.value}`;
 
             return (
               <Grid item key={i} xs={12}>

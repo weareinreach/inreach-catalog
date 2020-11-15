@@ -194,19 +194,19 @@ const resourceTypes = [
     category: 'Legal',
     type: 'legal',
     acTag: 'Asylum application in Mexico',
-    title: 'Asylum application in Mexico',
+    title: 'Asylum application in Mexico (Affirmative Asylum)',
   },
   {
     category: 'Legal',
     type: 'legal',
     acTag: 'Asylum application in the US from Mexico',
-    title: 'Asylum application in the US from Mexico',
+    title: 'Asylum application in the US from Mexico (Affirmative Asylum)',
   },
   {
     category: 'Legal',
     type: 'legal',
     acTag: 'Asylum application',
-    title: 'Asylum application',
+    title: 'Asylum application (Affirmative Asylum)',
   },
   {
     category: 'Legal',
@@ -224,7 +224,7 @@ const resourceTypes = [
     category: 'Legal',
     type: 'legal',
     acTag: 'Deportation or removal',
-    title: 'Deportation or removal',
+    title: 'Deportation or removal (Defensive Asylum)',
   },
   {
     category: 'Legal',
@@ -389,8 +389,8 @@ const resourceTypes = [
 //use this to exclude certain resource types from the list for certain locales
 const localeExclusions = {
   en_US: [
-    'Asylum application in Mexico',
-    'Asylum application in the US from Mexico',
+    'Asylum application in Mexico (Affirmative Asylum)',
+    'Asylum application in the US from Mexico (Affirmative Asylum)',
     'Career counselling',
     'Cultural centres',
     'Drop-in centres for LGBTQ youth',
@@ -405,9 +405,9 @@ const localeExclusions = {
     'Refugee claim',
   ],
   en_CA: [
-    'Asylum application',
-    'Asylum application in Mexico',
-    'Asylum application in the US from Mexico',
+    'Asylum application (Affirmative Asylum)',
+    'Asylum application in Mexico (Affirmative Asylum)',
+    'Asylum application in the US from Mexico (Affirmative Asylum)',
     'Career counseling',
     'Cultural centers',
     'Deferred Action for Childhood Arrivals (DACA)',
@@ -420,19 +420,19 @@ const localeExclusions = {
     'Private therapy and counseling',
     'Psychological evaluations for asylum claim',
     'Special Immigrant Juvenile Status (SIJS)',
-    'Sponsors'
+    'Sponsors',
   ],
   en_MX: [
-    'Asylum application',
+    'Asylum application (Affirmative Asylum)',
     'Career counselling',
     'Cultural centres',
     'Deferred Action for Childhood Arrivals (DACA)',
     'Drop-in centres for LGBTQ youth',
     'English classes',
-    'Gender-neutral restrooms', 
-    'Gender-neutral washrooms', 
+    'Gender-neutral restrooms',
+    'Gender-neutral washrooms',
     'Legal hotlines',
-    'LGBTQ centres', 
+    'LGBTQ centres',
     'Mail',
     'Physical evaluations for refugee claim',
     'Private therapy and counselling',
@@ -441,7 +441,8 @@ const localeExclusions = {
     'Refugee claim',
     'Short-term housing',
     'Special Immigrant Juvenile Status (SIJS)',
-    'Sponsors'],
+    'Sponsors',
+  ],
 };
 const filterResourceType = function (item, locale) {
   if (typeof item.title !== 'undefined') {
@@ -464,48 +465,46 @@ const getResourceTypes = (locale = defaultLocale) => {
 };
 
 const getResourceTypesByGroup = (locale = defaultLocale) => {
-  let categorized = {},
-    index = [],
-    final = [];
+  let categorized = [],
+    categoryIndex;
   resourceTypes
     .filter((item) => filterResourceType(item, locale))
     .forEach((item) => {
-      if (typeof categorized[item.category] === 'undefined') {
-        categorized[item.category] = {
+      // if parent category does not exist in array, create corresponding object
+      if (
+        categorized.findIndex(({category}) => category === item.category) ===
+        -1
+      ) {
+        let category = {
           category: item.category,
           type: item.type,
         };
-        index.push(item.category);
+        categorized.push(category);
       }
+      // get array index for item category
+      categoryIndex = categorized.findIndex(
+        ({category}) => category === item.category
+      );
+      // if resource type is subcategory then add it as child of parent category in
+      // categorized list
       if (typeof item.title !== 'undefined') {
-        if (typeof categorized[item.category].children === 'undefined') {
-          categorized[item.category].children = {};
+        if (!categorized[categoryIndex].children) {
+          categorized[categoryIndex].children = [];
         }
         if (
-          typeof categorized[item.category].children[item.title] === 'undefined'
-        ) {
-          categorized[item.category].children[item.title] = [];
-        }
-        categorized[item.category].children[item.title].push(item.acTag);
+          !categorized[categoryIndex].children.find(
+            ({title}) => title === item.title
+          )
+        ){
+          categorized[categoryIndex].children.push({
+            title: item.title,
+            value: item.acTag,
+          });}
       } else {
-        categorized[item.category].value = item.acTag;
+        categorized[categoryIndex].value = item.acTag;
       }
     });
-  index.forEach((category) => {
-    let collection = categorized[category];
-    if (typeof collection.children !== 'undefined') {
-      let childArray = [];
-      for (let child in collection.children) {
-        childArray.push({
-          title: child,
-          value: collection.children[child].join(','),
-        });
-      }
-      collection.children = childArray;
-    }
-    final.push(collection);
-  });
-  return final;
+  return categorized;
 };
 
 const resourceTypesByGroup = getResourceTypesByGroup();
