@@ -20,8 +20,6 @@ import propertyMap, {combineProperties} from '../utils/propertyMap';
 import resourceTypes, {getTags, getOrgTags} from '../utils/tags';
 import {boldFont, breakpoints} from '../theme';
 
-let resourceIndex = resourceTypes.resourceIndex;
-
 const styles = (theme) => ({
   boldFont: boldFont(theme),
   contentSpacing: {
@@ -138,7 +136,7 @@ class ResourceListItem extends React.Component {
     const rating = resource.rating || resource.opportunity_aggregate_ratings;
     const commentCount =
       resource.opportunity_comment_count + resource.comment_count;
-
+      let resourceIndex = resourceTypes.getResourceIndex(locale);
     return (
       <div className={paperPadding}>
         {isMobile ? (

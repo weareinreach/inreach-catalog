@@ -18,7 +18,7 @@ const addBadges = (list, locale) => {
           ...(item?.areas?.length ? item.areas : []),
         ].sort();
 
-        item.badge = resourceTypes.getBadge(badgeList);
+        item.badge = resourceTypes.getBadge(badgeList, locale);
 
         return item;
       })

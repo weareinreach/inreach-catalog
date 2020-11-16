@@ -754,6 +754,7 @@ class Detail extends React.Component {
                                       list={resourceTags}
                                       classes={classes}
                                       isMobile={isMobile}
+                                      locale={locale}
                                     />
                                   }
                                 />
@@ -960,6 +961,7 @@ class Detail extends React.Component {
                                   list={resourceTags}
                                   classes={classes}
                                   isMobile={isMobile}
+                                  locale={locale}
                                 />
                               }
                             />

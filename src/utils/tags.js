@@ -519,8 +519,6 @@ const getResourceIndex = (locale = defaultLocale) => {
   return index;
 };
 
-const resourceIndex = getResourceIndex();
-
 const getResourceCategoryIndex = (locale = defaultLocale) => {
   let index = {};
   resourceTypes
@@ -541,7 +539,8 @@ const getResourceCategoryIndex = (locale = defaultLocale) => {
 
 const resourceCategoryIndex = getResourceCategoryIndex();
 
-const getBadge = (tags) => {
+const getBadge = (tags, locale) => {
+  const resourceIndex = getResourceIndex(locale);
   let badge = 'misc';
   tags.forEach((tag) => {
     if (typeof resourceIndex[tag] !== 'undefined' && badge === 'misc') {
@@ -595,7 +594,6 @@ export default {
   getResourceTypes,
   resourceTypesByGroup,
   getResourceTypesByGroup,
-  resourceIndex,
   getResourceIndex,
   resourceCategoryIndex,
   getResourceCategoryIndex,
