@@ -18,6 +18,10 @@ const RatingAndReviews = ({rating, total, classes}) => (
   </div>
 );
 
+RatingAndReviews.defaultProps = {
+  total: 0,
+  rating: 0,
+};
 RatingAndReviews.propTypes = {
   total: PropTypes.number,
   rating: PropTypes.number.isRequired,
