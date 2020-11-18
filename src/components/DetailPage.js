@@ -185,17 +185,17 @@ const styles = (theme) => ({
     },
   },
   serviceBadge: {
-    position: 'absolute',
-    marginLeft: theme.spacing(-1),
+    [theme.breakpoints.down('xs')]: {
+      position: 'absolute',
+      marginLeft: theme.spacing(-1),
+    }
   },
   serviceText: {
-    display: 'block',
+    display: 'inline-block',
     lineHeight: `${theme.spacing(0.5) + 45}px`,
-    paddingLeft: theme.spacing(7),
     marginTop: 0,
     marginBottom: 0,
     [theme.breakpoints.down('xs')]: {
-      display: 'inline-block',
       width: '90%',
       verticalAlign: 'top',
       lineHeight: 1.6,
@@ -242,6 +242,10 @@ const styles = (theme) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
+  badge: {
+   display: 'inline-block',
+   width: '18%'
+  },
 });
 
 class Detail extends React.Component {
@@ -251,11 +255,11 @@ class Detail extends React.Component {
     const {id, serviceId} = this.props?.match?.params;
 
     this.state = {
-      average_rating: null,
+      average_rating: 0,
       comments: [],
       modal: false,
       loading: true,
-      ratings: null,
+      ratings: 0,
       organization: null,
       service: null,
       tab: 0,

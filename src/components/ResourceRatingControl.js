@@ -144,6 +144,7 @@ RatingControl.propTypes = {
 
 RatingControl.defaultProps = {
   mode: 'static',
+  rating: 0
 };
 
 export default withStyles(styles)(withWidth(RatingControl));
