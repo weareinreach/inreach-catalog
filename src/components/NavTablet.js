@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 const styles = (theme) => ({
   root: {
     padding: '10 0 10 0',
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)'
   },
   viewYourFavoritesText: {
     color: theme.palette.secondary[500],

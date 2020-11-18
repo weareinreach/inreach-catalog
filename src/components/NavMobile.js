@@ -30,6 +30,7 @@ const styles = (theme) => {
       bottom: '0',
       zIndex: '100',
       borderTop: '1px solid ' + theme.palette.common.faintBlack,
+      boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)'
     },
     navButton: Object.assign({}, theme.typography.body1, {
       fontSize: theme.typography.body1.fontSize - 2,

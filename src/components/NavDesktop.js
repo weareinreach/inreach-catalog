@@ -39,6 +39,7 @@ const styles = (theme) => ({
     '@media(max-width:1315px)': {
       padding: '10px 0',
     },
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)'
   },
   displayInherit: {
     display: 'inherit',
