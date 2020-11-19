@@ -4,6 +4,7 @@ import AirplaneIcon from './AirplaneIcon';
 import CollapseIcon from './CollapseIcon';
 import CommunitySupportIcon from './CommunitySupportIcon';
 import ComputersIcon from './ComputersIcon';
+import EditIcon from './EditIcon';
 import EducationEmploymentIcon from './EducationEmploymentIcon';
 import FavoritesIcon from './FavoritesIcon';
 import FoodIcon from './FoodIcon';
@@ -34,6 +35,7 @@ export {default as ClothingIcon} from './ClothingIcon';
 export {default as CollapseIcon} from './CollapseIcon';
 export {default as CommunitySupportIcon} from './CommunitySupportIcon';
 export {default as ComputersIcon} from './ComputersIcon';
+export {default as EditIcon} from './EditIcon';
 export {default as EducationEmploymentIcon} from './EducationEmploymentIcon';
 export {default as FavoritesIcon} from './FavoritesIcon';
 export {default as FiltersIcon} from './FiltersIcon';
@@ -65,6 +67,7 @@ const typeMap = {
   collapse: CollapseIcon,
   communitySupport: CommunitySupportIcon,
   computers: ComputersIcon,
+  edit: EditIcon,
   educationEmployment: EducationEmploymentIcon,
   favorites: FavoritesIcon,
   filters: FiltersIcon,

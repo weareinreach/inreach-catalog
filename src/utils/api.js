@@ -25,8 +25,6 @@ export const catalogDelete = (path, body, options) => {
 export const catalogGet = (path, options) => {
   const url = `${CATALOG_API_URL}${path}`;
 
-  // console.log('GET', url);
-
   return get(url, options)
     .then(({data, status}) => {
       return {status, ...data};
