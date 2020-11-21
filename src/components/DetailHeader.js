@@ -24,7 +24,7 @@ const DetailHeader = ({
   orgName,
   orgLink,
   verified,
-  owners
+  owners,
 }) => (
   <Fragment>
     <Grid container spacing={0} alignItems="center">
@@ -103,22 +103,23 @@ const DetailHeader = ({
             {phones && phones.length ? (
               <Phone phone={phones[0]} classes={classes} />
             ) : null}
-            {verified && verified.length ? (
-              <Badge>
-                <VerifiedIcon extraClasses={classes.headerBadge} width="12px" />
-                <Tooltip
-                  classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-                  title={`The information on this page was last updated on ${Date(
-                    verified
-                  ).toLocaleString()}`}
-                  arrow
-                  placement="bottom"
-                >
+            {verified ? (
+              <Tooltip
+                classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+                title={`The information on this page was last updated on ${verified.toDateString()}`}
+                arrow
+                placement="bottom"
+              >
+                <Badge>
+                  <VerifiedIcon
+                    extraClasses={classes.headerBadge}
+                    width="12px"
+                  />
                   <Typography color="secondary">
                     Verified Information
                   </Typography>
-                </Tooltip>
-              </Badge>
+                </Badge>
+              </Tooltip>
             ) : null}
           </Typography>
         </Grid>
@@ -133,22 +134,29 @@ const DetailHeader = ({
           </Typography>
         </Grid>
       ) : null}
-      {isMobile && verified && verified.length ? (
+      {isMobile && verified ? (
         <Grid item xs={12}>
-          <Badge className={classNames(classes.bottomSpacing, classes.bottomVerifiedBadge)}>
-            <VerifiedIcon extraClasses={classNames(classes.headerBadge, classes.bottomHeaderBadge)} width="12px" />
+          <Badge
+            className={classNames(
+              classes.bottomSpacing,
+              classes.bottomVerifiedBadge
+            )}
+          >
+            <VerifiedIcon
+              extraClasses={classNames(
+                classes.headerBadge,
+                classes.bottomHeaderBadge
+              )}
+              width="12px"
+            />
             <Tooltip
               classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-              title={`The information on this page was last updated on ${Date(
-                verified
-              ).toLocaleString()}`}
+              title={`The information on this page was last updated on ${
+                verified.toDateString()}`}
               arrow
               placement="bottom"
             >
-              <Typography
-                color="secondary"
-                variant="body1"
-              >
+              <Typography color="secondary" variant="body1">
                 Verified Information
               </Typography>
             </Tooltip>

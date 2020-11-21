@@ -507,7 +507,7 @@ class Detail extends React.Component {
       rating: average_rating,
       totalRatings: ratings?.length,
       website,
-      verified: organization?.updated_at,
+      verified: organization?.updated_at ? new Date(organization?.updated_at) : null,
       owners
     };
     const resourceTags = getTags(resource, locale);
