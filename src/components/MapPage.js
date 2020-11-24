@@ -106,6 +106,15 @@ class MapPage extends React.Component {
     window.removeEventListener('resize', this.resizeMap.bind(this));
   }
 
+  getSnapshotBeforeUpdate() {
+    if (
+      this.props.match.path ===
+      '/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
+    ) {
+      localStorage.setItem('lastSearch', this.props.history.location.pathname);
+    }
+  }
+  
   componentWillUpdate(nextProps, nextState) {
     // TODO: drastically slowed the page down by causing constant re-rendering
     // if (
