@@ -47,6 +47,11 @@ const styles = (theme) => ({
       backgroundColor: theme.palette.primary[200],
     }
   },
+  yesEditsPadding: {
+    width: '101%',
+    marginLeft: '-2px',
+    height: '34px',
+  },
   blue: {
     color: theme.palette.secondary[500],
   },
@@ -76,7 +81,6 @@ const styles = (theme) => ({
 })
 
 const CONTENT = {
-  isIncorrect: 'isIncorrect',
   hasInfo: 'hasInfo',
   selectInfo: 'selectInfo',
   thanks: 'thanks',
@@ -90,7 +94,7 @@ const SELECT_VALUE = {
 }
 
 const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSignup }) => {
-  const [content, setContent] = useState(CONTENT.isIncorrect)
+  const [content, setContent] = useState(CONTENT.hasInfo)
   const [isResourceClosed, setResourceClosed] = useState(false)
   const [isInfoIncorrect, setInfoIncorrect] = useState(false)
   const [isDescIncorrect, setDescIncorrect] = useState(false)
@@ -98,42 +102,20 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
   const [comment, setComment] = useState('')
   const [errorMsg, setError] = useState('')
 
-  const renderConfirmIncorrect = () => {
-    return (
-      <div>
-        <Typography variant="body1" className={classes.body}>Is there information on this page that you know to be incorrect?</Typography>
-        <Grid container justify="space-around">
-          <Button
-            classes={{ root: classNames(classes.button, classes.blue) }}
-            onClick={onClose}
-          >
-            No
-            </Button>
-          <Button
-            classes={{ root: classNames(classes.button, classes.red) }}
-            onClick={() => setContent(CONTENT.hasInfo)}
-          >
-            Yes
-            </Button>
-        </Grid>
-      </div>
-    )
-  }
-
   const renderHasCorrectInfo = () => {
     return (
       <div>
         <Typography variant="body1" className={classes.body}>Do you have the correct information?</Typography>
         <Grid container direction="column" justify="space-around" classes={{ root: classes.verticalButtons }}>
           <Button
-            classes={{ root: classNames(classes.button, classes.longest, classes.red) }}
+            classes={{ root: classNames(classes.button, classes.yesEditsPadding, classes.red) }}
             onClick={() => setContent(CONTENT.selectInfo)}
           >
             Yes, I'll make the edits
             </Button>
           <Button
             classes={{ root: classNames(classes.button, classes.longest, classes.blue) }}
-            onClick={onClose}
+            onClick={() => setContent(CONTENT.selectInfo)}
           >
             No, but I know it's wrong
             </Button>
@@ -200,8 +182,6 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
 
   const renderContent = () => {
     switch (content) {
-      case CONTENT.isIncorrect:
-        return renderConfirmIncorrect()
       case CONTENT.hasInfo:
         return renderHasCorrectInfo()
       case CONTENT.selectInfo:
@@ -254,13 +234,13 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
       })
     }
 
-    if (suggestions) {
+    if (suggestions.length) {
       createSuggestion(suggestions)
         .then(() => {
           setContent(CONTENT.thanks)
         })
         .catch((error) => {
-          setError(`Error occurred while submitting: ${error}`)
+          setError(error.message)
         })
     } else {
       setContent(CONTENT.thanks)
@@ -268,7 +248,7 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
   }
 
   const onClose = () => {
-    setContent(CONTENT.isIncorrect)
+    setContent(CONTENT.hasInfo)
     setComment('')
     setResourceClosed(false)
     setInfoIncorrect(false)
@@ -283,7 +263,7 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
       ariaHideApp={false}
       style={{
         overlay: {
-          zIndex: 9999,
+          background: 'rgba(29,31,35,0.55)',
         },
         content: {
           position: 'absolute',
@@ -294,7 +274,10 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
           padding: 0,
           fontFamily: '"Open Sans", sans-serif',
           background: '#FFFFFF',
-          borderTop: '5px solid #5073B3',
+          borderWidth: '5px',
+          borderStyle: 'solid none none none',
+          borderColor: ' #5073B3',
+          boxShadow: '3px 0px 10px rgba(0,0,0,0.1)',
         },
       }}
       isOpen={open}
