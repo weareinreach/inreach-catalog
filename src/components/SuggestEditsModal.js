@@ -93,7 +93,7 @@ const SELECT_VALUE = {
   OTHER: 'Other',
 }
 
-const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSignup }) => {
+const SuggestEditsModal = ({ classes, open, setOpen, resource, userData }) => {
   const [content, setContent] = useState(CONTENT.hasInfo)
   const [isResourceClosed, setResourceClosed] = useState(false)
   const [isInfoIncorrect, setInfoIncorrect] = useState(false)
@@ -161,15 +161,6 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData, openSig
         <div className={classes.titleText}>Thank you!</div>
         <Typography variant="body1">Our team has received your proposed edits and will update the relevant page(s) shortly.</Typography>
         <img src={ThankYou} alt="super thank you" />
-        {!userData?.email && <Button
-          classes={{ root: classNames(classes.button, classes.longer, classes.red) }}
-          onClick={() => {
-            onClose()
-            openSignup()
-          }}
-        >
-          Create an Account
-        </Button>}
         <Button
           classes={{ root: classNames(classes.button, classes.longer, classes.blue) }}
           onClick={onClose}

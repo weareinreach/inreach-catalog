@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import _ from 'lodash'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -39,6 +40,7 @@ const Tools = (props) => {
     setModalIsOpen(false);
     handleRequestOpen(type);
   };
+  const isVerified = _.some(resource?.owners, owner => { return owner.userId == user })
 
   return (
     <Grid
@@ -78,14 +80,16 @@ const Tools = (props) => {
         md={7}
         className={classnames('pull-right', classes.cushion)}
       >
-        <IconButton
-          className={classnames('center-align', classes.editButton)}
-          onClick={() => {
-            setDetailModalOpen(true);
-          }}
-        >
-          <EditIcon />
-        </IconButton>
+        {isVerified && (
+          <IconButton
+            className={classnames('center-align', classes.editButton)}
+            onClick={() => {
+              setDetailModalOpen(true);
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+        )}
         <div className={classnames(classes.separator, 'center-align')}></div>
         <div className="center-align">
           <SaveToFavoritesButton
@@ -227,7 +231,6 @@ const Tools = (props) => {
           setOpen={setDetailModalOpen}
           resource={resource}
           userData={userData}
-          openSignup={() => handleOpen('signup')}
         />
       </Grid>
     </Grid>
