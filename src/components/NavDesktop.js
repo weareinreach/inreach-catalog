@@ -39,6 +39,7 @@ const styles = (theme) => ({
     '@media(max-width:1315px)': {
       padding: '10px 0',
     },
+    boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)'
   },
   displayInherit: {
     display: 'inherit',
@@ -89,7 +90,7 @@ const NavDesktop = ({
       <a className="hide--on-print" href="https://www.google.com/">
         <AsylumConnectButton variant="primary">safety exit</AsylumConnectButton>
       </a>
-      <Language colorClass={classes.languageIconColor} useIcon />
+      <Language colorClass={classes.languageIconColor} useIcon enableOverlay />
       <AccountNav
         handleLogOut={handleLogOut}
         handleRequestOpen={handleRequestOpen}

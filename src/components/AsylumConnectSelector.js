@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -17,9 +17,10 @@ const styles = (theme) => ({
   selectList: Object.assign(dropShadow(theme), {
     width: '100%',
     top: '100%',
-    position: 'absolute',
+    [theme.breakpoints.up('sm')]: {
+      position: 'absolute',
+    },
     zIndex: '50',
-    overflowY: 'auto',
   }),
   arrow: {
     width: '20px',
@@ -53,6 +54,14 @@ const styles = (theme) => ({
       right: '20px',
     },
   },
+  overlay: {
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  }
 });
 
 class AsylumConnectSelector extends React.Component {
@@ -113,8 +122,9 @@ class AsylumConnectSelector extends React.Component {
       selectContainer,
       labelContainer,
       indicator,
+      overlay,
     } = this.props.classes;
-    const {selected, label, containerWidth, containerClass, listContainerClass, colorClass} = this.props;
+    const {selected, label, containerWidth, containerClass, listContainerClass, colorClass, enableOverlay} = this.props;
     const containerClasses = classNames(containerClass, this.state.open ? toggledSelect : '', selectContainer)
     const listContainerClasses = listContainerClass ? classNames(listContainerClass, selectList) : selectList;
     const rootClass =
@@ -144,14 +154,17 @@ class AsylumConnectSelector extends React.Component {
           </div>
         </div>
         {this.state.open ? (
-          <Paper
-            id={this.id}
-            className={listContainerClasses + ' selector--asylum-connect'}
-            style={{width: containerWidth}}
-            onClick={this.handlePaperClick}
-          >
-            {this.props.children}
-          </Paper>
+          <Fragment>
+            {enableOverlay && <div className={overlay} />}
+            <Paper
+              id={this.id}
+              className={listContainerClasses + ' selector--asylum-connect'}
+              style={{width: containerWidth}}
+              onClick={this.handlePaperClick}
+            >
+              {this.props.children}
+            </Paper>
+          </Fragment>
         ) : null}
       </div>
     );

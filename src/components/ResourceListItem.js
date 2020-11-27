@@ -20,8 +20,6 @@ import propertyMap, {combineProperties} from '../utils/propertyMap';
 import resourceTypes, {getTags, getOrgTags} from '../utils/tags';
 import {boldFont, breakpoints} from '../theme';
 
-let resourceIndex = resourceTypes.resourceIndex;
-
 const styles = (theme) => ({
   boldFont: boldFont(theme),
   contentSpacing: {
@@ -72,13 +70,20 @@ const styles = (theme) => ({
       paddingTop: theme.spacing(2),
     },
   },
-  badgeSpacing: {
+  badgeContainerSpacing: {
     [theme.breakpoints.down('xs')]: {
       marginLeft: theme.spacing(0),
       marginBottom: '0.75rem',
     },
-    marginLeft: theme.spacing(-1),
   },
+  badge: {
+   display: 'block'
+  },
+  badgeItem: {
+    marginRight: theme.spacing(2),
+    display: 'block',
+    textAlign: 'center'
+  }
 });
 
 class ResourceListItem extends React.Component {
@@ -112,11 +117,13 @@ class ResourceListItem extends React.Component {
       paperPadding,
       dividerPadding,
       dividerSpacing,
-      badgeSpacing,
+      badgeContainerSpacing,
       moreInfo,
       nationalOrg,
       orgName,
       pullLeft,
+      badge,
+      badgeItem
     } = classes;
     const isMobile = width < breakpoints['sm'];
     const displayData = [
@@ -138,7 +145,7 @@ class ResourceListItem extends React.Component {
     const rating = resource.rating || resource.opportunity_aggregate_ratings;
     const commentCount =
       resource.opportunity_comment_count + resource.comment_count;
-
+      let resourceIndex = resourceTypes.getResourceIndex(locale);
     return (
       <div className={paperPadding}>
         {isMobile ? (
@@ -217,7 +224,7 @@ class ResourceListItem extends React.Component {
                   spacing={0}
                   justify="space-between"
                 >
-                  <Grid item xs={12} md={6} className={badgeSpacing}>
+                  <Grid item xs={12} md={6} className={badgeContainerSpacing}>
                     {tags && tags.length
                       ? (() => {
                           let badges = [];
@@ -394,7 +401,7 @@ class ResourceListItem extends React.Component {
                   spacing={0}
                   justify="space-between"
                 >
-                  <Grid item xs={12} md={6} className={badgeSpacing}>
+                  <Grid item container xs={12} className={badgeContainerSpacing} alignItems='center'>
                     {tags && tags.length
                       ? (() => {
                           let badges = [];
@@ -405,12 +412,17 @@ class ResourceListItem extends React.Component {
                             ) {
                               badges.push(resourceIndex[tag].type);
                               return (
-                                <Badge
+                                <Grid item key={resourceIndex[tag].type} className={badgeItem}>
+                                  <Badge
                                   key={resourceIndex[tag].type}
                                   type={resourceIndex[tag].type}
                                   width="52px"
                                   height="52px"
                                 />
+                                <Typography variant='body2' component='span' className={badge}>
+                                  {resourceIndex[tag].category.split(' ')[0]}
+                                </Typography>
+                                </Grid>
                               );
                             }
 

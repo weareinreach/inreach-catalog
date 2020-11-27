@@ -98,6 +98,10 @@ class SignupFormContainer extends React.Component {
     catalogPost('/users', body)
       .then((user) => {
         if (user.error) {
+          if(user.status.status === 409) {
+            handleMessageNew('User account already exists. Try logging in instead.');
+            return;
+          }
           handleError();
           return;
         }

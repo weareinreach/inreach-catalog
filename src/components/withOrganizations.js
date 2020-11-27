@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import debounce from 'lodash/debounce';
 
-import {fetchOrganizations} from '../utils/api';
+import {getOrgsByName} from '../utils/api';
 
 const withOrganizations = (WrappedComponent) =>
   class withOrganzations extends Component {
@@ -70,7 +70,7 @@ const withOrganizations = (WrappedComponent) =>
     }
 
     loadOrganizations() {
-      fetchOrganizations({name: this.state.organizationSearch}).then((data) => {
+      getOrgsByName(this.state.organizationSearch).then((data) => {
         this.setState({
           isLoadingOrganizations: false,
           organizations: data.organizations,

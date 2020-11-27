@@ -64,12 +64,32 @@ class GeneralSettingsOrganization extends Component {
     if (organizationSelection === null) {
       handleMessageNew('Please select an organization');
     } else {
+      if (organizationSelection.owners.length) {
+        const affiliate = organizationSelection.owners.find(
+          (owner) => owner.email === userData.email
+        );
+        if (affiliate) {
+          affiliate.isApproved
+            ? handleMessageNew(
+                `You are already affiliated with ${organizationSelection.name}`
+              )
+            : handleMessageNew(
+                `Your request to be affiliated with ${organizationSelection.name} is pending.`
+              );
+          return;
+        }
+      }
       const {_id} = organizationSelection;
       createOrgOwner(
         {email: userData.email, orgId: _id, userId: userData._id},
         session
       )
-        .then(() => ({}))
+        .then(() => {
+          handleMessageNew(
+            `Request to be affiliated with ${organizationSelection.name} received. You will be notified when it is approved.`
+          );
+          window.location.reload();
+        })
         .catch(() => {
           handleMessageNew('Oops! Something went wrong.');
         });
@@ -77,15 +97,20 @@ class GeneralSettingsOrganization extends Component {
   }
 
   render() {
-    const {affiliation, classes, locale} = this.props;
+    const {affiliation, classes, locale, isApproved} = this.props;
 
     return (
       <div>
-        <span className={classes.settingsTypeFont}>Change Organization</span>
-        {affiliation ? (
+        {affiliation && !isApproved ? (
           <div>
             <Typography>
-              Before joining a new organzation, you must leave your current
+              Your request to join {affiliation.name} is pending.
+            </Typography>
+          </div>
+        ) : affiliation && isApproved ? (
+          <div>
+            <Typography>
+              Before joining a new organization, you must leave your current
               organization.
             </Typography>
             <AsylumConnectButton
@@ -148,6 +173,7 @@ GeneralSettingsOrganization.propTypes = {
   organizationSearch: PropTypes.string.isRequired,
   organizationSelection: PropTypes.object,
   session: PropTypes.string.isRequired,
+  isApproved: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(

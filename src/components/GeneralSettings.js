@@ -101,6 +101,7 @@ class GeneralSettings extends React.Component {
       locale,
       session,
       userData,
+      isApproved,
       userData: {isProfessional, email},
     } = this.props;
     const {isPasswordUpdated, isEmailUpdated} = this.state;
@@ -120,6 +121,7 @@ class GeneralSettings extends React.Component {
             locale={locale}
             session={session}
             userData={userData}
+            isApproved={isApproved}
           />
         )}
         <GeneralSettingsEmail
@@ -160,9 +162,10 @@ GeneralSettings.propTypes = {
   handleRequestOpen: PropTypes.func.isRequired,
   handleUserUpdate: PropTypes.func.isRequired,
   session: PropTypes.string.isRequired,
+  isApproved: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
     affiliation: PropTypes.shape({}),
-    is_professional: PropTypes.bool.isRequired,
+    isProfessional: PropTypes.bool.isRequired,
     email: PropTypes.string.isRequired,
   }).isRequired,
 };

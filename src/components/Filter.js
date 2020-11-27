@@ -2,17 +2,25 @@ import React from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 
 function Filter(props) {
+  const {
+    className,
+    inputClassName,
+    filteredLanguageValue,
+    handleOnChange,
+    handleOnClick,
+  } = props;
   return (
-    <FormControl className={props.className}>
-      <InputLabel htmlFor="languageInput">Start typing to filter</InputLabel>
+    <FormControl className={className}>
       <Input
+        disableUnderline={true}
         id="languageInput"
-        value={props.filteredLanguageValue}
-        onChange={props.handleOnChange}
-        onClick={props.handleOnClick}
+        value={filteredLanguageValue}
+        onChange={handleOnChange}
+        onClick={handleOnClick}
+        className={inputClassName}
+        placeholder="Start typing to filter"
       />
     </FormControl>
   );

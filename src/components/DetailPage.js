@@ -137,12 +137,39 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(0),
   },
   dividerSpacing: dividerSpacing(theme),
-  orgName: {
-    fontSize: '21px',
-    [theme.breakpoints.down('xs')]: {
-      textAlign: 'center',
+  orgName: Object.assign(
+    {
       fontSize: '24px',
+      display: 'inline-block',
+      [theme.breakpoints.down('xs')]: {
+        textAlign: 'center',
+        fontSize: '24px',
+      },
     },
+    boldFont(theme)
+  ),
+  headerBadge: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(0.5),
+  },
+  bottomHeaderBadge:{
+    [theme.breakpoints.down('xs')]:{
+      marginLeft: 0
+    },
+  },
+  bottomVerifiedBadge: {
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+      width: '100%',
+    },
+  },
+  verifiedHeaderText: {
+    display: 'inline-block',
+    fontSize: '16px',
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.text.secondary,
   },
   serviceOrg: {
     [theme.breakpoints.down('xs')]: {
@@ -158,17 +185,17 @@ const styles = (theme) => ({
     },
   },
   serviceBadge: {
-    position: 'absolute',
-    marginLeft: theme.spacing(-1),
+    [theme.breakpoints.down('xs')]: {
+      position: 'absolute',
+      marginLeft: theme.spacing(-1),
+    }
   },
   serviceText: {
-    display: 'block',
+    display: 'inline-block',
     lineHeight: `${theme.spacing(0.5) + 45}px`,
-    paddingLeft: theme.spacing(7),
     marginTop: 0,
     marginBottom: 0,
     [theme.breakpoints.down('xs')]: {
-      display: 'inline-block',
       width: '90%',
       verticalAlign: 'top',
       lineHeight: 1.6,
@@ -215,6 +242,10 @@ const styles = (theme) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
+  badge: {
+   display: 'inline-block',
+   width: '18%'
+  },
 });
 
 class Detail extends React.Component {
@@ -224,11 +255,11 @@ class Detail extends React.Component {
     const {id, serviceId} = this.props?.match?.params;
 
     this.state = {
-      average_rating: null,
+      average_rating: 0,
       comments: [],
       modal: false,
       loading: true,
-      ratings: null,
+      ratings: 0,
       organization: null,
       service: null,
       tab: 0,
@@ -265,6 +296,7 @@ class Detail extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const params = this.props?.match?.params;
     const oldParams = prevProps?.match?.params;
+
     if (
       params.id !== oldParams.id ||
       params.serviceId !== oldParams.serviceId
@@ -444,6 +476,7 @@ class Detail extends React.Component {
       schedules,
       services = [],
       website,
+      owners
     } = resource || {};
     const allProperties = this.isServicePage
       ? properties
@@ -464,6 +497,7 @@ class Detail extends React.Component {
     if (this.isServicePage) {
       sharePath += `/service/${service?.name}`;
     }
+
     const detailHeaderProps = {
       alertMessage,
       classes,
@@ -473,6 +507,8 @@ class Detail extends React.Component {
       rating: average_rating,
       totalRatings: ratings?.length,
       website,
+      verified: organization?.updated_at ? new Date(organization?.updated_at) : null,
+      owners
     };
     const resourceTags = getTags(resource, locale);
 
@@ -722,6 +758,7 @@ class Detail extends React.Component {
                                       list={resourceTags}
                                       classes={classes}
                                       isMobile={isMobile}
+                                      locale={locale}
                                     />
                                   }
                                 />
@@ -928,6 +965,7 @@ class Detail extends React.Component {
                                   list={resourceTags}
                                   classes={classes}
                                   isMobile={isMobile}
+                                  locale={locale}
                                 />
                               }
                             />
