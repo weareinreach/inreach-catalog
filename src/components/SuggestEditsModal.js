@@ -131,7 +131,7 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData }) => {
           <Typography variant="body1">What information is incorrect?</Typography>
           <FormControlLabel control={<Checkbox checked={isResourceClosed} onChange={() => handleCheck(isResourceClosed, setResourceClosed)} />} label={SELECT_VALUE.RESOURCE_IS_CLOSED} />
           <FormControlLabel control={<Checkbox checked={isInfoIncorrect} onChange={() => handleCheck(isInfoIncorrect, setInfoIncorrect)} />} label={SELECT_VALUE.CONTACT_LOCATION_INCORRECT} />
-          <FormControlLabel control={<Checkbox checked={isDescIncorrect} onChange={() => handleCheck(isDescIncorrect, setDescIncorrect)} />} label={SELECT_VALUE.RESOURCE_IS_CLOSED} />
+          <FormControlLabel control={<Checkbox checked={isDescIncorrect} onChange={() => handleCheck(isDescIncorrect, setDescIncorrect)} />} label={SELECT_VALUE.DESCRIPTION_INACCURATE} />
           <FormControlLabel control={<Checkbox checked={isOther} onChange={() => handleCheck(isOther, setIsOther)} />} label={SELECT_VALUE.OTHER} />
           <label for="comment"><Typography variant="body1">Your comment</Typography></label>
           <textarea
