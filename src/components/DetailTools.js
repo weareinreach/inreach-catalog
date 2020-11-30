@@ -1,15 +1,17 @@
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
+import _ from 'lodash'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 
-import {ShareIcon} from './icons';
+import { EditIcon, ShareIcon } from './icons';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import ResourceHeaderTabs from './ResourceHeaderTabs';
 import SaveToFavoritesButton from './SaveToFavoritesButton';
+import SuggestEditsModal from './SuggestEditsModal'
 
 const Tools = (props) => {
   const {
@@ -33,10 +35,12 @@ const Tools = (props) => {
     userData,
   } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
   const handleOpen = (type) => {
     setModalIsOpen(false);
     handleRequestOpen(type);
   };
+  const isVerified = _.some(resource?.owners, owner => { return owner.userId == user })
 
   return (
     <Grid
@@ -76,6 +80,17 @@ const Tools = (props) => {
         md={7}
         className={classnames('pull-right', classes.cushion)}
       >
+        {isVerified && (
+          <IconButton
+            className={classnames('center-align', classes.editButton)}
+            onClick={() => {
+              setDetailModalOpen(true);
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+        )}
+        <div className={classnames(classes.separator, 'center-align')}></div>
         <div className="center-align">
           <SaveToFavoritesButton
             handleListAddFavorite={handleListAddFavorite}
@@ -120,7 +135,7 @@ const Tools = (props) => {
           }}
           isOpen={modalIsOpen}
         >
-          <div style={{textAlign: 'left', paddingTop: '13px', height: '20px'}}>
+          <div style={{ textAlign: 'left', paddingTop: '13px', height: '20px' }}>
             <div
               style={{
                 position: 'absolute',
@@ -144,12 +159,12 @@ const Tools = (props) => {
                 boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.25)',
               }}
             >
-              <div style={{paddingTop: '10px', textAlign: 'center'}}>
+              <div style={{ paddingTop: '10px', textAlign: 'center' }}>
                 <ShareIcon size={'19px'} />
               </div>
             </div>
           </div>
-          <div style={{paddingTop: '40px', padding: '8%'}}>
+          <div style={{ paddingTop: '40px', padding: '8%' }}>
             <p>Oops! You need to be logged in to share resources.</p>
             <p
               style={{
@@ -169,7 +184,7 @@ const Tools = (props) => {
               <li>Claim your organization's profile page</li>
             </div>
           </div>
-          <div style={{textAlign: 'center', paddingBottom: '15px'}}>
+          <div style={{ textAlign: 'center', paddingBottom: '15px' }}>
             <Button
               style={{
                 display: 'inline-block',
@@ -189,7 +204,7 @@ const Tools = (props) => {
               sign up/sign in
             </Button>
           </div>
-          <div style={{paddingBottom: '20px', textAlign: 'center'}}>
+          <div style={{ paddingBottom: '20px', textAlign: 'center' }}>
             <Button
               style={{
                 display: 'inline-block',
@@ -211,6 +226,12 @@ const Tools = (props) => {
             </Button>
           </div>
         </Modal>
+        <SuggestEditsModal
+          open={detailModalOpen}
+          setOpen={setDetailModalOpen}
+          resource={resource}
+          userData={userData}
+        />
       </Grid>
     </Grid>
   );

@@ -246,6 +246,9 @@ const styles = (theme) => ({
    display: 'inline-block',
    width: '18%'
   },
+  editButton: {
+    width: '44px',
+  }
 });
 
 class Detail extends React.Component {
