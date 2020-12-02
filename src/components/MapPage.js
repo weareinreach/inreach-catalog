@@ -434,6 +434,7 @@ class MapPage extends React.Component {
             isNational,
           };
           this.setState(nextState);
+          localStorage.setItem('lastSearch', this.props.history.location.pathname);
 
           fetchOrganizations(params).then((data) =>
             this.processSearchResults(data, nextPage)
