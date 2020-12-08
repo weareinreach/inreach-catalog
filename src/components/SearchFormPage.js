@@ -208,7 +208,7 @@ class SearchFormContainer extends React.Component {
     }
     else if (locale === 'en_MX'){
       disclaimerProps.children=(
-        <span className="notranslate" translate="no">Advertencia: Actualmente, toda la información se proporciona en inglés (con más de 100 idiomas adicionales disponibles a través de Google Translate). Traducciones nativas al español se esperan para finales de año.</span>
+        <span className="notranslate" translate="no">Advertencia: Actualmente, toda la información se proporciona en inglés (con más de 100 idiomas adicionales disponibles a través de Google Translate). Traducciones nativas al español se esperan a principios de 2021.</span>
       )
       disclaimerProps.icon = (<WarningIcon width="16px"/> )
     }
