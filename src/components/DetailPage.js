@@ -184,6 +184,9 @@ const styles = (theme) => ({
       marginTop: theme.spacing(2),
     },
   },
+  serviceItemContainer: {
+    marginBottom: theme.spacing(2)
+  },
   serviceBadge: {
     [theme.breakpoints.down('xs')]: {
       position: 'absolute',
@@ -192,9 +195,11 @@ const styles = (theme) => ({
   },
   serviceText: {
     display: 'inline-block',
-    lineHeight: `${theme.spacing(0.5) + 45}px`,
     marginTop: 0,
-    marginBottom: 0,
+    lineHeight: 1.6,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(1)
+    },
     [theme.breakpoints.down('xs')]: {
       width: '90%',
       verticalAlign: 'top',
@@ -243,8 +248,7 @@ const styles = (theme) => ({
     paddingRight: '0',
   },
   badge: {
-   display: 'inline-block',
-   width: '18%'
+   display: 'inline-block'
   },
   editButton: {
     width: '44px',
@@ -496,7 +500,8 @@ class Detail extends React.Component {
     }`;
     const isMobile = width < breakpoints['sm'];
     let sharePath = `resource/${organization?._id}/${organization?.name}`;
-
+    const primaryPhone = phones?.length > 0 ? 
+      phones?.filter(phone => phone?.is_primary) : null
     if (this.isServicePage) {
       sharePath += `/service/${service?.name}`;
     }
@@ -506,7 +511,7 @@ class Detail extends React.Component {
       classes,
       isMobile,
       name,
-      phones,
+      phones: primaryPhone || phones,
       rating: average_rating,
       totalRatings: ratings?.length,
       website,
@@ -708,7 +713,6 @@ class Detail extends React.Component {
                     name={name}
                     orgLink={`/${locale}/resource/${organization?.slug}`}
                     orgName={organization?.name}
-                    phones={phones}
                     rating={average_rating}
                     tab={tab}
                     tabs={this.tabs}
@@ -836,7 +840,7 @@ class Detail extends React.Component {
                               email={emails[0]}
                               list={service.access_instructions}
                               location={locations[0]}
-                              phone={phones[0]}
+                              phone={primaryPhone[0] || phones[0]}
                               rawSchedule={schedules[0]}
                               website={website}
                             />
@@ -1041,7 +1045,7 @@ class Detail extends React.Component {
                           email={emails[0]}
                           list={service.access_instructions}
                           location={locations[0]}
-                          phone={phones[0]}
+                          phone={primaryPhone[0] || phones[0]}
                           rawSchedule={schedules[0]}
                           website={website}
                         />

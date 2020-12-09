@@ -11,7 +11,7 @@ const addBadges = (list, locale) => {
   const resourceIndex = resourceTypes.getResourceIndex(locale);
   return (
     list
-    ?.map((item) => {
+      ?.map((item) => {
         const itemTags = getTags(item, locale);
         const badgeList = [
           ...(itemTags?.length ? itemTags : []),
@@ -21,7 +21,7 @@ const addBadges = (list, locale) => {
 
         item.badge = resourceTypes.getBadge(badgeList, locale);
         if (typeof resourceIndex[badgeList[0]] !== 'undefined') {
-         item.label = resourceIndex[badgeList[0]].category
+          item.label = resourceIndex[badgeList[0]].category;
         }
         return item;
       })
@@ -48,47 +48,23 @@ const Services = (props) => {
     <Grid container spacing={0}>
       <Grid item xs={12} className={classes.sectionSpacing}>
         <Grid container spacing={0}>
-            {itemsWithBadges.map((item) => {
-              const {_id, badge, name, slug} = item;
-              const itemLink = `/${locale}/resource/${resource.slug}/service/${slug}`;
-              if (isMobile) {
-                let newType = false;
+          {itemsWithBadges.map((item) => {
+            const {_id, badge, name, slug} = item;
+            const itemLink = `/${locale}/resource/${resource.slug}/service/${slug}`;
+            if (isMobile) {
+              let newType = false;
 
-                if (lastBadge !== badge) {
-                  newType = true;
-                  lastBadge = badge;
-                }
-
-                return (
-                  <Grid item xs={12} key={_id}>
-                    {newType && (
-                      <ACBadge
-                        extraClasses={{
-                          icon: classes.serviceBadge,
-                          tooltip: classes.serviceTooltip,
-                        }}
-                        key="misc"
-                        type={badge}
-                        width="48px"
-                        height="48px"
-                      />
-                    )}
-                    <li>
-                      <Link to={itemLink} className={classes.serviceText}>
-                        {name}
-                      </Link>
-                    </li>
-                  </Grid>
-                );
+              if (lastBadge !== badge) {
+                newType = true;
+                lastBadge = badge;
               }
 
               return (
                 <Grid item xs={12} key={_id}>
-                
-                  {badge ? (
-                    <>
+                  {newType && (
                     <ACBadge
                       extraClasses={{
+                        icon: classes.serviceBadge,
                         tooltip: classes.serviceTooltip,
                       }}
                       key="misc"
@@ -96,9 +72,45 @@ const Services = (props) => {
                       width="48px"
                       height="48px"
                     />
-                    <Typography variant='body2' component='span' className={classes.badge}>
-                      {item.label?.split(' ')[0]}
-                    </Typography>
+                  )}
+                  <li>
+                    <Link to={itemLink} className={classes.serviceText}>
+                      {name}
+                    </Link>
+                  </li>
+                </Grid>
+              );
+            }
+
+            return (
+              <Grid
+                item
+                container
+                xs={12}
+                key={_id}
+                alignItems="center"
+                alignContent="center"
+                className={classes.serviceItemContainer}
+              >
+                <Grid item xs={12} md={3}>
+                  {badge ? (
+                    <>
+                      <ACBadge
+                        extraClasses={{
+                          tooltip: classes.serviceTooltip,
+                        }}
+                        key="misc"
+                        type={badge}
+                        width="48px"
+                        height="48px"
+                      />
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        className={classes.badge}
+                      >
+                        {item.label?.split(' ')[0]}
+                      </Typography>
                     </>
                   ) : (
                     <ACBadge
@@ -111,20 +123,15 @@ const Services = (props) => {
                       height="45px"
                     />
                   )}
-                  <Typography
-                  key={_id}
-                  variant="body2"
-                  component="span"
-                  style={{position: 'relative'}}
-                >
-                  <Link to={itemLink} className={classes.serviceText}>
-                    {name}
-                  </Link>
-                </Typography>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Typography key={_id} variant="body2" className={classes.serviceText}>
+                    <Link to={itemLink}>{name}</Link>
+                  </Typography>
+                </Grid>
               </Grid>
-              );
-            })}
-
+            );
+          })}
         </Grid>
       </Grid>
     </Grid>
