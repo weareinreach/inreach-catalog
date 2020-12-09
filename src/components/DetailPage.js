@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import {withStyles} from '@material-ui/core/styles';
+import { EditIcon } from './icons';
 
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import AsylumConnectCollapsibleSection from './AsylumConnectCollapsibleSection';
@@ -44,6 +45,7 @@ import {
   dividerSpacing,
   mobilePadding,
 } from '../theme';
+import { Typography } from '@material-ui/core';
 
 const formatOrganization = (organization) => {
   return {
@@ -246,9 +248,19 @@ const styles = (theme) => ({
    display: 'inline-block',
    width: '18%'
   },
+  editLabel: {
+    display: 'inline-block',
+    flexShrink: '1',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+  editText: {
+    display: 'inline-block',
+    color: theme.palette.primary[400],
+  },
   editButton: {
     width: '44px',
-  }
+  },
 });
 
 class Detail extends React.Component {
@@ -266,6 +278,7 @@ class Detail extends React.Component {
       organization: null,
       service: null,
       tab: 0,
+      isEditing: false,
     };
 
     this.isServicePage = Boolean(id && serviceId);
@@ -288,6 +301,8 @@ class Detail extends React.Component {
     this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
     this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
     this.requestData = this.requestData.bind(this);
+    this.setIsEditing = this.setIsEditing.bind(this);
+    this.renderEditButton = this.renderEditButton.bind(this);
   }
 
   componentWillMount() {
@@ -393,9 +408,13 @@ class Detail extends React.Component {
 
   handleBackButtonClick() {
     if (this.isServicePage) {
-      this.props.history.push(`/resource/${this.state.organization?.slug}`);
+        this.props.history.push(`/resource/${this.state.organization?.slug}`);
     } else {
-      this.props.handleResourceBackButton();
+      if (this.state.isEditing) {
+        this.setIsEditing(false)
+      } else {
+        this.props.handleResourceBackButton();
+      }
     }
   }
 
@@ -437,6 +456,23 @@ class Detail extends React.Component {
     this.props.handleRequestOpen(type);
   }
 
+  renderEditButton(onClick) {
+    return (
+      <div className={this.props.classes.editLabel} onClick={onClick}>
+        <IconButton
+        className={this.props.classes.editButton}
+        >
+          <EditIcon />
+        </IconButton>
+        <Typography className={this.props.classes.editText} variant="h5">EDIT</Typography>
+      </div>
+    )
+  }
+
+  setIsEditing(isEditing) {
+    this.setState({isEditing});
+  }
+
   render() {
     const {
       classes,
@@ -465,6 +501,7 @@ class Detail extends React.Component {
       organization = {},
       service = {},
       tab,
+      isEditing,
     } = this.state;
     const type = this.isServicePage ? 'service' : 'organization';
     const resource = this.isServicePage ? service : organization;
@@ -914,19 +951,22 @@ class Detail extends React.Component {
                     backText={
                       this.isServicePage
                         ? 'Back to Organization'
-                        : 'Back to Search Results'
+                        : this.state.isEditing ? 'Back to view mode' :'Back to Search Results'
                     }
                     classes={classes}
                     handleBackButtonClick={this.handleBackButtonClick}
                     handleTabClick={this.handleTabClickDesktop}
                     handleRequestOpen={this.handleOpen}
+                    isEditing={isEditing}
+                    setIsEditing={this.setIsEditing}
                     resource={resource}
                     sharePath={sharePath}
                     tab={tab}
                     tabs={this.tabs}
                     userData={userData}
                   />
-                  <Header {...detailHeaderProps} />
+                  
+                  <Header {...detailHeaderProps} isEditing={isEditing} renderEditButton={this.renderEditButton} />
                   <Element name="about" />
                   <About classes={classes} resource={resource} />
                   {loading ? (
@@ -954,6 +994,8 @@ class Detail extends React.Component {
                               classes={classes}
                               locale={locale}
                               isMobile={isMobile}
+                              isEditing={isEditing}
+                              renderEditButton={this.renderEditButton}
                             />
                           }
                         />
@@ -1022,6 +1064,10 @@ class Detail extends React.Component {
                       {propsByType?.language?.length > 0 && (
                         <AsylumConnectCollapsibleSection
                           title="Non-English services"
+                          isEditing={isEditing}
+                          renderEditButton={() => {return this.renderEditButton((event) => {
+                            event.stopPropagation()
+                          })}}
                           content={
                             <Languages
                               list={propsByType.language}
@@ -1035,6 +1081,10 @@ class Detail extends React.Component {
                   <Element name="visit" />
                   <AsylumConnectCollapsibleSection
                     title="Visit"
+                    isEditing={isEditing}
+                    renderEditButton={() => {return this.renderEditButton((event) => {
+                            event.stopPropagation()
+                          })}}
                     content={
                       this.isServicePage ? (
                         <AccessInstructions

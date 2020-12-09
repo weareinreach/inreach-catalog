@@ -25,6 +25,8 @@ const Tools = (props) => {
     handleMessageNew,
     handleRequestOpen,
     handleTabClick,
+    isEditing,
+    setIsEditing,
     lists,
     resource,
     session,
@@ -80,42 +82,45 @@ const Tools = (props) => {
         md={7}
         className={classnames('pull-right', classes.cushion)}
       >
-        {isVerified && (
+        {!isEditing && ( <>
+          {isVerified && (
+            <IconButton
+              className={classnames('center-align', classes.editButton)}
+              onClick={() => {
+                setDetailModalOpen(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          )}
+          <div className={classnames(classes.separator, 'center-align')}></div>
+          <div className="center-align">
+            <SaveToFavoritesButton
+              handleListAddFavorite={handleListAddFavorite}
+              handleListRemoveFavorite={handleListRemoveFavorite}
+              handleListNew={handleListNew}
+              handleLogOut={handleLogOut}
+              handleMessageNew={handleMessageNew}
+              handleRequestOpen={handleOpen}
+              lists={lists}
+              parentResourceId={resource?.organization?._id}
+              resourceId={resource?._id}
+              session={session}
+              user={user}
+              userData={userData}
+            />
+          </div>
+          <div className={classnames(classes.separator, 'center-align')}></div>
           <IconButton
-            className={classnames('center-align', classes.editButton)}
+            className="center-align"
             onClick={() => {
-              setDetailModalOpen(true);
+              session ? handleOpen('share/' + sharePath) : setModalIsOpen(true);
             }}
           >
-            <EditIcon />
+            <ShareIcon />
           </IconButton>
+        </>
         )}
-        <div className={classnames(classes.separator, 'center-align')}></div>
-        <div className="center-align">
-          <SaveToFavoritesButton
-            handleListAddFavorite={handleListAddFavorite}
-            handleListRemoveFavorite={handleListRemoveFavorite}
-            handleListNew={handleListNew}
-            handleLogOut={handleLogOut}
-            handleMessageNew={handleMessageNew}
-            handleRequestOpen={handleOpen}
-            lists={lists}
-            parentResourceId={resource?.organization?._id}
-            resourceId={resource?._id}
-            session={session}
-            user={user}
-            userData={userData}
-          />
-        </div>
-        <div className={classnames(classes.separator, 'center-align')}></div>
-        <IconButton
-          className="center-align"
-          onClick={() => {
-            session ? handleOpen('share/' + sharePath) : setModalIsOpen(true);
-          }}
-        >
-          <ShareIcon />
-        </IconButton>
         <Modal
           ariaHideApp={false}
           style={{
@@ -229,6 +234,7 @@ const Tools = (props) => {
         <SuggestEditsModal
           open={detailModalOpen}
           setOpen={setDetailModalOpen}
+          setIsEditing={setIsEditing}
           resource={resource}
           userData={userData}
         />

@@ -93,7 +93,7 @@ const SELECT_VALUE = {
   OTHER: 'Other',
 }
 
-const SuggestEditsModal = ({ classes, open, setOpen, resource, userData }) => {
+const SuggestEditsModal = ({ classes, open, setOpen, setIsEditing, resource, userData }) => {
   const [content, setContent] = useState(CONTENT.hasInfo)
   const [isResourceClosed, setResourceClosed] = useState(false)
   const [isInfoIncorrect, setInfoIncorrect] = useState(false)
@@ -109,7 +109,10 @@ const SuggestEditsModal = ({ classes, open, setOpen, resource, userData }) => {
         <Grid container direction="column" justify="space-around" classes={{ root: classes.verticalButtons }}>
           <Button
             classes={{ root: classNames(classes.button, classes.yesEditsPadding, classes.red) }}
-            onClick={() => setContent(CONTENT.selectInfo)}
+            onClick={() => {
+              setIsEditing(true)
+              onClose()
+            }}
           >
             Yes, I'll make the edits
             </Button>

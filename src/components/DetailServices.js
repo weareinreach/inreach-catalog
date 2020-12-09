@@ -40,7 +40,7 @@ const addBadges = (list, locale) => {
 };
 
 const Services = (props) => {
-  const {classes, list, isMobile, locale, resource, badge} = props;
+  const {classes, list, isMobile, locale, resource, badge, isEditing, renderEditButton} = props;
   const itemsWithBadges = addBadges(list, locale);
   let lastBadge = false;
 
@@ -121,6 +121,7 @@ const Services = (props) => {
                     {name}
                   </Link>
                 </Typography>
+                { isEditing && renderEditButton && renderEditButton() }
               </Grid>
               );
             })}
