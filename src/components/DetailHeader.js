@@ -107,7 +107,7 @@ const DetailHeader = ({
             {verified ? (
               <Tooltip
                 classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-                title={`The information on this page was last updated on ${verified.toDateString()}`}
+                title={`The information on this page was last updated on ${verified.toDateString()}. AsylumConnect prioritizes accuracy and user safety, and updates all information at least once every 6 months.`}
                 arrow
                 placement="bottom"
               >
@@ -153,7 +153,7 @@ const DetailHeader = ({
             <Tooltip
               classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
               title={`The information on this page was last updated on ${
-                verified.toDateString()}`}
+                verified.toDateString()}. AsylumConnect prioritizes accuracy and user safety, and updates all information at least once every 6 months.`}
               arrow
               placement="bottom"
             >
