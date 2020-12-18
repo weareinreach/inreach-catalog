@@ -818,7 +818,7 @@ class Detail extends React.Component {
                           )}
                           {propsByType?.language?.length > 0 && (
                             <AsylumConnectCollapsibleSection
-                              title="Non-English services"
+                              title="Language services"
                               content={
                                 <Languages
                                   list={propsByType.language}
@@ -1025,7 +1025,7 @@ class Detail extends React.Component {
                       )}
                       {propsByType?.language?.length > 0 && (
                         <AsylumConnectCollapsibleSection
-                          title="Non-English services"
+                          title="Language services"
                           content={
                             <Languages
                               list={propsByType.language}

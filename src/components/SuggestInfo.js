@@ -267,7 +267,7 @@ class SuggestInfo extends React.Component {
             onChange={this.handleChange}
           />
           <FormControl className={classes.inputAddressLabel}>
-            <InputLabel children="Non-English Service(s):" shrink />
+            <InputLabel children="Language Service(s):" shrink />
             <SuggestInfoNonEngServices
               services={nonEngServices}
               handleClick={this.handleServiceSelect}
