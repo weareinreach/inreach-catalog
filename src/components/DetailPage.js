@@ -1123,8 +1123,6 @@ class Detail extends React.Component {
                               classes={classes}
                               locale={locale}
                               isMobile={isMobile}
-                              isEditing={isEditing}
-                              renderEditButton={this.renderEditButton}
                             />
                           }
                         />
@@ -1193,10 +1191,6 @@ class Detail extends React.Component {
                       {propsByType?.language?.length > 0 && (
                         <AsylumConnectCollapsibleSection
                           title="Non-English services"
-                          isEditing={isEditing}
-                          renderEditButton={() => {return this.renderEditButton((event) => {
-                            event.stopPropagation()
-                          })}}
                           content={
                             <Languages
                               list={propsByType.language}
@@ -1210,10 +1204,6 @@ class Detail extends React.Component {
                   <Element name="visit" />
                   <AsylumConnectCollapsibleSection
                     title="Visit"
-                    isEditing={isEditing}
-                    renderEditButton={() => {return this.renderEditButton((event) => {
-                            event.stopPropagation()
-                          })}}
                     content={
                       this.isServicePage ? (
                         <AccessInstructions
