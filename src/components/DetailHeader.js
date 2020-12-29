@@ -25,8 +25,6 @@ const DetailHeader = ({
   orgLink,
   verified,
   owners,
-  isEditing,
-  renderEditButton,
 }) => (
   <Fragment>
     <Grid container spacing={0} alignItems="center">
@@ -34,22 +32,19 @@ const DetailHeader = ({
       <Grid item xs={12} className={classes.bottomSpacing}>
         <Grid container alignItems="center" justify="space-between" spacing={0}>
           <Grid item xs md lg xl>
-            <Grid container alignItems="center" direction="row">
-              <Typography variant="h2" className={classes.orgName}>
-                {name}
-                {owners && owners.length ? (
-                  <>
-                    <VerifiedIcon
-                      extraClasses={classes.headerBadge}
-                      fillColor="#00C419"
-                      width="12px"
-                    />
-                    <span className={classes.verifiedHeaderText}>Claimed</span>
-                  </>
-                ) : null}
-              </Typography>
-              {isEditing && renderEditButton && renderEditButton() }
-            </Grid>
+            <Typography variant="h2" className={classes.orgName}>
+              {name}
+              {owners && owners.length ? (
+                <>
+                  <VerifiedIcon
+                    extraClasses={classes.headerBadge}
+                    fillColor="#00C419"
+                    width="12px"
+                  />
+                  <span className={classes.verifiedHeaderText}>Claimed</span>
+                </>
+              ) : null}
+            </Typography>
           </Grid>
           {isService && isMobile ? (
             <Grid item xs={12} className={classes.serviceOrgContainer}>
