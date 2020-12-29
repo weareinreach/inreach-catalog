@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {Link} from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import {withStyles} from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,7 +13,7 @@ import PlaceIcon from '@material-ui/icons/Place';
 import TextField from '@material-ui/core/TextField';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import SuggestInfoNonEngServices from './SuggestInfoNonEngServices';
-import OrganizationAutoSuggest from './OrganizationAutoSuggest';
+import OrganizationAutocomplete from './OrganizationAutocomplete';
 
 import {searchInput, searchInputMobile} from '../theme';
 
@@ -185,6 +186,16 @@ class SuggestInfo extends React.Component {
       nonEngServices,
       t,
       country,
+      handleBlurOrganizations,
+      handleOrganizationSearchChange,
+      handleOrganizationSelect,
+      handleOrganizationsFetchRequested,
+      handleOrganizationsClearRequested,
+      isLoadingOrganizations,
+      locale,
+      organizations,
+      organizationSearch,
+      organizationSelection,
     } = this.props;
 
     const searchOptions = {
@@ -196,7 +207,41 @@ class SuggestInfo extends React.Component {
     return (
       <div className={classes.root}>
         <form className={classes.form}>
-          <OrganizationAutoSuggest handleChange={this.handleChange} locale={this.props.locale} />
+          <OrganizationAutocomplete
+            handleBlurOrganizations={handleBlurOrganizations}
+            handleOrganizationSearchChange={handleOrganizationSearchChange}
+            handleOrganizationSelect={handleOrganizationSelect}
+            handleOrganizationsFetchRequested={
+              handleOrganizationsFetchRequested
+            }
+            handleOrganizationsClearRequested={
+              handleOrganizationsClearRequested
+            }
+            isLoadingOrganizations={isLoadingOrganizations}
+            locale={locale}
+            organizationSearch={organizationSearch}
+            organizationSelection={organizationSelection}
+            organizations={organizations}
+          />
+          {organizationSelection ? (
+            <p style={{lineHeight: '25px'}}>
+              Thank you for your interest in contributing to the AsylumConnect
+              resource catalog! It seems we already have
+              <Link
+                to={`/${locale}/resource/${organizationSelection.slug}`}
+                className="hide--on-print"
+              >
+                {' '}
+                {organizationSelection.name}{' '}
+              </Link>
+              on the catalog. You can join this organization by signing up for a
+              provider account
+              <Link to={`/${locale}/resource/${organizationSelection.slug}`}>
+                {' '}
+                here.
+              </Link>
+            </p>
+          ) : null}
           <FormControl className={classes.inputAddressLabel}>
             <InputLabel children="Address:" shrink />
             <PlacesAutocomplete
