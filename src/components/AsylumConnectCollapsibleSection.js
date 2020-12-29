@@ -107,7 +107,6 @@ class AsylumConnectCollapsibleSection extends React.Component {
             }}
             expandIcon={<KeyboardArrowDownIcon />}
           >
-          <Typography variant="subtitle2">{title}</Typography>
             <Typography variant="subtitle2">{title}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
