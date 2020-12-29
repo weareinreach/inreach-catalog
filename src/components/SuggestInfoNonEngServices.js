@@ -208,7 +208,7 @@ class IntegrationAutosuggest extends React.Component {
           )}
           inputProps={{
             classes,
-            placeholder: 'List any non-English service(s) offered',
+            placeholder: 'List any language service(s) offered',
             value,
             onChange: this.handleChange,
           }}
