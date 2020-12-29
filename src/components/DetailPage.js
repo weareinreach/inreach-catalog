@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import {Element, scroller} from 'react-scroll';
+import _ from 'lodash';
 import SwipeableViews from 'react-swipeable-views';
 import { Button, Divider, Grid, IconButton, TextField, Toolbar } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
@@ -310,6 +311,7 @@ class Detail extends React.Component {
       tab: 0,
       isEditing: false,
       editFocus: '',
+      editedOrg: null,
     };
 
     this.isServicePage = Boolean(id && serviceId);
@@ -494,22 +496,22 @@ class Detail extends React.Component {
   handleEditOrgChange(event) {
     const { target } = event;
     const { name, value } = target;
-    const { organization } = this.state
-    const { locations = [{}], phones = [{}] } = organization
+    const { editedOrg } = this.state
+    const { locations = [{}], phones = [{}] } = editedOrg
     switch (name) {
       case 'city':
       case 'state':
         locations[0][name] = value
-        organization.locations = locations
+        editedOrg.locations = locations
         break;
       case 'phone':
         phones[0].digits = value
-        organization.phones = phones
+        editedOrg.phones = phones
         break;
       default:
-        organization[name] = value
+        editedOrg[name] = value
     }
-    this.setState({ organization });
+    this.setState({ editedOrg });
   }
 
   handleEditOrgSubmit(event) {
@@ -574,6 +576,7 @@ class Detail extends React.Component {
       tab,
       isEditing,
       editFocus,
+      editedOrg,
     } = this.state;
     const type = this.isServicePage ? 'service' : 'organization';
     const resource = this.isServicePage ? service : organization;
@@ -589,7 +592,6 @@ class Detail extends React.Component {
       services = [],
       website,
       owners,
-      description,
     } = resource || {};
     const allProperties = this.isServicePage
       ? properties
@@ -1047,38 +1049,38 @@ class Detail extends React.Component {
                               </Grid>
                               <Grid item xs={12}>
                                 <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Organization Name</Typography>
-                                <TextField variant="outlined" color="secondary" fullWidth name="name" value={name || ''} onChange={this.handleEditOrgChange} />
+                                <TextField variant="outlined" color="secondary" fullWidth name="name" value={editedOrg?.name || ''} onChange={this.handleEditOrgChange} />
                               </Grid>
                               <Grid item xs={8}>
                                 <Typography variant="body1" classes={{ body1: classes.inputLabel }}>City</Typography>
-                                <TextField variant="outlined" color="secondary" fullWidth name="city" value={locations ? locations[0]?.city || '' : ''} onChange={this.handleEditOrgChange} />
+                                <TextField variant="outlined" color="secondary" fullWidth name="city" value={editedOrg?.locations ? editedOrg.locations[0]?.city || '' : ''} onChange={this.handleEditOrgChange} />
                               </Grid>
                               <Grid item xs={4}>
                                 <Typography variant="body1" classes={{ body1: classes.inputLabel }}>State</Typography>
-                                <TextField variant="outlined" color="secondary" fullWidth name="state" value={locations ? locations[0]?.state || '' : ''} onChange={this.handleEditOrgChange} />
+                                <TextField variant="outlined" color="secondary" fullWidth name="state" value={editedOrg?.locations ? editedOrg.locations[0]?.state || '' : ''} onChange={this.handleEditOrgChange} />
                               </Grid>
                               <Grid item xs={12}>
                                 <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Website</Typography>
-                                <TextField variant="outlined" color="secondary" fullWidth name="website" value={website || ''} onChange={this.handleEditOrgChange} />
+                                <TextField variant="outlined" color="secondary" fullWidth name="website" value={editedOrg?.website || ''} onChange={this.handleEditOrgChange} />
                               </Grid>
                               <Grid item xs={12}>
                                 <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Phone Number</Typography>
-                                <TextField variant="outlined" color="secondary" fullWidth name="phone" value={phones ? phones[0]?.digits || '' : ''} onChange={this.handleEditOrgChange} />
+                                <TextField variant="outlined" color="secondary" fullWidth name="phone" value={editedOrg?.phones ? editedOrg.phones[0]?.digits || '' : ''} onChange={this.handleEditOrgChange} />
                               </Grid>
                             </Grid>
                             <Grid item xs={12} classes={{ item: classes.editDescription }}>
                               <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Brief description (MAX 1000 CHARACTERS)</Typography>
                               <TextField
                                 variant="outlined"
-                                color={description?.length > 1000 ? 'primary' : 'secondary'}
+                                color={editedOrg?.description?.length > 1000 ? 'primary' : 'secondary'}
                                 rows={6}
                                 multiline
                                 fullWidth
                                 name="description"
-                                value={description || ''}
+                                value={editedOrg?.description || ''}
                                 onChange={this.handleEditOrgChange}
-                                error={description?.length > 1000}
-                                helperText={description?.length > 1000 ? 'Description cannot be longer than 1000 characters.' : ''}
+                                error={editedOrg?.description?.length > 1000}
+                                helperText={editedOrg?.description?.length > 1000 ? 'Description cannot be longer than 1000 characters.' : ''}
                               />
                             </Grid>
                             {this.renderSaveButtons()}
@@ -1090,7 +1092,8 @@ class Detail extends React.Component {
                               renderEditButton={() => {
                                 return this.renderEditButton(() => {
                                   this.setState({
-                                    editFocus: EditFocuses.EDIT_ABOUT
+                                    editedOrg: _.cloneDeep(organization),
+                                    editFocus: EditFocuses.EDIT_ABOUT,
                                   })
                                 })
                               }} />
