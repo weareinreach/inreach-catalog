@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import {Element, scroller} from 'react-scroll';
 import _ from 'lodash';
 import SwipeableViews from 'react-swipeable-views';
-import { Button, Divider, Grid, IconButton, TextField, Toolbar } from '@material-ui/core';
+import { Button, Divider, Grid, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import { EditIcon } from './icons';
 import classNames from 'classnames';
@@ -42,7 +42,6 @@ import {
   dividerSpacing,
   mobilePadding,
 } from '../theme';
-import { Typography } from '@material-ui/core';
 
 const formatOrganization = (organization) => {
   return {
