@@ -108,6 +108,7 @@ const DetailHeader = ({
             {phones && phones.length ? (
               <Phone phone={phones[0]} classes={classes} />
             ) : null}
+            {phones && phones.length ? '| ' : null}
             {verified ? (
               <Tooltip
                 classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
