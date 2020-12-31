@@ -25,6 +25,8 @@ const DetailHeader = ({
   orgLink,
   verified,
   owners,
+  isEditing,
+  renderEditButton,
 }) => (
   <Fragment>
     <Grid container spacing={0} alignItems="center">
@@ -32,19 +34,22 @@ const DetailHeader = ({
       <Grid item xs={12} className={classes.bottomSpacing}>
         <Grid container alignItems="center" justify="space-between" spacing={0}>
           <Grid item xs md lg xl>
-            <Typography variant="h2" className={classes.orgName}>
-              {name}
-              {owners && owners.length ? (
-                <>
-                  <VerifiedIcon
-                    extraClasses={classes.headerBadge}
-                    fillColor="#00C419"
-                    width="12px"
-                  />
-                  <span className={classes.verifiedHeaderText}>Claimed</span>
-                </>
-              ) : null}
-            </Typography>
+            <Grid container alignItems="center" direction="row">
+              <Typography variant="h2" className={classes.orgName}>
+                {name}
+                {owners && owners.length ? (
+                  <>
+                    <VerifiedIcon
+                      extraClasses={classes.headerBadge}
+                      fillColor="#00C419"
+                      width="12px"
+                    />
+                    <span className={classes.verifiedHeaderText}>Claimed</span>
+                  </>
+                ) : null}
+              </Typography>
+              {isEditing && renderEditButton && renderEditButton() }
+            </Grid>
           </Grid>
           {isService && isMobile ? (
             <Grid item xs={12} className={classes.serviceOrgContainer}>
@@ -103,10 +108,11 @@ const DetailHeader = ({
             {phones && phones.length ? (
               <Phone phone={phones[0]} classes={classes} />
             ) : null}
+            {phones && phones.length ? '| ' : null}
             {verified ? (
               <Tooltip
                 classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-                title={`The information on this page was last updated on ${verified.toDateString()}`}
+                title={`The information on this page was last updated on ${verified.toDateString()}. AsylumConnect prioritizes accuracy and user safety, and updates all information at least once every 6 months.`}
                 arrow
                 placement="bottom"
               >
@@ -152,7 +158,7 @@ const DetailHeader = ({
             <Tooltip
               classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
               title={`The information on this page was last updated on ${
-                verified.toDateString()}`}
+                verified.toDateString()}. AsylumConnect prioritizes accuracy and user safety, and updates all information at least once every 6 months.`}
               arrow
               placement="bottom"
             >

@@ -1,14 +1,12 @@
 import React from 'react';
 import Modal from 'react-modal';
 import {Element, scroller} from 'react-scroll';
+import _ from 'lodash';
 import SwipeableViews from 'react-swipeable-views';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
+import { Button, Divider, Grid, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
-
+import { EditIcon } from './icons';
+import classNames from 'classnames';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import AsylumConnectCollapsibleSection from './AsylumConnectCollapsibleSection';
 import AsylumConnectMap from './AsylumConnectMap';
@@ -184,6 +182,9 @@ const styles = (theme) => ({
       marginTop: theme.spacing(2),
     },
   },
+  serviceItemContainer: {
+    marginBottom: theme.spacing(2)
+  },
   serviceBadge: {
     [theme.breakpoints.down('xs')]: {
       position: 'absolute',
@@ -192,9 +193,11 @@ const styles = (theme) => ({
   },
   serviceText: {
     display: 'inline-block',
-    lineHeight: `${theme.spacing(0.5) + 45}px`,
     marginTop: 0,
-    marginBottom: 0,
+    lineHeight: 1.6,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(1)
+    },
     [theme.breakpoints.down('xs')]: {
       width: '90%',
       verticalAlign: 'top',
@@ -243,10 +246,56 @@ const styles = (theme) => ({
     paddingRight: '0',
   },
   badge: {
-   display: 'inline-block',
-   width: '18%'
+   display: 'inline-block'
+  },
+  editLabel: {
+    display: 'inline-block',
+    flexShrink: '1',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+  editText: {
+    display: 'inline-block',
+    color: theme.palette.primary[400],
+  },
+  editButton: {
+    width: '44px',
+  },
+  editOrgContainer: {
+    maxWidth: '300px',
+  },
+  editDescription: {
+    marginTop: '30px',
+    maxWidth: '525px',
+  },
+  button: {
+    margin: '25px 0',
+    width: '170px',
+    height: '30px',
+    borderRadius: '100px',
+    textTransform: 'uppercase',
+    cursor: 'pointer',
+    color: theme.palette.secondary[400],
+  },
+  red: {
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary[400],
+    '&:hover': {
+      backgroundColor: theme.palette.primary[200],
+    }
+  },
+  inputLabel: {
+    marginBottom: '3px',
+    fontWeight: '600',
   },
 });
+
+const EditFocuses = {
+  EDIT_ABOUT: 'EDIT_ABOUT',
+  EDIT_SERVICE: 'EDIT_SERVICE',
+  EDIT_NON_ENG: 'EDIT_NON_ENG',
+  EDIT_VISIT: 'EDIT_VISIT',
+}
 
 class Detail extends React.Component {
   constructor(props, context) {
@@ -263,6 +312,9 @@ class Detail extends React.Component {
       organization: null,
       service: null,
       tab: 0,
+      isEditing: false,
+      editFocus: '',
+      editedOrg: null,
     };
 
     this.isServicePage = Boolean(id && serviceId);
@@ -285,6 +337,11 @@ class Detail extends React.Component {
     this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
     this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
     this.requestData = this.requestData.bind(this);
+    this.setIsEditing = this.setIsEditing.bind(this);
+    this.renderEditButton = this.renderEditButton.bind(this);
+    this.renderSaveButtons = this.renderSaveButtons.bind(this);
+    this.handleEditOrgChange = this.handleEditOrgChange.bind(this);
+    this.handleEditOrgSubmit = this.handleEditOrgSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -390,9 +447,14 @@ class Detail extends React.Component {
 
   handleBackButtonClick() {
     if (this.isServicePage) {
-      this.props.history.push(`/resource/${this.state.organization?.slug}`);
+        this.props.history.push(`/resource/${this.state.organization?.slug}`);
     } else {
-      this.props.handleResourceBackButton();
+      if (this.state.isEditing) {
+        this.setIsEditing(false)
+        this.setState({ editFocus: '' })
+      } else {
+        this.props.handleResourceBackButton();
+      }
     }
   }
 
@@ -434,6 +496,59 @@ class Detail extends React.Component {
     this.props.handleRequestOpen(type);
   }
 
+  handleEditOrgChange(event) {
+    const { target } = event;
+    const { name, value } = target;
+    const { editedOrg } = this.state
+    const { locations = [{}], phones = [{}] } = editedOrg
+    switch (name) {
+      case 'city':
+      case 'state':
+        locations[0][name] = value
+        editedOrg.locations = locations
+        break;
+      case 'phone':
+        phones[0].digits = value
+        editedOrg.phones = phones
+        break;
+      default:
+        editedOrg[name] = value
+    }
+    this.setState({ editedOrg });
+  }
+
+  handleEditOrgSubmit(event) {
+    // TODO: handle edit submission
+    event.preventDefault();
+  }
+
+  renderEditButton(onClick) {
+    return (
+      <div className={this.props.classes.editLabel} onClick={onClick}>
+        <IconButton
+        className={this.props.classes.editButton}
+        >
+          <EditIcon />
+        </IconButton>
+        <Typography className={this.props.classes.editText} variant="h5">EDIT</Typography>
+      </div>
+    )
+  }
+
+  renderSaveButtons() {
+    const { classes } = this.props
+    return (
+      <Grid container direction="row" justify="flex-end">
+        <Button className={classes.button} onClick={() => { this.setState({ editFocus: '' }) }}>Cancel</Button>
+        <Button className={classNames(classes.button, classes.red)} onClick={() => { this.setState({ editFocus: '' }) }}>Save Changes</Button>
+      </Grid>
+    )
+  }
+
+  setIsEditing(isEditing) {
+    this.setState({isEditing});
+  }
+
   render() {
     const {
       classes,
@@ -462,6 +577,9 @@ class Detail extends React.Component {
       organization = {},
       service = {},
       tab,
+      isEditing,
+      editFocus,
+      editedOrg,
     } = this.state;
     const type = this.isServicePage ? 'service' : 'organization';
     const resource = this.isServicePage ? service : organization;
@@ -476,7 +594,7 @@ class Detail extends React.Component {
       schedules,
       services = [],
       website,
-      owners
+      owners,
     } = resource || {};
     const allProperties = this.isServicePage
       ? properties
@@ -493,7 +611,8 @@ class Detail extends React.Component {
     }`;
     const isMobile = width < breakpoints['sm'];
     let sharePath = `resource/${organization?._id}/${organization?.name}`;
-
+    const primaryPhone = phones?.length > 0 ? 
+      phones?.filter(phone => phone?.is_primary) : null
     if (this.isServicePage) {
       sharePath += `/service/${service?.name}`;
     }
@@ -503,7 +622,7 @@ class Detail extends React.Component {
       classes,
       isMobile,
       name,
-      phones,
+      phones: primaryPhone || phones,
       rating: average_rating,
       totalRatings: ratings?.length,
       website,
@@ -705,7 +824,6 @@ class Detail extends React.Component {
                     name={name}
                     orgLink={`/${locale}/resource/${organization?.slug}`}
                     orgName={organization?.name}
-                    phones={phones}
                     rating={average_rating}
                     tab={tab}
                     tabs={this.tabs}
@@ -811,7 +929,7 @@ class Detail extends React.Component {
                           )}
                           {propsByType?.language?.length > 0 && (
                             <AsylumConnectCollapsibleSection
-                              title="Non-English services"
+                              title="Language services"
                               content={
                                 <Languages
                                   list={propsByType.language}
@@ -833,7 +951,7 @@ class Detail extends React.Component {
                               email={emails[0]}
                               list={service.access_instructions}
                               location={locations[0]}
-                              phone={phones[0]}
+                              phone={primaryPhone[0] || phones[0]}
                               rawSchedule={schedules[0]}
                               website={website}
                             />
@@ -911,21 +1029,81 @@ class Detail extends React.Component {
                     backText={
                       this.isServicePage
                         ? 'Back to Organization'
-                        : 'Back to Search Results'
+                        : this.state.isEditing ? 'Back to view mode' :'Back to Search Results'
                     }
                     classes={classes}
                     handleBackButtonClick={this.handleBackButtonClick}
                     handleTabClick={this.handleTabClickDesktop}
                     handleRequestOpen={this.handleOpen}
+                    isEditing={isEditing}
+                    setIsEditing={this.setIsEditing}
                     resource={resource}
                     sharePath={sharePath}
                     tab={tab}
                     tabs={this.tabs}
                     userData={userData}
                   />
-                  <Header {...detailHeaderProps} />
-                  <Element name="about" />
-                  <About classes={classes} resource={resource} />
+                      {editFocus === EditFocuses.EDIT_ABOUT ? (
+                        <form>
+                          <Grid container direction="column">
+                            <Grid container spacing={3} className={classes.editOrgContainer}>
+                              <Grid item>
+                                <Typography variant="subtitle2">Edit organization info</Typography>
+                              </Grid>
+                              <Grid item xs={12}>
+                                <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Organization Name</Typography>
+                                <TextField variant="outlined" color="secondary" fullWidth name="name" value={editedOrg?.name || ''} onChange={this.handleEditOrgChange} />
+                              </Grid>
+                              <Grid item xs={8}>
+                                <Typography variant="body1" classes={{ body1: classes.inputLabel }}>City</Typography>
+                                <TextField variant="outlined" color="secondary" fullWidth name="city" value={editedOrg?.locations ? editedOrg.locations[0]?.city || '' : ''} onChange={this.handleEditOrgChange} />
+                              </Grid>
+                              <Grid item xs={4}>
+                                <Typography variant="body1" classes={{ body1: classes.inputLabel }}>State</Typography>
+                                <TextField variant="outlined" color="secondary" fullWidth name="state" value={editedOrg?.locations ? editedOrg.locations[0]?.state || '' : ''} onChange={this.handleEditOrgChange} />
+                              </Grid>
+                              <Grid item xs={12}>
+                                <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Website</Typography>
+                                <TextField variant="outlined" color="secondary" fullWidth name="website" value={editedOrg?.website || ''} onChange={this.handleEditOrgChange} />
+                              </Grid>
+                              <Grid item xs={12}>
+                                <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Phone Number</Typography>
+                                <TextField variant="outlined" color="secondary" fullWidth name="phone" value={editedOrg?.phones ? editedOrg.phones[0]?.digits || '' : ''} onChange={this.handleEditOrgChange} />
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12} classes={{ item: classes.editDescription }}>
+                              <Typography variant="body1" classes={{ body1: classes.inputLabel }}>Brief description (MAX 1000 CHARACTERS)</Typography>
+                              <TextField
+                                variant="outlined"
+                                color={editedOrg?.description?.length > 1000 ? 'primary' : 'secondary'}
+                                rows={6}
+                                multiline
+                                fullWidth
+                                name="description"
+                                value={editedOrg?.description || ''}
+                                onChange={this.handleEditOrgChange}
+                                error={editedOrg?.description?.length > 1000}
+                                helperText={editedOrg?.description?.length > 1000 ? 'Description cannot be longer than 1000 characters.' : ''}
+                              />
+                            </Grid>
+                            {this.renderSaveButtons()}
+                          </Grid>
+                        </form>
+                      ) : (
+                          <>
+                            <Header {...detailHeaderProps} isEditing={isEditing}
+                              renderEditButton={() => {
+                                return this.renderEditButton(() => {
+                                  this.setState({
+                                    editedOrg: _.cloneDeep(organization),
+                                    editFocus: EditFocuses.EDIT_ABOUT,
+                                  })
+                                })
+                              }} />
+                            <Element name="about" />
+                            <About classes={classes} resource={resource} />
+                          </>
+                        )}
                   {loading ? (
                     <Loading />
                   ) : (
@@ -1018,7 +1196,7 @@ class Detail extends React.Component {
                       )}
                       {propsByType?.language?.length > 0 && (
                         <AsylumConnectCollapsibleSection
-                          title="Non-English services"
+                          title="Language services"
                           content={
                             <Languages
                               list={propsByType.language}
@@ -1038,7 +1216,7 @@ class Detail extends React.Component {
                           email={emails[0]}
                           list={service.access_instructions}
                           location={locations[0]}
-                          phone={phones[0]}
+                          phone={primaryPhone[0] || phones[0]}
                           rawSchedule={schedules[0]}
                           website={website}
                         />

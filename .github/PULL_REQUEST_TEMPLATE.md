@@ -8,8 +8,8 @@
 
 <!-- Please validate your changes with the checklist below before marking for code review. -->
 
-- [ ] Assign @ShehryarKh as a reviewer.
-- [ ] If your PR is not a hotfix, is it targeted for `dev`?
+- [ ] Assign @FJKhan as a reviewer.
+- [ ] If your PR is not a hotfix, is it targeted for `dev`? If it is a hotfix, is it targeted for `master`?
 - [ ] Unit and functional test coverage was added where applicable.
 - [ ] CI/CD passes for your PR.
 - [ ] Complex code is well documented with comments.

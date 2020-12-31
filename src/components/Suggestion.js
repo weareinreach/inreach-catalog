@@ -11,6 +11,7 @@ import SuggestHour from './SuggestHour';
 import SuggestAdditional from './SuggestAdditional';
 import AsylumConnectButton from './AsylumConnectButton';
 import {catalogPost} from '../utils/api';
+import withOrganizations from './withOrganizations';
 
 const styles = (theme) => ({
   root: {
@@ -572,6 +573,7 @@ class Suggestion extends React.Component {
             handleChangeEmail={this.handleChangeEmail}
             handleSelectAddress={this.handleSelectAddress}
             handleSelectNonEngServices={this.handleSelectNonEngServices}
+            {...this.props}
           />
 
           <SuggestHour
@@ -597,6 +599,7 @@ class Suggestion extends React.Component {
               <AsylumConnectButton
                 variant="secondary"
                 onClick={this.handleClick}
+                disabled={this.props.organizationSelection}
               >
                 suggest resource
               </AsylumConnectButton>
@@ -631,4 +634,4 @@ Suggestion.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Suggestion);
+export default withStyles(styles)(withOrganizations(Suggestion));

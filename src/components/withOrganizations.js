@@ -73,7 +73,7 @@ const withOrganizations = (WrappedComponent) =>
       getOrgsByName(this.state.organizationSearch).then((data) => {
         this.setState({
           isLoadingOrganizations: false,
-          organizations: data.organizations,
+          organizations: data.organizations || [],
         });
       });
     }
