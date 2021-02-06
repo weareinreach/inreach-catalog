@@ -75,10 +75,7 @@
     "extends": "react-app",
     "rules": {
       "react/prop-types": "off",
-      "indent": [
-        "error",
-        "tab"
-      ],
+      "indent": "off",
       "no-tabs": "off",
       "operator-linebreak": "off"
     }
