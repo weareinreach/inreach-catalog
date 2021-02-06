@@ -16,3 +16,4 @@ hash-test*
 # Build js
 public/js
 .vscode
+build

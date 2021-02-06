@@ -7,9 +7,9 @@
 ```
 $ cd to asylumconnect-catalog
 
-$ npm i
+$ yarn install
 
-$ npm run dev
+$ yarn dev
 ```
 
 Local server is accessible at [http://localhost:8080](http://localhost:8080)
@@ -19,13 +19,13 @@ Local server is accessible at [http://localhost:8080](http://localhost:8080)
 Build the production assets
 
 ```
-$ npm run web-prod
+$ yarn build
 ```
 
 Start the server:
 
 ```
-$ npm run start
+$ yarn start
 ```
 
 ## Codebase

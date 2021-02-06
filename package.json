@@ -2,9 +2,9 @@
   "name": "asylumconnect-catalog",
   "private": true,
   "scripts": {
-    "local": "REACT_APP_APP_ENV=local npm start",
-    "prod": "REACT_APP_APP_ENV=production npm start",
-    "dev": "npm run start",
+    "local": "REACT_APP_APP_ENV=local yarn start",
+    "prod": "REACT_APP_APP_ENV=production yarn start",
+    "dev": "yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -69,12 +69,15 @@
     ]
   },
   "engines": {
-    "node": "12.x"
+    "node": ">=12.x"
   },
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      "indent": "off",
+      "no-tabs": "off",
+      "operator-linebreak": "off"
     }
   },
   "husky": {
@@ -84,12 +87,18 @@
   },
   "lint-staged": {
     "src/**/*.{js,json,md} **/*.{js,json,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "prettier": {
     "bracketSpacing": false,
-    "singleQuote": true
-  }
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "none",
+    "arrowParens": "always",
+    "jsxBracketSameLine:": true,
+    "tabWidth": 2,
+    "useTabs": true
+  },
+  "version": "0.0.1"
 }
