@@ -2,9 +2,9 @@
   "name": "asylumconnect-catalog",
   "private": true,
   "scripts": {
-    "local": "REACT_APP_APP_ENV=local npm start",
-    "prod": "REACT_APP_APP_ENV=production npm start",
-    "dev": "npm run start",
+    "local": "REACT_APP_APP_ENV=local yarn start",
+    "prod": "REACT_APP_APP_ENV=production yarn start",
+    "dev": "yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -69,7 +69,7 @@
     ]
   },
   "engines": {
-    "node": "12.x"
+    "node": ">=12.x"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -91,5 +91,6 @@
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true
-  }
+  },
+  "version": "0.0.1"
 }
