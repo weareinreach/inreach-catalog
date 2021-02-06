@@ -74,7 +74,13 @@
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "no-tabs": "off",
+      "operator-linebreak": "off"
     }
   },
   "husky": {
@@ -84,13 +90,18 @@
   },
   "lint-staged": {
     "src/**/*.{js,json,md} **/*.{js,json,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "prettier": {
     "bracketSpacing": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "none",
+    "arrowParens": "always",
+    "jsxBracketSameLine:": true,
+    "tabWidth": 2,
+    "useTabs": true
   },
   "version": "0.0.1"
 }
