@@ -7,7 +7,7 @@
     "dev": "yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --passWithNoTests",
     "serve": "node src/server"
   },
   "dependencies": {
