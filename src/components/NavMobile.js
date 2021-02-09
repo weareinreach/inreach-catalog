@@ -138,7 +138,7 @@ class NavMobile extends React.Component {
     }
   }
   render() {
-    const classes = this.props.classes;
+    const {classes, messages} = this.props;
     const buttonStyles = {
       label: classes.navButton,
       selected: classes.navButtonSelected,
@@ -155,31 +155,31 @@ class NavMobile extends React.Component {
           <BottomNavigationAction
             className={classes.navButton}
             classes={buttonStyles}
-            label="search"
+            label={messages['navigation.search']}
             icon={<SearchIcon width="30px" color={this.iconColor(0)} />}
           />
           <BottomNavigationAction
             className={classes.navButton}
             classes={buttonStyles}
-            label="favorites"
+            label={messages['navigation.favorites']}
             icon={<FavoritesIcon width="30px" color={this.iconColor(1)} />}
           />
           <BottomNavigationAction
             className={classes.navButton}
             classes={buttonStyles}
-            label="language"
+            label={messages['navigation.language']}
             icon={<LanguageIcon width="30px" color={this.iconColor(2)} />}
           />
           <BottomNavigationAction
             className={classes.navButton}
             classes={buttonStyles}
-            label="account"
+            label={messages['navigation.account']}
             icon={<AccountIcon width="30px" color={this.iconColor(3)} />}
           />
           <BottomNavigationAction
             className={classes.navButton}
             classes={buttonStyles}
-            label="more"
+            label={messages['navigation.more']}
             icon={<MoreIcon width="30px" color={this.iconColor(4)} />}
           />
         </BottomNavigation>
