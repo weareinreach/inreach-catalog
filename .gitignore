@@ -16,3 +16,5 @@ hash-test*
 # Build js
 public/js
 .vscode
+build
+yarn-error.log
