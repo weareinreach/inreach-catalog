@@ -1209,7 +1209,15 @@ class Detail extends React.Component {
                   )}
                   <Element name="visit" />
                   <AsylumConnectCollapsibleSection
-                    title="Visit"
+                    title={editFocus === EditFocuses.EDIT_VISIT ? "Edit visit info" : "Visit"}
+                    isEditing={isEditing}
+                    renderEditButton={() => {
+                      if (editFocus === EditFocuses.EDIT_VISIT) return
+                      return this.renderEditButton((event) => {
+                        event.stopPropagation()
+                        this.setState({ editFocus: EditFocuses.EDIT_VISIT })
+                      })
+                    }}
                     content={
                       this.isServicePage ? (
                         <AccessInstructions
@@ -1221,13 +1229,16 @@ class Detail extends React.Component {
                           website={website}
                         />
                       ) : (
-                        <Visit
-                          emails={emails}
-                          locations={locations}
-                          phones={phones}
-                          website={website}
-                        />
-                      )
+                          <Visit
+                            emails={emails}
+                            locations={locations}
+                            phones={phones}
+                            website={website}
+                            schedules={schedules}
+                            editMode={editFocus === EditFocuses.EDIT_VISIT}
+                            renderSaveButtons={this.renderSaveButtons}
+                          />
+                        )
                     }
                   />
                   <Element name="reviews" />
