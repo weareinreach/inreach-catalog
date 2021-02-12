@@ -17,6 +17,7 @@ const Header = ({
   location,
   history,
   match,
+  messages
 }) => {
   const isMobile = width < breakpoints['sm'];
   const isTablet = width < breakpoints['md'];
@@ -32,6 +33,7 @@ const Header = ({
         match={match}
         locale={locale}
         logo={logo}
+        messages={messages}
       />
     );
   } else if (isTablet) {

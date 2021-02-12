@@ -319,6 +319,7 @@ class AppConnectCatalog extends React.Component {
 						match={match}
 						locale={locale}
 						logo={logo}
+						messages={messages}
 					/>
 					{isMobile ? (
 						dialog ? (
