@@ -266,7 +266,7 @@ class AppConnectCatalog extends React.Component {
 		const changeLocale = this.changeLocale;
 		const isMobile = width < breakpoints['sm'];
 		let logo;
-    let messages;
+		let messages;
 
 		switch (locale) {
 			case 'en_MX':
@@ -277,7 +277,7 @@ class AppConnectCatalog extends React.Component {
 				break;
 			default:
 				logo = isMobile ? LogoImgMobile : LogoImg;
-        messages = US;
+				messages = US;
 				break;
 		}
 
@@ -308,7 +308,11 @@ class AppConnectCatalog extends React.Component {
 				(dialog.indexOf('share') === -1 && dialog.indexOf('listNew') === -1));
 
 		return (
-			<IntlProvider messages={messages} locale={locale.split('_')[0]} defaultLocale="en">
+			<IntlProvider
+				messages={messages}
+				locale={locale.split('_')[0]}
+				defaultLocale="en"
+			>
 				<div className={classes.container}>
 					<Header
 						handleLogOut={this.handleLogOut}
@@ -338,6 +342,7 @@ class AppConnectCatalog extends React.Component {
 										handleRequestOpen={this.handleRequestOpen}
 										handleRequestClose={this.handleRequestClose}
 										history={history}
+										messages={messages}
 									/>
 								)}
 								{isDialogForgotLoginSignUp && (
@@ -350,6 +355,7 @@ class AppConnectCatalog extends React.Component {
 										handleRequestOpen={this.handleRequestOpen}
 										session={session}
 										userData={userData}
+										messages={messages}
 									/>
 								)}
 								{isDialogPassword && (

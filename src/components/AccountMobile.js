@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import {FormattedMessage} from 'react-intl';
 
 import ForgotFormContainer from './ForgotFormContainer';
 import LoginFormContainer from './LoginFormContainer';
@@ -13,96 +14,113 @@ import withWidth from './withWidth';
 import {breakpoints} from '../theme';
 
 const TabContainer = ({children, width}) => {
-  const isMobile = width < breakpoints['sm'];
-  const tabPadding = isMobile ? '.5rem 1.5rem' : '2.5rem';
+	const isMobile = width < breakpoints['sm'];
+	const tabPadding = isMobile ? '.5rem 1.5rem' : '2.5rem';
 
-  return <div style={{padding: tabPadding}}>{children}</div>;
+	return <div style={{padding: tabPadding}}>{children}</div>;
 };
 
 TabContainer.propTypes = {children: PropTypes.node.isRequired};
 
 const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    marginLeft: '2.5em',
-    marginRight: '2.5em',
-    borderBottom: '1px solid ' + theme.palette.common.faintBlack,
-    boxShadow: 'none',
-  },
-  textCenter: {textAlign: 'center'},
+	root: {
+		flexGrow: 1,
+		marginLeft: '2.5em',
+		marginRight: '2.5em',
+		borderBottom: '1px solid ' + theme.palette.common.faintBlack,
+		boxShadow: 'none'
+	},
+	textCenter: {textAlign: 'center'}
 });
 
 const AccountMobile = ({
-  classes,
-  dialog,
-  handleLogIn,
-  handleMessageNew,
-  handleRequestClose,
-  handleRequestOpen,
-  session,
-  tab,
-  width,
-  userData,
+	classes,
+	dialog,
+	handleLogIn,
+	handleMessageNew,
+	handleRequestClose,
+	handleRequestOpen,
+	session,
+	tab,
+	width,
+	userData,
+	messages
 }) => (
-  <div>
-    <Paper className={classes.root}>
-      <Typography className={classes.textCenter} variant="h3">
-        {tab === 0 && 'Log In'}
-        {tab === 1 && 'Sign Up'}
-      </Typography>
-      <Tabs
-        value={tab}
-        onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'login' : 'signup')}
-        indicatorColor="secondary"
-        textColor="secondary"
-        centered
-      >
-        <Tab label="LOG IN" />
-        <Tab label="SIGN UP" />
-      </Tabs>
-    </Paper>
-    <TabContainer width={width}>
-      {tab === 0 && dialog === 'login' && (
-        <LoginFormContainer
-          handleLogIn={handleLogIn}
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleRequestClose}
-          handleRequestOpen={handleRequestOpen}
-        />
-      )}
-      {tab === 0 && dialog === 'forgot' && (
-        <ForgotFormContainer
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleRequestClose}
-          handleRequestOpen={handleRequestOpen}
-        />
-      )}
-      {tab === 1 && (
-        <SignupFormContainer
-          handleLogIn={handleLogIn}
-          handleMessageNew={handleMessageNew}
-          handleRequestClose={handleRequestClose}
-          handleRequestOpen={handleRequestOpen}
-          session={session}
-          userData={userData}
-        />
-      )}
-    </TabContainer>
-  </div>
+	<div>
+		<Paper className={classes.root}>
+			{tab === 0 && (
+				<FormattedMessage id="account.sign-in">
+					{(signIn) => (
+						<Typography className={classes.textCenter} variant="h3">
+							{signIn}
+						</Typography>
+					)}
+				</FormattedMessage>
+			)}
+			{tab === 1 && (
+				<FormattedMessage id="account.sign-up">
+					{(signUp) => (
+						<Typography className={classes.textCenter} variant="h3">
+							{signUp}
+						</Typography>
+					)}
+				</FormattedMessage>
+			)}
+			<Tabs
+				value={tab}
+				onChange={(e, tab) => handleRequestOpen(tab === 0 ? 'login' : 'signup')}
+				indicatorColor="secondary"
+				textColor="secondary"
+				centered
+			>
+				<Tab label={`${messages['account.sign-in']}`} />
+				<Tab label={`${messages['account.sign-up']}`} />
+			</Tabs>
+		</Paper>
+		<TabContainer width={width}>
+			{tab === 0 && dialog === 'login' && (
+				<LoginFormContainer
+					handleLogIn={handleLogIn}
+					handleMessageNew={handleMessageNew}
+					handleRequestClose={handleRequestClose}
+					handleRequestOpen={handleRequestOpen}
+					messages={messages}
+				/>
+			)}
+			{tab === 0 && dialog === 'forgot' && (
+				<ForgotFormContainer
+					handleMessageNew={handleMessageNew}
+					handleRequestClose={handleRequestClose}
+					handleRequestOpen={handleRequestOpen}
+				/>
+			)}
+			{tab === 1 && (
+				<SignupFormContainer
+					handleLogIn={handleLogIn}
+					handleMessageNew={handleMessageNew}
+					handleRequestClose={handleRequestClose}
+					handleRequestOpen={handleRequestOpen}
+					session={session}
+					userData={userData}
+				/>
+			)}
+		</TabContainer>
+	</div>
 );
 
 AccountMobile.defaultProps = {
-  session: null,
+	session: null
 };
 
 AccountMobile.propTypes = {
-  classes: PropTypes.object.isRequired,
-  handleLogIn: PropTypes.func.isRequired,
-  handleMessageNew: PropTypes.func.isRequired,
-  handleRequestClose: PropTypes.func.isRequired,
-  handleRequestOpen: PropTypes.func.isRequired,
-  session: PropTypes.string,
-  tab: PropTypes.number.isRequired,
+	classes: PropTypes.object.isRequired,
+	handleLogIn: PropTypes.func.isRequired,
+	handleMessageNew: PropTypes.func.isRequired,
+	handleRequestClose: PropTypes.func.isRequired,
+	handleRequestOpen: PropTypes.func.isRequired,
+	session: PropTypes.string,
+	tab: PropTypes.number.isRequired,
+	messages: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(withWidth(AccountMobile));
