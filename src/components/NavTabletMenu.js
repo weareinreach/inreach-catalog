@@ -6,6 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import {FormattedMessage} from 'react-intl';
 
 import {ChevronIcon} from './icons';
 import LogoImg from '../images/logo@2x.png';
@@ -42,7 +43,7 @@ class NavTabletMenu extends React.Component {
   }
 
   render() {
-    const classes = this.props.classes;
+    const {classes} = this.props;
     return (
       <div>
         <IconButton
@@ -67,32 +68,32 @@ class NavTabletMenu extends React.Component {
         >
           <MenuItem onClick={this.handleRequestClose}>
             <a href="https://asylumconnect.org">
-              <Typography type="h4">home</Typography>
+            <FormattedMessage id='navigation.home'>{home => <Typography variant="h6">{home}</Typography>}</FormattedMessage>
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
             <a href="https://asylumconnect.org/mission/">
-              <Typography type="h4">about us</Typography>
+            <FormattedMessage id='navigation.about'>{about => <Typography variant="h6" >{about}</Typography>}</FormattedMessage>
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
             <a href="https://asylumconnect.org/donate/">
-              <Typography type="h4">take action</Typography>
+            <FormattedMessage id='navigation.take-action'>{action => <Typography variant="h6" >{action}</Typography>}</FormattedMessage>
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
             <a href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/">
-              <Typography type="h4">get help</Typography>
+            <FormattedMessage id='navigation.get-help'>{help => <Typography variant="h6" >{help}</Typography>}</FormattedMessage>
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
             <a href="https://asylumconnect.org/contact/">
-              <Typography type="h4">contact us</Typography>
+            <FormattedMessage id='navigation.contact'>{contact => <Typography variant="h6" >{contact}</Typography>}</FormattedMessage>
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
             <a href="https://www.google.com/">
-              <Typography type="h4">safety exit</Typography>
+            <FormattedMessage id='navigation.safety-exit'>{safety => <Typography variant="h6" >{safety}</Typography>}</FormattedMessage>
             </a>
           </MenuItem>
         </Menu>
