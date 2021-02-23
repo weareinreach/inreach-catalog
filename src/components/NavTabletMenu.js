@@ -81,7 +81,7 @@ class NavTabletMenu extends React.Component {
             </a>
           </MenuItem>
           <MenuItem onClick={this.handleRequestClose}>
-            <a href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/">
+            <a href="https://asylumconnect.org/faqs/">
               <Typography type="h4">get help</Typography>
             </a>
           </MenuItem>

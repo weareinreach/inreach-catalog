@@ -80,7 +80,7 @@ const NavDesktop = ({
       </a>
       <a
         className="hide--on-print"
-        href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/"
+        href="https://asylumconnect.org/faqs/"
       >
         <Typography variant="h6">get help</Typography>
       </a>
