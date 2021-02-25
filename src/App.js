@@ -31,7 +31,7 @@ import LogoImgMX from './images/logo-mx.png';
 import {breakpoints} from './theme';
 import {fetchUser} from './utils/api';
 import {
-	clearLocale,
+	resetLocale,
 	fetchLocale,
 	getLocale,
 	setLocale,
@@ -83,7 +83,7 @@ class AppConnectCatalog extends React.Component {
 			dialog: 'none',
 			lists: [],
 			locale: initialLocale,
-			message: '',
+			message: null,
 			messageOpen: false,
 			nearAddress: '',
 			session: jwt,
@@ -143,7 +143,7 @@ class AppConnectCatalog extends React.Component {
 	changeLocale(newLocale) {
 		//localStorage newLocale
 		if (validLocales.indexOf(newLocale) < 0) {
-			clearLocale();
+			resetLocale();
 		} else {
 			setLocale(newLocale);
 		}
@@ -319,8 +319,8 @@ class AppConnectCatalog extends React.Component {
 		return (
 			<IntlProvider
 				messages={LanguageMap[locale]}
-				locale={locale.split('_')[0]}
-				defaultLocale="en"
+				locale={`${locale.split('_')[0]}-${locale.split('_')[1]}`}
+				defaultLocale="en-US"
 			>
 				<div className={classes.container}>
 					<Header
@@ -332,7 +332,6 @@ class AppConnectCatalog extends React.Component {
 						match={match}
 						locale={locale}
 						logo={logo}
-						messages={messages}
 					/>
 					{isMobile ? (
 						dialog ? (
@@ -351,7 +350,6 @@ class AppConnectCatalog extends React.Component {
 										handleRequestOpen={this.handleRequestOpen}
 										handleRequestClose={this.handleRequestClose}
 										history={history}
-										messages={messages}
 									/>
 								)}
 								{isDialogForgotLoginSignUp && (
@@ -364,7 +362,6 @@ class AppConnectCatalog extends React.Component {
 										handleRequestOpen={this.handleRequestOpen}
 										session={session}
 										userData={userData}
-										messages={messages}
 									/>
 								)}
 								{isDialogPassword && (

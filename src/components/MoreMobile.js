@@ -80,17 +80,40 @@ const MoreMobile = ({
 		<AsylumConnectCollapsibleSection
 			className={classes.mobilePadding}
 			expanded={false}
-			title={messages['navigation.help-myself']}
+			title={
+				<FormattedMessage
+					id="navigation.help-myself"
+					defaultMessage="Help for Myself"
+				/>
+			}
 			content={
 				<LinkList
 					list={[
-						{label: `${messages['navigation.find-resources']}`, url: '/'},
 						{
-							label: `${messages['navigation.learn-more']}`,
+							label: (
+								<FormattedMessage
+									id="navigation.find-resources"
+									defaultMessage="Find Resources"
+								/>
+							),
+							url: '/'
+						},
+						{
+							label: (
+								<FormattedMessage
+									id="navigation.learn-more"
+									defaultMessage="Learn More"
+								/>
+							),
 							url: 'https://asylumconnect.org'
 						},
 						{
-							label: `${messages['navigation.rate-app']}`,
+							label: (
+								<FormattedMessage
+									id="navigation.rate-app"
+									defaultMessage="Rate This App"
+								/>
+							),
 							url:
 								'https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL'
 						}
@@ -103,18 +126,36 @@ const MoreMobile = ({
 		<AsylumConnectCollapsibleSection
 			className={classes.mobilePadding}
 			expanded={false}
-			title={`${messages['navigation.help-someone-else']}`}
+			title={<FormattedMessage id="navigation.help-someone-else" />}
 			content={
 				<LinkList
 					list={[
-						{label: `${messages['navigation.find-referrals']}`, url: '/'},
 						{
-							label: `${messages['navigation.learn-more']}`,
+							label: (
+								<FormattedMessage
+									id="navigation.find-referrals"
+									defaultMessage="Help for a Client/Someone Else"
+								/>
+							),
+							url: '/'
+						},
+						{
+							label: (
+								<FormattedMessage
+									id="navigation.learn-more"
+									defaultMessage="Learn More"
+								/>
+							),
 							url:
 								'https://asylumconnect.org/how-to-find-resources-for-clients/'
 						},
 						{
-							label: `${messages['navigation.rate-app']}`,
+							label: (
+								<FormattedMessage
+									id="navigation.rate-app"
+									defaultMessage="Rate This App"
+								/>
+							),
 							url:
 								'https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL'
 						}
@@ -127,16 +168,31 @@ const MoreMobile = ({
 		<AsylumConnectCollapsibleSection
 			className={classes.mobilePadding}
 			expanded={false}
-			title={`${messages['navigation.general-supporter-information']}`}
+			title={
+				<FormattedMessage
+					id="navigation.general-supporter-information"
+					defaultMessage="General Supporter Information"
+				/>
+			}
 			content={
 				<LinkList
 					list={[
 						{
-							label: `${messages['navigation.donate']}`,
+							label: (
+								<FormattedMessage
+									id="navigation.donate"
+									defaultMessage="Donate"
+								/>
+							),
 							url: 'https://secure.actblue.com/donate/asylumconnect'
 						},
 						{
-							label: `${messages['navigation.learn-more']}`,
+							label: (
+								<FormattedMessage
+									id="navigation.learn-more"
+									defaultMessage="Learn More"
+								/>
+							),
 							url: 'https://asylumconnect.org'
 						}
 					]}
@@ -148,16 +204,31 @@ const MoreMobile = ({
 		<AsylumConnectCollapsibleSection
 			className={classes.mobilePadding}
 			expanded={false}
-			title={`${messages['suggestion.suggest-resource']}`}
+			title={
+				<FormattedMessage
+					id="suggestion.suggest-resource"
+					defaultMessage="Suggest a resource"
+				/>
+			}
 			content={
 				<LinkList
 					list={[
 						{
-							label: `${messages['suggestion.suggest-resource-united-states']}`,
+							label: (
+								<FormattedMessage
+									id="suggestion.suggest-resource-united-states"
+									defaultMessage="Suggest a U.S. resource"
+								/>
+							),
 							url: '/en_US/suggestions/new'
 						},
 						{
-							label: `${messages['suggestion.suggest-resource-canada']}`,
+							label: (
+								<FormattedMessage
+									id="suggestion.suggest-resource-canada"
+									defaultMessage="Suggest a Canada Resource"
+								/>
+							),
 							url: '/en_CA/suggestions/new'
 						}
 					]}
@@ -169,11 +240,24 @@ const MoreMobile = ({
 		<AsylumConnectCollapsibleSection
 			className={classes.mobilePadding}
 			expanded={false}
-			title={`${messages['legal.privacy-and-disclaimer']}`}
+			title={
+				<FormattedMessage
+					id="legal.privacy-and-disclaimer"
+					defaultMessage="Privacy Statement & Disclaimer"
+				/>
+			}
 			content={
 				<LinkList
 					list={[
-						{label: `${messages['legal.privacy-and-disclaimer']}`, url: '/'}
+						{
+							label: (
+								<FormattedMessage
+									id="legal.privacy-and-disclaimer"
+									defaultMessage="Privacy Statement & Disclaimer"
+								/>
+							),
+							url: '/'
+						}
 					]}
 					classes={classes}
 					onLinkClick={() => {
