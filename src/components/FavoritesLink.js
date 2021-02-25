@@ -21,7 +21,10 @@ const styles = (theme) => ({
 
 const FavoritesLink = ({classes, locale}) => (
 	<Link to={'/' + locale + '/favorites'} className="hide--on-print">
-		<FormattedMessage id="favorites.view-favorites">
+		<FormattedMessage
+			id="favorites.view-favorites"
+			defaultMessage="View Your Favorites"
+		>
 			{(favorites) => (
 				<Typography type="h4" className={classes.viewYourFavoritesText}>
 					{favorites}
