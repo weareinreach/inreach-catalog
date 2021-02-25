@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
 import LoginForm from './LoginForm';
 import {catalogPost} from '../utils/api';
@@ -35,12 +36,20 @@ class LoginFormContainer extends React.Component {
 					handleRequestClose();
 				} else {
 					handleMessageNew(
-						`${this.props.messages['error.incorrect-email-password']}`
+						<FormattedMessage
+							id="error.incorrect-email-password"
+							defaultMessage="The email or password you entered was incorrect."
+						></FormattedMessage>
 					);
 				}
 			})
 			.catch((error) => {
-				handleMessageNew(`${this.props.messages['error.unspecified']}`);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+					/>
+				);
 			});
 	}
 

@@ -43,13 +43,12 @@ const AccountMobile = ({
 	session,
 	tab,
 	width,
-	userData,
-	messages
+	userData
 }) => (
 	<div>
 		<Paper className={classes.root}>
 			{tab === 0 && (
-				<FormattedMessage id="account.sign-in">
+				<FormattedMessage id="account.sign-in" defaultMessage="Sign In">
 					{(signIn) => (
 						<Typography className={classes.textCenter} variant="h3">
 							{signIn}
@@ -58,7 +57,7 @@ const AccountMobile = ({
 				</FormattedMessage>
 			)}
 			{tab === 1 && (
-				<FormattedMessage id="account.sign-up">
+				<FormattedMessage id="account.sign-up" defaultMessage="Sign Up">
 					{(signUp) => (
 						<Typography className={classes.textCenter} variant="h3">
 							{signUp}
@@ -73,8 +72,16 @@ const AccountMobile = ({
 				textColor="secondary"
 				centered
 			>
-				<Tab label={`${messages['account.sign-in']}`} />
-				<Tab label={`${messages['account.sign-up']}`} />
+				<Tab
+					label={
+						<FormattedMessage id="account.sign-in" defaultMessage="Sign In" />
+					}
+				/>
+				<Tab
+					label={
+						<FormattedMessage id="account.sign-up" defaultMessage="Sign Up" />
+					}
+				/>
 			</Tabs>
 		</Paper>
 		<TabContainer width={width}>
@@ -84,7 +91,6 @@ const AccountMobile = ({
 					handleMessageNew={handleMessageNew}
 					handleRequestClose={handleRequestClose}
 					handleRequestOpen={handleRequestOpen}
-					messages={messages}
 				/>
 			)}
 			{tab === 0 && dialog === 'forgot' && (
@@ -119,8 +125,7 @@ AccountMobile.propTypes = {
 	handleRequestClose: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,
 	session: PropTypes.string,
-	tab: PropTypes.number.isRequired,
-	messages: PropTypes.object.isRequired
+	tab: PropTypes.number.isRequired
 };
 
 export default withStyles(styles)(withWidth(AccountMobile));
