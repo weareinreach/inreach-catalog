@@ -37,7 +37,10 @@ import {
 	setLocale,
 	validLocales
 } from './utils/locale';
-import US from './lang/en-US.json';
+import en_US from './lang/en-US.json';
+import en_CA from './lang/en-CA.json';
+import es_MX from './lang/es-MX.json';
+import en_MX from './lang/en-MX.json';
 
 const styles = (theme) => {
 	return {
@@ -55,6 +58,13 @@ const styles = (theme) => {
 			}
 		}
 	};
+};
+
+const LanguageMap = {
+	en_US: en_US,
+	en_CA: en_CA,
+	es_MX: es_MX,
+	en_MX: en_MX
 };
 
 class AppConnectCatalog extends React.Component {
@@ -277,7 +287,6 @@ class AppConnectCatalog extends React.Component {
 				break;
 			default:
 				logo = isMobile ? LogoImgMobile : LogoImg;
-				messages = US;
 				break;
 		}
 
@@ -309,7 +318,7 @@ class AppConnectCatalog extends React.Component {
 
 		return (
 			<IntlProvider
-				messages={messages}
+				messages={LanguageMap[locale]}
 				locale={locale.split('_')[0]}
 				defaultLocale="en"
 			>
