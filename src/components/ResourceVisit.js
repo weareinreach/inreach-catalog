@@ -106,6 +106,10 @@ const styles = (theme) => ({
 	},
 	scheduleNote: {
 		marginTop: '16px'
+	},
+	disabled: {
+		fontStyle: 'italic',
+		backgroundColor: `${theme.palette.secondary[50]}`
 	}
 });
 
@@ -174,6 +178,12 @@ const Visit = ({
 		setCollectionFunc(collectionCopy);
 	};
 
+	const applyEdit = (collection, idx, setCollectionFunc, key, value) => {
+		const collectionCopy = _.cloneDeep(collection);
+		collectionCopy[idx][key] = value;
+		setCollectionFunc(collectionCopy);
+	};
+
 	if (editMode) {
 		const timeZones = _.map(TimeZones, (tz, idx) => {
 			return (
@@ -218,6 +228,15 @@ const Visit = ({
 											color="secondary"
 											fullWidth
 											value={email.email || ''}
+											onChange={({target}) => {
+												applyEdit(
+													emailsEdit,
+													idx,
+													setEmails,
+													'email',
+													target.value
+												);
+											}}
 										/>
 									</Grid>
 									<Grid item xs={2}>
@@ -229,6 +248,15 @@ const Visit = ({
 											color="secondary"
 											fullWidth
 											value={email.title || ''}
+											onChange={({target}) => {
+												applyEdit(
+													emailsEdit,
+													idx,
+													setEmails,
+													'title',
+													target.value
+												);
+											}}
 										/>
 									</Grid>
 									<Grid item xs={2}>
@@ -240,6 +268,15 @@ const Visit = ({
 											color="secondary"
 											fullWidth
 											value={email.first_name || ''}
+											onChange={({target}) => {
+												applyEdit(
+													emailsEdit,
+													idx,
+													setEmails,
+													'first_name',
+													target.value
+												);
+											}}
 										/>
 									</Grid>
 									<Grid item xs={3}>
@@ -251,6 +288,15 @@ const Visit = ({
 											color="secondary"
 											fullWidth
 											value={email.last_name || ''}
+											onChange={({target}) => {
+												applyEdit(
+													emailsEdit,
+													idx,
+													setEmails,
+													'last_name',
+													target.value
+												);
+											}}
 										/>
 									</Grid>
 									<Grid container item xs={2} alignItems="center">
@@ -292,6 +338,15 @@ const Visit = ({
 											color="secondary"
 											fullWidth
 											value={phone.digits || ''}
+											onChange={({target}) => {
+												applyEdit(
+													phonesEdit,
+													idx,
+													setPhones,
+													'digits',
+													target.value
+												);
+											}}
 										/>
 									</Grid>
 									<Grid item xs={5}>
@@ -303,6 +358,15 @@ const Visit = ({
 											color="secondary"
 											fullWidth
 											value={phone.phone_type || ''}
+											onChange={({target}) => {
+												applyEdit(
+													phonesEdit,
+													idx,
+													setPhones,
+													'phone_type',
+													target.value
+												);
+											}}
 										/>
 									</Grid>
 									<Grid container item xs={2} alignItems="center">
@@ -348,6 +412,15 @@ const Visit = ({
 												color="secondary"
 												fullWidth
 												value={location.address || ''}
+												onChange={({target}) => {
+													applyEdit(
+														locationsEdit,
+														idx,
+														setLocations,
+														'address',
+														target.value
+													);
+												}}
 											/>
 										</Grid>
 										<Grid item xs={4}>
@@ -362,6 +435,15 @@ const Visit = ({
 												color="secondary"
 												fullWidth
 												value={location.unit || ''}
+												onChange={({target}) => {
+													applyEdit(
+														locationsEdit,
+														idx,
+														setLocations,
+														'unit',
+														target.value
+													);
+												}}
 											/>
 										</Grid>
 										<Grid item xs={6}>
@@ -376,6 +458,15 @@ const Visit = ({
 												color="secondary"
 												fullWidth
 												value={location.city || ''}
+												onChange={({target}) => {
+													applyEdit(
+														locationsEdit,
+														idx,
+														setLocations,
+														'city',
+														target.value
+													);
+												}}
 											/>
 										</Grid>
 										<Grid item xs={2}>
@@ -390,6 +481,15 @@ const Visit = ({
 												color="secondary"
 												fullWidth
 												value={location.state || ''}
+												onChange={({target}) => {
+													applyEdit(
+														locationsEdit,
+														idx,
+														setLocations,
+														'state',
+														target.value
+													);
+												}}
 											/>
 										</Grid>
 										<Grid item xs={4}>
@@ -404,6 +504,15 @@ const Visit = ({
 												color="secondary"
 												fullWidth
 												value={location.zip_code || ''}
+												onChange={({target}) => {
+													applyEdit(
+														locationsEdit,
+														idx,
+														setLocations,
+														'zip_code',
+														target.value
+													);
+												}}
 											/>
 										</Grid>
 									</Grid>
@@ -449,6 +558,15 @@ const Visit = ({
 										color="secondary"
 										fullWidth
 										value={schedule.name}
+										onChange={({target}) => {
+											applyEdit(
+												schedulesEdit,
+												idx,
+												setSchedules,
+												'name',
+												target.value
+											);
+										}}
 									/>
 								</Grid>
 								<Grid
@@ -473,6 +591,15 @@ const Visit = ({
 										color="secondary"
 										fullWidth
 										value={schedule.note}
+										onChange={({target}) => {
+											applyEdit(
+												schedulesEdit,
+												idx,
+												setSchedules,
+												'note',
+												target.value
+											);
+										}}
 									/>
 								</Grid>
 								<Grid item xs={2}>
@@ -484,7 +611,19 @@ const Visit = ({
 										<Typography variant="body1" className={classes.inputLabel}>
 											Timezone
 										</Typography>
-										<Select value={schedule.timezone} native>
+										<Select
+											value={schedule.timezone}
+											onChange={({target}) => {
+												applyEdit(
+													schedulesEdit,
+													idx,
+													setSchedules,
+													'timezone',
+													target.value
+												);
+											}}
+											native
+										>
 											{timeZones}
 										</Select>
 									</FormControl>
@@ -515,6 +654,24 @@ const Visit = ({
 								<Grid item xs={2} />
 
 								{_.map(days, (day, dayIdx) => {
+									const dayStart = `${day.name.toLowerCase()}_start`;
+									const dayEnd = `${day.name.toLowerCase()}_end`;
+									const closed =
+										schedule[dayStart] === '00:00' &&
+										schedule[dayEnd] === '00:00';
+									const open24 =
+										schedule[dayStart] === '00:00' &&
+										schedule[dayEnd] === '24:00';
+									const dayStartVal = closed
+										? 'Closed'
+										: open24
+										? 'Open 24hr'
+										: schedule[dayStart] || '';
+									const dayEndVal = closed
+										? 'Closed'
+										: open24
+										? 'Open 24hr'
+										: schedule[dayEnd] || '';
 									return (
 										<Fragment key={dayIdx}>
 											<Grid container item xs={2} alignItems="center">
@@ -525,6 +682,15 @@ const Visit = ({
 													label=""
 													iconSize={{width: '1.5rem', height: '1.5rem'}}
 													additionalClasses={{root: classes.checkbox}}
+													checked={closed}
+													onChange={() => {
+														const schedulesCopy = _.cloneDeep(schedulesEdit);
+														schedulesCopy[idx][dayStart] = closed
+															? ''
+															: '00:00';
+														schedulesCopy[idx][dayEnd] = closed ? '' : '00:00';
+														setSchedules(schedulesCopy);
+													}}
 												/>
 											</Grid>
 											<Grid item xs={2}>
@@ -532,7 +698,20 @@ const Visit = ({
 													variant="outlined"
 													color="secondary"
 													fullWidth
-													value={schedule[`${day.name.toLowerCase()}_start`]}
+													value={dayStartVal}
+													onChange={({target}) => {
+														applyEdit(
+															schedulesEdit,
+															idx,
+															setSchedules,
+															dayStart,
+															target.value
+														);
+													}}
+													disabled={closed || open24}
+													classes={
+														closed || open24 ? {root: classes.disabled} : {}
+													}
 												/>
 											</Grid>
 											<Grid item xs={2}>
@@ -540,7 +719,20 @@ const Visit = ({
 													variant="outlined"
 													color="secondary"
 													fullWidth
-													value={schedule[`${day.name.toLowerCase()}_end`]}
+													value={dayEndVal}
+													onChange={({target}) => {
+														applyEdit(
+															schedulesEdit,
+															idx,
+															setSchedules,
+															dayEnd,
+															target.value
+														);
+													}}
+													disabled={closed || open24}
+													classes={
+														closed || open24 ? {root: classes.disabled} : {}
+													}
 												/>
 											</Grid>
 											<Grid container item xs={2} justify="center">
@@ -548,6 +740,15 @@ const Visit = ({
 													label=""
 													iconSize={{width: '1.5rem', height: '1.5rem'}}
 													additionalClasses={{root: classes.checkbox}}
+													checked={open24}
+													onChange={() => {
+														const schedulesCopy = _.cloneDeep(schedulesEdit);
+														schedulesCopy[idx][dayStart] = open24
+															? ''
+															: '00:00';
+														schedulesCopy[idx][dayEnd] = open24 ? '' : '24:00';
+														setSchedules(schedulesCopy);
+													}}
 												/>
 											</Grid>
 											<Grid item xs={2}></Grid>
