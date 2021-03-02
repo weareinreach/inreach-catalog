@@ -14,7 +14,7 @@
 - [ ] CI/CD passes for your PR.
 - [ ] Complex code is well documented with comments.
 - [ ] Does the original ticket have test instructions? If not add them below
-- [ ] Pass QA(manual testing) Gate
+- [ ] Pass QA Gate(manual testing)
 
 ## How to Test
 
