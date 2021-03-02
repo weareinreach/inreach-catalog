@@ -201,7 +201,10 @@ class Language extends React.Component {
 					/>
 				</div>
 				<ListSubheader className={this.props.classes.poweredByGoogle}>
-					<FormattedMessage id="language.google-attribution">
+					<FormattedMessage
+						id="language.google-attribution"
+						defaultMessage="Powered by"
+					>
 						{(poweredBy) => <span>{poweredBy}</span>}
 					</FormattedMessage>
 					<a
@@ -217,7 +220,10 @@ class Language extends React.Component {
 							className={this.props.classes.gooLogoImg}
 							alt="Google Translate"
 						/>
-						<FormattedMessage id="language.dropdown-translate">
+						<FormattedMessage
+							id="language.dropdown-translate"
+							defaultMessage="Powered by"
+						>
 							{(translate) => (
 								<span className={this.props.classes.blackTranslateColor}>
 									{translate}
@@ -367,7 +373,10 @@ class Language extends React.Component {
 								history.push('/');
 							}}
 						/>
-						<FormattedMessage id="language.dropdown-select-language">
+						<FormattedMessage
+							id="language.dropdown-select-language"
+							defaultMessage="Select Language"
+						>
 							{(selectLanguage) => (
 								<Typography className={classes.textCenter} variant="h3">
 									{selectLanguage}

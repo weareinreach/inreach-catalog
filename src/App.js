@@ -31,13 +31,16 @@ import LogoImgMX from './images/logo-mx.png';
 import {breakpoints} from './theme';
 import {fetchUser} from './utils/api';
 import {
-	clearLocale,
+	resetLocale,
 	fetchLocale,
 	getLocale,
 	setLocale,
 	validLocales
 } from './utils/locale';
-import US from './lang/en-US.json';
+import en_US from './lang/en-US.json';
+import en_CA from './lang/en-CA.json';
+import es_MX from './lang/es-MX.json';
+import en_MX from './lang/en-MX.json';
 
 const styles = (theme) => {
 	return {
@@ -57,6 +60,13 @@ const styles = (theme) => {
 	};
 };
 
+const LanguageMap = {
+	en_US: en_US,
+	en_CA: en_CA,
+	es_MX: es_MX,
+	en_MX: en_MX
+};
+
 class AppConnectCatalog extends React.Component {
 	constructor(props, context) {
 		super(props, context);
@@ -73,7 +83,7 @@ class AppConnectCatalog extends React.Component {
 			dialog: 'none',
 			lists: [],
 			locale: initialLocale,
-			message: '',
+			message: null,
 			messageOpen: false,
 			nearAddress: '',
 			session: jwt,
@@ -133,7 +143,7 @@ class AppConnectCatalog extends React.Component {
 	changeLocale(newLocale) {
 		//localStorage newLocale
 		if (validLocales.indexOf(newLocale) < 0) {
-			clearLocale();
+			resetLocale();
 		} else {
 			setLocale(newLocale);
 		}
@@ -266,7 +276,7 @@ class AppConnectCatalog extends React.Component {
 		const changeLocale = this.changeLocale;
 		const isMobile = width < breakpoints['sm'];
 		let logo;
-    let messages;
+		let messages;
 
 		switch (locale) {
 			case 'en_MX':
@@ -277,7 +287,6 @@ class AppConnectCatalog extends React.Component {
 				break;
 			default:
 				logo = isMobile ? LogoImgMobile : LogoImg;
-        messages = US;
 				break;
 		}
 
@@ -308,7 +317,11 @@ class AppConnectCatalog extends React.Component {
 				(dialog.indexOf('share') === -1 && dialog.indexOf('listNew') === -1));
 
 		return (
-			<IntlProvider messages={messages} locale={locale.split('_')[0]} defaultLocale="en">
+			<IntlProvider
+				messages={LanguageMap[locale]}
+				locale={`${locale.split('_')[0]}-${locale.split('_')[1]}`}
+				defaultLocale="en-US"
+			>
 				<div className={classes.container}>
 					<Header
 						handleLogOut={this.handleLogOut}
@@ -319,7 +332,6 @@ class AppConnectCatalog extends React.Component {
 						match={match}
 						locale={locale}
 						logo={logo}
-						messages={messages}
 					/>
 					{isMobile ? (
 						dialog ? (
