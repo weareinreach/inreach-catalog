@@ -105,7 +105,7 @@ class NavMobile extends React.Component {
 				handleRequestOpen('none');
 				break;
 			case 1:
-				history.push(`${locale}/favorites`);
+				history.replace(`/${locale}/favorites`);
 				handleRequestOpen('none');
 				break;
 			case 2:
@@ -117,7 +117,7 @@ class NavMobile extends React.Component {
 				} else {
 					handleRequestOpen('login');
 				}
-				history.push(`${locale}/account`);
+				history.replace(`/${locale}/account`);
 				break;
 			case 4:
 				handleRequestOpen('more');
