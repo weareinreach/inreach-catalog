@@ -8,7 +8,9 @@ import {
 	TextField,
 	Typography
 } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 import {withStyles} from '@material-ui/core/styles';
+import AutoComplete from '@material-ui/lab/Autocomplete';
 
 import AsylumConnectButton from '../AsylumConnectButton';
 import AsylumConnectCheckbox from '../AsylumConnectCheckbox';
@@ -72,8 +74,29 @@ const styles = (theme) => ({
 	disabled: {
 		fontStyle: 'italic',
 		backgroundColor: `${theme.palette.secondary[50]}`
+	},
+	clearButton: {
+		cursor: 'pointer'
 	}
 });
+
+const noOption = {
+	twelveFormat: '',
+	twentyFourFormat: ''
+};
+
+const timeOptions = _.map(_.range(0, 24, 0.5), (time) => {
+	const hour = Math.floor(time);
+	const min = time % 1 === 0 ? '00' : '30';
+	const dayNight = hour < 12 ? 'AM' : 'PM';
+	const twelve = hour > 12 ? hour - 12 : hour || 12;
+	return {
+		twelveFormat: `${twelve}:${min} ${dayNight}`,
+		twentyFourFormat: `${hour < 10 ? 0 : ''}${hour}:${min}`
+	};
+});
+
+const allOptions = [noOption, ...timeOptions];
 
 const EditVisit = ({
 	classes,
@@ -120,6 +143,44 @@ const EditVisit = ({
 
 	const renderDivider = () => {
 		return <Grid item xs={12} className={classes.divider} />;
+	};
+
+	const renderTimeInput = (scheduleTime, closed, open24, setSchedule) => {
+		return (
+			<AutoComplete
+				value={
+					_.find(timeOptions, (t) => t.twentyFourFormat === scheduleTime) ||
+					noOption
+				}
+				onChange={(event, value) => {
+					setSchedule(value.twentyFourFormat);
+				}}
+				options={allOptions}
+				getOptionLabel={(option) => option.twelveFormat}
+				disabled={closed || open24}
+				forcePopupIcon={false}
+				disableClearable
+				fullWidth
+				renderInput={
+					closed || open24
+						? () => (
+								<TextField
+									variant="outlined"
+									color="secondary"
+									fullWidth
+									disabled={closed || open24}
+									value={closed ? 'Closed' : 'Open 24hr'}
+									classes={closed || open24 ? {root: classes.disabled} : {}}
+								/>
+						  )
+						: (params) => {
+								return (
+									<TextField {...params} variant="outlined" color="secondary" />
+								);
+						  }
+				}
+			/>
+		);
 	};
 
 	const addEntry = (collection, setCollectionFunc) => {
@@ -596,16 +657,6 @@ const EditVisit = ({
 								const open24 =
 									schedule[dayStart] === '00:00' &&
 									schedule[dayEnd] === '24:00';
-								const dayStartVal = closed
-									? 'Closed'
-									: open24
-									? 'Open 24hr'
-									: schedule[dayStart] || '';
-								const dayEndVal = closed
-									? 'Closed'
-									: open24
-									? 'Open 24hr'
-									: schedule[dayEnd] || '';
 								return (
 									<Fragment key={dayIdx}>
 										<Grid container item xs={2} alignItems="center">
@@ -619,53 +670,47 @@ const EditVisit = ({
 												checked={closed}
 												onChange={() => {
 													const schedulesCopy = _.cloneDeep(schedulesEdit);
-													schedulesCopy[idx][dayStart] = closed ? '' : '00:00';
-													schedulesCopy[idx][dayEnd] = closed ? '' : '00:00';
+													schedulesCopy[idx][dayStart] = closed
+														? '09:00'
+														: '00:00';
+													schedulesCopy[idx][dayEnd] = closed
+														? '17:00'
+														: '00:00';
 													setSchedules(schedulesCopy);
 												}}
 											/>
 										</Grid>
 										<Grid item xs={2}>
-											<TextField
-												variant="outlined"
-												color="secondary"
-												fullWidth
-												value={dayStartVal}
-												onChange={({target}) => {
+											{renderTimeInput(
+												schedule[dayStart],
+												closed,
+												open24,
+												(value) => {
 													applyEdit(
 														schedulesEdit,
 														idx,
 														setSchedules,
 														dayStart,
-														target.value
+														value
 													);
-												}}
-												disabled={closed || open24}
-												classes={
-													closed || open24 ? {root: classes.disabled} : {}
 												}
-											/>
+											)}
 										</Grid>
 										<Grid item xs={2}>
-											<TextField
-												variant="outlined"
-												color="secondary"
-												fullWidth
-												value={dayEndVal}
-												onChange={({target}) => {
+											{renderTimeInput(
+												schedule[dayEnd],
+												closed,
+												open24,
+												(value) => {
 													applyEdit(
 														schedulesEdit,
 														idx,
 														setSchedules,
 														dayEnd,
-														target.value
+														value
 													);
-												}}
-												disabled={closed || open24}
-												classes={
-													closed || open24 ? {root: classes.disabled} : {}
 												}
-											/>
+											)}
 										</Grid>
 										<Grid container item xs={2} justify="center">
 											<AsylumConnectCheckbox
@@ -675,13 +720,31 @@ const EditVisit = ({
 												checked={open24}
 												onChange={() => {
 													const schedulesCopy = _.cloneDeep(schedulesEdit);
-													schedulesCopy[idx][dayStart] = open24 ? '' : '00:00';
-													schedulesCopy[idx][dayEnd] = open24 ? '' : '24:00';
+													schedulesCopy[idx][dayStart] = open24
+														? '09:00'
+														: '00:00';
+													schedulesCopy[idx][dayEnd] = open24
+														? '17:00'
+														: '24:00';
 													setSchedules(schedulesCopy);
 												}}
 											/>
 										</Grid>
-										<Grid item xs={2}></Grid>
+										<Grid container item xs={2} alignItems="center">
+											{(schedule[dayStart] || schedule[dayEnd]) && (
+												<div
+													className={classes.clearButton}
+													onClick={() => {
+														const schedulesCopy = _.cloneDeep(schedulesEdit);
+														delete schedulesCopy[idx][dayStart];
+														delete schedulesCopy[idx][dayEnd];
+														setSchedules(schedulesCopy);
+													}}
+												>
+													<ClearIcon color="disabled" />
+												</div>
+											)}
+										</Grid>
 									</Fragment>
 								);
 							})}
