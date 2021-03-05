@@ -592,7 +592,7 @@ class AppConnectCatalog extends React.Component {
 }
 
 AppConnectCatalog.propTypes = {
-	user: PropTypes.number,
+	user: PropTypes.string,
 	width: PropTypes.number.isRequired
 };
 
