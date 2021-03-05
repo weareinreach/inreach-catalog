@@ -71,30 +71,41 @@ const NavDesktop = ({
 				<img src={logo} alt="logo button" className={classes.IconButton} />
 			</Link>
 			<a className="hide--on-screen" href="/#">
-				<FormattedMessage id="app.asylum-connect-catalog">{catalog => <Typography variant="h1">{catalog}</Typography>}</FormattedMessage>
+				<FormattedMessage id="app.asylum-connect-catalog">
+					{(catalog) => <Typography variant="h1">{catalog}</Typography>}
+				</FormattedMessage>
 			</a>
 			<a className="hide--on-print" href="https://asylumconnect.org/mission/">
-        <FormattedMessage id="navigation.about">{about => <Typography variant="h6">{about}</Typography>}</FormattedMessage>
+				<FormattedMessage id="navigation.about">
+					{(about) => <Typography variant="h6">{about}</Typography>}
+				</FormattedMessage>
 			</a>
 			<a className="hide--on-print" href="https://asylumconnect.org/donate/">
-        <FormattedMessage id="navigation.take-action">{action => <Typography variant="h6">{action}</Typography>}</FormattedMessage>
+				<FormattedMessage id="navigation.take-action">
+					{(action) => <Typography variant="h6">{action}</Typography>}
+				</FormattedMessage>
 			</a>
-			<a
-				className="hide--on-print"
-				href="https://asylumconnect.org/get-help-for-myself-lgbt-asylum-seeker/"
-			>
-        <FormattedMessage id="navigation.get-help">{help => <Typography variant="h6">{help}</Typography>}</FormattedMessage>
+			<a className="hide--on-print" href="https://asylumconnect.org/faqs/">
+				<FormattedMessage id="navigation.get-help">
+					{(help) => <Typography variant="h6">{help}</Typography>}
+				</FormattedMessage>
 			</a>
 			<a className="hide--on-print" href="https://asylumconnect.org/contact/">
-        <FormattedMessage id="navigation.contact">{contact => <Typography variant="h6">{contact}</Typography>}</FormattedMessage>
+				<FormattedMessage id="navigation.contact">
+					{(contact) => <Typography variant="h6">{contact}</Typography>}
+				</FormattedMessage>
 			</a>
 			<a className="hide--on-print" href="https://www.google.com/">
-        <FormattedMessage id="navigation.safety-exit">{safety=> <AsylumConnectButton variant="primary">{safety}</AsylumConnectButton>}</FormattedMessage>
+				<FormattedMessage id="navigation.safety-exit">
+					{(safety) => (
+						<AsylumConnectButton variant="primary">
+							{safety}
+						</AsylumConnectButton>
+					)}
+				</FormattedMessage>
 			</a>
 			<Language colorClass={classes.languageIconColor} useIcon enableOverlay />
-			{session && (
-				<FavoritesLink locale={locale}/>
-			)}
+			{session && <FavoritesLink locale={locale} />}
 			<AccountNav
 				handleLogOut={handleLogOut}
 				handleRequestOpen={handleRequestOpen}
