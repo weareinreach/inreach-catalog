@@ -137,7 +137,7 @@ const Visit = ({
 						</strong>
 						{phones.map((phone) => (
 							<Phone
-								key={phone.id}
+								key={phone._id}
 								phone={phone}
 								classes={classes}
 								includeType={true}
