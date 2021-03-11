@@ -30,7 +30,7 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			label="List name"
 			margin="normal"
 			helperText="You could name your list by category, by day of the week, or by the name of whoever this list is for."
-			classes={classes.helperText}
+			className={classes.helperText}
 			name="name"
 			onChange={handleChange}
 			required

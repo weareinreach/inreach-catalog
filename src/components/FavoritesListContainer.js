@@ -33,10 +33,7 @@ class FavoritesListContainer extends React.Component {
 		const {lists, locale} = this.props;
 		const {resources} = this.state;
 
-		if (lists.length && !listId) {
-			this.setState({publicList: null});
-			this.props.history.replace(`/${locale}/favorites/${lists[0]._id}`);
-		} else if (/*lists.length &&*/ !resources.length && listId) {
+		if (listId && !resources.length) {
 			this.fetchListResources(listId);
 		}
 	}
@@ -45,9 +42,9 @@ class FavoritesListContainer extends React.Component {
 		const {locale} = this.props;
 		if (nextProps.lists.length && !nextProps.match.params.listId) {
 			this.setState({publicList: null});
-			this.props.history.replace(
-				`/${locale}/favorites/${nextProps.lists[0]._id}`
-			);
+			// this.props.history.replace(
+			// 	`/${locale}/favorites/${nextProps.lists[0]._id}`
+			// );
 		}
 		if (this.props.match.params.listId !== nextProps.match.params.listId) {
 			this.setState({loadingResources: true});
@@ -154,9 +151,11 @@ class FavoritesListContainer extends React.Component {
 	}
 
 	render() {
-		const currentList = this.props.lists.find(
-			(list) => list._id === this.props.match.params.listId
-		);
+		const currentList = this.props.match.params.listId
+			? this.props.lists.find(
+					(list) => list._id === this.props.match.params.listId
+			  )
+			: null;
 		const isMobile = this.props.width < breakpoints['sm'];
 		if (isMobile) {
 			return (
