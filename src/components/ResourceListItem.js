@@ -94,6 +94,7 @@ class ResourceListItem extends React.Component {
 			classes,
 			handleListAddFavorite,
 			handleListRemoveFavorite,
+			handleFavoriteUpdate,
 			handleListNew,
 			handleLogOut,
 			handleMessageNew,
@@ -286,6 +287,7 @@ class ResourceListItem extends React.Component {
 											<SaveToFavoritesButton
 												handleListAddFavorite={handleListAddFavorite}
 												handleListRemoveFavorite={handleListRemoveFavorite}
+												handleFavoriteUpdate={handleFavoriteUpdate}
 												handleListNew={handleListNew}
 												handleLogOut={handleLogOut}
 												handleMessageNew={handleMessageNew}
@@ -467,6 +469,7 @@ ResourceListItem.propTypes = {
 	handleListRemoveFavorite: PropTypes.func,
 	handleLogOut: PropTypes.func,
 	handleRemoveFavorite: PropTypes.func,
+	handleFavoriteUpdate: PropTypes.func,
 	isOnFavoritesList: PropTypes.bool,
 	lists: PropTypes.arrayOf(PropTypes.object),
 	resource: PropTypes.object.isRequired,
@@ -480,6 +483,7 @@ ResourceListItem.defaultProps = {
 	handleListAddFavorite: null,
 	handleListNew: null,
 	handleListRemoveFavorite: null,
+	handleFavoriteUpdate: null,
 	handleLogOut: null,
 	handleRemoveFavorite: null,
 	isOnFavoritesList: false,

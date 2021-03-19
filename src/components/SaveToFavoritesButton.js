@@ -10,6 +10,7 @@ import {withStyles} from '@material-ui/core/styles';
 import AsylumConnectPopUp from './AsylumConnectPopUp';
 import {RedHeartIcon} from './icons';
 import {createList, createListFavorite, deleteListFavorite} from '../utils/api';
+import {isInList} from '../utils/utils';
 
 const styles = (theme) => ({
 	viewYourFavoritesText: {
@@ -103,16 +104,31 @@ class SaveToFavoritesButton extends React.Component {
 
 	handleSaveToFavorites(listId) {
 		this.handleMenuClose();
-		const {resourceId, userData} = this.props;
-
+		const {
+			resourceId,
+			parentResourceId,
+			user,
+			lists,
+			handleMessageNew,
+			handleFavoriteUpdate
+		} = this.props;
+		const list = lists.find((it) => it._id === listId);
+		if (isInList(resourceId, list)) {
+			handleMessageNew('Resource is already in this list.');
+			return;
+		}
 		createListFavorite({
 			listId,
 			itemId: resourceId,
-			orgId: this.props?.parentResourceId,
-			userId: userData._id
+			orgId: parentResourceId || null,
+			userId: user
 		})
-			.then(() => {
-				this.props.handleListAddFavorite(listId, this.props.resourceId);
+			.then((result) => {
+				if (result.status === 200 && result.updated) {
+					handleFavoriteUpdate(result.list);
+				} else {
+					this.handleFetchError();
+				}
 			})
 			.catch(this.handleFetchError);
 	}
@@ -374,7 +390,6 @@ class SaveToFavoritesButton extends React.Component {
 					id="favorites-menu"
 					className="stop-click-propagation"
 					anchorEl={anchorEl}
-					anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
 					open={open}
 					onClose={handleMenuClose}
 					PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}
@@ -424,7 +439,7 @@ SaveToFavoritesButton.defaultProps = {
 SaveToFavoritesButton.propTypes = {
 	classes: PropTypes.object.isRequired,
 	handleLogOut: PropTypes.func.isRequired,
-	handleListAddFavorite: PropTypes.func.isRequired,
+	handleFavoriteUpdate: PropTypes.func.isRequired,
 	handleListRemoveFavorite: PropTypes.func.isRequired,
 	handleListNew: PropTypes.func.isRequired,
 	handleMessageNew: PropTypes.func.isRequired,
@@ -435,7 +450,7 @@ SaveToFavoritesButton.propTypes = {
 			id: PropTypes.number
 		})
 	).isRequired,
-	resourceId: PropTypes.number.isRequired,
+	resourceId: PropTypes.string.isRequired,
 	session: PropTypes.string,
 	user: PropTypes.string
 };

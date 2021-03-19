@@ -266,7 +266,9 @@ export const createList = ({name, userId}) => {
 
 export const createListFavorite = ({listId, itemId, orgId, userId}) => {
 	return catalogPost(`/users/${userId}/lists/${listId}/items`, {itemId, orgId})
-		.then(() => ({}))
+		.then((result) => {
+			return result;
+		})
 		.catch((err) => err);
 };
 

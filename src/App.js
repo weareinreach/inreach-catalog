@@ -216,6 +216,20 @@ class AppConnectCatalog extends React.Component {
 		}));
 	}
 
+	handleFavoriteUpdate = (update) => {
+		this.setState(
+			(prevState) => ({
+				lists: prevState.lists.map((list) => {
+					if (list._id === update._id) {
+						return update;
+					}
+					return list;
+				})
+			}),
+			this.handleMessageNew('Resource successfully added to favorites list.')
+		);
+	};
+
 	handleLogIn(jwt) {
 		window.localStorage.setItem('jwt', jwt);
 		this.handleStorageChange();
@@ -315,7 +329,9 @@ class AppConnectCatalog extends React.Component {
 			].includes(dialog) &&
 			(!dialog ||
 				(dialog.indexOf('share') === -1 && dialog.indexOf('listNew') === -1));
-
+		if (session && !user) {
+			this.handleFetchUser(session);
+		}
 		return (
 			<IntlProvider
 				messages={LanguageMap[locale]}
@@ -442,7 +458,9 @@ class AppConnectCatalog extends React.Component {
 											{...props}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
+											// to be removed once refactoring is complete
 											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
@@ -465,7 +483,9 @@ class AppConnectCatalog extends React.Component {
 											{...props}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
+											// to be removed once refactoring is complete
 											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
@@ -490,7 +510,9 @@ class AppConnectCatalog extends React.Component {
 											changeLocale={changeLocale}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
+											// to be removed once refactoring is complete
 											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
@@ -514,7 +536,9 @@ class AppConnectCatalog extends React.Component {
 											{...props}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
+											// to be removed once refactoring is complete
 											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
