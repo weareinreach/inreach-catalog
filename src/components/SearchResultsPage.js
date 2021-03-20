@@ -466,7 +466,7 @@ class SearchResultsContainer extends React.Component {
 							<Tabs
 								value={this.state.tab}
 								onChange={this.handleTabChange}
-								indicatorColor="white"
+								indicatorColor="primary"
 								textColor="inherit"
 								centered
 								classes={{

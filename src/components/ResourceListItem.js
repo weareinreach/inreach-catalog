@@ -92,7 +92,6 @@ class ResourceListItem extends React.Component {
 			format,
 			resource,
 			classes,
-			handleListAddFavorite,
 			handleListRemoveFavorite,
 			handleFavoriteUpdate,
 			handleListNew,
@@ -181,7 +180,7 @@ class ResourceListItem extends React.Component {
 									>
 										{!isOnFavoritesList && (
 											<SaveToFavoritesButton
-												handleListAddFavorite={handleListAddFavorite}
+												handleFavoriteUpdate={handleFavoriteUpdate}
 												handleListRemoveFavorite={handleListRemoveFavorite}
 												handleListNew={handleListNew}
 												handleLogOut={handleLogOut}
@@ -285,7 +284,6 @@ class ResourceListItem extends React.Component {
 									>
 										{!isOnFavoritesList && (
 											<SaveToFavoritesButton
-												handleListAddFavorite={handleListAddFavorite}
 												handleListRemoveFavorite={handleListRemoveFavorite}
 												handleFavoriteUpdate={handleFavoriteUpdate}
 												handleListNew={handleListNew}
