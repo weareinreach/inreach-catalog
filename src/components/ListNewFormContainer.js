@@ -25,7 +25,15 @@ class ListNewFormContainer extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const {session, user, handleMessageNew, handleRequestClose} = this.props;
+		const {
+			session,
+			user,
+			handleListNew,
+			handleMessageNew,
+			handleRequestOpen,
+			handleRequestClose,
+			handleLogOut
+		} = this.props;
 		const {name} = this.state;
 		const payload = {
 			userId: user,
@@ -38,34 +46,10 @@ class ListNewFormContainer extends React.Component {
 					handleRequestClose();
 					return;
 				}
-				const {
-					handleListAddFavorite,
-					handleListNew,
-					handleRequestClose,
-					history,
-					origin,
-					originList,
-					locale
-				} = this.props;
 				handleListNew(data.list);
-				// if (origin === 'saveToFavorites') {
-				// 	// createListFavorite(data.collection.id, originList, session).then(
-				// 	//   () => {
-				// 	//     handleListAddFavorite(data.collection.id, parseInt(originList));
-				// 	//   }
-				// 	// );
-				// } else if (origin === 'favoritesList') {
-				// 	history.replace(`${locale}/favorites/${data.collection.slug}`);
-				// }
 				handleRequestClose();
 			})
 			.catch((error) => {
-				const {
-					handleLogOut,
-					handleMessageNew,
-					handleRequestClose,
-					handleRequestOpen
-				} = this.props;
 				if (error.response && error.response.status === 401) {
 					handleMessageNew('Your session has expired. Please log in again.');
 					handleLogOut();
@@ -92,19 +76,15 @@ class ListNewFormContainer extends React.Component {
 }
 
 ListNewFormContainer.defaultProps = {
-	originList: null,
 	session: null,
 	user: null
 };
 
 ListNewFormContainer.propTypes = {
 	handleLogOut: PropTypes.func.isRequired,
-	handleListAddFavorite: PropTypes.func.isRequired,
 	handleListNew: PropTypes.func.isRequired,
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestClose: PropTypes.func.isRequired,
-	origin: PropTypes.oneOf(['favoritesList', 'saveToFavorites']).isRequired,
-	originList: PropTypes.string,
 	session: PropTypes.string,
 	user: PropTypes.string
 };
