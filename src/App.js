@@ -217,17 +217,19 @@ class AppConnectCatalog extends React.Component {
 	}
 
 	handleFavoriteUpdate = (update) => {
-		this.setState(
-			(prevState) => ({
+		if (this.state.lists.length <= 0) {
+			this.setState({lists: [update]});
+		} else {
+			this.setState((prevState) => ({
 				lists: prevState.lists.map((list) => {
 					if (list._id === update._id) {
 						return update;
 					}
 					return list;
 				})
-			}),
-			this.handleMessageNew('Resource successfully added to favorites list.')
-		);
+			}));
+		}
+		this.handleMessageNew('Resource successfully added to favorites list.');
 	};
 
 	handleLogIn(jwt) {

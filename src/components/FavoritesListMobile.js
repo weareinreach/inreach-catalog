@@ -57,7 +57,7 @@ const FavoritesListMobile = ({
 	anchorEl,
 	classes,
 	dialog,
-	handleListAddFavorite,
+	handleFavoriteUpdate,
 	handleListSelect,
 	handleMenuOpen,
 	handleMenuClose,
@@ -201,6 +201,7 @@ const FavoritesListMobile = ({
 											<ResourceListItem
 												format={'favoritesMobile'}
 												isOnPublicList={publicList}
+												handleFavoriteUpdate={handleFavoriteUpdate}
 												handleMessageNew={handleMessageNew}
 												handleListRemoveFavorite={handleRemoveFavorite}
 												isOnFavoritesList
@@ -245,6 +246,7 @@ FavoritesListMobile.propTypes = {
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,
 	handleRemoveFavorite: PropTypes.func.isRequired,
+	handleFavoriteUpdate: PropTypes.func.isRequired,
 	loadingResources: PropTypes.bool.isRequired,
 	list: PropTypes.object,
 	lists: PropTypes.arrayOf(PropTypes.object).isRequired,

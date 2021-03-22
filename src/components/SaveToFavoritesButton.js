@@ -53,11 +53,15 @@ class SaveToFavoritesButton extends React.Component {
 	}
 
 	handleCreateList(currentTarget) {
-		const {userData} = this.props;
+		const {user} = this.props;
 
-		createList({name: 'My List', userId: userData?._id})
+		createList({name: 'My List', userId: user})
 			.then((data) => {
-				// this.handleSaveToFavorites(data.collection.id);
+				if (data.status === 200 && data.list) {
+					this.handleSaveToFavorites(data.list._id);
+				} else {
+					this.handleFetchError();
+				}
 			})
 			.catch(this.handleFetchError);
 	}
@@ -93,13 +97,11 @@ class SaveToFavoritesButton extends React.Component {
 
 	handleRemoveFavorite(listId) {
 		this.handleMenuClose();
-		const {handleListRemoveFavorite, resourceId, userData} = this.props;
+		const {handleListRemoveFavorite, resourceId, user} = this.props;
 
-		deleteListFavorite({listId, itemId: resourceId, userId: userData._id}).then(
-			() => {
-				handleListRemoveFavorite(listId, resourceId);
-			}
-		);
+		deleteListFavorite({listId, itemId: resourceId, userId: user}).then(() => {
+			handleListRemoveFavorite(listId, resourceId);
+		});
 	}
 
 	handleSaveToFavorites(listId) {
@@ -112,8 +114,8 @@ class SaveToFavoritesButton extends React.Component {
 			handleMessageNew,
 			handleFavoriteUpdate
 		} = this.props;
-		const list = lists.find((it) => it._id === listId);
-		if (isInList(resourceId, list)) {
+		const list = lists ? lists.find((it) => it._id === listId) : null;
+		if (list && isInList(resourceId, list)) {
 			handleMessageNew('Resource is already in this list.');
 			return;
 		}
@@ -147,9 +149,12 @@ class SaveToFavoritesButton extends React.Component {
 		} = this;
 		const {anchorEl, open} = this.state;
 		const {classes, lists, resourceId} = this.props;
-		const isFavorite = lists.some((list) =>
-			list.items.some((item) => item.fetchable_id === resourceId)
-		);
+		const isFavorite =
+			lists && lists.length > 0
+				? lists.some((list) =>
+						list.items.some((item) => item.fetchable_id === resourceId)
+				  )
+				: false;
 
 		return (
 			<div className={this.props.className}>
@@ -394,29 +399,31 @@ class SaveToFavoritesButton extends React.Component {
 					onClose={handleMenuClose}
 					PaperProps={{style: {maxHeight: '300px', marginTop: '48px'}}}
 				>
-					{lists.map((list) => {
-						const isFavoriteItem = list.items.some(
-							(item) => item.fetchable_id === resourceId
-						);
-						return (
-							<MenuItem
-								className={classes.favoriteItem}
-								key={list._id}
-								onClick={() =>
-									isFavoriteItem
-										? handleRemoveFavorite(list._id)
-										: handleSaveToFavorites(list._id)
-								}
-							>
-								<span>{list.name}</span>
-								<RedHeartIcon
-									width={'24px'}
-									fill={isFavoriteItem}
-									style={{float: 'right'}}
-								/>
-							</MenuItem>
-						);
-					})}
+					{lists &&
+						lists.length > 0 &&
+						lists.map((list) => {
+							const isFavoriteItem = list.items.some(
+								(item) => item.fetchable_id === resourceId
+							);
+							return (
+								<MenuItem
+									className={classes.favoriteItem}
+									key={list._id}
+									onClick={() =>
+										isFavoriteItem
+											? handleRemoveFavorite(list._id)
+											: handleSaveToFavorites(list._id)
+									}
+								>
+									<span>{list.name}</span>
+									<RedHeartIcon
+										width={'24px'}
+										fill={isFavoriteItem}
+										style={{float: 'right'}}
+									/>
+								</MenuItem>
+							);
+						})}
 					<MenuItem
 						className={classes.textBlue}
 						onClick={() =>

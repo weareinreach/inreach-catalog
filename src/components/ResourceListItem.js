@@ -193,7 +193,6 @@ class ResourceListItem extends React.Component {
 												resourceId={resource._id}
 												session={session}
 												user={user}
-												userData={userData}
 											/>
 										)}
 										{isOnFavoritesList && !isOnPublicList && (
@@ -297,7 +296,6 @@ class ResourceListItem extends React.Component {
 												resourceId={resource._id}
 												session={session}
 												user={user}
-												userData={userData}
 											/>
 										)}
 										{isOnFavoritesList && !isOnPublicList && (
