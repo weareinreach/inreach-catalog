@@ -460,7 +460,6 @@ class ResourceListItem extends React.Component {
 ResourceListItem.propTypes = {
 	format: PropTypes.string,
 	handleMessageNew: PropTypes.func,
-	handleListAddFavorite: PropTypes.func,
 	handleListNew: PropTypes.func,
 	handleListRemoveFavorite: PropTypes.func,
 	handleLogOut: PropTypes.func,
@@ -476,7 +475,6 @@ ResourceListItem.propTypes = {
 ResourceListItem.defaultProps = {
 	format: 'search',
 	handleMessageNew: null,
-	handleListAddFavorite: null,
 	handleListNew: null,
 	handleListRemoveFavorite: null,
 	handleFavoriteUpdate: null,
