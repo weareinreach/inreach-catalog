@@ -708,7 +708,6 @@ class MapPage extends React.Component {
 									render={(props) => (
 										<DetailPage
 											{...props}
-											handleListAddFavorite={this.props.handleListAddFavorite}
 											handleFavoriteUpdate={this.props.handleFavoriteUpdate}
 											handleListRemoveFavorite={
 												this.props.handleListRemoveFavorite
@@ -737,7 +736,6 @@ class MapPage extends React.Component {
 									render={(props) => (
 										<DetailPage
 											{...props}
-											handleListAddFavorite={this.props.handleListAddFavorite}
 											handleFavoriteUpdate={this.props.handleFavoriteUpdate}
 											handleListRemoveFavorite={
 												this.props.handleListRemoveFavorite
