@@ -31,7 +31,6 @@ class PageContainer extends React.Component {
 		const favoritesListProps = {
 			country: country,
 			dialog: this.props.dialog,
-			// handleListAddFavorite: this.props.handleListAddFavorite,
 			// handleListRemoveFavorite: this.props.handleListRemoveFavorite,
 			handleLogOut: this.props.handleLogOut,
 			handleMessageNew: this.props.handleMessageNew,

@@ -658,7 +658,6 @@ class MapPage extends React.Component {
 												this.fetchNextSearchResultsPage
 											}
 											fetchSearchResults={this.fetchSearchResults}
-											handleListAddFavorite={this.props.handleListAddFavorite}
 											handleListRemoveFavorite={
 												this.props.handleListRemoveFavorite
 											}

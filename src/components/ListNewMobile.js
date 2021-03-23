@@ -28,13 +28,10 @@ const styles = (theme) => ({
 
 const ListNewMobile = ({
 	classes,
-	dialog,
-	handleListAddFavorite,
 	handleListNew,
 	handleLogOut,
 	handleMessageNew,
 	handleRequestClose,
-	locale,
 	session,
 	user
 }) => (

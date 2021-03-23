@@ -296,7 +296,6 @@ class SearchResultsContainer extends React.Component {
 		const searchResultsProps = {
 			containerSearchResults:
 				containerSearchResults + (this.state.tab !== 0 ? ' ' + shrinkTab : ''),
-			handleListAddFavorite: this.props.handleListAddFavorite,
 			handleListRemoveFavorite: this.props.handleListRemoveFavorite,
 			handleFavoriteUpdate: this.props.handleFavoriteUpdate,
 			handleListNew: this.props.handleListNew,
