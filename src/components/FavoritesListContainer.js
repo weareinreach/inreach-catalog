@@ -197,7 +197,7 @@ FavoritesListContainer.defaultProps = {
 
 FavoritesListContainer.propTypes = {
 	// handleListRemoveFavorite: PropTypes.func.isRequired,
-	handleFavoriteUpdate: PropTypes.func.isRequired,
+	handleFavoriteUpdate: PropTypes.func,
 	handleLogOut: PropTypes.func.isRequired,
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,

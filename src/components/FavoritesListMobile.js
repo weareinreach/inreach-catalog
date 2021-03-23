@@ -138,7 +138,11 @@ const FavoritesListMobile = ({
 			)}
 			<Grid item xs={12}>
 				{!list && (
-					<Typography className={classes.spacingTop} variant="body1">
+					<Typography
+						className={classes.spacingTop}
+						variant="body1"
+						align="center"
+					>
 						Select one of your favorites lists or{` `}
 						<span
 							className={classes.bodyLink}
@@ -182,7 +186,11 @@ const FavoritesListMobile = ({
 							))}
 						</ul>
 					) : (
-						<Typography variant="body1">
+						<Typography
+							variant="body1"
+							className={classes.spacingTop}
+							align="center"
+						>
 							You haven't created any lists yet.
 						</Typography>
 					)}
@@ -190,39 +198,36 @@ const FavoritesListMobile = ({
 			)}
 			{list && (
 				<Grid item container xs={12} className={classes.spacingTop}>
-					<Grid item>
-						{loadingResources ? (
-							<Loading />
-						) : (
-							<Grid xs={12}>
-								{resources.map(
-									(resource) =>
-										resource && (
-											<ResourceListItem
-												format={'favoritesMobile'}
-												isOnPublicList={publicList}
-												handleFavoriteUpdate={handleFavoriteUpdate}
-												handleMessageNew={handleMessageNew}
-												handleListRemoveFavorite={handleRemoveFavorite}
-												isOnFavoritesList
-												history={history}
-												locale={locale}
-												key={resource._id}
-												resource={resource}
-												session={session}
-												user={user}
-												userData={userData}
-											/>
-										)
-								)}
-							</Grid>
-						)}
-						{!loadingResources && list && resources.length === 0 && (
-							<Typography variant="body1">
-								You haven't added any resources to this list yet.
-							</Typography>
-						)}
-					</Grid>
+					{loadingResources ? (
+						<Loading />
+					) : (
+						<Grid item xs={12}>
+							{resources.map(
+								(resource) =>
+									resource && (
+										<ResourceListItem
+											format={'favoritesMobile'}
+											isOnPublicList={publicList}
+											handleMessageNew={handleMessageNew}
+											handleListRemoveFavorite={handleRemoveFavorite}
+											isOnFavoritesList
+											history={history}
+											locale={locale}
+											key={resource._id}
+											resource={resource}
+											session={session}
+											user={user}
+											userData={userData}
+										/>
+									)
+							)}
+						</Grid>
+					)}
+					{!loadingResources && list && resources.length === 0 && (
+						<Typography variant="body1">
+							You haven't added any resources to this list yet.
+						</Typography>
+					)}
 				</Grid>
 			)}
 		</Grid>
@@ -246,7 +251,7 @@ FavoritesListMobile.propTypes = {
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,
 	handleRemoveFavorite: PropTypes.func.isRequired,
-	handleFavoriteUpdate: PropTypes.func.isRequired,
+	handleFavoriteUpdate: PropTypes.func,
 	loadingResources: PropTypes.bool.isRequired,
 	list: PropTypes.object,
 	lists: PropTypes.arrayOf(PropTypes.object).isRequired,
