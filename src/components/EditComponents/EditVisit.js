@@ -145,7 +145,16 @@ const EditVisit = ({
 		return <Grid item xs={12} className={classes.divider} />;
 	};
 
-	const renderTimeInput = (scheduleTime, closed, open24, setSchedule) => {
+	const renderTimeInput = (
+		startTime,
+		endTime,
+		isEnd,
+		closed,
+		open24,
+		setStart,
+		setEnd
+	) => {
+		const scheduleTime = isEnd ? endTime : startTime;
 		return (
 			<AutoComplete
 				value={
@@ -153,9 +162,18 @@ const EditVisit = ({
 					noOption
 				}
 				onChange={(event, value) => {
-					setSchedule(value.twentyFourFormat);
+					isEnd
+						? setEnd(value.twentyFourFormat)
+						: setStart(value.twentyFourFormat);
 				}}
-				options={allOptions}
+				options={
+					startTime && isEnd
+						? _.filter(
+								allOptions,
+								(option) => option.twentyFourFormat > startTime
+						  )
+						: allOptions
+				}
 				getOptionLabel={(option) => option.twelveFormat}
 				disabled={closed || open24}
 				forcePopupIcon={false}
@@ -625,18 +643,18 @@ const EditVisit = ({
 							</Grid>
 							<Grid item xs={2} />
 
-							<Grid item xs={2} />
+							<Grid item xs={1} />
 							<Grid container item xs={2} justify="center">
 								<Typography variant="body1" className={classes.inputLabel}>
 									Closed
 								</Typography>
 							</Grid>
-							<Grid item xs={2}>
+							<Grid container item xs={3} justify="center">
 								<Typography variant="body1" className={classes.inputLabel}>
 									Open Time
 								</Typography>
 							</Grid>
-							<Grid item xs={2}>
+							<Grid container item xs={3} justify="center">
 								<Typography variant="body1" className={classes.inputLabel}>
 									Close Time
 								</Typography>
@@ -646,7 +664,7 @@ const EditVisit = ({
 									Open 24hr
 								</Typography>
 							</Grid>
-							<Grid item xs={2} />
+							<Grid item xs={1} />
 
 							{_.map(days, (day, dayIdx) => {
 								const dayStart = `${day.name.toLowerCase()}_start`;
@@ -657,9 +675,20 @@ const EditVisit = ({
 								const open24 =
 									schedule[dayStart] === '00:00' &&
 									schedule[dayEnd] === '24:00';
+								const setStart = (value) => {
+									const schedulesCopy = _.cloneDeep(schedulesEdit);
+									schedulesCopy[idx][dayStart] = value;
+									if (schedulesCopy[idx][dayEnd] <= value) {
+										delete schedulesCopy[idx][dayEnd];
+									}
+									setSchedules(schedulesCopy);
+								};
+								const setEnd = (value) => {
+									applyEdit(schedulesEdit, idx, setSchedules, dayEnd, value);
+								};
 								return (
 									<Fragment key={dayIdx}>
-										<Grid container item xs={2} alignItems="center">
+										<Grid container item xs={1} alignItems="center">
 											<Typography variant="body1">{day.name}</Typography>
 										</Grid>
 										<Grid container item xs={2} justify="center">
@@ -680,36 +709,26 @@ const EditVisit = ({
 												}}
 											/>
 										</Grid>
-										<Grid item xs={2}>
+										<Grid item xs={3}>
 											{renderTimeInput(
 												schedule[dayStart],
+												schedule[dayEnd],
+												false,
 												closed,
 												open24,
-												(value) => {
-													applyEdit(
-														schedulesEdit,
-														idx,
-														setSchedules,
-														dayStart,
-														value
-													);
-												}
+												setStart,
+												setEnd
 											)}
 										</Grid>
-										<Grid item xs={2}>
+										<Grid item xs={3}>
 											{renderTimeInput(
+												schedule[dayStart],
 												schedule[dayEnd],
+												true,
 												closed,
 												open24,
-												(value) => {
-													applyEdit(
-														schedulesEdit,
-														idx,
-														setSchedules,
-														dayEnd,
-														value
-													);
-												}
+												setStart,
+												setEnd
 											)}
 										</Grid>
 										<Grid container item xs={2} justify="center">
@@ -730,7 +749,7 @@ const EditVisit = ({
 												}}
 											/>
 										</Grid>
-										<Grid container item xs={2} alignItems="center">
+										<Grid container item xs={1} alignItems="center">
 											{(schedule[dayStart] || schedule[dayEnd]) && (
 												<div
 													className={classes.clearButton}
