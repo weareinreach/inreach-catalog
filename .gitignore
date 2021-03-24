@@ -20,3 +20,15 @@ build
 .vscode
 build
 yarn-error.log
+
+# Cypress Testing
+cypress/temp_data
+cypress/videos
+cypress/screenshots
+mochawesome-report/
+reports/
+coverageReports
+cypressCoverage
+jestCoverage
+junit.xml
+cypress/integration/examples
