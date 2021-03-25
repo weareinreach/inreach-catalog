@@ -79,7 +79,10 @@ class FavoritesListContainer extends React.Component {
 	}
 
 	fetchResources(resources) {
-		const ids = resources.map(({fetchable_id, orgId}) => orgId || fetchable_id);
+		// determine which org ids to search for
+		const ids = resources.map(({fetchable_id, orgId}) =>
+			orgId ? orgId : fetchable_id
+		);
 
 		fetchOrganizations({ids}).then(({organizations}) => {
 			const orgDict = organizations?.reduce((result, org) => {
@@ -92,7 +95,7 @@ class FavoritesListContainer extends React.Component {
 				resources?.map((resource) => {
 					const org =
 						orgDict?.[resource?.orgId] || orgDict?.[resource?.fetchable_id];
-
+					// extract list items that are services
 					if (resource.orgId && org) {
 						const service = org?.services?.find(
 							(service) => service._id === resource.fetchable_id
@@ -193,8 +196,8 @@ FavoritesListContainer.defaultProps = {
 };
 
 FavoritesListContainer.propTypes = {
-	// handleListAddFavorite: PropTypes.func.isRequired,
 	// handleListRemoveFavorite: PropTypes.func.isRequired,
+	handleFavoriteUpdate: PropTypes.func,
 	handleLogOut: PropTypes.func.isRequired,
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,

@@ -234,72 +234,6 @@ const FavoritesList = ({
 							</AsylumConnectButton>
 						</Grid>
 					</Grid>
-				</Grid>
-			)}
-
-			{/* {(session || publicList) && (
-				<Grid
-					container
-					className={classes.container}
-					direction="row"
-					justify="space-between"
-					spacing={0}
-				>
-					{!publicList && (
-						<Grid
-							container
-							className={classes.mainRow}
-							justify="space-between"
-							spacing={0}
-						>
-							
-							<div>
-								{list && (
-									<Tooltip
-										className={classes.tooltip + ' hide--on-print'}
-										classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-										title="Print Favorites"
-										placement="top"
-									>
-										<IconButton
-											color="secondary"
-											style={{height: 'auto'}}
-											onClick={() => {
-												window.print();
-											}}
-										>
-											<Fa name="print" />
-										</IconButton>
-									</Tooltip>
-								)}
-								{list && (
-									<AsylumConnectButton
-										className={classes.marginLeft}
-										onClick={() =>
-											session
-												? handleRequestOpen(
-														'share/collection/' + list._id + '/' + list.name
-												  )
-												: handleMessageNew(
-														'You must be logged in to share resources'
-												  )
-										}
-										variant="secondary"
-									>
-										Share
-									</AsylumConnectButton>
-								)}
-								<AsylumConnectButton
-									className={classes.marginLeft}
-									onClick={() => handleRequestOpen('listNew/favoritesList')}
-									variant="secondary"
-								>
-									<Fa className={classes.marginRight} name="plus" /> Create New
-									List
-								</AsylumConnectButton>
-							</div>
-						</Grid>
-					)}
 					<Grid container justify="center">
 						<div className={classes.minHeight350}>
 							{loadingResources ? (
@@ -333,7 +267,6 @@ const FavoritesList = ({
 					</Grid>
 				</Grid>
 			)}
-		 */}
 		</Grid>
 	);
 };
