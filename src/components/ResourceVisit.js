@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 import {Grid, Typography} from '@material-ui/core';
 import Fa from 'react-fontawesome';
 
-import {ScheduleParser} from './Parser';
+import {AddressParser, ScheduleParser} from './Parser';
 import Phone from './ResourcePhone';
 import {boldFont, bodyLink, listLink, dividerSpacing} from '../theme';
 
@@ -145,17 +145,32 @@ const Visit = ({
 						<Fa name="phone" className={classes.mobileIcon} />
 					</Typography>
 				) : null}
-				{_.map(schedules, (schedule, idx) => {
-					let sched;
+				{_.map(locations, (location) => {
 					return (
 						<div
-							key={idx}
-							className={schedules.length > 1 ? classes.locationSpacing : null}
+							key={location._id}
+							className={locations.length > 1 ? classes.locationSpacing : null}
 						>
 							<Typography variant="body2" className={classes.lineSpacing}>
 								<strong className={classes.boldFont}>
-									{schedule.name ? schedule.name : 'Location'}:{' '}
+									{location.name || 'Location'}:{' '}
 								</strong>
+								{AddressParser({address: location})}
+								<Fa name="map-marker" className={classes.mobileIcon} />
+							</Typography>
+						</div>
+					);
+				})}
+				{_.map(schedules, (schedule) => {
+					let sched;
+					return (
+						<div
+							key={schedule._id}
+							className={schedules.length > 1 ? classes.locationSpacing : null}
+						>
+							<Typography variant="body2" className={classes.lineSpacing}>
+								<strong className={classes.boldFont}>{`Schedule: `}</strong>
+								{schedule.name}
 								<Fa name="map-marker" className={classes.mobileIcon} />
 							</Typography>
 							{schedule && (sched = ScheduleParser({schedule})).length ? (
