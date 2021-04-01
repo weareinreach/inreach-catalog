@@ -20,8 +20,6 @@ import ResourceListItem from './ResourceListItem';
 const styles = (theme) => ({
 	bodyLink: bodyLink(theme),
 	container: {
-		//marginLeft: '10%',
-		//maxWidth: '80%',
 		marginTop: '1rem',
 		width: '100%',
 		paddingLeft: '20px',
@@ -33,6 +31,25 @@ const styles = (theme) => ({
 	spacingTop: {marginTop: '1rem'},
 	backButton: {
 		paddingBottom: '0.83em'
+	},
+	favoritesList: {
+		listStyle: 'none',
+		display: 'flex',
+		flexDirection: 'column',
+		padding: 0
+	},
+	favoriteItem: {
+		display: 'flex',
+		padding: theme.spacing(1, 0)
+	},
+	listItem: {
+		textTransform: 'capitalize',
+		'&:hover': {
+			color: theme.palette.common.blue
+		}
+	},
+	listName: {
+		textTransform: 'capitalize'
 	}
 });
 
@@ -40,8 +57,7 @@ const FavoritesListMobile = ({
 	anchorEl,
 	classes,
 	dialog,
-	handleListAddFavorite,
-	handleListNew,
+	handleFavoriteUpdate,
 	handleListSelect,
 	handleMenuOpen,
 	handleMenuClose,
@@ -60,149 +76,163 @@ const FavoritesListMobile = ({
 	session,
 	user,
 	userData
-}) => (
-	<Grid container className={classes.container} direction="column">
-		<div className={classes.backButton}>
-			<AsylumConnectBackButton
-				color="default"
-				onClick={
-					dialog === 'none'
-						? () => history.push('/')
-						: () => handleRequestOpen('none')
-				}
-			/>
-		</div>
-		{session || publicList ? (
+}) => {
+	if (!session) {
+		return (
+			<Grid container className={classes.container} direction="column">
+				<Typography
+					className={classNames(classes.spacingBottom, classes.textCenter)}
+					variant="body1"
+				>
+					Once logged in, you’ll be able to quickly find the organizations and
+					resources you have favorited.
+					<br />
+					<br />
+					<AsylumConnectButton
+						variant="primary"
+						className={classes.spacingTop}
+						onClick={(ev) => {
+							handleRequestOpen('login');
+						}}
+					>
+						Log In
+					</AsylumConnectButton>
+					<AsylumConnectButton
+						variant="secondary"
+						className={classes.spacingTop}
+						onClick={(ev) => {
+							handleRequestOpen('signup');
+						}}
+					>
+						Sign Up
+					</AsylumConnectButton>
+				</Typography>
+			</Grid>
+		);
+	}
+	return (
+		<Grid container className={classes.container} direction="column">
+			<Grid item xs={12} className={classes.backButton}>
+				<AsylumConnectBackButton
+					color="default"
+					onClick={
+						dialog === 'none'
+							? () => history.push('/')
+							: () => handleRequestOpen('none')
+					}
+				/>
+			</Grid>
+
 			<Typography className={classes.textCenter} variant="h3">
 				{publicList ? publicList : 'Favorites'}
 			</Typography>
-		) : (
-			<Typography
-				className={classNames(classes.spacingBottom, classes.textCenter)}
-				variant="body1"
-			>
-				Once logged in, you’ll be able to quickly find the organizations and
-				resources you have favorited.
-				<br />
-				<br />
-				<AsylumConnectButton
-					variant="primary"
-					className={classes.spacingTop}
-					onClick={(ev) => {
-						handleRequestOpen('login');
-					}}
+			{!publicList && (
+				<Typography
+					className={classes.marginTop}
+					variant="body1"
+					align="center"
 				>
-					Log In
-				</AsylumConnectButton>
-				<AsylumConnectButton
-					variant="secondary"
-					className={classes.spacingTop}
-					onClick={(ev) => {
-						handleRequestOpen('signup');
-					}}
-				>
-					Sign Up
-				</AsylumConnectButton>
-			</Typography>
-		)}
-		{(session || publicList) && (
-			<div>
-				<div>
-					{!publicList ? (
-						<div>
-							<Typography className={classes.textCenter} variant="h3">
-								Your Favorites
-							</Typography>
-							<Typography className={classes.spacingTop} variant="body1">
-								Select one of your favorites lists or{` `}
-								<span
-									className={classes.bodyLink}
-									onClick={() => handleRequestOpen('listNew/favoritesList')}
+					Your favorites lists are only visible to you and anyone you choose to
+					share your lists with.
+				</Typography>
+			)}
+			<Grid item xs={12}>
+				{!list && (
+					<Typography
+						className={classes.spacingTop}
+						variant="body1"
+						align="center"
+					>
+						Select one of your favorites lists or{` `}
+						<span
+							className={classes.bodyLink}
+							onClick={() => handleRequestOpen('listNew/favoritesList')}
+						>
+							create a new list.
+						</span>
+					</Typography>
+				)}
+				{list && (
+					<AsylumConnectButton
+						variant="primary"
+						className={classes.spacingTop}
+						onClick={() =>
+							session
+								? handleRequestOpen(
+										'share/collection/' + list._id + '/' + list.name
+								  )
+								: handleMessageNew('You must be logged in to share resources')
+						}
+					>
+						Share
+					</AsylumConnectButton>
+				)}
+			</Grid>
+
+			{!list && (
+				<Grid item xs={12}>
+					{lists.length > 0 ? (
+						<ul className={classes.favoritesList}>
+							{lists.map((list) => (
+								<li
+									key={list._id}
+									className={classes.favoriteItem}
+									onClick={() => handleListSelect(list)}
 								>
-									create a new list.
-								</span>
-							</Typography>
-							<AsylumConnectButton
-								variant="primary"
-								className={classes.spacingTop}
-								onClick={() =>
-									session
-										? handleRequestOpen(
-												'share/collection/' + list._id + '/' + list.name
-										  )
-										: handleMessageNew(
-												'You must be logged in to share resources'
-										  )
-								}
-							>
-								Share
-							</AsylumConnectButton>
-							<Button
-								aria-owns={open ? 'favorites-menu' : null}
-								aria-haspopup="true"
-								className={classes.spacingTop}
-								onClick={handleMenuOpen}
-							>
-								{list ? list.name : 'Select A List'}
-								{` `}
-								<Fa className={classes.spacingLeft} name="chevron-down" />
-							</Button>
-						</div>
-					) : null}
-					<div className={classes.spacingTop}>
-						<Grid item>
-							{loadingResources ? (
-								<Loading />
-							) : (
-								<div>
-									{resources.map(
-										(resource) =>
-											resource && (
-												<ResourceListItem
-													format={'favoritesMobile'}
-													isOnPublicList={publicList}
-													handleMessageNew={handleMessageNew}
-													handleListRemoveFavorite={handleRemoveFavorite}
-													isOnFavoritesList
-													history={history}
-													locale={locale}
-													key={resource._id}
-													resource={resource}
-													session={session}
-													user={user}
-													userData={userData}
-												/>
-											)
-									)}
-								</div>
-							)}
-							{!loadingResources && list && resources.length === 0 && (
-								<Typography variant="body1">
-									You haven't added any resources to this list yet.
-								</Typography>
+									<Typography variant="h4" className={classes.listItem}>
+										{list.name}
+									</Typography>
+								</li>
+							))}
+						</ul>
+					) : (
+						<Typography
+							variant="body1"
+							className={classes.spacingTop}
+							align="center"
+						>
+							You haven't created any lists yet.
+						</Typography>
+					)}
+				</Grid>
+			)}
+			{list && (
+				<Grid item container xs={12} className={classes.spacingTop}>
+					{loadingResources ? (
+						<Loading />
+					) : (
+						<Grid item xs={12}>
+							{resources.map(
+								(resource) =>
+									resource && (
+										<ResourceListItem
+											format={'favoritesMobile'}
+											isOnPublicList={publicList}
+											handleMessageNew={handleMessageNew}
+											handleListRemoveFavorite={handleRemoveFavorite}
+											isOnFavoritesList
+											history={history}
+											locale={locale}
+											key={resource._id}
+											resource={resource}
+											session={session}
+											user={user}
+											userData={userData}
+										/>
+									)
 							)}
 						</Grid>
-					</div>
-					<Menu
-						id="favorites-menu"
-						anchorEl={anchorEl}
-						anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-						getContentAnchorEl={null}
-						open={open}
-						onRequestClose={handleMenuClose}
-						PaperProps={{style: {maxHeight: '300px'}}}
-					>
-						{lists.map((list) => (
-							<MenuItem key={list._id} onClick={() => handleListSelect(list)}>
-								{list.name}
-							</MenuItem>
-						))}
-					</Menu>
-				</div>
-			</div>
-		)}
-	</Grid>
-);
+					)}
+					{!loadingResources && list && resources.length === 0 && (
+						<Typography variant="body1">
+							You haven't added any resources to this list yet.
+						</Typography>
+					)}
+				</Grid>
+			)}
+		</Grid>
+	);
+};
 
 FavoritesListMobile.defaultProps = {
 	anchorEl: null,
@@ -215,20 +245,20 @@ FavoritesListMobile.propTypes = {
 	anchorEl: PropTypes.object,
 	classes: PropTypes.object.isRequired,
 	dialog: PropTypes.string.isRequired,
-	handleListNew: PropTypes.func.isRequired,
 	handleListSelect: PropTypes.func.isRequired,
 	handleMenuOpen: PropTypes.func.isRequired,
 	handleMenuClose: PropTypes.func.isRequired,
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,
 	handleRemoveFavorite: PropTypes.func.isRequired,
+	handleFavoriteUpdate: PropTypes.func,
 	loadingResources: PropTypes.bool.isRequired,
 	list: PropTypes.object,
 	lists: PropTypes.arrayOf(PropTypes.object).isRequired,
 	open: PropTypes.bool.isRequired,
 	resources: PropTypes.arrayOf(PropTypes.object).isRequired,
 	session: PropTypes.string,
-	user: PropTypes.number
+	user: PropTypes.string
 };
 
 export default withStyles(styles)(FavoritesListMobile);
