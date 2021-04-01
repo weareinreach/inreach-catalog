@@ -9,287 +9,292 @@ export const CATALOG_API_URL = `${config.apiDomain}${config.apiBasePath}`;
 
 const jwt = localStorage.getItem('jwt');
 const handleErr = (err) => {
-  return {error: true, status: err.response};
+	return {error: true, status: err.response};
 };
 
 export const catalogDelete = (path, body, options) => {
-  const url = `${CATALOG_API_URL}${path}`;
+	const url = `${CATALOG_API_URL}${path}`;
 
-  return httpDelete(url, {headers: {'x-json-web-token': jwt}}, options)
-    .then(({data, status}) => {
-      return {status, ...data};
-    })
-    .catch(handleErr);
+	return httpDelete(url, {headers: {'x-json-web-token': jwt}}, options)
+		.then(({data, status}) => {
+			return {status, ...data};
+		})
+		.catch(handleErr);
 };
 
 export const catalogGet = (path, options) => {
-  const url = `${CATALOG_API_URL}${path}`;
+	const url = `${CATALOG_API_URL}${path}`;
 
-  return get(url, options)
-    .then(({data, status}) => {
-      return {status, ...data};
-    })
-    .catch(handleErr);
+	return get(url, options)
+		.then(({data, status}) => {
+			return {status, ...data};
+		})
+		.catch(handleErr);
 };
 
 export const catalogPatch = (path, body, options) => {
-  const url = `${CATALOG_API_URL}${path}`;
+	const url = `${CATALOG_API_URL}${path}`;
 
-  // console.log('PATCH', url);
+	// console.log('PATCH', url);
 
-  return patch(url, body, {headers: {'x-json-web-token': jwt}}, options)
-    .then(({data, status}) => {
-      return {status, ...data};
-    })
-    .catch(handleErr);
+	return patch(url, body, {headers: {'x-json-web-token': jwt}}, options)
+		.then(({data, status}) => {
+			return {status, ...data};
+		})
+		.catch(handleErr);
 };
 
 export const catalogPost = (path, body, options) => {
-  const url = `${CATALOG_API_URL}${path}`;
+	const url = `${CATALOG_API_URL}${path}`;
 
-  // console.log('POST', url);
+	// console.log('POST', url);
 
-  return post(url, body, {headers: {'x-json-web-token': jwt}}, options)
-    .then(({data, status}) => {
-      return {status, ...data};
-    })
-    .catch(handleErr);
+	return post(url, body, {headers: {'x-json-web-token': jwt}}, options)
+		.then(({data, status}) => {
+			return {status, ...data};
+		})
+		.catch(handleErr);
 };
 
 const getAreaId = (location) => location.toLowerCase().split(' ').join('-');
 
 export const fetchOrganizations = (params) => {
-  const {
-    city,
-    ids,
-    locale,
-    name,
-    owner,
-    page,
-    selectedFilters,
-    selectedResourceTypes,
-    state,
-    isNational,
-  } = params || {};
-  const tagLocale = localeTagMap[locale] || '';
-  const query = {};
+	const {
+		city,
+		ids,
+		locale,
+		name,
+		owner,
+		page,
+		selectedFilters,
+		selectedResourceTypes,
+		state,
+		isNational
+	} = params || {};
+	const tagLocale = localeTagMap[locale] || '';
+	const query = {};
 
-  if (ids) {
-    query.ids = ids;
-  }
+	if (ids) {
+		query.ids = ids;
+	}
 
-  if (name) {
-    query.name = name;
-  }
+	if (name) {
+		query.name = name;
+	}
 
-  if (owner) {
-    query.owner = owner;
-  }
+	if (owner) {
+		query.owner = owner;
+	}
 
-  if (page) {
-    query.page = page;
-  }
+	if (page) {
+		query.page = page;
+	}
 
-  // START: formatting properties
+	// START: formatting properties
 
-  query.properties = [];
+	query.properties = [];
 
-  let serviceArea = '';
+	let serviceArea = '';
 
-  if (locale && isNational) {
-    const countryProperty =
-      locale === 'en_US'
-        ? 'service-national-united-states'
-        : locale === 'en_CA'
-        ? 'service-national-canada'
-        : locale === 'en_MX' ? 'service-national-mexico'
-        : '';
+	if (locale && isNational) {
+		const countryProperty =
+			locale === 'en_US'
+				? 'service-national-united-states'
+				: locale === 'en_CA'
+				? 'service-national-canada'
+				: locale === 'en_MX'
+				? 'service-national-mexico'
+				: '';
 
-    serviceArea += countryProperty;
-  }
+		serviceArea += countryProperty;
+	}
 
-  if (state) {
-    const stateProperty = `service-state-${getAreaId(state)}`;
+	if (state) {
+		const stateProperty = `service-state-${getAreaId(state)}`;
 
-    serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
+		serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
 
-    if (city) {
-      const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
-        city
-      )}`;
+		if (city) {
+			const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
+				city
+			)}`;
 
-      serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
-    }
-  }
+			serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
+		}
+	}
 
-  if (serviceArea) {
-    query.serviceArea = serviceArea;
-  }
+	if (serviceArea) {
+		query.serviceArea = serviceArea;
+	}
 
-  if (selectedFilters) {
-    const filterProps = selectedFilters.map((property) => {
-      if (property === 'at-capacity') {
-        return `${property}=$existsFalse`;
-      } else {
-        return `${property}=true`;
-      }
-    });
+	if (selectedFilters) {
+		const filterProps = selectedFilters.map((property) => {
+			if (property === 'at-capacity') {
+				return `${property}=$existsFalse`;
+			} else {
+				return `${property}=true`;
+			}
+		});
 
-    query.properties = query.properties.concat(filterProps);
-  }
+		query.properties = query.properties.concat(filterProps);
+	}
 
-  // END: formatting properties
+	// END: formatting properties
 
-  if (tagLocale && selectedResourceTypes?.length > 0) {
-    query.tagLocale = tagLocale;
-    query.tags = selectedResourceTypes;
-  }
+	if (tagLocale && selectedResourceTypes?.length > 0) {
+		query.tagLocale = tagLocale;
+		query.tags = selectedResourceTypes;
+	}
 
-  const queryString = qs.stringify(query, {arrayFormat: 'comma'});
+	const queryString = qs.stringify(query, {arrayFormat: 'comma'});
 
-  return catalogGet(`/organizations?${queryString}`);
+	return catalogGet(`/organizations?${queryString}`);
 };
 
 export const getStaticPage = (name) => {
-  const path = {
-    'outside-US-and-Canada': 'international',
-  }[name];
+	const path = {
+		'outside-US-and-Canada': 'international'
+	}[name];
 
-  if (!path) {
-    return new Promise((resolve) => resolve({}));
-  }
+	if (!path) {
+		return new Promise((resolve) => resolve({}));
+	}
 
-  return catalogGet(`/static/${path}`)
-    .then((data) => data)
-    .catch(() => ({error: true}));
+	return catalogGet(`/static/${path}`)
+		.then((data) => data)
+		.catch(() => ({error: true}));
 };
 
 export const getOrgsByName = (name) => {
-  return catalogGet(`/organizations/name/${name}`);
-}
+	return catalogGet(`/organizations/name/${name}`);
+};
 
 export const getOrganizationBySlug = (slug) => {
-  return catalogGet(`/slug/organizations/${slug}`);
+	return catalogGet(`/slug/organizations/${slug}`);
 };
 
 export const getServiceBySlug = (orgSlug, slug) => {
-  return catalogGet(`/slug/organizations/${orgSlug}/services/${slug}`);
+	return catalogGet(`/slug/organizations/${orgSlug}/services/${slug}`);
 };
 
 export const getCommentsAndReview = (org, service) => {
-  let entityPath = `/organizations/${org._id}`;
+	let entityPath = `/organizations/${org._id}`;
 
-  if (service?._id) {
-    entityPath += `/services/${service._id}`;
-  }
+	if (service?._id) {
+		entityPath += `/services/${service._id}`;
+	}
 
-  return Promise.all([
-    catalogGet(`${entityPath}/comments`),
-    catalogGet(`${entityPath}/ratings`),
-  ]).then((results) => {
-    const [{comments}, {average_rating, ratings}] = results;
+	return Promise.all([
+		catalogGet(`${entityPath}/comments`),
+		catalogGet(`${entityPath}/ratings`)
+	]).then((results) => {
+		const [{comments}, {average_rating, ratings}] = results;
 
-    return {average_rating, comments, ratings};
-  });
+		return {average_rating, comments, ratings};
+	});
 };
 
 export const createComment = (data) => {
-  const {orgId, serviceId, ...body} = data;
-  let url = `/organizations/${orgId}`;
+	const {orgId, serviceId, ...body} = data;
+	let url = `/organizations/${orgId}`;
 
-  if (serviceId) {
-    url += `/services/${serviceId}`;
-  }
+	if (serviceId) {
+		url += `/services/${serviceId}`;
+	}
 
-  url += '/comments';
+	url += '/comments';
 
-  return catalogPatch(url, body);
+	return catalogPatch(url, body);
 };
 
 export const createRating = (data) => {
-  const {orgId, serviceId, ...body} = data;
-  let url = `/organizations/${orgId}`;
+	const {orgId, serviceId, ...body} = data;
+	let url = `/organizations/${orgId}`;
 
-  if (serviceId) {
-    url += `/services/${serviceId}`;
-  }
+	if (serviceId) {
+		url += `/services/${serviceId}`;
+	}
 
-  url += '/ratings';
+	url += '/ratings';
 
-  return catalogPatch(url, body);
+	return catalogPatch(url, body);
 };
 
 export const createUser = (orgSlug, slug) => {
-  return catalogGet(`/slug/organizations/${orgSlug}/services/${slug}`);
+	return catalogGet(`/slug/organizations/${orgSlug}/services/${slug}`);
 };
 
 export const fetchUser = (session) => {
-  const body = {token: session};
+	const body = {token: session};
 
-  return catalogPost('/auth/check', body)
-    .then((authData) => {
-      return catalogGet(`/users/${authData._id}`)
-        .then((userData) => userData)
-        .catch(handleErr);
-    })
-    .catch(handleErr);
+	return catalogPost('/auth/check', body)
+		.then((authData) => {
+			return catalogGet(`/users/${authData._id}`)
+				.then((userData) => userData)
+				.catch(handleErr);
+		})
+		.catch(handleErr);
 };
 
 export const updateUser = (user, update) => {
-  return catalogPatch(`/users/${user._id}`, update)
-    .then(() => {
-      return {...user, ...update};
-    })
-    .catch((err) => err);
+	return catalogPatch(`/users/${user._id}`, update)
+		.then(() => {
+			return {...user, ...update};
+		})
+		.catch((err) => err);
 };
 
 export const updateUserPassword = (user, password) => {
-  return catalogPatch(`/users/${user._id}/password`, {password})
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogPatch(`/users/${user._id}/password`, {password})
+		.then(() => ({}))
+		.catch((err) => err);
 };
 
 export const deleteUser = (user, update) => {
-  return catalogDelete(`/users/${user._id}`)
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogDelete(`/users/${user._id}`)
+		.then(() => ({}))
+		.catch((err) => err);
 };
 
 export const createList = ({name, userId}) => {
-  return catalogPost(`/users/${userId}/lists`, {name})
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogPost(`/users/${userId}/lists`, {name})
+		.then((result) => {
+			return result;
+		})
+		.catch((err) => err);
 };
 
 export const createListFavorite = ({listId, itemId, orgId, userId}) => {
-  return catalogPost(`/users/${userId}/lists/${listId}/items`, {itemId, orgId})
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogPost(`/users/${userId}/lists/${listId}/items`, {itemId, orgId})
+		.then((result) => {
+			return result;
+		})
+		.catch((err) => err);
 };
 
 export const deleteListFavorite = ({listId, itemId, userId}) => {
-  return catalogDelete(`/users/${userId}/lists/${listId}/items/${itemId}`)
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogDelete(`/users/${userId}/lists/${listId}/items/${itemId}`)
+		.then(() => ({}))
+		.catch((err) => err);
 };
 
 export const createOrgOwner = ({email, orgId, userId}) => {
-  return catalogPost(`/organizations/${orgId}/owners`, {
-    email,
-    userId,
-  })
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogPost(`/organizations/${orgId}/owners`, {
+		email,
+		userId
+	})
+		.then(() => ({}))
+		.catch((err) => err);
 };
 
 export const deleteOrgOwner = ({orgId, userId}) => {
-  return catalogDelete(`/organizations/${orgId}/owners/${userId}`)
-    .then(() => ({}))
-    .catch((err) => err);
+	return catalogDelete(`/organizations/${orgId}/owners/${userId}`)
+		.then(() => ({}))
+		.catch((err) => err);
 };
 
 export const createSuggestion = (suggestions) => {
-  return catalogPost(`/suggestions`, {suggestions})
-    .then((res) => res)
-    .catch((err) => err);
+	return catalogPost(`/suggestions`, {suggestions})
+		.then((res) => res)
+		.catch((err) => err);
 };
