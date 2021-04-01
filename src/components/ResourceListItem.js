@@ -92,8 +92,8 @@ class ResourceListItem extends React.Component {
 			format,
 			resource,
 			classes,
-			handleListAddFavorite,
 			handleListRemoveFavorite,
+			handleFavoriteUpdate,
 			handleListNew,
 			handleLogOut,
 			handleMessageNew,
@@ -180,7 +180,7 @@ class ResourceListItem extends React.Component {
 									>
 										{!isOnFavoritesList && (
 											<SaveToFavoritesButton
-												handleListAddFavorite={handleListAddFavorite}
+												handleFavoriteUpdate={handleFavoriteUpdate}
 												handleListRemoveFavorite={handleListRemoveFavorite}
 												handleListNew={handleListNew}
 												handleLogOut={handleLogOut}
@@ -193,7 +193,6 @@ class ResourceListItem extends React.Component {
 												resourceId={resource._id}
 												session={session}
 												user={user}
-												userData={userData}
 											/>
 										)}
 										{isOnFavoritesList && !isOnPublicList && (
@@ -284,8 +283,8 @@ class ResourceListItem extends React.Component {
 									>
 										{!isOnFavoritesList && (
 											<SaveToFavoritesButton
-												handleListAddFavorite={handleListAddFavorite}
 												handleListRemoveFavorite={handleListRemoveFavorite}
+												handleFavoriteUpdate={handleFavoriteUpdate}
 												handleListNew={handleListNew}
 												handleLogOut={handleLogOut}
 												handleMessageNew={handleMessageNew}
@@ -297,7 +296,6 @@ class ResourceListItem extends React.Component {
 												resourceId={resource._id}
 												session={session}
 												user={user}
-												userData={userData}
 											/>
 										)}
 										{isOnFavoritesList && !isOnPublicList && (
@@ -462,11 +460,11 @@ class ResourceListItem extends React.Component {
 ResourceListItem.propTypes = {
 	format: PropTypes.string,
 	handleMessageNew: PropTypes.func,
-	handleListAddFavorite: PropTypes.func,
 	handleListNew: PropTypes.func,
 	handleListRemoveFavorite: PropTypes.func,
 	handleLogOut: PropTypes.func,
 	handleRemoveFavorite: PropTypes.func,
+	handleFavoriteUpdate: PropTypes.func,
 	isOnFavoritesList: PropTypes.bool,
 	lists: PropTypes.arrayOf(PropTypes.object),
 	resource: PropTypes.object.isRequired,
@@ -477,9 +475,9 @@ ResourceListItem.propTypes = {
 ResourceListItem.defaultProps = {
 	format: 'search',
 	handleMessageNew: null,
-	handleListAddFavorite: null,
 	handleListNew: null,
 	handleListRemoveFavorite: null,
+	handleFavoriteUpdate: null,
 	handleLogOut: null,
 	handleRemoveFavorite: null,
 	isOnFavoritesList: false,

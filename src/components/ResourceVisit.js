@@ -66,7 +66,6 @@ const Visit = ({
 	schedules,
 	classes,
 	isMobile,
-	hideTitle,
 	className,
 	editMode,
 	renderSaveButtons
@@ -119,7 +118,7 @@ const Visit = ({
 							return (
 								<a
 									href={'mailto:' + email.email}
-									key={email.id}
+									key={email._id}
 									className={classes.bodyLink + ' ' + classes.listLink}
 								>
 									{email.email}

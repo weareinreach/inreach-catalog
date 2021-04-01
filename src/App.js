@@ -96,7 +96,6 @@ class AppConnectCatalog extends React.Component {
 		this.handleAddressChange = this.handleAddressChange.bind(this);
 		this.handleConfirmSession = this.handleConfirmSession.bind(this);
 		this.handleFetchUser = this.handleFetchUser.bind(this);
-		this.handleListAddFavorite = this.handleListAddFavorite.bind(this);
 		this.handleListNew = this.handleListNew.bind(this);
 		this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
 		this.handleLogIn = this.handleLogIn.bind(this);
@@ -190,19 +189,6 @@ class AppConnectCatalog extends React.Component {
 		this.setState((prevState) => ({lists: [...prevState.lists, list]}));
 	}
 
-	handleListAddFavorite(listId, favorite) {
-		this.setState((prevState) => ({
-			lists: prevState.lists.map((list) =>
-				list.id === listId
-					? {
-							...list,
-							items: [...list.items, {fetchable_id: favorite}]
-					  }
-					: list
-			)
-		}));
-	}
-
 	handleListRemoveFavorite(listId, favorite) {
 		this.setState((prevState) => ({
 			lists: prevState.lists.map((list) =>
@@ -215,6 +201,22 @@ class AppConnectCatalog extends React.Component {
 			)
 		}));
 	}
+
+	handleFavoriteUpdate = (update) => {
+		if (this.state.lists.length <= 0) {
+			this.setState({lists: [update]});
+		} else {
+			this.setState((prevState) => ({
+				lists: prevState.lists.map((list) => {
+					if (list._id === update._id) {
+						return update;
+					}
+					return list;
+				})
+			}));
+		}
+		this.handleMessageNew('Resource successfully added to favorites list.');
+	};
 
 	handleLogIn(jwt) {
 		window.localStorage.setItem('jwt', jwt);
@@ -315,7 +317,9 @@ class AppConnectCatalog extends React.Component {
 			].includes(dialog) &&
 			(!dialog ||
 				(dialog.indexOf('share') === -1 && dialog.indexOf('listNew') === -1));
-
+		if (session && !user) {
+			this.handleFetchUser(session);
+		}
 		return (
 			<IntlProvider
 				messages={LanguageMap[locale]}
@@ -388,7 +392,6 @@ class AppConnectCatalog extends React.Component {
 								{dialogHasListNew && (
 									<ListNewMobile
 										dialog={dialog}
-										handleListAddFavorite={this.handleListAddFavorite}
 										handleListNew={this.handleListNew}
 										handleLogIn={this.handleLogIn}
 										handleMessageNew={this.handleMessageNew}
@@ -415,7 +418,6 @@ class AppConnectCatalog extends React.Component {
 								locale={locale}
 								dialog={dialog}
 								handleConfirmSession={this.handleConfirmSession}
-								handleListAddFavorite={this.handleListAddFavorite}
 								handleListNew={this.handleListNew}
 								handleLogIn={this.handleLogIn}
 								handleLogOut={this.handleLogOut}
@@ -442,7 +444,7 @@ class AppConnectCatalog extends React.Component {
 											{...props}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
-											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
@@ -465,7 +467,7 @@ class AppConnectCatalog extends React.Component {
 											{...props}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
-											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
@@ -490,7 +492,7 @@ class AppConnectCatalog extends React.Component {
 											changeLocale={changeLocale}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
-											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
@@ -514,7 +516,7 @@ class AppConnectCatalog extends React.Component {
 											{...props}
 											country={country}
 											handleAddressChange={this.handleAddressChange}
-											handleListAddFavorite={this.handleListAddFavorite}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
 											handleLogOut={this.handleLogOut}
