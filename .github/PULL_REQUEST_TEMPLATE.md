@@ -2,7 +2,7 @@
 
 <!-- Describe your changes here -->
 
-- Asana ticket:
+## Asana ticket:
 
 ## PR Checklist
 
