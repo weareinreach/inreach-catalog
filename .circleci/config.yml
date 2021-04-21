@@ -1,0 +1,40 @@
+#Alfredo Moreira
+#Put this file in a .circleci/ folder
+#This file is to be used to run Github Status Checks
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+jobs:
+  build:
+    docker:
+      - image: circleci/node:15.6.0
+    working_directory: ~/control-panel
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: 
+          name: Check Node Version
+          command: node --version
+      - run:
+          name: Install Packages
+          command: npm install
+      #save cache for use next tests
+      - save_cache:
+         paths:
+          - node_modules
+         key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Compile Binary
+          command: npm run build
+    
+
+workflows:
+  version: 1
+  pull_request:
+    jobs: 
+      - build
