@@ -83,6 +83,7 @@ const FavoritesList = ({
 	handleRequestOpen,
 	history,
 	loadingResources,
+	locale,
 	list,
 	lists,
 	match,
@@ -253,6 +254,7 @@ const FavoritesList = ({
 													resource={resource}
 													format="favorites"
 													userData={userData}
+													locale={locale}
 												/>
 											)
 									)}
@@ -291,7 +293,7 @@ FavoritesList.propTypes = {
 	list: PropTypes.object,
 	lists: PropTypes.arrayOf(PropTypes.object).isRequired,
 	open: PropTypes.bool.isRequired,
-	publicList: PropTypes.string,
+	publicList: PropTypes.bool,
 	resources: PropTypes.arrayOf(PropTypes.object).isRequired,
 	session: PropTypes.string
 };

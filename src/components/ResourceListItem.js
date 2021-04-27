@@ -131,7 +131,7 @@ class ResourceListItem extends React.Component {
 		];
 		const labelClass = format === 'search' ? 'hide--on-screen' : null;
 		const name = resource.name || resource.title;
-		const isOrganizationItem = resource.resource_type === 'Organization';
+		const isOrganizationItem = resource.services ? true : false;
 		const link = isOrganizationItem
 			? `/${locale}/resource/${resource.slug}`
 			: `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
