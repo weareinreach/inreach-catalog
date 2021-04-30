@@ -335,3 +335,12 @@ export const shareResource = ({
 			.catch((err) => err);
 	}
 };
+
+export const fetchList = (listId = null) => {
+	if (!listId) {
+		handleErr('Bad request');
+	}
+	return catalogGet(`/users/lists/${listId}`)
+		.then(({list}) => list)
+		.catch((err) => err);
+};
