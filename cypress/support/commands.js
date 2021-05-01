@@ -24,6 +24,11 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('getElementByTestId',(id_name=>{
+Cypress.Commands.add('getElementByTestId',(id_name =>{
     return cy.get(`[data-test-id=${id_name}]`);
 }));
+
+Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
+    cy.go('back');
+    cy.viewport(viewport);
+})
