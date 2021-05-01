@@ -68,34 +68,59 @@ const NavDesktop = ({
 	return (
 		<div className={classes.root}>
 			<Link to="/">
-				<img src={logo} alt="logo button" className={classes.IconButton} />
+				<img
+					src={logo}
+					data-test-id="nav-button-logo"
+					alt="logo button"
+					className={classes.IconButton}
+				/>
 			</Link>
 			<a className="hide--on-screen" href="/#">
 				<FormattedMessage id="app.asylum-connect-catalog">
 					{(catalog) => <Typography variant="h1">{catalog}</Typography>}
 				</FormattedMessage>
 			</a>
-			<a className="hide--on-print" href="https://asylumconnect.org/mission/">
+			<a
+				className="hide--on-print"
+				data-test-id="nav-button-about"
+				href="https://asylumconnect.org/mission/"
+			>
 				<FormattedMessage id="navigation.about">
 					{(about) => <Typography variant="h6">{about}</Typography>}
 				</FormattedMessage>
 			</a>
-			<a className="hide--on-print" href="https://asylumconnect.org/donate/">
+			<a
+				className="hide--on-print"
+				data-test-id="nav-button-take-action"
+				href="https://asylumconnect.org/donate/"
+			>
 				<FormattedMessage id="navigation.take-action">
 					{(action) => <Typography variant="h6">{action}</Typography>}
 				</FormattedMessage>
 			</a>
-			<a className="hide--on-print" href="https://asylumconnect.org/faqs/">
+			<a
+				className="hide--on-print"
+				data-test-id="nav-button-get-help"
+				href="https://asylumconnect.org/faqs/"
+			>
 				<FormattedMessage id="navigation.get-help">
 					{(help) => <Typography variant="h6">{help}</Typography>}
 				</FormattedMessage>
 			</a>
-			<a className="hide--on-print" href="https://asylumconnect.org/contact/">
+			<a
+				className="hide--on-print"
+				data-test-id="nav-button-contact"
+				href="https://asylumconnect.org/contact/"
+			>
 				<FormattedMessage id="navigation.contact">
 					{(contact) => <Typography variant="h6">{contact}</Typography>}
 				</FormattedMessage>
 			</a>
-			<a className="hide--on-print" href="https://www.google.com/">
+			<a
+				className="hide--on-print"
+				data-test-id="nav-button-safety-exit"
+				href="https://www.google.com/"
+			>
 				<FormattedMessage id="navigation.safety-exit">
 					{(safety) => (
 						<AsylumConnectButton variant="primary">
