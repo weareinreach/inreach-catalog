@@ -91,7 +91,9 @@ const FavoritesList = ({
 	publicList,
 	resources,
 	session,
-	userData
+	userData,
+	hasAccess,
+	isOwner
 }) => {
 	if (!session) {
 		return (
@@ -102,6 +104,28 @@ const FavoritesList = ({
 			>
 				You must be logged in to use favorites.
 			</Typography>
+		);
+	}
+
+	if (list && !hasAccess && !publicList) {
+		return (
+			<Grid
+				container
+				className={null}
+				direction="column"
+				alignItems="center"
+				spacing={1}
+			>
+				<Grid item xs={12} md={6}>
+					<Typography
+						className={classes.marginTop}
+						variant="body1"
+						align="center"
+					>
+						Sorry! It seems you don't have access to this list!
+					</Typography>
+				</Grid>
+			</Grid>
 		);
 	}
 	return (
@@ -116,7 +140,7 @@ const FavoritesList = ({
 				<Typography className={classes.marginTop} variant="h1" align="center">
 					{publicList ? publicList : 'Favorites'}
 				</Typography>
-				{!publicList && (
+				{!publicList && isOwner && (
 					<Typography
 						className={classes.marginTop}
 						variant="body1"
@@ -124,6 +148,15 @@ const FavoritesList = ({
 					>
 						Your favorites lists are only visible to you and anyone you choose
 						to share your lists with.
+					</Typography>
+				)}
+				{!publicList && !isOwner && (
+					<Typography
+						className={classes.marginTop}
+						variant="body1"
+						align="center"
+					>
+						This list was shared with you.
 					</Typography>
 				)}
 
@@ -218,21 +251,23 @@ const FavoritesList = ({
 									<Fa name="print" />
 								</IconButton>
 							</Tooltip>
-							<AsylumConnectButton
-								className={classes.marginLeft}
-								onClick={() =>
-									session
-										? handleRequestOpen(
-												'share/collection/' + list._id + '/' + list.name
-										  )
-										: handleMessageNew(
-												'You must be logged in to share resources'
-										  )
-								}
-								variant="secondary"
-							>
-								Share
-							</AsylumConnectButton>
+							{isOwner && (
+								<AsylumConnectButton
+									className={classes.marginLeft}
+									onClick={() =>
+										session
+											? handleRequestOpen(
+													'share/collection/' + list._id + '/' + list.name
+											  )
+											: handleMessageNew(
+													'You must be logged in to share resources'
+											  )
+									}
+									variant="secondary"
+								>
+									Share
+								</AsylumConnectButton>
+							)}
 						</Grid>
 					</Grid>
 					<Grid container justify="center">
@@ -255,6 +290,7 @@ const FavoritesList = ({
 													format="favorites"
 													userData={userData}
 													locale={locale}
+													isOwner={isOwner}
 												/>
 											)
 									)}
@@ -295,7 +331,9 @@ FavoritesList.propTypes = {
 	open: PropTypes.bool.isRequired,
 	publicList: PropTypes.bool,
 	resources: PropTypes.arrayOf(PropTypes.object).isRequired,
-	session: PropTypes.string
+	session: PropTypes.string,
+	hasAccess: PropTypes.bool.isRequired,
+	isOwner: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(FavoritesList);

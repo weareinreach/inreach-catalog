@@ -106,7 +106,8 @@ class ResourceListItem extends React.Component {
 			session,
 			user,
 			userData,
-			width
+			width,
+			isOwner
 		} = this.props;
 		const {
 			ratingSpacing,
@@ -195,7 +196,7 @@ class ResourceListItem extends React.Component {
 												user={user}
 											/>
 										)}
-										{isOnFavoritesList && !isOnPublicList && (
+										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
 												onClick={() => handleListRemoveFavorite(resource._id)}
 											>
@@ -298,7 +299,7 @@ class ResourceListItem extends React.Component {
 												user={user}
 											/>
 										)}
-										{isOnFavoritesList && !isOnPublicList && (
+										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
 												onClick={() => handleListRemoveFavorite(resource._id)}
 											>
@@ -469,7 +470,8 @@ ResourceListItem.propTypes = {
 	lists: PropTypes.arrayOf(PropTypes.object),
 	resource: PropTypes.object.isRequired,
 	session: PropTypes.string,
-	user: PropTypes.string
+	user: PropTypes.string,
+	isOwner: PropTypes.bool
 };
 
 ResourceListItem.defaultProps = {
