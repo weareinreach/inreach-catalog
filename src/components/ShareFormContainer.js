@@ -15,7 +15,6 @@ class ShareFormContainer extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.sendEmail = this.sendEmail.bind(this);
 	}
 
 	handleChange(event) {
@@ -23,7 +22,7 @@ class ShareFormContainer extends React.Component {
 		this.setState({[name]: value});
 	}
 
-	handleSubmit(event) {
+	handleSubmit = async (event) => {
 		const {
 			handleMessageNew,
 			handleRequestClose,
@@ -31,11 +30,17 @@ class ShareFormContainer extends React.Component {
 			handleLogOut,
 			listId, // either list id or org id
 			session,
-			shareType
+			shareType,
+			user
 		} = this.props;
 		event.preventDefault();
-
-		if (!this.state.email || !this.state.shareUrl || !listId || !shareType) {
+		if (
+			!user ||
+			!this.state.email ||
+			!this.state.shareUrl ||
+			!listId ||
+			!shareType
+		) {
 			handleMessageNew('Invalid request');
 			return;
 		}
@@ -44,10 +49,15 @@ class ShareFormContainer extends React.Component {
 				email: this.state.email,
 				shareType: shareType,
 				shareUrl: this.state.shareUrl,
+				resource: listId,
 				jwt: session,
-				resource: listId
+				userId: user
 			};
-			shareResource(payload);
+			await shareResource(payload);
+			handleMessageNew(
+				`${shareType === 'collection' ? 'List' : 'Resource'} shared sucessfully`
+			);
+			handleRequestClose();
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
 				handleMessageNew('Your session has expired. Please log in again.');
@@ -60,7 +70,7 @@ class ShareFormContainer extends React.Component {
 				handleRequestClose();
 			}
 		}
-	}
+	};
 
 	render() {
 		return (
