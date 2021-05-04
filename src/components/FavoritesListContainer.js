@@ -6,7 +6,8 @@ import FavoritesList from './FavoritesList';
 import FavoritesListMobile from './FavoritesListMobile';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
-import {deleteListFavorite, fetchOrganizations} from '../utils/api';
+import {deleteListFavorite, fetchOrganizations, fetchList} from '../utils/api';
+import {belongsToUser, hasAccessToList, VISIBILITY} from '../utils/utils';
 
 class FavoritesListContainer extends React.Component {
 	constructor(props) {
@@ -16,8 +17,8 @@ class FavoritesListContainer extends React.Component {
 			anchorEl: null,
 			loadingResources: this.props.match.params.listId ? true : false,
 			open: false,
-			publicList: null,
-			resources: []
+			resources: [],
+			list: null
 		};
 
 		this.fetchListResources = this.fetchListResources.bind(this);
@@ -30,44 +31,37 @@ class FavoritesListContainer extends React.Component {
 
 	componentDidMount() {
 		const {listId} = this.props.match.params;
-		const {lists, locale} = this.props;
 		const {resources} = this.state;
-
-		if (listId && !resources.length) {
-			this.fetchListResources(listId);
+		if (listId) {
+			fetchList(listId).then((list) => {
+				this.setState({list: list});
+				if (list && !resources.length) {
+					this.fetchListResources(list);
+				}
+			});
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		const {locale} = this.props;
+		if (!nextProps.match.params.listId) {
+			this.setState({list: null});
+		}
 		if (nextProps.lists.length && !nextProps.match.params.listId) {
 			this.setState({publicList: null});
-			// this.props.history.replace(
-			// 	`/${locale}/favorites/${nextProps.lists[0]._id}`
-			// );
 		}
-		if (this.props.match.params.listId !== nextProps.match.params.listId) {
-			this.setState({loadingResources: true});
-			this.fetchListResources(nextProps.match.params.listId);
-		}
-	}
-
-	componentDidUpdate(prevProps, prevState) {
 		if (
-			this.state.loadingResources &&
-			this.props.match.params.listId &&
-			!prevProps.lists.length &&
-			this.props.lists.length
+			nextProps.match.params.listId &&
+			this.props.match.params.listId !== nextProps.match.params.listId
 		) {
-			this.fetchListResources(this.props.match.params.listId);
+			fetchList(nextProps.match.params.listId).then((list) => {
+				this.setState({loadingResources: true, list: list});
+				this.fetchListResources(list);
+			});
 		}
 	}
 
-	fetchListResources(listId) {
-		const list = this.props.lists.find(
-			(collection) => collection._id === listId
-		);
-
+	fetchListResources(list) {
 		if (list && list.items.length) {
 			this.fetchResources(list.items);
 		} else if (list && !list.items.length) {
@@ -154,11 +148,20 @@ class FavoritesListContainer extends React.Component {
 	}
 
 	render() {
-		const currentList = this.props.match.params.listId
-			? this.props.lists.find(
-					(list) => list._id === this.props.match.params.listId
-			  )
-			: null;
+		const {userData} = this.props;
+		const currentList = this.state.list || null;
+		const publicList = currentList
+			? currentList.visibility === VISIBILITY.PUBLIC
+			: false;
+		// check if the current user has access to list
+		// true when list belongs to user, list has been shared with user, or list is public list
+		const isOwner = currentList ? belongsToUser(userData, currentList) : true;
+		const hasAccess =
+			publicList || isOwner
+				? true
+				: currentList
+				? hasAccessToList(userData, currentList)
+				: false;
 		const isMobile = this.props.width < breakpoints['sm'];
 		if (isMobile) {
 			return (
@@ -171,6 +174,9 @@ class FavoritesListContainer extends React.Component {
 					handleMenuClose={this.handleMenuClose}
 					handleRemoveFavorite={this.handleRemoveFavorite}
 					userData={this.props.userData}
+					publicList={publicList}
+					hasAccess={hasAccess}
+					isOwner={isOwner}
 				/>
 			);
 		} else {
@@ -184,6 +190,9 @@ class FavoritesListContainer extends React.Component {
 					handleMenuClose={this.handleMenuClose}
 					handleRemoveFavorite={this.handleRemoveFavorite}
 					userData={this.props.userData}
+					publicList={publicList}
+					hasAccess={hasAccess}
+					isOwner={isOwner}
 				/>
 			);
 		}
