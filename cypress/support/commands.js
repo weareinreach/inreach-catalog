@@ -31,4 +31,4 @@ Cypress.Commands.add('getElementByTestId',(id_name =>{
 Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
     cy.go('back');
     cy.viewport(viewport);
-})
+});

@@ -72,12 +72,17 @@ const MoreMobile = ({
 	<div>
 		<FormattedMessage id="navigation.more">
 			{(more) => (
-				<Typography variant="h1" className={classes.title}>
+				<Typography
+					variant="h1"
+					className={classes.title}
+					data-test-id="more-mobile-title"
+				>
 					{more}
 				</Typography>
 			)}
 		</FormattedMessage>
 		<AsylumConnectCollapsibleSection
+			testIdName="more-help-for-myself"
 			className={classes.mobilePadding}
 			expanded={false}
 			title={
@@ -124,6 +129,7 @@ const MoreMobile = ({
 			}
 		/>
 		<AsylumConnectCollapsibleSection
+			testIdName="more-help-for-someone"
 			className={classes.mobilePadding}
 			expanded={false}
 			title={<FormattedMessage id="navigation.help-someone-else" />}
@@ -166,6 +172,7 @@ const MoreMobile = ({
 			}
 		/>
 		<AsylumConnectCollapsibleSection
+			testIdName="more-general-supporter-information"
 			className={classes.mobilePadding}
 			expanded={false}
 			title={
@@ -202,6 +209,7 @@ const MoreMobile = ({
 			}
 		/>
 		<AsylumConnectCollapsibleSection
+			testIdName="more-suggest-a-resource"
 			className={classes.mobilePadding}
 			expanded={false}
 			title={
@@ -238,6 +246,7 @@ const MoreMobile = ({
 			}
 		/>
 		<AsylumConnectCollapsibleSection
+			testIdName="more-privacy-disclaimer"
 			className={classes.mobilePadding}
 			expanded={false}
 			title={

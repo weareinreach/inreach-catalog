@@ -38,7 +38,11 @@ const LoginForm = ({
 	handleSubmit,
 	password
 }) => (
-	<form className={classes.container} onSubmit={handleSubmit}>
+	<form
+		className={classes.container}
+		data-test-id="log-in-dialog-container-login-form"
+		onSubmit={handleSubmit}
+	>
 		<FormattedMessage id="form.email">
 			{(emailText) => (
 				<TextField
@@ -50,6 +54,7 @@ const LoginForm = ({
 					required
 					type="email"
 					value={email}
+					data-test-id="log-in-dialog-container-email-input"
 				/>
 			)}
 		</FormattedMessage>
@@ -64,6 +69,7 @@ const LoginForm = ({
 					required
 					type="password"
 					value={password}
+					data-test-id="log-in-dialog-container-password-input"
 				/>
 			)}
 		</FormattedMessage>
@@ -76,6 +82,7 @@ const LoginForm = ({
 						href="https://asylumconnect.org/privacy"
 						rel="noopener noreferrer"
 						target="_blank"
+						data-test-id="log-in-dialog-container-privacy"
 					>
 						{privacy}
 					</a>
@@ -88,6 +95,7 @@ const LoginForm = ({
 						href="https://asylumconnect.org/terms-of-use"
 						rel="noopener noreferrer"
 						target="_blank"
+						data-test-id="log-in-dialog-container-terms-of-use"
 					>
 						{terms}
 					</a>
@@ -96,7 +104,12 @@ const LoginForm = ({
 		</Typography>
 		<FormattedMessage id="account.sign-in">
 			{(signIn) => (
-				<AsylumConnectButton variant="primary">{signIn}</AsylumConnectButton>
+				<AsylumConnectButton
+					variant="primary"
+					testIdName="log-in-dialog-container-sign-in-button"
+				>
+					{signIn}
+				</AsylumConnectButton>
 			)}
 		</FormattedMessage>
 
@@ -106,6 +119,7 @@ const LoginForm = ({
 					<Typography
 						className={classnames(classes.paddingAbove, classes.link)}
 						variant="body1"
+						data-test-id="log-in-dialog-container-forgot-password"
 					>
 						{forgot}
 					</Typography>
@@ -114,7 +128,10 @@ const LoginForm = ({
 		</FormattedMessage>
 		<FormattedMessage id="account.no-account">
 			{(noAccount) => (
-				<a onClick={() => handleRequestOpen('signup')}>
+				<a
+					onClick={() => handleRequestOpen('signup')}
+					data-test-id="log-in-dialog-container-no-acount"
+				>
 					<Typography variant="body1">
 						<span className={classes.link}>{noAccount}</span>
 					</Typography>
