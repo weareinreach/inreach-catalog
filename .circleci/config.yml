@@ -35,7 +35,7 @@ jobs:
   
   e2e:
     docker:
-      - image: cypress:base:12
+      - image: cypress/base:12
         environment:
           TERM: xterm
     working_directory: ~/asylunconnect-catalog
