@@ -32,6 +32,8 @@ jobs:
       - run:
           name: Compile Binary
           command: npm run build
+          environment:
+            process.env.CI: 'false'
   
   e2e:
     docker:
