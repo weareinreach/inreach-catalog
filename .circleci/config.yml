@@ -31,7 +31,9 @@ jobs:
          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Compile Binary
-          command: process.env.CI=false yarn build
+          command: yarn build
+          environment:
+            CI: 'false'
   
   e2e:
     docker:
