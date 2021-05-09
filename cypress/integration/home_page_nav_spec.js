@@ -25,6 +25,7 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             cy.getElementByTestId('nav-button-about').then($element =>{
                 expect($element).to.be.visible;
                 expect($element).to.have.attr('href','https://asylumconnect.org/mission/');
+                expect($element.children()).contain("About Us");
                 //click
                 cy.wrap($element).click();
                 cy.location().should(loc => {
@@ -39,6 +40,7 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             cy.getElementByTestId('nav-button-take-action').then($element =>{
                 expect($element).to.be.visible;
                 expect($element).to.have.attr('href','https://asylumconnect.org/donate/');
+                expect($element.children()).contain("Take Action");
                 //click
                 cy.wrap($element).click();
                 cy.location().should(loc => {
@@ -53,6 +55,7 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             cy.getElementByTestId('nav-button-get-help').then($element =>{
                 expect($element).to.be.visible;
                 expect($element).to.have.attr('href','https://asylumconnect.org/faqs/');
+                expect($element.children()).contain("Get Help");
                 //click
                 cy.wrap($element).click();
                 cy.location().should(loc => {
@@ -67,6 +70,7 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             cy.getElementByTestId('nav-button-contact').then($element =>{
                 expect($element).to.be.visible;
                 expect($element).to.have.attr('href','https://asylumconnect.org/contact/');
+                expect($element.children()).contain("Contact Us");
                 //click
                 cy.wrap($element).click();
                 cy.location().should(loc => {
@@ -81,6 +85,7 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             cy.getElementByTestId('nav-button-safety-exit').then($element =>{
                 expect($element).to.be.visible;
                 expect($element).to.have.attr('href','https://www.google.com/');
+                expect($element.children()).contain("Safety Exit");
                 //click
                 cy.wrap($element).click();
                 cy.location().should(loc => {
@@ -90,26 +95,26 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
                 //go back
                 cy.go('back');
             });
-
+            cy.getElementByTestId('nav-button-language').should('be.visible');
             cy.getElementByTestId('nav-account-sign-in').then($element =>{
                 expect($element).to.be.visible;
-                //click
-                cy.wrap($element).click();
-                cy.getElementByTestId('log-in-dialog-container').should('be.visible');
-                cy.getElementByTestId('log-in-dialog-container-title').then($element=>{
-                    expect($element).to.contain('Log In');
-                    expect($element).to.be.visible;
+                expect($element.children()).contain("Sign In");
                 });
+            
+            cy.getElementByTestId('nav-account-sign-up').then($element =>{
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Sign Up");
+                });
+
 
             });
 
         });
-    });
 
     //Tablet
     context('Tablet Version of the Application', () => {
         it('Navigation Bar', () => {
-            //change viewport
+            // //change viewport
             cy.viewport('ipad-2');
             cy.getElementByTestId('tablet-nav-button-icon-image').should('be.visible');
 
@@ -208,6 +213,28 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
                 });
 
             });
+            cy.getElementByTestId('nav-button-language').should('be.visible');
+            cy.getElementByTestId('nav-account-sign-in').then($element =>{
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Sign In");
+                });
+            
+            cy.getElementByTestId('nav-account-sign-up').then($element =>{
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Sign Up");
+                });
+            cy.getElementByTestId('nav-button-view-favorites').then($element =>{
+                expect($element).to.be.visible;
+                expect($element).to.have.attr('href','/en_US/favorites');
+                expect($element.children()).contain("View Your Favorites");
+                cy.wrap($element).click();
+                cy.location(loc =>{
+                    expect(loc.href).to.be.eq(cypress.env('baseUrl')+'/en_US/favorites');
+                    expect(loc.hostname).to.be.eq('localhost:3000');
+                    expect(loc.pathname).to.be.eq('/en_US/favorites');
+                });
+            })
+
         });
 
     });
@@ -219,6 +246,8 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
 
             cy.getElementByTestId('mobile-nav-button-search').then($element =>{
                 expect($element).to.be.visible;
+                expect($element).to.have.attr('type','button');
+                expect($element.children()).contain("Search");
                 //Click
                 cy.wrap($element).click();
                 cy.location(loc =>{
@@ -229,6 +258,8 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             
             cy.getElementByTestId('mobile-nav-button-favorites').then($element =>{
                 expect($element).to.be.visible;
+                expect($element).to.have.attr('type','button');
+                expect($element.children()).contain("Favorites");
                 //Click
                 cy.wrap($element).click();
                 cy.location(loc =>{
@@ -240,6 +271,14 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
            
             cy.getElementByTestId('mobile-nav-button-language').then($element =>{
                 expect($element).to.be.visible;
+                expect($element).to.have.attr('type','button');
+                expect($element.children()).contain("Language");
+            });
+
+            cy.getElementByTestId('mobile-nav-button-account').then($element =>{
+                expect($element).to.be.visible;
+                expect($element).to.have.attr('type','button');
+                expect($element.children()).contain("Account");
                 //Click
                 cy.wrap($element).click();
                 cy.location(loc =>{
@@ -251,13 +290,8 @@ describe('Home Page Navigation Bar Suite of Tests', () => {
             
             cy.getElementByTestId('mobile-nav-button-more').then($element=>{
                 expect($element).to.be.visible;
-                cy.wrap($element).click();
-                //Check More Page
-                cy.getElementByTestId('more-help-for-myself').should('be.visible');
-                cy.getElementByTestId('more-help-for-someone').should('be.visible');
-                cy.getElementByTestId('more-general-supporter-information').should('be.visible');
-                cy.getElementByTestId('more-suggest-a-resource').should('be.visible');
-                cy.getElementByTestId('more-privacy-disclaimer').should('be.visible');
+                expect($element).to.have.attr('type','button');
+                expect($element.children()).contain("More");
             });
 
         });

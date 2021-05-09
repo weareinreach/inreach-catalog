@@ -53,6 +53,7 @@ const LoginForm = ({
 					onChange={handleChange}
 					required
 					type="email"
+					data-test-id="login-in-form-email-input"
 					value={email}
 					data-test-id="log-in-dialog-container-email-input"
 				/>
@@ -68,6 +69,7 @@ const LoginForm = ({
 					onChange={handleChange}
 					required
 					type="password"
+					data-test-id="login-in-form-password-input"
 					value={password}
 					data-test-id="log-in-dialog-container-password-input"
 				/>

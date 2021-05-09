@@ -21,7 +21,29 @@ describe('Home Page Login Form Suite of Tests', () => {
         it('Login Form Components',()=>{
 
         });
-        it('Login Action')
-    })
+        it('Login Action',()=>{
+            cy.getElementByTestId('nav-account-sign-in').then($element =>{
+                expect($element).to.be.visible;
+                //click
+                cy.wrap($element).click();
+                cy.getElementByTestId('log-in-dialog-container').should('be.visible');
+                cy.getElementByTestId('log-in-dialog-container-title').then($element=>{
+                    expect($element).to.contain('Log In');
+                    expect($element).to.be.visible;
+                });
+                cy.getElementByTestId('log-in-dialog-container-login-form').should('be.visible');
+                cy.getElementByTestId('log-in-dialog-container-email-input').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.contain('Email');
+                });
+                cy.getElementByTestId('log-in-dialog-container-password-input').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.contain('Password');
+                });
+
+
+            });
+        });
+    });
 
 });
