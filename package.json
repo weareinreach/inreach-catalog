@@ -11,8 +11,8 @@
     "serve": "node src/server",
     "cypress:open": "cypress open --config-file ./cypress.json",
     "cypress:run": "cypress run --config-file ./cypress.json",
-    "test:e2e": "start-server-and-test 'yarn nyc start' http://localhost:3000 'yarn cypress:open'",
-    "test:e2e:ci": "start-server-and-test 'yarn nyc start' http://localhost:3000 'yarn cypress:run'",
+    "test:e2e": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress:open'",
+    "test:e2e:ci": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress:run'",
     "show-coverage": "npx nyc report --reporter json --reporter=text"
   },
   "dependencies": {
@@ -26,7 +26,7 @@
     "js-cookie": "^2.2.1",
     "langs": "^2.0.0",
     "lodash": "^4.17.19",
-    "node-sass": "^4.14.0",
+    "node-sass": "^6.0.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
