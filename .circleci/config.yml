@@ -23,7 +23,7 @@ jobs:
           command: node --version
       - run:
           name: Install Packages
-          command: npm install
+          command: yarn install
       #save cache for use next tests
       - save_cache:
          paths:

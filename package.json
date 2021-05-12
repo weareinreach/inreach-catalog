@@ -11,8 +11,8 @@
     "serve": "node src/server",
     "cypress:open": "cypress open --config-file ./cypress.json",
     "cypress:run": "cypress run --config-file ./cypress.json",
-    "test:e2e": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress:open'",
-    "test:e2e:ci": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress:run'",
+    "test:e2e": "start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:open'",
+    "test:e2e:ci": "start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:run'",
     "show-coverage": "npx nyc report --reporter json --reporter=text"
   },
   "dependencies": {
