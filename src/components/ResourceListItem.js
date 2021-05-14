@@ -106,7 +106,8 @@ class ResourceListItem extends React.Component {
 			session,
 			user,
 			userData,
-			width
+			width,
+			isOwner
 		} = this.props;
 		const {
 			ratingSpacing,
@@ -131,7 +132,7 @@ class ResourceListItem extends React.Component {
 		];
 		const labelClass = format === 'search' ? 'hide--on-screen' : null;
 		const name = resource.name || resource.title;
-		const isOrganizationItem = resource.resource_type === 'Organization';
+		const isOrganizationItem = resource.services ? true : false;
 		const link = isOrganizationItem
 			? `/${locale}/resource/${resource.slug}`
 			: `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
@@ -195,7 +196,7 @@ class ResourceListItem extends React.Component {
 												user={user}
 											/>
 										)}
-										{isOnFavoritesList && !isOnPublicList && (
+										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
 												onClick={() => handleListRemoveFavorite(resource._id)}
 											>
@@ -298,7 +299,7 @@ class ResourceListItem extends React.Component {
 												user={user}
 											/>
 										)}
-										{isOnFavoritesList && !isOnPublicList && (
+										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
 												onClick={() => handleListRemoveFavorite(resource._id)}
 											>
@@ -469,7 +470,8 @@ ResourceListItem.propTypes = {
 	lists: PropTypes.arrayOf(PropTypes.object),
 	resource: PropTypes.object.isRequired,
 	session: PropTypes.string,
-	user: PropTypes.string
+	user: PropTypes.string,
+	isOwner: PropTypes.bool
 };
 
 ResourceListItem.defaultProps = {

@@ -392,6 +392,7 @@ class AppConnectCatalog extends React.Component {
 										handleRequestClose={this.handleRequestClose}
 										handleRequestOpen={this.handleRequestOpen}
 										session={session}
+										user={user}
 									/>
 								)}
 								{dialogHasListNew && (
