@@ -1,0 +1,3 @@
+{
+    "plugins": ["istanbul","babel-plugin-jsx-remove-data-test-id"]
+}

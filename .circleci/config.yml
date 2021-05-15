@@ -1,0 +1,86 @@
+#Alfredo Moreira
+#Put this file in a .circleci/ folder
+#This file is to be used to run Github Status Checks
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+  codecov: codecov/codecov@1.1.3
+jobs:
+  build:
+    docker:
+      - image: circleci/node:15.6.0
+    working_directory: ~/control-panel
+    steps:
+      - checkout
+      # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #     - v1-dependencies-{{ checksum "package.json" }}
+      #     # fallback to using the latest cache if no exact match is found
+      #     - v1-dependencies-
+      - run: 
+          name: Check Node Version
+          command: node --version
+      - run:
+          name: Install Packages
+          command: yarn install
+      #save cache for use next tests
+      - save_cache:
+         paths:
+          - node_modules
+         key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Compile Binary
+          command: yarn build
+          environment:
+            CI: 'false'
+  
+  e2e:
+    docker:
+      - image: cypress/base:12
+        environment:
+          TERM: xterm
+    working_directory: ~/asylunconnect-catalog
+    steps:
+      - checkout
+      # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #     - v1-dependencies-{{ checksum "package.json" }}
+      #     # fallback to using the latest cache if no exact match is found
+      #     - v1-dependencies-
+      - run: 
+          name: Check Node Version
+          command: node --version
+      - run:
+          name: Install Packages
+          command: npm install
+      - run:
+          name: Install NYC
+          command: npm i nyc
+      #save cache for use next tests
+      - save_cache:
+         paths:
+          - node_modules
+         key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: "E2E Automation"
+          command: "yarn test:e2e:ci"
+      - run:
+          name: "Show Coverage"
+          command: "yarn show-coverage"
+      - codecov/upload:
+          file: 'cypressCoverage/coverage-final.json'
+          flags: 'Integration'
+      - store_artifacts:
+          path: ./cypressCoverage
+          destination: E2E Coverage Reports 
+
+    
+
+workflows:
+  version: 1
+  pull_request:
+    jobs: 
+      - build
+      - e2e

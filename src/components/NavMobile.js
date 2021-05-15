@@ -151,6 +151,7 @@ class NavMobile extends React.Component {
 					value={value}
 					onChange={this.handleChange}
 					showLabels
+					data-test-id="mobile-nav-navigation"
 					className={classes.root}
 				>
 					<BottomNavigationAction
@@ -163,6 +164,7 @@ class NavMobile extends React.Component {
 							/>
 						}
 						showLabel
+						data-test-id="mobile-nav-button-search"
 						icon={<SearchIcon width="30px" color={this.iconColor(0)} />}
 					/>
 					<BottomNavigationAction
@@ -175,6 +177,7 @@ class NavMobile extends React.Component {
 							/>
 						}
 						showLabel
+						data-test-id="mobile-nav-button-favorites"
 						icon={<FavoritesIcon width="30px" color={this.iconColor(1)} />}
 					/>
 					<BottomNavigationAction
@@ -187,6 +190,7 @@ class NavMobile extends React.Component {
 							/>
 						}
 						showLabel
+						data-test-id="mobile-nav-button-language"
 						icon={<LanguageIcon width="30px" color={this.iconColor(2)} />}
 					/>
 					<BottomNavigationAction
@@ -199,6 +203,7 @@ class NavMobile extends React.Component {
 							/>
 						}
 						showLabel
+						data-test-id="mobile-nav-button-account"
 						icon={<AccountIcon width="30px" color={this.iconColor(3)} />}
 					/>
 					<BottomNavigationAction
@@ -208,6 +213,7 @@ class NavMobile extends React.Component {
 							<FormattedMessage id="navigation.more" defaultMessage="More" />
 						}
 						showLabel
+						data-test-id="mobile-nav-button-more"
 						icon={<MoreIcon width="30px" color={this.iconColor(4)} />}
 					/>
 				</BottomNavigation>

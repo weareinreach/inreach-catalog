@@ -43,6 +43,7 @@ const AccountNav = ({
 				<Link
 					className={[classes.divider, classes.accountLinks].join(' ')}
 					to={'/' + locale + '/account'}
+					data-test-id="nav-account-account-settings"
 				>
 					<Typography type="body1" className={classes.lowercaseText}>
 						<FormattedMessage
@@ -52,7 +53,12 @@ const AccountNav = ({
 						/>
 					</Typography>
 				</Link>
-				<Link to="/" className={classes.accountLinks} onClick={handleLogOut}>
+				<Link
+					to="/"
+					className={classes.accountLinks}
+					onClick={handleLogOut}
+					data-test-id="nav-account-sign-out"
+				>
 					<Typography type="body1" className={classes.lowercaseText}>
 						<FormattedMessage
 							id="account.sign-out"
@@ -72,6 +78,7 @@ const AccountNav = ({
 						classes.accountLinks,
 						classes.cursor
 					].join(' ')}
+					data-test-id="nav-account-sign-in"
 					onClick={() => handleRequestOpen('login')}
 				>
 					<Typography type="body1" className={classes.lowercaseText}>
@@ -85,6 +92,7 @@ const AccountNav = ({
 				<a
 					className={[classes.accountLinks, classes.cursor].join(' ')}
 					onClick={() => handleRequestOpen('signup')}
+					data-test-id="nav-account-sign-up"
 				>
 					<Typography type="body1" className={classes.lowercaseText}>
 						<FormattedMessage
