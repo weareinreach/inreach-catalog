@@ -1,3 +1,14 @@
 {
-    "plugins": ["istanbul","babel-plugin-jsx-remove-data-test-id"]
+    "env":{
+        "production":{
+            "plugins": [
+                ["react-remove-properties", {"properties": ["data-test-id"]}]
+            ]
+        },
+        "test":{
+            "plugins": ["istanbul"]
+        }
+    },
+    
+    "presets": ["react-app"]
 }
