@@ -75,7 +75,9 @@ const FavoritesListMobile = ({
 	resources,
 	session,
 	user,
-	userData
+	userData,
+	hasAccess,
+	isOwner
 }) => {
 	if (!session) {
 		return (
@@ -110,6 +112,27 @@ const FavoritesListMobile = ({
 			</Grid>
 		);
 	}
+	if (list && !hasAccess && !publicList) {
+		return (
+			<Grid
+				container
+				className={null}
+				direction="column"
+				alignItems="center"
+				spacing={1}
+			>
+				<Grid item xs={12} md={6}>
+					<Typography
+						className={classes.marginTop}
+						variant="body1"
+						align="center"
+					>
+						Sorry! It seems you don't have access to this list!
+					</Typography>
+				</Grid>
+			</Grid>
+		);
+	}
 	return (
 		<Grid container className={classes.container} direction="column">
 			<Grid item xs={12} className={classes.backButton}>
@@ -126,7 +149,7 @@ const FavoritesListMobile = ({
 			<Typography className={classes.textCenter} variant="h3">
 				{publicList ? publicList : 'Favorites'}
 			</Typography>
-			{!publicList && (
+			{!publicList && isOwner && (
 				<Typography
 					className={classes.marginTop}
 					variant="body1"
@@ -134,6 +157,15 @@ const FavoritesListMobile = ({
 				>
 					Your favorites lists are only visible to you and anyone you choose to
 					share your lists with.
+				</Typography>
+			)}
+			{!publicList && !isOwner && (
+				<Typography
+					className={classes.marginTop}
+					variant="body1"
+					align="center"
+				>
+					This list was shared with you.
 				</Typography>
 			)}
 			<Grid item xs={12}>
@@ -152,7 +184,7 @@ const FavoritesListMobile = ({
 						</span>
 					</Typography>
 				)}
-				{list && (
+				{list && isOwner && (
 					<AsylumConnectButton
 						variant="primary"
 						className={classes.spacingTop}
@@ -218,6 +250,7 @@ const FavoritesListMobile = ({
 											session={session}
 											user={user}
 											userData={userData}
+											isOwner={isOwner}
 										/>
 									)
 							)}
@@ -258,7 +291,9 @@ FavoritesListMobile.propTypes = {
 	open: PropTypes.bool.isRequired,
 	resources: PropTypes.arrayOf(PropTypes.object).isRequired,
 	session: PropTypes.string,
-	user: PropTypes.string
+	user: PropTypes.string,
+	hasAccess: PropTypes.bool.isRequired,
+	isOwner: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(FavoritesListMobile);
