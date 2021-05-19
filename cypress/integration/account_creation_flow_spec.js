@@ -22,7 +22,7 @@ describe('Home Page Login Form Tests', () => {
 
     //Create Account
     context('Desktop Version of the application', () => {
-        it.only('Sign Up Form Components - state 0', () => {
+        it('Sign Up Form Components - state 0', () => {
             cy.getElementByTestId('nav-account-sign-up').then($element => {
                 expect($element).to.be.visible;
                 //click
