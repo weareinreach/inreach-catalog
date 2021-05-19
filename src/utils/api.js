@@ -298,3 +298,49 @@ export const createSuggestion = (suggestions) => {
 		.then((res) => res)
 		.catch((err) => err);
 };
+
+export const shareResource = ({
+	email,
+	shareType,
+	shareUrl,
+	resource,
+	userId
+}) => {
+	if (
+		(shareType === 'collection' && !userId) ||
+		!resource ||
+		!email ||
+		!shareType ||
+		!shareUrl
+	) {
+		handleErr('Bad request');
+	}
+	if (shareType === 'collection') {
+		return catalogPost(`/users/${userId}/lists/${resource}/share`, {
+			email: email,
+			list: resource,
+			shareUrl: shareUrl,
+			shareType: shareType
+		})
+			.then((res) => res)
+			.catch((err) => err);
+	} else {
+		return catalogPost(`/organizations/${resource}/share`, {
+			email: email,
+			organization: resource,
+			shareUrl: shareUrl,
+			shareType: shareType
+		})
+			.then((res) => res)
+			.catch((err) => err);
+	}
+};
+
+export const fetchList = (listId = null) => {
+	if (!listId) {
+		handleErr('Bad request');
+	}
+	return catalogGet(`/users/lists/${listId}`)
+		.then(({list}) => list)
+		.catch((err) => err);
+};

@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import IconButton from '@material-ui/core/IconButton';
+import {FormattedMessage} from 'react-intl';
 
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import AsylumConnectButton from './AsylumConnectButton';
@@ -131,29 +132,9 @@ const ResultsContainer = (props) => {
 		userData
 	} = props;
 	const disclaimerProps = {};
-
-	if (locale === 'en_US') {
-		disclaimerProps.children = (
-			<span>
-				Some organizations are putting measures in place to respond to the
-				coronavirus outbreak. This may impact hours and accessibility to some
-				services. Check{' '}
-				<a
-					href="https://asylumconnect.org/resource-list-for-lgbtq-asylum-seekers-and-other-lgbtq-people-during-covid-19/"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					this blog post
-				</a>{' '}
-				for a list of verified LGBTQ+ affirming and immigrant friendly services
-				continuing to offer help in the United States during the coronavirus
-				(COVID-19) pandemic.
-			</span>
-		);
-	} else {
-		disclaimerProps.text =
-			'Some organizations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services.';
-	}
+	disclaimerProps.children = (
+		<FormattedMessage id="search.covid-disclaimer-default" />
+	);
 
 	return (
 		<div
