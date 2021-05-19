@@ -93,3 +93,56 @@ Cypress.Commands.add('testCreateAccountElements', (viewport) => {
         });
     });
 });
+
+Cypress.Commands.add('testCreateAccountForMyselfElements',(viewport)=>{
+    cy.viewport(viewport);
+    cy.getElementByTestId('nav-account-sign-up').then($element => {
+        cy.wrap($element).click({force: true});
+    cy.getElementByTestId('dialog-container-sign-up-help-myself-button').then($element=>{
+        cy.wrap($element).click({force: true});
+        cy.getElementByTestId('sign-up-form-email-input').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain("Email");
+
+        });
+        cy.getElementByTestId('sign-up-form-password-input').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain("Password");
+        });
+        cy.getElementByTestId('sign-up-form-password-confirmation-input').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain("Confirm Password");
+        });
+        cy.getElementByTestId('sign-up-form-agreement-statement').then($element=>{
+            expect($element).to.be.visible;
+        });
+        cy.getElementByTestId('sign-up-form-privacy-link').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.contain("Privacy Policy");
+            expect($element).to.have.attr('href','https://asylumconnect.org/privacy');
+            expect($element).to.have.attr('target','_blank');
+            expect($element).to.have.attr('rel','noopener noreferrer');
+        });
+        cy.getElementByTestId('sign-up-form-terms-link').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.contain("Terms of Use");
+            expect($element).to.have.attr('href','https://asylumconnect.org/terms-of-use');
+            expect($element).to.have.attr('target','_blank');
+            expect($element).to.have.attr('rel','noopener noreferrer');
+        });
+        cy.getElementByTestId('sign-up-form-submit-button').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).to.contain("Sign Up");
+            expect($element).to.have.attr('type','submit');
+        });
+        //Only Test if Mobile
+        if(viewport == Cypress.env('mobile')){
+            cy.getElementByTestId('sign-up-form-back-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Back");
+                expect($element).to.have.attr('type','submit');
+            });
+        }
+    });
+});
+});
