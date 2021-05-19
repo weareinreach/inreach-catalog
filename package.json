@@ -5,7 +5,7 @@
     "local": "REACT_APP_APP_ENV=local yarn start",
     "prod": "REACT_APP_APP_ENV=production yarn start",
     "dev": "yarn start",
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "serve": "node src/server",
@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.4",
+    "@cypress/instrument-cra": "^1.4.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.3",
     "@testing-library/user-event": "^10.0.2",
