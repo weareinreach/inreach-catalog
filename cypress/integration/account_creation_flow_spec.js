@@ -16,25 +16,41 @@ describe('Home Page Login Form Tests', () => {
     });
 
     //Root
-    it('Root Test - Visual', () => {
+    it('Root Test - Elements', () => {
         cy.root().should('match', 'html');
     });
 
-    //Create Account Visual
+    //Create Account Elements
     context('Desktop Version of the application', () => {
         it('Sign Up Form Components - state 0', () => {
-            cy.testCreateAccountElements('macbook-16');
+            cy.testCreateAccountElements(Cypress.env('desktop'));
         });
     });
     context('Tablet Version of the application', () => {
         it('Sign Up Form Components - state 0', () => {
-            cy.testCreateAccountElements('ipad-2');
+            cy.testCreateAccountElements(Cypress.env('tablet'));
         });
     });
     context('Mobile Version of the application', () => {
         it('Sign Up Form Components - state 0', () => {
-            cy.testCreateAccountElements('iphone-x');
+            cy.testCreateAccountElements(Cypress.env('mobile'));
         });
     });
 
+    //Create Account For Myself Elements
+    context('Desktop Version of the application', () => {
+        it.only('Sign Up For Myself - state 1', () => {
+            cy.testCreateAccountForMyselfElements(Cypress.env('desktop'));
+        });
+    });
+    context('Tablet Version of the application', () => {
+        it.only('Sign Up For Myself - state 1', () => {
+            cy.testCreateAccountForMyselfElements(Cypress.env('tablet'));
+        });
+    });
+    context('Mobile Version of the application', () => {
+        it.only('Sign Up For Myself - state 1', () => {
+            cy.testCreateAccountForMyselfElements(Cypress.env('mobile'));
+        });
+    });
 });

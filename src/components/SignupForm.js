@@ -128,6 +128,7 @@ const SignupForm = ({
 						required
 						type="email"
 						value={email}
+						data-test-id="sign-up-form-email-input"
 					/>
 					<TextField
 						error={password.length > 0 && password.length < 8}
@@ -144,6 +145,7 @@ const SignupForm = ({
 						required
 						type="password"
 						value={password}
+						data-test-id="sign-up-form-password-input"
 					/>
 					<TextField
 						id="passwordConfirmation"
@@ -154,13 +156,19 @@ const SignupForm = ({
 						required
 						type="password"
 						value={passwordConfirmation}
+						data-test-id="sign-up-form-password-confirmation-input"
 					/>
-					<Typography variant="body1" className={classes.paddingVertical}>
+					<Typography
+						variant="body1"
+						className={classes.paddingVertical}
+						data-test-id="sign-up-form-agreement-statement"
+					>
 						By clicking "Sign Up," you agree to AsylumConnect's{` `}
 						<a
 							href="https://asylumconnect.org/privacy"
 							target="_blank"
 							rel="noopener noreferrer"
+							data-test-id="sign-up-form-privacy-link"
 						>
 							Privacy Policy
 						</a>
@@ -169,12 +177,18 @@ const SignupForm = ({
 							href="https://asylumconnect.org/terms-of-use"
 							target="_blank"
 							rel="noopener noreferrer"
+							data-test-id="sign-up-form-terms-link"
 						>
 							Terms of Use
 						</a>
 						.
 					</Typography>
-					<AsylumConnectButton variant="primary">Sign Up</AsylumConnectButton>
+					<AsylumConnectButton
+						testIdName="sign-up-form-submit-button"
+						variant="primary"
+					>
+						Sign Up
+					</AsylumConnectButton>
 				</form>
 			)}
 			{activeStep === 2 && (
@@ -236,7 +250,7 @@ const SignupForm = ({
 				backButton={<div />}
 			/>
 			{activeStep === 1 && (
-				<div className={classes.flex}>
+				<div data-test-id="sign-up-form-back-button" className={classes.flex}>
 					<Button size="small" onClick={handleStepBack}>
 						<KeyboardArrowLeft />
 						Back

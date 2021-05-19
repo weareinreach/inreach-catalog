@@ -16,7 +16,7 @@ describe('Home Page Login Form Tests', () => {
     });
 
     //Root
-    it('Root Test - Visual', () => {
+    it('Root Test - Elements', () => {
         cy.root().should('match', 'html');
     });
 
