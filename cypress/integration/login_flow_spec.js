@@ -5,7 +5,7 @@
 //compound url
 
 //Test Suite
-describe('Home Page Login Form Suite of Tests', () => {
+describe('Home Page Login Form Tests', () => {
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
         cy.fixture('user_new.json').as('new_user');
