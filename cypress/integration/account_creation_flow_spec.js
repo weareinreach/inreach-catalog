@@ -39,17 +39,17 @@ describe('Home Page Login Form Tests', () => {
 
     //Create Account For Myself Elements
     context('Desktop Version of the application', () => {
-        it.only('Sign Up For Myself - state 1', () => {
+        it('Sign Up For Myself - state 1', () => {
             cy.testCreateAccountForMyselfElements(Cypress.env('desktop'));
         });
     });
     context('Tablet Version of the application', () => {
-        it.only('Sign Up For Myself - state 1', () => {
+        it('Sign Up For Myself - state 1', () => {
             cy.testCreateAccountForMyselfElements(Cypress.env('tablet'));
         });
     });
     context('Mobile Version of the application', () => {
-        it.only('Sign Up For Myself - state 1', () => {
+        it('Sign Up For Myself - state 1', () => {
             cy.testCreateAccountForMyselfElements(Cypress.env('mobile'));
         });
     });

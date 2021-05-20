@@ -140,7 +140,6 @@ Cypress.Commands.add('testCreateAccountForMyselfElements',(viewport)=>{
             cy.getElementByTestId('sign-up-form-back-button').then($element=>{
                 expect($element).to.be.visible;
                 expect($element.children()).to.contain("Back");
-                expect($element).to.have.attr('type','submit');
             });
         }
     });
