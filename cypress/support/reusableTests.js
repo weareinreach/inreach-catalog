@@ -206,7 +206,7 @@ Cypress.Commands.add('testCreateAccountForNonLegalServiceProviderElements',(view
         cy.wrap($element).click({force: true});
         cy.getElementByTestId('sign-up-form-email-input').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain("Firm, Organization or School Email");
+            expect($element.children()).contain("Organization Email");
 
         });
         cy.getElementByTestId('sign-up-form-password-input').then($element=>{

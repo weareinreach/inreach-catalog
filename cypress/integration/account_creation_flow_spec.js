@@ -56,34 +56,34 @@ describe('Home Page Login Form Tests', () => {
 
     //Create Account As Attorney
     context('Desktop Version of the application', () => {
-        it.only('Sign Up For Lawyer - state 1', () => {
+        it('Sign Up For Lawyer - state 1', () => {
             cy.testCreateAccountForLawyerElements(Cypress.env('desktop'));
         });
     });
     context('Tablet Version of the application', () => {
-        it.only('Sign Up For Lawyer - state 1', () => {
+        it('Sign Up For Lawyer - state 1', () => {
             cy.testCreateAccountForLawyerElements(Cypress.env('tablet'));
         });
     });
     context('Mobile Version of the application', () => {
-        it.only('Sign Up For Lawyer - state 1', () => {
+        it('Sign Up For Lawyer - state 1', () => {
             cy.testCreateAccountForLawyerElements(Cypress.env('mobile'));
         });
     });
 
     //Create Account As Non Legal Service Provider
     context('Desktop Version of the application', () => {
-        it.only('Sign Up For Non Legal Service Provider - state 1', () => {
+        it('Sign Up For Non Legal Service Provider - state 1', () => {
             cy.testCreateAccountForNonLegalServiceProviderElements(Cypress.env('desktop'));
         });
     });
     context('Tablet Version of the application', () => {
-        it.only('Sign Up For Non Legal Service Provider - state 1', () => {
+        it('Sign Up For Non Legal Service Provider - state 1', () => {
             cy.testCreateAccountForNonLegalServiceProviderElements(Cypress.env('tablet'));
         });
     });
     context('Mobile Version of the application', () => {
-        it.only('Sign Up For Non Legal Service Provider - state 1', () => {
+        it('Sign Up For Non Legal Service Provider - state 1', () => {
             cy.testCreateAccountForNonLegalServiceProviderElements(Cypress.env('mobile'));
         });
     });
