@@ -64,6 +64,9 @@ jobs:
           - node_modules
          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
+          name: "Pre E2E Commands"
+          command: "yarn test:pre-e2e"
+      - run:
           name: "E2E Automation"
           command: "yarn test:e2e:ci"
       - run:
@@ -72,9 +75,15 @@ jobs:
       - codecov/upload:
           file: 'cypressCoverage/coverage-final.json'
           flags: 'Integration'
+      - run:
+          name: "Post E2E Commands"
+          command: "yarn test:post-e2e"
       - store_artifacts:
           path: ./cypressCoverage
-          destination: E2E Coverage Reports 
+          destination: E2E Coverage Reports
+      - store_artifacts:
+          path: "reports/"
+          destination: E2E Test Reports 
 
     
 

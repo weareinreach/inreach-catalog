@@ -5,13 +5,13 @@
 //compound url
 
 //Test Suite
-describe('Home Page Navigation Bar Suite of Tests', () => {
+describe('Home Page Navigation Bar Tests', () => {
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
     });
 
     //Root
-    it('Root Test - Visual', () => {
+    it('Root Test - Elements', () => {
         cy.root().should('match', 'html');
     });
 
