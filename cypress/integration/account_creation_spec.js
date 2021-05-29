@@ -53,7 +53,7 @@ describe('Home Page Create Account Form Tests', () => {
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
             userTypes.forEach(userType=>{       
-                it.only(`Creating account for ${userType}`,()=>{
+                it(`Creating account for ${userType}`,()=>{
                     cy.get('@organization').then(org=>{
                         //Add Org
                         cy.addOrg(org).then(()=>{
