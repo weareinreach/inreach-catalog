@@ -85,6 +85,7 @@ const FavoritesListMobile = ({
 				<Typography
 					className={classNames(classes.spacingBottom, classes.textCenter)}
 					variant="body1"
+					data-test-id="favorites-page-header-text"
 				>
 					Once logged in, you’ll be able to quickly find the organizations and
 					resources you have favorited.
@@ -96,6 +97,7 @@ const FavoritesListMobile = ({
 						onClick={(ev) => {
 							handleRequestOpen('login');
 						}}
+						testIdName="favorites-page-login-button"
 					>
 						Log In
 					</AsylumConnectButton>
@@ -105,6 +107,7 @@ const FavoritesListMobile = ({
 						onClick={(ev) => {
 							handleRequestOpen('signup');
 						}}
+						testIdName="favorites-page-signup-button"
 					>
 						Sign Up
 					</AsylumConnectButton>
@@ -146,7 +149,11 @@ const FavoritesListMobile = ({
 				/>
 			</Grid>
 
-			<Typography className={classes.textCenter} variant="h3">
+			<Typography
+				className={classes.textCenter}
+				variant="h3"
+				data-test-id="favorites-page-title-text"
+			>
 				{publicList ? publicList : 'Favorites'}
 			</Typography>
 			{!publicList && isOwner && (
@@ -154,6 +161,7 @@ const FavoritesListMobile = ({
 					className={classes.marginTop}
 					variant="body1"
 					align="center"
+					data-test-id="favorites-page-header-text"
 				>
 					Your favorites lists are only visible to you and anyone you choose to
 					share your lists with.
@@ -164,6 +172,7 @@ const FavoritesListMobile = ({
 					className={classes.marginTop}
 					variant="body1"
 					align="center"
+					data-test-id="favorites-page-header-text"
 				>
 					This list was shared with you.
 				</Typography>
@@ -174,6 +183,7 @@ const FavoritesListMobile = ({
 						className={classes.spacingTop}
 						variant="body1"
 						align="center"
+						data-test-id="favorites-page-create-new-list-button"
 					>
 						Select one of your favorites lists or{` `}
 						<span
@@ -222,6 +232,7 @@ const FavoritesListMobile = ({
 							variant="body1"
 							className={classes.spacingTop}
 							align="center"
+							data-test-id="favorites-page-body-text"
 						>
 							You haven't created any lists yet.
 						</Typography>

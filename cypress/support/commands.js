@@ -33,6 +33,14 @@ Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
     cy.viewport(viewport);
 });
 
+Cypress.Commands.add('login',(user)=>{
+	cy.getElementByTestId('nav-account-sign-in').click({force:true});
+	 //Enter Creds
+	 cy.getElementByTestId('log-in-dialog-container-email-input').type(user.email);
+	 cy.getElementByTestId('log-in-dialog-container-password-input').type(user.password);
+	 cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
+});
+
 
 
 
