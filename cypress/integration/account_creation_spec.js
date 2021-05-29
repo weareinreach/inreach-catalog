@@ -32,7 +32,7 @@ describe('Home Page Create Account Form Tests', () => {
         context(`Testing the ${viewport} Version of the application`,()=>{
             userTypes.forEach(userType=>{
                 it(`Create account ${userType} elements state 0`,()=>{
-                    cy.testCreateAccountState0Elements(viewport,Cypress.env('contextCreateAccount'),userType);
+                    cy.testCreateAccountState0Elements(viewport,userType);
                 });
             });
         });
@@ -43,7 +43,7 @@ describe('Home Page Create Account Form Tests', () => {
         context(`Testing the ${viewport} Version of the application`,()=>{
             userTypes.forEach(userType=>{
                 it(`Create account ${userType} elements state 1`,()=>{
-                    cy.testCreateAccountState1Elements(viewport,Cypress.env('contextCreateAccount'),userType);
+                    cy.testCreateAccountState1Elements(viewport,userType);
                 });
             });
         });
@@ -57,7 +57,7 @@ describe('Home Page Create Account Form Tests', () => {
                     cy.get('@organization').then(org=>{
                         //Add Org
                         cy.addOrg(org).then(()=>{
-                            cy.testCreateAccountAction(viewport,Cypress.env('contextCreateAccount'),userType);
+                            cy.testCreateAccountAction(viewport,userType);
                         }); 
                     });
                 });
