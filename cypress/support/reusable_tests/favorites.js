@@ -142,8 +142,70 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
         expect($element).to.be.visible;
         expect($element).contain("You haven't added any resources to this list yet.");
     });
+});
+
+Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,searchName)=>{
+    cy.viewport(viewport);
+    cy.login(user);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    // eslint-disable-next-line default-case
+    switch(viewport){
+        case Cypress.env('mobile'):
+            cy.getElementByTestId('mobile-nav-button-search').click(); 
+            break;
+        case Cypress.env('tablet'):
+            cy.go('back');
+            break;
+        case Cypress.env('desktop'):
+            cy.getElementByTestId('nav-button-logo').click();
+            break;
+    }
+    //Search
+    cy.getElementByTestId('search-page-next-button').click({multiple:true});
+    cy.getElementByTestId('search-bar-input').type(searchName);
+    //Click first option 
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    })
+    cy.getElementByTestId('search-bar-search-button').click();
+    //Let it load 
+    cy.wait(2000);
+    cy.getElementByTestId('search-result-favorite-button').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.getElementByTestId('search-result-favorite-list-item').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    
+    //Favorites list
+    // eslint-disable-next-line default-case
+    switch(viewport){
+        case Cypress.env('mobile'):
+            cy.getElementByTestId('mobile-nav-button-favorites').click({force:true}) 
+            break;
+        case Cypress.env('tablet'):
+            cy.scrollTo('top');
+            cy.getElementByTestId('nav-button-view-favorites').click();
+            break;
+        case Cypress.env('desktop'):
+            cy.getElementByTestId('nav-button-view-favorites').click();
+            break;
+    }
+    //Verify Components that were not tested on empty list
+    cy.getElementByTestId('favorites-page-list-item').then($element =>{
+        expect($element).to.be.visible;
+        cy.wrap($element).click();
+    });
+    
+    cy.getElementByTestId('favorites-list-remove-item-button').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).to.have.attr('type','button');
+    });
+
+
     
 
 
-
-})
+    
+});

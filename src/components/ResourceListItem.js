@@ -167,7 +167,11 @@ class ResourceListItem extends React.Component {
 									spacing={0}
 								>
 									<Grid item xs={8} md lg xl>
-										<Typography variant="subtitle2" className={orgName}>
+										<Typography
+											variant="subtitle2"
+											className={orgName}
+											data-test-id="favorites-list-item"
+										>
 											{name}
 										</Typography>
 									</Grid>
@@ -199,6 +203,7 @@ class ResourceListItem extends React.Component {
 										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
 												onClick={() => handleListRemoveFavorite(resource._id)}
+												data-test-id="favorites-list-remove-item-button"
 											>
 												<Fa name="times" />
 											</Button>
@@ -270,6 +275,7 @@ class ResourceListItem extends React.Component {
 												variant="subtitle2"
 												color="secondary"
 												className={orgName}
+												data-test-id="favorites-list-item"
 											>
 												{name}
 											</Typography>
@@ -301,6 +307,7 @@ class ResourceListItem extends React.Component {
 										)}
 										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
+												data-test-id="favorites-list-remove-item-button"
 												onClick={() => handleListRemoveFavorite(resource._id)}
 											>
 												<Fa name="times" />

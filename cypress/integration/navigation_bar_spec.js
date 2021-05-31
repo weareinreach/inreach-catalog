@@ -7,7 +7,7 @@
 //Test Suite
 describe('Home Page Navigation Bar Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
-
+    
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
     });
