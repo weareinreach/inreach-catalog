@@ -44,9 +44,36 @@ describe('Favorites List Tests', () => {
                 it(`Favorites Components logged in`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesComponents(viewport,user);
-                    })
+                    });
                     
                 });
         });
     });
+
+    //Create List
+    viewports.forEach(viewport=>{
+        context(`Testing the ${viewport} Version of the application`,()=>{
+                it(`Favorites Components logged in`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testFavoritesCreateNewList(viewport,user,"Automation List");
+                    });
+                    
+                });
+        });
+    });
+
+    //List with no items
+    viewports.forEach(viewport=>{
+        context(`Testing the ${viewport} Version of the application`,()=>{
+                it.only(`Favorites Components logged in`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testFavoritesListNoItems(viewport,user,"Automation List");
+                    });
+                    
+                });
+        });
+    });
+
+
 });
+

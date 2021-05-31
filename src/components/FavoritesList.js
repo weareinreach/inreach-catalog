@@ -200,14 +200,17 @@ const FavoritesList = ({
 							</Grid>
 						</Grid>
 						{lists.length > 0 ? (
-							<ul className={classes.favoritesList}>
+							<ul
+								className={classes.favoritesList}
+								data-test-id="favorites-page-list"
+							>
 								{lists.map((listOption) => (
 									<li
 										key={listOption._id}
 										onClick={() => handleListSelect(listOption)}
 										selected={list && listOption._id === list._id}
 										className={classes.favoriteItem}
-										data-test-id={'favorites-page-list-item-' + listOption}
+										data-test-id="favorites-page-list-item"
 									>
 										<Typography variant="h4" className={classes.listItem}>
 											{listOption.name}
@@ -241,7 +244,11 @@ const FavoritesList = ({
 					</Grid>
 					<Grid container direction="row" justify="space-between" spacing={1}>
 						<Grid item xs={12} md={6}>
-							<Typography className={classes.listName} variant="h3">
+							<Typography
+								className={classes.listName}
+								variant="h3"
+								data-test-id="favorites-page-list-name"
+							>
 								{list.name}
 							</Typography>
 						</Grid>
@@ -258,6 +265,7 @@ const FavoritesList = ({
 									onClick={() => {
 										window.print();
 									}}
+									data-test-id="favorites-page-print-icon"
 								>
 									<Fa name="print" />
 								</IconButton>
@@ -275,6 +283,7 @@ const FavoritesList = ({
 											  )
 									}
 									variant="secondary"
+									testIdName="favorites-page-share-button"
 								>
 									Share
 								</AsylumConnectButton>
@@ -308,7 +317,11 @@ const FavoritesList = ({
 								</div>
 							)}
 							{!loadingResources && list && resources.length === 0 && (
-								<Typography className={classes.marginTop} variant="body1">
+								<Typography
+									className={classes.marginTop}
+									variant="body1"
+									data-test-id="favorites-page-body-text"
+								>
 									You haven't added any resources to this list yet.
 								</Typography>
 							)}

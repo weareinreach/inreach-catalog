@@ -41,6 +41,17 @@ Cypress.Commands.add('login',(user)=>{
 	 cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
 });
 
+Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
+	if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('mobile-nav-button-favorites').click();
+    }else{
+        cy.getElementByTestId('nav-button-view-favorites').click();
+    }
+    cy.getElementByTestId('favorites-page-create-new-list-button').click();
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
+    cy.getElementByTestId('favorites-create-new-button').click();
+})
+
 
 
 

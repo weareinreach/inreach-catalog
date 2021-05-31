@@ -205,6 +205,7 @@ const FavoritesListMobile = ({
 								  )
 								: handleMessageNew('You must be logged in to share resources')
 						}
+						testIdName="favorites-page-share-button"
 					>
 						Share
 					</AsylumConnectButton>
@@ -214,12 +215,16 @@ const FavoritesListMobile = ({
 			{!list && (
 				<Grid item xs={12}>
 					{lists.length > 0 ? (
-						<ul className={classes.favoritesList}>
+						<ul
+							className={classes.favoritesList}
+							data-test-id="favorites-page-list"
+						>
 							{lists.map((list) => (
 								<li
 									key={list._id}
 									className={classes.favoriteItem}
 									onClick={() => handleListSelect(list)}
+									data-test-id="favorites-page-list-item"
 								>
 									<Typography variant="h4" className={classes.listItem}>
 										{list.name}
@@ -268,7 +273,7 @@ const FavoritesListMobile = ({
 						</Grid>
 					)}
 					{!loadingResources && list && resources.length === 0 && (
-						<Typography variant="body1">
+						<Typography variant="body1" data-test-id="favorites-page-body-text">
 							You haven't added any resources to this list yet.
 						</Typography>
 					)}

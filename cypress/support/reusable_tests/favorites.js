@@ -50,4 +50,100 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
         expect($element).to.be.visible;
         expect($element).contain("You haven't created any lists yet.");
     });
+    cy.getElementByTestId('favorites-page-create-new-list-button').then($element=>{
+        expect($element).to.be.visible;
+        viewport === Cypress.env('mobile') ? expect($element).contain("Select one of your favorites lists or create a new list.")  : expect($element).contain("Create New List");
+        cy.wrap($element).click();
+    });
+    cy.wait(1000);
+    cy.getElementByTestId('log-in-dialog-container-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("Create a New Favorites List");
+    });
+    cy.getElementByTestId('favorites-create-new-page-header-text').then($element=>{
+        expect($element).to.be.visible;
+        //expect($element).contain("Your favorites lists are only visible to you and anyone you share them with.");
+    });
+    cy.getElementByTestId('favorites-create-new-list-name-input').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("You could name your list by category, by day of the week, or by the name of whoever this list is for.");
+    });
+    cy.getElementByTestId('favorites-create-new-button').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("Create New List");
+    });
+
 });
+
+
+Cypress.Commands.add('testFavoritesCreateNewList',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user);
+    if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('mobile-nav-button-favorites').click();
+    }else{
+        cy.getElementByTestId('nav-button-view-favorites').click();
+    }
+    cy.getElementByTestId('favorites-page-create-new-list-button').click();
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
+    cy.getElementByTestId('favorites-create-new-button').click();
+    //New Item created
+    cy.getElementByTestId('favorites-page-list').then($element=>{
+        expect($element).to.be.visible;
+        expect($element.children()).to.have.length(1);
+        expect($element.children()).contain(listName);
+    });
+    cy.getElementByTestId('favorites-page-list-item').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain(listName);
+    })
+   
+});
+
+Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user);
+    cy.createFavoriteList(viewport,listName);
+    //click on the item
+    cy.getElementByTestId('favorites-page-list-item').click();
+    //Hack until Code fix to reload page
+    cy.reload();
+    cy.wait(1000);
+ 
+    cy.getElementByTestId('favorites-page-title-text').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("Favorites");
+    });
+    cy.getElementByTestId('favorites-page-header-text').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("Your favorites lists are only visible to you and anyone you choose to share your lists with.");
+    });
+    
+    //Non Mobile Tests
+    if(viewport !== Cypress.env('mobile')){
+        cy.getElementByTestId('favorites-page-print-icon').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('type','button');
+            expect($element).to.have.attr('title','Print Favorites');
+        });
+
+        cy.getElementByTestId('favorites-page-list-name').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain(listName);
+        });
+    }else{
+        //Mobile Only tests
+        cy.getElementByTestId('back-button').then($element=>{
+            expect($element).to.be.visible;
+        });
+    }
+
+    cy.getElementByTestId('favorites-page-body-text').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("You haven't added any resources to this list yet.");
+    });
+    
+
+
+
+})
