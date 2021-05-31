@@ -25,6 +25,4 @@ describe('Home Page Navigation Bar Tests', () => {
                 });
         });
     });
-
-
 });

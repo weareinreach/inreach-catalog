@@ -30,12 +30,6 @@ describe('Home Page Login Form Tests', () => {
                 it(`Login Form elements`,()=>{
                     cy.testLoginFormComponents(viewport);
                 });
-        });
-    });
-
-    //Action
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Login Action`,()=>{
                     cy.get('@new_user').then(user =>{
                         cy.addUser(user).then(() => {
@@ -44,5 +38,6 @@ describe('Home Page Login Form Tests', () => {
                     });
                 });
         });
-    });   
+    });
+
 });

@@ -35,47 +35,23 @@ describe('Favorites List Tests', () => {
                 it(`Favorites Components not logged in`,()=>{
                     cy.testFavoritesComponentsNotLoggedIn(viewport);
                 });
-        });
-    });
-
-    //Components Logged In
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Favorites Components logged in`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesComponents(viewport,user);
                     });
                     
                 });
-        });
-    });
-
-    //Create List
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Favorites List Components logged in`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesCreateNewList(viewport,user,"Automation List");
                     });
                     
                 });
-        });
-    });
-
-    //List with no items
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Favorites List Components logged in with no items`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesListNoItems(viewport,user,"Automation List");
                     });
                 });
-         });
-    });
-
-    //List with items
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Favorites List Components logged in with items`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesListWithItems(viewport,user,"Automation List","Denver");
@@ -83,6 +59,6 @@ describe('Favorites List Tests', () => {
             });
         });
     });
-
 });
+
 
