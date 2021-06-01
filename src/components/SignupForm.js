@@ -95,7 +95,7 @@ const SignupForm = ({
 						className={classes.marginBottom}
 						onClick={() => handleSelect(LAWYER_TYPE)}
 						variant="primary"
-						testIdName="dialog-container-sign-up-attorney"
+						testIdName="dialog-container-sign-up-attorney-button"
 					>
 						I am an attorney or law student
 					</AsylumConnectButton>
@@ -103,7 +103,7 @@ const SignupForm = ({
 						className={classes.marginBottomLg}
 						onClick={() => handleSelect(PROVIDER_TYPE)}
 						variant="primary"
-						testIdName="dialog-container-sign-up-non-legal-service-provider"
+						testIdName="dialog-container-sign-up-non-legal-service-provider-button"
 					>
 						I am a non-legal service provider
 					</AsylumConnectButton>
@@ -193,7 +193,10 @@ const SignupForm = ({
 			)}
 			{activeStep === 2 && (
 				<form onSubmit={handleCreateAffiliation}>
-					<Typography variant="h6">Connect to Your Organization</Typography>
+					""
+					<Typography variant="h6" data-test-id="sign-up-form-header-text">
+						Connect to Your Organization
+					</Typography>
 					<OrganizationAutocomplete
 						handleBlurOrganizations={handleBlurOrganizations}
 						handleMessageNew={handleMessageNew}
@@ -213,20 +216,25 @@ const SignupForm = ({
 						organizations={organizations}
 					/>
 					<div className={classes.marginVertical}>
-						<AsylumConnectButton variant="primary">
+						<AsylumConnectButton
+							variant="primary"
+							testIdName="sign-up-form-join-organization-button"
+						>
 							Join Organization
 						</AsylumConnectButton>
 					</div>
-					<Typography variant="body1">
+					<Typography variant="body1" data-test-id="sign-up-form-body-text">
 						You may also join your organization later in account settings.
 					</Typography>
 				</form>
 			)}
 			{activeStep === 3 && (
 				<form onSubmit={handleRequestClose}>
-					<Typography variant="h6">Confirmation</Typography>
+					<Typography variant="h6 " data-test-id="sign-up-form-header-text">
+						Confirmation
+					</Typography>
 					<div className={classes.marginVertical}>
-						<Typography variant="body1">
+						<Typography variant="body1" data-test-id="sign-up-form-body-text">
 							Thank you for requesting to join an organization's profile page on
 							AsylumConnect. Our team will review your request shortly. We will
 							reach out if we need more information to verify your connection to
@@ -234,7 +242,10 @@ const SignupForm = ({
 						</Typography>
 					</div>
 					<div className={classes.marginVertical}>
-						<AsylumConnectButton variant="primary">
+						<AsylumConnectButton
+							variant="primary"
+							testIdName="sign-up-form-finish-registration-button"
+						>
 							Finish Registration
 						</AsylumConnectButton>
 					</div>

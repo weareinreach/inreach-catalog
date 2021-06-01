@@ -17,6 +17,7 @@
 import './commands';
 import './reusableTests';
 import '@cypress/code-coverage/support';
+import './utilFunctions';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

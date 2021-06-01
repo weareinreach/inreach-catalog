@@ -80,10 +80,58 @@ Cypress.Commands.add('deleteUsersIfExist', () => {
 			//Regular User
 			if (
 				user.email === 'automation@gmail.com' ||
-				user.email === 'automation-updated@gmail.com'
+				user.email === 'automation-updated@gmail.com' ||
+				user.email === 'automation-attorney@gmail.com' ||
+				user.email === 'automation-regular@gmail.com' ||
+				user.email === 'automation-service-provider@gmail.com'
 			) {
 				cy.deleteUser(user._id);
 			}
 		});
+	});
+});
+
+//Organizations
+//Add Org
+Cypress.Commands.add('addOrg', (org) => {
+	compoundURL = Cypress.env('stagingAPIUrl').concat(
+		Cypress.env('version'),
+		Cypress.env('route_organizations')
+	);
+	cy.request({
+		method: 'POST',
+		url: compoundURL,
+		body: org
+	});
+});
+//Delete Org
+Cypress.Commands.add('deleteOrgsIfExist', () => {
+	cy.log('Cleaning Orgs...');
+	compoundURL = Cypress.env('stagingAPIUrl').concat(
+		Cypress.env('version'),
+		Cypress.env('route_slug_organizations'),
+		'/surprisingly-unique-organizations-slug'
+	);
+	cy.request({
+		method: 'GET',
+		url: compoundURL,
+		failOnStatusCode: false
+	}).then((response) => {
+		if (!response.body.notFound) {
+			cy.deleteOrgById(response.body._id);
+		}
+	});
+});
+
+//Delete Org by ID
+Cypress.Commands.add('deleteOrgById', (id) => {
+	compoundURL = Cypress.env('stagingAPIUrl').concat(
+		Cypress.env('version'),
+		Cypress.env('route_organizations'),
+		`/${id}`
+	);
+	cy.request({
+		method: 'DELETE',
+		url: compoundURL
 	});
 });
