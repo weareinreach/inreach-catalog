@@ -34,25 +34,9 @@ describe('Home Page Create Account Form Tests', () => {
                 it(`Create account ${userType} elements state 0`,()=>{
                     cy.testCreateAccountState0Elements(viewport,userType);
                 });
-            });
-        });
-    });
-
-    //Create Account Elements state 1
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
-            userTypes.forEach(userType=>{
                 it(`Create account ${userType} elements state 1`,()=>{
                     cy.testCreateAccountState1Elements(viewport,userType);
                 });
-            });
-        });
-    });
-
-    //Create Account Action
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
-            userTypes.forEach(userType=>{       
                 it(`Creating account for ${userType}`,()=>{
                     cy.get('@organization').then(org=>{
                         //Add Org

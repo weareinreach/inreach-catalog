@@ -86,6 +86,9 @@
     "include": [
       "**/src/*"
     ],
+    "exclude":[
+      "**/src/*.html"
+    ],
     "report-dir": "cypressCoverage",
     "reporter": [
       "html",

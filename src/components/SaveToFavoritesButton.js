@@ -407,6 +407,7 @@ class SaveToFavoritesButton extends React.Component {
 							);
 							return (
 								<MenuItem
+									data-test-id="search-result-favorite-list-item"
 									className={classes.favoriteItem}
 									key={list._id}
 									onClick={() =>
@@ -417,6 +418,7 @@ class SaveToFavoritesButton extends React.Component {
 								>
 									<span>{list.name}</span>
 									<RedHeartIcon
+										data-test-id="search-result-favorite-button"
 										width={'24px'}
 										fill={isFavoriteItem}
 										style={{float: 'right'}}

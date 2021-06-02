@@ -1,6 +1,7 @@
 {
 	"integrationFolder": "cypress/integration",
 	"reporter": "mochawesome",
+	"video":false,
 	"chromeWebSecurity": false,
 	"reporterOptions": {
 		"overwrite": false,
