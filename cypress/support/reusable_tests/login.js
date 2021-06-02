@@ -87,7 +87,7 @@ Cypress.Commands.add('testLoginFormComponents', (viewport) => {
             //click
             cy.wrap($element).click({force:true});
             cy.getElementByTestId('log-in-dialog-container').should('be.visible');
-            cy.getElementByTestId('log-in-dialog-container-title').then($element => {
+            cy.getElementByTestId('dialog-container-title').then($element => {
                 expect($element).contain("Log In");
                 expect($element).to.be.visible;
             });

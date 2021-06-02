@@ -52,11 +52,22 @@ describe('Favorites List Tests', () => {
                         cy.testFavoritesListNoItems(viewport,user,"Automation List");
                     });
                 });
-                it(`Favorites List Components logged in with items`,()=>{
+                it(`Favorites List adding item`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesListWithItems(viewport,user,"Automation List","Denver");
                     }); 
-            });
+                });
+                it(`Favorites List removing item`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testRemovingItemsFromFavoritesList(viewport,user,"Automation List","Denver");
+                    }); 
+                });
+                it(`Favorites List Sharing List`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testSharingFavoritesList(viewport,user,"Automation List","automation2@gmail.com");
+                    }); 
+                });
+
         });
     });
 });
