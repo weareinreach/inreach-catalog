@@ -125,7 +125,6 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
     if(viewport !== Cypress.env('mobile')){
         cy.getElementByTestId('favorites-page-print-icon').then($element=>{
             expect($element).to.be.visible;
-            expect($element).to.have.attr('type','submit');
             expect($element).to.have.attr('title','Print Favorites');
         });
 
@@ -142,8 +141,7 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
     cy.getElementByTestId('favorites-page-share-button').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain("Share");
-        expect($element).to.have.attr('type','button');
-    })
+    });
 
     cy.getElementByTestId('favorites-page-body-text').then($element=>{
         expect($element).to.be.visible;
