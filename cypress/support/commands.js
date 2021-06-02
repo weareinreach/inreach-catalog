@@ -50,7 +50,43 @@ Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
     cy.getElementByTestId('favorites-page-create-new-list-button').click();
     viewport === Cypress.env('mobile') ? cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
     cy.getElementByTestId('favorites-create-new-button').click();
+});
+
+Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName)=>{
+	//Search
+    cy.getElementByTestId('search-page-next-button').click({multiple:true});
+    cy.getElementByTestId('search-bar-input').type(searchName);
+    //Click first option 
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    })
+    cy.getElementByTestId('search-bar-search-button').click();
+    //Let it load 
+    cy.wait(1000);
+    cy.getElementByTestId('search-result-favorite-button').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.getElementByTestId('search-result-favorite-list-item').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+});
+
+Cypress.Commands.add('selectFavoritesList',(viewport)=>{
+	// eslint-disable-next-line default-case
+	switch(viewport){
+        case Cypress.env('mobile'):
+            cy.getElementByTestId('mobile-nav-button-favorites').click({force:true}) 
+            break;
+        case Cypress.env('tablet'):
+            cy.scrollTo('top');
+            cy.getElementByTestId('nav-button-view-favorites').click();
+            break;
+        case Cypress.env('desktop'):
+            cy.getElementByTestId('nav-button-view-favorites').click();
+            break;
+    }
 })
+
 
 
 

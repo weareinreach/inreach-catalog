@@ -1,3 +1,5 @@
+import { element } from "prop-types";
+
 Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
     cy.viewport(viewport);
     if(viewport === Cypress.env('mobile')){
@@ -56,7 +58,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
         cy.wrap($element).click();
     });
     cy.wait(1000);
-    cy.getElementByTestId('log-in-dialog-container-title').then($element=>{
+    cy.getElementByTestId('dialog-container-title').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain("Create a New Favorites List");
     });
@@ -137,6 +139,11 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
             expect($element).to.be.visible;
         });
     }
+    cy.getElementByTestId('favorites-page-share-button').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("Share");
+        expect($element).to.have.attr('type','button');
+    })
 
     cy.getElementByTestId('favorites-page-body-text').then($element=>{
         expect($element).to.be.visible;
@@ -150,17 +157,7 @@ Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,search
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     // eslint-disable-next-line default-case
-    switch(viewport){
-        case Cypress.env('mobile'):
-            cy.getElementByTestId('mobile-nav-button-search').click(); 
-            break;
-        case Cypress.env('tablet'):
-            cy.go('back');
-            break;
-        case Cypress.env('desktop'):
-            cy.getElementByTestId('nav-button-logo').click();
-            break;
-    }
+    cy.visit(Cypress.env('baseUrl'));
     //Search
     cy.getElementByTestId('search-page-next-button').click({multiple:true});
     cy.getElementByTestId('search-bar-input').type(searchName);
@@ -170,28 +167,16 @@ Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,search
     })
     cy.getElementByTestId('search-bar-search-button').click();
     //Let it load 
-    cy.wait(2000);
+    cy.wait(1000);
     cy.getElementByTestId('search-result-favorite-button').then($element=>{
         cy.wrap($element[0]).click();
     });
     cy.getElementByTestId('search-result-favorite-list-item').then($element=>{
         cy.wrap($element[0]).click();
-    });
-    
+    }); 
     //Favorites list
     // eslint-disable-next-line default-case
-    switch(viewport){
-        case Cypress.env('mobile'):
-            cy.getElementByTestId('mobile-nav-button-favorites').click({force:true}) 
-            break;
-        case Cypress.env('tablet'):
-            cy.scrollTo('top');
-            cy.getElementByTestId('nav-button-view-favorites').click();
-            break;
-        case Cypress.env('desktop'):
-            cy.getElementByTestId('nav-button-view-favorites').click();
-            break;
-    }
+    cy.selectFavoritesList(viewport);
     //Verify Components that were not tested on empty list
     cy.getElementByTestId('favorites-page-list-item').then($element =>{
         expect($element).to.be.visible;
@@ -202,10 +187,60 @@ Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,search
         expect($element).to.be.visible;
         expect($element).to.have.attr('type','button');
     });
-
-
     
+});
 
+Cypress.Commands.add('testRemovingItemsFromFavoritesList',(viewport,user,listName,searchName)=>{
+    cy.viewport(viewport);
+    cy.login(user);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.addToFavoritesListFromSearchPage(searchName);
+    //Favorites
+     //Favorites list
+    cy.selectFavoritesList(viewport);
+    //Verify favorites page is there and click
+    cy.getElementByTestId('favorites-page-list').should('be.visible')
+    cy.getElementByTestId('favorites-page-list-item').then($element=>{
+        expect($element).to.be.visible;
+        cy.wrap($element).click();
+    });
+    //remove it
+    cy.getElementByTestId('favorites-list-remove-item-button').click();
+    //Verify empty body of list returns
+    cy.getElementByTestId('favorites-page-body-text').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("You haven't added any resources to this list yet.")
+    });
+})
 
-    
+Cypress.Commands.add('testSharingFavoritesList',(viewport,user,listName,shareEmail)=>{
+    cy.viewport(viewport);
+    cy.login(user);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+    cy.getElementByTestId('favorites-page-share-button').click();
+    cy.getElementByTestId('dialog-container-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain(listName);
+    });
+    //Share with no email
+    cy.getElementByTestId('favorites-list-share-dialog-button').click();
+    cy.getElementByTestId('dialog-container-title').should('be.visible');
+    cy.getElementByTestId('favorites-list-share-email-input').should('be.visible');
+
+    //share with email
+    cy.getElementByTestId('favorites-list-share-email-input').then($element=>{
+        expect($element).to.be.visible;
+        cy.wrap($element).type(shareEmail);
+    });
+    cy.getElementByTestId('favorites-list-share-dialog-button').click();
+    //Back to favorites list
+    cy.getElementByTestId('favorites-page-title-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-header-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-share-button').should('be.visible');
 });

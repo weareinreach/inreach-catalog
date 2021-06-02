@@ -11,7 +11,7 @@ const DialogTitle = ({children, classes}) => (
 	<Typography
 		className={classes.title}
 		variant="h3"
-		data-test-id="log-in-dialog-container-title"
+		data-test-id="dialog-container-title"
 	>
 		{children}
 	</Typography>
