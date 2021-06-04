@@ -21,7 +21,10 @@ const styles = (theme) => ({
 
 const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 	<form className={classes.container} onSubmit={handleSubmit}>
-		<Typography variant="body1">
+		<Typography
+			variant="body1"
+			data-test-id="favorites-create-new-page-header-text"
+		>
 			Your favorites lists are only visible to you and anyone you share
 			them&nbsp;with.
 		</Typography>
@@ -35,8 +38,13 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			onChange={handleChange}
 			required
 			value={name}
+			data-test-id="favorites-create-new-list-name-input"
 		/>
-		<AsylumConnectButton className={classes.spacingAbove} variant="primary">
+		<AsylumConnectButton
+			className={classes.spacingAbove}
+			variant="primary"
+			testIdName="favorites-create-new-button"
+		>
 			Create New List
 		</AsylumConnectButton>
 	</form>

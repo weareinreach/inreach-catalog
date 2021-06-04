@@ -101,6 +101,7 @@ const FavoritesList = ({
 				className={classes.minHeight350}
 				variant="body1"
 				align="center"
+				data-test-id="favorites-page-header-text"
 			>
 				You must be logged in to use favorites.
 			</Typography>
@@ -137,7 +138,12 @@ const FavoritesList = ({
 			spacing={1}
 		>
 			<Grid item xs={12} md={6}>
-				<Typography className={classes.marginTop} variant="h1" align="center">
+				<Typography
+					className={classes.marginTop}
+					variant="h1"
+					align="center"
+					data-test-id="favorites-page-title-text"
+				>
 					{publicList ? publicList : 'Favorites'}
 				</Typography>
 				{!publicList && isOwner && (
@@ -145,6 +151,7 @@ const FavoritesList = ({
 						className={classes.marginTop}
 						variant="body1"
 						align="center"
+						data-test-id="favorites-page-header-text"
 					>
 						Your favorites lists are only visible to you and anyone you choose
 						to share your lists with.
@@ -155,6 +162,7 @@ const FavoritesList = ({
 						className={classes.marginTop}
 						variant="body1"
 						align="center"
+						data-test-id="favorites-page-header-text"
 					>
 						This list was shared with you.
 					</Typography>
@@ -184,6 +192,7 @@ const FavoritesList = ({
 									className={classes.pullRight}
 									onClick={() => handleRequestOpen('listNew/favoritesList')}
 									variant="secondary"
+									testIdName="favorites-page-create-new-list-button"
 								>
 									<Fa className={classes.marginRight} name="plus" /> Create New
 									List
@@ -191,13 +200,17 @@ const FavoritesList = ({
 							</Grid>
 						</Grid>
 						{lists.length > 0 ? (
-							<ul className={classes.favoritesList}>
+							<ul
+								className={classes.favoritesList}
+								data-test-id="favorites-page-list"
+							>
 								{lists.map((listOption) => (
 									<li
 										key={listOption._id}
 										onClick={() => handleListSelect(listOption)}
 										selected={list && listOption._id === list._id}
 										className={classes.favoriteItem}
+										data-test-id="favorites-page-list-item"
 									>
 										<Typography variant="h4" className={classes.listItem}>
 											{listOption.name}
@@ -210,6 +223,7 @@ const FavoritesList = ({
 								className={classNames(classes.marginBottom, classes.marginTop)}
 								variant="body1"
 								align="center"
+								data-test-id="favorites-page-body-text"
 							>
 								You haven't created any lists yet.
 							</Typography>
@@ -230,7 +244,11 @@ const FavoritesList = ({
 					</Grid>
 					<Grid container direction="row" justify="space-between" spacing={1}>
 						<Grid item xs={12} md={6}>
-							<Typography className={classes.listName} variant="h3">
+							<Typography
+								className={classes.listName}
+								variant="h3"
+								data-test-id="favorites-page-list-name"
+							>
 								{list.name}
 							</Typography>
 						</Grid>
@@ -247,6 +265,7 @@ const FavoritesList = ({
 									onClick={() => {
 										window.print();
 									}}
+									data-test-id="favorites-page-print-icon"
 								>
 									<Fa name="print" />
 								</IconButton>
@@ -264,6 +283,7 @@ const FavoritesList = ({
 											  )
 									}
 									variant="secondary"
+									testIdName="favorites-page-share-button"
 								>
 									Share
 								</AsylumConnectButton>
@@ -297,7 +317,11 @@ const FavoritesList = ({
 								</div>
 							)}
 							{!loadingResources && list && resources.length === 0 && (
-								<Typography className={classes.marginTop} variant="body1">
+								<Typography
+									className={classes.marginTop}
+									variant="body1"
+									data-test-id="favorites-page-body-text"
+								>
 									You haven't added any resources to this list yet.
 								</Typography>
 							)}

@@ -20,7 +20,11 @@ const styles = (theme) => ({
 });
 
 const FavoritesLink = ({classes, locale}) => (
-	<Link to={'/' + locale + '/favorites'} className="hide--on-print">
+	<Link
+		to={'/' + locale + '/favorites'}
+		className="hide--on-print"
+		data-test-id="nav-button-view-favorites"
+	>
 		<FormattedMessage
 			id="favorites.view-favorites"
 			defaultMessage="View Your Favorites"

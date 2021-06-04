@@ -1,3 +1,11 @@
 {
-    "baseUrl": "http://localhost:3000"
+	"integrationFolder": "cypress/integration",
+	"reporter": "mochawesome",
+	"video":false,
+	"chromeWebSecurity": false,
+	"reporterOptions": {
+		"overwrite": false,
+		"html": true,
+		"json": true
+	}
 }

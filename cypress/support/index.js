@@ -14,7 +14,15 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
+import '@cypress/code-coverage/support';
+
+// Import Reusable Tests definitions
+import './reusable_tests/navigation_bar';
+import './reusable_tests/login';
+import './reusable_tests/create_account';
+import './reusable_tests/favorites';
+
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
