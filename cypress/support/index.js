@@ -21,6 +21,7 @@ import '@cypress/code-coverage/support';
 import './reusable_tests/navigation_bar';
 import './reusable_tests/login';
 import './reusable_tests/create_account';
+import './reusable_tests/account_settings';
 import './reusable_tests/favorites';
 
 

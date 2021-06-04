@@ -17,7 +17,7 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
             expect($element).contain("Sign Up");
         });
     }else{
-        //Switch to mobile -- hack as Desktop and tablet do not have favorites button if not logged int
+        //Switch to mobile -- AUTOMATION BUG hack as Desktop and tablet do not have favorites button if not logged int
         cy.viewport(Cypress.env('mobile'));
         //click favorites in Mobile
         cy.getElementByTestId('mobile-nav-button-favorites').click();

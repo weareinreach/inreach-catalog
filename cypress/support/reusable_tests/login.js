@@ -24,20 +24,20 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
             expect($element).to.be.visible;
             expect($element.children()).contain("Your Account"); 
         });
-        cy.getElementByTestId('account-page-mobile-tabs').should('be.visible');
-        cy.getElementByTestId('account-page-mobile-tab-your-account').then($element=>{
+        cy.getElementByTestId('account-page-tabs').should('be.visible');
+        cy.getElementByTestId('account-page-tab-your-account').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain("Your Account");
         });
-        cy.getElementByTestId('account-page-mobile-email').then($element=>{
+        cy.getElementByTestId('account-page-email').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain("Change Email Address");
         });
-        cy.getElementByTestId('account-page-mobile-change-password').then($element=>{
+        cy.getElementByTestId('account-page-change-password').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain("Change Password");
         });
-        cy.getElementByTestId('account-page-mobile-delete-account').then($element=>{
+        cy.getElementByTestId('account-page-delete-account').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain("Delete Account");
         });
@@ -55,7 +55,7 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
 }
 
     if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('account-page-mobile-logout').then($element=>{
+        cy.getElementByTestId('account-page-logout').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain("Logout");
             cy.wrap($element).click();
