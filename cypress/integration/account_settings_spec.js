@@ -10,6 +10,7 @@ describe('Home Page Navigation Bar Tests', () => {
     
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
+        cy.fixture('user_new_update.json').as('user_update');
         cy.fixture('user_new.json').as('user').then(user=>{
             //Add User
             cy.addUser(user);
@@ -34,6 +35,27 @@ describe('Home Page Navigation Bar Tests', () => {
                         cy.testAccountSettingsElements(viewport,user);
                     });
                 });
+                it(`Account Settings Change Email`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.get('@user_update').then(update_user=>{
+                            cy.testChangeUserEmail(viewport,user,update_user);
+                        });
+                       
+                    });
+                });
+                it(`Account Settings Change Password`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.get('@user_update').then(update_user=>{
+                            cy.testChangeUserPassword(viewport,user,update_user);
+                        });
+                       
+                    });
+                });
+                it(`Account Settings Delete Account`,()=>{
+                    cy.get('@user').then(user=>{
+                            cy.testDeleteAccount(viewport,user);
+                        });
+                    });
         });
     });
 });

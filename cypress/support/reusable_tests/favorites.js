@@ -33,7 +33,7 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
 
 Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     cy.viewport(viewport);
-    cy.login(user);
+    cy.login(user,viewport);
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('mobile-nav-button-favorites').click();
     }else{
@@ -80,7 +80,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
 
 Cypress.Commands.add('testFavoritesCreateNewList',(viewport,user,listName)=>{
     cy.viewport(viewport);
-    cy.login(user);
+    cy.login(user,viewport);
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('mobile-nav-button-favorites').click();
     }else{
@@ -104,7 +104,7 @@ Cypress.Commands.add('testFavoritesCreateNewList',(viewport,user,listName)=>{
 
 Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
     cy.viewport(viewport);
-    cy.login(user);
+    cy.login(user,viewport);
     cy.createFavoriteList(viewport,listName);
     //click on the item
     cy.getElementByTestId('favorites-page-list-item').click();
@@ -151,7 +151,7 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
 
 Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,searchName)=>{
     cy.viewport(viewport);
-    cy.login(user);
+    cy.login(user,viewport);
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     // eslint-disable-next-line default-case
@@ -190,7 +190,7 @@ Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,search
 
 Cypress.Commands.add('testRemovingItemsFromFavoritesList',(viewport,user,listName,searchName)=>{
     cy.viewport(viewport);
-    cy.login(user);
+    cy.login(user,viewport);
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
@@ -215,7 +215,7 @@ Cypress.Commands.add('testRemovingItemsFromFavoritesList',(viewport,user,listNam
 
 Cypress.Commands.add('testSharingFavoritesList',(viewport,user,listName,shareEmail)=>{
     cy.viewport(viewport);
-    cy.login(user);
+    cy.login(user,viewport);
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));

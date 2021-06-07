@@ -34,6 +34,7 @@ const Message = ({classes, handleMessageClose, message, open}) => (
 				color="inherit"
 				className={classes.close}
 				onClick={handleMessageClose}
+				data-test-id="snackbar-close-button"
 			>
 				<CloseIcon />
 			</IconButton>

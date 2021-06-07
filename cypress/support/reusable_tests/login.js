@@ -1,7 +1,7 @@
 Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
     cy.viewport(viewport);
 
-    //Sing in Button
+    //Sign in Button
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('mobile-nav-button-account').then($element =>{
             cy.wrap($element).click();
