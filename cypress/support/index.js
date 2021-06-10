@@ -23,6 +23,7 @@ import './reusable_tests/login';
 import './reusable_tests/create_account';
 import './reusable_tests/account_settings';
 import './reusable_tests/favorites';
+import './reusable_tests/footer_bar';
 
 
 // Alternatively you can use CommonJS syntax:
