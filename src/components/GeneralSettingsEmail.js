@@ -111,7 +111,7 @@ class GeneralSettingsEmail extends React.Component {
 		return (
 			<div>
 				<div
-					data-test-id="account-page-mobile-email"
+					data-test-id="account-page-email"
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
@@ -121,6 +121,7 @@ class GeneralSettingsEmail extends React.Component {
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
 					<form className={classes.form} onSubmit={this.handleSubmit}>
 						<TextField
+							data-test-id="account-settings-email-old-address"
 							className={classes.inputLabel}
 							name="currentEmail"
 							type="email"
@@ -134,6 +135,7 @@ class GeneralSettingsEmail extends React.Component {
 							required
 						/>
 						<TextField
+							data-test-id="account-settings-email-new-address"
 							className={classes.inputLabel}
 							name="newEmail"
 							type="email"
@@ -147,6 +149,7 @@ class GeneralSettingsEmail extends React.Component {
 							required
 						/>
 						<TextField
+							data-test-id="account-settings-email-new-address-confirm"
 							className={classes.inputLabel}
 							name="confirmedEmail"
 							type="email"
@@ -160,7 +163,10 @@ class GeneralSettingsEmail extends React.Component {
 							required
 						/>
 						<div>
-							<AsylumConnectButton variant="secondary">
+							<AsylumConnectButton
+								variant="secondary"
+								testIdName="account-settings-email-button"
+							>
 								Change Email Address
 							</AsylumConnectButton>
 						</div>

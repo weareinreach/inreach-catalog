@@ -175,7 +175,7 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                 //logout
                 if(viewport === Cypress.env('mobile')){
                     cy.getElementByTestId('mobile-nav-button-account').click()
-                    cy.getElementByTestId('account-page-mobile-logout').click();
+                    cy.getElementByTestId('account-page-logout').click();
                 }else{
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
                 } 

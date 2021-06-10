@@ -138,7 +138,7 @@ class AccountPage extends React.Component {
 		let settings;
 		if (isAuthenticated && affiliation && isApproved) {
 			settings = isMobile ? (
-				<div data-test-id="account-page-mobile-account">
+				<div data-test-id="account-page-account">
 					<AppBar position="static">
 						<Tabs
 							value={value}
@@ -202,9 +202,9 @@ class AccountPage extends React.Component {
 			);
 		} else if (isAuthenticated && (!affiliation || !isApproved)) {
 			settings = isMobile ? (
-				<div data-test-id="account-page-mobile-tabs">
+				<div data-test-id="account-page-tabs">
 					<AppBar
-						data-test-id="account-page-mobile-tab-your-account"
+						data-test-id="account-page-tab-your-account"
 						position="static"
 					>
 						<Tabs
@@ -235,7 +235,7 @@ class AccountPage extends React.Component {
 					)}
 				</div>
 			) : (
-				<div data-test-id="account-page-mobile-tabs">
+				<div data-test-id="account-page-tabs">
 					<div className={classes.formRow}>
 						<GeneralSettings
 							affiliation={affiliation}

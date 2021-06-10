@@ -33,8 +33,18 @@ Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
     cy.viewport(viewport);
 });
 
-Cypress.Commands.add('login',(user)=>{
-	cy.getElementByTestId('nav-account-sign-in').click({force:true});
+Cypress.Commands.add('login',(user,viewport)=>{
+	if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('mobile-nav-button-account').then($element =>{
+            cy.wrap($element).click();
+        });
+        
+    }else{
+        cy.getElementByTestId('nav-account-sign-in').then($element => {
+            cy.wrap($element).click({force:true});
+        });
+    }
+
 	 //Enter Creds
 	 cy.getElementByTestId('log-in-dialog-container-email-input').type(user.email);
 	 cy.getElementByTestId('log-in-dialog-container-password-input').type(user.password);
@@ -135,6 +145,7 @@ Cypress.Commands.add('deleteUsersIfExist', () => {
 			//Regular User
 			if (
 				user.email === 'automation@gmail.com' ||
+				user.email === 'automation-update@gmail.com' ||
 				user.email === 'automation-updated@gmail.com' ||
 				user.email === 'automation-attorney@gmail.com' ||
 				user.email === 'automation-regular@gmail.com' ||

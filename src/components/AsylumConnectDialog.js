@@ -44,7 +44,12 @@ const AsylumConnectDialog = ({
 		onClose={handleRequestClose}
 	>
 		<div className={classes.dialogBody}>
-			<ActionButton onClick={handleRequestClose}>&times;</ActionButton>
+			<ActionButton
+				onClick={handleRequestClose}
+				testIdName="dialog-close-button"
+			>
+				&times;
+			</ActionButton>
 			{dialog === 'disclaimer' && (
 				<DisclaimerDialog
 					handleRequestClose={handleRequestClose}
