@@ -43,9 +43,7 @@ cy.getElementByTestId('suggest-page-services').then($element =>{
     expect($element).to.be.visible;
 });
 
-if (viewport === Cypress.env('mobile')){
-    cy.scrollTo('bottom',{duration:50});
-}
+cy.scrollTo('bottom',{duration:50});
 
 cy.getElementByTestId('suggest-page-website').then($element =>{
     expect($element).to.be.visible;
@@ -245,9 +243,8 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
         });
     });
     //scroll up and close
-    if (viewport === Cypress.env('mobile')){
-        cy.scrollTo('top',{duration:50});
-    }
+    cy.scrollTo('top',{duration:50});
+
     cy.wrap($element).click();
 });
 
