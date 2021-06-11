@@ -43,9 +43,7 @@ cy.getElementByTestId('suggest-page-services').then($element =>{
     expect($element).to.be.visible;
 });
 
-cy.scrollTo('bottom',{duration:50});
-
-cy.getElementByTestId('suggest-page-website').then($element =>{
+cy.getElementByTestId('suggest-page-website').scrollIntoView().then($element =>{
     expect($element).to.be.visible;
     expect($element.children()).contain('Websites:');
 });
@@ -163,11 +161,8 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
             expect($child.children()).to.have.attr('name','thursday_end');
         });
     });
-    //scroll down
-    if (viewport === Cypress.env('mobile')){
-        cy.scrollTo('bottom',{duration:5});
-    }
-    cy.getElementByTestId('suggest-page-hour-friday').then($element=>{
+    
+    cy.getElementByTestId('suggest-page-hour-friday').scrollIntoView().then($element=>{
         expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
@@ -243,10 +238,31 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
         });
     });
     //scroll up and close
-    cy.scrollTo('top',{duration:50});
-
-    cy.wrap($element).click();
+    cy.wrap($element).scrollIntoView().click();
 });
 
+//scroll to bottom
+cy.scrollTo('bottom');
 
+cy.getElementByTestId('suggest-page-feature').then($element=>{
+    expect($element).to.be.visible;
+    expect($element.children()).contain('Feature');
+});
+
+cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
+    cy.wrap($element[0]).then($child=>{
+        cy.wrap($child.children()).then($secondChild=>{
+              expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+              expect($secondChild.children()[0]).to.have.attr('name','Has A Confidentiality Policy');
+              expect($secondChild.children()[0]).to.have.attr('value','has-confidentiality-policy');
+        });
+    });
+    cy.wrap($element[1]).then($child=>{
+        cy.wrap($child.children()).then($secondChild=>{
+            expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+            expect($secondChild.children()[0]).to.have.attr('name','Cost Free');
+            expect($secondChild.children()[0]).to.have.attr('value','cost-free');
+    });
+});
+});
 });

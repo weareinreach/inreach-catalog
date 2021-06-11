@@ -601,12 +601,17 @@ class Suggestion extends React.Component {
 						<div>
 							<AsylumConnectButton
 								variant="secondary"
+								testIdName="suggest-page-suggest-button"
 								onClick={this.handleClick}
 								disabled={this.props.organizationSelection}
 							>
 								suggest resource
 							</AsylumConnectButton>
-							<Typography type="body1" className={classes.extraMargin}>
+							<Typography
+								type="body1"
+								className={classes.extraMargin}
+								data-test-id="suggest-page-footer"
+							>
 								All organization changes are subject to review by AsylumConnect
 								before publication
 							</Typography>
