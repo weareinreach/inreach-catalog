@@ -62,8 +62,7 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
     expect($element.children()).contain('Hour');
     cy.wrap($element).click();
     //Elements under Hour
-    cy.getElementByTestId('suggest-page-hour-monday').then($element=>{
-        expect($element).to.be.visible;
+    cy.getElementByTestId('suggest-page-hour-monday').scrollIntoView().then($element=>{
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Monday');
@@ -72,7 +71,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-monday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','monday_start');
@@ -87,8 +85,7 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
         });
     });
 
-    cy.getElementByTestId('suggest-page-hour-tuesday').then($element=>{
-        expect($element).to.be.visible;
+    cy.getElementByTestId('suggest-page-hour-tuesday').scrollIntoView().then($element=>{
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Tuesday');
@@ -97,7 +94,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-tuesday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','tuesday_start');
@@ -105,15 +101,13 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-tuesday-end').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','tuesday_end');
         });
     });
 
-    cy.getElementByTestId('suggest-page-hour-wednesday').then($element=>{
-        expect($element).to.be.visible;
+    cy.getElementByTestId('suggest-page-hour-wednesday').scrollIntoView().then($element=>{
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Wednesday');
@@ -122,7 +116,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-wednesday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','wednesday_start');
@@ -130,15 +123,13 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-wednesday-end').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','wednesday_end');
         });
     });
 
-    cy.getElementByTestId('suggest-page-hour-thursday').then($element=>{
-        expect($element).to.be.visible;
+    cy.getElementByTestId('suggest-page-hour-thursday').scrollIntoView().then($element=>{
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Thursday');
@@ -147,7 +138,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-thursday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','thursday_start');
@@ -155,7 +145,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-thursday-end').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','thursday_end');
@@ -163,7 +152,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
     });
     
     cy.getElementByTestId('suggest-page-hour-friday').scrollIntoView().then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Friday');
@@ -172,7 +160,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-friday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','friday_start');
@@ -180,15 +167,13 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-friday-end').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','friday_end');
         });
     });
 
-    cy.getElementByTestId('suggest-page-hour-saturday').then($element=>{
-        expect($element).to.be.visible;
+    cy.getElementByTestId('suggest-page-hour-saturday').scrollIntoView().then($element=>{
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Saturday');
@@ -197,7 +182,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-saturday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','saturday_start');
@@ -205,15 +189,13 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-saturday-end').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','saturday_end');
         });
     });
 
-    cy.getElementByTestId('suggest-page-hour-sunday').then($element=>{
-        expect($element).to.be.visible;
+    cy.getElementByTestId('suggest-page-hour-sunday').scrollIntoView().then($element=>{
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','checkbox');
            expect($child.children()).to.have.attr('name','Sunday');
@@ -222,7 +204,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
        
     });
     cy.getElementByTestId('suggest-page-hour-sunday-start').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','sunday_start');
@@ -231,7 +212,6 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
     });
 
     cy.getElementByTestId('suggest-page-hour-sunday-end').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element.children()[0]).then($child=>{
             expect($child.children()).to.have.attr('type','time');
             expect($child.children()).to.have.attr('name','sunday_end');
@@ -244,6 +224,7 @@ cy.getElementByTestId('suggest-page-hour').then($element=>{
 //scroll to bottom
 cy.scrollTo('bottom');
 
+//Feature
 cy.getElementByTestId('suggest-page-feature').then($element=>{
     expect($element).to.be.visible;
     expect($element.children()).contain('Feature');
@@ -262,7 +243,71 @@ cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
             expect($secondChild.children()[0]).to.have.attr('type','checkbox');
             expect($secondChild.children()[0]).to.have.attr('name','Cost Free');
             expect($secondChild.children()[0]).to.have.attr('value','cost-free');
+         });
     });
-});
-});
+    });
+
+    //Requirement
+    cy.getElementByTestId('suggest-page-requirement').then($element=>{
+        expect($element).to.be.visible;
+        expect($element.children()).contain('Requirement');
+    });
+
+    cy.getElementByTestId('suggest-page-requirement-checkbox-options').then($element=>{
+        cy.wrap($element[0]).then($child=>{
+            cy.wrap($child.children()).then($secondChild=>{
+                  expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+                  expect($secondChild.children()[0]).to.have.attr('name','Photo ID required');
+                  expect($secondChild.children()[0]).to.have.attr('value','req-photo-id');
+            });
+        });
+        cy.wrap($element[1]).then($child=>{
+            cy.wrap($child.children()).then($secondChild=>{
+                expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+                expect($secondChild.children()[0]).to.have.attr('name','Proof of income required');
+                expect($secondChild.children()[0]).to.have.attr('value','req-proof-of-income');
+             });
+        });
+        cy.wrap($element[2]).then($child=>{
+            cy.wrap($child.children()).then($secondChild=>{
+                  expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+                  expect($secondChild.children()[0]).to.have.attr('name','Proof of age required');
+                  expect($secondChild.children()[0]).to.have.attr('value','req-proof-of-age');
+            });
+        });
+        cy.wrap($element[3]).then($child=>{
+            cy.wrap($child.children()).then($secondChild=>{
+                  expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+                  expect($secondChild.children()[0]).to.have.attr('name','Medical insurance required');
+                  expect($secondChild.children()[0]).to.have.attr('value','req-medical-insurance');
+            });
+        });
+        cy.wrap($element[4]).then($child=>{
+            cy.wrap($child.children()).then($secondChild=>{
+                expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+                expect($secondChild.children()[0]).to.have.attr('name','Proof of residence required');
+                expect($secondChild.children()[0]).to.have.attr('value','req-proof-of-residence');
+             });
+        });
+        cy.wrap($element[5]).then($child=>{
+            cy.wrap($child.children()).then($secondChild=>{
+                expect($secondChild.children()[0]).to.have.attr('type','checkbox');
+                expect($secondChild.children()[0]).to.have.attr('name','A referral required');
+                expect($secondChild.children()[0]).to.have.attr('value','req-referral');
+             });
+        });
+        
+    });
+
+    cy.getElementByTestId('suggest-page-suggest-button').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).to.have.attr('type','submit');
+        expect($element.children()).contain('suggest resource');
+    });
+
+    cy.getElementByTestId('suggest-page-footer').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain('All organization changes are subject to review by AsylumConnect before publication');
+    });
+
 });
