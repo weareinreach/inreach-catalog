@@ -2,5 +2,7 @@
 	"name": "Surprisingly Unique Org Name",
 	"description": "Test organizations Description",
 	"slug": "surprisingly-unique-organizations-slug",
-	"website": "https://google.com"
+	"website": "https://google.com",
+	"phone": "7207776666",
+	"email":"surprising@gmail.com"
 }

@@ -50,7 +50,11 @@ class RenderSuggestion extends React.Component {
 				<div>
 					{parts.map((part, index) => {
 						return part.highlight ? (
-							<span key={index} style={{fontWeight: 300}}>
+							<span
+								key={index}
+								style={{fontWeight: 300}}
+								data-test-id="suggest-searched-language"
+							>
 								{part.text}
 							</span>
 						) : (

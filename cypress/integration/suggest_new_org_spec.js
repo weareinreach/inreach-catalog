@@ -10,6 +10,19 @@ describe('Home Page Navigation Bar Tests', () => {
     
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
+        //user
+        cy.fixture('user_new.json').as('user').then(user=>{
+            //Add User
+            cy.addUser(user);
+        });
+        //org
+        cy.fixture('organization.json').as('organization');
+    });
+
+    afterEach(() => {
+        //Do the clean up
+        cy.deleteUsersIfExist();
+        cy.deleteOrgsIfExist();
     });
 
     //Root
@@ -21,7 +34,18 @@ describe('Home Page Navigation Bar Tests', () => {
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Suggest New Organization Elements`,()=>{
-                    cy.testSuggestionElements(viewport);
+                    cy.get('@organization').then(org=>{
+                        cy.addOrg(org).then(()=>{
+                            cy.testSuggestionElements(viewport,org);
+                        }); 
+                    });
+                });
+                it(`Suggest New Organization Action`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.get('@organization').then(org=>{
+                            cy.testSuggestionAction(viewport,user,org);
+                        });
+                    });
                 });
         });
     });

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
-Cypress.Commands.add('testSuggestionElements',(viewport)=>{
+Cypress.Commands.add('testSuggestionElements',(viewport,org)=>{
 cy.viewport(viewport);
 //Navigate to suggestion
 if(viewport === Cypress.env('mobile')){
@@ -23,11 +23,25 @@ cy.getElementByTestId('suggest-page-body').then($element=>{
 
 cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
     expect($element).to.be.visible;
+    cy.wrap($element).type(org.name).then(()=>{
+        //wait for to populate
+        cy.wait(2000);
+        //select first
+        cy.getElementByTestId('sign-up-form-searched-organization').then($elements=>{
+            cy.wrap($elements[0]).click();
+        });
+        cy.getElementByTestId('suggest-page-body-2').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain(`Thank you for your interest in contributing to the AsylumConnect resource catalog! It seems we already have ${org.name} on the catalog. You can join this organization by signing up for a provider account`);
+        });
+    });
+   
 });
+
 
 cy.getElementByTestId('suggest-page-address').then($element=>{
     expect($element).to.be.visible;
-    expect($element).contain('Address:')
+    expect($element).contain('Address:');
 });
 cy.getElementByTestId('suggest-page-address-input').then($element =>{
     expect($element).to.be.visible;
@@ -309,5 +323,97 @@ cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain('All organization changes are subject to review by AsylumConnect before publication');
     });
+
+});
+
+
+Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
+    cy.login(user);
+    cy.viewport(viewport);
+    //Navigate to suggestion
+    if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('mobile-nav-button-more').click();
+        cy.getElementByTestId('more-suggest-a-resource').click({force:true,multiple:true});
+        cy.getElementByTestId('more-suggest-a-resource-us').click();
+    }else{
+        cy.scrollTo('bottom');
+        cy.getElementByTestId('footer-suggest-new').click();
+    }
+
+    cy.getElementByTestId('sign-up-form-find-organization').type(org.name);
+    //wait for to populate
+    cy.wait(2000);
+    //select first
+    cy.getElementByTestId('sign-up-form-no-organization').click();
+    
+    //AUTOMATION BUG - About input cannot be populated - 155
+    cy.getElementByTestId('suggest-page-about').type(org.description);
+    cy.getElementByTestId('suggest-page-services').type("English");
+    cy.getElementByTestId('suggest-searched-language').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    //AUTOMATION BUG - Website input cannot be populated - 155
+    cy.getElementByTestId('suggest-page-website').scrollIntoView().type(org.website);
+    cy.getElementByTestId('suggest-page-phone-number').clear().type(org.phone);
+    cy.getElementByTestId('suggest-page-email').type(org.email);
+
+    //hours
+    cy.getElementByTestId('suggest-page-hour').click();
+
+    cy.getElementByTestId('suggest-page-hour-monday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-monday-start').type('08:00');
+    cy.getElementByTestId('suggest-page-hour-monday-end').type('16:00');
+
+    cy.getElementByTestId('suggest-page-hour-tuesday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-tuesday-start').type('08:00');
+    cy.getElementByTestId('suggest-page-hour-tuesday-end').type('16:00');
+
+    cy.getElementByTestId('suggest-page-hour-wednesday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-wednesday-start').type('08:00');
+    cy.getElementByTestId('suggest-page-hour-wednesday-end').type('16:00');
+
+    cy.getElementByTestId('suggest-page-hour-thursday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-thursday-start').type('08:00');
+    cy.getElementByTestId('suggest-page-hour-thursday-end').type('16:00');
+
+    cy.getElementByTestId('suggest-page-hour-friday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-friday-start').type('08:00');
+    cy.getElementByTestId('suggest-page-hour-friday-end').type('15:00');
+
+    cy.getElementByTestId('suggest-page-hour-saturday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-saturday-start').type('09:00');
+    cy.getElementByTestId('suggest-page-hour-saturday-end').type('13:00');
+
+    cy.getElementByTestId('suggest-page-hour-sunday').scrollIntoView().click();
+    cy.getElementByTestId('suggest-page-hour-sunday-start').type('10:00');
+    cy.getElementByTestId('suggest-page-hour-sunday-end').type('13:00');
+
+    //close
+    cy.getElementByTestId('suggest-page-hour').scrollIntoView().click();
+
+    //Feature
+    cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
+        cy.wrap($element[0]).then($child=>{
+            cy.wrap($child.children()[0]).click();
+        });
+        cy.wrap($element[1]).then($child=>{
+            cy.wrap($child.children()[0]).click();
+        });
+    });
+
+    //Requirement    
+    cy.getElementByTestId('suggest-page-requirement-checkbox-options').then($element=>{
+        cy.wrap($element[0]).then($child=>{
+            cy.wrap($child.children()[0]).click();
+        });
+        cy.wrap($element[2]).then($child=>{
+            cy.wrap($child.children()[0]).click();
+        });
+        cy.wrap($element[5]).then($child=>{
+            cy.wrap($child.children()[0]).click();
+        });
+    });
+
+    cy.getElementByTestId('suggest-page-suggest-button').click();
 
 });

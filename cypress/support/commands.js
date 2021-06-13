@@ -201,3 +201,36 @@ Cypress.Commands.add('deleteOrgById', (id) => {
 		url: compoundURL
 	});
 });
+
+
+//Suggestions
+Cypress.Commands.add('deleteAutomationSuggestions', () => {
+	cy.log('Cleaning Suggestions...');
+	compoundURL = Cypress.env('stagingAPIUrl').concat(
+		Cypress.env('version'),
+		Cypress.env('route_suggestions'),
+		'/automation@gmail.com'
+	);
+	cy.request({
+		method: 'GET',
+		url: compoundURL
+	}).then((response) => {
+		let suggestionArray = response.body;
+		suggestionArray.forEach((suggestion) => {
+			cy.deleteSuggestionById(suggestion._id);
+		});
+	});
+});
+
+//Delete Suggestion by Id
+Cypress.Commands.add('deleteSuggestionById', (id) => {
+	compoundURL = Cypress.env('stagingAPIUrl').concat(
+		Cypress.env('version'),
+		Cypress.env('route_suggestions'),
+		`/${id}`
+	);
+	cy.request({
+		method: 'DELETE',
+		url: compoundURL
+	});
+});

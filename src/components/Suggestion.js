@@ -413,7 +413,7 @@ class Suggestion extends React.Component {
 			handleRequestOpen('login');
 			handleMessageNew('You need to log in to view your account.');
 		} else {
-			// Organize resourceData ready for submiting request
+			// Organize resourceData ready for submiting request (154)
 			this.organizeData();
 		}
 	}

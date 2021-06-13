@@ -50,7 +50,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-delete-account').then($element=>{
         expect($element).contain('Delete Account');
-        //AUTOMATION BUG Mobile delete account does nothing
+        //AUTOMATION BUG Mobile delete account does nothing(152)
         if(viewport !== Cypress.env('mobile')){
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('dialog-container-title').then($element=>{
@@ -164,7 +164,7 @@ Cypress.Commands.add('testDeleteAccount',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
     viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
-    //AUTOMATION BUG - Delete Account button does noting on Mobile
+    //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
     if(viewport !== Cypress.env('mobile')){
         cy.getElementByTestId('account-page-delete-account').click();
         cy.getElementByTestId('delete-account-password').type(user.password);
