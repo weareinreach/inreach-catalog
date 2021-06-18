@@ -97,13 +97,16 @@ Cypress.Commands.add('testSearchAction',(viewport,org)=>{
            // cy.wrap($element).click();
            // cy.getElementByTestId('resource-detail-dialog-close-button').click();
         });
+        cy.scrollTo('top');
         cy.getElementByTestId('resource-details-share').then($element=>{
             expect($element).to.be.visible;
             expect($element).to.have.attr('type','button');
         });
+        if(viewport===Cypress.env('desktop')){
         cy.getElementByTestId('resource-star-rating').then($element=>{
             expect($element).to.be.visible;
         });
+    }
 
         cy.getElementByTestId('disclaimer').then($element=>{
             expect($element).to.be.visible;
