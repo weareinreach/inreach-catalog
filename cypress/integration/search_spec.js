@@ -23,7 +23,7 @@ describe('Home Page Navigation Bar Tests', () => {
             it('Testing Search Page elements',()=>{
                 cy.testSearchPageElements(viewport);
             });
-            it.only('Testing Search Page Actions',()=>{
+            it('Testing Search Page Actions',()=>{
                  cy.get('@organization').then(org=>{
                     cy.testSearchAction(viewport,org);
                 });
