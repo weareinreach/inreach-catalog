@@ -338,9 +338,8 @@ class Detail extends React.Component {
 		this.handleOpen = this.handleOpen.bind(this);
 		this.handleOrganizationRequest = this.handleOrganizationRequest.bind(this);
 		this.handleServiceRequest = this.handleServiceRequest.bind(this);
-		this.handleSupplementalInfoRequest = this.handleSupplementalInfoRequest.bind(
-			this
-		);
+		this.handleSupplementalInfoRequest =
+			this.handleSupplementalInfoRequest.bind(this);
 		this.handleSwipeChange = this.handleSwipeChange.bind(this);
 		this.handleTabClickDesktop = this.handleTabClickDesktop.bind(this);
 		this.handleTabClickMobile = this.handleTabClickMobile.bind(this);
@@ -698,6 +697,7 @@ class Detail extends React.Component {
 												userData={userData}
 											/>
 											<IconButton
+												data-test-id="resource-details-share"
 												className="center-align"
 												onClick={() =>
 													session

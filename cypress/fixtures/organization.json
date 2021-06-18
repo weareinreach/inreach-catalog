@@ -4,5 +4,28 @@
 	"slug": "surprisingly-unique-organizations-slug",
 	"website": "https://google.com",
 	"phone": "7207776666",
-	"email":"surprising@gmail.com"
+	"is_published": true,
+	"emails": [{
+		"email": "surprising@gmail.com",
+		"first_name": "First",
+		"last_name": "Last",
+		"is_primary": true,
+		"show_on_organization": true
+	}],
+	"locations": [{
+			"address": "1735 Mission Street",
+			"city": "Casper",
+			"is_primary": true,
+			"lat": "42.8501",
+			"long": "-106.3252",
+			"name": "Lyon-Martin Health Services",
+			"show_on_organization": true,
+			"state": "WY",
+			"unit": "",
+			"zip_code": "82601",
+			"country_ES": "",
+			"state_ES": ""
+		}
+
+	]
 }

@@ -10,6 +10,7 @@ describe('Home Page Navigation Bar Tests', () => {
     
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
+        cy.fixture('organization_search.json').as('organization');
     });
 
     //Root
@@ -21,6 +22,11 @@ describe('Home Page Navigation Bar Tests', () => {
         context(`Testing the ${viewport} Version of the application`,()=>{
             it('Testing Search Page elements',()=>{
                 cy.testSearchPageElements(viewport);
+            });
+            it.only('Testing Search Page Actions',()=>{
+                 cy.get('@organization').then(org=>{
+                    cy.testSearchAction(viewport,org);
+                });
             });
         });
     });

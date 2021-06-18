@@ -1,3 +1,5 @@
+import { exception } from "react-ga";
+
 Cypress.Commands.add('testSearchPageElements',(viewport)=>{
     cy.viewport(viewport);
     cy.getElementByTestId('search-page-next-button').click();
@@ -22,7 +24,7 @@ Cypress.Commands.add('testSearchPageElements',(viewport)=>{
         expect($element).to.be.visible;
     })
 
-    cy.getElementByTestId('search-form-checkbox').then($element=>{
+    cy.getElementByTestId('checkbox').then($element=>{
         expect($element).to.be.visible;
     });
 
@@ -38,3 +40,98 @@ Cypress.Commands.add('testSearchPageElements',(viewport)=>{
         expect($element).contain("Download Legal Guides on LGBTQ Asylum in the U.S.");
     });
 });
+
+Cypress.Commands.add('testSearchAction',(viewport,org)=>{
+    cy.viewport(viewport);
+    cy.getElementByTestId('search-page-next-button').click();
+    cy.waitFor(1000);
+    //Check checkbox
+    cy.getElementByTestId('checkbox').click();
+    cy.getElementByTestId('search-bar-input').type(org.search);
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.getElementByTestId('search-bar-search-button').click();
+    cy.wait(500);
+    cy.getElementByTestId('favorites-list-item').then($element=>{
+        expect($element).to.be.visible;
+    });
+    cy.getElementByTestId('search-result-favorite-button').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).to.have.attr('data-name','Layer 1');
+    });
+    cy.getElementByTestId('badge').then($element=>{
+        expect($element).to.be.visible;
+    });
+    cy.getElementByTestId('favorites-list-item').then($element=>{
+        expect($element).to.be.visible;
+        //click the org
+        cy.wrap($element).click();
+
+        cy.getElementByTestId('back-button').then($element=>{
+            expect($element).to.be.visible;
+            if(viewport !==Cypress.env('mobile')){
+            expect($element.children()).contain('Back to Search Results');
+            }
+        });
+        cy.getElementByTestId('tabs-value-about').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('type','button');
+            expect($element.children()).contain('ABOUT');
+        });
+        cy.getElementByTestId('tabs-value-visit').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('type','button');
+            viewport === Cypress.env('mobile') ? expect($element.children()).contain('VISIT (MAP)'): expect($element.children()).contain('VISIT');
+        });
+
+        cy.getElementByTestId('tabs-value-reviews').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('type','button');
+            expect($element.children()).contain('REVIEWS');
+        });
+
+        cy.getElementByTestId('search-result-favorite-button').then($element=>{
+            expect($element).to.be.visible;
+            //click and test pop up
+           // cy.wrap($element).click();
+           // cy.getElementByTestId('resource-detail-dialog-close-button').click();
+        });
+        cy.getElementByTestId('resource-details-share').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('type','button');
+        });
+        cy.getElementByTestId('resource-star-rating').then($element=>{
+            expect($element).to.be.visible;
+        });
+
+        cy.getElementByTestId('disclaimer').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain('In response to the ever-changing COVID-19 pandemic, all in-person testing services remain suspended at this time. However, in efforts to continue to provide free HIV testing and counseling services with same-day results during the outbreak, NAP is offering HIV Testing To-Go at the Omaha, Lincoln, and Kearney NAP offices. See: https://www.nap.org/home/programs-and-services/hiv-testing/')
+        });
+
+        cy.getElementByTestId('resource-details-services').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Services');
+        });
+
+        cy.getElementByTestId('resource-details-services').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Services');
+        });
+
+        cy.getElementByTestId('badge').then($element=>{
+            expect($element).to.be.visible;
+        })
+
+
+ 
+        
+
+    });
+
+
+
+
+
+})

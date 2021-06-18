@@ -69,14 +69,8 @@ class AsylumConnectCollapsibleSection extends React.Component {
 	}
 
 	render() {
-		const {
-			content,
-			title,
-			borderTop,
-			borderBottom,
-			className,
-			testIdName
-		} = this.props;
+		const {content, title, borderTop, borderBottom, className, testIdName} =
+			this.props;
 		const {expanded} = this.state;
 		const {
 			iconClass,
@@ -99,7 +93,7 @@ class AsylumConnectCollapsibleSection extends React.Component {
 		//const rootClass = (this.props.rootClass ? this.props.rootClass + ' ' : '');
 
 		return (
-			<div className={containerClasses} data-test-id={testIdName}>
+			<div className={containerClasses}>
 				<ExpansionPanel
 					className={rootClass}
 					expanded={expanded}
@@ -114,7 +108,10 @@ class AsylumConnectCollapsibleSection extends React.Component {
 						}}
 						expandIcon={<KeyboardArrowDownIcon />}
 					>
-						<Typography variant="subtitle2" data-test-id={testIdName}>
+						<Typography
+							variant="subtitle2"
+							data-test-id={'resource-details-' + title.toLowerCase()}
+						>
 							{title}
 						</Typography>
 					</ExpansionPanelSummary>
