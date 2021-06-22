@@ -110,7 +110,7 @@ class AsylumConnectCollapsibleSection extends React.Component {
 					>
 						<Typography
 							variant="subtitle2"
-							data-test-id={'resource-details-' + title.toLowerCase()}
+							data-test-id={'resource-details-' + testIdName}
 						>
 							{title}
 						</Typography>

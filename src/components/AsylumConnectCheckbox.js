@@ -69,7 +69,7 @@ const AsylumConnectCheckbox = (props) => {
 		<FormControlLabel
 			control={
 				<Checkbox
-					data-test-id="checkbox"
+					data-test-id={props.testIdName}
 					value={props.value}
 					name={props.name ? props.name : props.label}
 					icon={<CheckBoxOutlineBlankIcon style={iconSize} />}

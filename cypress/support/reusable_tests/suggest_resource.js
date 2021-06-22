@@ -5,7 +5,7 @@ cy.viewport(viewport);
 //Navigate to suggestion
 if(viewport === Cypress.env('mobile')){
     cy.getElementByTestId('mobile-nav-button-more').click();
-    cy.getElementByTestId('more-suggest-a-resource').click({force:true,multiple:true});
+    cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
     cy.getElementByTestId('more-suggest-a-resource-us').click();
 }else{
     cy.scrollTo('bottom');
@@ -330,10 +330,11 @@ cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
 Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
     cy.login(user);
     cy.viewport(viewport);
+    cy.wait(1000);
     //Navigate to suggestion
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('mobile-nav-button-more').click();
-        cy.getElementByTestId('more-suggest-a-resource').click({force:true,multiple:true});
+        cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
         cy.getElementByTestId('more-suggest-a-resource-us').click();
     }else{
         cy.scrollTo('bottom');
@@ -355,10 +356,11 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
     //AUTOMATION BUG - Website input cannot be populated - 155
     cy.getElementByTestId('suggest-page-website').scrollIntoView().type(org.website);
     cy.getElementByTestId('suggest-page-phone-number').clear().type(org.phone);
-    cy.getElementByTestId('suggest-page-email').type(org.email);
+    cy.getElementByTestId('suggest-page-email').type(org.emails[0].email);
 
     //hours
     cy.getElementByTestId('suggest-page-hour').click();
+    cy.wait(500);
 
     cy.getElementByTestId('suggest-page-hour-monday').scrollIntoView().click();
     cy.getElementByTestId('suggest-page-hour-monday-start').type('08:00');
