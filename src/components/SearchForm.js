@@ -107,7 +107,7 @@ class SearchForm extends React.Component {
 				/>
 				<Grid container spacing={0} className={nationalOrgCheckboxContainer}>
 					<Grid item>
-						<AsylumConnect
+						<AsylumConnectCheckbox
 							testIdName="search-page-checkbox"
 							label={
 								this.props.locale
