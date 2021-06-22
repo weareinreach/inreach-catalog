@@ -697,7 +697,6 @@ class Detail extends React.Component {
 												userData={userData}
 											/>
 											<IconButton
-												data-test-id="resource-details-share"
 												className="center-align"
 												onClick={() =>
 													session
