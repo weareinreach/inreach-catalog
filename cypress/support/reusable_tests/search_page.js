@@ -24,7 +24,7 @@ Cypress.Commands.add('testSearchPageElements',(viewport)=>{
         expect($element).to.be.visible;
     })
 
-    cy.getElementByTestId('checkbox').then($element=>{
+    cy.getElementByTestId('search-page-checkbox').then($element=>{
         expect($element).to.be.visible;
     });
 
@@ -46,7 +46,7 @@ Cypress.Commands.add('testSearchAction',(viewport,org)=>{
     cy.getElementByTestId('search-page-next-button').click();
     cy.waitFor(1000);
     //Check checkbox
-    cy.getElementByTestId('checkbox').click();
+    cy.getElementByTestId('search-page-checkbox').click();
     cy.getElementByTestId('search-bar-input').type(org.search);
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
