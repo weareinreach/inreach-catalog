@@ -1,5 +1,3 @@
-import { exception } from "react-ga";
-
 Cypress.Commands.add('testSearchPageElements',(viewport)=>{
     cy.viewport(viewport);
     cy.getElementByTestId('search-page-next-button').click();
@@ -109,7 +107,6 @@ Cypress.Commands.add('testSearchAction',(viewport,org)=>{
 
         cy.getElementByTestId('disclaimer').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain('In response to the ever-changing COVID-19 pandemic, all in-person testing services remain suspended at this time. However, in efforts to continue to provide free HIV testing and counseling services with same-day results during the outbreak, NAP is offering HIV Testing To-Go at the Omaha, Lincoln, and Kearney NAP offices. See: https://www.nap.org/home/programs-and-services/hiv-testing/')
         });
 
         cy.getElementByTestId('resource-details-services').then($element=>{
@@ -117,18 +114,34 @@ Cypress.Commands.add('testSearchAction',(viewport,org)=>{
             expect($element).contain('Services');
         });
 
+        cy.getElementByTestId('resource-details-communities').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Who this organization serves');
+        });
+
         cy.getElementByTestId('resource-details-services').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('Services');
         });
+        cy.getElementByTestId('resource-details-language-services').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Language services');
+        });
+        cy.getElementByTestId('resource-details-visit').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Visit');
+        });
+        //Non-Mobile only
+        if(viewport!==Cypress.env('mobile')){
+        cy.getElementByTestId('resource-details-reviews').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Reviews');
+        });
+        }
 
         cy.getElementByTestId('badge').then($element=>{
             expect($element).to.be.visible;
-        })
-
-
- 
-        
+        });
 
     });
 

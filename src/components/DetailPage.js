@@ -866,6 +866,7 @@ class Detail extends React.Component {
 												<>
 													{propsByType?.community?.length > 0 && (
 														<AsylumConnectCollapsibleSection
+															testIdName="communities"
 															title={whoThis}
 															content={
 																<Communities
@@ -877,6 +878,7 @@ class Detail extends React.Component {
 													)}
 													{services?.length > 0 && (
 														<AsylumConnectCollapsibleSection
+															testIdName="services"
 															title="Services"
 															content={
 																<Services
@@ -906,6 +908,7 @@ class Detail extends React.Component {
 															)}
 															{propsByType?.['cost']?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
+																	testIdName="cost"
 																	title="Cost"
 																	content={
 																		<PropertyList
@@ -917,6 +920,7 @@ class Detail extends React.Component {
 															) : null}
 															{propsByType?.eligibility?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
+																	testIdName="requirements"
 																	title="Requirements"
 																	content={
 																		<PropertyList
@@ -928,6 +932,7 @@ class Detail extends React.Component {
 															) : null}
 															{propsByType?.['required']?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
+																	testIdName="required"
 																	title="Required"
 																	content={
 																		<PropertyList
@@ -939,6 +944,7 @@ class Detail extends React.Component {
 															) : null}
 															{propsByType?.['additional-info']?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
+																	testIdName="additional-information"
 																	title="Additional information"
 																	content={
 																		<PropertyList
@@ -952,6 +958,7 @@ class Detail extends React.Component {
 													)}
 													{propsByType?.language?.length > 0 && (
 														<AsylumConnectCollapsibleSection
+															testIdName="language-services"
 															title="Language services"
 															content={
 																<Languages
@@ -966,6 +973,7 @@ class Detail extends React.Component {
 										</div>
 										<div className={classes.mobileSpacing}>
 											<AsylumConnectCollapsibleSection
+												testIdName="visit"
 												borderTop={false}
 												title="Visit"
 												content={
@@ -1023,6 +1031,7 @@ class Detail extends React.Component {
 										<div className={classes.mobileSpacing}>
 											{showReviewForm ? (
 												<AsylumConnectCollapsibleSection
+													testIdName="leave-review"
 													borderTop={false}
 													title="Leave a review"
 													content={
@@ -1037,6 +1046,7 @@ class Detail extends React.Component {
 												/>
 											) : null}
 											<AsylumConnectCollapsibleSection
+												testIdName="review"
 												borderTop={showReviewForm}
 												title="Reviews"
 												content={<Reviews reviews={comments} />}
@@ -1233,6 +1243,7 @@ class Detail extends React.Component {
 										<>
 											{propsByType?.community?.length > 0 && (
 												<AsylumConnectCollapsibleSection
+													testIdName="communities"
 													title={whoThis}
 													content={
 														<Communities
@@ -1244,6 +1255,7 @@ class Detail extends React.Component {
 											)}
 											{services?.length > 0 && (
 												<AsylumConnectCollapsibleSection
+													testIdName="services"
 													title="Services"
 													content={
 														<Services
@@ -1260,6 +1272,7 @@ class Detail extends React.Component {
 												<>
 													{resourceTags && (
 														<AsylumConnectCollapsibleSection
+															testIdName="service-type"
 															title="Service Type"
 															content={
 																<ServiceType
@@ -1273,6 +1286,7 @@ class Detail extends React.Component {
 													)}
 													{propsByType?.['cost']?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
+															testIdName="cost"
 															title="Cost"
 															content={
 																<PropertyList
@@ -1284,6 +1298,7 @@ class Detail extends React.Component {
 													) : null}
 													{propsByType?.eligibility?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
+															testIdName="requirements"
 															title="Requirements"
 															content={
 																<PropertyList
@@ -1295,6 +1310,7 @@ class Detail extends React.Component {
 													) : null}
 													{propsByType?.['required']?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
+															testIdName="required"
 															title="Required"
 															content={
 																<PropertyList
@@ -1306,6 +1322,7 @@ class Detail extends React.Component {
 													) : null}
 													{propsByType?.['additional-info']?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
+															testIdName="additional-information"
 															title="Additional information"
 															content={
 																<PropertyList
@@ -1319,6 +1336,7 @@ class Detail extends React.Component {
 											)}
 											{propsByType?.language?.length > 0 && (
 												<AsylumConnectCollapsibleSection
+													testIdName="language-services"
 													title="Language services"
 													content={
 														<Languages
@@ -1332,6 +1350,7 @@ class Detail extends React.Component {
 									)}
 									<Element name="visit" />
 									<AsylumConnectCollapsibleSection
+										testIdName="visit"
 										title="Visit"
 										content={
 											this.isServicePage ? (
@@ -1356,6 +1375,7 @@ class Detail extends React.Component {
 									<Element name="reviews" />
 									{showReviewForm && (
 										<AsylumConnectCollapsibleSection
+											testIdName="leave-review"
 											title="Leave a review"
 											content={
 												<ReviewForm
@@ -1369,6 +1389,7 @@ class Detail extends React.Component {
 										/>
 									)}
 									<AsylumConnectCollapsibleSection
+										testIdName="reviews"
 										title="Reviews"
 										content={<Reviews reviews={comments} />}
 									/>
