@@ -20,7 +20,7 @@ const enCA = {
 		'Psychological evaluations for refugee claim',
 	'Career counseling': 'Career counselling',
 	'Private therapy and counseling': 'Private therapy and counselling',
-	'39.8333333': '60.8545463',
+	39.8333333: '60.8545463',
 	'-98.585522': '-98.585522'
 };
 
@@ -44,7 +44,7 @@ const enMX = {
 		'Psychological evaluations for refugee claim',
 	'Career counseling': 'Career counselling',
 	'Private therapy and counseling': 'Private therapy and counselling',
-	'39.8333333': '23.634501',
+	39.8333333: '23.634501',
 	'-98.585522': '-102.552784'
 };
 
@@ -81,5 +81,6 @@ export const setLocale = (locale) => {
 export const localeTagMap = {
 	en_CA: 'canada',
 	en_MX: 'mexico',
-	en_US: 'united_states'
+	en_US: 'united_states',
+	es_MX: 'mexico'
 };
