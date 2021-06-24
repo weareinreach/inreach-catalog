@@ -120,7 +120,7 @@ const propertyMap = {
 		'lang-mongolian': {code: 'mn'},
 		'lang-nepali': {code: 'ne'},
 		'lang-oromo': {code: 'om'},
-		'lang-pashtu': {code: 'ps'},
+		'lang-pashto': {code: 'ps'},
 		'lang-polish': {code: 'pl'},
 		'lang-portuguese': {code: 'pt'},
 		'lang-pulaar': {name: 'Pulaar'},
