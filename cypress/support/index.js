@@ -26,6 +26,7 @@ import './reusable_tests/favorites';
 import './reusable_tests/footer_bar';
 import './reusable_tests/suggest_resource';
 import './reusable_tests/search_page';
+import './reusable_tests/announcement';
 
 
 // Alternatively you can use CommonJS syntax:
