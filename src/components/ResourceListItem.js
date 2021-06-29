@@ -215,7 +215,11 @@ class ResourceListItem extends React.Component {
 								(item) => item.toLowerCase().indexOf('service-national') === 0
 							).length ? (
 								<Grid item xs={12}>
-									<Typography variant="body1" className={nationalOrg}>
+									<Typography
+										variant="body1"
+										className={nationalOrg}
+										data-test-id="resource-list-item"
+									>
 										<Fa name="info-circle" className={moreInfo} /> This
 										organization can help people located anywhere in the
 										country.

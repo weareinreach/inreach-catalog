@@ -104,11 +104,11 @@ class SearchForm extends React.Component {
 					{...this.props}
 					classes={null}
 					moveSearchButton={this.onMoveSearchButton}
-					data-test-id="serchbar"
 				/>
 				<Grid container spacing={0} className={nationalOrgCheckboxContainer}>
 					<Grid item>
 						<AsylumConnectCheckbox
+							testIdName="search-page-checkbox"
 							label={
 								this.props.locale
 									? this.props.t(
@@ -147,6 +147,7 @@ class SearchForm extends React.Component {
 					{this.props.infographic ? (
 						<Grid item xs={12} sm={12} md={8} className={searchButton}>
 							<AsylumConnectInfographicButton
+								testIdName="search-form-download-link"
 								type="link"
 								url={
 									this.props.infographic.url ? this.props.infographic.url : null
