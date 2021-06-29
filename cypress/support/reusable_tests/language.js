@@ -30,11 +30,11 @@ Cypress.Commands.add('testLanguageAction',(viewport)=>{
         cy.getElementByTestId('nav-button-language-item').then($element=>{
             cy.wrap($element[2]).click();
         });
+        cy.getElementByTestId('search-page-next-button').click();
         cy.location().should(loc => {
             expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');
             expect(loc.hostname).to.be.eq('localhost');
         });
-        cy.getElementByTestId('search-page-next-button').click();
         cy.wait(1000);
         cy.getElementByTestId('search-form-body').then($element=>{
             expect($element).to.be.visible;
@@ -47,6 +47,10 @@ Cypress.Commands.add('testLanguageAction',(viewport)=>{
         cy.getElementByTestId('search-bar-search-button').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain('Rechercher');
+        });
+        cy.getElementByTestId('search-form-download-link').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain("Téléchargez les guides juridiques sur l'asile LGBTQ aux États-Unis");
         })
 
     });
