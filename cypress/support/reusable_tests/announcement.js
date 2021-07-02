@@ -8,6 +8,7 @@ Cypress.Commands.add('testAnnouncementBannerElementsAndActions',(viewport)=>{
         expect($element).to.be.visible;
         expect($element).contain('Disclaimer');
         cy.wrap($element).click();
+        cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('AsylumConnect Disclaimer');
@@ -28,6 +29,7 @@ Cypress.Commands.add('testAnnouncementBannerElementsAndActions',(viewport)=>{
         expect($element).to.be.visible;
         expect($element).contain('User Privacy Statement');
         cy.wrap($element).click();
+        cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('AsylumConnect User Privacy Statement');
