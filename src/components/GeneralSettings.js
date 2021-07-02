@@ -136,7 +136,7 @@ class GeneralSettings extends React.Component {
 					handleMessageNew={handleMessageNew}
 				/>
 				<div
-					data-test-id="account-page-mobile-logout"
+					data-test-id="account-page-logout"
 					onClick={() => {
 						handleMessageNew('Logout successful.');
 						handleLogOut();
@@ -146,7 +146,7 @@ class GeneralSettings extends React.Component {
 					<span>Logout</span>
 				</div>
 				<div
-					data-test-id="account-page-mobile-delete-account"
+					data-test-id="account-page-delete-account"
 					onClick={() => handleRequestOpen('deleteAccount')}
 					className={classes.settingsTypeFont}
 				>

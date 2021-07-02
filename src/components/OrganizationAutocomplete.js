@@ -43,7 +43,7 @@ function renderSuggestion(suggestion, {query, isHighlighted}) {
 						<span
 							key={index}
 							style={{fontWeight: 300}}
-							data-test-id={'sign-up-form-searched-organization'}
+							data-test-id="sign-up-form-searched-organization"
 						>
 							{part.text}
 						</span>
@@ -109,7 +109,10 @@ function renderSuggestionsContainer(options) {
 					}}
 				>
 					<MenuItem component="div">
-						<span style={{fontWeight: 200}}>
+						<span
+							style={{fontWeight: 200}}
+							data-test-id="sign-up-form-no-organization"
+						>
 							Can't find it? Add a new organization here...
 						</span>
 					</MenuItem>

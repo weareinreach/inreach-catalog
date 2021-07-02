@@ -105,7 +105,7 @@ class GeneralSettingsPassword extends React.Component {
 		return (
 			<div>
 				<div
-					data-test-id="account-page-mobile-change-password"
+					data-test-id="account-page-change-password"
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
@@ -115,6 +115,7 @@ class GeneralSettingsPassword extends React.Component {
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
 					<form className={classes.form} onSubmit={this.handleSubmit}>
 						<TextField
+							data-test-id="account-settings-password-old-password"
 							className={classes.inputLabel}
 							name="currentPassword"
 							label="Enter Old Password:"
@@ -134,6 +135,7 @@ class GeneralSettingsPassword extends React.Component {
 							required
 						/>
 						<TextField
+							data-test-id="account-settings-password-new-password"
 							className={classes.inputLabel}
 							name="newPassword"
 							label="Enter New Password:"
@@ -153,6 +155,7 @@ class GeneralSettingsPassword extends React.Component {
 							required
 						/>
 						<TextField
+							data-test-id="account-settings-password-new-password-confirm"
 							className={classes.inputLabel}
 							name="confirmedPassword"
 							label="Confirm New Password:"
@@ -174,7 +177,10 @@ class GeneralSettingsPassword extends React.Component {
 							required
 						/>
 						<div>
-							<AsylumConnectButton variant="secondary">
+							<AsylumConnectButton
+								variant="secondary"
+								testIdName="account-settings-password-button"
+							>
 								Change Password
 							</AsylumConnectButton>
 						</div>
