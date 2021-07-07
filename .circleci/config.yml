@@ -28,6 +28,7 @@ jobs:
       - save_cache:
          paths:
           - node_modules
+          - "~./cache/Cypress"
          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Compile Binary
@@ -58,10 +59,14 @@ jobs:
       - run:
           name: Install NYC
           command: npm i nyc
+      - run:
+          name: Install cypress
+          command: npm i cypress
       #save cache for use next tests
       - save_cache:
          paths:
           - node_modules
+          - "~./cache/Cypress"
          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: "Pre E2E Commands"
