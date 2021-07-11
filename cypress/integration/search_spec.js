@@ -23,6 +23,11 @@ describe('Home Page Search Tests', () => {
             it('Testing Search Page elements',()=>{
                 cy.testSearchPageElements(viewport);
             });
+            it.only('Testing Search page Detail Page elements',()=>{
+                cy.get('@organization').then(org=>{
+                    cy.testSearchDetailPage(viewport,org);
+                });
+            });
             it('Testing Search Page Actions',()=>{
                  cy.get('@organization').then(org=>{
                     cy.testSearchAction(viewport,org);

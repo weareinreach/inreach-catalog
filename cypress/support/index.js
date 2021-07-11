@@ -28,7 +28,7 @@ import './reusable_tests/suggest_resource';
 import './reusable_tests/search_page';
 import './reusable_tests/announcement';
 import './reusable_tests/language';
-import './reusable_tests/utility_spec';
+import './reusable_tests/utility';
 
 
 // Alternatively you can use CommonJS syntax:
