@@ -79,7 +79,9 @@ const SearchBar = (props) => {
 		searchDisabled,
 		selectedResourceTypes,
 		t,
-		width
+		width,
+		children,
+		showResourceSelector = true
 	} = props;
 	const {
 		searchInputContainer,
@@ -98,7 +100,8 @@ const SearchBar = (props) => {
 	return (
 		<Grid container spacing={0}>
 			<Grid item md={8} sm={12} xs={12} className="position-relative">
-				<PlacesAutocomplete
+				{children}
+				{/* <PlacesAutocomplete
 					onChange={handlePlaceChange}
 					onSelect={handlePlaceChange}
 					searchOptions={searchOptions}
@@ -156,19 +159,21 @@ const SearchBar = (props) => {
 					>
 						<Fa name="search" />
 					</IconButton>
-				) : null}
+				) : null} */}
 			</Grid>
-			<Grid item md={4} sm={12} xs={12} className="hide--on-print">
-				<ResourceTypeSelector
-					containerWidth={containerWidth}
-					onChange={handleResourceTypeSelect}
-					selectedResourceTypes={selectedResourceTypes}
-					clearResourceTypes={clearResourceTypes}
-					locale={locale}
-					t={t}
-					moveSearchButton={moveSearchButton}
-				/>
-			</Grid>
+			{showResourceSelector && (
+				<Grid item md={4} sm={12} xs={12} className="hide--on-print">
+					<ResourceTypeSelector
+						containerWidth={containerWidth}
+						onChange={handleResourceTypeSelect}
+						selectedResourceTypes={selectedResourceTypes}
+						clearResourceTypes={clearResourceTypes}
+						locale={locale}
+						t={t}
+						moveSearchButton={moveSearchButton}
+					/>
+				</Grid>
+			)}
 		</Grid>
 	);
 };
