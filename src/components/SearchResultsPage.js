@@ -18,6 +18,7 @@ import AsylumConnectMap from './AsylumConnectMap';
 import Loading from './Loading';
 import ResourceListItem from './ResourceListItem';
 import SearchBar from './SearchBar';
+import SearchByLocation from './SearchByLocation';
 import SearchRefinementControls from './SearchRefinementControls';
 import Disclaimer from './Disclaimer';
 import withWidth from './withWidth';
@@ -327,7 +328,9 @@ class SearchResultsContainer extends React.Component {
 							classes={null}
 							inlineSearchButton={isMobile}
 							moveSearchButton={this.onMoveSearchButton}
-						/>
+						>
+							<SearchByLocation {...this.props} />
+						</SearchBar>
 						<Grid
 							container
 							spacing={0}
