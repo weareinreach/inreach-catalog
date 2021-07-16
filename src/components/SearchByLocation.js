@@ -71,15 +71,19 @@ const SearchByLocation = (props) => {
 		inlineSearchButton,
 		inlineSearchButtonDisabled
 	} = props.classes;
-	const {width, handleSearchButtonClick, searchDisabled} = props;
+	const {width, handleSearchButtonClick, searchDisabled, country} = props;
 	const isMobile = width < breakpoints['sm'];
-
+	const searchOptions = {
+		componentRestrictions: {
+			country: typeof country === 'string' ? country.toLowerCase() : 'us'
+		}
+	};
 	return (
 		<>
 			<PlacesAutocomplete
 				onChange={props.handlePlaceChange}
 				onSelect={props.handlePlaceChange}
-				searchOptions={props.searchOptions}
+				searchOptions={searchOptions}
 				value={props.nearAddress}
 			>
 				{({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
