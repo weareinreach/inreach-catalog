@@ -39,26 +39,6 @@ Cypress.Commands.add('testSearchPageElements',(viewport)=>{
     });
 });
 
-Cypress.Commands.add('testSearchDetailPage',(viewport,org)=>{
-    cy.viewport(viewport);
-    cy.getElementByTestId('search-page-next-button').click();
-    cy.waitFor(1000);
-    //Check checkbox
-    cy.getElementByTestId('search-page-checkbox').click();
-    cy.getElementByTestId('search-bar-input').type(org.search);
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    cy.getElementByTestId('search-bar-search-button').click();
-    cy.wait(500);
-    
-    cy.getElementByTestId('favorites-list-item').then($element=>{
-        expect($element).to.be.visible;
-        //click the org
-        cy.wrap($element).click();
-    });
-
-});
 
 Cypress.Commands.add('testSearchAction',(viewport,org)=>{
     cy.viewport(viewport);

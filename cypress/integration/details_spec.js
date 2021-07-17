@@ -5,7 +5,7 @@
 //compound url
 
 //Test Suite
-describe('Home Page Search Tests', () => {
+describe('Organization Details Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     
     beforeEach(() => {
@@ -20,12 +20,9 @@ describe('Home Page Search Tests', () => {
 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
-            it('Testing Search Page elements',()=>{
-                cy.testSearchPageElements(viewport);
-            });
-            it('Testing Search Page Actions',()=>{
-                 cy.get('@organization').then(org=>{
-                    cy.testSearchAction(viewport,org);
+            it.only('Testing Search page Detail Page elements',()=>{
+                cy.get('@organization').then(org=>{
+                    cy.testSearchDetailPage(viewport,org);
                 });
             });
         });
