@@ -20,7 +20,7 @@ describe('Organization Details Tests', () => {
 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
-            it.only('Testing Search page Detail Page elements',()=>{
+            it('Testing Search page Detail Page elements',()=>{
                 cy.get('@organization').then(org=>{
                     cy.testSearchDetailPage(viewport,org);
                 });
