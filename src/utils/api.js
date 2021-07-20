@@ -69,7 +69,8 @@ export const fetchOrganizations = (params) => {
 		selectedFilters,
 		selectedResourceTypes,
 		state,
-		isNational
+		isNational,
+		county
 	} = params || {};
 	const tagLocale = localeTagMap[locale] || '';
 	const query = {};
@@ -113,14 +114,18 @@ export const fetchOrganizations = (params) => {
 		const stateProperty = `service-state-${getAreaId(state)}`;
 
 		serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
+	}
+	if (county) {
+		const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
+			county
+		)}`;
 
-		if (city) {
-			const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
-				city
-			)}`;
+		serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
+	}
+	if (city) {
+		const cityProperty = `service-city-${getAreaId(state)}-${getAreaId(city)}`;
 
-			serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
-		}
+		serviceArea += `${serviceArea ? ',' : ''}${cityProperty}`;
 	}
 
 	if (serviceArea) {

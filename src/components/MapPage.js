@@ -77,9 +77,8 @@ class MapPage extends React.Component {
 		this.handleSortSelect = this.handleSortSelect.bind(this);
 		this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this);
 		this.fetchSearchResults = this.fetchSearchResults.bind(this);
-		this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(
-			this
-		);
+		this.fetchNextSearchResultsPage =
+			this.fetchNextSearchResultsPage.bind(this);
 		this.handlePrintClick = this.handlePrintClick.bind(this);
 		this.processSearchResults = this.processSearchResults.bind(this);
 		this.setSelectedResource = this.setSelectedResource.bind(this);
@@ -388,13 +387,18 @@ class MapPage extends React.Component {
 				.then((results) => {
 					let state = '';
 					let city = '';
+					let county = '';
 
 					if (results.length && results[0].address_components) {
 						results[0].address_components.forEach((piece) => {
 							if (piece?.types?.indexOf('administrative_area_level_1') !== -1) {
 								state = piece?.long_name;
-							} else if (piece?.types?.indexOf('locality') !== -1) {
+							}
+							if (piece?.types?.indexOf('locality') !== -1) {
 								city = piece?.long_name;
+							}
+							if (piece?.types?.indexOf('administrative_area_level_2') !== -1) {
+								county = piece?.long_name.split(' ')[0];
 							}
 						});
 					}
@@ -427,7 +431,8 @@ class MapPage extends React.Component {
 							[]
 						),
 						state,
-						isNational
+						isNational,
+						county
 					};
 					this.setState(nextState);
 					localStorage.setItem(
