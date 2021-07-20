@@ -68,6 +68,7 @@ var validLangs = [
 	{name: 'Maltese'},
 	{name: 'Māori'},
 	{name: 'Marathi'},
+	{name: 'Maya'},
 	{name: 'Mixteco'},
 	{name: 'Mongolian'},
 	{name: 'Myanmar', 1: 'my', local: 'Burmese'},
