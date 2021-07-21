@@ -152,6 +152,7 @@ class AsylumConnectInfographicButton extends React.Component {
 			<div className={containerClass}>
 				{type === 'button' && (
 					<Button
+						data-test-id={this.props.testIdName}
 						variant="text"
 						href={this.props.url}
 						target="_blank"
@@ -166,6 +167,7 @@ class AsylumConnectInfographicButton extends React.Component {
 				)}
 				{type === 'link' && (
 					<a
+						data-test-id={this.props.testIdName}
 						href={this.props.url ? this.props.url : '#'}
 						className={classes.infographicLink}
 						target="_blank"

@@ -179,7 +179,9 @@ const Tools = (props) => {
 						</div>
 					</div>
 					<div style={{paddingTop: '40px', padding: '8%'}}>
-						<p>Oops! You need to be logged in to share resources.</p>
+						<p data-test-id="resource-detail-dialog-title">
+							Oops! You need to be logged in to share resources.
+						</p>
 						<p
 							style={{
 								fontWeight: 'bold'
@@ -188,7 +190,7 @@ const Tools = (props) => {
 							With a free AsylumConnect account you can unlock additional
 							features:
 						</p>
-						<div>
+						<div data-test-id="resource-detail-dialog-body">
 							<li>Save and share personalized resources lists</li>
 							<br />
 							<li>Leave public rating/reviews on resources</li>
@@ -200,6 +202,7 @@ const Tools = (props) => {
 					</div>
 					<div style={{textAlign: 'center', paddingBottom: '15px'}}>
 						<Button
+							data-test-id="resource-detail-dialog-sign-in-button"
 							style={{
 								display: 'inline-block',
 								background: '#CC4747',
@@ -220,6 +223,7 @@ const Tools = (props) => {
 					</div>
 					<div style={{paddingBottom: '20px', textAlign: 'center'}}>
 						<Button
+							data-test-id="resource-detail-dialog-close-button"
 							style={{
 								display: 'inline-block',
 								background: '#FFFFFF',

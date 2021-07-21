@@ -2,12 +2,14 @@
 /* eslint-disable no-undef */
 /// <reference types="cypress" />
 
+
 //compound url
 
 //Test Suite
-describe('Footer Bar Tests', () => {
-    let viewports = [Cypress.env('desktop'),Cypress.env('tablet')];
-    
+describe('Home Page Create Account Form Tests', () => {
+
+    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
     });
@@ -19,10 +21,9 @@ describe('Footer Bar Tests', () => {
 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
-            it('Testing footer bar elements',()=>{
-                cy.testFooterElements(viewport);
+                it.only(`Change Language Testing`,()=>{
+                        cy.testLanguageAction(viewport);
+                    }); 
+                });
             });
-        });
-    });
-
 });

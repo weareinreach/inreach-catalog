@@ -150,6 +150,7 @@ const ResultsContainer = (props) => {
 				? searchResults.map((organization) => {
 						return (
 							<ResourceListItem
+								data-test-id="search-form-result"
 								key={organization._id}
 								resource={organization}
 								userData={userData}

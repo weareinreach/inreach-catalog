@@ -239,6 +239,7 @@ class SearchForm extends React.Component {
 					<Grid container spacing={0}>
 						<Grid item xs={12} className={searchButton}>
 							<AsylumConnectInfographicButton
+								testIdName="search-form-download-link"
 								type="link"
 								url={
 									this.props.infographic.url ? this.props.infographic.url : null
