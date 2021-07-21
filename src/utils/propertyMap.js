@@ -115,6 +115,7 @@ const propertyMap = {
 		'lang-mandarin': {code: 'zh'},
 		'lang-mandingo': {name: 'Mandingo'},
 		'lang-marathi': {code: 'mr'},
+		'lang-maya': {name: 'Maya'},
 		'lang-mexican-sign-language': {name: 'Mexican Sign Language (MSL)'},
 		'lang-mien': {name: 'Mien'},
 		'lang-mixteco': {name: 'Mixteco'},
