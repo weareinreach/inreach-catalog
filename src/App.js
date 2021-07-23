@@ -444,6 +444,29 @@ class AppConnectCatalog extends React.Component {
 						>
 							<Switch>
 								<Route
+									path="/:locale/search/:name/:sort"
+									render={(props) => (
+										<MapPage
+											{...props}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<Route
 									path="/:locale/resource/:id/service/:serviceId"
 									render={(props) => (
 										<MapPage
