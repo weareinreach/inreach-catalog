@@ -16,6 +16,7 @@ import LocaleSelector from './LocaleSelector';
 import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 import SearchBar from './SearchBar';
 import SearchByLocation from './SearchByLocation';
+import SearchByOrgName from './SearchByOrgName';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
 
@@ -61,16 +62,20 @@ const styles = (theme) => ({
 			marginBottom: theme.spacing(3)
 		}
 	},
-	tabs: {display: 'flex', flex: 1, minWidth: '350px'}
+	tabs: {display: 'flex', flex: 1, minWidth: '350px'},
+	infographicContainer: {
+		paddingBottom: theme.spacing(12),
+		paddingTop: theme.spacing(3)
+	}
 });
 
 class SearchForm extends React.Component {
-	constructor() {
-		super();
+	constructor(props, context) {
+		super(props, context);
 
 		this.state = {
 			moveButton: false,
-			value: 0
+			value: props.orgName ? 1 : 0
 		};
 		this.onMoveSearchButton = this.onMoveSearchButton.bind(this);
 	}
@@ -96,17 +101,16 @@ class SearchForm extends React.Component {
 		};
 	};
 
-	searchByName = () => {
-		return <></>;
-	};
 	render() {
 		const {
 			nationalOrgCheckboxContainer,
 			searchButton,
 			searchButtonContainer,
 			lowerButton,
-			tabs
+			tabs,
+			infographicContainer
 		} = this.props.classes;
+		const {handleOrgSelection, handleSearchByOrgName} = this.props;
 		const variant = 'primary';
 		const localeLabel = 'Select country';
 		const isMobile = this.props.width < breakpoints['sm'];
@@ -207,7 +211,17 @@ class SearchForm extends React.Component {
 						</Grid>
 					</TabPanel>
 					<TabPanel value={1} index={1}>
-						hey bud
+						<SearchBar
+							{...this.props}
+							classes={null}
+							moveSearchButton={this.onMoveSearchButton}
+							data-test-id="serchbar"
+						>
+							<SearchByOrgName
+								showResourceSelector={false}
+								handleOrgSelection={handleOrgSelection}
+							/>
+						</SearchBar>
 						<Grid container spacing={0} className={searchButtonContainer}>
 							<Grid
 								item
@@ -218,7 +232,7 @@ class SearchForm extends React.Component {
 							>
 								<AsylumConnectButton
 									variant={variant}
-									onClick={this.props.handleSearchButtonClick}
+									onClick={handleSearchByOrgName}
 									disabled={this.props.searchDisabled}
 									className={this.state.moveButton ? lowerButton : null}
 									testIdName="search-bar-search-button"
@@ -236,7 +250,7 @@ class SearchForm extends React.Component {
 					</TabPanel>
 				</TabContext>
 				{this.props.infographic && (
-					<Grid container spacing={0}>
+					<Grid container className={infographicContainer}>
 						<Grid item xs={12} className={searchButton}>
 							<AsylumConnectInfographicButton
 								testIdName="search-form-download-link"

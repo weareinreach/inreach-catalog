@@ -42,7 +42,8 @@ class MapPage extends React.Component {
 			isNational,
 			selectedResourceTypes,
 			selectedFilters,
-			selectedSort
+			selectedSort,
+			name
 		} = this.parseParams(props.match.params);
 		this.props.handleAddressChange(nearAddress);
 		this.state = {
@@ -64,7 +65,8 @@ class MapPage extends React.Component {
 			searchResultSlugs: [],
 			selectedResource: null,
 			selectedService: null,
-			lastSearch: null
+			lastSearch: null,
+			orgName: name ?? null
 		};
 
 		this.recentResourceCache = {};
@@ -77,9 +79,8 @@ class MapPage extends React.Component {
 		this.handleSortSelect = this.handleSortSelect.bind(this);
 		this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this);
 		this.fetchSearchResults = this.fetchSearchResults.bind(this);
-		this.fetchNextSearchResultsPage = this.fetchNextSearchResultsPage.bind(
-			this
-		);
+		this.fetchNextSearchResultsPage =
+			this.fetchNextSearchResultsPage.bind(this);
 		this.handlePrintClick = this.handlePrintClick.bind(this);
 		this.processSearchResults = this.processSearchResults.bind(this);
 		this.setSelectedResource = this.setSelectedResource.bind(this);
@@ -87,6 +88,8 @@ class MapPage extends React.Component {
 		this.clearResourceTypes = this.clearResourceTypes.bind(this);
 		this.clearSearchFilters = this.clearSearchFilters.bind(this);
 		this.clearSearchStatus = this.clearSearchStatus.bind(this);
+		this.handleSearchByOrgName = this.handleSearchByOrgName.bind(this);
+		this.handleOrgSelection = this.handleOrgSelection.bind(this);
 	}
 
 	componentDidMount() {
@@ -96,7 +99,8 @@ class MapPage extends React.Component {
 
 		if (
 			this.props.match.path ===
-			'/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
+				'/:locale/search/:in/:place/:near/:national/:for/:filter/:sort' ||
+			this.props.match.path === '/:locale/search/:name/:sort'
 		) {
 			localStorage.setItem('lastSearch', this.props.history.location.pathname);
 		}
@@ -349,6 +353,24 @@ class MapPage extends React.Component {
 		}
 	}
 
+	handleSearchByOrgName() {
+		this.setState({searchDisabled: true});
+		const name = encodeURIComponent(this.state.orgName);
+		const sort = encodeURIComponent(this.state.selectedSort);
+		const url = `/${this.props.locale}/search/${name}/${sort}`;
+		this.props.history.push(url);
+		this.setState({
+			searchStatus: 'refresh',
+			nearLatLng: null,
+			inState: null,
+			searchDisabled: false
+		});
+	}
+
+	handleOrgSelection(orgName) {
+		this.setState({orgName: orgName});
+	}
+
 	resizeMap() {
 		const node = ReactDOM.findDOMNode(this.ACMap);
 		if (node && node.getBoundingClientRect) {
@@ -371,17 +393,19 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
+			name,
 			updated,
 			stringified
 		} = this.checkForURLUpdates();
-
+		let nextState,
+			params = {};
+		this.setState({
+			searching: true,
+			searchDisabled: true,
+			printDisabled: true
+		});
+		const page = nextPage ? this.state.page + 1 : 1;
 		if (nearLatLng !== null) {
-			this.setState({
-				searching: true,
-				searchDisabled: true,
-				printDisabled: true
-			});
-
 			this.props.handleAddressChange(nearAddress);
 
 			geocodeByAddress(nearAddress)
@@ -398,9 +422,7 @@ class MapPage extends React.Component {
 							}
 						});
 					}
-
-					const page = nextPage ? this.state.page + 1 : 1;
-					const nextState = {
+					nextState = {
 						inState,
 						nearAddress,
 						nearLatLng,
@@ -412,7 +434,7 @@ class MapPage extends React.Component {
 						updated,
 						stringified
 					};
-					const params = {
+					params = {
 						city,
 						locale: this.props.locale,
 						nearLatLng,
@@ -429,20 +451,30 @@ class MapPage extends React.Component {
 						state,
 						isNational
 					};
-					this.setState(nextState);
-					localStorage.setItem(
-						'lastSearch',
-						this.props.history.location.pathname
-					);
-
-					fetchOrganizations(params).then((data) =>
-						this.processSearchResults(data, nextPage)
-					);
 				})
 				.catch((error) => {
 					this.props.handleMessageNew('An error occured. Please try again');
 				});
+		} else if (name !== null && name !== 'undefined') {
+			nextState = {
+				name,
+				page,
+				selectedSort,
+				updated,
+				stringified
+			};
+			params = {
+				name: name,
+				locale: this.props.locale,
+				page,
+				isNational: false
+			};
 		}
+		this.setState(nextState);
+		localStorage.setItem('lastSearch', this.props.history.location.pathname);
+		fetchOrganizations(params).then((data) =>
+			this.processSearchResults(data, nextPage)
+		);
 	}
 
 	fetchNextSearchResultsPage() {
@@ -477,9 +509,6 @@ class MapPage extends React.Component {
 	}
 
 	setSelectedResource(resource) {
-		// if (resource) {
-		//   this.recentResourceCache[resource?.slug?.toLowerCase()] = resource;
-		// }
 		this.setState({
 			selectedResource: resource
 		});
@@ -498,7 +527,8 @@ class MapPage extends React.Component {
 			isNational = true,
 			selectedResourceTypes = [],
 			selectedFilters = [],
-			selectedSort = 'best';
+			selectedSort = 'best',
+			name = null;
 		if (params.in) {
 			inState = {long_name: decodeURIComponent(params.in)};
 		}
@@ -533,6 +563,10 @@ class MapPage extends React.Component {
 			selectedSort = params.sort;
 		}
 
+		if (params.name) {
+			name = params.name;
+		}
+
 		return {
 			selectedResourceTypes,
 			inState,
@@ -540,7 +574,8 @@ class MapPage extends React.Component {
 			nearLatLng,
 			isNational,
 			selectedFilters,
-			selectedSort
+			selectedSort,
+			name
 		};
 	}
 
@@ -552,7 +587,8 @@ class MapPage extends React.Component {
 			isNational,
 			selectedResourceTypes,
 			selectedFilters,
-			selectedSort
+			selectedSort,
+			name
 		} = this.parseParams(this.props.match.params);
 		let updated = false;
 		let stringified = JSON.stringify({
@@ -560,7 +596,8 @@ class MapPage extends React.Component {
 			isNational,
 			selectedResourceTypes,
 			selectedFilters,
-			selectedSort
+			selectedSort,
+			name
 		});
 		if (stringified !== this.state.lastSearch) {
 			updated = true;
@@ -573,6 +610,7 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
+			name,
 			updated,
 			stringified
 		};
@@ -641,6 +679,51 @@ class MapPage extends React.Component {
 											searching={this.state.searching}
 											searchDisabled={this.state.searchDisabled}
 											classes={null}
+											handleSearchByOrgName={this.handleSearchByOrgName}
+											handleOrgSelection={this.handleOrgSelection}
+										/>
+									)}
+								/>
+								<Route
+									path="/:locale/search/:name/:sort"
+									render={(props) => (
+										<SearchResultsPage
+											{...props}
+											{...this.state}
+											clearResourceTypes={this.clearResourceTypes}
+											clearSearchFilters={this.clearSearchFilters}
+											clearSearchStatus={this.clearSearchStatus}
+											country={this.props.country}
+											fetchNextSearchResultsPage={
+												this.fetchNextSearchResultsPage
+											}
+											fetchSearchResults={this.fetchSearchResults}
+											handleListRemoveFavorite={
+												this.props.handleListRemoveFavorite
+											}
+											handleFavoriteUpdate={this.props.handleFavoriteUpdate}
+											handleListNew={this.props.handleListNew}
+											handleLogOut={this.props.handleLogOut}
+											handleMessageNew={this.props.handleMessageNew}
+											handlePlaceChange={this.handlePlaceChange}
+											handlePrintClick={this.handlePrintClick}
+											handleSearchButtonClick={this.handleSearchButtonClick}
+											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleResourceTypeSelect={this.handleResourceTypeSelect}
+											handleRequestOpen={this.props.handleRequestOpen}
+											handleSortSelect={this.handleSortSelect}
+											infographic={isMobile && infographic}
+											lists={this.props.lists}
+											locale={this.props.locale}
+											mapResources={mapResources}
+											mapMaxDistance={mapMaxDistance}
+											printDisabled={this.state.printDisabled}
+											searchDisabled={this.state.searchDisabled}
+											searching={this.state.searching}
+											session={this.props.session}
+											t={this.props.t}
+											user={this.props.user}
+											userData={this.props.userData}
 										/>
 									)}
 								/>
