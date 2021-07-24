@@ -7,10 +7,19 @@
 //Test Suite
 describe('Organization Details Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
-    
+    //let viewports = [Cypress.env('tablet')];
+
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
         cy.fixture('organization_search.json').as('organization');
+        cy.fixture('user_new.json').as('user').then(user=>{
+            //Add User
+            cy.addUser(user);
+        });
+    });
+    afterEach(()=>{
+        //Do the clean up
+        cy.deleteUsersIfExist();
     });
 
     //Root
@@ -22,7 +31,9 @@ describe('Organization Details Tests', () => {
         context(`Testing the ${viewport} Version of the application`,()=>{
             it('Testing Search page Detail Page elements',()=>{
                 cy.get('@organization').then(org=>{
-                    cy.testSearchDetailPage(viewport,org);
+                    cy.get('@user').then(user=>{
+                        cy.testSearchDetailPage(viewport,user,org);
+                    });
                 });
             });
         });

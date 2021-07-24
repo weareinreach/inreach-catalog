@@ -1,5 +1,11 @@
-Cypress.Commands.add('testSearchDetailPage',(viewport,org)=>{
+let nebraskaOrgId="5f119ab426580400174b9674";
+
+Cypress.Commands.add('testSearchDetailPage',(viewport,user,org)=>{
     cy.viewport(viewport);
+    cy.login(user,viewport);
+    if(viewport === Cypress.env('mobile')){ 
+        cy.getElementByTestId('mobile-nav-button-search').click() 
+    }
     cy.getElementByTestId('search-page-next-button').click();
     cy.waitFor(1000);
     //Check checkbox
@@ -8,7 +14,7 @@ Cypress.Commands.add('testSearchDetailPage',(viewport,org)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     });
-    cy.getElementByTestId('search-bar-search-button').click();
+    cy.getElementByTestId('search-bar-search-button').click({force:true});
     cy.wait(500);
     
     cy.getElementByTestId('favorites-list-item').then($element=>{
@@ -39,6 +45,81 @@ Cypress.Commands.add('testSearchDetailPage',(viewport,org)=>{
             expect($element).to.be.visible;
             expect($element).contain('Verified Information');
         });
+
+        cy.getElementByTestId('tabs-value-reviews').click();
+
+        cy.getElementByTestId('details-review-form-header').scrollIntoView().then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Rate this resource');
+        });
+
+        
+
+        if(viewport !== Cypress.env('mobile')){
+            cy.getElementByTestId('details-review-form-body1').scrollIntoView().then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.');
+            });
+        }
+        cy.getElementByTestId('details-review-form-input').scrollIntoView().then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('name','comment');
+            expect($element).to.have.attr('placeholder','Start typing your review...');
+        });
+        if(viewport === Cypress.env('mobile')){ 
+            cy.getElementByTestId('tabs-value-about').click(); 
+        }
+        cy.wait(500);
+        cy.scrollTo('top');
+        cy.getElementByTestId('resource-details-services');
+        cy.getElementByTestId('details-service-item').then($element=>{
+            expect($element[0]).to.be.visible;
+            cy.wrap($element[0]).click({force:true});
+            cy.wait(1000);
+            //Test services details page
+            cy.getElementByTestId('resource-details-communities').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Who this service helps');
+            });
+            cy.getElementByTestId('details-communities').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Adults (18+), LGBTQ Youth');
+            });
+            cy.getElementByTestId('resource-details-requirements').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Requirements');
+            });
+            cy.getElementByTestId('resource-list').then($element=>{
+                expect($element).to.be.visible;
+            });
+            cy.getElementByTestId('resource-details-required').then($element=>{
+                expect($element).to.be.visible;
+            });
+            cy.getElementByTestId('resource-details-additional-information').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Additional information');
+            });
+            cy.getElementByTestId('resource-details-language-services').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Language services');
+            });
+
+
+            // if(viewport===Cypress.env('mobile')){
+            //     cy.scrollTo('top');
+            //     cy.getElementByTestId('back-button').then($element=>{
+            //         cy.wrap($element).click();
+            //         //AUTOMATION BUG - About input cannot be populated - 165
+            //         cy.reload();
+            //         cy.reload();
+            //         cy.reload();
+            //     })
+            // }else{
+            //     cy.go('back');
+            //     cy.reload();            
+            // }
+        });
+        
         
     });
 
