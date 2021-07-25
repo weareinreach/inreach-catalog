@@ -29,10 +29,24 @@ describe('Organization Details Tests', () => {
 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
-            it('Testing Search page Detail Page elements',()=>{
+            it('Testing Search page Detail Page About elements',()=>{
                 cy.get('@organization').then(org=>{
                     cy.get('@user').then(user=>{
-                        cy.testSearchDetailPage(viewport,user,org);
+                        cy.testSearchDetailPageAbout(viewport,user,org);
+                    });
+                });
+            });
+            it('Testing Search page Detail Page Service elements',()=>{
+                cy.get('@organization').then(org=>{
+                    cy.get('@user').then(user=>{
+                        cy.testSearchDetailsPageService(viewport,user,org);
+                    });
+                });
+            });
+            it('Testing Search page Detail Page Reviews elements',()=>{
+                cy.get('@organization').then(org=>{
+                    cy.get('@user').then(user=>{
+                        cy.testSearchDetailsPageReviews(viewport,user,org);
                     });
                 });
             });

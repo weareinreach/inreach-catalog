@@ -1,6 +1,4 @@
-let nebraskaOrgId="5f119ab426580400174b9674";
-
-Cypress.Commands.add('testSearchDetailPage',(viewport,user,org)=>{
+Cypress.Commands.add('testSearchDetailPageAbout',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
     if(viewport === Cypress.env('mobile')){ 
@@ -44,38 +42,38 @@ Cypress.Commands.add('testSearchDetailPage',(viewport,user,org)=>{
         cy.getElementByTestId('details-header-verified-text').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('Verified Information');
-        });
-
-        cy.getElementByTestId('tabs-value-reviews').click();
-
-        cy.getElementByTestId('details-review-form-header').scrollIntoView().then($element=>{
-            expect($element).to.be.visible;
-            expect($element).contain('Rate this resource');
-        });
-
+        });        
         
+    });
 
-        if(viewport !== Cypress.env('mobile')){
-            cy.getElementByTestId('details-review-form-body1').scrollIntoView().then($element=>{
-                expect($element).to.be.visible;
-                expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.');
-            });
-        }
-        cy.getElementByTestId('details-review-form-input').scrollIntoView().then($element=>{
-            expect($element).to.be.visible;
-            expect($element).to.have.attr('name','comment');
-            expect($element).to.have.attr('placeholder','Start typing your review...');
-        });
-        if(viewport === Cypress.env('mobile')){ 
-            cy.getElementByTestId('tabs-value-about').click(); 
-        }
-        cy.wait(500);
-        cy.scrollTo('top');
-        cy.getElementByTestId('resource-details-services');
+});
+
+Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    if(viewport === Cypress.env('mobile')){ 
+        cy.getElementByTestId('mobile-nav-button-search').click() 
+    }
+    cy.getElementByTestId('search-page-next-button').click();
+    cy.waitFor(1000);
+    //Check checkbox
+    cy.getElementByTestId('search-page-checkbox').click();
+    cy.getElementByTestId('search-bar-input').type(org.search);
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[1]).click();
+    });
+    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    cy.wait(500);
+    
+    cy.getElementByTestId('favorites-list-item').scrollIntoView().then($element=>{
+        expect($element).to.be.visible;
+        //click the org
+        cy.wrap($element).click();
+    cy.getElementByTestId('resource-details-services').scrollIntoView();
         cy.getElementByTestId('details-service-item').then($element=>{
             expect($element[0]).to.be.visible;
-            cy.wrap($element[0]).click({force:true});
-            cy.wait(1000);
+            cy.wrap($element[0]).click({multiple:true,force:true});
+            cy.wait(500);
             //Test services details page
             cy.getElementByTestId('resource-details-communities').then($element=>{
                 expect($element).to.be.visible;
@@ -103,24 +101,51 @@ Cypress.Commands.add('testSearchDetailPage',(viewport,user,org)=>{
                 expect($element).to.be.visible;
                 expect($element).contain('Language services');
             });
-
-
-            // if(viewport===Cypress.env('mobile')){
-            //     cy.scrollTo('top');
-            //     cy.getElementByTestId('back-button').then($element=>{
-            //         cy.wrap($element).click();
-            //         //AUTOMATION BUG - About input cannot be populated - 165
-            //         cy.reload();
-            //         cy.reload();
-            //         cy.reload();
-            //     })
-            // }else{
-            //     cy.go('back');
-            //     cy.reload();            
-            // }
         });
-        
-        
     });
+});
 
+Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    if(viewport === Cypress.env('mobile')){ 
+        cy.getElementByTestId('mobile-nav-button-search').click() 
+    }
+    cy.getElementByTestId('search-page-next-button').click();
+    cy.waitFor(1000);
+    //Check checkbox
+    cy.getElementByTestId('search-page-checkbox').click();
+    cy.getElementByTestId('search-bar-input').type(org.search);
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    cy.wait(500);
+    
+    cy.getElementByTestId('favorites-list-item').then($element=>{
+        expect($element).to.be.visible;
+        //click the org
+        cy.wrap($element).click();
+        cy.wait(200);
+    cy.getElementByTestId('tabs-value-reviews').click();
+
+        cy.getElementByTestId('details-review-form-header').scrollIntoView().then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('Rate this resource');
+        });
+
+        
+
+        if(viewport !== Cypress.env('mobile')){
+            cy.getElementByTestId('details-review-form-body1').scrollIntoView().then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.');
+            });
+        }
+        cy.getElementByTestId('details-review-form-input').scrollIntoView().then($element=>{
+            expect($element).to.be.visible;
+            expect($element).to.have.attr('name','comment');
+            expect($element).to.have.attr('placeholder','Start typing your review...');
+        });
+    });
 });
