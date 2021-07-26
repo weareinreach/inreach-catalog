@@ -60,7 +60,7 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
     cy.getElementByTestId('search-page-checkbox').click();
     cy.getElementByTestId('search-bar-input').type(org.search);
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[1]).click();
+        cy.wrap($element[0]).click();
     });
     cy.getElementByTestId('search-bar-search-button').click({force:true});
     cy.wait(500);
@@ -69,11 +69,11 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
         expect($element).to.be.visible;
         //click the org
         cy.wrap($element).click();
-    cy.getElementByTestId('resource-details-services').scrollIntoView();
+    cy.getElementByTestId('resource-details-services');
         cy.getElementByTestId('details-service-item').then($element=>{
             expect($element[0]).to.be.visible;
-            cy.wrap($element[0]).click({multiple:true,force:true});
-            cy.wait(500);
+            cy.wrap($element[0]).then($child=>{
+                cy.wrap($child.children()).click();
             //Test services details page
             cy.getElementByTestId('resource-details-communities').then($element=>{
                 expect($element).to.be.visible;
@@ -101,6 +101,7 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
                 expect($element).to.be.visible;
                 expect($element).contain('Language services');
             });
+        });
         });
     });
 });

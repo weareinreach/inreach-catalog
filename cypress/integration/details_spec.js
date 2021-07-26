@@ -7,7 +7,6 @@
 //Test Suite
 describe('Organization Details Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
-    //let viewports = [Cypress.env('tablet')];
 
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
