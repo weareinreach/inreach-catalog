@@ -5,10 +5,12 @@ import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
 
 import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
 import TabContext from '@material-ui/lab/TabContext';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '@material-ui/lab/TabPanel';
 import TabList from '@material-ui/lab/TabList';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -17,6 +19,7 @@ import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 import SearchBar from './SearchBar';
 import SearchByLocation from './SearchByLocation';
 import SearchByOrgName from './SearchByOrgName';
+import SearchRefinementControls from './SearchRefinementControls';
 import withWidth from './withWidth';
 import {breakpoints} from '../theme';
 
@@ -32,6 +35,25 @@ const styles = (theme) => ({
 		'&:hover': {
 			color: theme.palette.primary[900]
 		}
+	},
+	secondary: {
+		color: theme.palette.secondary[500],
+		'&:hover': {
+			backgroundColor: 'inherit'
+		}
+	},
+	tooltip: {fontFamily: 'sans-serif'},
+	filterContainer: {
+		marginTop: '-0.8rem'
+	},
+	fullBottomMargin: {
+		marginBottom: theme.spacing(4),
+		[theme.breakpoints.down('xs')]: {
+			marginBottom: 0
+		}
+	},
+	halfBottomMargin: {
+		marginBottom: theme.spacing(2)
 	},
 	[theme.breakpoints.down('xs')]: {
 		nationalOrgCheckboxContainer: {
@@ -75,7 +97,7 @@ class SearchForm extends React.Component {
 
 		this.state = {
 			moveButton: false,
-			value: props.orgName ? 1 : 0
+			tabValue: props.orgName ? 1 : 0
 		};
 		this.onMoveSearchButton = this.onMoveSearchButton.bind(this);
 	}
@@ -92,7 +114,7 @@ class SearchForm extends React.Component {
 		}
 	}
 	handleChange = (event, newValue) => {
-		this.setState({value: newValue});
+		this.setState({tabValue: newValue});
 	};
 	a11yProps = (index) => {
 		return {
@@ -108,12 +130,21 @@ class SearchForm extends React.Component {
 			searchButtonContainer,
 			lowerButton,
 			tabs,
-			infographicContainer
+			infographicContainer,
+			secondary,
+			tooltip,
+			filterContainer,
+			fullBottomMargin,
+			halfBottomMargin
 		} = this.props.classes;
-		const {handleOrgSelection, handleSearchByOrgName} = this.props;
+		const {handleOrgSelection, handleSearchByOrgName, showWalkinCheckbox} =
+			this.props;
 		const variant = 'primary';
 		const localeLabel = 'Select country';
 		const isMobile = this.props.width < breakpoints['sm'];
+		const toolbarClass = showWalkinCheckbox
+			? halfBottomMargin
+			: fullBottomMargin;
 
 		return (
 			<div>
@@ -129,7 +160,7 @@ class SearchForm extends React.Component {
 						</Grid>
 					</Grid>
 				) : null}
-				<TabContext value={this.state.value}>
+				<TabContext value={this.state.tabValue}>
 					<AppBar position="static">
 						<TabList
 							onChange={this.handleChange}
@@ -187,8 +218,7 @@ class SearchForm extends React.Component {
 						<Grid container spacing={0} className={searchButtonContainer}>
 							<Grid
 								item
-								xs={12}
-								md={4}
+								xs
 								className={searchButton}
 								style={{paddingBottom: '10px'}}
 							>
@@ -208,6 +238,37 @@ class SearchForm extends React.Component {
 									) : null}
 								</AsylumConnectButton>
 							</Grid>
+
+							<Grid item xs className="pull-right">
+								<Tooltip
+									className={tooltip}
+									classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+									title="Print Results"
+									placement="top"
+								>
+									<IconButton
+										className={secondary}
+										style={{height: 'auto'}}
+										onClick={this.props.handlePrintClick}
+										disabled={this.props.printDisabled}
+									>
+										<Fa name="print" />
+									</IconButton>
+								</Tooltip>
+							</Grid>
+							{!isMobile && (
+								<Grid item xs className={filterContainer + ' ' + toolbarClass}>
+									<SearchRefinementControls
+										clearSearchFilters={this.props.clearSearchFilters}
+										handleFilterSelect={this.props.handleFilterSelect}
+										handleSortSelect={this.props.handleSortSelect}
+										selectedFilters={this.props.selectedFilters.filter(
+											(item) => item !== 'time-walk-in'
+										)}
+										selectedSort={this.props.selectedSort}
+									/>
+								</Grid>
+							)}
 						</Grid>
 					</TabPanel>
 					<TabPanel value={1} index={1}>
@@ -216,17 +277,14 @@ class SearchForm extends React.Component {
 							classes={null}
 							moveSearchButton={this.onMoveSearchButton}
 							data-test-id="serchbar"
+							showResourceSelector={false}
 						>
-							<SearchByOrgName
-								showResourceSelector={false}
-								handleOrgSelection={handleOrgSelection}
-							/>
+							<SearchByOrgName handleOrgSelection={handleOrgSelection} />
 						</SearchBar>
 						<Grid container spacing={0} className={searchButtonContainer}>
 							<Grid
 								item
-								xs={12}
-								md={4}
+								xs
 								className={searchButton}
 								style={{paddingBottom: '10px'}}
 							>

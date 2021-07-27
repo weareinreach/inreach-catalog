@@ -23,6 +23,7 @@ import SearchRefinementControls from './SearchRefinementControls';
 import Disclaimer from './Disclaimer';
 import withWidth from './withWidth';
 import {boldFont, breakpoints, mobilePadding} from '../theme';
+import SearchForm from './SearchForm';
 
 const styles = (theme) => ({
 	tooltip: {fontFamily: 'sans-serif'},
@@ -324,38 +325,10 @@ class SearchResultsContainer extends React.Component {
 								/>
 							</div>
 						) : null}
-						<SearchBar
-							{...this.props}
-							classes={null}
-							inlineSearchButton={isMobile}
-							moveSearchButton={this.onMoveSearchButton}
-						>
-							<SearchByLocation {...this.props} />
-						</SearchBar>
-						<Grid
-							container
-							spacing={0}
-							className={nationalOrgCheckboxContainer}
-						>
-							<Grid item>
-								<AsylumConnectCheckbox
-									label={
-										this.props.locale
-											? this.props.t(
-													'Show me national organizations who can help anyone located in the United States'
-											  )
-											: this.props.t(
-													'Show me national organizations who can help anyone located in the country'
-											  )
-									}
-									checked={this.props.isNational}
-									onChange={this.props.handleNationalCheckBox}
-								/>
-							</Grid>
-						</Grid>
+						<SearchForm {...this.props} />
 						<Grid container spacing={0} alignItems="flex-start">
 							<Grid item xs={12} md={8} className={toolbarClass}>
-								{isMobile ? null : (
+								{/* {isMobile ? null : (
 									<Grid container spacing={0} justify="space-between">
 										<Grid item xs>
 											<AsylumConnectButton
@@ -392,7 +365,7 @@ class SearchResultsContainer extends React.Component {
 											</Tooltip>
 										</Grid>
 									</Grid>
-								)}
+								)} */}
 								{this.props.infographic ? (
 									<Grid container spacing={0} justify="space-between">
 										<Grid item xs>
@@ -405,24 +378,6 @@ class SearchResultsContainer extends React.Component {
 									</Grid>
 								) : null}
 							</Grid>
-							{!isMobile ? (
-								<Grid
-									item
-									xs={12}
-									md={4}
-									className={filterContainer + ' ' + toolbarClass}
-								>
-									<SearchRefinementControls
-										clearSearchFilters={this.props.clearSearchFilters}
-										handleFilterSelect={this.props.handleFilterSelect}
-										handleSortSelect={this.props.handleSortSelect}
-										selectedFilters={this.props.selectedFilters.filter(
-											(item) => item !== 'time-walk-in'
-										)}
-										selectedSort={this.props.selectedSort}
-									/>
-								</Grid>
-							) : null}
 							{showWalkinCheckbox ? (
 								<Grid
 									item

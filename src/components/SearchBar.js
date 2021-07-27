@@ -73,7 +73,7 @@ const SearchBar = (props) => {
 
 	return (
 		<Grid container spacing={0}>
-			<Grid item md={8} sm={12} xs={12} className="position-relative">
+			<Grid item xs className="position-relative">
 				{children}
 			</Grid>
 			{showResourceSelector && (

@@ -318,7 +318,8 @@ class MapPage extends React.Component {
 				searchStatus: 'refresh',
 				nearLatLng: latLng,
 				inState: state,
-				searchDisabled: false
+				searchDisabled: false,
+				orgName: null
 			});
 		};
 
@@ -695,6 +696,7 @@ class MapPage extends React.Component {
 									render={(props) => (
 										<SearchResultsPage
 											{...props}
+											{...this.props}
 											{...this.state}
 											clearResourceTypes={this.clearResourceTypes}
 											clearSearchFilters={this.clearSearchFilters}
@@ -730,6 +732,8 @@ class MapPage extends React.Component {
 											t={this.props.t}
 											user={this.props.user}
 											userData={this.props.userData}
+											handleSearchByOrgName={this.handleSearchByOrgName}
+											handleOrgSelection={this.handleOrgSelection}
 										/>
 									)}
 								/>
