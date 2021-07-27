@@ -30,6 +30,7 @@ import './reusable_tests/announcement';
 import './reusable_tests/language';
 import './reusable_tests/utility';
 import './reusable_tests/details';
+import './reusable_tests/mexico_crime_map';
 
 
 // Alternatively you can use CommonJS syntax:
