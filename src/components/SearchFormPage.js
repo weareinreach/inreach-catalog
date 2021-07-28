@@ -310,6 +310,7 @@ class SearchFormContainer extends React.Component {
 										classes={null}
 										onLocaleReset={this.handleLocaleReset}
 										onLocaleSelect={this.handleLocaleSelect}
+										locale={locale}
 									/>
 								) : (
 									<LocaleForm

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
@@ -113,7 +113,7 @@ function renderSuggestionsContainer(options) {
 							style={{fontWeight: 200}}
 							data-test-id="sign-up-form-no-organization"
 						>
-							Can't find it? Add a new organization here...
+							Can't find it? Suggest a new organization here...
 						</span>
 					</MenuItem>
 				</Link>
@@ -166,48 +166,56 @@ const OrganizationAutocomplete = ({
 	locale,
 	organizations,
 	organizationSearch,
-	organizationSelection
-}) => (
-	<Autosuggest
-		theme={{
-			container: classes.container,
-			suggestionsContainerOpen: classes.suggestionsContainerOpen,
-			suggestionsList: classes.suggestionsList,
-			suggestion: classes.suggestion
-		}}
-		suggestions={organizations}
-		onSuggestionsFetchRequested={handleOrganizationsFetchRequested}
-		onSuggestionsClearRequested={handleOrganizationsClearRequested}
-		onSuggestionSelected={handleOrganizationSelect}
-		renderSuggestionsContainer={
-			isLoadingOrganizations
-				? renderLoadingContainer
-				: !organizationSelection
-				? renderSuggestionsContainer.bind({
-						history,
-						handleMessageNew,
-						handleRequestClose,
-						locale
-				  })
-				: () => true
+	organizationSelection,
+	previousOrganizationSearch
+}) => {
+	useEffect(() => {
+		if (previousOrganizationSearch) {
+			organizationSelection = {name: previousOrganizationSearch};
 		}
-		getSuggestionValue={getSuggestionValue}
-		renderInputComponent={renderInput}
-		renderSuggestion={renderSuggestion}
-		focusInputOnSuggestionClick={false}
-		inputProps={{
-			classes,
-			placeholder: 'Start typing...',
-			value:
-				organizationSearch ||
-				(organizationSelection && organizationSelection.name
-					? organizationSelection.name
-					: ''),
-			onBlur: handleBlurOrganizations,
-			onChange: handleOrganizationSearchChange
-		}}
-	/>
-);
+	}, []);
+	return (
+		<Autosuggest
+			theme={{
+				container: classes.container,
+				suggestionsContainerOpen: classes.suggestionsContainerOpen,
+				suggestionsList: classes.suggestionsList,
+				suggestion: classes.suggestion
+			}}
+			suggestions={organizations}
+			onSuggestionsFetchRequested={handleOrganizationsFetchRequested}
+			onSuggestionsClearRequested={handleOrganizationsClearRequested}
+			onSuggestionSelected={handleOrganizationSelect}
+			renderSuggestionsContainer={
+				isLoadingOrganizations
+					? renderLoadingContainer
+					: !organizationSelection
+					? renderSuggestionsContainer.bind({
+							history,
+							handleMessageNew,
+							handleRequestClose,
+							locale
+					  })
+					: () => true
+			}
+			getSuggestionValue={getSuggestionValue}
+			renderInputComponent={renderInput}
+			renderSuggestion={renderSuggestion}
+			focusInputOnSuggestionClick={false}
+			inputProps={{
+				classes,
+				placeholder: 'Start typing...',
+				value:
+					organizationSearch ||
+					(organizationSelection && organizationSelection.name
+						? organizationSelection.name
+						: ''),
+				onBlur: handleBlurOrganizations,
+				onChange: handleOrganizationSearchChange
+			}}
+		/>
+	);
+};
 
 OrganizationAutocomplete.defaultProps = {
 	handleRequestClose: () => true
@@ -223,7 +231,8 @@ OrganizationAutocomplete.propTypes = {
 	handleRequestClose: PropTypes.func,
 	isLoadingOrganizations: PropTypes.bool.isRequired,
 	organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
-	organizationSearch: PropTypes.string.isRequired
+	organizationSearch: PropTypes.string.isRequired,
+	previousOrganizationSearch: PropTypes.string
 };
 
 export default withRouter(withStyles(styles)(OrganizationAutocomplete));

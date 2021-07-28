@@ -137,8 +137,12 @@ class SearchForm extends React.Component {
 			fullBottomMargin,
 			halfBottomMargin
 		} = this.props.classes;
-		const {handleOrgSelection, handleSearchByOrgName, showWalkinCheckbox} =
-			this.props;
+		const {
+			handleOrgSelection,
+			handleSearchByOrgName,
+			showWalkinCheckbox,
+			locale
+		} = this.props;
 		const variant = 'primary';
 		const localeLabel = 'Select country';
 		const isMobile = this.props.width < breakpoints['sm'];
@@ -279,7 +283,11 @@ class SearchForm extends React.Component {
 							data-test-id="serchbar"
 							showResourceSelector={false}
 						>
-							<SearchByOrgName handleOrgSelection={handleOrgSelection} />
+							<SearchByOrgName
+								handleOrgSelection={handleOrgSelection}
+								orgName={this.props.orgName}
+								locale={locale}
+							/>
 						</SearchBar>
 						<Grid container spacing={0} className={searchButtonContainer}>
 							<Grid

@@ -8,7 +8,7 @@ import withOrganizations from './withOrganizations';
 const styles = (theme) => ({});
 
 const SearchByOrgName = (props) => {
-	const {locale, handleOrgSelection} = props;
+	const {locale, handleOrgSelection, orgName} = props;
 	const handleSelection = (event, {suggestion, suggestionValue}) => {
 		handleOrgSelection(suggestionValue);
 		props.handleOrganizationSelect(event, {suggestion});
@@ -31,6 +31,7 @@ const SearchByOrgName = (props) => {
 				organizationSearch={props.organizationSearch}
 				organizationSelection={props.organizationSelection}
 				organizations={props.organizations}
+				previousOrganizationSearch={orgName}
 			/>
 		</>
 	);
