@@ -31,7 +31,7 @@ import './reusable_tests/language';
 import './reusable_tests/utility';
 import './reusable_tests/details';
 import './reusable_tests/mexico_crime_map';
-
+import './reusable_tests/static_resource';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
