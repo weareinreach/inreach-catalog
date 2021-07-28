@@ -15,7 +15,6 @@ Cypress.Commands.add('testLanguageAction',(viewport)=>{
                 expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');
                 expect(loc.hostname).to.be.eq('localhost');
             });
-            testMobile();
         });
     }else{
     let index = viewport === Cypress.env('desktop') ? 0 : 1;
@@ -32,7 +31,6 @@ Cypress.Commands.add('testLanguageAction',(viewport)=>{
         });
         cy.getElementByTestId('search-page-next-button').click();
         cy.wait(3000);
-        viewport === Cypress.env('desktop') ? testDesktop() : testTablet();
         });
     };
 });
