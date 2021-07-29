@@ -15,7 +15,7 @@ Cypress.Commands.add('testSearchPageElements',(viewport)=>{
 
     cy.getElementByTestId('search-form-body-2').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Search for verified LGBTQ- and immigrant-friendly services near you');
+        expect($element).contain('Find verified LGBTQ+ and immigrant-friendly services');
     });
 
     cy.getElementByTestId('search-bar-input').then($element=>{

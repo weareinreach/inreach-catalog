@@ -13,6 +13,7 @@ import withWidth from './withWidth';
 import {getLocale, isLocaleSet} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
 import WarningIcon from './icons/WarningIcon';
+import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	title: {
@@ -285,11 +286,10 @@ class SearchFormContainer extends React.Component {
 										className={title}
 										data-test-id="search-form-body"
 									>
-										{this.state.locale
-											? this.props.t(
-													'Welcome to the United States AsylumConnect Catalog!'
-											  )
-											: this.props.t('Welcome to the AsylumConnect Catalog!')}
+										<FormattedMessage
+											id="app.welcome"
+											defaultMessage="Welcome to the United States AsylumConnect Catalog!"
+										/>
 									</Typography>
 								</Grid>
 							) : null}
@@ -299,8 +299,10 @@ class SearchFormContainer extends React.Component {
 									className={subheading}
 									data-test-id="search-form-body-2"
 								>
-									Search for verified LGBTQ- and immigrant-friendly services
-									near you
+									<FormattedMessage
+										id="app.search-services"
+										defaultMessage="Find verified LGBTQ+ and immigrant-friendly services"
+									/>
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
