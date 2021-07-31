@@ -23,7 +23,10 @@ const styles = (theme) => ({
 		marginBottom: theme.spacing(4),
 		[theme.breakpoints.down('xs')]: {
 			fontSize: theme.typography.h2.fontSize,
-			lineHeight: '1.5'
+			lineHeight: '1.5',
+			paddingLeft: theme.spacing(2),
+			paddingRight: theme.spacing(2),
+			paddingTop: theme.spacing(2)
 		}
 	},
 	container: {
@@ -58,19 +61,18 @@ const styles = (theme) => ({
 			color: theme.palette.common.white
 		},
 		subheading: {
-			color: theme.palette.common.white,
 			marginBottom: theme.spacing(4)
 		},
 		container: {
 			height: '100%',
-			backgroundColor: theme.palette.secondary[500]
+			backgroundColor: theme.palette.common.white
 		},
-		containerSearchForm: Object.assign(mobilePadding(theme), {
+		containerSearchForm: {
 			alignContent: 'flex-start',
 			paddingTop: theme.spacing(4),
 			paddingBottom: theme.spacing(8),
-			backgroundColor: theme.palette.secondary[500]
-		}),
+			backgroundColor: theme.palette.common.white
+		},
 		infographicSpacing: {
 			marginTop: '1rem'
 		}

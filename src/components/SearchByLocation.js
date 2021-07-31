@@ -3,6 +3,7 @@ import {FormattedMessage} from 'react-intl';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import Fa from 'react-fontawesome';
 import {withStyles} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -29,48 +30,11 @@ const styles = (theme) => ({
 		width: '100%',
 		right: '0',
 		left: '0'
-	},
-	inlineSearchButton: {
-		position: 'absolute',
-		top: 0,
-		right: 0,
-		zIndex: 100,
-		height: '48px',
-		borderRadius: 0,
-		color: theme.palette.common.white,
-		backgroundColor: theme.palette.primary[500],
-		borderColor: theme.palette.primary[500],
-		'&:hover': {
-			color: theme.palette.common.white,
-			backgroundColor: theme.palette.primary[900],
-			borderColor: theme.palette.primary[900]
-		}
-	},
-	inlineSearchButtonDisabled: {
-		color: theme.palette.common.white,
-		backgroundColor: theme.palette.primary[100],
-		borderColor: theme.palette.primary[100],
-		'&:active': {
-			color: theme.palette.common.white,
-			backgroundColor: theme.palette.primary[100],
-			borderColor: theme.palette.primary[100]
-		},
-		'&:hover': {
-			color: theme.palette.common.white,
-			backgroundColor: theme.palette.primary[100],
-			borderColor: theme.palette.primary[100]
-		}
 	}
 });
 
 const SearchByLocation = (props) => {
-	const {
-		searchInputContainer,
-		searchInput,
-		placesContainer,
-		inlineSearchButton,
-		inlineSearchButtonDisabled
-	} = props.classes;
+	const {searchInputContainer, searchInput, placesContainer} = props.classes;
 	const {width, handleSearchButtonClick, searchDisabled, country} = props;
 	const isMobile = width < breakpoints['sm'];
 	const searchOptions = {
@@ -79,7 +43,7 @@ const SearchByLocation = (props) => {
 		}
 	};
 	return (
-		<>
+		<Grid item xs={12}>
 			<PlacesAutocomplete
 				onChange={props.handlePlaceChange}
 				onSelect={props.handlePlaceChange}
@@ -90,7 +54,7 @@ const SearchByLocation = (props) => {
 					<div className={searchInputContainer} data-test-id="search-bar-input">
 						<FormattedMessage
 							id="search.search-field-placeholder"
-							defaultMessage="Start typing county, city or state in the US…"
+							defaultMessage="Start typing county, city or state…"
 						>
 							{(placeholder) => (
 								<input
@@ -102,7 +66,14 @@ const SearchByLocation = (props) => {
 							)}
 						</FormattedMessage>
 						<div className={placesContainer}>
-							{loading && <div>Loading...</div>}
+							{loading && (
+								<div>
+									<FormattedMessage
+										id="app.loading"
+										defaultMessage="Loading..."
+									/>
+								</div>
+							)}
 							{suggestions.map((suggestion) => {
 								return (
 									<ListItem
@@ -127,19 +98,7 @@ const SearchByLocation = (props) => {
 					</div>
 				)}
 			</PlacesAutocomplete>
-			{isMobile && inlineSearchButton ? (
-				<IconButton
-					className={inlineSearchButton}
-					classes={{
-						disabled: inlineSearchButtonDisabled
-					}}
-					onClick={handleSearchButtonClick}
-					disabled={searchDisabled}
-				>
-					<Fa name="search" />
-				</IconButton>
-			) : null}
-		</>
+		</Grid>
 	);
 };
 
