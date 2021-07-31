@@ -21,7 +21,13 @@ import SearchByLocation from './SearchByLocation';
 import SearchByOrgName from './SearchByOrgName';
 import SearchRefinementControls from './SearchRefinementControls';
 import withWidth from './withWidth';
-import {breakpoints} from '../theme';
+import {breakpoints, boldFont} from '../theme';
+
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = (theme) => ({
 	formRow: {
@@ -88,7 +94,8 @@ const styles = (theme) => ({
 	infographicContainer: {
 		paddingBottom: theme.spacing(12),
 		paddingTop: theme.spacing(3)
-	}
+	},
+	boldFont: boldFont(theme)
 });
 
 class SearchForm extends React.Component {
@@ -135,7 +142,8 @@ class SearchForm extends React.Component {
 			tooltip,
 			filterContainer,
 			fullBottomMargin,
-			halfBottomMargin
+			halfBottomMargin,
+			boldFont
 		} = this.props.classes;
 		const {
 			handleOrgSelection,
@@ -164,103 +172,103 @@ class SearchForm extends React.Component {
 						</Grid>
 					</Grid>
 				) : null}
-				<TabContext value={this.state.tabValue}>
-					<AppBar position="static">
-						<TabList
-							onChange={this.handleChange}
-							aria-label="search panel tabs"
-						>
-							<Tab
-								label={
-									<FormattedMessage
-										id="search.search-by-location-tab-heading"
-										defaultMessage="Find services near you"
-									/>
-								}
-								{...this.a11yProps(0)}
-								className={tabs}
-							/>
-							<Tab
-								label={
-									<FormattedMessage
-										id="search.search-by-name-tab-heading"
-										defaultMessage="Find an organization by name"
-									/>
-								}
-								{...this.a11yProps(1)}
-								className={tabs}
-							/>
-						</TabList>
-					</AppBar>
-					<TabPanel value={0} index={0}>
-						<SearchBar
-							{...this.props}
-							classes={null}
-							moveSearchButton={this.onMoveSearchButton}
-							data-test-id="serchbar"
-						>
-							<SearchByLocation {...this.props} />
-						</SearchBar>
-						<Grid
-							container
-							spacing={0}
-							className={nationalOrgCheckboxContainer}
-						>
-							<Grid item>
-								<AsylumConnectCheckbox
+				{!isMobile && (
+					<TabContext value={this.state.tabValue}>
+						<AppBar position="static">
+							<TabList
+								onChange={this.handleChange}
+								aria-label="search panel tabs"
+							>
+								<Tab
 									label={
 										<FormattedMessage
-											id="search.show-national-organisations-country"
-											defaultMessage="Show me national organizations who can help anyone located in the country"
+											id="search.search-by-location-tab-heading"
+											defaultMessage="Find services near you"
 										/>
 									}
-									checked={this.props.isNational}
-									onChange={this.props.handleNationalCheckBox}
+									{...this.a11yProps(0)}
+									className={tabs}
 								/>
-							</Grid>
-						</Grid>
-						<Grid container spacing={0} className={searchButtonContainer}>
-							<Grid
-								item
-								xs
-								className={searchButton}
-								style={{paddingBottom: '10px'}}
+								<Tab
+									label={
+										<FormattedMessage
+											id="search.search-by-name-tab-heading"
+											defaultMessage="Find an organization by name"
+										/>
+									}
+									{...this.a11yProps(1)}
+									className={tabs}
+								/>
+							</TabList>
+						</AppBar>
+						<TabPanel value={0} index={0}>
+							<SearchBar
+								{...this.props}
+								classes={null}
+								moveSearchButton={this.onMoveSearchButton}
+								data-test-id="serchbar"
 							>
-								<AsylumConnectButton
-									variant={variant}
-									onClick={this.props.handleSearchButtonClick}
-									disabled={this.props.searchDisabled}
-									className={this.state.moveButton ? lowerButton : null}
-									testIdName="search-bar-search-button"
-								>
-									<FormattedMessage
-										id="navigation.search"
-										defaultMessage="Search"
+								<SearchByLocation {...this.props} />
+							</SearchBar>
+							<Grid
+								container
+								spacing={0}
+								className={nationalOrgCheckboxContainer}
+							>
+								<Grid item>
+									<AsylumConnectCheckbox
+										label={
+											<FormattedMessage
+												id="search.show-national-organisations-country"
+												defaultMessage="Show me national organizations who can help anyone located in the country"
+											/>
+										}
+										checked={this.props.isNational}
+										onChange={this.props.handleNationalCheckBox}
 									/>
-									{this.props.searchDisabled ? (
-										<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
-									) : null}
-								</AsylumConnectButton>
+								</Grid>
 							</Grid>
-
-							<Grid item xs className="pull-right">
-								<Tooltip
-									className={tooltip}
-									classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-									title="Print Results"
-									placement="top"
+							<Grid container spacing={0} className={searchButtonContainer}>
+								<Grid
+									item
+									xs
+									className={searchButton}
+									style={{paddingBottom: '10px'}}
 								>
-									<IconButton
-										className={secondary}
-										style={{height: 'auto'}}
-										onClick={this.props.handlePrintClick}
-										disabled={this.props.printDisabled}
+									<AsylumConnectButton
+										variant={variant}
+										onClick={this.props.handleSearchButtonClick}
+										disabled={this.props.searchDisabled}
+										className={this.state.moveButton ? lowerButton : null}
+										testIdName="search-bar-search-button"
 									>
-										<Fa name="print" />
-									</IconButton>
-								</Tooltip>
-							</Grid>
-							{!isMobile && (
+										<FormattedMessage
+											id="navigation.search"
+											defaultMessage="Search"
+										/>
+										{this.props.searchDisabled ? (
+											<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
+										) : null}
+									</AsylumConnectButton>
+								</Grid>
+
+								<Grid item xs className="pull-right">
+									<Tooltip
+										className={tooltip}
+										classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+										title="Print Results"
+										placement="top"
+									>
+										<IconButton
+											className={secondary}
+											style={{height: 'auto'}}
+											onClick={this.props.handlePrintClick}
+											disabled={this.props.printDisabled}
+										>
+											<Fa name="print" />
+										</IconButton>
+									</Tooltip>
+								</Grid>
 								<Grid item xs className={filterContainer + ' ' + toolbarClass}>
 									<SearchRefinementControls
 										clearSearchFilters={this.props.clearSearchFilters}
@@ -272,49 +280,115 @@ class SearchForm extends React.Component {
 										selectedSort={this.props.selectedSort}
 									/>
 								</Grid>
-							)}
-						</Grid>
-					</TabPanel>
-					<TabPanel value={1} index={1}>
-						<SearchBar
-							{...this.props}
-							classes={null}
-							moveSearchButton={this.onMoveSearchButton}
-							data-test-id="serchbar"
-							showResourceSelector={false}
-						>
-							<SearchByOrgName
-								handleOrgSelection={handleOrgSelection}
-								orgName={this.props.orgName}
-								locale={locale}
-							/>
-						</SearchBar>
-						<Grid container spacing={0} className={searchButtonContainer}>
-							<Grid
-								item
-								xs
-								className={searchButton}
-								style={{paddingBottom: '10px'}}
-							>
-								<AsylumConnectButton
-									variant={variant}
-									onClick={handleSearchByOrgName}
-									disabled={this.props.searchDisabled}
-									className={this.state.moveButton ? lowerButton : null}
-									testIdName="search-bar-search-button"
-								>
-									<FormattedMessage
-										id="navigation.search"
-										defaultMessage="Search"
-									/>
-									{this.props.searchDisabled ? (
-										<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
-									) : null}
-								</AsylumConnectButton>
 							</Grid>
-						</Grid>
-					</TabPanel>
-				</TabContext>
+						</TabPanel>
+						<TabPanel value={1} index={1}>
+							<SearchBar
+								{...this.props}
+								classes={null}
+								moveSearchButton={this.onMoveSearchButton}
+								data-test-id="serchbar"
+								showResourceSelector={false}
+							>
+								<SearchByOrgName
+									handleOrgSelection={handleOrgSelection}
+									orgName={this.props.orgName}
+									locale={locale}
+								/>
+							</SearchBar>
+							<Grid container spacing={0} className={searchButtonContainer}>
+								<Grid
+									item
+									xs
+									className={searchButton}
+									style={{paddingBottom: '10px'}}
+								>
+									<AsylumConnectButton
+										variant={variant}
+										onClick={handleSearchByOrgName}
+										disabled={this.props.searchDisabled}
+										className={this.state.moveButton ? lowerButton : null}
+										testIdName="search-bar-search-button"
+									>
+										<FormattedMessage
+											id="navigation.search"
+											defaultMessage="Search"
+										/>
+										{this.props.searchDisabled ? (
+											<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
+										) : null}
+									</AsylumConnectButton>
+								</Grid>
+							</Grid>
+						</TabPanel>
+					</TabContext>
+				)}
+
+				{isMobile && (
+					<Accordion>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+							<Typography
+								component="h3"
+								variant="h4"
+								className={this.props.classes.boldFont}
+							>
+								<FormattedMessage
+									id="search.search-by-location-tab-heading"
+									defaultMessage="Find services near you"
+								/>
+							</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Grid container>
+								<Grid item xs>
+									<SearchBar
+										{...this.props}
+										classes={null}
+										moveSearchButton={this.onMoveSearchButton}
+										data-test-id="serchbar"
+										showResourceSelector={false}
+									>
+										<SearchByLocation {...this.props} />
+									</SearchBar>
+								</Grid>
+								<Grid item className={nationalOrgCheckboxContainer}>
+									<AsylumConnectCheckbox
+										label={
+											<FormattedMessage
+												id="search.show-national-organisations-country"
+												defaultMessage="Show me national organizations who can help anyone located in the country"
+											/>
+										}
+										checked={this.props.isNational}
+										onChange={this.props.handleNationalCheckBox}
+									/>
+								</Grid>
+								<Grid
+									item
+									xs
+									className={searchButton}
+									style={{paddingBottom: '10px'}}
+								>
+									<AsylumConnectButton
+										variant={variant}
+										onClick={this.props.handleSearchButtonClick}
+										disabled={this.props.searchDisabled}
+										className={this.state.moveButton ? lowerButton : null}
+										testIdName="search-bar-search-button"
+									>
+										<FormattedMessage
+											id="navigation.search"
+											defaultMessage="Search"
+										/>
+										{this.props.searchDisabled ? (
+											<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
+										) : null}
+									</AsylumConnectButton>
+								</Grid>
+							</Grid>
+						</AccordionDetails>
+					</Accordion>
+				)}
 				{this.props.infographic && (
 					<Grid container className={infographicContainer}>
 						<Grid item xs={12} className={searchButton}>
