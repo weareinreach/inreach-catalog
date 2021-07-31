@@ -79,7 +79,7 @@ const styles = (theme) => ({
 			paddingBottom: '0px'
 		},
 		containerSearchForm: Object.assign(mobilePadding(theme), {
-			backgroundColor: theme.palette.secondary[500],
+			backgroundColor: theme.palette.common.white,
 			paddingTop: '20px',
 			paddingBottom: '20px'
 		}),
@@ -139,39 +139,41 @@ const ResultsContainer = (props) => {
 	);
 
 	return (
-		<div
-			className={
-				searching && !searchResults.length
-					? loadingColor
-					: containerSearchResults
-			}
-		>
+		<>
 			<Disclaimer {...disclaimerProps} />
-			{searchResults.length
-				? searchResults.map((organization) => {
-						return (
-							<ResourceListItem
-								data-test-id="search-form-result"
-								key={organization._id}
-								resource={organization}
-								userData={userData}
-								{...props}
-							/>
-						);
-				  })
-				: null}
-			{searching ? (
-				<Loading colorClass={searchResults.length ? null : loadingColor} />
-			) : searchResults.length ? null : (
-				<Typography variant="body2" className={noResults}>
-					We didn't currently find any verified resources within your search
-					criteria.
-					<br />
-					Try choosing different resource types or searching for a different
-					location.
-				</Typography>
-			)}
-		</div>
+			<div
+				className={
+					searching && !searchResults.length
+						? loadingColor
+						: containerSearchResults
+				}
+			>
+				{searchResults.length
+					? searchResults.map((organization) => {
+							return (
+								<ResourceListItem
+									data-test-id="search-form-result"
+									key={organization._id}
+									resource={organization}
+									userData={userData}
+									{...props}
+								/>
+							);
+					  })
+					: null}
+				{searching ? (
+					<Loading colorClass={searchResults.length ? null : loadingColor} />
+				) : searchResults.length ? null : (
+					<Typography variant="body2" className={noResults}>
+						We didn't currently find any verified resources within your search
+						criteria.
+						<br />
+						Try choosing different resource types or searching for a different
+						location.
+					</Typography>
+				)}
+			</div>
+		</>
 	);
 };
 
@@ -328,44 +330,6 @@ class SearchResultsContainer extends React.Component {
 						<SearchForm {...this.props} />
 						<Grid container spacing={0} alignItems="flex-start">
 							<Grid item xs={12} md={8} className={toolbarClass}>
-								{/* {isMobile ? null : (
-									<Grid container spacing={0} justify="space-between">
-										<Grid item xs>
-											<AsylumConnectButton
-												variant="primary"
-												onClick={this.props.handleSearchButtonClick}
-												disabled={this.props.searchDisabled}
-												className={this.state.moveButton ? lowerButton : null}
-											>
-												Search
-												{this.props.searchDisabled ? (
-													<Fa
-														name="spinner"
-														spin
-														style={{marginLeft: '0.5rem'}}
-													/>
-												) : null}
-											</AsylumConnectButton>
-										</Grid>
-										<Grid item xs className="pull-right">
-											<Tooltip
-												className={tooltip}
-												classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-												title="Print Results"
-												placement="top"
-											>
-												<IconButton
-													className={secondary}
-													style={{height: 'auto'}}
-													onClick={this.props.handlePrintClick}
-													disabled={this.props.printDisabled}
-												>
-													<Fa name="print" />
-												</IconButton>
-											</Tooltip>
-										</Grid>
-									</Grid>
-								)} */}
 								{this.props.infographic ? (
 									<Grid container spacing={0} justify="space-between">
 										<Grid item xs>
