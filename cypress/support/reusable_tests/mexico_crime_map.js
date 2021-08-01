@@ -8,7 +8,6 @@ cy.getElementByTestId('language-selector-container').then($element=>{
             expect($element[1]).contain("Mexico");
             cy.wrap($element[1]).click();
             cy.getElementByTestId('search-page-next-button').click();
-            cy.waitFor(1000);
         });
     });
 });

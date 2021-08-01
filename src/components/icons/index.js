@@ -62,51 +62,55 @@ export {default as TransportationIcon} from './TransportationIcon';
 export {default as TravelIcon} from './TravelIcon';
 
 const typeMap = {
-  account: AccountIcon,
-  airplane: AirplaneIcon,
-  collapse: CollapseIcon,
-  communitySupport: CommunitySupportIcon,
-  computers: ComputersIcon,
-  edit: EditIcon,
-  educationEmployment: EducationEmploymentIcon,
-  favorites: FavoritesIcon,
-  filters: FiltersIcon,
-  flag: FlagIcon,
-  food: FoodIcon,
-  housing: HousingIcon,
-  clothing: ClothingIcon,
-  language: LanguageIcon,
-  legal: LegalIcon,
-  mail: MailIcon,
-  medical: MedicalIcon,
-  mentalHealth: MentalHealthIcon,
-  misc: MiscIcon,
-  pinpoint: PinpointIcon,
-  privacy: PrivacyIcon,
-  search: SearchIcon,
-  speechBubble: SpeechBubblesIcon,
-  star: RecommendedStarIcon,
-  sportsEntertainment: SportsEntertainmentIcon,
-  suitcase: TravelIcon,
-  transportation: TransportationIcon,
+	account: AccountIcon,
+	airplane: AirplaneIcon,
+	collapse: CollapseIcon,
+	communitySupport: CommunitySupportIcon,
+	computers: ComputersIcon,
+	edit: EditIcon,
+	educationEmployment: EducationEmploymentIcon,
+	favorites: FavoritesIcon,
+	filters: FiltersIcon,
+	flag: FlagIcon,
+	food: FoodIcon,
+	housing: HousingIcon,
+	clothing: ClothingIcon,
+	language: LanguageIcon,
+	legal: LegalIcon,
+	mail: MailIcon,
+	medical: MedicalIcon,
+	mentalHealth: MentalHealthIcon,
+	misc: MiscIcon,
+	pinpoint: PinpointIcon,
+	privacy: PrivacyIcon,
+	search: SearchIcon,
+	speechBubble: SpeechBubblesIcon,
+	star: RecommendedStarIcon,
+	sportsEntertainment: SportsEntertainmentIcon,
+	suitcase: TravelIcon,
+	transportation: TransportationIcon
 };
 
 const StandaloneIcon = function (props) {
-  const {className, fillColor, height, name, strokeColor, width} = props;
-  const Icon = typeMap[name];
+	const {className, fillColor, height, name, strokeColor, width} = props;
+	const Icon = typeMap[name];
 
-  if (Icon) {
-    const iconWidth = width || '75px';
-    const iconHeight = height || '75px';
+	if (Icon) {
+		const iconWidth = width || '75px';
+		const iconHeight = height || '75px';
 
-    return (
-      <div style={{width: iconWidth, height: iconHeight}} className={className}>
-        <Icon fillColor={fillColor} strokeColor={strokeColor} />
-      </div>
-    );
-  }
+		return (
+			<div
+				style={{width: iconWidth, height: iconHeight}}
+				className={className}
+				data-test-id="icon"
+			>
+				<Icon fillColor={fillColor} strokeColor={strokeColor} />
+			</div>
+		);
+	}
 
-  return null;
+	return null;
 };
 
 export {StandaloneIcon};
