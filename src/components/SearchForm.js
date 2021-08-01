@@ -68,7 +68,7 @@ const styles = (theme) => ({
 		},
 		searchButtonContainer: {
 			paddingTop: theme.spacing(4),
-			paddingBottom: theme.spacing(10)
+			paddingBottom: theme.spacing(1)
 		},
 		searchButton: {
 			textAlign: 'center'
@@ -358,29 +358,32 @@ class SearchForm extends React.Component {
 									</Grid>
 									<Grid
 										item
-										xs
-										className={searchButton}
-										style={{paddingBottom: '10px'}}
+										xs={12}
+										container
+										spacing={0}
+										className={searchButtonContainer}
 									>
-										<AsylumConnectButton
-											variant={variant}
-											onClick={handleSearchByOrgName}
-											disabled={this.props.searchDisabled}
-											className={this.state.moveButton ? lowerButton : null}
-											testIdName="search-bar-search-button"
-										>
-											<FormattedMessage
-												id="navigation.search"
-												defaultMessage="Search"
-											/>
-											{this.props.searchDisabled ? (
-												<Fa
-													name="spinner"
-													spin
-													style={{marginLeft: '0.5rem'}}
+										<Grid item xs className={searchButton}>
+											<AsylumConnectButton
+												variant={variant}
+												onClick={handleSearchByOrgName}
+												disabled={this.props.searchDisabled}
+												className={this.state.moveButton ? lowerButton : null}
+												testIdName="search-bar-search-button"
+											>
+												<FormattedMessage
+													id="navigation.search"
+													defaultMessage="Search"
 												/>
-											) : null}
-										</AsylumConnectButton>
+												{this.props.searchDisabled ? (
+													<Fa
+														name="spinner"
+														spin
+														style={{marginLeft: '0.5rem'}}
+													/>
+												) : null}
+											</AsylumConnectButton>
+										</Grid>
 									</Grid>
 								</Grid>
 							</AccordionDetails>

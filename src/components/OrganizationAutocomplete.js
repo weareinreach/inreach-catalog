@@ -18,7 +18,9 @@ function renderInput(inputProps) {
 	const {classes, value, ref} = inputProps;
 	return (
 		<FormControl className={classes.textField}>
-			<InputLabel htmlFor="organization">Organization Name</InputLabel>
+			<InputLabel htmlFor="organization" className={classes.textFieldLabel}>
+				Organization Name
+			</InputLabel>
 			<Input
 				id="organization"
 				data-test-id="sign-up-form-find-organization"
@@ -26,6 +28,7 @@ function renderInput(inputProps) {
 				value={value}
 				ref={ref}
 				{...Object.assign({}, inputProps, {classes: null})}
+				disableUnderline={true}
 			/>
 		</FormControl>
 	);
@@ -130,7 +133,9 @@ const styles = (theme) => ({
 	container: {
 		flexGrow: 1,
 		position: 'relative',
-		zIndex: 1
+		zIndex: 10,
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[2]
 	},
 	suggestionsContainerOpen: {
 		position: 'absolute',
@@ -148,7 +153,12 @@ const styles = (theme) => ({
 		listStyleType: 'none'
 	},
 	textField: {
-		width: '100%'
+		width: '100%',
+		border: 0,
+		padding: theme.spacing(0.5)
+	},
+	textFieldLabel: {
+		paddingLeft: theme.spacing(1)
 	}
 });
 
