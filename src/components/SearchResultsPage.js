@@ -320,7 +320,7 @@ class SearchResultsContainer extends React.Component {
 						{isMobile ? (
 							<div className={backButton}>
 								<AsylumConnectBackButton
-									color="contrast"
+									color="secondary"
 									onClick={() => {
 										this.props.history.push('/');
 									}}

@@ -42,7 +42,8 @@ const styles = (theme) => ({
 	labelContainer: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		justifyContent: 'space-between'
 	},
 	indicator: {
 		display: 'inline-block',

@@ -313,7 +313,7 @@ class MapPage extends React.Component {
 			);
 			const sort = encodeURIComponent(this.state.selectedSort);
 			const url = `/${this.props.locale}/search/${inState}/${nearAddress}/${nearLatLng}/${isNational}/${resourceTypes}/${filters}/${sort}`;
-			this.props.history.push(url);
+			this.props.history.replace(url);
 			this.setState({
 				searchStatus: 'refresh',
 				nearLatLng: latLng,
@@ -359,17 +359,25 @@ class MapPage extends React.Component {
 		const name = encodeURIComponent(this.state.orgName);
 		const sort = encodeURIComponent(this.state.selectedSort);
 		const url = `/${this.props.locale}/search/${name}/${sort}`;
-		this.props.history.push(url);
+		this.props.handleAddressChange('');
 		this.setState({
 			searchStatus: 'refresh',
 			nearLatLng: null,
 			inState: null,
+			nearAddress: null,
 			searchDisabled: false
 		});
+		this.props.history.replace(url);
 	}
 
 	handleOrgSelection(orgName) {
-		this.setState({orgName: orgName});
+		this.props.handleAddressChange('');
+		this.setState({
+			orgName: orgName,
+			nearLatLng: null,
+			inState: null,
+			nearAddress: null
+		});
 	}
 
 	resizeMap() {
