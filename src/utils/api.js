@@ -69,7 +69,8 @@ export const fetchOrganizations = (params) => {
 		selectedFilters,
 		selectedResourceTypes,
 		state,
-		isNational
+		isNational,
+		county
 	} = params || {};
 	const tagLocale = localeTagMap[locale] || '';
 	const query = {};
@@ -113,14 +114,18 @@ export const fetchOrganizations = (params) => {
 		const stateProperty = `service-state-${getAreaId(state)}`;
 
 		serviceArea += `${serviceArea ? ',' : ''}${stateProperty}`;
+	}
+	if (county) {
+		const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
+			county
+		)}`;
 
-		if (city) {
-			const countyProperty = `service-county-${getAreaId(state)}-${getAreaId(
-				city
-			)}`;
+		serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
+	}
+	if (city) {
+		const cityProperty = `service-city-${getAreaId(state)}-${getAreaId(city)}`;
 
-			serviceArea += `${serviceArea ? ',' : ''}${countyProperty}`;
-		}
+		serviceArea += `${serviceArea ? ',' : ''}${cityProperty}`;
 	}
 
 	if (serviceArea) {
@@ -296,5 +301,51 @@ export const deleteOrgOwner = ({orgId, userId}) => {
 export const createSuggestion = (suggestions) => {
 	return catalogPost(`/suggestions`, {suggestions})
 		.then((res) => res)
+		.catch((err) => err);
+};
+
+export const shareResource = ({
+	email,
+	shareType,
+	shareUrl,
+	resource,
+	userId
+}) => {
+	if (
+		(shareType === 'collection' && !userId) ||
+		!resource ||
+		!email ||
+		!shareType ||
+		!shareUrl
+	) {
+		handleErr('Bad request');
+	}
+	if (shareType === 'collection') {
+		return catalogPost(`/users/${userId}/lists/${resource}/share`, {
+			email: email,
+			list: resource,
+			shareUrl: shareUrl,
+			shareType: shareType
+		})
+			.then((res) => res)
+			.catch((err) => err);
+	} else {
+		return catalogPost(`/organizations/${resource}/share`, {
+			email: email,
+			organization: resource,
+			shareUrl: shareUrl,
+			shareType: shareType
+		})
+			.then((res) => res)
+			.catch((err) => err);
+	}
+};
+
+export const fetchList = (listId = null) => {
+	if (!listId) {
+		handleErr('Bad request');
+	}
+	return catalogGet(`/users/lists/${listId}`)
+		.then(({list}) => list)
 		.catch((err) => err);
 };

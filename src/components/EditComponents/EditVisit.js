@@ -181,16 +181,18 @@ const EditVisit = ({
 				fullWidth
 				renderInput={
 					closed || open24
-						? () => (
-								<TextField
-									variant="outlined"
-									color="secondary"
-									fullWidth
-									disabled={closed || open24}
-									value={closed ? 'Closed' : 'Open 24hr'}
-									classes={closed || open24 ? {root: classes.disabled} : {}}
-								/>
-						  )
+						? () => {
+								return (
+									<TextField
+										variant="outlined"
+										color="secondary"
+										fullWidth
+										disabled={closed || open24}
+										value={closed ? 'Closed' : 'Open 24hr'}
+										classes={closed || open24 ? {root: classes.disabled} : {}}
+									/>
+								);
+						  }
 						: (params) => {
 								return (
 									<TextField {...params} variant="outlined" color="secondary" />

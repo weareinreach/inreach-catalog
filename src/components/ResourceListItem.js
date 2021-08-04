@@ -106,7 +106,8 @@ class ResourceListItem extends React.Component {
 			session,
 			user,
 			userData,
-			width
+			width,
+			isOwner
 		} = this.props;
 		const {
 			ratingSpacing,
@@ -131,7 +132,7 @@ class ResourceListItem extends React.Component {
 		];
 		const labelClass = format === 'search' ? 'hide--on-screen' : null;
 		const name = resource.name || resource.title;
-		const isOrganizationItem = resource.resource_type === 'Organization';
+		const isOrganizationItem = resource.services ? true : false;
 		const link = isOrganizationItem
 			? `/${locale}/resource/${resource.slug}`
 			: `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
@@ -166,7 +167,11 @@ class ResourceListItem extends React.Component {
 									spacing={0}
 								>
 									<Grid item xs={8} md lg xl>
-										<Typography variant="subtitle2" className={orgName}>
+										<Typography
+											variant="subtitle2"
+											className={orgName}
+											data-test-id="favorites-list-item"
+										>
 											{name}
 										</Typography>
 									</Grid>
@@ -195,9 +200,10 @@ class ResourceListItem extends React.Component {
 												user={user}
 											/>
 										)}
-										{isOnFavoritesList && !isOnPublicList && (
+										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
 												onClick={() => handleListRemoveFavorite(resource._id)}
+												data-test-id="favorites-list-remove-item-button"
 											>
 												<Fa name="times" />
 											</Button>
@@ -209,7 +215,11 @@ class ResourceListItem extends React.Component {
 								(item) => item.toLowerCase().indexOf('service-national') === 0
 							).length ? (
 								<Grid item xs={12}>
-									<Typography variant="body1" className={nationalOrg}>
+									<Typography
+										variant="body1"
+										className={nationalOrg}
+										data-test-id="resource-list-item"
+									>
 										<Fa name="info-circle" className={moreInfo} /> This
 										organization can help people located anywhere in the
 										country.
@@ -269,6 +279,7 @@ class ResourceListItem extends React.Component {
 												variant="subtitle2"
 												color="secondary"
 												className={orgName}
+												data-test-id="favorites-list-item"
 											>
 												{name}
 											</Typography>
@@ -298,8 +309,9 @@ class ResourceListItem extends React.Component {
 												user={user}
 											/>
 										)}
-										{isOnFavoritesList && !isOnPublicList && (
+										{isOwner && isOnFavoritesList && !isOnPublicList && (
 											<Button
+												data-test-id="favorites-list-remove-item-button"
 												onClick={() => handleListRemoveFavorite(resource._id)}
 											>
 												<Fa name="times" />
@@ -469,7 +481,8 @@ ResourceListItem.propTypes = {
 	lists: PropTypes.arrayOf(PropTypes.object),
 	resource: PropTypes.object.isRequired,
 	session: PropTypes.string,
-	user: PropTypes.string
+	user: PropTypes.string,
+	isOwner: PropTypes.bool
 };
 
 ResourceListItem.defaultProps = {

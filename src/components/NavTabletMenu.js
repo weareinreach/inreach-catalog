@@ -51,11 +51,13 @@ class NavTabletMenu extends React.Component {
 					aria-haspopup="true"
 					onClick={this.handleClick}
 					className={classes.root}
+					data-test-id="tablet-nav-button-icon"
 				>
 					<img
 						src={LogoImg}
 						alt="asylumconnect logo"
 						className={classes.LogoFitHeight}
+						data-test-id="tablet-nav-button-icon-image"
 					/>
 					<ChevronIcon width={'40px'} />
 				</IconButton>
@@ -65,44 +67,63 @@ class NavTabletMenu extends React.Component {
 					open={this.state.open}
 					onRequestClose={this.handleRequestClose}
 					className={classes.AsylumConnectMenu}
+					data-test-id="tablet-nav-menu-button"
 				>
 					<MenuItem onClick={this.handleRequestClose}>
-						<a href="https://asylumconnect.org">
+						<a
+							data-test-id="tablet-nav-menu-item-home"
+							href="https://asylumconnect.org"
+						>
 							<FormattedMessage id="navigation.home">
 								{(home) => <Typography variant="h6">{home}</Typography>}
 							</FormattedMessage>
 						</a>
 					</MenuItem>
 					<MenuItem onClick={this.handleRequestClose}>
-						<a href="https://asylumconnect.org/mission/">
+						<a
+							data-test-id="tablet-nav-menu-item-about"
+							href="https://asylumconnect.org/mission/"
+						>
 							<FormattedMessage id="navigation.about">
 								{(about) => <Typography variant="h6">{about}</Typography>}
 							</FormattedMessage>
 						</a>
 					</MenuItem>
 					<MenuItem onClick={this.handleRequestClose}>
-						<a href="https://asylumconnect.org/donate/">
+						<a
+							data-test-id="tablet-nav-menu-item-take-action"
+							href="https://asylumconnect.org/donate/"
+						>
 							<FormattedMessage id="navigation.take-action">
 								{(action) => <Typography variant="h6">{action}</Typography>}
 							</FormattedMessage>
 						</a>
 					</MenuItem>
 					<MenuItem onClick={this.handleRequestClose}>
-						<a href="https://asylumconnect.org/faqs/">
+						<a
+							data-test-id="tablet-nav-menu-item-faqs"
+							href="https://asylumconnect.org/faqs/"
+						>
 							<FormattedMessage id="navigation.get-help">
 								{(help) => <Typography variant="h6">{help}</Typography>}
 							</FormattedMessage>
 						</a>
 					</MenuItem>
 					<MenuItem onClick={this.handleRequestClose}>
-						<a href="https://asylumconnect.org/contact/">
+						<a
+							data-test-id="tablet-nav-menu-item-contact"
+							href="https://asylumconnect.org/contact/"
+						>
 							<FormattedMessage id="navigation.contact">
 								{(contact) => <Typography variant="h6">{contact}</Typography>}
 							</FormattedMessage>
 						</a>
 					</MenuItem>
 					<MenuItem onClick={this.handleRequestClose}>
-						<a href="https://www.google.com/">
+						<a
+							data-test-id="tablet-nav-menu-item-safety-exit"
+							href="https://www.google.com/"
+						>
 							<FormattedMessage id="navigation.safety-exit">
 								{(safety) => <Typography variant="h6">{safety}</Typography>}
 							</FormattedMessage>

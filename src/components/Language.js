@@ -139,7 +139,11 @@ class LangMenuItem extends React.Component {
 	}
 	render() {
 		return (
-			<AsylumConnectDropdownListItem button onClick={this.handleSelectLang}>
+			<AsylumConnectDropdownListItem
+				data-test-id="nav-button-language-item"
+				button
+				onClick={this.handleSelectLang}
+			>
 				{this.props.langName}
 			</AsylumConnectDropdownListItem>
 		);
@@ -157,9 +161,8 @@ class Language extends React.Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleReload = this.handleReload.bind(this);
-		this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(
-			this
-		);
+		this.handleRequestCloseAfterSelect =
+			this.handleRequestCloseAfterSelect.bind(this);
 		this.generateLanguageItems = this.generateLanguageItems.bind(this);
 		this.generateLanguageList = this.generateLanguageList.bind(this);
 		this.generateLabelWithIcon = this.generateLabelWithIcon.bind(this);
@@ -343,7 +346,10 @@ class Language extends React.Component {
 		}
 
 		return (
-			<div className={classes.root + ' hide--on-print'}>
+			<div
+				className={classes.root + ' hide--on-print'}
+				data-test-id="nav-button-language"
+			>
 				{!isMobile ? (
 					<AsylumConnectSelector
 						label={

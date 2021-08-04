@@ -64,7 +64,8 @@ const LanguageMap = {
 	en_US: en_US,
 	en_CA: en_CA,
 	es_MX: es_MX,
-	en_MX: en_MX
+	en_MX: en_MX,
+	intl: en_US
 };
 
 class AppConnectCatalog extends React.Component {
@@ -323,7 +324,11 @@ class AppConnectCatalog extends React.Component {
 		return (
 			<IntlProvider
 				messages={LanguageMap[locale]}
-				locale={`${locale.split('_')[0]}-${locale.split('_')[1]}`}
+				locale={
+					locale !== 'intl'
+						? `${locale.split('_')[0]}-${locale.split('_')[1]}`
+						: 'en'
+				}
 				defaultLocale="en-US"
 			>
 				<div className={classes.container}>
@@ -387,6 +392,7 @@ class AppConnectCatalog extends React.Component {
 										handleRequestClose={this.handleRequestClose}
 										handleRequestOpen={this.handleRequestOpen}
 										session={session}
+										user={user}
 									/>
 								)}
 								{dialogHasListNew && (

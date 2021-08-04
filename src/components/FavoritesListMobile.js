@@ -75,7 +75,9 @@ const FavoritesListMobile = ({
 	resources,
 	session,
 	user,
-	userData
+	userData,
+	hasAccess,
+	isOwner
 }) => {
 	if (!session) {
 		return (
@@ -83,6 +85,7 @@ const FavoritesListMobile = ({
 				<Typography
 					className={classNames(classes.spacingBottom, classes.textCenter)}
 					variant="body1"
+					data-test-id="favorites-page-header-text"
 				>
 					Once logged in, you’ll be able to quickly find the organizations and
 					resources you have favorited.
@@ -94,6 +97,7 @@ const FavoritesListMobile = ({
 						onClick={(ev) => {
 							handleRequestOpen('login');
 						}}
+						testIdName="favorites-page-login-button"
 					>
 						Log In
 					</AsylumConnectButton>
@@ -103,10 +107,32 @@ const FavoritesListMobile = ({
 						onClick={(ev) => {
 							handleRequestOpen('signup');
 						}}
+						testIdName="favorites-page-signup-button"
 					>
 						Sign Up
 					</AsylumConnectButton>
 				</Typography>
+			</Grid>
+		);
+	}
+	if (list && !hasAccess && !publicList) {
+		return (
+			<Grid
+				container
+				className={null}
+				direction="column"
+				alignItems="center"
+				spacing={1}
+			>
+				<Grid item xs={12} md={6}>
+					<Typography
+						className={classes.marginTop}
+						variant="body1"
+						align="center"
+					>
+						Sorry! It seems you don't have access to this list!
+					</Typography>
+				</Grid>
 			</Grid>
 		);
 	}
@@ -123,17 +149,32 @@ const FavoritesListMobile = ({
 				/>
 			</Grid>
 
-			<Typography className={classes.textCenter} variant="h3">
+			<Typography
+				className={classes.textCenter}
+				variant="h3"
+				data-test-id="favorites-page-title-text"
+			>
 				{publicList ? publicList : 'Favorites'}
 			</Typography>
-			{!publicList && (
+			{!publicList && isOwner && (
 				<Typography
 					className={classes.marginTop}
 					variant="body1"
 					align="center"
+					data-test-id="favorites-page-header-text"
 				>
 					Your favorites lists are only visible to you and anyone you choose to
 					share your lists with.
+				</Typography>
+			)}
+			{!publicList && !isOwner && (
+				<Typography
+					className={classes.marginTop}
+					variant="body1"
+					align="center"
+					data-test-id="favorites-page-header-text"
+				>
+					This list was shared with you.
 				</Typography>
 			)}
 			<Grid item xs={12}>
@@ -142,6 +183,7 @@ const FavoritesListMobile = ({
 						className={classes.spacingTop}
 						variant="body1"
 						align="center"
+						data-test-id="favorites-page-create-new-list-button"
 					>
 						Select one of your favorites lists or{` `}
 						<span
@@ -152,7 +194,7 @@ const FavoritesListMobile = ({
 						</span>
 					</Typography>
 				)}
-				{list && (
+				{list && isOwner && (
 					<AsylumConnectButton
 						variant="primary"
 						className={classes.spacingTop}
@@ -163,6 +205,7 @@ const FavoritesListMobile = ({
 								  )
 								: handleMessageNew('You must be logged in to share resources')
 						}
+						testIdName="favorites-page-share-button"
 					>
 						Share
 					</AsylumConnectButton>
@@ -172,12 +215,16 @@ const FavoritesListMobile = ({
 			{!list && (
 				<Grid item xs={12}>
 					{lists.length > 0 ? (
-						<ul className={classes.favoritesList}>
+						<ul
+							className={classes.favoritesList}
+							data-test-id="favorites-page-list"
+						>
 							{lists.map((list) => (
 								<li
 									key={list._id}
 									className={classes.favoriteItem}
 									onClick={() => handleListSelect(list)}
+									data-test-id="favorites-page-list-item"
 								>
 									<Typography variant="h4" className={classes.listItem}>
 										{list.name}
@@ -190,6 +237,7 @@ const FavoritesListMobile = ({
 							variant="body1"
 							className={classes.spacingTop}
 							align="center"
+							data-test-id="favorites-page-body-text"
 						>
 							You haven't created any lists yet.
 						</Typography>
@@ -218,13 +266,14 @@ const FavoritesListMobile = ({
 											session={session}
 											user={user}
 											userData={userData}
+											isOwner={isOwner}
 										/>
 									)
 							)}
 						</Grid>
 					)}
 					{!loadingResources && list && resources.length === 0 && (
-						<Typography variant="body1">
+						<Typography variant="body1" data-test-id="favorites-page-body-text">
 							You haven't added any resources to this list yet.
 						</Typography>
 					)}
@@ -258,7 +307,9 @@ FavoritesListMobile.propTypes = {
 	open: PropTypes.bool.isRequired,
 	resources: PropTypes.arrayOf(PropTypes.object).isRequired,
 	session: PropTypes.string,
-	user: PropTypes.string
+	user: PropTypes.string,
+	hasAccess: PropTypes.bool.isRequired,
+	isOwner: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(FavoritesListMobile);
