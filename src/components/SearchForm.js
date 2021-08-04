@@ -61,14 +61,14 @@ const styles = (theme) => ({
 	halfBottomMargin: {
 		marginBottom: theme.spacing(2)
 	},
+	searchButtonContainer: {
+		paddingTop: theme.spacing(4),
+		paddingBottom: theme.spacing(1)
+	},
 	[theme.breakpoints.down('xs')]: {
 		nationalOrgCheckboxContainer: {
 			paddingTop: theme.spacing(2),
 			paddingBottom: theme.spacing(2)
-		},
-		searchButtonContainer: {
-			paddingTop: theme.spacing(4),
-			paddingBottom: theme.spacing(1)
 		},
 		searchButton: {
 			textAlign: 'center'
@@ -120,7 +120,7 @@ class SearchForm extends React.Component {
 			});
 		}
 	}
-	handleChange = (event, newValue) => {
+	handleTabChange = (event, newValue) => {
 		this.setState({tabValue: newValue});
 	};
 	a11yProps = (index) => {
@@ -176,7 +176,7 @@ class SearchForm extends React.Component {
 					<TabContext value={this.state.tabValue}>
 						<AppBar position="static">
 							<TabList
-								onChange={this.handleChange}
+								onChange={this.handleTabChange}
 								aria-label="search panel tabs"
 							>
 								<Tab
@@ -460,21 +460,28 @@ class SearchForm extends React.Component {
 				{this.props.infographic && (
 					<Grid container className={infographicContainer}>
 						<Grid item xs={12} className={searchButton}>
-							<AsylumConnectInfographicButton
-								testIdName="search-form-download-link"
-								type="link"
-								url={
-									this.props.infographic.url ? this.props.infographic.url : null
-								}
-								list={
-									this.props.infographic.list
-										? this.props.infographic.list
-										: null
-								}
-								text={this.props.t(
-									'Download Legal Guides on LGBTQ Asylum in the U.S.'
+							<FormattedMessage
+								id="resources.download-legal-guides"
+								defaultMessage="Download Legal Guides on LGBTQ Asylum in the U.S."
+							>
+								{(text) => (
+									<AsylumConnectInfographicButton
+										testIdName="search-form-download-link"
+										type="link"
+										url={
+											this.props.infographic.url
+												? this.props.infographic.url
+												: null
+										}
+										list={
+											this.props.infographic.list
+												? this.props.infographic.list
+												: null
+										}
+										text={text}
+									/>
 								)}
-							/>
+							</FormattedMessage>
 						</Grid>
 					</Grid>
 				)}

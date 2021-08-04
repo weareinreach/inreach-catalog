@@ -31,7 +31,7 @@ const SearchByOrgName = (props) => {
 				organizationSearch={props.organizationSearch}
 				organizationSelection={props.organizationSelection}
 				organizations={props.organizations}
-				previousOrganizationSearch={orgName}
+				previousOrganizationSearch={orgName ?? null}
 			/>
 		</>
 	);

@@ -365,7 +365,8 @@ class MapPage extends React.Component {
 			nearLatLng: null,
 			inState: null,
 			nearAddress: null,
-			searchDisabled: false
+			searchDisabled: false,
+			isNational: false
 		});
 		this.props.history.replace(url);
 	}
@@ -376,7 +377,8 @@ class MapPage extends React.Component {
 			orgName: orgName,
 			nearLatLng: null,
 			inState: null,
-			nearAddress: null
+			nearAddress: null,
+			isNational: false
 		});
 	}
 
