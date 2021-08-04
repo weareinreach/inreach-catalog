@@ -108,21 +108,7 @@ const EditVisit = ({
 	renderSaveButtons
 }) => {
 	const [websiteEdit, setWebsite] = useState(website || '');
-	// const [emailsEdit, setEmails] = useState(emails.length ? emails : [{}]);
-	const [emailsEdit, setEmails] = useState(
-		emails?.length
-			? emails
-			: [
-					{
-						email: 'test@gmail.com',
-						title: 'Mx.',
-						first_name: 'Test',
-						last_name: 'Testerson'
-					},
-					{email: 'test2@gmail.com', first_name: 'Jeff'},
-					{email: 'test3@gmail.com', title: 'Mr.', last_name: 'Esther'}
-			  ]
-	);
+	const [emailsEdit, setEmails] = useState(emails.length ? emails : [{}]);
 	const [phonesEdit, setPhones] = useState(phones?.length ? phones : [{}]);
 	const [locationsEdit, setLocations] = useState(
 		locations?.length ? locations : [{}]
