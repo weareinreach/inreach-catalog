@@ -7,7 +7,6 @@
 //Test Suite
 describe('Organization Details Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
-
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
         cy.fixture('organization_search.json').as('organization');
@@ -19,6 +18,7 @@ describe('Organization Details Tests', () => {
     afterEach(()=>{
         //Do the clean up
         cy.deleteUsersIfExist();
+        cy.deleteCommentsOrgsIfExist('nebraska-aids-project');
     });
 
     //Root
@@ -46,6 +46,13 @@ describe('Organization Details Tests', () => {
                 cy.get('@organization').then(org=>{
                     cy.get('@user').then(user=>{
                         cy.testSearchDetailsPageReviews(viewport,user,org);
+                    });
+                });
+            });
+            it('Testing Search page Detail Page Reviews Action',()=>{
+                cy.get('@organization').then(org=>{
+                    cy.get('@user').then(user=>{
+                        cy.testSearchDetailsPageReviewsAction(viewport,user,org);
                     });
                 });
             });
