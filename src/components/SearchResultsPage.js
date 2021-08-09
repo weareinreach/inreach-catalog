@@ -195,19 +195,11 @@ class SearchResultsContainer extends React.Component {
 		this.doSearch();
 		window.addEventListener('popstate', this.doSearch.bind(this));
 		window.addEventListener('scroll', this.addPage.bind(this));
-		let mapContainer = document.querySelector('.container--map');
-		if (mapContainer) {
-			mapContainer.addEventListener('scroll', this.addPage.bind(this));
-		}
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('popstate', this.doSearch.bind(this));
 		window.removeEventListener('scroll', this.addPage.bind(this));
-		let mapContainer = document.querySelector('.container--map');
-		if (mapContainer) {
-			mapContainer.removeEventListener('scroll', this.addPage.bind(this));
-		}
 	}
 
 	doSearch(ev) {
@@ -216,15 +208,11 @@ class SearchResultsContainer extends React.Component {
 	}
 
 	addPage(ev) {
-		let searchContainer = document.querySelectorAll('.container--search');
-		let mapContainer = document.querySelector('.container--map');
+		let searchContainer = document.querySelectorAll('#container--search');
 		if (
-			(searchContainer.length &&
-				window.innerHeight + window.scrollY >=
-					searchContainer[0].offsetTop + searchContainer[0].offsetHeight) ||
-			(mapContainer &&
-				mapContainer.scrollTop + mapContainer.clientHeight >=
-					searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
+			searchContainer.length &&
+			window.innerHeight + window.scrollY >=
+				searchContainer[0].offsetTop + searchContainer[0].offsetHeight
 		) {
 			this.props.fetchNextSearchResultsPage();
 		}
@@ -314,6 +302,7 @@ class SearchResultsContainer extends React.Component {
 				}
 				spacing={0}
 				className={container}
+				id="container--search"
 			>
 				<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
 					<div className={containerSearchForm + ' no-background'}>

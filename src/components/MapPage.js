@@ -100,7 +100,7 @@ class MapPage extends React.Component {
 		if (
 			this.props.match.path ===
 				'/:locale/search/:in/:place/:near/:national/:for/:filter/:sort' ||
-			this.props.match.path === '/:locale/search/:name/:sort'
+			this.props.match.path === '/:locale/search/name/:name/:sort'
 		) {
 			localStorage.setItem('lastSearch', this.props.history.location.pathname);
 		}
@@ -358,7 +358,7 @@ class MapPage extends React.Component {
 		this.setState({searchDisabled: true});
 		const name = encodeURIComponent(this.state.orgName);
 		const sort = encodeURIComponent(this.state.selectedSort);
-		const url = `/${this.props.locale}/search/${name}/${sort}`;
+		const url = `/${this.props.locale}/search/name/${name}/${sort}`;
 		this.props.handleAddressChange('');
 		this.setState({
 			searchStatus: 'refresh',
@@ -468,6 +468,9 @@ class MapPage extends React.Component {
 						isNational,
 						county
 					};
+					fetchOrganizations(params).then((data) =>
+						this.processSearchResults(data, nextPage)
+					);
 				})
 				.catch((error) => {
 					this.props.handleMessageNew('An error occured. Please try again');
@@ -486,12 +489,14 @@ class MapPage extends React.Component {
 				page,
 				isNational: false
 			};
+			fetchOrganizations(params).then((data) =>
+				this.processSearchResults(data, nextPage)
+			);
 		}
 		this.setState(nextState);
-		localStorage.setItem('lastSearch', this.props.history.location.pathname);
-		fetchOrganizations(params).then((data) =>
-			this.processSearchResults(data, nextPage)
-		);
+		if (this.props.match.path !== '/:locale/search/name') {
+			localStorage.setItem('lastSearch', this.props.history.location.pathname);
+		}
 	}
 
 	fetchNextSearchResultsPage() {
@@ -676,7 +681,7 @@ class MapPage extends React.Component {
 			<div className={'container--map ' + this.props.classes.containerMap}>
 				<Grid container spacing={0} alignItems="stretch">
 					<Grid item xs={12} sm={8}>
-						<div className="container--search">
+						<div>
 							<Switch>
 								<Route
 									exact
@@ -702,7 +707,7 @@ class MapPage extends React.Component {
 									)}
 								/>
 								<Route
-									path="/:locale/search/:name/:sort"
+									path="/:locale/search/name/:name/:sort"
 									render={(props) => (
 										<SearchResultsPage
 											{...props}
@@ -742,6 +747,28 @@ class MapPage extends React.Component {
 											t={this.props.t}
 											user={this.props.user}
 											userData={this.props.userData}
+											handleSearchByOrgName={this.handleSearchByOrgName}
+											handleOrgSelection={this.handleOrgSelection}
+										/>
+									)}
+								/>
+								<Route
+									path="/:locale/search/name"
+									render={(props) => (
+										<SearchFormPage
+											{...props}
+											{...this.props}
+											{...this.state}
+											clearResourceTypes={this.clearResourceTypes}
+											handlePlaceChange={this.handlePlaceChange}
+											handleSearchButtonClick={this.handleSearchButtonClick}
+											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleResourceTypeSelect={this.handleResourceTypeSelect}
+											infographic={infographic}
+											nearAddress={this.props.nearAddress}
+											searching={this.state.searching}
+											searchDisabled={this.state.searchDisabled}
+											classes={null}
 											handleSearchByOrgName={this.handleSearchByOrgName}
 											handleOrgSelection={this.handleOrgSelection}
 										/>

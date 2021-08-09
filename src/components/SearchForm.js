@@ -104,7 +104,11 @@ class SearchForm extends React.Component {
 
 		this.state = {
 			moveButton: false,
-			tabValue: props.orgName ? 1 : 0
+			tabValue:
+				props.match.path === '/:locale/search/name' ||
+				props.match.path === '/:locale/search/name/:name/:sort'
+					? 1
+					: 0
 		};
 		this.onMoveSearchButton = this.onMoveSearchButton.bind(this);
 	}
@@ -122,6 +126,11 @@ class SearchForm extends React.Component {
 	}
 	handleTabChange = (event, newValue) => {
 		this.setState({tabValue: newValue});
+		this.props.history.replace(
+			newValue === 0
+				? `/${this.props.locale}/search`
+				: `/${this.props.locale}/search/name`
+		);
 	};
 	a11yProps = (index) => {
 		return {
