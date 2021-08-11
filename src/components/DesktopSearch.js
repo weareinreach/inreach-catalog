@@ -18,9 +18,6 @@ import SearchByLocation from './SearchByLocation';
 import SearchByOrgName from './SearchByOrgName';
 import SearchRefinementControls from './SearchRefinementControls';
 
-import {breakpoints} from '../theme';
-import {withStyles} from '@material-ui/core';
-
 const DesktopSearch = (props) => {
 	const {
 		nationalOrgCheckboxContainer,
