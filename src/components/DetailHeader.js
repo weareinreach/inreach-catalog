@@ -10,6 +10,7 @@ import RatingAndReviews from './ResourceRatingAndReviews';
 import Phone from './ResourcePhone';
 import Disclaimer from './Disclaimer';
 import VerifiedIcon from './icons/VerifiedIcon';
+import SocialMedia from './ResourceSocialMedia';
 
 const DetailHeader = ({
 	alertMessage,
@@ -26,7 +27,8 @@ const DetailHeader = ({
 	verified,
 	owners,
 	isEditing,
-	renderEditButton
+	renderEditButton,
+	socialMedia
 }) => (
 	<Fragment>
 		<Grid container spacing={0} alignItems="center">
@@ -116,6 +118,14 @@ const DetailHeader = ({
 							<Phone phone={phones[0]} classes={classes} />
 						) : null}
 						{phones && phones.length ? '| ' : null}
+						{socialMedia ? (
+							<SocialMedia
+								iconWidth="16px"
+								isMobile={isMobile}
+								socialMedia={socialMedia}
+							/>
+						) : null}
+						{socialMedia ? '| ' : null}
 						{verified ? (
 							<Tooltip
 								classes={{tooltipPlacementTop: 'badge-tooltipTop'}}

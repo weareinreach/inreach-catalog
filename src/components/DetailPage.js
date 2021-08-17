@@ -615,7 +615,8 @@ class Detail extends React.Component {
 			schedules,
 			services = [],
 			website,
-			owners
+			owners,
+			social_media
 		} = resource || {};
 		const allProperties = this.isServicePage
 			? properties
@@ -650,7 +651,8 @@ class Detail extends React.Component {
 			verified: organization?.updated_at
 				? new Date(organization?.updated_at)
 				: null,
-			owners
+			owners,
+			socialMedia: social_media
 		};
 		const resourceTags = getTags(resource, locale);
 
