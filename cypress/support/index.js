@@ -28,7 +28,11 @@ import './reusable_tests/suggest_resource';
 import './reusable_tests/search_page';
 import './reusable_tests/announcement';
 import './reusable_tests/language';
-
+import './reusable_tests/utility';
+import './reusable_tests/details';
+import './reusable_tests/mexico_crime_map';
+import './reusable_tests/static_resource';
+import './reusable_tests/forgot_password';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
