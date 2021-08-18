@@ -1,25 +1,13 @@
 import React from 'react';
-import Fa from 'react-fontawesome';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
-
-import AsylumConnectButton from './AsylumConnectButton';
-import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import LocaleSelector from './LocaleSelector';
 import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
-import SearchBar from './SearchBar';
-import SearchByLocation from './SearchByLocation';
-import SearchByOrgName from './SearchByOrgName';
 import withWidth from './withWidth';
 import {breakpoints, boldFont} from '../theme';
-
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DesktopSearch from './DesktopSearch';
+import MobileSearch from './MobileSearch';
 
 const styles = (theme) => ({
 	formRow: {
@@ -82,7 +70,27 @@ const styles = (theme) => ({
 			marginBottom: theme.spacing(3)
 		}
 	},
-	tabs: {display: 'flex', flex: 1, minWidth: '350px'},
+	tabs: {
+		display: 'flex',
+		flex: 1,
+		padding: 0,
+		flexGrow: 1,
+		[theme.breakpoints.down('xl')]: {
+			minWidth: '350px',
+			maxWidth: '400px'
+		},
+		[theme.breakpoints.down('lg')]: {
+			minWidth: '350px',
+			maxWidth: '380px'
+		},
+		[theme.breakpoints.down('md')]: {
+			minWidth: '220px',
+			maxWidth: '320px',
+			'&:first-child': {
+				marginRight: '25px'
+			}
+		}
+	},
 	infographicContainer: {
 		paddingBottom: theme.spacing(12),
 		paddingTop: theme.spacing(3)
@@ -132,15 +140,9 @@ class SearchForm extends React.Component {
 	};
 
 	render() {
-		const {
-			nationalOrgCheckboxContainer,
-			searchButton,
-			searchButtonContainer,
-			lowerButton,
-			infographicContainer
-		} = this.props.classes;
-		const {handleOrgSelection, handleSearchByOrgName, locale} = this.props;
-		const variant = 'primary';
+		const {searchButton, infographicContainer} = this.props.classes;
+		const {handleOrgSelection, handleSearchByOrgName, handleSearchButtonClick} =
+			this.props;
 		const localeLabel = 'Select country';
 		const isMobile = this.props.width < breakpoints['sm'];
 
@@ -158,146 +160,20 @@ class SearchForm extends React.Component {
 						</Grid>
 					</Grid>
 				) : null}
-				{!isMobile && (
+				{isMobile ? (
+					<MobileSearch
+						handleSearchByOrgName={handleSearchByOrgName}
+						handleSearchButtonClick={handleSearchButtonClick}
+						handleOrgSelection={handleOrgSelection}
+						{...this.props}
+						{...this.state}
+					/>
+				) : (
 					<DesktopSearch
 						handleTabChange={this.handleTabChange}
 						{...this.props}
 						{...this.state}
 					/>
-				)}
-
-				{isMobile && (
-					<>
-						<Accordion>
-							<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-								<Typography
-									component="h3"
-									variant="h4"
-									className={this.props.classes.boldFont}
-								>
-									<FormattedMessage
-										id="search.search-by-name-tab-heading"
-										defaultMessage="Find an organization by name"
-									/>
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Grid container>
-									<Grid item xs={12}>
-										<SearchBar
-											{...this.props}
-											classes={null}
-											moveSearchButton={this.onMoveSearchButton}
-											data-test-id="name-searchbar"
-											showResourceSelector={false}
-										>
-											<SearchByOrgName
-												handleOrgSelection={handleOrgSelection}
-												orgName={this.props.orgName}
-												locale={locale}
-											/>
-										</SearchBar>
-									</Grid>
-									<Grid
-										item
-										xs={12}
-										container
-										spacing={0}
-										className={searchButtonContainer}
-									>
-										<Grid item xs className={searchButton}>
-											<AsylumConnectButton
-												variant={variant}
-												onClick={handleSearchByOrgName}
-												disabled={this.props.searchDisabled}
-												className={this.state.moveButton ? lowerButton : null}
-												testIdName="search-bar-search-button"
-											>
-												<FormattedMessage
-													id="navigation.search"
-													defaultMessage="Search"
-												/>
-												{this.props.searchDisabled ? (
-													<Fa
-														name="spinner"
-														spin
-														style={{marginLeft: '0.5rem'}}
-													/>
-												) : null}
-											</AsylumConnectButton>
-										</Grid>
-									</Grid>
-								</Grid>
-							</AccordionDetails>
-						</Accordion>
-						<Accordion>
-							<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-								<Typography
-									component="h3"
-									variant="h4"
-									className={this.props.classes.boldFont}
-								>
-									<FormattedMessage
-										id="search.search-by-location-tab-heading"
-										defaultMessage="Find services near you"
-									/>
-								</Typography>
-							</AccordionSummary>
-							<AccordionDetails>
-								<Grid container>
-									<Grid item xs>
-										<SearchBar
-											{...this.props}
-											classes={null}
-											moveSearchButton={this.onMoveSearchButton}
-											data-test-id="serchbar"
-											showResourceSelector={false}
-										>
-											<SearchByLocation {...this.props} />
-										</SearchBar>
-									</Grid>
-									<Grid item className={nationalOrgCheckboxContainer}>
-										<AsylumConnectCheckbox
-											label={
-												<FormattedMessage
-													id="search.show-national-organisations-country"
-													defaultMessage="Show me national organizations who can help anyone located in the country"
-												/>
-											}
-											checked={this.props.isNational}
-											onChange={this.props.handleNationalCheckBox}
-										/>
-									</Grid>
-									<Grid
-										item
-										xs
-										className={searchButton}
-										style={{paddingBottom: '10px'}}
-									>
-										<AsylumConnectButton
-											variant={variant}
-											onClick={this.props.handleSearchButtonClick}
-											disabled={this.props.searchDisabled}
-											className={this.state.moveButton ? lowerButton : null}
-											testIdName="search-bar-search-button"
-										>
-											<FormattedMessage
-												id="navigation.search"
-												defaultMessage="Search"
-											/>
-											{this.props.searchDisabled ? (
-												<Fa
-													name="spinner"
-													spin
-													style={{marginLeft: '0.5rem'}}
-												/>
-											) : null}
-										</AsylumConnectButton>
-									</Grid>
-								</Grid>
-							</AccordionDetails>
-						</Accordion>
-					</>
 				)}
 				{this.props.infographic && (
 					<Grid container className={infographicContainer}>
