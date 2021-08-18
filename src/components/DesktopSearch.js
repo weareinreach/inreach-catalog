@@ -63,6 +63,7 @@ const DesktopSearch = (props) => {
 						}
 						{...a11yProps(0)}
 						className={tabs}
+						fullWidth
 					/>
 					<Tab
 						label={
@@ -73,6 +74,7 @@ const DesktopSearch = (props) => {
 						}
 						{...a11yProps(1)}
 						className={tabs}
+						fullWidth
 					/>
 				</TabList>
 			</AppBar>
