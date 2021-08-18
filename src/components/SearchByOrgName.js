@@ -26,12 +26,13 @@ const SearchByOrgName = (props) => {
 				handleOrganizationsClearRequested={
 					props.handleOrganizationsClearRequested
 				}
+				handleOrganizationSearchReset={props.handleOrganizationSearchReset}
 				isLoadingOrganizations={props.isLoadingOrganizations}
 				locale={locale}
 				organizationSearch={props.organizationSearch}
 				organizationSelection={props.organizationSelection}
 				organizations={props.organizations}
-				previousOrganizationSearch={orgName ?? null}
+				previousOrganizationSearch={orgName ?? ''}
 			/>
 		</>
 	);

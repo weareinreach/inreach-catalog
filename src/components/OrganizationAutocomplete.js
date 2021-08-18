@@ -170,6 +170,7 @@ const OrganizationAutocomplete = ({
 	handleOrganizationSelect,
 	handleOrganizationsFetchRequested,
 	handleOrganizationsClearRequested,
+	handleOrganizationSearchReset,
 	handleRequestClose,
 	history,
 	isLoadingOrganizations,
@@ -180,10 +181,11 @@ const OrganizationAutocomplete = ({
 	previousOrganizationSearch
 }) => {
 	useEffect(() => {
-		if (previousOrganizationSearch) {
-			organizationSelection = {name: previousOrganizationSearch};
+		organizationSelection = {name: previousOrganizationSearch};
+		if (previousOrganizationSearch === '') {
+			handleOrganizationSearchReset();
 		}
-	}, []);
+	}, [previousOrganizationSearch]);
 	return (
 		<Autosuggest
 			theme={{
@@ -215,11 +217,7 @@ const OrganizationAutocomplete = ({
 			inputProps={{
 				classes,
 				placeholder: 'Start typing...',
-				value:
-					organizationSearch ||
-					(organizationSelection && organizationSelection.name
-						? organizationSelection.name
-						: ''),
+				value: organizationSearch ?? organizationSelection?.name ?? '',
 				onBlur: handleBlurOrganizations,
 				onChange: handleOrganizationSearchChange
 			}}
