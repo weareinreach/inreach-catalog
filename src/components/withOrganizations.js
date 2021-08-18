@@ -23,6 +23,8 @@ const withOrganizations = (WrappedComponent) =>
 				this.handleOrganizationsFetchRequested.bind(this);
 			this.handleOrganizationsClearRequested =
 				this.handleOrganizationsClearRequested.bind(this);
+			this.handleOrganizationSearchReset =
+				this.handleOrganizationSearchReset.bind(this);
 		}
 
 		handleBlurOrganizations(event) {
@@ -65,6 +67,13 @@ const withOrganizations = (WrappedComponent) =>
 			this.setState({organizations: []});
 		}
 
+		handleOrganizationSearchReset() {
+			this.setState({
+				organizationSelection: null,
+				organizationSearch: ''
+			});
+		}
+
 		loadOrganizations() {
 			getOrgsByName(this.state.organizationSearch).then((data) => {
 				this.setState({
@@ -86,6 +95,7 @@ const withOrganizations = (WrappedComponent) =>
 					}
 					handleOrganizationSearchChange={this.handleOrganizationSearchChange}
 					handleOrganizationSelect={this.handleOrganizationSelect}
+					handleOrganizationSearchReset={this.handleOrganizationSearchReset}
 					{...this.props}
 					{...this.state}
 				/>
