@@ -108,7 +108,7 @@ const MobileSearch = (props) => {
 								classes={null}
 								moveSearchButton={onMoveSearchButton}
 								data-test-id="serchbar"
-								showResourceSelector={false}
+								showResourceSelector={true}
 							>
 								<SearchByLocation {...props} />
 							</SearchBar>
