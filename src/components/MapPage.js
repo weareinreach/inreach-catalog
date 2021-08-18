@@ -203,7 +203,7 @@ class MapPage extends React.Component {
 	}
 
 	handlePlaceChange(address) {
-		this.setState({nearLatLng: null});
+		this.setState({nearLatLng: null, orgName: null, searchResults: []});
 		this.props.handleAddressChange(address);
 	}
 
@@ -292,7 +292,7 @@ class MapPage extends React.Component {
 	}
 
 	handleSearchButtonClick() {
-		this.setState({searchDisabled: true});
+		this.setState({searchDisabled: true, orgName: null});
 
 		const redirect = ({latLng, state}) => {
 			const resourceTypes = encodeURIComponent(
@@ -378,7 +378,8 @@ class MapPage extends React.Component {
 			nearLatLng: null,
 			inState: null,
 			nearAddress: null,
-			isNational: false
+			isNational: false,
+			searchResults: []
 		});
 	}
 
@@ -477,7 +478,7 @@ class MapPage extends React.Component {
 				});
 		} else if (name !== null && name !== 'undefined') {
 			nextState = {
-				name,
+				orgName: name,
 				page,
 				selectedSort,
 				updated,
@@ -740,10 +741,23 @@ class MapPage extends React.Component {
 											locale={this.props.locale}
 											mapResources={mapResources}
 											mapMaxDistance={mapMaxDistance}
+											nearAddress={this.props.nearAddress}
 											printDisabled={this.state.printDisabled}
 											searchDisabled={this.state.searchDisabled}
 											searching={this.state.searching}
+											searchCenter={this.state.nearLatLng}
 											session={this.props.session}
+											showWalkinCheckbox={
+												false &&
+												selectedResourceTypes.filter((item) => {
+													return (
+														typeof ResourceTypes.resourceCategoryIndex[item] !==
+															'undefined' &&
+														ResourceTypes.resourceCategoryIndex[item]
+															.category === 'Legal'
+													);
+												}).length > 0
+											}
 											t={this.props.t}
 											user={this.props.user}
 											userData={this.props.userData}
@@ -799,6 +813,8 @@ class MapPage extends React.Component {
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
 											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleOrgSelection={this.handleOrgSelection}
+											handleSearchByOrgName={this.handleSearchByOrgName}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleRequestOpen={this.props.handleRequestOpen}
 											handleFilterSelect={this.handleFilterSelect}

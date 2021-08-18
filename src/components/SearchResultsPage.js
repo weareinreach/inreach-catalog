@@ -148,7 +148,7 @@ const ResultsContainer = (props) => {
 						: containerSearchResults
 				}
 			>
-				{searchResults.length
+				{searchResults.length > 0
 					? searchResults.map((organization) => {
 							return (
 								<ResourceListItem

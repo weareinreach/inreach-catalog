@@ -1,10 +1,8 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import Fa from 'react-fontawesome';
 import {withStyles} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -35,8 +33,7 @@ const styles = (theme) => ({
 
 const SearchByLocation = (props) => {
 	const {searchInputContainer, searchInput, placesContainer} = props.classes;
-	const {width, handleSearchButtonClick, searchDisabled, country} = props;
-	const isMobile = width < breakpoints['sm'];
+	const {country} = props;
 	const searchOptions = {
 		componentRestrictions: {
 			country: typeof country === 'string' ? country.toLowerCase() : 'us'
