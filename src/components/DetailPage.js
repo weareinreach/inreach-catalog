@@ -468,8 +468,11 @@ class Detail extends React.Component {
 	}
 
 	handleBackButtonClick() {
+		const {locale} = this.props;
 		if (this.isServicePage) {
-			this.props.history.push(`/resource/${this.state.organization?.slug}`);
+			this.props.history.push(
+				`/${locale}/resource/${this.state.organization?.slug}`
+			);
 		} else {
 			if (this.state.isEditing) {
 				this.setIsEditing(false);
