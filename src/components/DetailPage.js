@@ -4,6 +4,7 @@ import {Element, scroller} from 'react-scroll';
 import _ from 'lodash';
 import SwipeableViews from 'react-swipeable-views';
 import {
+	Box,
 	Button,
 	Divider,
 	Grid,
@@ -50,6 +51,7 @@ import {
 	dividerSpacing,
 	mobilePadding
 } from '../theme';
+import {MobileSocialMedia, getSocialMediaUrls} from './ResourceSocialMedia';
 
 const formatOrganization = (organization) => {
 	return {
@@ -159,6 +161,10 @@ const styles = (theme) => ({
 		verticalAlign: 'middle',
 		marginLeft: theme.spacing(1),
 		marginRight: theme.spacing(0.5)
+	},
+	iconLink: {
+		paddingLeft: theme.spacing(0.5),
+		paddingRight: theme.spacing(0.5)
 	},
 	bottomHeaderBadge: {
 		[theme.breakpoints.down('xs')]: {
@@ -295,7 +301,16 @@ const styles = (theme) => ({
 	inputLabel: {
 		marginBottom: '3px',
 		fontWeight: '600'
-	}
+	},
+	contactInfo: {
+		color: theme.palette.secondary[500],
+		fill: theme.palette.secondary[500],
+		'& $disabled': {
+			color: theme.palette.secondary.disabled,
+			fill: theme.palette.secondary.disabled
+		}
+	},
+	disabled: {}
 });
 
 const EditFocuses = {
@@ -655,6 +670,7 @@ class Detail extends React.Component {
 			socialMedia: social_media
 		};
 		const resourceTags = getTags(resource, locale);
+		const socialMediaUrls = getSocialMediaUrls(social_media);
 
 		return (
 			<Grid
@@ -855,6 +871,47 @@ class Detail extends React.Component {
 										totalRatings={null}
 										website={website}
 									/>
+									<Divider />
+									<Box p={2} className={classes.contactInfo}>
+										<Grid container>
+											<Grid item xs>
+												<MobileSocialMedia
+													iconWidth="22px"
+													name="facebook"
+													url={socialMediaUrls.facebookUrl}
+													className={
+														socialMediaUrls.facebookUrl
+															? undefined
+															: classes.disabled
+													}
+												/>
+											</Grid>
+											<Grid item xs>
+												<MobileSocialMedia
+													iconWidth="22px"
+													name="twitter"
+													url={socialMediaUrls.twitterUrl}
+													className={
+														socialMediaUrls.twitterUrl
+															? undefined
+															: classes.disabled
+													}
+												/>
+											</Grid>
+											<Grid item xs>
+												<MobileSocialMedia
+													iconWidth="22px"
+													name="instagram"
+													url={socialMediaUrls.instagramUrl}
+													className={
+														socialMediaUrls.instagramUrl
+															? undefined
+															: classes.disabled
+													}
+												/>
+											</Grid>
+										</Grid>
+									</Box>
 									<Divider />
 									<SwipeableViews
 										index={tab}

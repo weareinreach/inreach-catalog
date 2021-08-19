@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FacebookIcon, TwitterIcon, InstagramIcon} from './icons';
+import IconLink from './IconLink';
+
+const getSocialMediaUrls = (socialMedia) => {
+	return {
+		facebookUrl: socialMedia?.find((s) => s.name === 'facebook')?.url,
+		twitterUrl: socialMedia?.find((s) => s.name === 'twitter')?.url,
+		instagramUrl: socialMedia?.find((s) => s.name === 'instagram')?.url
+	};
+};
 
 const RenderIcon = (iconWidth, name) => {
 	const iconStyle = {
@@ -23,34 +32,47 @@ const RenderIcon = (iconWidth, name) => {
 	}
 };
 
-const RenderLink =
-	(iconWidth) =>
-	({name, url}) => {
-		return (
-			<a
-				href={url}
-				target="_blank"
-				rel="noopener noreferrer"
-				style={{padding: '0 4px'}}
-			>
-				{RenderIcon(iconWidth, name)}
-			</a>
-		);
-	};
+const SocialMedia = ({iconWidth, name, url, style, className}) => {
+	return (
+		<IconLink
+			href={url}
+			target="_blank"
+			rel="noopener noreferrer"
+			style={style}
+			className={className}
+		>
+			{RenderIcon(iconWidth, name)}
+		</IconLink>
+	);
+};
 
-const SocialMedia = ({iconWidth, isMobile, socialMedia}) => {
-	return socialMedia.map(RenderLink(iconWidth));
+const MobileSocialMedia = ({iconWidth, name, url, style, className}) => {
+	return (
+		<IconLink
+			href={url}
+			target="_blank"
+			rel="noopener noreferrer"
+			style={style}
+			label={name}
+			className={className}
+		>
+			{RenderIcon(iconWidth, name)}
+		</IconLink>
+	);
 };
 
 SocialMedia.propTypes = {
 	iconWidth: PropTypes.string,
-	isMobile: PropTypes.bool,
-	socialMedia: PropTypes.arrayOf(
-		PropTypes.shape({
-			name: PropTypes.string,
-			url: PropTypes.string
-		})
-	)
+	name: PropTypes.string,
+	url: PropTypes.string,
+	className: PropTypes.string
 };
 
-export default SocialMedia;
+MobileSocialMedia.propTypes = {
+	iconWidth: PropTypes.string,
+	name: PropTypes.string,
+	url: PropTypes.string,
+	className: PropTypes.string
+};
+
+export {SocialMedia, MobileSocialMedia, getSocialMediaUrls};
