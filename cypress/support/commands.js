@@ -260,7 +260,7 @@ Cypress.Commands.add('deleteCommentsIfExist',(orgId)=>{
 	cy.log('Cleaning Comments...');
 	compoundURL = Cypress.env('stagingAPIUrl').concat(
 		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
+		Cypress.env('route_organizations'),
 		`/${orgId}`,
 		Cypress.env('route_comments')
 	);
@@ -268,6 +268,7 @@ Cypress.Commands.add('deleteCommentsIfExist',(orgId)=>{
 		method:'GET',
 		url:compoundURL
 	}).then(response=>{
+		cy.log(response.body);
 		response.body.comments.forEach(comment =>{
 			cy.deleteCommentById(orgId,comment._id);
 		});
@@ -278,7 +279,7 @@ Cypress.Commands.add('deleteCommentById',(orgId,commentId)=>{
 	compoundURL = Cypress.env('stagingAPIUrl').concat(
 		Cypress.env('version'),
 		Cypress.env('route_organizations'),
-		`${orgId}`,
+		`/${orgId}`,
 		Cypress.env('route_comments'),
 		`/${commentId}`
 	);
@@ -309,10 +310,10 @@ Cypress.Commands.add('deleteRatingsOrgsIfExist',(orgSlug) => {
 
 
 Cypress.Commands.add('deleteRatingsIfExist',(orgId)=>{
-	cy.log('Cleaning Comments...');
+	cy.log('Cleaning Ratings...');
 	compoundURL = Cypress.env('stagingAPIUrl').concat(
 		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
+		Cypress.env('route_organizations'),
 		`/${orgId}`,
 		Cypress.env('route_ratings')
 	);
