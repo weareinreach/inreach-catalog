@@ -150,3 +150,47 @@ Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
         });
     });
 });
+
+
+Cypress.Commands.add('testSearchDetailsPageReviewsAction',(viewport,user,org)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    if(viewport === Cypress.env('mobile')){ 
+        cy.getElementByTestId('mobile-nav-button-search').click(); 
+    }
+    cy.getElementByTestId('search-page-next-button').click();
+    cy.waitFor(1000);
+    //Check checkbox
+    cy.getElementByTestId('search-page-checkbox').click();
+    cy.getElementByTestId('search-bar-input').type(org.search);
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    cy.wait(500);
+    
+    cy.getElementByTestId('favorites-list-item').then($element=>{
+        expect($element).to.be.visible;
+        //click the org
+        cy.wrap($element).click();
+        cy.wait(200);
+    cy.getElementByTestId('tabs-value-reviews').click();
+    cy.getElementByTestId('details-review-form-input').type('This a great resource! I recommend it');
+    cy.getElementByTestId('details-review-form-submit-button').click();
+    //Reload Page
+    cy.reload();
+    //Check that review is posted
+    if(viewport===Cypress.env('mobile')){
+        cy.getElementByTestId('tabs-value-reviews').click();
+    }
+    cy.getElementByTestId('review-list-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain("User Reviews");
+    })
+    cy.getElementByTestId('review-list-comment').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain('This a great resource! I recommend it');
+    })
+
+    });
+});
