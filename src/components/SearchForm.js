@@ -108,6 +108,11 @@ class SearchForm extends React.Component {
 				props.match.path === '/:locale/search/name' ||
 				props.match.path === '/:locale/search/name/:name/:sort'
 					? 1
+					: 0,
+			mobileTabValue:
+				props.match.path === '/:locale/search/name' ||
+				props.match.path === '/:locale/search/name/:name/:sort'
+					? 1
 					: 0
 		};
 		this.onMoveSearchButton = this.onMoveSearchButton.bind(this);
@@ -124,13 +129,13 @@ class SearchForm extends React.Component {
 			});
 		}
 	}
-	handleTabChange = (event, newValue) => {
-		this.setState({tabValue: newValue});
-		this.props.history.replace(
-			newValue === 0
-				? `/${this.props.locale}/search`
-				: `/${this.props.locale}/search/name`
-		);
+	handleTabChange = (newValue) => {
+		const isMobile = this.props.width < breakpoints['sm'];
+		if (isMobile) {
+			this.setState({mobileTabValue: newValue});
+		} else {
+			this.setState({tabValue: newValue});
+		}
 	};
 	a11yProps = (index) => {
 		return {
@@ -165,6 +170,7 @@ class SearchForm extends React.Component {
 						handleSearchByOrgName={handleSearchByOrgName}
 						handleSearchButtonClick={handleSearchButtonClick}
 						handleOrgSelection={handleOrgSelection}
+						handleTabChange={this.handleTabChange}
 						{...this.props}
 						{...this.state}
 					/>

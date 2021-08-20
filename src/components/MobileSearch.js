@@ -31,13 +31,18 @@ const MobileSearch = (props) => {
 		handleNationalCheckBox,
 		handleSearchByOrgName,
 		handleSearchButtonClick,
-		moveButton
+		moveButton,
+		mobileTabValue,
+		handleTabChange
 	} = props;
 	const variant = 'primary';
 
 	return (
 		<>
-			<Accordion>
+			<Accordion
+				expanded={mobileTabValue === 1}
+				onChange={() => handleTabChange(1)}
+			>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Typography component="h3" variant="h4" className={boldFont}>
 						<FormattedMessage
@@ -91,7 +96,10 @@ const MobileSearch = (props) => {
 					</Grid>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion>
+			<Accordion
+				expanded={mobileTabValue === 0}
+				onChange={() => handleTabChange(0)}
+			>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Typography component="h3" variant="h4" className={boldFont}>
 						<FormattedMessage

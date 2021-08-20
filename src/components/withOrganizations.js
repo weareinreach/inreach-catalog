@@ -34,7 +34,7 @@ const withOrganizations = (WrappedComponent) =>
 					{organizations: []},
 					{
 						organizationSearch:
-							prevState.organizationSelection.name ?? this.props.orgName ?? ''
+							prevState?.organizationSelection?.name ?? this.props.orgName ?? ''
 					}
 				)
 			);

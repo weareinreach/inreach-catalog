@@ -203,7 +203,7 @@ class MapPage extends React.Component {
 	}
 
 	handlePlaceChange(address) {
-		this.setState({nearLatLng: null, orgName: null, searchResults: []});
+		this.setState({nearLatLng: null, orgName: null, searchStatus: null});
 		this.props.handleAddressChange(address);
 	}
 
@@ -344,7 +344,6 @@ class MapPage extends React.Component {
 					this.props.handleMessageNew(
 						'Unable to find your location, please try entering your city, state in the box above.'
 					);
-					//console.error('Error', error)
 					this.setState({
 						searchDisabled: false
 					});
@@ -379,7 +378,7 @@ class MapPage extends React.Component {
 			inState: null,
 			nearAddress: null,
 			isNational: false,
-			searchResults: []
+			searchStatus: null
 		});
 	}
 
