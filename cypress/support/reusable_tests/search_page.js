@@ -4,7 +4,7 @@ Cypress.Commands.add('testSearchPageElements',(viewport)=>{
     cy.waitFor(2000);
     cy.getElementByTestId('search-form-header').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("On March 20, 2020, the United States announced the borders with Mexico and Canada will be closed. Asylum seekers will be turned back from all borders.");
+        expect($element).contain("Canada opens border to fully vaccinated U.S. citizens on Aug 9, 2021. Restrictions remain in place for Canadian citizens entering U.S.");
     });
     if(viewport!==Cypress.env('mobile')){
         cy.getElementByTestId('search-form-body').then($element=>{
