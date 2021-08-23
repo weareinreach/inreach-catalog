@@ -98,6 +98,7 @@ const DesktopSearch = (props) => {
 							}
 							checked={props.isNational}
 							onChange={props.handleNationalCheckBox}
+							testIdName="search-page-checkbox"
 						/>
 					</Grid>
 				</Grid>

@@ -131,6 +131,7 @@ const MobileSearch = (props) => {
 								}
 								checked={isNational}
 								onChange={handleNationalCheckBox}
+								testIdName="search-page-checkbox"
 							/>
 						</Grid>
 						<Grid
@@ -144,7 +145,7 @@ const MobileSearch = (props) => {
 								onClick={handleSearchButtonClick}
 								disabled={searchDisabled}
 								className={moveButton ? lowerButton : null}
-								testIdName="search-bar-search-button"
+								testIdName="search-bar-search-by-location-button"
 							>
 								<FormattedMessage
 									id="navigation.search"
