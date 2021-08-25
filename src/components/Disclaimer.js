@@ -37,9 +37,9 @@ const styles = (theme) => ({
 const Disclaimer = (props) => {
 	const {disclaimerContainer, iconContainer, textContainer, textParagraph} =
 		props.classes;
-	const {icon} = props;
+	const {icon, dataTestId} = props;
 	return (
-		<div className={disclaimerContainer}>
+		<div className={disclaimerContainer} data-test-id={dataTestId}>
 			<Grid container>
 				<Grid item xs={12} className={textContainer}>
 					<Typography
