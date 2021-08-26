@@ -129,7 +129,7 @@ class SearchForm extends React.Component {
 			});
 		}
 	}
-	handleTabChange = (newValue) => {
+	handleTabChange = (event, newValue) => {
 		const isMobile = this.props.width < breakpoints['sm'];
 		if (isMobile) {
 			this.setState({mobileTabValue: newValue});

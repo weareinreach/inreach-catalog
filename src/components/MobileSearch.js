@@ -41,7 +41,7 @@ const MobileSearch = (props) => {
 		<>
 			<Accordion
 				expanded={mobileTabValue === 1}
-				onChange={() => handleTabChange(1)}
+				onChange={(e) => handleTabChange(e, 1)}
 			>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Typography component="h3" variant="h4" className={boldFont}>
@@ -98,7 +98,7 @@ const MobileSearch = (props) => {
 			</Accordion>
 			<Accordion
 				expanded={mobileTabValue === 0}
-				onChange={() => handleTabChange(0)}
+				onChange={(e) => handleTabChange(e, 0)}
 			>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Typography component="h3" variant="h4" className={boldFont}>
