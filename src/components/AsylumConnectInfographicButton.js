@@ -38,7 +38,6 @@ const styles = (theme) => ({
 		zIndex: '1',
 		marginTop: '0.5rem',
 		marginRight: '0',
-		textAlign: 'right',
 		[theme.breakpoints.down('md')]: {
 			marginTop: '1rem',
 			textAlign: 'left'

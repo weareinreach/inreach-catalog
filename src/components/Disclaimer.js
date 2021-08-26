@@ -10,7 +10,11 @@ const styles = (theme) => ({
 		borderColor: theme.palette.secondary[900],
 		backgroundColor: theme.palette.common.separator,
 		marginBottom: props?.marginBottom || theme.spacing(5),
-		width: '100%'
+		width: '100%',
+		[theme.breakpoints.down('xs')]: {
+			border: 0,
+			marginBottom: 0
+		}
 	}),
 	iconContainer: {
 		position: 'absolute',

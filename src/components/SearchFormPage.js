@@ -13,7 +13,6 @@ import SubAnnouncement from './SubAnnouncement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
-import WarningIcon from './icons/WarningIcon';
 
 const styles = (theme) => ({
 	title: {
@@ -23,7 +22,10 @@ const styles = (theme) => ({
 		marginBottom: theme.spacing(4),
 		[theme.breakpoints.down('xs')]: {
 			fontSize: theme.typography.h2.fontSize,
-			lineHeight: '1.5'
+			lineHeight: '1.5',
+			paddingLeft: theme.spacing(2),
+			paddingRight: theme.spacing(2),
+			paddingTop: theme.spacing(2)
 		}
 	},
 	container: {
@@ -58,19 +60,18 @@ const styles = (theme) => ({
 			color: theme.palette.common.white
 		},
 		subheading: {
-			color: theme.palette.common.white,
 			marginBottom: theme.spacing(4)
 		},
 		container: {
 			height: '100%',
-			backgroundColor: theme.palette.secondary[500]
+			backgroundColor: theme.palette.common.white
 		},
-		containerSearchForm: Object.assign(mobilePadding(theme), {
+		containerSearchForm: {
 			alignContent: 'flex-start',
 			paddingTop: theme.spacing(4),
 			paddingBottom: theme.spacing(8),
-			backgroundColor: theme.palette.secondary[500]
-		}),
+			backgroundColor: theme.palette.common.white
+		},
 		infographicSpacing: {
 			marginTop: '1rem'
 		}
@@ -248,11 +249,10 @@ class SearchFormContainer extends React.Component {
 										className={title}
 										data-test-id="search-form-body"
 									>
-										{this.state.locale
-											? this.props.t(
-													'Welcome to the United States AsylumConnect Catalog!'
-											  )
-											: this.props.t('Welcome to the AsylumConnect Catalog!')}
+										<FormattedMessage
+											id="app.welcome"
+											defaultMessage="Welcome to the United States AsylumConnect Catalog!"
+										/>
 									</Typography>
 								</Grid>
 							) : null}
@@ -262,8 +262,10 @@ class SearchFormContainer extends React.Component {
 									className={subheading}
 									data-test-id="search-form-body-2"
 								>
-									Search for verified LGBTQ- and immigrant-friendly services
-									near you
+									<FormattedMessage
+										id="app.search-services"
+										defaultMessage="Find verified LGBTQ+ and immigrant-friendly services"
+									/>
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
@@ -273,6 +275,7 @@ class SearchFormContainer extends React.Component {
 										classes={null}
 										onLocaleReset={this.handleLocaleReset}
 										onLocaleSelect={this.handleLocaleSelect}
+										locale={locale}
 									/>
 								) : (
 									<LocaleForm
