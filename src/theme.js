@@ -137,7 +137,6 @@ const catalogTheme = createMuiTheme({
 			A200: '#5073B3',
 			A400: '#5073B3',
 			A700: '#5073B3',
-			disabled: '#D3DCEC',
 			contrastDefaultColor: 'light'
 		},
 		error: {

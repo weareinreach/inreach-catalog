@@ -10,7 +10,7 @@ import RatingAndReviews from './ResourceRatingAndReviews';
 import Phone from './ResourcePhone';
 import Disclaimer from './Disclaimer';
 import VerifiedIcon from './icons/VerifiedIcon';
-import {SocialMedia, getSocialMediaUrls} from './ResourceSocialMedia';
+import {getSocialMediaLinks} from './ResourceSocialMedia';
 
 const DetailHeader = ({
 	alertMessage,
@@ -30,8 +30,6 @@ const DetailHeader = ({
 	renderEditButton,
 	socialMedia
 }) => {
-	const socialMediaUrls = getSocialMediaUrls(socialMedia);
-
 	return (
 		<Fragment>
 			<Grid container spacing={0} alignItems="center">
@@ -130,30 +128,12 @@ const DetailHeader = ({
 								<Phone phone={phones[0]} classes={classes} />
 							) : null}
 							{phones && phones.length ? '| ' : null}
-							{socialMediaUrls.facebookUrl && (
-								<SocialMedia
-									iconWidth="16px"
-									name="facebook"
-									url={socialMediaUrls.facebookUrl}
-									className={classNames(classes.contactInfo, classes.iconLink)}
-								/>
-							)}
-							{socialMediaUrls.twitterUrl && (
-								<SocialMedia
-									iconWidth="16px"
-									name="twitter"
-									url={socialMediaUrls.twitterUrl}
-									className={classNames(classes.contactInfo, classes.iconLink)}
-								/>
-							)}
-							{socialMediaUrls.instagramUrl && (
-								<SocialMedia
-									iconWidth="16px"
-									name="instagram"
-									url={socialMediaUrls.instagramUrl}
-									className={classNames(classes.contactInfo, classes.iconLink)}
-								/>
-							)}
+							{getSocialMediaLinks({
+								socialMedia: socialMedia,
+								iconWidth: '16px',
+								className: classNames(classes.contactInfo, classes.iconLink),
+								isMobile: false
+							})}
 							{socialMedia && socialMedia.length ? '| ' : null}
 							{verified ? (
 								<Tooltip

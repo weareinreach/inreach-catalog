@@ -51,7 +51,7 @@ import {
 	dividerSpacing,
 	mobilePadding
 } from '../theme';
-import {MobileSocialMedia, getSocialMediaUrls} from './ResourceSocialMedia';
+import {getSocialMediaLinks} from './ResourceSocialMedia';
 
 const formatOrganization = (organization) => {
 	return {
@@ -304,13 +304,8 @@ const styles = (theme) => ({
 	},
 	contactInfo: {
 		color: theme.palette.secondary[500],
-		fill: theme.palette.secondary[500],
-		'& $disabled': {
-			color: theme.palette.secondary.disabled,
-			fill: theme.palette.secondary.disabled
-		}
-	},
-	disabled: {}
+		fill: theme.palette.secondary[500]
+	}
 });
 
 const EditFocuses = {
@@ -673,7 +668,6 @@ class Detail extends React.Component {
 			socialMedia: social_media
 		};
 		const resourceTags = getTags(resource, locale);
-		const socialMediaUrls = getSocialMediaUrls(social_media);
 
 		return (
 			<Grid
@@ -875,47 +869,22 @@ class Detail extends React.Component {
 										website={website}
 									/>
 									<Divider />
-									<Box p={2} className={classes.contactInfo}>
-										<Grid container>
-											<Grid item xs>
-												<MobileSocialMedia
-													iconWidth="22px"
-													name="facebook"
-													url={socialMediaUrls.facebookUrl}
-													className={
-														socialMediaUrls.facebookUrl
-															? undefined
-															: classes.disabled
-													}
-												/>
+									{social_media && social_media.length > 0 ? (
+										<Box p={2} className={classes.contactInfo}>
+											<Grid container>
+												{getSocialMediaLinks({
+													socialMedia: social_media,
+													iconWidth: '22px',
+													isMobile: true
+												}).map((link) => (
+													<Grid item xs>
+														{link}
+													</Grid>
+												))}
 											</Grid>
-											<Grid item xs>
-												<MobileSocialMedia
-													iconWidth="22px"
-													name="twitter"
-													url={socialMediaUrls.twitterUrl}
-													className={
-														socialMediaUrls.twitterUrl
-															? undefined
-															: classes.disabled
-													}
-												/>
-											</Grid>
-											<Grid item xs>
-												<MobileSocialMedia
-													iconWidth="22px"
-													name="instagram"
-													url={socialMediaUrls.instagramUrl}
-													className={
-														socialMediaUrls.instagramUrl
-															? undefined
-															: classes.disabled
-													}
-												/>
-											</Grid>
-										</Grid>
-									</Box>
-									<Divider />
+										</Box>
+									) : null}
+									{social_media && social_media.length > 0 ? <Divider /> : null}
 									<SwipeableViews
 										index={tab}
 										onChangeIndex={this.handleSwipeChange}
