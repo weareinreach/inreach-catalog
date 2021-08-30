@@ -163,7 +163,11 @@ Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,search
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     })
-    cy.getElementByTestId('search-bar-search-button').click();
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     //Let it load 
     cy.wait(1000);
     cy.getElementByTestId('search-result-favorite-button').then($element=>{
@@ -194,7 +198,7 @@ Cypress.Commands.add('testRemovingItemsFromFavoritesList',(viewport,user,listNam
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
-    cy.addToFavoritesListFromSearchPage(searchName);
+    cy.addToFavoritesListFromSearchPage(searchName, viewport);
     //Favorites
      //Favorites list
     cy.selectFavoritesList(viewport);

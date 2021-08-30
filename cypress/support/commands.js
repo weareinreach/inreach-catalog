@@ -62,7 +62,8 @@ Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
     cy.getElementByTestId('favorites-create-new-button').click();
 });
 
-Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName)=>{
+Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName, viewport)=>{
+	cy.viewport(viewport);
 	//Search
     cy.getElementByTestId('search-page-next-button').click({multiple:true});
     cy.getElementByTestId('search-bar-input').type(searchName);
@@ -70,7 +71,11 @@ Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     })
-    cy.getElementByTestId('search-bar-search-button').click();
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     //Let it load 
     cy.wait(1000);
     cy.getElementByTestId('search-result-favorite-button').then($element=>{

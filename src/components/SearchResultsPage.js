@@ -18,10 +18,12 @@ import AsylumConnectMap from './AsylumConnectMap';
 import Loading from './Loading';
 import ResourceListItem from './ResourceListItem';
 import SearchBar from './SearchBar';
+import SearchByLocation from './SearchByLocation';
 import SearchRefinementControls from './SearchRefinementControls';
 import Disclaimer from './Disclaimer';
 import withWidth from './withWidth';
 import {boldFont, breakpoints, mobilePadding} from '../theme';
+import SearchForm from './SearchForm';
 
 const styles = (theme) => ({
 	tooltip: {fontFamily: 'sans-serif'},
@@ -77,7 +79,7 @@ const styles = (theme) => ({
 			paddingBottom: '0px'
 		},
 		containerSearchForm: Object.assign(mobilePadding(theme), {
-			backgroundColor: theme.palette.secondary[500],
+			backgroundColor: theme.palette.common.white,
 			paddingTop: '20px',
 			paddingBottom: '20px'
 		}),
@@ -137,39 +139,41 @@ const ResultsContainer = (props) => {
 	);
 
 	return (
-		<div
-			className={
-				searching && !searchResults.length
-					? loadingColor
-					: containerSearchResults
-			}
-		>
+		<>
 			<Disclaimer {...disclaimerProps} />
-			{searchResults.length
-				? searchResults.map((organization) => {
-						return (
-							<ResourceListItem
-								data-test-id="search-form-result"
-								key={organization._id}
-								resource={organization}
-								userData={userData}
-								{...props}
-							/>
-						);
-				  })
-				: null}
-			{searching ? (
-				<Loading colorClass={searchResults.length ? null : loadingColor} />
-			) : searchResults.length ? null : (
-				<Typography variant="body2" className={noResults}>
-					We didn't currently find any verified resources within your search
-					criteria.
-					<br />
-					Try choosing different resource types or searching for a different
-					location.
-				</Typography>
-			)}
-		</div>
+			<div
+				className={
+					searching && !searchResults.length
+						? loadingColor
+						: containerSearchResults
+				}
+			>
+				{searchResults.length > 0
+					? searchResults.map((organization) => {
+							return (
+								<ResourceListItem
+									data-test-id="search-form-result"
+									key={organization._id}
+									resource={organization}
+									userData={userData}
+									{...props}
+								/>
+							);
+					  })
+					: null}
+				{searching ? (
+					<Loading colorClass={searchResults.length ? null : loadingColor} />
+				) : searchResults.length ? null : (
+					<Typography variant="body2" className={noResults}>
+						We didn't currently find any verified resources within your search
+						criteria.
+						<br />
+						Try choosing different resource types or searching for a different
+						location.
+					</Typography>
+				)}
+			</div>
+		</>
 	);
 };
 
@@ -191,19 +195,11 @@ class SearchResultsContainer extends React.Component {
 		this.doSearch();
 		window.addEventListener('popstate', this.doSearch.bind(this));
 		window.addEventListener('scroll', this.addPage.bind(this));
-		let mapContainer = document.querySelector('.container--map');
-		if (mapContainer) {
-			mapContainer.addEventListener('scroll', this.addPage.bind(this));
-		}
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('popstate', this.doSearch.bind(this));
 		window.removeEventListener('scroll', this.addPage.bind(this));
-		let mapContainer = document.querySelector('.container--map');
-		if (mapContainer) {
-			mapContainer.removeEventListener('scroll', this.addPage.bind(this));
-		}
 	}
 
 	doSearch(ev) {
@@ -212,15 +208,11 @@ class SearchResultsContainer extends React.Component {
 	}
 
 	addPage(ev) {
-		let searchContainer = document.querySelectorAll('.container--search');
-		let mapContainer = document.querySelector('.container--map');
+		let searchContainer = document.querySelectorAll('#container--search');
 		if (
-			(searchContainer.length &&
-				window.innerHeight + window.scrollY >=
-					searchContainer[0].offsetTop + searchContainer[0].offsetHeight) ||
-			(mapContainer &&
-				mapContainer.scrollTop + mapContainer.clientHeight >=
-					searchContainer[0].offsetTop + searchContainer[0].offsetHeight)
+			searchContainer.length &&
+			window.innerHeight + window.scrollY >=
+				searchContainer[0].offsetTop + searchContainer[0].offsetHeight
 		) {
 			this.props.fetchNextSearchResultsPage();
 		}
@@ -310,86 +302,23 @@ class SearchResultsContainer extends React.Component {
 				}
 				spacing={0}
 				className={container}
+				id="container--search"
 			>
 				<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
 					<div className={containerSearchForm + ' no-background'}>
 						{isMobile ? (
 							<div className={backButton}>
 								<AsylumConnectBackButton
-									color="contrast"
+									color="secondary"
 									onClick={() => {
 										this.props.history.push('/');
 									}}
 								/>
 							</div>
 						) : null}
-						<SearchBar
-							{...this.props}
-							classes={null}
-							inlineSearchButton={isMobile}
-							moveSearchButton={this.onMoveSearchButton}
-						/>
-						<Grid
-							container
-							spacing={0}
-							className={nationalOrgCheckboxContainer}
-						>
-							<Grid item>
-								<AsylumConnectCheckbox
-									label={
-										this.props.locale
-											? this.props.t(
-													'Show me national organizations who can help anyone located in the United States'
-											  )
-											: this.props.t(
-													'Show me national organizations who can help anyone located in the country'
-											  )
-									}
-									checked={this.props.isNational}
-									onChange={this.props.handleNationalCheckBox}
-								/>
-							</Grid>
-						</Grid>
+						<SearchForm {...this.props} />
 						<Grid container spacing={0} alignItems="flex-start">
 							<Grid item xs={12} md={8} className={toolbarClass}>
-								{isMobile ? null : (
-									<Grid container spacing={0} justify="space-between">
-										<Grid item xs>
-											<AsylumConnectButton
-												variant="primary"
-												onClick={this.props.handleSearchButtonClick}
-												disabled={this.props.searchDisabled}
-												className={this.state.moveButton ? lowerButton : null}
-											>
-												Search
-												{this.props.searchDisabled ? (
-													<Fa
-														name="spinner"
-														spin
-														style={{marginLeft: '0.5rem'}}
-													/>
-												) : null}
-											</AsylumConnectButton>
-										</Grid>
-										<Grid item xs className="pull-right">
-											<Tooltip
-												className={tooltip}
-												classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-												title="Print Results"
-												placement="top"
-											>
-												<IconButton
-													className={secondary}
-													style={{height: 'auto'}}
-													onClick={this.props.handlePrintClick}
-													disabled={this.props.printDisabled}
-												>
-													<Fa name="print" />
-												</IconButton>
-											</Tooltip>
-										</Grid>
-									</Grid>
-								)}
 								{this.props.infographic ? (
 									<Grid container spacing={0} justify="space-between">
 										<Grid item xs>
@@ -402,24 +331,6 @@ class SearchResultsContainer extends React.Component {
 									</Grid>
 								) : null}
 							</Grid>
-							{!isMobile ? (
-								<Grid
-									item
-									xs={12}
-									md={4}
-									className={filterContainer + ' ' + toolbarClass}
-								>
-									<SearchRefinementControls
-										clearSearchFilters={this.props.clearSearchFilters}
-										handleFilterSelect={this.props.handleFilterSelect}
-										handleSortSelect={this.props.handleSortSelect}
-										selectedFilters={this.props.selectedFilters.filter(
-											(item) => item !== 'time-walk-in'
-										)}
-										selectedSort={this.props.selectedSort}
-									/>
-								</Grid>
-							) : null}
 							{showWalkinCheckbox ? (
 								<Grid
 									item

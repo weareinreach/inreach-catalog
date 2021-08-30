@@ -40,8 +40,7 @@ export const dropShadow = (theme) => ({
 
 export const searchInputMobile = (theme) => ({
 	padding: theme.spacing(2),
-	height: theme.spacing(6),
-	marginBottom: theme.spacing(2)
+	height: theme.spacing(6)
 });
 
 export const bodyLink = (theme) => ({

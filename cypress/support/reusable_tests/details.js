@@ -12,7 +12,11 @@ Cypress.Commands.add('testSearchDetailPageAbout',(viewport,user,org)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     });
-    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     cy.wait(500);
     
     cy.getElementByTestId('favorites-list-item').then($element=>{
@@ -62,7 +66,11 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     });
-    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     cy.wait(500);
     
     cy.getElementByTestId('favorites-list-item').scrollIntoView().then($element=>{
@@ -120,7 +128,11 @@ Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     });
-    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     cy.wait(500);
     
     cy.getElementByTestId('favorites-list-item').then($element=>{
@@ -166,7 +178,11 @@ Cypress.Commands.add('testSearchDetailsPageReviewsAction',(viewport,user,org)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     });
-    cy.getElementByTestId('search-bar-search-button').click({force:true});
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     cy.wait(500);
     
     cy.getElementByTestId('favorites-list-item').then($element=>{
