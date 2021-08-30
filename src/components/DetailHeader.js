@@ -128,12 +128,13 @@ const DetailHeader = ({
 								<Phone phone={phones[0]} classes={classes} />
 							) : null}
 							{phones && phones.length ? '| ' : null}
-							{getSocialMediaLinks({
-								socialMedia: socialMedia,
-								iconWidth: '16px',
-								className: classNames(classes.contactInfo, classes.iconLink),
-								isMobile: false
-							})}
+							{socialMedia && socialMedia.length
+								? getSocialMediaLinks({
+										socialMedia: socialMedia,
+										iconWidth: '16px',
+										className: classNames(classes.contactInfo, classes.iconLink)
+								  })
+								: null}
 							{socialMedia && socialMedia.length ? '| ' : null}
 							{verified ? (
 								<Tooltip

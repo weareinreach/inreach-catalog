@@ -16,7 +16,7 @@ const IconLink = ({
 	href,
 	target,
 	rel,
-	label,
+	label = null,
 	className,
 	style,
 	children,
