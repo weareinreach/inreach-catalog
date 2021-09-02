@@ -6,11 +6,13 @@ import CommunitySupportIcon from './CommunitySupportIcon';
 import ComputersIcon from './ComputersIcon';
 import EditIcon from './EditIcon';
 import EducationEmploymentIcon from './EducationEmploymentIcon';
+import FacebookIcon from './FacebookIcon';
 import FavoritesIcon from './FavoritesIcon';
 import FoodIcon from './FoodIcon';
 import FiltersIcon from './FiltersIcon';
 import FlagIcon from './FlagIcon';
 import HousingIcon from './HousingIcon';
+import InstagramIcon from './InstagramIcon';
 import ClothingIcon from './ClothingIcon';
 import LanguageIcon from './LanguageIcon';
 import LegalIcon from './LegalIcon';
@@ -26,6 +28,7 @@ import SpeechBubblesIcon from './SpeechBubblesIcon';
 import SportsEntertainmentIcon from './SportsEntertainmentIcon';
 import TransportationIcon from './TransportationIcon';
 import TravelIcon from './TravelIcon';
+import TwitterIcon from './TwitterIcon';
 
 export {default as AccountIcon} from './AccountIcon';
 export {default as AirplaneIcon} from './AirplaneIcon';
@@ -37,12 +40,14 @@ export {default as CommunitySupportIcon} from './CommunitySupportIcon';
 export {default as ComputersIcon} from './ComputersIcon';
 export {default as EditIcon} from './EditIcon';
 export {default as EducationEmploymentIcon} from './EducationEmploymentIcon';
+export {default as FacebookIcon} from './FacebookIcon';
 export {default as FavoritesIcon} from './FavoritesIcon';
 export {default as FiltersIcon} from './FiltersIcon';
 export {default as FlagIcon} from './FlagIcon';
 export {default as FoodIcon} from './FoodIcon';
 export {default as HousingIcon} from './HousingIcon';
 export {default as InformationIcon} from './InformationIcon';
+export {default as InstagramIcon} from './InstagramIcon';
 export {default as LanguageIcon} from './LanguageIcon';
 export {default as LegalIcon} from './LegalIcon';
 export {default as MailIcon} from './MailIcon';
@@ -60,6 +65,7 @@ export {default as SpeechBubblesIcon} from './SpeechBubblesIcon';
 export {default as SportsEntertainmentIcon} from './SportsEntertainmentIcon';
 export {default as TransportationIcon} from './TransportationIcon';
 export {default as TravelIcon} from './TravelIcon';
+export {default as TwitterIcon} from './TwitterIcon';
 
 const typeMap = {
 	account: AccountIcon,
@@ -69,11 +75,13 @@ const typeMap = {
 	computers: ComputersIcon,
 	edit: EditIcon,
 	educationEmployment: EducationEmploymentIcon,
+	facebook: FacebookIcon,
 	favorites: FavoritesIcon,
 	filters: FiltersIcon,
 	flag: FlagIcon,
 	food: FoodIcon,
 	housing: HousingIcon,
+	instagram: InstagramIcon,
 	clothing: ClothingIcon,
 	language: LanguageIcon,
 	legal: LegalIcon,
@@ -88,7 +96,8 @@ const typeMap = {
 	star: RecommendedStarIcon,
 	sportsEntertainment: SportsEntertainmentIcon,
 	suitcase: TravelIcon,
-	transportation: TransportationIcon
+	transportation: TransportationIcon,
+	twitter: TwitterIcon
 };
 
 const StandaloneIcon = function (props) {
