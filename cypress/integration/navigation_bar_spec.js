@@ -6,23 +6,39 @@
 
 //Test Suite
 describe('Home Page Navigation Bar Tests', () => {
-    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
-    
-    beforeEach(() => {
-        cy.visit(Cypress.env('baseUrl'));
-    });
+	let viewports = [
+		Cypress.env('desktop'),
+		Cypress.env('tablet'),
+		Cypress.env('mobile')
+	];
 
-    //Root
-    it('Root Test - Elements', () => {
-        cy.root().should('match', 'html');
-    });
+	beforeEach(() => {
+		cy.visit(Cypress.env('baseUrl'));
+		cy.fixture('user_new.json')
+			.as('user')
+			.then((user) => {
+				//Add User
+				cy.addUser(user);
+			});
+	});
+	afterEach(() => {
+		//Do the clean up
+		cy.deleteUsersIfExist();
+	});
 
-    //Components and Action
-    viewports.forEach(viewport=>{
-        context(`Testing the ${viewport} Version of the application`,()=>{
-                it(`Navigation Bar Elements`,()=>{
-                    cy.testNavigationBar(viewport);
-                });
-        });
-    });
+	//Root
+	it('Root Test - Elements', () => {
+		cy.root().should('match', 'html');
+	});
+
+	//Components and Action
+	viewports.forEach((viewport) => {
+		context(`Testing the ${viewport} Version of the application`, () => {
+			it(`Navigation Bar Elements`, () => {
+				cy.get('@user').then((user) => {
+					cy.testNavigationBar(viewport, user);
+				});
+			});
+		});
+	});
 });
