@@ -38,6 +38,7 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
+    "ramda": "^0.27.1",
     "react": "^16.13.1",
     "react-addons-update": "^15.6.2",
     "react-app-rewired": "^2.1.8",

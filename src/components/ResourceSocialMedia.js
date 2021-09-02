@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import {FacebookIcon, TwitterIcon, InstagramIcon} from './icons';
 import IconLink from './IconLink';
 
+import {compose, prop, sortBy, toLower} from 'ramda';
+
 const mapping = {
 	facebook: FacebookIcon,
 	twitter: TwitterIcon,
 	instagram: InstagramIcon
 };
+
+const sortByPlatformName = sortBy(compose(toLower, prop('name')));
 
 const getSocialMediaLinks = ({
 	socialMedia,
@@ -16,7 +20,7 @@ const getSocialMediaLinks = ({
 	className,
 	isMobile = false
 }) => {
-	return socialMedia.map(({name, url}) => (
+	return sortByPlatformName(socialMedia).map(({name, url}) => (
 		<SocialMedia
 			iconWidth={iconWidth}
 			name={name}
