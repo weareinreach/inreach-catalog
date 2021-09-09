@@ -60,7 +60,7 @@ class DeleteListDialog extends React.Component {
 						<FormattedMessage id="favorites.delete.list.dialog.shared.message" />
 					</Typography>
 				) : (
-					''
+					null
 				)}
 				<AsylumConnectButton
 					variant="primary"
