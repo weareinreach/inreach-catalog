@@ -274,6 +274,7 @@ Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,l
     cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
 });
 
+<<<<<<< HEAD
 Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,listName, shareEmail)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
@@ -310,13 +311,27 @@ Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,list
     cy.getElementByTestId('favorites-page-title-text').should('be.visible');
     cy.getElementByTestId('favorites-page-header-text').should('be.visible');
     cy.getElementByTestId('favorites-page-share-button').should('be.visible');
+=======
+Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+>>>>>>> adding test cases to favorites test set
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain(listName);
     });
+<<<<<<< HEAD
     
     // verify shared message is displayed, click cancel button
+=======
+    //delete dialog cancel button
+>>>>>>> adding test cases to favorites test set
     cy.getElementByTestId('delete-list-shared').should('be.visible');
     cy.getElementByTestId('delete-list-cancel-button').should('be.visible');
     cy.getElementByTestId('delete-list-cancel-button').click();
@@ -391,6 +406,18 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName, 
 
 
     //delete dialog title
+    cy.getElementByTestId('favorites-page-list-name').should('not.exist');
+});
+
+Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+    cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain(listName);
@@ -407,6 +434,7 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName, 
     cy.getElementByTestId('favorites-page-header-text').should('be.visible');
     cy.getElementByTestId('favorites-page-create-new-list-button').should('be.visible')
     cy.contains(listName).should('not.exist');
+    cy.getElementByTestId('favorites-page-list-name').should('not.exist');
 });
 
 
