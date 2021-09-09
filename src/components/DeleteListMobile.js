@@ -73,12 +73,12 @@ class DeleteListMobile extends React.Component {
 						/>
 					</Toolbar>
 					<DialogTitle data-test-id="delete-list-title">
-						<FormattedMessage id="favorites.delete.list.dialog.title" /> "
-						{this.props.listTitle}"?
+						<FormattedMessage id="favorites.delete.list.dialog.title" />
+						{this.props.listTitle}?
 					</DialogTitle>
 					{isShared ? (
-						<Typography type="body1" data-test-id="delete-account-body-1">
-							<FormattedMessage id="favorites.delete.list.diloag.shared.message" />{' '}
+						<Typography type="body1" data-test-id="delete-list-shared">
+							<FormattedMessage id="favorites.delete.list.diloag.shared.message" />
 						</Typography>
 					) : (
 						''
