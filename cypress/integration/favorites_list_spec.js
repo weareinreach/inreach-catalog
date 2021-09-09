@@ -67,6 +67,11 @@ describe('Favorites List Tests', () => {
                         cy.testSharingFavoritesList(viewport,user,"Automation List","automation2@gmail.com");
                     }); 
                 });
+                it(`Favorites List Delete List - Cancel`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testCancelDeletingFavoritesList(viewport,user,"Automation List");
+                    }); 
+                });
 
         });
     });

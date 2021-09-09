@@ -246,3 +246,112 @@ Cypress.Commands.add('testSharingFavoritesList',(viewport,user,listName,shareEma
     cy.getElementByTestId('favorites-page-header-text').should('be.visible');
     cy.getElementByTestId('favorites-page-share-button').should('be.visible');
 });
+
+Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+    cy.getElementByTestId('favorites-page-delete-button').click();
+    cy.getElementByTestId('dialog-container-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain(listName);
+    });
+    //delete dialog cancel button
+    cy.getElementByTestId('delete-list-cancel-button').should('be.visible');
+    cy.getElementByTestId('delete-list-cancel-button').click();
+
+
+    //Back to list details
+    cy.getElementByTestId('favorites-page-title-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-header-text').should('be.visible');
+    cy.getElementByTestId('back-button').should('be.visible');
+    cy.getElementByTestId('favorites-page-list-name').should('be.visible');
+    cy.getElementByTestId('favorites-page-share-button').should('be.visible');
+    cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
+});
+
+Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+    cy.getElementByTestId('favorites-page-delete-button').click();
+    cy.getElementByTestId('dialog-container-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain(listName);
+    });
+    //delete dialog cancel button
+    cy.getElementByTestId('delete-list-shared').should('be.visible');
+    cy.getElementByTestId('delete-list-cancel-button').should('be.visible');
+    cy.getElementByTestId('delete-list-cancel-button').click();
+
+
+    //Back to list details
+    cy.getElementByTestId('favorites-page-title-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-header-text').should('be.visible');
+    cy.getElementByTestId('back-button').should('be.visible');
+    cy.getElementByTestId('favorites-page-list-name').should('be.visible');
+    cy.getElementByTestId('favorites-page-share-button').should('be.visible');
+    cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
+});
+
+Cypress.Commands.add('testDeletingFavoritesListNotShared',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+    cy.getElementByTestId('favorites-page-delete-button').click();
+    cy.getElementByTestId('dialog-container-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain(listName);
+    });
+    //delete dialog delete button
+    cy.getElementByTestId('delete-list-delete-button').should('be.visible');
+    cy.getElementByTestId('delete-list-delete-button').click();
+
+
+    //Back to favorites list main page
+    cy.getElementByTestId('favorites-page-title-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-header-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-create-new-list-button').should('be.visible')
+    cy.getElementByTestId('favorites-page-list-name').should('not.exist');
+});
+
+Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    cy.createFavoriteList(viewport,listName);
+    //Back to Home Page
+    cy.visit(Cypress.env('baseUrl'));
+    cy.selectFavoritesList(viewport);
+    cy.getElementByTestId('favorites-page-list-item').click();
+    cy.getElementByTestId('favorites-page-delete-button').click();
+    cy.getElementByTestId('dialog-container-title').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain(listName);
+    });
+    //delete dialog shared text
+    cy.getElementByTestId('delete-list-shared').should('be.visible');
+    cy.getElementByTestId('delete-list-delete-button').should('be.visible');
+    cy.getElementByTestId('delete-list-delete-button').click();
+
+
+    //Back to favorites list main page
+    cy.getElementByTestId('favorites-page-title-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-header-text').should('be.visible');
+    cy.getElementByTestId('favorites-page-create-new-list-button').should('be.visible')
+    cy.getElementByTestId('favorites-page-list-name').should('not.exist');
+});
+
+
+
