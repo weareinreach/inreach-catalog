@@ -16,6 +16,7 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import {bodyLink} from '../theme';
 
 import ResourceListItem from './ResourceListItem';
+import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	bodyLink: bodyLink(theme),
@@ -196,7 +197,7 @@ const FavoritesListMobile = ({
 				)}
 				{list && isOwner && (
 					<AsylumConnectButton
-						variant="primary"
+						variant="secondary"
 						className={classes.spacingTop}
 						onClick={() =>
 							session
@@ -209,6 +210,28 @@ const FavoritesListMobile = ({
 					>
 						Share
 					</AsylumConnectButton>
+				)}
+				{list && isOwner && (
+					<AsylumConnectButton
+						variant="primary"
+						className={classes.spacingTop}
+						onClick={() =>
+							session
+								? handleRequestOpen(
+										'deleteList/' +
+											list._id +
+											'/' +
+											list.name +
+											'/' +
+											list.visibility
+								  )
+								: handleMessageNew(
+										<FormattedMessage id="favorites.logged-in.delete.message" />
+								  )
+						}
+						testIdName="favorites-page-delete-button"
+						children={<FormattedMessage id="action.delete" />}
+					></AsylumConnectButton>
 				)}
 			</Grid>
 
