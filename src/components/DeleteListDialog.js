@@ -52,12 +52,12 @@ class DeleteListDialog extends React.Component {
 		return (
 			<div className={classes.container}>
 				<DialogTitle data-test-id="delete-list-title">
-					<FormattedMessage id="favorites.delete.list.dialog.title" /> "
-					{this.props.listTitle}"?
+					<FormattedMessage id="favorites.delete.list.dialog.title" />
+					{this.props.listTitle}?
 				</DialogTitle>
 				{isShared ? (
 					<Typography type="body1" data-test-id="delete-account-body-1">
-						<FormattedMessage id="favorites.delete.list.diloag.shared.message" />{' '}
+						<FormattedMessage id="favorites.delete.list.dialog.shared.message" />
 					</Typography>
 				) : (
 					''
