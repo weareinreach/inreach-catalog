@@ -16,6 +16,7 @@ import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import Loading from './Loading';
 import ResourceListItem from './ResourceListItem';
+import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	container: {
@@ -279,7 +280,7 @@ const FavoritesList = ({
 													'share/collection/' + list._id + '/' + list.name
 											  )
 											: handleMessageNew(
-													'You must be logged in to share resources'
+													'You must be logged in to share resources.'
 											  )
 									}
 									variant="secondary"
@@ -287,6 +288,28 @@ const FavoritesList = ({
 								>
 									Share
 								</AsylumConnectButton>
+							)}
+							{isOwner && (
+								<AsylumConnectButton
+									className={classes.marginLeft}
+									onClick={() =>
+										session
+											? handleRequestOpen(
+													'deleteList/' +
+														list._id +
+														'/' +
+														list.name +
+														'/' +
+														list.visibility
+											  )
+											: handleMessageNew(
+													<FormattedMessage id="favorites.logged-in.delete.message" />
+											  )
+									}
+									variant="primary"
+									testIdName="favorites-page-delete-button"
+									children={<FormattedMessage id="action.delete" />}
+								></AsylumConnectButton>
 							)}
 						</Grid>
 					</Grid>
