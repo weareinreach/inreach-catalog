@@ -73,8 +73,8 @@ class DeleteListMobile extends React.Component {
 						/>
 					</Toolbar>
 					<DialogTitle data-test-id="delete-list-title">
-						<FormattedMessage id="favorites.delete.list.dialog.title" />
-						{this.props.listTitle}?
+						<FormattedMessage id="favorites.delete.list.dialog.title" />"
+						{this.props.listTitle}"?
 					</DialogTitle>
 					{isShared ? (
 						<Typography type="body1" data-test-id="delete-list-shared">
