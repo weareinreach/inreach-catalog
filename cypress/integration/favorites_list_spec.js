@@ -8,7 +8,8 @@
 describe('Favorites List Tests', () => {
 
 
-    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+    // let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+    let viewports = [Cypress.env('desktop')];
 
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
@@ -99,12 +100,12 @@ describe('Favorites List Tests', () => {
                 });
                 it(`Favorites List Delete List - Delete - Not Shared`,()=>{
                     cy.get('@user').then(user=>{
-                        cy.testDeletingFavoritesListNotShared(viewport,user,"Automation List");
+                        cy.testDeletingFavoritesListNotShared(viewport,user,"Automation List 3");
                     }); 
                 });
                 it(`Favorites List Delete List - Delete - Shared`,()=>{
                     cy.get('@user').then(user=>{
-                        cy.testDeletingFavoritesListShared(viewport,user,"Automation List");
+                        cy.testDeletingFavoritesListShared(viewport,user,"Automation List 4", "automation2@gmail.com");
                     }); 
                 });
 
