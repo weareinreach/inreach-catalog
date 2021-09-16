@@ -129,7 +129,7 @@ Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
         cy.wrap($element[0]).click();
     });
     if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').click();
+		cy.getElementByTestId('search-bar-search-button').click({force: true});
 	} else {
         cy.getElementByTestId('search-bar-search-by-location-button').click();
     }
