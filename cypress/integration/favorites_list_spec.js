@@ -87,22 +87,6 @@ describe('Favorites List Tests', () => {
                         cy.testDeletingFavoritesListShared(viewport,user,"Automation List 4", "automation2@gmail.com");
                     });
                 });
-                it(`Favorites List Delete List - Cancel - Shared`,()=>{
-                    cy.get('@user').then(user=>{
-                        cy.testCancelDeletingFavoritesListShared(viewport,user,"Automation List");
-                    }); 
-                });
-                it(`Favorites List Delete List - Delete - Not Shared`,()=>{
-                    cy.get('@user').then(user=>{
-                        cy.testDeletingFavoritesListNotShared(viewport,user,"Automation List 3");
-                    }); 
-                });
-                it(`Favorites List Delete List - Delete - Shared`,()=>{
-                    cy.get('@user').then(user=>{
-                        cy.testDeletingFavoritesListShared(viewport,user,"Automation List 4", "automation2@gmail.com");
-                    }); 
-                });
-
         });
     });
 });
