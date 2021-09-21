@@ -251,6 +251,7 @@ Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,l
     cy.viewport(viewport);
     cy.login(user,viewport);
     cy.createFavoriteList(viewport,listName);
+    
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
     cy.selectFavoritesList(viewport);
@@ -269,7 +270,10 @@ Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,l
     cy.getElementByTestId('favorites-page-title-text').should('be.visible');
     cy.getElementByTestId('favorites-page-header-text').should('be.visible');
     cy.getElementByTestId('back-button').should('be.visible');
-    cy.getElementByTestId('favorites-page-list-name').should('be.visible');
+
+    if (viewport !== Cypress.env('mobile')) {
+        cy.getElementByTestId('favorites-page-list-name').should('be.visible');
+    }
     cy.getElementByTestId('favorites-page-share-button').should('be.visible');
     cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
 });
@@ -296,20 +300,17 @@ Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,list
     });
     cy.getElementByTestId('favorites-list-share-dialog-button').click();
 
-    
-    //close share dialog
-    cy.getElementByTestId('dialog-close-button').click();
-    cy.getElementByTestId('favorites-list-share-email-input').should('not.exist');
-
     //go back to the main favorites list and select the list again (needed because the list data in the page does not update after Sharing)
-    cy.getElementByTestId('back-button').should('be.visible');
-    cy.getElementByTestId('back-button').click();
-    cy.getElementByTestId('favorites-page-list-item').click();
+    if(viewport !== Cypress.env('mobile')) {
+        cy.getElementByTestId('back-button').should('be.visible');
+        cy.getElementByTestId('back-button').click();
+        cy.getElementByTestId('favorites-page-list-item').click();
+        cy.getElementByTestId('favorites-page-title-text').should('be.visible');
+        cy.getElementByTestId('favorites-page-header-text').should('be.visible');
+    }
 
     //open Delete Dialog
-    cy.getElementByTestId('favorites-page-title-text').should('be.visible');
-    cy.getElementByTestId('favorites-page-header-text').should('be.visible');
-    cy.getElementByTestId('favorites-page-share-button').should('be.visible');
+    cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
         expect($element).to.be.visible;
@@ -326,7 +327,9 @@ Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,list
     cy.getElementByTestId('favorites-page-title-text').should('be.visible');
     cy.getElementByTestId('favorites-page-header-text').should('be.visible');
     cy.getElementByTestId('back-button').should('be.visible');
-    cy.getElementByTestId('favorites-page-list-name').should('be.visible');
+    if (viewport !== Cypress.env('mobile')) {
+        cy.getElementByTestId('favorites-page-list-name').should('be.visible');
+    }
     cy.getElementByTestId('favorites-page-share-button').should('be.visible');
     cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
 });
@@ -377,10 +380,6 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName,s
         cy.wrap($element).type(shareEmail);
     });
     cy.getElementByTestId('favorites-list-share-dialog-button').click();
-
-    //close share dialog
-    cy.getElementByTestId('dialog-close-button').click();
-    cy.getElementByTestId('favorites-list-share-email-input').should('not.exist');
 
     //go back to the main favorites list and select the list again 
     //needed because the list data in the page does not update after Sharing
