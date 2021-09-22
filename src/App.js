@@ -188,8 +188,9 @@ class AppConnectCatalog extends React.Component {
 		this.setState({sessionConfirmed: false});
 	}
 
-	handleListNew(list) {
+	handleListNew(list, session) {
 		this.setState((prevState) => ({lists: [...prevState.lists, list]}));
+		this.handleFetchUser(session);
 	}
 
 	handleListRemoveFavorite(listId, favorite) {
@@ -408,6 +409,7 @@ class AppConnectCatalog extends React.Component {
 									<DeleteListMobile
 										dialog={dialog}
 										handleLogIn={this.handleLogIn}
+										handleFetchUser={this.handleFetchUser}
 										handleMessageNew={this.handleMessageNew}
 										handleRequestClose={this.handleRequestClose}
 										handleRequestOpen={this.handleRequestOpen}
@@ -450,6 +452,7 @@ class AppConnectCatalog extends React.Component {
 								dialog={dialog}
 								handleConfirmSession={this.handleConfirmSession}
 								handleListNew={this.handleListNew}
+								handleFetchUser={this.handleFetchUser}
 								handleLogIn={this.handleLogIn}
 								handleLogOut={this.handleLogOut}
 								handleMessageNew={this.handleMessageNew}
@@ -478,6 +481,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
@@ -501,6 +505,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
@@ -526,6 +531,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
@@ -550,6 +556,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}

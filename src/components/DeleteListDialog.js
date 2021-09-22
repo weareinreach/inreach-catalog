@@ -34,6 +34,7 @@ class DeleteListDialog extends React.Component {
 				handleMessageNew(
 					<FormattedMessage id="favorites.delete.list.dialog.success.message" />
 				);
+				this.props.handleFetchUser(this.props.session);
 				this.props.handleRequestClose();
 				this.props.history.push('/' + this.props.locale + '/favorites');
 			})
@@ -59,7 +60,7 @@ class DeleteListDialog extends React.Component {
 					<Typography type="body1" data-test-id="delete-list-shared">
 						<FormattedMessage id="favorites.delete.list.dialog.shared.message" />
 					</Typography>
-				) : null }
+				) : null}
 				<AsylumConnectButton
 					variant="primary"
 					onClick={this.confirmDelete}

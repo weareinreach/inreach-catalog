@@ -28,6 +28,7 @@ const AsylumConnectDialog = ({
 	dialog,
 	handleConfirmSession,
 	handleListNew,
+	handleFetchUser,
 	handleLogIn,
 	handleDeleteAccount,
 	handleLogOut,
@@ -96,6 +97,7 @@ const AsylumConnectDialog = ({
 			{/^deleteList/.test(dialog) && (
 				<DeleteListDialog
 					handleMessageNew={handleMessageNew}
+					handleFetchUser={handleFetchUser}
 					handleRequestOpen={handleRequestOpen}
 					handleRequestClose={handleRequestClose}
 					history={history}

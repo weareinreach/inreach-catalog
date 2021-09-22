@@ -46,7 +46,7 @@ class ListNewFormContainer extends React.Component {
 					handleRequestClose();
 					return;
 				}
-				handleListNew(data.list);
+				handleListNew(data.list, session);
 				handleRequestClose();
 			})
 			.catch((error) => {
