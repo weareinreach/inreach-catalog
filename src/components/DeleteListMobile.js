@@ -27,79 +27,73 @@ const styles = (theme) => ({
 	}
 });
 
-class DeleteListMobile extends React.Component {
-	constructor(props) {
-		super(props);
-		this.confirmDelete = this.confirmDelete.bind(this);
-	}
+function DeleteListMobile(props) {
+	const confirmDelete = () => {
+		const {handleMessageNew} = props;
 
-	confirmDelete() {
-		const {handleMessageNew} = this.props;
-
-		deleteList(this.props.dialog.split('/')[1], this.props.user)
+		deleteList(props.dialog.split('/')[1], props.user)
 			.then(() => {
 				handleMessageNew(
 					<FormattedMessage id="favorites.delete.list.dialog.success.message" />
 				);
-				this.props.handleFetchUser(this.props.session);
-				this.props.handleRequestClose();
-				this.props.history.push('/' + this.props.locale + '/favorites');
+				props.handleFetchUser(props.session);
+				props.handleRequestClose();
+				props.history.push('/' + props.locale + '/favorites');
 			})
 			.catch(() => {
 				handleMessageNew(<FormattedMessage id="error.unspecified" />);
 			});
+	};
+
+	const {classes, handleRequestClose} = props;
+	let isShared = true;
+
+	if (props.listVisibility !== 'shared') {
+		isShared = false;
 	}
 
-	render() {
-		const {classes, handleRequestClose} = this.props;
-		let isShared = true;
-
-		if (this.props.listVisibility !== 'shared') {
-			isShared = false;
-		}
-		return (
-			<div>
-				<Paper className={classes.root}>
-					<Toolbar
-						classes={{
-							root: classes.toolbarRoot,
-							gutters: classes.toolbarGutters
+	return (
+		<div>
+			<Paper className={classes.root}>
+				<Toolbar
+					classes={{
+						root: classes.toolbarRoot,
+						gutters: classes.toolbarGutters
+					}}
+				>
+					<AsylumConnectBackButton
+						onClick={() => {
+							handleRequestClose();
 						}}
-					>
-						<AsylumConnectBackButton
-							onClick={() => {
-								handleRequestClose();
-							}}
-						/>
-					</Toolbar>
-					<DialogTitle data-test-id="delete-list-title">
-						<FormattedMessage id="favorites.delete.list.dialog.title" />
-						{this.props.listTitle}?
-					</DialogTitle>
-					{isShared ? (
-						<Typography type="body1" data-test-id="delete-list-shared">
-							<FormattedMessage id="favorites.delete.list.dialog.shared.message" />
-						</Typography>
-					) : null}
-					<AsylumConnectButton
-						variant="primary"
-						onClick={this.confirmDelete}
-						className={classes.spacingTop}
-						testIdName="delete-list-delete-button"
-						children={<FormattedMessage id="action.delete" />}
-					></AsylumConnectButton>
+					/>
+				</Toolbar>
+				<DialogTitle data-test-id="delete-list-title">
+					<FormattedMessage id="favorites.delete.list.dialog.title" />
+					{props.listTitle}?
+				</DialogTitle>
+				{isShared ? (
+					<Typography type="body1" data-test-id="delete-list-shared">
+						<FormattedMessage id="favorites.delete.list.dialog.shared.message" />
+					</Typography>
+				) : null}
+				<AsylumConnectButton
+					variant="primary"
+					onClick={confirmDelete}
+					className={classes.spacingTop}
+					testIdName="delete-list-delete-button"
+					children={<FormattedMessage id="action.delete" />}
+				></AsylumConnectButton>
 
-					<AsylumConnectButton
-						variant="secondary"
-						className={classes.spacingTop}
-						testIdName="delete-list-cancel-button"
-						onClick={handleRequestClose}
-						children={<FormattedMessage id="action.cancel" />}
-					></AsylumConnectButton>
-				</Paper>
-			</div>
-		);
-	}
+				<AsylumConnectButton
+					variant="secondary"
+					className={classes.spacingTop}
+					testIdName="delete-list-cancel-button"
+					onClick={handleRequestClose}
+					children={<FormattedMessage id="action.cancel" />}
+				></AsylumConnectButton>
+			</Paper>
+		</div>
+	);
 }
 
 DeleteListMobile.propTypes = {
