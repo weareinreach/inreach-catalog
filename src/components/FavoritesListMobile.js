@@ -207,9 +207,8 @@ const FavoritesListMobile = ({
 								: handleMessageNew('You must be logged in to share resources')
 						}
 						testIdName="favorites-page-share-button"
-					>
-						Share
-					</AsylumConnectButton>
+						children={<FormattedMessage id="action.share" />}
+					></AsylumConnectButton>
 				)}
 				{list && isOwner && (
 					<AsylumConnectButton
@@ -230,7 +229,7 @@ const FavoritesListMobile = ({
 								  )
 						}
 						testIdName="favorites-page-delete-button"
-						children={<FormattedMessage id="action.delete" />}
+						children={<FormattedMessage id="action.share" />}
 					></AsylumConnectButton>
 				)}
 			</Grid>

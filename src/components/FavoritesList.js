@@ -285,9 +285,8 @@ const FavoritesList = ({
 									}
 									variant="secondary"
 									testIdName="favorites-page-share-button"
-								>
-									Share
-								</AsylumConnectButton>
+									children={<FormattedMessage id="action.share" />}
+								></AsylumConnectButton>
 							)}
 							{isOwner && (
 								<AsylumConnectButton
