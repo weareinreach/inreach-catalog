@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {FormattedMessage} from 'react-intl';
-
 import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
@@ -21,24 +20,39 @@ const styles = (theme) => ({
 });
 
 function DeleteListDialog(props) {
-	const confirmDelete = () => {
-		const {handleMessageNew} = props;
-
-		deleteList(props.listId, props.user)
-			.then(() => {
-				handleMessageNew(
-					<FormattedMessage id="favorites.delete.list.dialog.success.message" />
-				);
-				props.handleFetchUser(props.session);
-				props.handleRequestClose();
-				props.history.push('/' + props.locale + '/favorites');
-			})
-			.catch(() => {
+	const confirmDelete = async () => {
+		try {
+			await deleteList(props.listId, props.user);
+			handleMessageNew(
+				<FormattedMessage id="favorites.delete-list-dialog-success-message" />
+			);
+			handleFetchUser(props.session);
+			handleRequestClose();
+			history.push('/' + props.locale + '/favorites');
+		} catch (error) {
+			if (error.response && error.response.status === 401) {
+				handleMessageNew('Your session has expired. Please log in again.');
+				handleLogOut();
+				handleRequestClose();
+			} else if (error.response && error.response.status === 403) {
+				handleRequestOpen('password');
+			} else {
 				handleMessageNew(<FormattedMessage id="error.unspecified" />);
-			});
+				handleRequestClose();
+			}
+		}
 	};
 
-	const {classes, handleRequestClose} = props;
+	const {
+		classes,
+		handleMessageNew,
+		handleFetchUser,
+		handleRequestClose,
+		handleRequestOpen,
+		history,
+		handleLogOut
+	} = props;
+
 	let isShared = true;
 
 	if (props.listVisibility !== 'shared') {
@@ -47,13 +61,16 @@ function DeleteListDialog(props) {
 
 	return (
 		<div className={classes.container}>
-			<DialogTitle data-test-id="delete-list-title">
-				<FormattedMessage id="favorites.delete.list.dialog.title" />
-				{props.listTitle}?
+			<DialogTitle
+				className={classes.wordWrap}
+				data-test-id="delete-list-title"
+			>
+				<FormattedMessage id="favorites.delete-list-dialog-title" />"
+				{props.listTitle}" ?
 			</DialogTitle>
 			{isShared ? (
 				<Typography type="body1" data-test-id="delete-list-shared">
-					<FormattedMessage id="favorites.delete.list.dialog.shared.message" />
+					<FormattedMessage id="favorites.delete-list-dialog-shared-message" />
 				</Typography>
 			) : null}
 			<AsylumConnectButton
@@ -73,9 +90,5 @@ function DeleteListDialog(props) {
 		</div>
 	);
 }
-
-DeleteListDialog.propTypes = {
-	handleRequestClose: PropTypes.func.isRequired
-};
 
 export default withStyles(styles)(DeleteListDialog);

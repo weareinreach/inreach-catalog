@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 import {shareResource} from '../utils/api';
 import ShareForm from './ShareForm';
@@ -66,7 +67,7 @@ class ShareFormContainer extends React.Component {
 			} else if (error.response && error.response.status === 403) {
 				handleRequestOpen('password');
 			} else {
-				handleMessageNew('Oops! Something went wrong.');
+				handleMessageNew(<FormattedMessage id="error.unspecified" />);
 				handleRequestClose();
 			}
 		}

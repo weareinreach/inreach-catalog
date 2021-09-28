@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
+import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	container: {
@@ -19,7 +20,7 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
 	<form className={classes.container} onSubmit={handleSubmit}>
 		<TextField
 			id="email"
-			label="Email"
+			label={<FormattedMessage id="form.email" />}
 			margin="normal"
 			name="email"
 			onChange={handleChange}
@@ -32,9 +33,14 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
 			testIdName="favorites-list-share-dialog-button"
 			className={classes.spacingAbove}
 			variant="primary"
-		>
-			Share {shareType === 'collection' ? 'List' : 'Resource'}
-		</AsylumConnectButton>
+			children={
+				shareType === 'collection' ? (
+					<FormattedMessage id="action.share-list" />
+				) : (
+					<FormattedMessage id="action.share-resrouce" />
+				)
+			}
+		></AsylumConnectButton>
 	</form>
 );
 
