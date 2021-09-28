@@ -37,7 +37,7 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
 				shareType === 'collection' ? (
 					<FormattedMessage id="action.share-list" />
 				) : (
-					<FormattedMessage id="action.share-resrouce" />
+					<FormattedMessage id="action.share-resource" />
 				)
 			}
 		></AsylumConnectButton>
