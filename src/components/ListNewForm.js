@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import {FormattedMessage} from 'react-intl';
 
 import AsylumConnectButton from './AsylumConnectButton';
 
@@ -44,9 +44,8 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			className={classes.spacingAbove}
 			variant="primary"
 			testIdName="favorites-create-new-button"
-		>
-			Create New List
-		</AsylumConnectButton>
+			children={<FormattedMessage id="favorites.create-new-list" />}
+		></AsylumConnectButton>
 	</form>
 );
 

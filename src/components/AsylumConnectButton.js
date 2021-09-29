@@ -75,8 +75,16 @@ const styles = (theme) => ({
 
 // Custom Button component with variant property
 function AsylumConnectButton(props) {
-	const {children, classes, className, variant, onClick, disabled, testIdName} =
-		props;
+	const {
+		children,
+		classes,
+		className,
+		variant,
+		onClick,
+		disabled,
+		testIdName,
+		icon
+	} = props;
 	return (
 		<Button
 			disabled={disabled}
@@ -99,6 +107,7 @@ function AsylumConnectButton(props) {
 						: classes.disabledPrimary
 			}}
 		>
+			{icon}
 			{children}
 		</Button>
 	);

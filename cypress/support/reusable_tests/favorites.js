@@ -6,11 +6,11 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
         cy.getElementByTestId('mobile-nav-button-favorites').click();
         cy.getElementByTestId('favorites-page-header-text').then($element =>{
             expect($element).to.be.visible;
-            expect($element).contain("Once logged in, you’ll be able to quickly find the organizations and resources you have favorited.");
+            expect($element).contain("Once signed in, you’ll be able to quickly find the organizations and resources you have favorited.");
         });
         cy.getElementByTestId('favorites-page-login-button').then($element =>{
             expect($element).to.be.visible;
-            expect($element).contain("Log In");
+            expect($element).contain("Sign In");
         });
         cy.getElementByTestId('favorites-page-signup-button').then($element =>{
             expect($element).to.be.visible;
@@ -26,7 +26,7 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
         cy.wait(2000);
         cy.getElementByTestId('favorites-page-header-text').then($element =>{
             expect($element).to.be.visible;
-            expect($element).contain("You must be logged in to use favorites.");
+            expect($element).contain("You must be signed in to view Favorites.");
         });
     }
 });
@@ -54,7 +54,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-page-create-new-list-button').then($element=>{
         expect($element).to.be.visible;
-        viewport === Cypress.env('mobile') ? expect($element).contain("Select one of your favorites lists or create a new list.")  : expect($element).contain("Create New List");
+        viewport === Cypress.env('mobile') ? expect($element).contain("Select one of your favorites lists or create a new list.")  : expect($element).contain("Create a New Favorites List");
         cy.wrap($element).click();
     });
     cy.wait(1000);
@@ -72,7 +72,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-create-new-button').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("Create New List");
+        expect($element).contain("Create a New Favorites List");
     });
 
 });
@@ -127,7 +127,6 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
             expect($element).to.be.visible;
             expect($element).to.have.attr('title','Print Favorites');
         });
-
         cy.getElementByTestId('favorites-page-list-name').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain(listName);

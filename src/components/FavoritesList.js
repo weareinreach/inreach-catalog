@@ -104,7 +104,7 @@ const FavoritesList = ({
 				align="center"
 				data-test-id="favorites-page-header-text"
 			>
-				You must be logged in to use favorites.
+				<FormattedMessage id="favorites.sign-in-to-view" />
 			</Typography>
 		);
 	}
@@ -124,7 +124,7 @@ const FavoritesList = ({
 						variant="body1"
 						align="center"
 					>
-						Sorry! It seems you don't have access to this list!
+						<FormattedMessage id="favorites.mobile-no-access" />
 					</Typography>
 				</Grid>
 			</Grid>
@@ -145,7 +145,7 @@ const FavoritesList = ({
 					align="center"
 					data-test-id="favorites-page-title-text"
 				>
-					{publicList ? publicList : 'Favorites'}
+					{publicList ? publicList : <FormattedMessage id="favorites.title" />}
 				</Typography>
 				{!publicList && isOwner && (
 					<Typography
@@ -154,8 +154,7 @@ const FavoritesList = ({
 						align="center"
 						data-test-id="favorites-page-header-text"
 					>
-						Your favorites lists are only visible to you and anyone you choose
-						to share your lists with.
+						<FormattedMessage id="favorites.privacy-disclaimer" />
 					</Typography>
 				)}
 				{!publicList && !isOwner && (
@@ -165,7 +164,7 @@ const FavoritesList = ({
 						align="center"
 						data-test-id="favorites-page-header-text"
 					>
-						This list was shared with you.
+						<FormattedMessage id="favorites.list-shared" />
 					</Typography>
 				)}
 
@@ -184,7 +183,7 @@ const FavoritesList = ({
 							<Grid item xs={12} md={6}>
 								{lists.length > 0 && (
 									<Typography className={classes.listName} variant="h3">
-										Select A List
+										<FormattedMessage id="favorites.action-select-list" />
 									</Typography>
 								)}
 							</Grid>
@@ -194,10 +193,9 @@ const FavoritesList = ({
 									onClick={() => handleRequestOpen('listNew/favoritesList')}
 									variant="secondary"
 									testIdName="favorites-page-create-new-list-button"
-								>
-									<Fa className={classes.marginRight} name="plus" /> Create New
-									List
-								</AsylumConnectButton>
+									icon={<Fa className={classes.marginRight} name="plus" />}
+									children={<FormattedMessage id="favorites.create-new-list" />}
+								></AsylumConnectButton>
 							</Grid>
 						</Grid>
 						{lists.length > 0 ? (
@@ -226,7 +224,7 @@ const FavoritesList = ({
 								align="center"
 								data-test-id="favorites-page-body-text"
 							>
-								You haven't created any lists yet.
+								<FormattedMessage id="favorites.no-lists" />
 							</Typography>
 						)}
 					</>
@@ -280,7 +278,7 @@ const FavoritesList = ({
 													'share/collection/' + list._id + '/' + list.name
 											  )
 											: handleMessageNew(
-													'You must be logged in to share resources.'
+													<FormattedMessage id="error.sign-in-to-share-resources" />
 											  )
 									}
 									variant="secondary"
@@ -302,7 +300,7 @@ const FavoritesList = ({
 														list.visibility
 											  )
 											: handleMessageNew(
-													<FormattedMessage id="favorites.logged-in.delete.message" />
+													<FormattedMessage id="error.sign-in-to-delete-resources" />
 											  )
 									}
 									variant="primary"
@@ -344,7 +342,7 @@ const FavoritesList = ({
 									variant="body1"
 									data-test-id="favorites-page-body-text"
 								>
-									You haven't added any resources to this list yet.
+									<FormattedMessage id="favorites.empty-list" />
 								</Typography>
 							)}
 						</div>

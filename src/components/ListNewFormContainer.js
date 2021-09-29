@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import {FormattedMessage} from 'react-intl';
 
 import {createList} from '../utils/api';
 
@@ -51,13 +52,13 @@ class ListNewFormContainer extends React.Component {
 			})
 			.catch((error) => {
 				if (error.response && error.response.status === 401) {
-					handleMessageNew('Your session has expired. Please log in again.');
+					handleMessageNew(<FormattedMessage id="error.session-expired" />);
 					handleLogOut();
 					handleRequestClose();
 				} else if (error.response && error.response.status === 403) {
 					handleRequestOpen('password');
 				} else {
-					handleMessageNew('Oops! Something went wrong.');
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
 					handleRequestClose();
 				}
 			});
