@@ -18,7 +18,7 @@ const styles = (theme) => ({
 	}
 });
 
-function ShareDialog(props) {
+const ShareDialog = (props) => {
 	const {
 		classes,
 		handleMessageNew,
@@ -47,7 +47,7 @@ function ShareDialog(props) {
 			/>
 		</div>
 	);
-}
+};
 
 ShareDialog.defaultProps = {
 	session: null

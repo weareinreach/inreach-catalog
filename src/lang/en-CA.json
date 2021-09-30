@@ -119,7 +119,7 @@
 	"error.invalid-request": "Invalid request",
 	"error.no-location-entered": "Please enter a city or state in the location search box above.",
 	"error.sign-in-to-share-resources": "Oops! You need to be signed in to share resources.",
-	"error.sign-in-to-delete-resources": "¡Oops! You need to be signed in to delete resources.",
+	"error.sign-in-to-delete-resources": "Oops! You need to be signed in to delete resources.",
 	"error.invalid-reset-token": "Invalid password reset token",
 	"error.required-field-empty": "Please fill out all fields",
 	"error.email-address-mismatch": "The email addresses you have entered do not match",

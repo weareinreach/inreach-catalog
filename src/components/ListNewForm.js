@@ -44,8 +44,9 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			className={classes.spacingAbove}
 			variant="primary"
 			testIdName="favorites-create-new-button"
-			children={<FormattedMessage id="favorites.create-new-list" />}
-		></AsylumConnectButton>
+		>
+			<FormattedMessage id="favorites.create-new-list" />
+		</AsylumConnectButton>
 	</form>
 );
 

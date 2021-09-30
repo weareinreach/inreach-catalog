@@ -27,7 +27,7 @@ const styles = (theme) => ({
 	}
 });
 
-function DeleteListMobile(props) {
+const DeleteListMobile = (props) => {
 	const confirmDelete = async () => {
 		try {
 			await deleteList(props.listId, props.user);
@@ -99,20 +99,22 @@ function DeleteListMobile(props) {
 					onClick={confirmDelete}
 					className={classes.spacingTop}
 					testIdName="delete-list-delete-button"
-					children={<FormattedMessage id="action.delete" />}
-				></AsylumConnectButton>
+				>
+					<FormattedMessage id="action.delete" />
+				</AsylumConnectButton>
 
 				<AsylumConnectButton
 					variant="secondary"
 					className={classes.spacingTop}
 					testIdName="delete-list-cancel-button"
 					onClick={handleRequestClose}
-					children={<FormattedMessage id="action.cancel" />}
-				></AsylumConnectButton>
+				>
+					<FormattedMessage id="action.cancel" />
+				</AsylumConnectButton>
 			</Paper>
 		</div>
 	);
-}
+};
 
 DeleteListMobile.propTypes = {
 	classes: PropTypes.object.isRequired,

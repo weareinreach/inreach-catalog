@@ -23,7 +23,7 @@ const styles = (theme) => ({
 	}
 });
 
-function ShareMobile(props) {
+const ShareMobile = (props) => {
 	const {
 		classes,
 		dialog,
@@ -70,7 +70,7 @@ function ShareMobile(props) {
 			</Paper>
 		</div>
 	);
-}
+};
 
 ShareMobile.defaultProps = {
 	session: null

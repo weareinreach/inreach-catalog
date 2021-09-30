@@ -98,8 +98,9 @@ const FavoritesListMobile = ({
 							handleRequestOpen('login');
 						}}
 						testIdName="favorites-page-login-button"
-						children={<FormattedMessage id="account.sign-in" />}
-					></AsylumConnectButton>
+					>
+						<FormattedMessage id="account.sign-in" />
+					</AsylumConnectButton>
 					<AsylumConnectButton
 						variant="secondary"
 						className={classes.spacingTop}
@@ -107,8 +108,9 @@ const FavoritesListMobile = ({
 							handleRequestOpen('signup');
 						}}
 						testIdName="favorites-page-signup-button"
-						children={<FormattedMessage id="account.sign-up" />}
-					></AsylumConnectButton>
+					>
+						<FormattedMessage id="account.sign-up" />
+					</AsylumConnectButton>
 				</Typography>
 			</Grid>
 		);
@@ -205,8 +207,9 @@ const FavoritesListMobile = ({
 								  )
 						}
 						testIdName="favorites-page-share-button"
-						children={<FormattedMessage id="action.share" />}
-					></AsylumConnectButton>
+					>
+						<FormattedMessage id="action.share" />
+					</AsylumConnectButton>
 				)}
 				{list && isOwner && (
 					<AsylumConnectButton
@@ -227,8 +230,9 @@ const FavoritesListMobile = ({
 								  )
 						}
 						testIdName="favorites-page-delete-button"
-						children={<FormattedMessage id="action.delete" />}
-					></AsylumConnectButton>
+					>
+						<FormattedMessage id="action.delete" />
+					</AsylumConnectButton>
 				)}
 			</Grid>
 

@@ -193,9 +193,10 @@ const FavoritesList = ({
 									onClick={() => handleRequestOpen('listNew/favoritesList')}
 									variant="secondary"
 									testIdName="favorites-page-create-new-list-button"
-									icon={<Fa className={classes.marginRight} name="plus" />}
-									children={<FormattedMessage id="favorites.create-new-list" />}
-								></AsylumConnectButton>
+								>
+									<Fa className={classes.marginRight} name="plus" />
+									<FormattedMessage id="favorites.create-new-list" />
+								</AsylumConnectButton>
 							</Grid>
 						</Grid>
 						{lists.length > 0 ? (
@@ -283,8 +284,9 @@ const FavoritesList = ({
 									}
 									variant="secondary"
 									testIdName="favorites-page-share-button"
-									children={<FormattedMessage id="action.share" />}
-								></AsylumConnectButton>
+								>
+									<FormattedMessage id="action.share" />
+								</AsylumConnectButton>
 							)}
 							{isOwner && (
 								<AsylumConnectButton
@@ -305,8 +307,9 @@ const FavoritesList = ({
 									}
 									variant="primary"
 									testIdName="favorites-page-delete-button"
-									children={<FormattedMessage id="action.delete" />}
-								></AsylumConnectButton>
+								>
+									<FormattedMessage id="action.delete" />
+								</AsylumConnectButton>
 							)}
 						</Grid>
 					</Grid>

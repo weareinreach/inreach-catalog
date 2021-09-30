@@ -19,7 +19,7 @@ const styles = (theme) => ({
 	}
 });
 
-function DeleteListDialog(props) {
+const DeleteListDialog = (props) => {
 	const confirmDelete = async () => {
 		try {
 			await deleteList(props.listId, props.user);
@@ -78,17 +78,19 @@ function DeleteListDialog(props) {
 				onClick={confirmDelete}
 				className={classes.marginTop}
 				testIdName="delete-list-delete-button"
-				children={<FormattedMessage id="action.delete" />}
-			></AsylumConnectButton>
+			>
+				<FormattedMessage id="action.delete" />
+			</AsylumConnectButton>
 
 			<AsylumConnectButton
 				variant="secondary"
 				testIdName="delete-list-cancel-button"
 				onClick={handleRequestClose}
-				children={<FormattedMessage id="action.cancel" />}
-			></AsylumConnectButton>
+			>
+				<FormattedMessage id="action.cancel" />
+			</AsylumConnectButton>
 		</div>
 	);
-}
+};
 
 export default withStyles(styles)(DeleteListDialog);
