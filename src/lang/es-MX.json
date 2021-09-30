@@ -116,7 +116,7 @@
 	"error.password-length": "La contraseña debe tener al menos 8 caracteres.",
 	"error.password-mismatch": "Las contraseñas que ingresaste no coinciden.",
 	"error.user-already-exists": "Esta cuenta de usuario ya existe. Intenta iniciar una sesión.",
-	"error.invalid-request": "Solicitud no válida.",
+	"error.invalid-request": "Solicitud inválida.",
 	"error.no-location-entered": "Introduce una ciudad o un estado en el campo de búsqueda para ubicaciones arriba",
 	"error.sign-in-to-share-resources": "¡Oops! Tienes que iniciar una sesión para compartir recursos.",
 	"error.sign-in-to-delete-resources": "¡Oops! Tienes que iniciar una sesión para eliminar recursos.",
