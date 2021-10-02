@@ -39,7 +39,7 @@ const DeleteListMobile = (props) => {
 			history.push('/' + props.locale + '/favorites');
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
-				handleMessageNew('Your session has expired. Please log in again.');
+				handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
 				handleLogOut();
 				handleRequestClose();
 			} else if (error.response && error.response.status === 403) {

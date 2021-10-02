@@ -52,7 +52,7 @@ class ListNewFormContainer extends React.Component {
 			})
 			.catch((error) => {
 				if (error.response && error.response.status === 401) {
-					handleMessageNew(<FormattedMessage id="error.session-expired" />);
+					handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
 					handleLogOut();
 					handleRequestClose();
 				} else if (error.response && error.response.status === 403) {
