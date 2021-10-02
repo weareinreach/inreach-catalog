@@ -46,7 +46,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-page-header-text').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("Your favorites lists are only visible to you and anyone you choose to share your lists with.");
+        expect($element).contain("Your favorites lists are only visible to you and anyone you share them with.");
     });
     cy.getElementByTestId('favorites-page-body-text').then($element=>{
         expect($element).to.be.visible;
@@ -118,7 +118,7 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
     });
     cy.getElementByTestId('favorites-page-header-text').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("Your favorites lists are only visible to you and anyone you choose to share your lists with.");
+        expect($element).contain("Your favorites lists are only visible to you and anyone you share them with.");
     });
     
     //Non Mobile Tests
