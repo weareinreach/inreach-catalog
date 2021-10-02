@@ -55,7 +55,6 @@ ShareDialog.defaultProps = {
 
 ShareDialog.propTypes = {
 	classes: PropTypes.object.isRequired,
-	handleLogIn: PropTypes.func.isRequired,
 	handleMessageNew: PropTypes.func.isRequired,
 	handleRequestClose: PropTypes.func.isRequired,
 	handleRequestOpen: PropTypes.func.isRequired,

@@ -56,13 +56,11 @@ class ShareFormContainer extends React.Component {
 			};
 			await shareResource(payload);
 			handleMessageNew(
-				`${
-					shareType === 'collection' ? (
-						<FormattedMessage id="favorites.share-list-success-message" />
-					) : (
-						<FormattedMessage id="favorites.share-resource-success-message" />
-					)
-				}`
+				shareType === 'collection' ? (
+					<FormattedMessage id="favorites.share-list-success-message" />
+				) : (
+					<FormattedMessage id="favorites.share-resource-success-message" />
+				)
 			);
 			handleRequestClose();
 		} catch (error) {
