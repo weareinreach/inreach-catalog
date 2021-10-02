@@ -54,7 +54,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-page-create-new-list-button').then($element=>{
         expect($element).to.be.visible;
-        viewport === Cypress.env('mobile') ? expect($element).contain("Select one of your favorites lists or create a new list.")  : expect($element).contain("Create a New Favorites List");
+        viewport === Cypress.env('mobile') ? expect($element).contain("Select one of your favorites lists or create a new list.")  : expect($element).contain("Create New Favorites List");
         cy.wrap($element).click();
     });
     cy.wait(1000);
