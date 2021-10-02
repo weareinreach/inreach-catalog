@@ -54,8 +54,8 @@ const ShareMobile = (props) => {
 					className={classes.wordWrap}
 					data-test-id="share-list-title"
 				>
-					<FormattedMessage id="action.share-question" />"{dialog.split('/')[3]}
-					" ?
+					<FormattedMessage id="action.share-question" /> "
+					{dialog.split('/')[3]}" ?
 				</DialogTitle>
 				<ShareFormContainer
 					handleLogIn={handleLogIn}

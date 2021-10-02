@@ -34,7 +34,7 @@ const ShareDialog = (props) => {
 	return (
 		<div className={classes.container}>
 			<DialogTitle className={classes.wordWrap} data-test-id="share-list-title">
-				<FormattedMessage id="action.share-question" />"{listTitle}" ?
+				<FormattedMessage id="action.share-question" /> "{listTitle}" ?
 			</DialogTitle>
 			<ShareFormContainer
 				handleMessageNew={handleMessageNew}

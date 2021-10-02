@@ -33,14 +33,13 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
 			testIdName="favorites-list-share-dialog-button"
 			className={classes.spacingAbove}
 			variant="primary"
-			children={
-				shareType === 'collection' ? (
-					<FormattedMessage id="action.share-list" />
-				) : (
-					<FormattedMessage id="action.share-resource" />
-				)
-			}
-		></AsylumConnectButton>
+		>
+			{shareType === 'collection' ? (
+				<FormattedMessage id="action.share-list" />
+			) : (
+				<FormattedMessage id="action.share-resource" />
+			)}
+		</AsylumConnectButton>
 	</form>
 );
 

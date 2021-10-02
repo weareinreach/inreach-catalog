@@ -60,7 +60,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     cy.wait(1000);
     cy.getElementByTestId('dialog-container-title').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("Create a New Favorites List");
+        expect($element).contain("Create New Favorites List");
     });
     cy.getElementByTestId('favorites-create-new-page-header-text').then($element=>{
         expect($element).to.be.visible;
@@ -72,7 +72,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-create-new-button').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("Create a New Favorites List");
+        expect($element).contain("Create New Favorites List");
     });
 
 });
