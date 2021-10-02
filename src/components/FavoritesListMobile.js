@@ -199,9 +199,7 @@ const FavoritesListMobile = ({
 						className={classes.spacingTop}
 						onClick={() =>
 							session
-								? handleRequestOpen(
-										'share/collection/' + list._id + '/' + list.name
-								  )
+								? handleRequestOpen(`share/collection/${list._id}/${list.name}`)
 								: handleMessageNew(
 										<FormattedMessage id="error.sign-in-to-share-resources" />
 								  )
@@ -218,12 +216,7 @@ const FavoritesListMobile = ({
 						onClick={() =>
 							session
 								? handleRequestOpen(
-										'deleteList/' +
-											list._id +
-											'/' +
-											list.name +
-											'/' +
-											list.visibility
+										`deleteList/${list._id}/${list.name}/${list.visibility}`
 								  )
 								: handleMessageNew(
 										<FormattedMessage id="favorites.logged-in.delete.message" />

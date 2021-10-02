@@ -276,7 +276,7 @@ const FavoritesList = ({
 									onClick={() =>
 										session
 											? handleRequestOpen(
-													'share/collection/' + list._id + '/' + list.name
+													`share/collection/${list._id}/${list.name}`
 											  )
 											: handleMessageNew(
 													<FormattedMessage id="error.sign-in-to-share-resources" />
@@ -294,12 +294,7 @@ const FavoritesList = ({
 									onClick={() =>
 										session
 											? handleRequestOpen(
-													'deleteList/' +
-														list._id +
-														'/' +
-														list.name +
-														'/' +
-														list.visibility
+													`deleteList/${list._id}/${list.name}/${list.visibility}`
 											  )
 											: handleMessageNew(
 													<FormattedMessage id="error.sign-in-to-delete-resources" />
