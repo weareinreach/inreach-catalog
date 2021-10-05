@@ -271,8 +271,12 @@ export const createList = ({name, userId}) => {
 
 export const deleteList = (listId, user) => {
 	return catalogDelete(`/users/${user}/lists/${listId}`)
-		.then(() => ({}))
-		.catch((err) => err);
+		.then((result) => {
+			return result;
+		})
+		.catch((err) => {
+			return err;
+		});
 };
 
 export const createListFavorite = ({listId, itemId, orgId, userId}) => {

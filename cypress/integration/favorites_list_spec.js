@@ -67,6 +67,16 @@ describe('Favorites List Tests', () => {
                         cy.testSharingFavoritesList(viewport,user,"Automation List","automation2@gmail.com");
                     }); 
                 });
+                it(`Favorites List Print List`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testPrintingFavoritesList(viewport,user,"Automation List","automation2@gmail.com");
+                    }); 
+                });
+                it(`Favorites List Delete List - Back button from Delete Dialog - Mobile only`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeleteDialogBackButtonMobile(viewport,user,"Automation List");
+                    }); 
+                });
                 it(`Favorites List Delete List - Cancel - Not Shared`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testCancelDeletingFavoritesListNotShared(viewport,user,"Automation List");
@@ -86,6 +96,36 @@ describe('Favorites List Tests', () => {
                     cy.get('@user').then(user=>{
                         cy.testDeletingFavoritesListShared(viewport,user,"Automation List 4", "automation2@gmail.com");
                     });
+                });
+                it(`Favorites List Delete List - Error - 401, 500`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeletingFavoritesListError401(viewport,user,"Automation List 4", "automation2@gmail.com");
+                    });         
+                });
+                it(`Favorites List Delete List - Error - 404`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeletingFavoritesListError404(viewport,user,"Automation List 4", "automation2@gmail.com");
+                    });         
+                });
+                it(`Favorites List Delete List - Error - 401`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeletingFavoritesListError401(viewport,user,"Automation List 4", "automation2@gmail.com");
+                    });         
+                });
+                it(`Favorites List Delete List - Error - 500`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeletingFavoritesListError500(viewport,user,"Automation List 4", "automation2@gmail.com");
+                    });         
+                });
+                it(`Favorites List Delete List - Response not 200`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeletingFavoritesListErrorNot200(viewport,user,"Automation List 4", "automation2@gmail.com");
+                    });         
+                });
+                it(`Favorites List Delete List - Generic Error`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.testDeletingFavoritesListErrorSomethingElse(viewport,user,"Automation List 4", "automation2@gmail.com");
+                    });         
                 });
         });
     });

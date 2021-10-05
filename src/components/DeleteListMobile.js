@@ -29,26 +29,39 @@ const styles = (theme) => ({
 
 const DeleteListMobile = (props) => {
 	const confirmDelete = async () => {
-		try {
-			await deleteList(props.listId, props.user);
-			handleMessageNew(
-				<FormattedMessage id="favorites.delete-list-dialog-success-message" />
-			);
-			handleFetchUser(props.session);
-			handleRequestClose();
-			history.push('/' + props.locale + '/favorites');
-		} catch (error) {
-			if (error.response && error.response.status === 401) {
-				handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
-				handleLogOut();
-				handleRequestClose();
-			} else if (error.response && error.response.status === 403) {
-				handleRequestOpen('password');
-			} else {
+		deleteList(props.listId, props.user)
+			.then((response) => {
+				if (response.status === 200) {
+					handleMessageNew(
+						<FormattedMessage id="favorites.delete-list-dialog-success-message" />
+					);
+					handleFetchUser(props.session);
+					handleRequestClose();
+					history.push('/' + props.locale + '/favorites');
+				} else if (
+					response.error &&
+					(response.status.status === 401 || response.status.status === 500)
+				) {
+					handleMessageNew(
+						<FormattedMessage id="error.sign-in-to-delete-resources" />
+					);
+					handleRequestClose();
+					history.push('/' + props.locale + '/favorites');
+				} else if (response.error && response.status.status === 404) {
+					handleMessageNew(<FormattedMessage id="error.resource-not-found" />);
+					handleRequestClose();
+					history.push('/' + props.locale + '/favorites');
+				} else {
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleRequestClose();
+					history.push('/' + props.locale + '/favorites');
+				}
+			})
+			// something else went wrong so handle it here
+			.catch((error) => {
 				handleMessageNew(<FormattedMessage id="error.unspecified" />);
 				handleRequestClose();
-			}
-		}
+			});
 	};
 
 	const {

@@ -124,6 +124,7 @@
 	"error.required-field-empty": "Por favor llena todos los campos",
 	"error.email-address-mismatch": "Las direcciones de correo electrónico que ingresaste no coinciden",
 	"error.page-not-found": "No se encuentra la página",
+	"error.resource-not-found": "No se encuentra el recurso",
 	"error.form-description-length": "La descripción no puede tener más de 1000 caracteres",
 	"favorites.title": "Favoritos",
 	"favorites.view-favorites": "Ve tus Recursos Favoritos",
