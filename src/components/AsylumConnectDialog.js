@@ -12,6 +12,7 @@ import LoginDialog from './LoginDialog';
 import PasswordDialog from './PasswordDialog';
 import PrivacyDialog from './PrivacyDialog';
 import ShareDialog from './ShareDialog';
+import DeleteListDialog from './DeleteListDialog';
 import SignupDialog from './SignupDialog';
 
 const styles = (theme) => ({
@@ -27,6 +28,7 @@ const AsylumConnectDialog = ({
 	dialog,
 	handleConfirmSession,
 	handleListNew,
+	handleFetchUser,
 	handleLogIn,
 	handleDeleteAccount,
 	handleLogOut,
@@ -88,6 +90,22 @@ const AsylumConnectDialog = ({
 					listId={dialog.split('/')[2]}
 					listTitle={dialog.split('/')[3]}
 					shareType={dialog.split('/')[1]}
+					user={user}
+					userData={userData}
+				/>
+			)}
+			{/^deleteList/.test(dialog) && (
+				<DeleteListDialog
+					handleMessageNew={handleMessageNew}
+					handleFetchUser={handleFetchUser}
+					handleRequestOpen={handleRequestOpen}
+					handleRequestClose={handleRequestClose}
+					history={history}
+					locale={locale}
+					session={session}
+					listId={dialog.split('/')[1]}
+					listTitle={dialog.split('/')[2]}
+					listVisibility={dialog.split('/')[3]}
 					user={user}
 					userData={userData}
 				/>

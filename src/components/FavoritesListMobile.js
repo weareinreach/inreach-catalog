@@ -16,6 +16,7 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import {bodyLink} from '../theme';
 
 import ResourceListItem from './ResourceListItem';
+import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	bodyLink: bodyLink(theme),
@@ -87,8 +88,7 @@ const FavoritesListMobile = ({
 					variant="body1"
 					data-test-id="favorites-page-header-text"
 				>
-					Once logged in, you’ll be able to quickly find the organizations and
-					resources you have favorited.
+					<FormattedMessage id="favorites.sign-in-help" />
 					<br />
 					<br />
 					<AsylumConnectButton
@@ -99,7 +99,7 @@ const FavoritesListMobile = ({
 						}}
 						testIdName="favorites-page-login-button"
 					>
-						Log In
+						<FormattedMessage id="account.sign-in" />
 					</AsylumConnectButton>
 					<AsylumConnectButton
 						variant="secondary"
@@ -109,7 +109,7 @@ const FavoritesListMobile = ({
 						}}
 						testIdName="favorites-page-signup-button"
 					>
-						Sign Up
+						<FormattedMessage id="account.sign-up" />
 					</AsylumConnectButton>
 				</Typography>
 			</Grid>
@@ -130,7 +130,7 @@ const FavoritesListMobile = ({
 						variant="body1"
 						align="center"
 					>
-						Sorry! It seems you don't have access to this list!
+						<FormattedMessage id="favorites.mobile-no-access" />
 					</Typography>
 				</Grid>
 			</Grid>
@@ -154,7 +154,7 @@ const FavoritesListMobile = ({
 				variant="h3"
 				data-test-id="favorites-page-title-text"
 			>
-				{publicList ? publicList : 'Favorites'}
+				{publicList ? publicList : <FormattedMessage id="favorites.title" />}
 			</Typography>
 			{!publicList && isOwner && (
 				<Typography
@@ -163,8 +163,7 @@ const FavoritesListMobile = ({
 					align="center"
 					data-test-id="favorites-page-header-text"
 				>
-					Your favorites lists are only visible to you and anyone you choose to
-					share your lists with.
+					<FormattedMessage id="favorites.privacy-disclaimer" />
 				</Typography>
 			)}
 			{!publicList && !isOwner && (
@@ -174,7 +173,7 @@ const FavoritesListMobile = ({
 					align="center"
 					data-test-id="favorites-page-header-text"
 				>
-					This list was shared with you.
+					<FormattedMessage id="favorites.list-shared" />
 				</Typography>
 			)}
 			<Grid item xs={12}>
@@ -185,14 +184,30 @@ const FavoritesListMobile = ({
 						align="center"
 						data-test-id="favorites-page-create-new-list-button"
 					>
-						Select one of your favorites lists or{` `}
+						<FormattedMessage id="favorites.action-help-part-1" />
 						<span
 							className={classes.bodyLink}
 							onClick={() => handleRequestOpen('listNew/favoritesList')}
 						>
-							create a new list.
+							<FormattedMessage id="favorites.action-help-part-2" />
 						</span>
 					</Typography>
+				)}
+				{list && isOwner && (
+					<AsylumConnectButton
+						variant="secondary"
+						className={classes.spacingTop}
+						onClick={() =>
+							session
+								? handleRequestOpen(`share/collection/${list._id}/${list.name}`)
+								: handleMessageNew(
+										<FormattedMessage id="error.sign-in-to-share-resources" />
+								  )
+						}
+						testIdName="favorites-page-share-button"
+					>
+						<FormattedMessage id="action.share" />
+					</AsylumConnectButton>
 				)}
 				{list && isOwner && (
 					<AsylumConnectButton
@@ -201,13 +216,15 @@ const FavoritesListMobile = ({
 						onClick={() =>
 							session
 								? handleRequestOpen(
-										'share/collection/' + list._id + '/' + list.name
+										`deleteList/${list._id}/${list.name}/${list.visibility}`
 								  )
-								: handleMessageNew('You must be logged in to share resources')
+								: handleMessageNew(
+										<FormattedMessage id="favorites.logged-in.delete.message" />
+								  )
 						}
-						testIdName="favorites-page-share-button"
+						testIdName="favorites-page-delete-button"
 					>
-						Share
+						<FormattedMessage id="action.delete" />
 					</AsylumConnectButton>
 				)}
 			</Grid>
@@ -239,7 +256,7 @@ const FavoritesListMobile = ({
 							align="center"
 							data-test-id="favorites-page-body-text"
 						>
-							You haven't created any lists yet.
+							<FormattedMessage id="favorites.no-lists" />
 						</Typography>
 					)}
 				</Grid>
@@ -274,7 +291,7 @@ const FavoritesListMobile = ({
 					)}
 					{!loadingResources && list && resources.length === 0 && (
 						<Typography variant="body1" data-test-id="favorites-page-body-text">
-							You haven't added any resources to this list yet.
+							<FormattedMessage id="favorites.empty-list" />
 						</Typography>
 					)}
 				</Grid>

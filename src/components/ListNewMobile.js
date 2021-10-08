@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
+import {FormattedMessage} from 'react-intl';
 
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import ListNewFormContainer from './ListNewFormContainer';
@@ -46,7 +47,9 @@ const ListNewMobile = ({
 					}}
 				/>
 			</Toolbar>
-			<DialogTitle>Create a New Favorites List</DialogTitle>
+			<DialogTitle>
+				<FormattedMessage id="favorites.create-new-list" />
+			</DialogTitle>
 			<ListNewFormContainer
 				handleListNew={handleListNew}
 				handleLogOut={handleLogOut}

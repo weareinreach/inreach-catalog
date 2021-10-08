@@ -1,40 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import {FormattedMessage} from 'react-intl';
+import {withStyles} from '@material-ui/core/styles';
 
 import DialogTitle from './DialogTitle';
 import ShareFormContainer from './ShareFormContainer';
 
-const ShareDialog = ({
-	handleMessageNew,
-	handleRequestOpen,
-	handleRequestClose,
-	listId,
-	listTitle,
-	session,
-	shareType,
-	user
-}) => (
-	<div>
-		<DialogTitle>Share "{listTitle}"</DialogTitle>
-		<ShareFormContainer
-			handleMessageNew={handleMessageNew}
-			handleRequestClose={handleRequestClose}
-			handleRequestOpen={handleRequestOpen}
-			session={session}
-			listId={listId}
-			shareType={shareType}
-			user={user}
-		/>
-	</div>
-);
+const styles = (theme) => ({
+	container: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center'
+	},
+	marginTop: {
+		marginTop: theme.spacing(1)
+	}
+});
 
-ShareDialog.propTypes = {
-	handleMessageNew: PropTypes.func.isRequired,
-	handleRequestClose: PropTypes.func.isRequired,
-	listId: PropTypes.string.isRequired,
-	listTitle: PropTypes.string.isRequired,
-	session: PropTypes.string.isRequired,
-	user: PropTypes.string.isRequired
+const ShareDialog = (props) => {
+	const {
+		classes,
+		handleMessageNew,
+		handleRequestOpen,
+		handleRequestClose,
+		listId,
+		listTitle,
+		session,
+		shareType,
+		user
+	} = props;
+
+	return (
+		<div className={classes.container}>
+			<DialogTitle className={classes.wordWrap} data-test-id="share-list-title">
+				<FormattedMessage id="action.share-question" /> "{listTitle}" ?
+			</DialogTitle>
+			<ShareFormContainer
+				handleMessageNew={handleMessageNew}
+				handleRequestClose={handleRequestClose}
+				handleRequestOpen={handleRequestOpen}
+				session={session}
+				listId={listId}
+				shareType={shareType}
+				user={user}
+			/>
+		</div>
+	);
 };
 
-export default ShareDialog;
+ShareDialog.defaultProps = {
+	session: null
+};
+
+ShareDialog.propTypes = {
+	classes: PropTypes.object.isRequired,
+	handleMessageNew: PropTypes.func.isRequired,
+	handleRequestClose: PropTypes.func.isRequired,
+	handleRequestOpen: PropTypes.func.isRequired,
+	session: PropTypes.string
+};
+
+export default withStyles(styles)(ShareDialog);
