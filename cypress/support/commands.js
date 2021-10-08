@@ -62,7 +62,8 @@ Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
     cy.getElementByTestId('favorites-create-new-button').click();
 });
 
-Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName)=>{
+Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName, viewport)=>{
+	cy.viewport(viewport);
 	//Search
     cy.getElementByTestId('search-page-next-button').click({multiple:true});
     cy.getElementByTestId('search-bar-input').type(searchName);
@@ -70,7 +71,11 @@ Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName)=>{
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
     })
-    cy.getElementByTestId('search-bar-search-button').click();
+    if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-search-button').click();
+	} else {
+        cy.getElementByTestId('search-bar-search-by-location-button').click();
+    }
     //Let it load 
     cy.wait(1000);
     cy.getElementByTestId('search-result-favorite-button').then($element=>{
@@ -260,7 +265,7 @@ Cypress.Commands.add('deleteCommentsIfExist',(orgId)=>{
 	cy.log('Cleaning Comments...');
 	compoundURL = Cypress.env('stagingAPIUrl').concat(
 		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
+		Cypress.env('route_organizations'),
 		`/${orgId}`,
 		Cypress.env('route_comments')
 	);
@@ -268,6 +273,7 @@ Cypress.Commands.add('deleteCommentsIfExist',(orgId)=>{
 		method:'GET',
 		url:compoundURL
 	}).then(response=>{
+		cy.log(response.body);
 		response.body.comments.forEach(comment =>{
 			cy.deleteCommentById(orgId,comment._id);
 		});
@@ -278,7 +284,7 @@ Cypress.Commands.add('deleteCommentById',(orgId,commentId)=>{
 	compoundURL = Cypress.env('stagingAPIUrl').concat(
 		Cypress.env('version'),
 		Cypress.env('route_organizations'),
-		`${orgId}`,
+		`/${orgId}`,
 		Cypress.env('route_comments'),
 		`/${commentId}`
 	);
@@ -309,10 +315,10 @@ Cypress.Commands.add('deleteRatingsOrgsIfExist',(orgSlug) => {
 
 
 Cypress.Commands.add('deleteRatingsIfExist',(orgId)=>{
-	cy.log('Cleaning Comments...');
+	cy.log('Cleaning Ratings...');
 	compoundURL = Cypress.env('stagingAPIUrl').concat(
 		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
+		Cypress.env('route_organizations'),
 		`/${orgId}`,
 		Cypress.env('route_ratings')
 	);

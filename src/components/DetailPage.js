@@ -4,6 +4,7 @@ import {Element, scroller} from 'react-scroll';
 import _ from 'lodash';
 import SwipeableViews from 'react-swipeable-views';
 import {
+	Box,
 	Button,
 	Divider,
 	Grid,
@@ -50,6 +51,7 @@ import {
 	dividerSpacing,
 	mobilePadding
 } from '../theme';
+import {getSocialMediaLinks} from './ResourceSocialMedia';
 
 const formatOrganization = (organization) => {
 	return {
@@ -159,6 +161,10 @@ const styles = (theme) => ({
 		verticalAlign: 'middle',
 		marginLeft: theme.spacing(1),
 		marginRight: theme.spacing(0.5)
+	},
+	iconLink: {
+		paddingLeft: theme.spacing(0.5),
+		paddingRight: theme.spacing(0.5)
 	},
 	bottomHeaderBadge: {
 		[theme.breakpoints.down('xs')]: {
@@ -295,6 +301,10 @@ const styles = (theme) => ({
 	inputLabel: {
 		marginBottom: '3px',
 		fontWeight: '600'
+	},
+	contactInfo: {
+		color: theme.palette.secondary[500],
+		fill: theme.palette.secondary[500]
 	}
 });
 
@@ -453,8 +463,11 @@ class Detail extends React.Component {
 	}
 
 	handleBackButtonClick() {
+		const {locale} = this.props;
 		if (this.isServicePage) {
-			this.props.history.push(`/resource/${this.state.organization?.slug}`);
+			this.props.history.push(
+				`/${locale}/resource/${this.state.organization?.slug}`
+			);
 		} else {
 			if (this.state.isEditing) {
 				this.setIsEditing(false);
@@ -615,7 +628,8 @@ class Detail extends React.Component {
 			schedules,
 			services = [],
 			website,
-			owners
+			owners,
+			social_media
 		} = resource || {};
 		const allProperties = this.isServicePage
 			? properties
@@ -650,7 +664,8 @@ class Detail extends React.Component {
 			verified: organization?.updated_at
 				? new Date(organization?.updated_at)
 				: null,
-			owners
+			owners,
+			socialMedia: social_media
 		};
 		const resourceTags = getTags(resource, locale);
 
@@ -854,6 +869,22 @@ class Detail extends React.Component {
 										website={website}
 									/>
 									<Divider />
+									{social_media && social_media.length > 0 ? (
+										<Box p={2} className={classes.contactInfo}>
+											<Grid container>
+												{getSocialMediaLinks({
+													socialMedia: social_media,
+													iconWidth: '22px',
+													isMobile: true
+												}).map((link) => (
+													<Grid item xs>
+														{link}
+													</Grid>
+												))}
+											</Grid>
+										</Box>
+									) : null}
+									{social_media && social_media.length > 0 ? <Divider /> : null}
 									<SwipeableViews
 										index={tab}
 										onChangeIndex={this.handleSwipeChange}

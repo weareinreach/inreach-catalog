@@ -14,15 +14,15 @@
     "combine-reports": "mkdir ./reports && mochawesome-merge mochawesome-report/*.json > ./reports/reporte2e.json",
     "generate-report": "marge ./reports/reporte2e.json -f e2e-report -o ./reports",
     "test:pre-e2e": "rm -R -f ./mochawesome-report && rm -R -f ./.nyc_output && rm -R -f ./cypressCoverage && rm -R -f ./reports",
-    "test:post-e2e":"yarn combine-reports && yarn generate-report",
+    "test:post-e2e": "yarn combine-reports && yarn generate-report",
     "test:e2e": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:open'",
     "test:e2e:ci": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:run'",
     "show-coverage": "npx nyc report --reporter json --reporter=text"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.11",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.21.1",
     "babel-plugin-react-remove-properties": "^0.3.0",
@@ -38,6 +38,7 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
+    "ramda": "^0.27.1",
     "react": "^16.13.1",
     "react-addons-update": "^15.6.2",
     "react-app-rewired": "^2.1.8",
@@ -87,7 +88,7 @@
     "include": [
       "**/src/*"
     ],
-    "exclude":[
+    "exclude": [
       "**/src/*.html"
     ],
     "report-dir": "cypressCoverage",

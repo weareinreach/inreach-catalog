@@ -23,6 +23,11 @@ const styles = (theme) => ({
 			color: theme.palette.secondary[500]
 		}
 	},
+	[theme.breakpoints.down('xs')]: {
+		root: {
+			marginRight: 0
+		}
+	},
 	checkboxDefault: {
 		color: 'inherit',
 		width: relativeSize * 2 + 'rem',
