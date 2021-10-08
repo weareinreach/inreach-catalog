@@ -234,21 +234,21 @@ class SearchFormContainer extends React.Component {
 							</Grid>
 						) : null}
 						<Grid container spacing={0} className={containerSearchForm}>
-							{locale && (
-								<>
-									<Disclaimer dataTestId="search-form-header">
-										<FormattedMessage
-											id="announcement.border-closure-full"
-											defaultMessage="Canada opens border to fully vaccinated U.S. citizens on Aug 9, 2021. Restrictions remain in place for Canadian citizens entering U.S."
-										/>
-									</Disclaimer>
-									<Disclaimer>
-										<FormattedMessage
-											id="announcement.localisation"
-											defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish by the end of the year, with all other languages available via Google Translate."
-										/>
-									</Disclaimer>
-								</>
+							{locale && locale !== 'en_US' && (
+								<Disclaimer dataTestId="search-form-header">
+									<FormattedMessage
+										id="announcement.border-closure-full"
+										defaultMessage="Canada opens border to fully vaccinated U.S. citizens on Aug 9, 2021. Restrictions remain in place for Canadian citizens entering U.S."
+									/>
+								</Disclaimer>
+							)}
+							{locale && locale !== 'en_CA' && (
+								<Disclaimer>
+									<FormattedMessage
+										id="announcement.localisation"
+										defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish by the end of the year, with all other languages available via Google Translate."
+									/>
+								</Disclaimer>
 							)}
 							{!isMobile ? (
 								<Grid item xs={12}>
