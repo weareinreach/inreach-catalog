@@ -4,10 +4,6 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
 	cy.getElementByTestId('search-page-next-button').click();
 	cy.waitFor(2000);
-    cy.getElementByTestId('search-form-header').then($element=>{
-        expect($element).to.be.visible;
-        expect($element).contain("Canada opens border to fully vaccinated U.S. citizens on Aug 9, 2021. Restrictions remain in place for Canadian citizens entering U.S.");
-    });
     if(viewport!==Cypress.env('mobile')){
         cy.getElementByTestId('search-form-body').then($element=>{
             expect($element).to.be.visible;
