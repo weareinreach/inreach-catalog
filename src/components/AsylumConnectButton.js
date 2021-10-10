@@ -18,7 +18,8 @@ const styles = (theme) => ({
 			width: '100%',
 			paddingTop: theme.spacing(1),
 			paddingBottom: theme.spacing(1)
-		}
+		},
+		marginBottom: '10px'
 	},
 	primary: {
 		color: theme.palette.common.white,
@@ -81,7 +82,8 @@ function AsylumConnectButton(props) {
 		variant,
 		onClick,
 		disabled,
-		testIdName
+		testIdName,
+		icon
 	} = props;
 	return (
 		<Button
@@ -105,6 +107,7 @@ function AsylumConnectButton(props) {
 						: classes.disabledPrimary
 			}}
 		>
+			{icon}
 			{children}
 		</Button>
 	);
