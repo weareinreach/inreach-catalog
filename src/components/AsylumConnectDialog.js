@@ -181,8 +181,6 @@ const AsylumConnectDialog = ({
 			<div className={classes.dialogBody1}>
 				<div className={classes.blueBar} />
 				<ThankYouDialog
-					user={user}
-					userData={userData}
 					history={history}
 					locale={locale}
 					handleRequestClose={handleRequestClose}
