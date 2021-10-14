@@ -16,6 +16,7 @@ import {
 	Grid,
 	Typography
 } from '@material-ui/core';
+import {useHistory} from 'react-router-dom';
 
 const styles = (theme) => ({
 	container: {
@@ -53,7 +54,17 @@ const styles = (theme) => ({
 });
 
 const ThankYouDialog = (props) => {
-	const {classes} = props;
+	const {classes, history, handleRequestClose} = props;
+
+	const goToAccount = async () => {
+		handleRequestClose();
+		history.push('/' + props.locale + '/account');
+	};
+
+	const goToResources = async () => {
+		handleRequestClose();
+		history.push('/');
+	};
 
 	return (
 		<div className={classes.container}>
@@ -66,6 +77,7 @@ const ThankYouDialog = (props) => {
 				variant="primary"
 				testIdName="thank-you-resource-button"
 				className={classes.moreMargin}
+				onClick={goToResources}
 			>
 				FIND RESOURCES
 			</AsylumConnectButton>
@@ -73,6 +85,7 @@ const ThankYouDialog = (props) => {
 				variant="primary"
 				testIdName="thank-you-profile-button"
 				className={classes.moreMargin}
+				onClick={goToAccount}
 			>
 				GO TO YOUR PROFILE
 			</AsylumConnectButton>
