@@ -229,7 +229,7 @@ const SignupForm = ({
 				</form>
 			)}
 			{activeStep === 3 && (
-				<form onSubmit={handleRequestClose}>
+				<form onSubmit={handleRequestOpen('thankyou')}>
 					<Typography variant="h6 " data-test-id="sign-up-form-header-text">
 						Confirmation
 					</Typography>
