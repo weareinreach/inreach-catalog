@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import AsylumConnectButton from './AsylumConnectButton';
-import DialogTitle from './DialogTitle';
-
-import ThankYou from '../images/thanks.svg';
-
+import {FormattedMessage, useIntl} from 'react-intl';
 import Modal from 'react-modal';
 import classNames from 'classnames';
 import {withStyles} from '@material-ui/core/styles';
@@ -17,6 +12,10 @@ import {
 	Typography
 } from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
+
+import AsylumConnectButton from './AsylumConnectButton';
+import DialogTitle from './DialogTitle';
+import ThankYou from '../images/thanks.svg';
 
 const styles = (theme) => ({
 	container: {
@@ -54,11 +53,13 @@ const styles = (theme) => ({
 });
 
 const ThankYouDialog = (props) => {
-	const {classes, history, handleRequestClose} = props;
+	const {classes, history, handleRequestClose, locale} = props;
+
+	const intl = useIntl();
 
 	const goToAccount = async () => {
 		handleRequestClose();
-		history.push('/' + props.locale + '/account');
+		history.push('/' + locale + '/account');
 	};
 
 	const goToResources = async () => {
@@ -68,18 +69,26 @@ const ThankYouDialog = (props) => {
 
 	return (
 		<div className={classes.container}>
-			<DialogTitle className={classes.title}>Thank you!</DialogTitle>
+			<DialogTitle>
+				<FormattedMessage id="app.thank-you-heading" />
+			</DialogTitle>
 			<Typography variant="body1" className={classes.body}>
-				You are all set.
+				<FormattedMessage id="app.thank-you-text" />
 			</Typography>
-			<img className={classes.img} src={ThankYou} alt="super thank you" />
+			<img
+				className={classes.img}
+				src={ThankYou}
+				alt={intl.formatMessage({
+					id: 'alt-text.resource-suggest-edits-thank-you'
+				})}
+			/>
 			<AsylumConnectButton
 				variant="primary"
 				testIdName="thank-you-resource-button"
 				className={classes.moreMargin}
 				onClick={goToResources}
 			>
-				FIND RESOURCES
+				<FormattedMessage id="navigation.find-resources" />
 			</AsylumConnectButton>
 			<AsylumConnectButton
 				variant="primary"
@@ -87,7 +96,7 @@ const ThankYouDialog = (props) => {
 				className={classes.moreMargin}
 				onClick={goToAccount}
 			>
-				GO TO YOUR PROFILE
+				<FormattedMessage id="app.go-to-profile" />
 			</AsylumConnectButton>
 		</div>
 	);

@@ -109,6 +109,8 @@
 	"app.mexico-crime-map-legend-tier-three": "30",
 	"app.sensitive-information-sign-in-prompt": "This page contains sensitive information. For your security, please sign in.",
 	"app.thank-you-heading": "Thank you!",
+	"app.thank-you-text": "You are all set.",
+	"app.go-to-profile": "Go to your profile",
 	"error.incorrect-email-password": "The email or password you entered was incorrect.",
 	"error.joining-organization-failed": "An error occurred while trying to connect you to your organisation. Please try again.",
 	"error.unspecified": "Oops! Something went wrong.",
