@@ -302,6 +302,7 @@ class AppConnectCatalog extends React.Component {
 		const isDialogForgotLoginSignUp = ['forgot', 'login', 'signup'].includes(
 			dialog
 		);
+		const isDialogThankYou = ['thankyou'].includes(dialog);
 		const isDialogLanguage = ['language'].includes(dialog);
 		const isDialogMore = ['more'].includes(dialog);
 		const isDialogPassword = ['password'].includes(dialog);

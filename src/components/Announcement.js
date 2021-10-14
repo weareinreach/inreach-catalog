@@ -50,7 +50,7 @@ const Announcement = ({classes, handleRequestOpen}) => (
 			<span>Please read our complete </span>
 			<strong
 				className={classes.pointer}
-				onClick={() => handleRequestOpen('disclaimer')}
+				onClick={() => handleRequestOpen('thankyou')}
 			>
 				<i className={classes.underline} />
 				<span
