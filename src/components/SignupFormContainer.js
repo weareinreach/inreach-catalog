@@ -50,25 +50,25 @@ class SignupFormContainer extends React.Component {
 		const {handleMessageNew, organizationSelection, session, userData} =
 			this.props;
 
-		if (!organizationSelection) {
-			handleMessageNew('Please select an organization.');
-			return;
-		}
-		const {_id} = organizationSelection;
+		if (organizationSelection) {
+			const {_id} = organizationSelection;
 
-		createOrgOwner(
-			{email: userData.email, orgId: _id, userId: userData._id},
-			session
-		)
-			.then(() => {
-				this.handleStepNext();
-				return;
-			})
-			.catch(() => {
-				handleMessageNew(
-					`Sorry. Something went wrong connecting you to your organization.`
-				);
-			});
+			createOrgOwner(
+				{email: userData.email, orgId: _id, userId: userData._id},
+				session
+			)
+				.then(() => {
+					this.handleStepNext();
+					return;
+				})
+				.catch(() => {
+					handleMessageNew(
+						`Sorry. Something went wrong connecting you to your organization.`
+					);
+				});
+		} else {
+			handleMessageNew(`Please enter a valid organization name.`);
+		}
 	}
 
 	handleSignUp(event) {

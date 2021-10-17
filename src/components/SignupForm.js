@@ -33,7 +33,8 @@ const styles = (theme) => ({
 	marginTop: {marginTop: '2rem'},
 	marginVertical: {margin: '2rem 0'},
 	spacingTop: {marginTop: '1rem'},
-	backgroundTransparent: {backgroundColor: 'transparent'}
+	backgroundTransparent: {backgroundColor: 'transparent'},
+	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]}
 });
 
 const SignupForm = ({
@@ -219,6 +220,7 @@ const SignupForm = ({
 						<AsylumConnectButton
 							variant="primary"
 							testIdName="sign-up-form-join-organization-button"
+							type="submit"
 						>
 							Join Organization
 						</AsylumConnectButton>
@@ -226,10 +228,18 @@ const SignupForm = ({
 					<Typography variant="body1" data-test-id="sign-up-form-body-text">
 						You may also join your organization later in account settings.
 					</Typography>
+					<Typography
+						className={classes.cursor}
+						variant="body1"
+						data-test-id="sign-up-form-body-text"
+						onClick={() => handleRequestOpen('thankyou')}
+					>
+						skip
+					</Typography>
 				</form>
 			)}
 			{activeStep === 3 && (
-				<form onSubmit={handleRequestOpen('thankyou')}>
+				<form>
 					<Typography variant="h6 " data-test-id="sign-up-form-header-text">
 						Confirmation
 					</Typography>
@@ -245,6 +255,7 @@ const SignupForm = ({
 						<AsylumConnectButton
 							variant="primary"
 							testIdName="sign-up-form-finish-registration-button"
+							onClick={() => handleRequestOpen('thankyou')}
 						>
 							Finish Registration
 						</AsylumConnectButton>
