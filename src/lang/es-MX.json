@@ -109,7 +109,7 @@
 	"app.sensitive-information-sign-in-prompt": "Esta página contiene información sensible. Por tu seguridad, por favor inicia una sesión.",
 	"app.thank-you-heading": "¡Gracias!",
 	"app.thank-you-text": "Está todo listo.",
-	"app.go-to-profile": "Ve a tu perfil",
+	"app.go-to-profile": "Mi perfil",
 	"error.incorrect-email-password": "El correo electrónico o contraseña que ingresaste son incorrectos.",
 	"error.joining-organization-failed": "Se ha producido un error al intentar conectarte con tu organización. Por favor, inténtalo de nuevo.",
 	"error.unspecified": "¡Oops! Ocurrió un error.",
