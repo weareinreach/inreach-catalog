@@ -84,7 +84,7 @@ class SignupFormContainer extends React.Component {
 		}
 
 		if (password !== passwordConfirmation) {
-			handleMessageNew('The passwords you have entered do not match');
+			handleMessageNew('The passwords you have entered do not match.');
 			return;
 		}
 

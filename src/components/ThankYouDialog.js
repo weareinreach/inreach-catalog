@@ -69,13 +69,18 @@ const ThankYouDialog = (props) => {
 
 	return (
 		<div className={classes.container}>
-			<DialogTitle>
+			<DialogTitle data-test-id="thank-you-header">
 				<FormattedMessage id="app.thank-you-heading" />
 			</DialogTitle>
-			<Typography variant="body1" className={classes.body}>
+			<Typography
+				variant="body1"
+				className={classes.body}
+				data-test-id="thank-you-text"
+			>
 				<FormattedMessage id="app.thank-you-text" />
 			</Typography>
 			<img
+				data-test-id="thank-you-image"
 				className={classes.img}
 				src={ThankYou}
 				alt={intl.formatMessage({

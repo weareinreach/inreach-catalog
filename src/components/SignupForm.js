@@ -231,7 +231,7 @@ const SignupForm = ({
 					<Typography
 						className={classes.cursor}
 						variant="body1"
-						data-test-id="sign-up-form-body-text"
+						data-test-id="sign-up-form-skip-text"
 						onClick={() => handleRequestOpen('thankyou')}
 					>
 						skip

@@ -11,7 +11,7 @@ const LoginDialog = ({
 	handleRequestOpen
 }) => (
 	<div data-test-id="log-in-dialog-container">
-		<DialogTitle>Log In</DialogTitle>
+		<DialogTitle>Sign In</DialogTitle>
 		<LoginFormContainer
 			handleLogIn={handleLogIn}
 			handleMessageNew={handleMessageNew}
