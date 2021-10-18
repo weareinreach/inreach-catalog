@@ -21,6 +21,7 @@ const Message = ({classes, handleMessageClose, message, open}) => (
 			horizontal: 'left'
 		}}
 		open={open}
+		data-test-id="snackbar-message"
 		autoHideDuration={6000}
 		onRequestClose={handleMessageClose}
 		SnackbarContentProps={{

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 import DialogTitle from './DialogTitle';
 import ListNewFormContainer from './ListNewFormContainer';
@@ -13,7 +14,9 @@ const ListNewDialog = ({
 	user
 }) => (
 	<div>
-		<DialogTitle>Create a New Favorites List</DialogTitle>
+		<DialogTitle>
+			<FormattedMessage id="favorites.create-new-list" />
+		</DialogTitle>
 		<ListNewFormContainer
 			handleListNew={handleListNew}
 			handleLogOut={handleLogOut}
