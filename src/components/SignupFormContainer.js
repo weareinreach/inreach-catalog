@@ -118,6 +118,7 @@ class SignupFormContainer extends React.Component {
 
 					this.props.handleLogIn(auth.token);
 					if (!isProfessional) {
+						handleRequestClose();
 						handleRequestOpen('thankyou');
 					} else {
 						this.handleStepNext();

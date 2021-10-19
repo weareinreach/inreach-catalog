@@ -23,6 +23,7 @@ import PrivacyNotice from './components/PrivacyNotice';
 import RedirectWithParams from './components/RedirectWithParams';
 import ShareMobile from './components/ShareMobile';
 import DeleteListMobile from './components/DeleteListMobile';
+import ThankYouMobile from './components/ThankYouMobile';
 
 import withWidth from './components/withWidth';
 import LogoImg from './images/logo@2x.png';
@@ -393,6 +394,13 @@ class AppConnectCatalog extends React.Component {
 										handleRequestOpen={this.handleRequestOpen}
 										handleConfirmSession={this.handleConfirmSession}
 										session={session}
+									/>
+								)}
+								{isDialogThankYou && (
+									<ThankYouMobile
+										history={history}
+										locale={locale}
+										handleRequestClose={this.handleRequestClose}
 									/>
 								)}
 								{dialogHasShare && (

@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
 import Modal from 'react-modal';
 import classNames from 'classnames';
-import {withStyles} from '@material-ui/core/styles';
-import {
-	Button,
-	Checkbox,
-	FormControlLabel,
-	Grid,
-	Typography
-} from '@material-ui/core';
+import {withStyles, Typography} from '@material-ui/core';
+
 import {useHistory} from 'react-router-dom';
 
 import AsylumConnectButton from './AsylumConnectButton';
@@ -33,14 +27,6 @@ const styles = (theme) => ({
 	body: {
 		textAlign: 'center',
 		paddingBottom: '48px'
-	},
-	title: {
-		fontFamily: 'Open Sans',
-		fontSize: '24px',
-		fontStyle: 'normal',
-		fontWeight: '700',
-		lineHeight: '33px',
-		textAlign: 'center'
 	},
 	moreMargin: {
 		marginBottom: '0',

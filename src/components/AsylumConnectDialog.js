@@ -26,7 +26,6 @@ const styles = (theme) => ({
 		minWidth: '532px',
 		minHeight: '562px',
 		overflowY: 'auto'
-		// padding: `${theme.spacing(6)}px ${theme.spacing(8)}px`
 	},
 	blueBar: {
 		width: '532px',
