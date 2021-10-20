@@ -186,82 +186,86 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                 cy.getElementByTestId('sign-up-form-submit-button').click();
                 
                 if(userType !== 'myself'){
-                //Account Created
-                //State 2
-                cy.getElementByTestId('sign-up-form-header-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain('Connect to Your Organization');
-                });
-
-                cy.getElementByTestId('sign-up-form-body-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain('You may also join your organization later in account settings.');
-                });
-                
-                // try to join with no org specified
-                cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).to.contain("Join Organization"); 
-                    cy.wrap($element).click();
-                });
-                 //look for error message
-                cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain("Please enter a valid organization name.");
-                    cy.getElementByTestId('snackbar-close-button').should('be.visible');
-                    cy.getElementByTestId('snackbar-close-button').click();
-                    cy.getElementByTestId('snackbar-message').should('not.exist');
-                });
-
-                //valid organization
-                cy.getElementByTestId('sign-up-form-find-organization').type(variables[userType].organization.name);
-                cy.getElementByTestId('sign-up-form-searched-organization').then($elements=>{
-                    cy.wrap($elements[0]).click();
-                });
-
-                cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).to.contain("Join Organization"); 
-                    cy.wrap($element).click();
-                });
-
-                //State 3
-                cy.wait(2000);
-                cy.getElementByTestId('sign-up-form-header-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain('Confirmation');
-                });
-
-                cy.getElementByTestId('sign-up-form-body-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain("Thank you for requesting to join an organization's profile page on AsylumConnect. Our team will review your request shortly. We will reach out if we need more information to verify your connection to the requested organization.");
-                });
-                //Click finish
-                cy.getElementByTestId('sign-up-form-finish-registration-button').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).to.contain("Finish Registration"); 
-                 });
-                cy.getElementByTestId('sign-up-form-finish-registration-button').click();
-                
-
-                if(viewport !== Cypress.env('mobile')){
-                    //thank you modal
-                    cy.getElementByTestId('dialog-container-title').then($element=>{
+                    //Account Created
+                    //State 2
+                    cy.getElementByTestId('sign-up-form-header-text').then($element=>{
                         expect($element).to.be.visible;
-                        expect($element).to.contain("Thank you!"); 
-                     });
-                    //resources button
-                    cy.getElementByTestId('thank-you-resource-button').then($element=>{
+                        expect($element).contain('Connect to Your Organization');
+                    });
+
+                    cy.getElementByTestId('sign-up-form-body-text').then($element=>{
                         expect($element).to.be.visible;
-                     });
-                    //profile button
-                    cy.getElementByTestId('thank-you-profile-button').then($element=>{
+                        expect($element).contain('You may also join your organization later in account settings.');
+                    });
+                    
+                    // try to join with no org specified
+                    cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
                         expect($element).to.be.visible;
+                        expect($element).to.contain("Join Organization"); 
+                        cy.wrap($element).click();
+                    });
+                     //look for error message
+                    cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).contain("Please enter a valid organization name.");
+                        cy.getElementByTestId('snackbar-close-button').should('be.visible');
+                        cy.getElementByTestId('snackbar-close-button').click();
+                        cy.getElementByTestId('snackbar-message').should('not.exist');
+                    });
+
+                    //valid organization
+                    cy.getElementByTestId('sign-up-form-find-organization').type(variables[userType].organization.name);
+                    cy.getElementByTestId('sign-up-form-searched-organization').then($elements=>{
+                        cy.wrap($elements[0]).click();
+                    });
+
+                    cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).to.contain("Join Organization"); 
+                        cy.wrap($element).click();
+                    });
+
+                    //State 3
+                    cy.wait(2000);
+                    cy.getElementByTestId('sign-up-form-header-text').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).contain('Confirmation');
+                    });
+
+                    cy.getElementByTestId('sign-up-form-body-text').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).contain("Thank you for requesting to join an organization's profile page on AsylumConnect. Our team will review your request shortly. We will reach out if we need more information to verify your connection to the requested organization.");
+                    });
+                    //Click finish
+                    cy.getElementByTestId('sign-up-form-finish-registration-button').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).to.contain("Finish Registration"); 
                      });
-                }
+                    cy.getElementByTestId('sign-up-form-finish-registration-button').click();
+                    
+
+                    if(viewport !== Cypress.env('mobile')){
+                        //thank you modal
+                        cy.getElementByTestId('dialog-container-title').then($element=>{
+                            expect($element).to.be.visible;
+                            expect($element).to.contain("Thank you!"); 
+                         });
+                        //resources button
+                        cy.getElementByTestId('thank-you-resource-button').then($element=>{
+                            expect($element).to.be.visible;
+                         });
+                        //profile button
+                        cy.getElementByTestId('thank-you-profile-button').then($element=>{
+                            expect($element).to.be.visible;
+                         });
+                    }
                 };
+                
                 //logout
                 if(viewport === Cypress.env('mobile')){
+                    //close thank you dialog
+                    cy.getElementByTestId('thank-you-profile-button').click();
+                    //then log out
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
                 }else{
@@ -341,43 +345,44 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                 cy.getElementByTestId('sign-up-form-submit-button').click();
                 
                 if(userType !== 'myself'){
-                //Account Created
-                //State 2
-                cy.getElementByTestId('sign-up-form-header-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain('Connect to Your Organization');
-                });
+                    //Account Created
+                    //State 2
+                    cy.getElementByTestId('sign-up-form-header-text').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).contain('Connect to Your Organization');
+                    });
 
-                cy.getElementByTestId('sign-up-form-body-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain('You may also join your organization later in account settings.');
-                });
-                
-                //click skip
-                cy.getElementByTestId('sign-up-form-skip-text').then($element=>{
-                    expect($element).to.be.visible;
-                    expect($element).contain('skip');
-                });
-                cy.getElementByTestId('sign-up-form-skip-text').click();
+                    cy.getElementByTestId('sign-up-form-body-text').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).contain('You may also join your organization later in account settings.');
+                    });
+                    
+                    //click skip
+                    cy.getElementByTestId('sign-up-form-skip-text').then($element=>{
+                        expect($element).to.be.visible;
+                        expect($element).contain('skip');
+                    });
+                    cy.getElementByTestId('sign-up-form-skip-text').click();
 
-                if(viewport !== Cypress.env('mobile')){
-                    //thank you modal
-                    cy.getElementByTestId('dialog-container-title').then($element=>{
-                        expect($element).to.be.visible;
-                        expect($element).to.contain("Thank you!"); 
-                     });
-                    //resources button
-                    cy.getElementByTestId('thank-you-resource-button').then($element=>{
-                        expect($element).to.be.visible;
-                     });
-                    //profile button
-                    cy.getElementByTestId('thank-you-profile-button').then($element=>{
-                        expect($element).to.be.visible;
-                     });
-                }
+                    if(viewport !== Cypress.env('mobile')){
+                        //thank you modal
+                        cy.getElementByTestId('dialog-container-title').then($element=>{
+                            expect($element).to.be.visible;
+                            expect($element).to.contain("Thank you!"); 
+                         });
+                        //resources button
+                        cy.getElementByTestId('thank-you-resource-button').then($element=>{
+                            expect($element).to.be.visible;
+                         });
+                        //profile button
+                        cy.getElementByTestId('thank-you-profile-button').then($element=>{
+                            expect($element).to.be.visible;
+                         });
+                    }
                 };
                 //logout
                 if(viewport === Cypress.env('mobile')){
+                    cy.getElementByTestId('thank-you-resource-button').click();
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
                 }else{
@@ -435,6 +440,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                 }
                 //logout
                 if(viewport === Cypress.env('mobile')){
+                    cy.getElementByTestId('thank-you-profile-button').click();
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
                 }else{
@@ -492,7 +498,8 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                 }
                 //logout
                 if(viewport === Cypress.env('mobile')){
-                    cy.getElementByTestId('mobile-nav-button-account').click()
+                    cy.getElementByTestId('thank-you-resource-button').click();
+                    cy.getElementByTestId('mobile-nav-button-account').click();
                     cy.getElementByTestId('account-page-logout').click();
                 }else{
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
