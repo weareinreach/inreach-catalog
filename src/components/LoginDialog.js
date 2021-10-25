@@ -11,7 +11,9 @@ const LoginDialog = ({
 	handleRequestOpen
 }) => (
 	<div data-test-id="log-in-dialog-container">
-		<DialogTitle>Sign In</DialogTitle>
+		<DialogTitle>
+			<FormattedMessage id="account.sign-in" defaultMessage="Sign In" />
+		</DialogTitle>
 		<LoginFormContainer
 			handleLogIn={handleLogIn}
 			handleMessageNew={handleMessageNew}
