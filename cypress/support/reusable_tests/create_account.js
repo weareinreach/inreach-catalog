@@ -191,7 +191,7 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                     //State 2
                     cy.getElementByTestId('sign-up-form-header-text').then($element=>{
                         expect($element).to.be.visible;
-                        expect($element).contain('Connect to Your Organization');
+                        expect($element).contain('Join Your Organization');
                     });
 
                     cy.getElementByTestId('sign-up-form-body-text').then($element=>{
@@ -202,7 +202,7 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                     // try to join with no org specified
                     cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
                         expect($element).to.be.visible;
-                        expect($element).to.contain("Join Organization"); 
+                        expect($element).to.contain("Join Your Organization"); 
                         cy.wrap($element).click();
                     });
                      //look for error message
@@ -222,7 +222,7 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
 
                     cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
                         expect($element).to.be.visible;
-                        expect($element).to.contain("Join Organization"); 
+                        expect($element).to.contain("Join Your Organization"); 
                         cy.wrap($element).click();
                     });
 
@@ -333,7 +333,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                     //State 2
                     cy.getElementByTestId('sign-up-form-header-text').then($element=>{
                         expect($element).to.be.visible;
-                        expect($element).contain('Connect to Your Organization');
+                        expect($element).contain('Join Your Organization');
                     });
 
                     cy.getElementByTestId('sign-up-form-body-text').then($element=>{
@@ -394,7 +394,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                 //State 2
                 cy.getElementByTestId('sign-up-form-header-text').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element).contain('Connect to Your Organization');
+                    expect($element).contain('Join Your Organization');
                 });
 
                 cy.getElementByTestId('sign-up-form-body-text').then($element=>{
@@ -452,7 +452,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                 //State 2
                 cy.getElementByTestId('sign-up-form-header-text').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element).contain('Connect to Your Organization');
+                    expect($element).contain('Join Your Organization');
                 });
 
                 cy.getElementByTestId('sign-up-form-body-text').then($element=>{

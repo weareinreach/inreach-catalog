@@ -37,6 +37,7 @@
 	"action.print-results": "Print Results",
 	"action.close": "Close",
 	"action.submit": "Submit",
+	"action.skip": "skip",
 	"action.comment-submitted-confirmation": "Thank you for your comment! Questions? Please email [email_address]",
 	"action.reset-password": "Reset Your Password",
 	"action.reset-password-success-no-email": "Your password has been reset successfully!",

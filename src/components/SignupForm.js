@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -65,11 +66,13 @@ const SignupForm = ({
 	selection
 }) => {
 	const emailLabel =
-		selection === SEEKER_TYPE
-			? 'Email'
-			: selection === LAWYER_TYPE
-			? 'Firm, Organization or School Email'
-			: 'Organization Email';
+		selection === SEEKER_TYPE ? (
+			<FormattedMessage id="form.email" />
+		) : selection === LAWYER_TYPE ? (
+			<FormattedMessage id="form.lawyer-email" />
+		) : (
+			<FormattedMessage id="form.organisation.email" />
+		);
 
 	return (
 		<div
@@ -82,7 +85,7 @@ const SignupForm = ({
 					data-test-id="dialog-container-sign-up-question"
 				>
 					<Typography className={classes.marginBottomLg} variant="h5">
-						Which are you?
+						<FormattedMessage id="user.type-selection-prompt" />
 					</Typography>
 					<AsylumConnectButton
 						className={classes.marginBottom}
@@ -90,7 +93,7 @@ const SignupForm = ({
 						variant="primary"
 						testIdName="dialog-container-sign-up-help-myself-button"
 					>
-						I am looking for help for myself
+						<FormattedMessage id="user.type-asylum-seeker" />
 					</AsylumConnectButton>
 					<AsylumConnectButton
 						className={classes.marginBottom}
@@ -98,7 +101,7 @@ const SignupForm = ({
 						variant="primary"
 						testIdName="dialog-container-sign-up-attorney-button"
 					>
-						I am an attorney or law student
+						<FormattedMessage id="user.type-legal-provider" />
 					</AsylumConnectButton>
 					<AsylumConnectButton
 						className={classes.marginBottomLg}
@@ -106,14 +109,16 @@ const SignupForm = ({
 						variant="primary"
 						testIdName="dialog-container-sign-up-non-legal-service-provider-button"
 					>
-						I am a non-legal service provider
+						<FormattedMessage id="user.type-non-legal-provider" />
 					</AsylumConnectButton>
 					<div
 						onClick={() => handleRequestOpen('login')}
 						data-test-id="dialog-container-sign-up-already-have-account"
 					>
 						<Typography variant="body1">
-							<span className={classes.link}>Already have an account?</span>
+							<span className={classes.link}>
+								<FormattedMessage id="account.already-have-account" />
+							</span>
 						</Typography>
 					</div>
 				</div>
@@ -134,12 +139,12 @@ const SignupForm = ({
 					<TextField
 						error={password.length > 0 && password.length < 8}
 						helperText={
-							password.length > 0 && password.length < 8
-								? 'Password must be at least 8 characters.'
-								: null
+							password.length > 0 && password.length < 8 ? (
+								<FormattedMessage id="error.password-length" />
+							) : null
 						}
 						id="password"
-						label="Password"
+						label=<FormattedMessage id="form.password" />
 						margin="normal"
 						name="password"
 						onChange={handleChange}
@@ -150,7 +155,7 @@ const SignupForm = ({
 					/>
 					<TextField
 						id="passwordConfirmation"
-						label="Confirm Password"
+						label=<FormattedMessage id="form.confirm-password" />
 						margin="normal"
 						name="passwordConfirmation"
 						onChange={handleChange}
@@ -164,31 +169,40 @@ const SignupForm = ({
 						className={classes.paddingVertical}
 						data-test-id="sign-up-form-agreement-statement"
 					>
-						By clicking "Sign Up," you agree to AsylumConnect's{` `}
-						<a
-							href="https://asylumconnect.org/privacy"
-							target="_blank"
-							rel="noopener noreferrer"
-							data-test-id="sign-up-form-privacy-link"
-						>
-							Privacy Policy
-						</a>
-						{` `}and{` `}
-						<a
-							href="https://asylumconnect.org/terms-of-use"
-							target="_blank"
-							rel="noopener noreferrer"
-							data-test-id="sign-up-form-terms-link"
-						>
-							Terms of Use
-						</a>
-						.
+						<FormattedMessage id="legal.sign-up-agree-to-terms" />
+						{` `}
+						<FormattedMessage id="legal.privacy-policy">
+							{(privacy) => (
+								<a
+									href="https://asylumconnect.org/privacy"
+									rel="noopener noreferrer"
+									target="_blank"
+									data-test-id="sign-up-form-privacy-link"
+								>
+									{privacy}
+								</a>
+							)}
+						</FormattedMessage>{' '}
+						<FormattedMessage id="legal.and" />{' '}
+						<FormattedMessage id="legal.terms-of-use">
+							{(terms) => (
+								<a
+									href="https://asylumconnect.org/terms-of-use"
+									rel="noopener noreferrer"
+									target="_blank"
+									data-test-id="sign-up-form-terms-link"
+								>
+									{terms}
+								</a>
+							)}
+						</FormattedMessage>
+						{'.'}
 					</Typography>
 					<AsylumConnectButton
 						testIdName="sign-up-form-submit-button"
 						variant="primary"
 					>
-						Sign Up
+						<FormattedMessage id="account.sign-up" />
 					</AsylumConnectButton>
 				</form>
 			)}
@@ -196,7 +210,7 @@ const SignupForm = ({
 				<form onSubmit={handleCreateAffiliation}>
 					""
 					<Typography variant="h6" data-test-id="sign-up-form-header-text">
-						Connect to Your Organization
+						<FormattedMessage id="account.join-organisation" />
 					</Typography>
 					<OrganizationAutocomplete
 						handleBlurOrganizations={handleBlurOrganizations}
@@ -222,11 +236,11 @@ const SignupForm = ({
 							testIdName="sign-up-form-join-organization-button"
 							type="submit"
 						>
-							Join Organization
+							<FormattedMessage id="account.join-organisation" />
 						</AsylumConnectButton>
 					</div>
 					<Typography variant="body1" data-test-id="sign-up-form-body-text">
-						You may also join your organization later in account settings.
+						<FormattedMessage id="account.join-organisation-later" />
 					</Typography>
 					<Typography
 						className={classes.cursor}
@@ -234,21 +248,18 @@ const SignupForm = ({
 						data-test-id="sign-up-form-skip-text"
 						onClick={() => handleRequestOpen('thankyou')}
 					>
-						skip
+						<FormattedMessage id="action.skip" />
 					</Typography>
 				</form>
 			)}
 			{activeStep === 3 && (
 				<form>
 					<Typography variant="h6 " data-test-id="sign-up-form-header-text">
-						Confirmation
+						<FormattedMessage id="action.confirmation" />
 					</Typography>
 					<div className={classes.marginVertical}>
 						<Typography variant="body1" data-test-id="sign-up-form-body-text">
-							Thank you for requesting to join an organization's profile page on
-							AsylumConnect. Our team will review your request shortly. We will
-							reach out if we need more information to verify your connection to
-							the requested organization.
+							<FormattedMessage id="account.join-organisation-request-received" />
 						</Typography>
 					</div>
 					<div className={classes.marginVertical}>
@@ -257,7 +268,7 @@ const SignupForm = ({
 							testIdName="sign-up-form-finish-registration-button"
 							onClick={() => handleRequestOpen('thankyou')}
 						>
-							Finish Registration
+							<FormattedMessage id="account.finish-registration" />
 						</AsylumConnectButton>
 					</div>
 				</form>
@@ -279,7 +290,7 @@ const SignupForm = ({
 						onClick={handleStepBack}
 					>
 						<KeyboardArrowLeft />
-						Back
+						<FormattedMessage id="navigation.back" />
 					</Button>
 				</div>
 			)}
