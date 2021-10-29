@@ -226,17 +226,10 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                         cy.wrap($element).click();
                     });
 
-                    //State 3
-                    cy.wait(2000);
-                    cy.getElementByTestId('sign-up-form-header-text').then($element=>{
-                        expect($element).to.be.visible;
-                        expect($element).contain('Confirmation');
-                    });
-
-                    cy.getElementByTestId('sign-up-form-body-text').then($element=>{
-                        expect($element).to.be.visible;
-                        expect($element).contain("Thank you for requesting to join an organization's profile page on AsylumConnect. Our team will review your request shortly. We will reach out if we need more information to verify your connection to the requested organization.");
-                    });
+                    //Confirmation
+                    cy.getElementByTestId('sign-up-form-header-text').should('contain', 'Confirmation');
+                    cy.getElementByTestId('sign-up-form-body-text').should('contain', "Thank you for requesting to join an organization's profile page on AsylumConnect. Our team will review your request shortly. We will reach out if we need more information to verify your connection to the requested organization.");
+                    
                     //Click finish
                     cy.getElementByTestId('sign-up-form-finish-registration-button').then($element=>{
                         expect($element).to.be.visible;
