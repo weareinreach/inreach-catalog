@@ -1,5 +1,7 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
+
 import {createOrgOwner} from '../utils/api';
 import {catalogPost} from '../utils/api';
 
@@ -63,7 +65,7 @@ class SignupFormContainer extends React.Component {
 				})
 				.catch(() => {
 					handleMessageNew(
-						`Sorry. Something went wrong connecting you to your organization.`
+						<FormattedMessage id="error.joining-organization-failed" />
 					);
 				});
 		} else {
@@ -79,12 +81,12 @@ class SignupFormContainer extends React.Component {
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
 
 		if (password.length < 8) {
-			handleMessageNew('Password must be at least 8 characters.');
+			handleMessageNew(<FormattedMessage id="error.password-length" />);
 			return;
 		}
 
 		if (password !== passwordConfirmation) {
-			handleMessageNew('The passwords you have entered do not match.');
+			handleMessageNew(<FormattedMessage id="error.password-mismatch" />);
 			return;
 		}
 
@@ -95,14 +97,15 @@ class SignupFormContainer extends React.Component {
 			password,
 			name
 		};
-		const handleError = () => handleMessageNew('Oops! Something went wrong.');
+		const handleError = () =>
+			handleMessageNew(<FormattedMessage id="error.unspecified" />);
 
 		catalogPost('/users', body)
 			.then((user) => {
 				if (user.error) {
 					if (user.status.status === 409) {
 						handleMessageNew(
-							'User account already exists. Try logging in instead.'
+							<FormattedMessage id="error.user-already-exists" />
 						);
 						return;
 					}
