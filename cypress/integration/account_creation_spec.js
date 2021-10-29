@@ -43,11 +43,8 @@ describe('Home Page Create Account Form Tests', () => {
                 it(`Create account ${userType} - back button`,()=>{
                     cy.testCreateAccountBackButton(viewport,userType);
                 });
-                it(`Create account ${userType} - password short`,()=>{
-                    cy.testCreateAccountPasswordShort(viewport,userType);
-                });
-                it(`Create account ${userType} - passwords do not match`,()=>{
-                    cy.testCreateAccountPasswordNoMatch(viewport,userType);
+                it(`Create account ${userType} - password tests`,()=>{
+                    cy.testCreateAccountPasswordTests(viewport,userType);
                 });
                 it(`Creating account for ${userType}`,()=>{
                     cy.get('@organization').then(org=>{

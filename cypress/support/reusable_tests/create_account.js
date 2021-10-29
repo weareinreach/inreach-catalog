@@ -87,7 +87,8 @@ Cypress.Commands.add('testCreateAccountBackButton',(viewport)=>{
             expect($element).to.have.attr('type', 'submit');
             cy.wrap($element).click();
         });
-        cy.getElementByTestId('sign-up-form-back-button').click()
+        cy.getElementByTestId('sign-up-form-back-button').click();
+        cy.getElementByTestId('dialog-container-sign-up-question').should('be.visible');
     });
 });
 
@@ -275,19 +276,19 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
         });
     }); 
 
-//Create Account check passowrds    
-Cypress.Commands.add('testCreateAccountPasswordShort',(viewport,userType)=>{
+//Create Account check passwords   
+Cypress.Commands.add('testCreateAccountPasswordTests',(viewport,userType)=>{
         cy.viewport(viewport);
         cy.getElementByTestId('nav-account-sign-up').then($element => {
             cy.wrap($element).click({force: true});
             cy.getElementByTestId(variables[userType].dialog_container_button).then($element=>{
                 cy.wrap($element).click({force: true});
-                //sign up, password
+                
+                //sign up, password must be at least 8 characters
                 cy.getElementByTestId('sign-up-form-email-input').type(variables[userType].user.email);
                 cy.getElementByTestId('sign-up-form-password-input').type('1111111');
                 cy.getElementByTestId('sign-up-form-password-confirmation-input').type('1111111');
                 cy.getElementByTestId('sign-up-form-submit-button').click();
-                
                 
                  //look for error message
                 cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
@@ -298,23 +299,10 @@ Cypress.Commands.add('testCreateAccountPasswordShort',(viewport,userType)=>{
                     cy.getElementByTestId('snackbar-message').should('not.exist');
                 });
 
-                if(viewport !== Cypress.env('mobile')){
-                    cy.getElementByTestId('dialog-close-button').click({force:true});
-                } 
-            });
-        });
-    }); 
-
-Cypress.Commands.add('testCreateAccountPasswordNoMatch',(viewport,userType)=>{
-        cy.viewport(viewport);
-        cy.getElementByTestId('nav-account-sign-up').then($element => {
-            cy.wrap($element).click({force: true});
-            cy.getElementByTestId(variables[userType].dialog_container_button).then($element=>{
-                cy.wrap($element).click({force: true});
-                //sign up, password
-                cy.getElementByTestId('sign-up-form-email-input').type(variables[userType].user.email);
-                cy.getElementByTestId('sign-up-form-password-input').type('11111111');
-                cy.getElementByTestId('sign-up-form-password-confirmation-input').type('1111111x');
+                //sign up, passwords must match
+                cy.getElementByTestId('sign-up-form-email-input').click().clear().type(variables[userType].user.email);
+                cy.getElementByTestId('sign-up-form-password-input').click().clear().type('11111111');
+                cy.getElementByTestId('sign-up-form-password-confirmation-input').click().clear().type('1111111x');
                 cy.getElementByTestId('sign-up-form-submit-button').click();
                 
                 
@@ -326,10 +314,13 @@ Cypress.Commands.add('testCreateAccountPasswordNoMatch',(viewport,userType)=>{
                     cy.getElementByTestId('snackbar-close-button').click();
                     cy.getElementByTestId('snackbar-message').should('not.exist');
                 });
+
+                if(viewport !== Cypress.env('mobile')){
+                    cy.getElementByTestId('dialog-close-button').click({force:true});
+                } 
             });
         });
     }); 
-
 
 //Create Account Actions, Elements State 2 and 3, skip organization  
 Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userType)=>{

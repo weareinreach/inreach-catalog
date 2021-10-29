@@ -272,8 +272,12 @@ const SignupForm = ({
 				backButton={<div />}
 			/>
 			{activeStep === 1 && (
-				<div data-test-id="sign-up-form-back-button" className={classes.flex}>
-					<Button size="small" onClick={handleStepBack}>
+				<div className={classes.flex}>
+					<Button
+						data-test-id="sign-up-form-back-button"
+						size="small"
+						onClick={handleStepBack}
+					>
 						<KeyboardArrowLeft />
 						Back
 					</Button>
