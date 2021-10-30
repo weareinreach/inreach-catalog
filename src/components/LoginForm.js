@@ -78,6 +78,7 @@ const LoginForm = ({
 
 		<Typography variant="body1" className={classes.paddingVertical}>
 			<FormattedMessage id="legal.sign-in-agree-to-terms" />
+			{` `}
 			<FormattedMessage id="legal.privacy-policy">
 				{(privacy) => (
 					<a
