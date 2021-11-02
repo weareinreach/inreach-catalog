@@ -208,10 +208,10 @@ body a {
   min-width: 88px;
 }
 a {
-  color: #5073b3;
+  color: #ff00ff;
 }
 a:hover {
-  color: #2d4a80;
+  color: #ff6600;
 }
 .center-align {
   vertical-align: middle;
@@ -235,7 +235,7 @@ a:hover {
   position: relative;
 }
 .nav-bottom-selectedLabel {
-  color: #f26f6f;
+  color: #b2f80e;
 }
 input[class*='inputSingleline'] {
   height: 1.2em;
