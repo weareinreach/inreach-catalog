@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import TextField from '@material-ui/core/TextField';
+import FormLabel from '@material-ui/core/FormLabel';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 
@@ -35,13 +36,17 @@ const styles = (theme) => ({
 	marginVertical: {margin: '2rem 0'},
 	spacingTop: {marginTop: '1rem'},
 	backgroundTransparent: {backgroundColor: 'transparent'},
-	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]}
+	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]},
+	labels: {
+		textAlign: 'left'
+	}
 });
 
 const SignupForm = ({
 	activeStep,
 	classes,
 	email,
+	name,
 	handleBlurOrganizations,
 	handleChange,
 	handleCreateAffiliation,
@@ -74,14 +79,35 @@ const SignupForm = ({
 			<FormattedMessage id="form.organisation.email" />
 		);
 
+	const nameLabel =
+		selection === SEEKER_TYPE ? (
+			<FormattedMessage id="form.name" />
+		) : selection === LAWYER_TYPE ? (
+			<FormattedMessage id="form.lawyer-organization-name" />
+		) : (
+			<FormattedMessage id="form.lawyer-organization-name" />
+		);
+
 	const pswdTest = new RegExp(
 		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
 	);
 
-	const [touched, setTouched] = useState(false);
+	const emailTest = new RegExp(/\S+@\S+\.\S+/);
 
-	const handleTouch = () => {
-		setTouched(true);
+	const [touchedName, setTouchedName] = useState(false);
+	const [touchedEmail, setTouchedEmail] = useState(false);
+	const [touchedPassword, setTouchedPassword] = useState(false);
+
+	const handleTouchName = () => {
+		setTouchedName(true);
+	};
+
+	const handleTouchEmail = () => {
+		setTouchedEmail(true);
+	};
+
+	const handleTouchPassword = () => {
+		setTouchedPassword(true);
 	};
 
 	return (
@@ -135,45 +161,74 @@ const SignupForm = ({
 			)}
 			{activeStep === 1 && (
 				<form className={classes.container} onSubmit={handleSignUp}>
+					<FormLabel required className={classes.labels} margin="none">
+						{nameLabel}
+					</FormLabel>
 					<TextField
+						onBlur={handleTouchName}
+						error={touchedName && name && name.length > 0 && name.length < 2}
+						helperText={
+							touchedName &&
+							(name && name.length > 0 && name.length < 2
+								? 'not enough characters'
+								: null)
+						}
+						id="name"
+						margin="none"
+						name="name"
+						onChange={handleChange}
+						required
+						value={name}
+						placeholder="John Smith"
+						data-test-id="sign-up-form-name-input"
+						InputLabelProps={{shrink: true}}
+						variant="outlined"
+					/>
+					<FormLabel required className={classes.labels} margin="none">
+						{emailLabel}
+					</FormLabel>
+					<TextField
+						onBlur={handleTouchEmail}
+						error={touchedEmail && emailTest.test(email) === false}
+						helperText={
+							touchedEmail && emailTest.test(email) === false ? (
+								<FormattedMessage id="error.email-format" />
+							) : null
+						}
 						id="email"
-						label={emailLabel}
-						margin="normal"
+						margin="none"
 						name="email"
 						onChange={handleChange}
 						required
 						type="email"
 						value={email}
+						placeholder="john@gmail.com"
 						data-test-id="sign-up-form-email-input"
+						InputLabelProps={{shrink: true}}
+						variant="outlined"
 					/>
+					<FormLabel required className={classes.labels} margin="none">
+						<FormattedMessage id="form.password" />
+					</FormLabel>
 					<TextField
-						onBlur={handleTouch}
-						error={touched && pswdTest.test(password) == false}
+						onBlur={handleTouchPassword}
+						error={touchedPassword && pswdTest.test(password) === false}
 						helperText={
-							touched && pswdTest.test(password) == false ? (
+							touchedPassword && pswdTest.test(password) === false ? (
 								<FormattedMessage id="error.password-format" />
 							) : null
 						}
 						id="password"
-						label=<FormattedMessage id="form.password" />
-						margin="normal"
+						margin="none"
 						name="password"
 						onChange={handleChange}
 						required
 						type="password"
 						value={password}
+						placeholder="***"
 						data-test-id="sign-up-form-password-input"
-					/>
-					<TextField
-						id="passwordConfirmation"
-						label=<FormattedMessage id="form.confirm-password" />
-						margin="normal"
-						name="passwordConfirmation"
-						onChange={handleChange}
-						required
-						type="password"
-						value={passwordConfirmation}
-						data-test-id="sign-up-form-password-confirmation-input"
+						InputLabelProps={{shrink: true}}
+						variant="outlined"
 					/>
 					<Typography
 						variant="body1"
