@@ -118,6 +118,7 @@
 	"error.incorrect-email": "Oops! Please check that you entered the correct email address.",
 	"error.incorrect-password": "The password you entered was incorrect.",
 	"error.organization-empty": "Please enter a valid organization name.",
+	"error.password-format": "Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?",
 	"error.password-length": "Password must be at least 8 characters.",
 	"error.password-mismatch": "The passwords you have entered do not match.",
 	"error.user-already-exists": "User account already exists. Try signing in instead.",

@@ -117,6 +117,7 @@
 	"error.unspecified": "¡Oops! Ocurrió un error.",
 	"error.incorrect-email": "¡Oops! Por favor confirma que ingresaste el correo electrónico correcto",
 	"error.organization-empty": "Por favor introduce un nombre válido de una organización.",
+	"error.password-format": "Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?",
 	"error.password-length": "La contraseña debe tener al menos 8 caracteres.",
 	"error.password-mismatch": "Las contraseñas que ingresaste no coinciden.",
 	"error.user-already-exists": "Esta cuenta de usuario ya existe. Intenta iniciar una sesión.",

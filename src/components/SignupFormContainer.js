@@ -69,7 +69,7 @@ class SignupFormContainer extends React.Component {
 					);
 				});
 		} else {
-			handleMessageNew(`Please enter a valid organization name.`);
+			handleMessageNew(<FormattedMessage id="error.organization-empty" />);
 		}
 	}
 
@@ -79,9 +79,12 @@ class SignupFormContainer extends React.Component {
 			this.props;
 		const {email, name, password, passwordConfirmation, selection} = this.state;
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
+		const pswdTest = new RegExp(
+			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
+		);
 
-		if (password.length < 8) {
-			handleMessageNew(<FormattedMessage id="error.password-length" />);
+		if (pswdTest(password) == false) {
+			handleMessageNew(<FormattedMessage id="error.password-format" />);
 			return;
 		}
 

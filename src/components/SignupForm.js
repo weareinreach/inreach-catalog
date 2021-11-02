@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 
@@ -74,6 +74,16 @@ const SignupForm = ({
 			<FormattedMessage id="form.organisation.email" />
 		);
 
+	const pswdTest = new RegExp(
+		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
+	);
+
+	const [touched, setTouched] = useState(false);
+
+	const handleTouch = () => {
+		setTouched(true);
+	};
+
 	return (
 		<div
 			className={classes.container}
@@ -137,10 +147,11 @@ const SignupForm = ({
 						data-test-id="sign-up-form-email-input"
 					/>
 					<TextField
-						error={password.length > 0 && password.length < 8}
+						onBlur={handleTouch}
+						error={touched && pswdTest.test(password) == false}
 						helperText={
-							password.length > 0 && password.length < 8 ? (
-								<FormattedMessage id="error.password-length" />
+							touched && pswdTest.test(password) == false ? (
+								<FormattedMessage id="error.password-format" />
 							) : null
 						}
 						id="password"
