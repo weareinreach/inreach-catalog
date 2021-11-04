@@ -15,7 +15,7 @@ class SignupFormContainer extends React.Component {
 		this.state = {
 			activeStep: 0,
 			email: '',
-			//name: 'user name',
+			name: '',
 			password: '',
 			passwordConfirmation: '',
 			selection: ''
@@ -79,10 +79,10 @@ class SignupFormContainer extends React.Component {
 			this.props;
 		const {email, name, password, passwordConfirmation, selection} = this.state;
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
+		const emailTest = new RegExp(/\S+@\S+\.\S+/);
 		const pswdTest = new RegExp(
 			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
 		);
-		const emailTest = new RegExp(/\S+@\S+\.\S+/);
 
 		if (pswdTest.test(password) === false) {
 			handleMessageNew(<FormattedMessage id="error.password-format" />);
