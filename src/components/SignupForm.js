@@ -45,6 +45,7 @@ const styles = (theme) => ({
 	},
 	borderOutline: {
 		borderWidth: '2px',
+		//border box colors
 		//border color when not hover or focus, darkGrey: '#e9e9e9', but have to use code not theme
 		'& .MuiOutlinedInput-root': {
 			borderColor: '#e9e9e9'
@@ -62,8 +63,10 @@ const styles = (theme) => ({
 		'& .MuiOutlinedInput-root.Mui-error': {
 			borderColor: 'red'
 		},
+
+		//input box text color is black under all conditions except error
 		'& .MuiOutlinedInput-input': {
-			color: 'green'
+			color: '#1D1F23'
 		},
 		'&:hover .MuiOutlinedInput-input': {
 			color: 'black'
@@ -71,6 +74,8 @@ const styles = (theme) => ({
 		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input': {
 			color: '#1D1F23'
 		},
+
+		//Input label
 		'& .MuiInputLabel-outlined': {
 			color: 'grey'
 		},
@@ -80,6 +85,8 @@ const styles = (theme) => ({
 		'& .MuiInputLabel-outlined.Mui-focused': {
 			color: 'maroon'
 		},
+
+		//helper text
 		'& .MuiFormHelperText-root': {
 			color: 'green'
 		},
