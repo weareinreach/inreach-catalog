@@ -2,8 +2,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 
-import {createOrgOwner} from '../utils/api';
-import {catalogPost} from '../utils/api';
+import {createOrgOwner, catalogPost, updateUser} from '../utils/api';
 
 import SignupForm from './SignupForm';
 import withOrganizations from './withOrganizations';
@@ -14,11 +13,19 @@ class SignupFormContainer extends React.Component {
 
 		this.state = {
 			activeStep: 0,
-			email: '',
-			name: '',
-			password: '',
+			email: 'a@a.ca',
+			name: 'xx',
+			password: 'xxxxxxxX1@',
 			passwordConfirmation: '',
-			selection: ''
+			selection: '',
+			seekerSteps: [0, 2, 7, 8, 9, 10, 11],
+			currentLocation: 'xx',
+			orgType: 'Legal nonprofit',
+			immigrationStatus: '',
+			countryOfOrigin: '',
+			ethnicityRace: '',
+			sogIdentity: '',
+			age: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -27,6 +34,7 @@ class SignupFormContainer extends React.Component {
 		this.handleStepNext = this.handleStepNext.bind(this);
 		this.handleStepBack = this.handleStepBack.bind(this);
 		this.handleSignUp = this.handleSignUp.bind(this);
+		this.handleUpdateUser = this.handleUpdateUser.bind(this);
 	}
 
 	handleChange(event) {
@@ -34,17 +42,55 @@ class SignupFormContainer extends React.Component {
 		this.setState({[name]: value});
 	}
 
-	handleSelect(selection) {
-		this.setState({selection});
-		this.handleStepNext();
+	handleSelect(type) {
+		this.setState({selection: type}, function () {
+			this.handleStepNext();
+		});
 	}
 
 	handleStepNext() {
-		this.setState((prevState) => ({activeStep: prevState.activeStep + 1}));
+		this.setState(
+			(prevState) => ({activeStep: prevState.activeStep + 1}),
+			function () {
+				if (this.state.selection === 'seeker') {
+					if (this.state.activeStep > 5) {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 5]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep]},
+							function () {}
+						);
+					}
+				}
+			}
+		);
 	}
 
 	handleStepBack() {
-		this.setState((prevState) => ({activeStep: prevState.activeStep - 1}));
+		this.setState(
+			(prevState) => ({activeStep: prevState.activeStep - 1}),
+			function () {
+				if (this.state.selection === 'seeker') {
+					if (this.state.activeStep > 5) {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 5]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 1]},
+							function () {}
+						);
+					}
+				}
+				if (this.state.activeStep === 0) {
+					this.setState({selection: ''});
+				}
+			}
+		);
 	}
 
 	handleCreateAffiliation(event) {
@@ -73,11 +119,33 @@ class SignupFormContainer extends React.Component {
 		}
 	}
 
+	handleUpdateUser(event) {
+		event.preventDefault();
+		console.log(this.activeStep);
+		this.handleStepNext();
+		// 		updateEmail(newEmail) {
+		// 	updateUser(this.state.userData, {email: newEmail})
+		// 		.then((data) => {
+		// 			this.setState({userData: data.user, isEmailUpdated: true});
+		// 			this.props.handleMessageNew('Your email has been updated.');
+		// 		})
+		// 		.catch((error) => this.handleOdasError(error));
+		// }
+	}
+
 	handleSignUp(event) {
 		event.preventDefault();
 		const {handleMessageNew, handleRequestClose, handleRequestOpen} =
 			this.props;
-		const {email, name, password, passwordConfirmation, selection} = this.state;
+		const {
+			email,
+			name,
+			password,
+			passwordConfirmation,
+			selection,
+			currentLocation,
+			orgType
+		} = this.state;
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
 		const emailTest = new RegExp(/\S+@\S+\.\S+/);
 		const pswdTest = new RegExp(
@@ -99,8 +167,11 @@ class SignupFormContainer extends React.Component {
 			email,
 			isProfessional,
 			password,
-			name
+			name,
+			currentLocation,
+			orgType
 		};
+
 		const handleError = () =>
 			handleMessageNew(<FormattedMessage id="error.unspecified" />);
 
@@ -125,8 +196,12 @@ class SignupFormContainer extends React.Component {
 
 					this.props.handleLogIn(auth.token);
 					if (!isProfessional) {
-						handleRequestClose();
-						handleRequestOpen('thankyou');
+						// handleRequestClose();
+						// handleRequestOpen('thankyou');
+						this.setState(
+							{activeStep: this.state.seekerSteps[2]},
+							function () {}
+						);
 					} else {
 						this.handleStepNext();
 					}
@@ -146,6 +221,7 @@ class SignupFormContainer extends React.Component {
 				handleSignUp={this.handleSignUp}
 				handleStepNext={this.handleStepNext}
 				handleStepBack={this.handleStepBack}
+				handleUpdateUser={this.handleUpdateUser}
 			/>
 		);
 	}

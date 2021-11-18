@@ -10,12 +10,17 @@ import {useHistory} from 'react-router-dom';
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import ThankYou from '../images/thanks.svg';
+import ActionButton from './ActionButton';
 
 const styles = (theme) => ({
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
-		textAlign: 'center'
+		textAlign: 'center',
+		minWidth: '503px',
+		minHeight: '561px',
+		overflowY: 'auto',
+		'border-top': 'solid 6px #5073B3'
 	},
 	img: {
 		height: '205px',
@@ -55,7 +60,18 @@ const ThankYouDialog = (props) => {
 
 	return (
 		<div className={classes.container}>
-			<DialogTitle data-test-id="thank-you-header">
+			<ActionButton
+				onClick={handleRequestClose}
+				testIdName="dialog-close-button"
+				variant="primary"
+			>
+				&times;
+			</ActionButton>
+			<DialogTitle
+				className={classes.dialogTitle}
+				data-test-id="thank-you-header"
+				variant="primary"
+			>
 				<FormattedMessage id="app.thank-you-heading" />
 			</DialogTitle>
 			<Typography

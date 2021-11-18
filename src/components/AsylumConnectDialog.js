@@ -21,17 +21,6 @@ const styles = (theme) => ({
 		minWidth: '600px',
 		overflowY: 'auto',
 		padding: `${theme.spacing(9)}px ${theme.spacing(11)}px`
-	},
-	dialogBody1: {
-		minWidth: '532px',
-		minHeight: '562px',
-		overflowY: 'auto'
-	},
-	blueBar: {
-		width: '532px',
-		height: '7px',
-		backgroundColor: '#5073B3',
-		marginBottom: `${theme.spacing(6)}px`
 	}
 });
 
@@ -57,7 +46,7 @@ const AsylumConnectDialog = ({
 		open={['none', 'more'].indexOf(dialog) === -1}
 		onClose={handleRequestClose}
 	>
-		{dialog !== 'thankyou' && (
+		{!dontUseDialogBody.includes(dialog) && (
 			<div className={classes.dialogBody}>
 				<ActionButton
 					onClick={handleRequestClose}
@@ -149,18 +138,6 @@ const AsylumConnectDialog = ({
 				{dialog === 'privacy' && (
 					<PrivacyDialog handleRequestClose={handleRequestClose} />
 				)}
-				{dialog === 'signup' && (
-					<SignupDialog
-						handleLogIn={handleLogIn}
-						handleMessageNew={handleMessageNew}
-						handleRequestClose={handleRequestClose}
-						handleRequestOpen={handleRequestOpen}
-						history={history}
-						locale={locale}
-						session={session}
-						userData={userData}
-					/>
-				)}
 				{dialog === 'deleteAccount' && (
 					<DeleteAccountDialog
 						handleLogOut={handleLogOut}
@@ -176,18 +153,33 @@ const AsylumConnectDialog = ({
 				)}
 			</div>
 		)}
-		{dialog === 'thankyou' && (
-			<div className={classes.dialogBody1}>
-				<div className={classes.blueBar} />
-				<ThankYouDialog
-					history={history}
-					locale={locale}
-					handleRequestClose={handleRequestClose}
-				/>
+		{dontUseDialogBody.includes(dialog) && (
+			<div>
+				{dialog === 'thankyou' && (
+					<ThankYouDialog
+						history={history}
+						locale={locale}
+						handleRequestClose={handleRequestClose}
+					/>
+				)}
+				{dialog === 'signup' && (
+					<SignupDialog
+						handleLogIn={handleLogIn}
+						handleMessageNew={handleMessageNew}
+						handleRequestClose={handleRequestClose}
+						handleRequestOpen={handleRequestOpen}
+						history={history}
+						locale={locale}
+						session={session}
+						userData={userData}
+					/>
+				)}
 			</div>
 		)}
 	</Dialog>
 );
+
+const dontUseDialogBody = ['thankyou', 'signup'];
 
 AsylumConnectDialog.defaultProps = {
 	session: null,
