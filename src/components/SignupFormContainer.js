@@ -18,7 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: 'xxxxxxxX1@',
 			passwordConfirmation: '',
 			selection: '',
-			seekerSteps: [0, 2, 7, 8, 9, 10, 11],
+			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
 			currentLocation: 'xx',
 			orgType: 'Legal nonprofit',
 			immigrationStatus: '',
@@ -40,6 +40,8 @@ class SignupFormContainer extends React.Component {
 	handleChange(event) {
 		const {name, value} = event.target;
 		this.setState({[name]: value});
+		console.log(name);
+		console.log(value);
 	}
 
 	handleSelect(type) {
@@ -53,9 +55,9 @@ class SignupFormContainer extends React.Component {
 			(prevState) => ({activeStep: prevState.activeStep + 1}),
 			function () {
 				if (this.state.selection === 'seeker') {
-					if (this.state.activeStep > 5) {
+					if (this.state.activeStep > 6) {
 						this.setState(
-							{activeStep: this.state.seekerSteps[this.state.activeStep - 5]},
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
 							function () {}
 						);
 					} else {
@@ -74,9 +76,9 @@ class SignupFormContainer extends React.Component {
 			(prevState) => ({activeStep: prevState.activeStep - 1}),
 			function () {
 				if (this.state.selection === 'seeker') {
-					if (this.state.activeStep > 5) {
+					if (this.state.activeStep > 4) {
 						this.setState(
-							{activeStep: this.state.seekerSteps[this.state.activeStep - 5]},
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
 							function () {}
 						);
 					} else {
@@ -121,7 +123,7 @@ class SignupFormContainer extends React.Component {
 
 	handleUpdateUser(event) {
 		event.preventDefault();
-		console.log(this.activeStep);
+		console.log(event.target.name);
 		this.handleStepNext();
 		// 		updateEmail(newEmail) {
 		// 	updateUser(this.state.userData, {email: newEmail})

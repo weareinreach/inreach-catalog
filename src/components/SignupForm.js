@@ -21,18 +21,8 @@ import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 
-//signup stepper form
 import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
-
-//organization form
 import OrganizationAutocomplete from './OrganizationAutocomplete';
-
-//about you form
-import AboutYouCountryOfOrigin from './AboutYouCountryOfOrigin';
-import AboutYouImmigrationStatus from './AboutYouImmigrationStatus';
-import AboutYouSogIdentity from './AboutYouSogIdentity';
-import AboutYouEthnicity from './AboutYouEthnicity';
-import AboutYouAge from './AboutYouAge';
 
 const LAWYER_TYPE = 'lawyer';
 const PROVIDER_TYPE = 'provider';
@@ -250,7 +240,6 @@ const SignupForm = (props) => {
 		) : activeStep > 4 && activeStep < 12 ? (
 			<FormattedMessage id="account.signup-about-you" />
 		) : null;
-	// <FormattedMessage id="app.thank-you-heading" />;
 
 	const dialogSubTitle =
 		activeStep < 3 ? (
@@ -584,6 +573,7 @@ const SignupForm = (props) => {
 							{orgTypeOptions.map((type, index) => (
 								<Grid item xs={6}>
 									<FormControlLabel
+										key={type}
 										value={type}
 										control={<Radio />}
 										label={type}
@@ -856,15 +846,13 @@ const SignupForm = (props) => {
 				</form>
 			)}
 			{activeStep === 5 && <div>Org about you placeholder</div>}
-			{activeStep === 6 && <div>New Thank you placeholder</div>}
-			{activeStep === 7 && (
+			{activeStep === 6 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
 						I am a(n)..
 					</Typography>
 					<RadioGroup
 						name="immigrationStatus"
-						value={immigrationStatus}
 						onChange={handleChange}
 						required={true}
 					>
@@ -872,8 +860,42 @@ const SignupForm = (props) => {
 							{aboutYouImmigrationOptions.map((type, index) => (
 								<Grid item xs={6}>
 									<FormControlLabel
+										key={type}
 										value={type}
-										control={<Checkbox />}
+										control={<Radio />}
+										label={type}
+									/>
+								</Grid>
+							))}
+						</Grid>
+					</RadioGroup>
+					<AsylumConnectButton
+						// disabled={isOrgValid() === false ? true : false}
+						testIdName="sign-up-form-next-button"
+						variant="primary"
+						className={classes.nextBtn}
+					>
+						<FormattedMessage id="navigation.next" />
+					</AsylumConnectButton>
+				</form>
+			)}
+			{activeStep === 7 && (
+				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
+					<Typography className={classes.formQuestion} variant="h3">
+						My country of origin is in..
+					</Typography>
+					<RadioGroup
+						name="countryOfOrigin"
+						onChange={handleChange}
+						required={true}
+					>
+						<Grid container spacing={0} className={classes.gridTxtAlign}>
+							{aboutYouCountryOptions.map((type, index) => (
+								<Grid item xs={6}>
+									<FormControlLabel
+										key={type}
+										value={type}
+										control={<Radio />}
 										label={type}
 									/>
 								</Grid>
@@ -893,18 +915,21 @@ const SignupForm = (props) => {
 			{activeStep === 8 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
-						My country of origin is in..
+						I identify as..
+					</Typography>
+					<Typography className={classes.formQuestion2} variant="h3">
+						(Select all that apply)
 					</Typography>
 					<RadioGroup
-						name="countryOfOrigin"
-						value={countryOfOrigin}
+						name="sogIdentity"
 						onChange={handleChange}
 						required={true}
 					>
 						<Grid container spacing={0} className={classes.gridTxtAlign}>
-							{aboutYouCountryOptions.map((type, index) => (
-								<Grid item xs={6}>
+							{aboutYouSogOptions.map((type, index) => (
+								<Grid item xs={4}>
 									<FormControlLabel
+										key={type}
 										value={type}
 										control={<Checkbox />}
 										label={type}
@@ -926,23 +951,23 @@ const SignupForm = (props) => {
 			{activeStep === 9 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
-						I identify as..
+						My ethnicity/race is..
 					</Typography>
 					<Typography className={classes.formQuestion2} variant="h3">
 						(Select all that apply)
 					</Typography>
 					<RadioGroup
-						name="sogIdentity"
-						value={sogIdentity}
+						name="ethnicityRace"
 						onChange={handleChange}
 						required={true}
 					>
 						<Grid container spacing={0} className={classes.gridTxtAlign}>
-							{aboutYouSogOptions.map((type, index) => (
+							{aboutYouEthnicityOptions.map((type, index) => (
 								<Grid item xs={6}>
 									<FormControlLabel
+										key={type}
 										value={type}
-										control={<Radio />}
+										control={<Checkbox />}
 										label={type}
 									/>
 								</Grid>
@@ -962,54 +987,14 @@ const SignupForm = (props) => {
 			{activeStep === 10 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
-						My ethnicity/race is..
-					</Typography>
-					<Typography className={classes.formQuestion2} variant="h3">
-						(Select all that apply)
-					</Typography>
-					<RadioGroup
-						name="ethnicityRace"
-						value={ethnicityRace}
-						onChange={handleChange}
-						required={true}
-					>
-						<Grid container spacing={0} className={classes.gridTxtAlign}>
-							{aboutYouEthnicityOptions.map((type, index) => (
-								<Grid item xs={6}>
-									<FormControlLabel
-										value={type}
-										control={<Radio />}
-										label={type}
-									/>
-								</Grid>
-							))}
-						</Grid>
-					</RadioGroup>
-					<AsylumConnectButton
-						// disabled={isOrgValid() === false ? true : false}
-						testIdName="sign-up-form-next-button"
-						variant="primary"
-						className={classes.nextBtn}
-					>
-						<FormattedMessage id="navigation.next" />
-					</AsylumConnectButton>
-				</form>
-			)}
-			{activeStep === 11 && (
-				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
-					<Typography className={classes.formQuestion} variant="h3">
 						How old are you?
 					</Typography>
-					<RadioGroup
-						name="age"
-						value={age}
-						onChange={handleChange}
-						required={true}
-					>
+					<RadioGroup name="age" onChange={handleChange} required={true}>
 						<Grid container spacing={0} className={classes.gridTxtAlign}>
 							{aboutYouAgeOptions.map((type, index) => (
 								<Grid item xs={6}>
 									<FormControlLabel
+										key={type}
 										value={type}
 										control={<Radio />}
 										label={type}
@@ -1028,7 +1013,7 @@ const SignupForm = (props) => {
 					</AsylumConnectButton>
 				</form>
 			)}
-			{activeStep > 6 && activeStep < 12 && (
+			{activeStep > 5 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
 					You may complete this information later in Account Settings.
 				</Typography>
@@ -1063,17 +1048,17 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{activeStep > 6 && activeStep < 12 && (
+			{activeStep > 5 && activeStep < 11 && (
 				<MobileStepper
 					className={
-						activeStep === 7
+						activeStep === 6
 							? classes.stepperSpacing2
 							: classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
 					}
 					type="dots"
 					steps={5}
 					position="static"
-					activeStep={activeStep - 7}
+					activeStep={activeStep - 6}
 					nextButton={<div />}
 					backButton={<div />}
 				/>
@@ -1090,7 +1075,7 @@ const SignupForm = (props) => {
 					</Button>
 				</div>
 			)}
-			{activeStep > 7 && activeStep < 12 && (
+			{activeStep > 6 && activeStep < 11 && (
 				<div className={classes.flex + ' ' + classes.backButton}>
 					<Button
 						data-test-id="sign-up-form-back-button"
