@@ -226,12 +226,24 @@ const SignupForm = (props) => {
 		selectedOrgType,
 		orgType,
 		specifiedOrgType,
+		orgName,
+		orgPositionTitle,
+		reasonForJoining,
 		immigrationStatus,
 		countryOfOrigin,
 		sogIdentity,
 		ethnicityRace,
 		age
 	} = props;
+
+	const [touchedName, setTouchedName] = useState(false);
+	const [touchedEmail, setTouchedEmail] = useState(false);
+	const [touchedPassword, setTouchedPassword] = useState(false);
+	const [touchedLocation, setTouchedLocation] = useState(false);
+	const [touchedOrgType, setTouchedOrgType] = useState(false);
+	const [touchedOrgName, setTouchedOrgName] = useState(false);
+	const [touchedPosition, setTouchedPosition] = useState(false);
+	const [touchedReason, setTouchedReason] = useState(false);
 
 	const dialogTitle =
 		activeStep < 3 ? (
@@ -277,12 +289,6 @@ const SignupForm = (props) => {
 	);
 	const locationTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 	const organizationTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
-
-	const [touchedName, setTouchedName] = useState(false);
-	const [touchedEmail, setTouchedEmail] = useState(false);
-	const [touchedPassword, setTouchedPassword] = useState(false);
-	const [touchedLocation, setTouchedLocation] = useState(false);
-	const [touchedOrgType, setTouchedOrgType] = useState(false);
 
 	const orgTypeOptions =
 		selection === LAWYER_TYPE
@@ -384,6 +390,18 @@ const SignupForm = (props) => {
 
 	const handleTouchOrgType = () => {
 		setTouchedOrgType(true);
+	};
+
+	const handleTouchOrgName = () => {
+		setTouchedOrgName(true);
+	};
+
+	const handleTouchPosition = () => {
+		setTouchedPosition(true);
+	};
+
+	const handleTouchReason = () => {
+		setTouchedReason(true);
 	};
 
 	const isValid = () => {
@@ -812,7 +830,7 @@ const SignupForm = (props) => {
 				</form>
 			)}
 			{activeStep === 4 && (
-				<form>
+				<form onSubmit={handleStepNext}>
 					<div className={classes.marginVertical}>
 						<Typography
 							variant="body1"
@@ -833,14 +851,130 @@ const SignupForm = (props) => {
 						<AsylumConnectButton
 							variant="primary"
 							testIdName="sign-up-form-finish-registration-button"
-							onClick={() => handleRequestOpen('thankyou')}
+							// onClick={() => handleRequestOpen('thankyou')}
 						>
 							<FormattedMessage id="account.finish-registration" />
 						</AsylumConnectButton>
 					</div>
 				</form>
 			)}
-			{activeStep === 5 && <div>Org about you placeholder</div>}
+			{activeStep === 5 && (
+				<form
+					className={classes.formContainer}
+					onSubmit={handleUpdateUser}
+					data-test-id="about-you-organization"
+				>
+					<FormLabel
+						required
+						className={classes.labels}
+						classes={classes.fontWeightMedium}
+						margin="none"
+					>
+						Name of your firm or organization
+					</FormLabel>
+					<TextField
+						onBlur={handleTouchOrgName}
+						error={touchedOrgName && nameTest.test(orgName) === false}
+						helperText={
+							touchedOrgName && nameTest.test(orgName) === false ? (
+								<FormattedMessage id="error.name-format" />
+							) : touchedOrgName && nameTest.test(orgName) === true ? (
+								<FormattedMessage id="form.name-valid" />
+							) : null
+						}
+						id="orgName"
+						margin="none"
+						name="orgNname"
+						onChange={handleChange}
+						required
+						type="text"
+						value={orgName ?? ''}
+						placeholder="John Smith"
+						data-test-id="about-you-organization-name"
+						InputLabelProps={{shrink: true}}
+						variant="outlined"
+						className={classes.borderOutline}
+						InputProps={{
+							classes: {
+								input: classes.borderOutline,
+								notchedOutline: classes.borderOutline
+							}
+						}}
+					/>
+					<FormLabel required className={classes.labels} margin="none">
+						Position Title
+					</FormLabel>
+					<TextField
+						onBlur={handleTouchPosition}
+						error={touchedPosition && nameTest.test(email) === false}
+						helperText={
+							touchedPosition && nameTest.test(email) === false ? (
+								<FormattedMessage id="error.email-format" />
+							) : touchedPosition && emailTest.test(email) === true ? (
+								<FormattedMessage id="form.email-valid" />
+							) : null
+						}
+						id="orgPositionTitle"
+						margin="none"
+						name="orgPositionTitle"
+						onChange={handleChange}
+						required
+						type="text"
+						value={orgPositionTitle}
+						placeholder="Your position in the organization"
+						data-test-id="about-you-organization-position"
+						InputLabelProps={{shrink: true}}
+						variant="outlined"
+						className={classes.borderOutline}
+						InputProps={{
+							classes: {
+								input: classes.borderOutline,
+								notchedOutline: classes.borderOutline
+							}
+						}}
+					/>
+					<FormLabel required className={classes.labels} margin="none">
+						Reason for joining
+					</FormLabel>
+					<TextField
+						onBlur={handleTouchReason}
+						error={touchedReason && name.test(reasonForJoining) === false}
+						helperText={
+							touchedReason && name.test(reasonForJoining) === false ? (
+								<FormattedMessage id="error.password-format" />
+							) : touchedReason && name.test(reasonForJoining) === true ? (
+								<FormattedMessage id="form.password-valid" />
+							) : null
+						}
+						id="reasonForJoining"
+						margin="none"
+						name="reasonForJoining"
+						onChange={handleChange}
+						required
+						type="text"
+						value={reasonForJoining}
+						placeholder="***"
+						data-test-id="about-you-organization-reason"
+						InputLabelProps={{shrink: true}}
+						variant="outlined"
+						className={classes.borderOutline}
+						InputProps={{
+							classes: {
+								input: classes.borderOutline,
+								notchedOutline: classes.borderOutline
+							}
+						}}
+					/>
+					<AsylumConnectButton
+						disabled={isValid() === false ? true : false}
+						testIdName="sign-up-form-submit-button"
+						variant="primary"
+						className={classes.noBottomMargin}
+					>
+						<FormattedMessage id="navigation.next" />
+					</AsylumConnectButton>
+				</form>
+			)}
 			{activeStep === 6 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
