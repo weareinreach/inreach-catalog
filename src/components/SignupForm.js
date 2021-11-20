@@ -200,6 +200,7 @@ const SignupForm = (props) => {
 		name,
 		handleBlurOrganizations,
 		handleChange,
+		handleChangeArray,
 		handleCreateAffiliation,
 		handleMessageNew,
 		handleOrganizationSearchChange,
@@ -282,8 +283,6 @@ const SignupForm = (props) => {
 	const [touchedPassword, setTouchedPassword] = useState(false);
 	const [touchedLocation, setTouchedLocation] = useState(false);
 	const [touchedOrgType, setTouchedOrgType] = useState(false);
-
-	const [setSpecifiedOrgType] = useState('');
 
 	const orgTypeOptions =
 		selection === LAWYER_TYPE
@@ -385,10 +384,6 @@ const SignupForm = (props) => {
 
 	const handleTouchOrgType = () => {
 		setTouchedOrgType(true);
-	};
-
-	const handleSpecifedOrgType = (event) => {
-		setSpecifiedOrgType(event.target.value);
 	};
 
 	const isValid = () => {
@@ -920,24 +915,22 @@ const SignupForm = (props) => {
 					<Typography className={classes.formQuestion2} variant="h3">
 						(Select all that apply)
 					</Typography>
-					<RadioGroup
-						name="sogIdentity"
-						onChange={handleChange}
-						required={true}
-					>
-						<Grid container spacing={0} className={classes.gridTxtAlign}>
-							{aboutYouSogOptions.map((type, index) => (
-								<Grid item xs={4}>
-									<FormControlLabel
-										key={type}
-										value={type}
-										control={<Checkbox />}
-										label={type}
-									/>
-								</Grid>
-							))}
-						</Grid>
-					</RadioGroup>
+
+					<Grid container spacing={0} className={classes.gridTxtAlign}>
+						{aboutYouSogOptions.map((type, index) => (
+							<Grid item xs={4}>
+								<FormControlLabel
+									key={type}
+									value={type}
+									control={<Checkbox />}
+									label={type}
+									name="sogIdentity"
+									onChange={handleChangeArray}
+								/>
+							</Grid>
+						))}
+					</Grid>
+
 					<AsylumConnectButton
 						// disabled={isOrgValid() === false ? true : false}
 						testIdName="sign-up-form-next-button"
@@ -956,24 +949,21 @@ const SignupForm = (props) => {
 					<Typography className={classes.formQuestion2} variant="h3">
 						(Select all that apply)
 					</Typography>
-					<RadioGroup
-						name="ethnicityRace"
-						onChange={handleChange}
-						required={true}
-					>
-						<Grid container spacing={0} className={classes.gridTxtAlign}>
-							{aboutYouEthnicityOptions.map((type, index) => (
-								<Grid item xs={6}>
-									<FormControlLabel
-										key={type}
-										value={type}
-										control={<Checkbox />}
-										label={type}
-									/>
-								</Grid>
-							))}
-						</Grid>
-					</RadioGroup>
+
+					<Grid container spacing={0} className={classes.gridTxtAlign}>
+						{aboutYouEthnicityOptions.map((type, index) => (
+							<Grid item xs={6}>
+								<FormControlLabel
+									key={type}
+									value={type}
+									control={<Checkbox />}
+									label={type}
+									name="ethnicityRace"
+									onChange={handleChangeArray}
+								/>
+							</Grid>
+						))}
+					</Grid>
 					<AsylumConnectButton
 						// disabled={isOrgValid() === false ? true : false}
 						testIdName="sign-up-form-next-button"

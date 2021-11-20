@@ -23,12 +23,13 @@ class SignupFormContainer extends React.Component {
 			orgType: 'Legal nonprofit',
 			immigrationStatus: '',
 			countryOfOrigin: '',
-			ethnicityRace: '',
-			sogIdentity: '',
+			ethnicityRace: [],
+			sogIdentity: [],
 			age: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleChangeArray = this.handleChangeArray.bind(this);
 		this.handleCreateAffiliation = this.handleCreateAffiliation.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleStepNext = this.handleStepNext.bind(this);
@@ -40,8 +41,21 @@ class SignupFormContainer extends React.Component {
 	handleChange(event) {
 		const {name, value} = event.target;
 		this.setState({[name]: value});
-		console.log(name);
-		console.log(value);
+	}
+
+	handleChangeArray(event, isChecked) {
+		console.log(event.target.name, event.target.value, isChecked);
+		let tempArray = [];
+		if (event.target.name === 'sogIdentity') {
+			tempArray = this.state.sogIdentity.slice();
+			tempArray.push(event.target.value);
+			this.setState({sogIdentity: tempArray});
+		}
+		if (event.target.name === 'ethnicityRace') {
+			tempArray = this.state.ethnicityRace.slice();
+			tempArray.push(event.target.value);
+			this.setState({ethnicityRace: tempArray});
+		}
 	}
 
 	handleSelect(type) {
@@ -123,7 +137,6 @@ class SignupFormContainer extends React.Component {
 
 	handleUpdateUser(event) {
 		event.preventDefault();
-		console.log(event.target.name);
 		this.handleStepNext();
 		// 		updateEmail(newEmail) {
 		// 	updateUser(this.state.userData, {email: newEmail})
@@ -218,6 +231,7 @@ class SignupFormContainer extends React.Component {
 				{...this.props}
 				{...this.state}
 				handleChange={this.handleChange}
+				handleChangeArray={this.handleChangeArray}
 				handleCreateAffiliation={this.handleCreateAffiliation}
 				handleSelect={this.handleSelect}
 				handleSignUp={this.handleSignUp}
