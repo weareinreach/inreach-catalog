@@ -40,6 +40,9 @@ const styles = (theme) => ({
 		height: '34px',
 		paddingLeft: '0',
 		paddingRight: '0'
+	},
+	dialogTitle: {
+		marginTop: '41px'
 	}
 });
 

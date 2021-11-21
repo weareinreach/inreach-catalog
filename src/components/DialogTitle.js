@@ -6,10 +6,7 @@ import classNames from 'classnames';
 
 const styles = (theme) => ({
 	title: {paddingBottom: theme.spacing(2), textAlign: 'center'},
-	wordWrap: 'break-word',
-	primary: {
-		marginTop: '32px'
-	}
+	wordWrap: 'break-word'
 });
 
 const DialogTitle = ({children, classes, variant, className}) => (
