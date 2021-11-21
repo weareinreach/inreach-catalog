@@ -113,11 +113,19 @@ const styles = (theme) => ({
 		lineHeight: '24.51px',
 		marginBottom: '24px'
 	},
+	formQuestion1: {
+		textAlign: 'left',
+		fontSize: '16px',
+		fontWeight: '600',
+		lineHeight: '24.51px',
+		marginBottom: '8px'
+	},
 	formQuestion2: {
 		textAlign: 'left',
 		fontSize: '16px',
 		fontWeight: '400',
-		lineHeight: '20px'
+		lineHeight: '20px',
+		marginBottom: '24px'
 	},
 	formStatement: {
 		textAlign: 'center',
@@ -125,6 +133,15 @@ const styles = (theme) => ({
 		fontWeight: '400',
 		lineHeight: '24px',
 		marginTop: '24px'
+	},
+	formLabel: {
+		fontSize: '14px',
+		fontWeight: '600',
+		lineHeight: '19px',
+		textAlign: 'left',
+		paddingLeft: '.25rem',
+		marginBottom: '.25rem',
+		marginTop: '1rem'
 	},
 	labels: {
 		textAlign: 'left',
@@ -243,7 +260,10 @@ const SignupForm = (props) => {
 		countryOfOrigin,
 		sogIdentity,
 		ethnicityRace,
-		age
+		age,
+		specifiedCountry,
+		specifiedIdentity,
+		specifiedEthnicity
 	} = props;
 
 	const [touchedName, setTouchedName] = useState(false);
@@ -254,6 +274,9 @@ const SignupForm = (props) => {
 	const [touchedOrgName, setTouchedOrgName] = useState(false);
 	const [touchedPosition, setTouchedPosition] = useState(false);
 	const [touchedReason, setTouchedReason] = useState(false);
+	const [touchedCountry, setTouchedCountry] = useState(false);
+	const [touchedIdentity, setTouchedIdentity] = useState(false);
+	const [touchedEthnicity, setTouchedEthnicity] = useState(false);
 
 	const dialogTitle =
 		activeStep < 3 ? (
@@ -323,7 +346,7 @@ const SignupForm = (props) => {
 		'Dreamer (DATA recipient)',
 		'Refugee',
 		'Immigrant',
-		'None of the above',
+		'None of these apply to me',
 		'Prefer not to say'
 	];
 	const aboutYouCountryOptions = [
@@ -411,6 +434,18 @@ const SignupForm = (props) => {
 
 	const handleTouchReason = () => {
 		setTouchedReason(true);
+	};
+
+	const handleTouchCountry = () => {
+		setTouchedCountry(true);
+	};
+
+	const handleTouchIdentity = () => {
+		setTouchedIdentity(true);
+	};
+
+	const handleTouchEthnicity = () => {
+		setTouchedEthnicity(true);
 	};
 
 	const isValid = () => {
@@ -875,7 +910,7 @@ const SignupForm = (props) => {
 					data-test-id="about-you-organization"
 				>
 					<FormLabel
-						className={classes.labels}
+						className={classes.formLabel}
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
@@ -902,7 +937,7 @@ const SignupForm = (props) => {
 						}}
 					/>
 					<FormLabel
-						className={classes.labels}
+						className={classes.formLabel}
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
@@ -929,7 +964,7 @@ const SignupForm = (props) => {
 						}}
 					/>
 					<FormLabel
-						className={classes.labels}
+						className={classes.formLabel}
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
@@ -957,7 +992,7 @@ const SignupForm = (props) => {
 					/>
 					<AsylumConnectButton
 						disabled={isValid() === false ? true : false}
-						testIdName="sign-up-form-submit-button"
+						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn2}
 					>
@@ -990,7 +1025,7 @@ const SignupForm = (props) => {
 					</RadioGroup>
 					<AsylumConnectButton
 						// disabled={isOrgValid() === false ? true : false}
-						testIdName="sign-up-form-next-button"
+						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
 					>
@@ -1021,9 +1056,54 @@ const SignupForm = (props) => {
 							))}
 						</Grid>
 					</RadioGroup>
+					{countryOfOrigin.includes('Other (specify)') ? (
+						<>
+							<FormLabel
+								required
+								className={classes.labels}
+								classes={classes.fontWeightMedium}
+								margin="none"
+							>
+								I am from...
+							</FormLabel>
+							<TextField
+								onBlur={handleTouchCountry}
+								error={
+									touchedCountry && nameTest.test(specifiedCountry) === false
+								}
+								helperText={
+									handleTouchCountry &&
+									nameTest.test(specifiedCountry) === false ? (
+										<FormattedMessage id="error.org-format" />
+									) : touchedCountry &&
+									  nameTest.test(specifiedCountry) === true ? (
+										<FormattedMessage id="form.org-valid" />
+									) : null
+								}
+								id="specifiedCountry"
+								margin="none"
+								name="specifiedCountry"
+								onChange={handleChange}
+								required
+								type="text"
+								value={specifiedCountry}
+								placeholder="Specify here"
+								data-test-id="about-you-country"
+								InputLabelProps={{shrink: true}}
+								variant="outlined"
+								className={classes.borderOutline}
+								InputProps={{
+									classes: {
+										input: classes.borderOutline,
+										notchedOutline: classes.borderOutline
+									}
+								}}
+							/>
+						</>
+					) : null}
 					<AsylumConnectButton
 						// disabled={isOrgValid() === false ? true : false}
-						testIdName="sign-up-form-next-button"
+						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
 					>
@@ -1033,7 +1113,7 @@ const SignupForm = (props) => {
 			)}
 			{activeStep === 8 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
-					<Typography className={classes.formQuestion} variant="h3">
+					<Typography className={classes.formQuestion1} variant="h3">
 						I identify as..
 					</Typography>
 					<Typography className={classes.formQuestion2} variant="h3">
@@ -1054,10 +1134,54 @@ const SignupForm = (props) => {
 							</Grid>
 						))}
 					</Grid>
-
+					{sogIdentity.includes('Other (specify)') ? (
+						<>
+							<FormLabel
+								required
+								className={classes.labels}
+								classes={classes.fontWeightMedium}
+								margin="none"
+							>
+								I identify as..
+							</FormLabel>
+							<TextField
+								onBlur={handleTouchIdentity}
+								error={
+									touchedIdentity && nameTest.test(specifiedIdentity) === false
+								}
+								helperText={
+									handleTouchIdentity &&
+									nameTest.test(specifiedIdentity) === false ? (
+										<FormattedMessage id="error.org-format" />
+									) : touchedCountry &&
+									  nameTest.test(specifiedIdentity) === true ? (
+										<FormattedMessage id="form.org-valid" />
+									) : null
+								}
+								id="specifiedIdentity"
+								margin="none"
+								name="specifiedIdentity"
+								onChange={handleChange}
+								required
+								type="text"
+								value={specifiedIdentity}
+								placeholder="Specify here"
+								data-test-id="about-you-sogIdentity"
+								InputLabelProps={{shrink: true}}
+								variant="outlined"
+								className={classes.borderOutline}
+								InputProps={{
+									classes: {
+										input: classes.borderOutline,
+										notchedOutline: classes.borderOutline
+									}
+								}}
+							/>
+						</>
+					) : null}
 					<AsylumConnectButton
 						// disabled={isOrgValid() === false ? true : false}
-						testIdName="sign-up-form-next-button"
+						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
 					>
@@ -1067,7 +1191,7 @@ const SignupForm = (props) => {
 			)}
 			{activeStep === 9 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
-					<Typography className={classes.formQuestion} variant="h3">
+					<Typography className={classes.formQuestion1} variant="h3">
 						My ethnicity/race is..
 					</Typography>
 					<Typography className={classes.formQuestion2} variant="h3">
@@ -1088,9 +1212,55 @@ const SignupForm = (props) => {
 							</Grid>
 						))}
 					</Grid>
+					{ethnicityRace.includes('Other (specify)') ? (
+						<>
+							<FormLabel
+								required
+								className={classes.labels}
+								classes={classes.fontWeightMedium}
+								margin="none"
+							>
+								I identify as..
+							</FormLabel>
+							<TextField
+								onBlur={handleTouchEthnicity}
+								error={
+									touchedEthnicity &&
+									nameTest.test(specifiedEthnicity) === false
+								}
+								helperText={
+									handleTouchEthnicity &&
+									nameTest.test(specifiedEthnicity) === false ? (
+										<FormattedMessage id="error.org-format" />
+									) : touchedCountry &&
+									  nameTest.test(specifiedEthnicity) === true ? (
+										<FormattedMessage id="form.org-valid" />
+									) : null
+								}
+								id="specifiedEthnicity"
+								margin="none"
+								name="specifiedEthnicity"
+								onChange={handleChange}
+								required
+								type="text"
+								value={specifiedEthnicity}
+								placeholder="Specify here"
+								data-test-id="about-you-ethnicity"
+								InputLabelProps={{shrink: true}}
+								variant="outlined"
+								className={classes.borderOutline}
+								InputProps={{
+									classes: {
+										input: classes.borderOutline,
+										notchedOutline: classes.borderOutline
+									}
+								}}
+							/>
+						</>
+					) : null}
 					<AsylumConnectButton
 						// disabled={isOrgValid() === false ? true : false}
-						testIdName="sign-up-form-next-button"
+						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
 					>
