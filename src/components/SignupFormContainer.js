@@ -19,13 +19,17 @@ class SignupFormContainer extends React.Component {
 			passwordConfirmation: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
-			currentLocation: 'xx',
-			orgType: 'Legal nonprofit',
+			currentLocation: '',
+			orgType: '',
 			immigrationStatus: '',
 			countryOfOrigin: '',
 			ethnicityRace: [],
 			sogIdentity: [],
-			age: ''
+			age: '',
+			specifiedOrgType: '',
+			specifiedCountry: '',
+			specifiedIdentity: '',
+			specifiedEthnicity: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -159,12 +163,68 @@ class SignupFormContainer extends React.Component {
 
 	handleUpdateUser(event) {
 		event.preventDefault();
+		//get all of the state values
+		const {
+			age,
+			ethnicityRace,
+			countryOfOrigin,
+			sogIdentity,
+			immigrationStatus,
+			orgName,
+			orgPositionTitle,
+			reasonForJoining,
+			specifiedCountry,
+			specifiedIdentity,
+			specifiedEthnicity
+		} = this.state;
+
+		//if 'Other' is selected, need to push the specified value into the array
+		if (
+			specifiedIdentity &&
+			specifiedIdentity !== '' &&
+			sogIdentity.includes('Other (specify)') &&
+			!sogIdentity.includes(specifiedIdentity)
+		) {
+			let tempObj = {
+				target: {name: 'sogIdentity', value: specifiedIdentity}
+			};
+			this.handleChangeArray(tempObj, true);
+		}
+
+		if (
+			specifiedEthnicity &&
+			specifiedEthnicity !== '' &&
+			ethnicityRace.includes('Other (specify)') &&
+			!ethnicityRace.includes(specifiedEthnicity)
+		) {
+			let tempObj = {
+				target: {name: 'ethnicityRace', value: specifiedEthnicity}
+			};
+			this.handleChangeArray(tempObj, true);
+		}
+
+		const body = {
+			age,
+			ethnicityRace,
+			countryOfOrigin:
+				countryOfOrigin === 'Other (specify)'
+					? specifiedCountry
+					: countryOfOrigin,
+			sogIdentity,
+			immigrationStatus,
+			orgName,
+			orgPositionTitle,
+			reasonForJoining
+		};
+
+		console.log('sfc body: ', body);
+
 		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
 			this.props.handleRequestOpen('thankyou');
 		} else {
 			this.handleStepNext();
 		}
-		// 		updateEmail(newEmail) {
+		// 	updateEmail(newEmail) {
 		// 	updateUser(this.state.userData, {email: newEmail})
 		// 		.then((data) => {
 		// 			this.setState({userData: data.user, isEmailUpdated: true});
@@ -185,8 +245,10 @@ class SignupFormContainer extends React.Component {
 			passwordConfirmation,
 			selection,
 			currentLocation,
-			orgType
+			orgType,
+			specifiedOrgType
 		} = this.state;
+
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
 		const emailTest = new RegExp(/\S+@\S+\.\S+/);
 		const pswdTest = new RegExp(
@@ -210,7 +272,7 @@ class SignupFormContainer extends React.Component {
 			password,
 			name,
 			currentLocation,
-			orgType
+			orgType: specifiedOrgType === '' ? orgType : specifiedOrgType
 		};
 
 		const handleError = () =>

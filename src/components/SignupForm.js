@@ -482,6 +482,7 @@ const SignupForm = (props) => {
 		return false;
 	};
 
+	const isOtherValid = () => {};
 	return (
 		<div
 			className={classes.container}
@@ -636,6 +637,7 @@ const SignupForm = (props) => {
 										value={type}
 										control={<Radio />}
 										label={type}
+										checked={orgType.includes(type)}
 									/>
 								</Grid>
 							))}
@@ -869,7 +871,7 @@ const SignupForm = (props) => {
 						className={classes.cursor}
 						variant="body1"
 						data-test-id="sign-up-form-skip-text"
-						onClick={() => handleRequestOpen('thankyou')}
+						onClick={() => handleStepNext()}
 					>
 						<FormattedMessage id="action.skip" />
 					</Typography>
@@ -1018,6 +1020,7 @@ const SignupForm = (props) => {
 										value={type}
 										control={<Radio />}
 										label={type}
+										checked={immigrationStatus.includes(type)}
 									/>
 								</Grid>
 							))}
@@ -1051,12 +1054,13 @@ const SignupForm = (props) => {
 										value={type}
 										control={<Radio />}
 										label={type}
+										checked={countryOfOrigin === type}
 									/>
 								</Grid>
 							))}
 						</Grid>
 					</RadioGroup>
-					{countryOfOrigin.includes('Other (specify)') ? (
+					{countryOfOrigin === 'Other (specify)' ? (
 						<>
 							<FormLabel
 								required
@@ -1064,7 +1068,7 @@ const SignupForm = (props) => {
 								classes={classes.fontWeightMedium}
 								margin="none"
 							>
-								I am from...
+								My home country is located in..
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchCountry}
@@ -1087,7 +1091,7 @@ const SignupForm = (props) => {
 								required
 								type="text"
 								value={specifiedCountry}
-								placeholder="Specify here"
+								placeholder="Ex Indian Ocean"
 								data-test-id="about-you-country"
 								InputLabelProps={{shrink: true}}
 								variant="outlined"
@@ -1102,7 +1106,10 @@ const SignupForm = (props) => {
 						</>
 					) : null}
 					<AsylumConnectButton
-						// disabled={isOrgValid() === false ? true : false}
+						disabled={
+							countryOfOrigin.includes('Other (specify)') &&
+							nameTest.test(specifiedCountry) === false
+						}
 						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
@@ -1130,6 +1137,7 @@ const SignupForm = (props) => {
 									label={type}
 									name="sogIdentity"
 									onChange={handleChangeArray}
+									checked={sogIdentity.includes(type)}
 								/>
 							</Grid>
 						))}
@@ -1180,7 +1188,10 @@ const SignupForm = (props) => {
 						</>
 					) : null}
 					<AsylumConnectButton
-						// disabled={isOrgValid() === false ? true : false}
+						disabled={
+							sogIdentity.includes('Other (specify)') &&
+							nameTest.test(specifiedIdentity) === false
+						}
 						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
@@ -1208,6 +1219,7 @@ const SignupForm = (props) => {
 									label={type}
 									name="ethnicityRace"
 									onChange={handleChangeArray}
+									checked={ethnicityRace.includes(type)}
 								/>
 							</Grid>
 						))}
@@ -1220,7 +1232,7 @@ const SignupForm = (props) => {
 								classes={classes.fontWeightMedium}
 								margin="none"
 							>
-								I identify as..
+								My ethnicity/race is..
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchEthnicity}
@@ -1259,7 +1271,10 @@ const SignupForm = (props) => {
 						</>
 					) : null}
 					<AsylumConnectButton
-						// disabled={isOrgValid() === false ? true : false}
+						disabled={
+							ethnicityRace.includes('Other (specify)') &&
+							nameTest.test(specifiedEthnicity) === false
+						}
 						testIdName="about-you-next-button"
 						variant="primary"
 						className={classes.nextBtn}
