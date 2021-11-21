@@ -13,10 +13,9 @@ class SignupFormContainer extends React.Component {
 
 		this.state = {
 			activeStep: 0,
-			email: 'a@a.ca',
-			name: 'xx',
-			password: 'xxxxxxxX1@',
-			passwordConfirmation: '',
+			email: '',
+			name: '',
+			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
 			currentLocation: '',
@@ -163,6 +162,10 @@ class SignupFormContainer extends React.Component {
 
 	handleUpdateUser(event) {
 		event.preventDefault();
+
+		const {handleMessageNew, organizationSelection, session, userData} =
+			this.props;
+
 		//get all of the state values
 		const {
 			age,
@@ -178,7 +181,7 @@ class SignupFormContainer extends React.Component {
 			specifiedEthnicity
 		} = this.state;
 
-		//if 'Other' is selected, need to push the specified value into the array
+		//if 'Other' is selected for a multi-select, need to push the specified value into the array
 		if (
 			specifiedIdentity &&
 			specifiedIdentity !== '' &&
@@ -203,6 +206,8 @@ class SignupFormContainer extends React.Component {
 			this.handleChangeArray(tempObj, true);
 		}
 
+		// if countryoforigin state is 'other', need to set it to the specified value before saving
+		// don't want to change the state directly, else th "Other" checkbox won't be checked
 		const body = {
 			age,
 			ethnicityRace,
@@ -217,21 +222,20 @@ class SignupFormContainer extends React.Component {
 			reasonForJoining
 		};
 
-		console.log('sfc body: ', body);
+		updateUser(userData, body)
+			.then((data) => {
+				this.setState({userData: data.user});
+				// this.props.handleMessageNew('Your email has been updated.');
+			})
+			.catch((error) => console.og(error));
+		//if error, send to screen
 
+		//determine next step in the workflow
 		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
 			this.props.handleRequestOpen('thankyou');
 		} else {
 			this.handleStepNext();
 		}
-		// 	updateEmail(newEmail) {
-		// 	updateUser(this.state.userData, {email: newEmail})
-		// 		.then((data) => {
-		// 			this.setState({userData: data.user, isEmailUpdated: true});
-		// 			this.props.handleMessageNew('Your email has been updated.');
-		// 		})
-		// 		.catch((error) => this.handleOdasError(error));
-		// }
 	}
 
 	handleSignUp(event) {
@@ -242,7 +246,6 @@ class SignupFormContainer extends React.Component {
 			email,
 			name,
 			password,
-			passwordConfirmation,
 			selection,
 			currentLocation,
 			orgType,
