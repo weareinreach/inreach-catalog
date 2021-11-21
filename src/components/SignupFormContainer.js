@@ -44,7 +44,6 @@ class SignupFormContainer extends React.Component {
 	}
 
 	handleChangeArray(event, isChecked) {
-		console.log(event.target.name, event.target.value, isChecked);
 		let tempArray = [];
 
 		//add to sogIdentity array
@@ -160,7 +159,11 @@ class SignupFormContainer extends React.Component {
 
 	handleUpdateUser(event) {
 		event.preventDefault();
-		this.handleStepNext();
+		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
+			this.props.handleRequestOpen('thankyou');
+		} else {
+			this.handleStepNext();
+		}
 		// 		updateEmail(newEmail) {
 		// 	updateUser(this.state.userData, {email: newEmail})
 		// 		.then((data) => {
@@ -234,8 +237,6 @@ class SignupFormContainer extends React.Component {
 
 					this.props.handleLogIn(auth.token);
 					if (!isProfessional) {
-						// handleRequestClose();
-						// handleRequestOpen('thankyou');
 						this.setState(
 							{activeStep: this.state.seekerSteps[2]},
 							function () {}

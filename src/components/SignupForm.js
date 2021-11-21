@@ -73,7 +73,9 @@ const styles = (theme) => ({
 		fontSize: '16px',
 		fontWeight: '400',
 		lineHeight: '24px',
-		marginBottom: '64px'
+		marginBottom: '64px',
+		marginLeft: '48px',
+		marginRight: '48px'
 	},
 	marginBottom: {marginBottom: '2rem'},
 	marginBottomLg: {marginBottom: '3rem'},
@@ -136,6 +138,14 @@ const styles = (theme) => ({
 	nextBtn: {
 		marginTop: '24px',
 		marginBottom: 'unset'
+	},
+	nextBtn2: {
+		marginTop: '48px',
+		marginBottom: 'unset'
+	},
+	sideMargin: {
+		marginLeft: '48px',
+		marginRight: '48px'
 	},
 	borderOutline: {
 		borderWidth: '2px',
@@ -250,19 +260,18 @@ const SignupForm = (props) => {
 			<FormattedMessage id="account.sign-up" />
 		) : activeStep === 3 || activeStep === 4 ? (
 			<FormattedMessage id="organization-affiliation-title" />
-		) : activeStep > 4 && activeStep < 12 ? (
+		) : activeStep > 4 && activeStep < 11 ? (
 			<FormattedMessage id="account.signup-about-you" />
 		) : null;
 
 	const dialogSubTitle =
 		activeStep < 3 ? (
 			<FormattedMessage id="account.signup-subtitle" />
-		) : (activeStep === 3 || activeStep === 4) && selection === LAWYER_TYPE ? (
+		) : activeStep === 3 && selection === LAWYER_TYPE ? (
 			<FormattedMessage id="organization-law-affiliation-subtitle" />
-		) : (activeStep === 3 || activeStep === 4) &&
-		  selection === PROVIDER_TYPE ? (
+		) : activeStep === 3 && selection === PROVIDER_TYPE ? (
 			<FormattedMessage id="organization-provider-affiliation-subtitle" />
-		) : activeStep > 4 && activeStep < 12 ? (
+		) : activeStep > 4 && activeStep < 11 ? (
 			<FormattedMessage id="account.signup-about-you-subtitle" />
 		) : null;
 
@@ -444,7 +453,9 @@ const SignupForm = (props) => {
 			data-test-id="sign-up-form-base-container"
 		>
 			<DialogTitle>{dialogTitle}</DialogTitle>
-			<DialogSubTitle>{dialogSubTitle}</DialogSubTitle>
+			<DialogSubTitle className={classes.sideMargin}>
+				{dialogSubTitle}
+			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			{activeStep === 0 && (
 				<div data-test-id="sign-up-catalog-type">
@@ -830,7 +841,7 @@ const SignupForm = (props) => {
 				</form>
 			)}
 			{activeStep === 4 && (
-				<form onSubmit={handleStepNext}>
+				<form className={classes.formContainer} onSubmit={handleStepNext}>
 					<div className={classes.marginVertical}>
 						<Typography
 							variant="body1"
@@ -851,9 +862,8 @@ const SignupForm = (props) => {
 						<AsylumConnectButton
 							variant="primary"
 							testIdName="sign-up-form-finish-registration-button"
-							// onClick={() => handleRequestOpen('thankyou')}
 						>
-							<FormattedMessage id="account.finish-registration" />
+							<FormattedMessage id="navigation.next" />
 						</AsylumConnectButton>
 					</div>
 				</form>
@@ -865,7 +875,6 @@ const SignupForm = (props) => {
 					data-test-id="about-you-organization"
 				>
 					<FormLabel
-						required
 						className={classes.labels}
 						classes={classes.fontWeightMedium}
 						margin="none"
@@ -874,19 +883,10 @@ const SignupForm = (props) => {
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchOrgName}
-						error={touchedOrgName && nameTest.test(orgName) === false}
-						helperText={
-							touchedOrgName && nameTest.test(orgName) === false ? (
-								<FormattedMessage id="error.name-format" />
-							) : touchedOrgName && nameTest.test(orgName) === true ? (
-								<FormattedMessage id="form.name-valid" />
-							) : null
-						}
 						id="orgName"
 						margin="none"
 						name="orgNname"
 						onChange={handleChange}
-						required
 						type="text"
 						value={orgName ?? ''}
 						placeholder="John Smith"
@@ -901,24 +901,19 @@ const SignupForm = (props) => {
 							}
 						}}
 					/>
-					<FormLabel required className={classes.labels} margin="none">
+					<FormLabel
+						className={classes.labels}
+						classes={classes.fontWeightMedium}
+						margin="none"
+					>
 						Position Title
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchPosition}
-						error={touchedPosition && nameTest.test(email) === false}
-						helperText={
-							touchedPosition && nameTest.test(email) === false ? (
-								<FormattedMessage id="error.email-format" />
-							) : touchedPosition && emailTest.test(email) === true ? (
-								<FormattedMessage id="form.email-valid" />
-							) : null
-						}
 						id="orgPositionTitle"
 						margin="none"
 						name="orgPositionTitle"
 						onChange={handleChange}
-						required
 						type="text"
 						value={orgPositionTitle}
 						placeholder="Your position in the organization"
@@ -933,27 +928,22 @@ const SignupForm = (props) => {
 							}
 						}}
 					/>
-					<FormLabel required className={classes.labels} margin="none">
+					<FormLabel
+						className={classes.labels}
+						classes={classes.fontWeightMedium}
+						margin="none"
+					>
 						Reason for joining
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchReason}
-						error={touchedReason && name.test(reasonForJoining) === false}
-						helperText={
-							touchedReason && name.test(reasonForJoining) === false ? (
-								<FormattedMessage id="error.password-format" />
-							) : touchedReason && name.test(reasonForJoining) === true ? (
-								<FormattedMessage id="form.password-valid" />
-							) : null
-						}
 						id="reasonForJoining"
 						margin="none"
 						name="reasonForJoining"
 						onChange={handleChange}
-						required
 						type="text"
 						value={reasonForJoining}
-						placeholder="***"
+						placeholder="I joined AsylumConnect because.."
 						data-test-id="about-you-organization-reason"
 						InputLabelProps={{shrink: true}}
 						variant="outlined"
@@ -969,7 +959,7 @@ const SignupForm = (props) => {
 						disabled={isValid() === false ? true : false}
 						testIdName="sign-up-form-submit-button"
 						variant="primary"
-						className={classes.noBottomMargin}
+						className={classes.nextBtn2}
 					>
 						<FormattedMessage id="navigation.next" />
 					</AsylumConnectButton>
@@ -1137,7 +1127,7 @@ const SignupForm = (props) => {
 					</AsylumConnectButton>
 				</form>
 			)}
-			{activeStep > 5 && activeStep < 11 && (
+			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
 					You may complete this information later in Account Settings.
 				</Typography>
@@ -1145,7 +1135,7 @@ const SignupForm = (props) => {
 			{activeStep < 3 && (
 				<MobileStepper
 					className={
-						classes.stepperSpacing0 + ' ' + classes.backgroundTransparent
+						classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
 					}
 					type="dots"
 					steps={selection === SEEKER_TYPE || selection === '' ? 2 : 3}
@@ -1159,15 +1149,30 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{activeStep >= 3 && selection != SEEKER_TYPE && (
+			{(activeStep >= 3 && selection !== SEEKER_TYPE) ||
+				activeStep !== 5 ||
+				(activeStep !== 2 && (
+					<MobileStepper
+						className={
+							classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+						}
+						type="dots"
+						steps={2}
+						position="static"
+						activeStep={activeStep - 3}
+						nextButton={<div />}
+						backButton={<div />}
+					/>
+				))}
+			{activeStep === 5 && (
 				<MobileStepper
 					className={
-						classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+						classes.stepperSpacing2 + ' ' + classes.backgroundTransparent
 					}
 					type="dots"
-					steps={2}
+					steps={1}
 					position="static"
-					activeStep={activeStep - 3}
+					activeStep={0}
 					nextButton={<div />}
 					backButton={<div />}
 				/>
