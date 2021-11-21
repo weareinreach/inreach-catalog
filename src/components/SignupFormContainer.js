@@ -46,15 +46,38 @@ class SignupFormContainer extends React.Component {
 	handleChangeArray(event, isChecked) {
 		console.log(event.target.name, event.target.value, isChecked);
 		let tempArray = [];
-		if (event.target.name === 'sogIdentity') {
+
+		//add to sogIdentity array
+		if (event.target.name === 'sogIdentity' && isChecked) {
 			tempArray = this.state.sogIdentity.slice();
 			tempArray.push(event.target.value);
 			this.setState({sogIdentity: tempArray});
 		}
+		//remove from sogIdentity array
+		if (event.target.name === 'sogIdentity' && !isChecked) {
+			tempArray = [...this.state.sogIdentity]; // make a separate copy of the array
+			let index = tempArray.indexOf(event.target.value);
+			if (index !== -1) {
+				tempArray.splice(index, 1);
+				this.setState({sogIdentity: tempArray});
+			}
+		}
+
+		//add to ethnicityRace array
 		if (event.target.name === 'ethnicityRace') {
 			tempArray = this.state.ethnicityRace.slice();
 			tempArray.push(event.target.value);
 			this.setState({ethnicityRace: tempArray});
+		}
+
+		//remove from ethnicityRace array
+		if (event.target.name === 'ethnicityRace' && !isChecked) {
+			tempArray = [...this.state.ethnicityRace]; // make a separate copy of the array
+			let index = tempArray.indexOf(event.target.value);
+			if (index !== -1) {
+				tempArray.splice(index, 1);
+				this.setState({ethnicityRace: tempArray});
+			}
 		}
 	}
 
