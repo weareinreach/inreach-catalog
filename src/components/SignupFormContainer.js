@@ -206,8 +206,8 @@ class SignupFormContainer extends React.Component {
 			this.handleChangeArray(tempObj, true);
 		}
 
-		// if countryoforigin state is 'other', need to set it to the specified value before saving
-		// don't want to change the state directly, else th "Other" checkbox won't be checked
+		// if countryOfOrigin state is 'other', need to set it to the specified value before saving
+		// don't want to change the state directly, else the "Other" checkbox won't be checked
 		const body = {
 			age,
 			ethnicityRace,
@@ -268,6 +268,8 @@ class SignupFormContainer extends React.Component {
 			return;
 		}
 
+		// if orgType state is 'other', need to set it to the specified value before saving
+		// don't want to change the state directly, else the "Other" radio button won't be checked
 		const body = {
 			catalogType: selection,
 			email,
@@ -275,7 +277,7 @@ class SignupFormContainer extends React.Component {
 			password,
 			name,
 			currentLocation,
-			orgType: specifiedOrgType === '' ? orgType : specifiedOrgType
+			orgType: orgType === 'Other (specify)' ? specifiedOrgType : orgType
 		};
 
 		const handleError = () =>
