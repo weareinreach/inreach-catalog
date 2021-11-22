@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -17,10 +17,21 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import {
+	aboutYouImmigrationOptions,
+	aboutYouCountryOptions,
+	aboutYouSogOptions,
+	aboutYouEthnicityOptions,
+	aboutYouAgeOptions
+} from '../data/aboutYouFormOptions';
+import {
+	organizationTypesLawyer,
+	organizationTypesProvider
+} from '../data/organizationTypeFormOptions';
+
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
-
 import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
 import OrganizationAutocomplete from './OrganizationAutocomplete';
 
@@ -112,6 +123,14 @@ const styles = (theme) => ({
 		fontWeight: '600',
 		lineHeight: '24.51px',
 		marginBottom: '24px'
+	},
+	formQuestion0: {
+		textAlign: 'left',
+		fontSize: '16px',
+		fontWeight: '600',
+		lineHeight: '24.51px',
+		marginBottom: '16px',
+		marginTop: '28px'
 	},
 	formQuestion1: {
 		textAlign: 'left',
@@ -247,10 +266,8 @@ const SignupForm = (props) => {
 		organizationSearch,
 		organizationSelection,
 		password,
-		passwordConfirmation,
 		selection,
 		currentLocation,
-		selectedOrgType,
 		orgType,
 		specifiedOrgType,
 		orgName,
@@ -265,6 +282,8 @@ const SignupForm = (props) => {
 		specifiedIdentity,
 		specifiedEthnicity
 	} = props;
+
+	const intl = useIntl();
 
 	const [touchedName, setTouchedName] = useState(false);
 	const [touchedEmail, setTouchedEmail] = useState(false);
@@ -282,7 +301,7 @@ const SignupForm = (props) => {
 		activeStep < 3 ? (
 			<FormattedMessage id="account.sign-up" />
 		) : activeStep === 3 || activeStep === 4 ? (
-			<FormattedMessage id="organization-affiliation-title" />
+			<FormattedMessage id="account.signup-organization-affiliation-title" />
 		) : activeStep > 4 && activeStep < 11 ? (
 			<FormattedMessage id="account.signup-about-you" />
 		) : null;
@@ -291,9 +310,9 @@ const SignupForm = (props) => {
 		activeStep < 3 ? (
 			<FormattedMessage id="account.signup-subtitle" />
 		) : activeStep === 3 && selection === LAWYER_TYPE ? (
-			<FormattedMessage id="organization-law-affiliation-subtitle" />
+			<FormattedMessage id="account.signup-organization-law-affiliation-subtitle" />
 		) : activeStep === 3 && selection === PROVIDER_TYPE ? (
-			<FormattedMessage id="organization-provider-affiliation-subtitle" />
+			<FormattedMessage id="account.signup-organization-provider-affiliation-subtitle" />
 		) : activeStep > 4 && activeStep < 11 ? (
 			<FormattedMessage id="account.signup-about-you-subtitle" />
 		) : null;
@@ -314,96 +333,28 @@ const SignupForm = (props) => {
 			<FormattedMessage id="form.lawyer-organization-name" />
 		);
 
-	const nameTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
+	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 	const emailTest = new RegExp(/\S+@\S+\.\S+/);
 	const pswdTest = new RegExp(
 		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
 	);
-	const locationTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
-	const organizationTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 
+	const orgTypeQuestion =
+		selection === LAWYER_TYPE ? (
+			<FormattedMessage id="account.signup-organization-orgType-lawyer" />
+		) : (
+			<FormattedMessage id="account.signup-organization-orgType-provider" />
+		);
 	const orgTypeOptions =
 		selection === LAWYER_TYPE
-			? [
-					'Corporate law firm',
-					'Law school student clinic',
-					'Legal nonprofit',
-					'Other (specify)'
-			  ]
-			: [
-					'Healthcare Provider',
-					'Government Agency',
-					'Nonprofit',
-					'Grassroots Direct Services Org',
-					'Student Club',
-					"N/A (I'm looking for safe resources for friends or family)",
-					'Other (specify)'
-			  ];
-
-	const aboutYouImmigrationOptions = [
-		'Asylum seeker',
-		'Asylee (granted asylum)',
-		'Dreamer (DATA recipient)',
-		'Refugee',
-		'Immigrant',
-		'None of these apply to me',
-		'Prefer not to say'
-	];
-	const aboutYouCountryOptions = [
-		'Africa',
-		'Asia',
-		'South America',
-		'Caribbean Islands',
-		'North America',
-		'Central America',
-		'Middle East',
-		'Europe',
-		'Prefer not to say',
-		'Other (specify)'
-	];
-	const aboutYouSogOptions = [
-		'Lesbian',
-		'Gay',
-		'Bisexual',
-		'Transgender',
-		'Queer',
-		'Questioning',
-		'Intersex',
-		'Asexual',
-		'Pansexual',
-		'Nonbinary',
-		'Ally',
-		'Straight',
-		'Woman',
-		'Man',
-		'Prefer not to say',
-		'Other (specify)'
-	];
-	const aboutYouEthnicityOptions = [
-		'African, Middle Eastern',
-		'African American, Black',
-		'Afro Caribbean, Black',
-		'Asian, Asian American',
-		'Hispanic/Latinx',
-		'Indian',
-		'Indigenous, Native Person',
-		'Pacific Islander',
-		'White, Caucasian',
-		'Prefer not to say',
-		'Other (specify)'
-	];
-	const aboutYouAgeOptions = [
-		'Under 18',
-		'18-25',
-		'26-35',
-		'36-45',
-		'46-55',
-		'56-65',
-		'66-75',
-		'76 and older',
-		'Prefer not to say'
-	];
-
+			? organizationTypesLawyer
+			: organizationTypesProvider;
+	const orgTypeOther =
+		selection === LAWYER_TYPE ? (
+			<FormattedMessage id="account.signup-organization-orgType-lawyer-other" />
+		) : (
+			<FormattedMessage id="account.signup-organization-orgType-provider-other" />
+		);
 	const handleTouchName = () => {
 		setTouchedName(true);
 	};
@@ -451,7 +402,7 @@ const SignupForm = (props) => {
 	const isValid = () => {
 		if (
 			name &&
-			nameTest.test(name) === true &&
+			textFieldTest.test(name) === true &&
 			email &&
 			emailTest.test(email) === true &&
 			password &&
@@ -466,14 +417,14 @@ const SignupForm = (props) => {
 	const isOrgValid = () => {
 		if (
 			name &&
-			nameTest.test(name) === true &&
+			textFieldTest.test(name) === true &&
 			currentLocation &&
-			locationTest.test(currentLocation) === true
+			textFieldTest.test(currentLocation) === true
 		) {
 			if (
 				(orgType && orgType !== 'Other (specify)') ||
 				(orgType === 'Other (specify)' &&
-					organizationTest.test(specifiedOrgType) === true)
+					textFieldTest.test(specifiedOrgType) === true)
 			) {
 				return true;
 			}
@@ -482,7 +433,6 @@ const SignupForm = (props) => {
 		return false;
 	};
 
-	const isOtherValid = () => {};
 	return (
 		<div
 			className={classes.container}
@@ -550,12 +500,18 @@ const SignupForm = (props) => {
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchName}
-						error={touchedName && nameTest.test(name) === false}
+						error={touchedName && textFieldTest.test(name) === false}
 						helperText={
-							touchedName && nameTest.test(name) === false ? (
-								<FormattedMessage id="error.name-format" />
-							) : touchedName && nameTest.test(name) === true ? (
-								<FormattedMessage id="form.name-valid" />
+							touchedName && textFieldTest.test(name) === false ? (
+								<FormattedMessage
+									id="error.text-field"
+									values={{field: 'Name'}}
+								/>
+							) : touchedName && textFieldTest.test(name) === true ? (
+								<FormattedMessage
+									id="form.field-valid"
+									values={{field: 'name'}}
+								/>
 							) : null
 						}
 						id="name"
@@ -583,20 +539,26 @@ const SignupForm = (props) => {
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
-						Current Location
+						<FormattedMessage id="account.signup-organization-location" />
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchLocation}
 						error={
-							touchedLocation && locationTest.test(currentLocation) === false
+							touchedLocation && textFieldTest.test(currentLocation) === false
 						}
 						helperText={
 							touchedLocation &&
-							locationTest.test(currentLocation) === false ? (
-								<FormattedMessage id="error.location-format" />
+							textFieldTest.test(currentLocation) === false ? (
+								<FormattedMessage
+									id="error.text-field"
+									values={{field: 'Location'}}
+								/>
 							) : touchedLocation &&
-							  locationTest.test(currentLocation) === true ? (
-								<FormattedMessage id="form.location-valid" />
+							  textFieldTest.test(currentLocation) === true ? (
+								<FormattedMessage
+									id="form.field-valid"
+									values={{field: 'location'}}
+								/>
 							) : null
 						}
 						id="currentLocation"
@@ -618,10 +580,8 @@ const SignupForm = (props) => {
 							}
 						}}
 					/>
-					<Typography className={classes.formQuestion} variant="h3">
-						{selection === LAWYER_TYPE
-							? 'Where do you practice law? *'
-							: 'Where do you work or volunteer? *'}
+					<Typography className={classes.formQuestion0} variant="h3">
+						{orgTypeQuestion}
 					</Typography>
 					<RadioGroup
 						name="orgType"
@@ -651,23 +611,27 @@ const SignupForm = (props) => {
 								classes={classes.fontWeightMedium}
 								margin="none"
 							>
-								{selection === LAWYER_TYPE
-									? 'I practice law here:'
-									: 'I work/volunteer here:'}
+								{orgTypeOther}
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchOrgType}
 								error={
 									touchedOrgType &&
-									organizationTest.test(specifiedOrgType) === false
+									textFieldTest.test(specifiedOrgType) === false
 								}
 								helperText={
 									touchedOrgType &&
-									organizationTest.test(specifiedOrgType) === false ? (
-										<FormattedMessage id="error.org-format" />
+									textFieldTest.test(specifiedOrgType) === false ? (
+										<FormattedMessage
+											id="error.text-field"
+											values={{field: 'Organization type'}}
+										/>
 									) : touchedOrgType &&
-									  locationTest.test(specifiedOrgType) === true ? (
-										<FormattedMessage id="form.org-valid" />
+									  textFieldTest.test(specifiedOrgType) === true ? (
+										<FormattedMessage
+											id="form.field-valid"
+											values={{field: 'organization type'}}
+										/>
 									) : null
 								}
 								id="specifiedOrgType"
@@ -677,7 +641,9 @@ const SignupForm = (props) => {
 								required
 								type="text"
 								value={specifiedOrgType}
-								placeholder="Specify here"
+								placeholder={intl.formatMessage({
+									id: 'account.signup-generic-placeholder'
+								})}
 								data-test-id="sign-up-form-orgType-input"
 								InputLabelProps={{shrink: true}}
 								variant="outlined"
@@ -719,12 +685,18 @@ const SignupForm = (props) => {
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchName}
-								error={touchedName && nameTest.test(name) === false}
+								error={touchedName && textFieldTest.test(name) === false}
 								helperText={
-									touchedName && nameTest.test(name) === false ? (
-										<FormattedMessage id="error.name-format" />
-									) : touchedName && nameTest.test(name) === true ? (
-										<FormattedMessage id="form.name-valid" />
+									touchedName && textFieldTest.test(name) === false ? (
+										<FormattedMessage
+											id="error.text-field"
+											values={{field: 'Name'}}
+										/>
+									) : touchedName && textFieldTest.test(name) === true ? (
+										<FormattedMessage
+											id="form.field-valid"
+											values={{field: 'name'}}
+										/>
 									) : null
 								}
 								id="name"
@@ -758,7 +730,10 @@ const SignupForm = (props) => {
 							touchedEmail && emailTest.test(email) === false ? (
 								<FormattedMessage id="error.email-format" />
 							) : touchedEmail && emailTest.test(email) === true ? (
-								<FormattedMessage id="form.email-valid" />
+								<FormattedMessage
+									id="form.field-valid"
+									values={{field: 'email'}}
+								/>
 							) : null
 						}
 						id="email"
@@ -790,7 +765,10 @@ const SignupForm = (props) => {
 							touchedPassword && pswdTest.test(password) === false ? (
 								<FormattedMessage id="error.password-format" />
 							) : touchedPassword && pswdTest.test(password) === true ? (
-								<FormattedMessage id="form.password-valid" />
+								<FormattedMessage
+									id="form.field-valid"
+									values={{field: 'password'}}
+								/>
 							) : null
 						}
 						id="password"
@@ -916,17 +894,19 @@ const SignupForm = (props) => {
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
-						Name of your firm or organization
+						<FormattedMessage id="aboutyou.organization-name" />
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchOrgName}
 						id="orgName"
 						margin="none"
-						name="orgNname"
+						name="orgName"
 						onChange={handleChange}
 						type="text"
-						value={orgName ?? ''}
-						placeholder="John Smith"
+						value={orgName}
+						placeholder={intl.formatMessage({
+							id: 'aboutyou.organization-name-placeholder'
+						})}
 						data-test-id="about-you-organization-name"
 						InputLabelProps={{shrink: true}}
 						variant="outlined"
@@ -943,7 +923,7 @@ const SignupForm = (props) => {
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
-						Position Title
+						<FormattedMessage id="aboutyou.organization-postion" />
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchPosition}
@@ -953,7 +933,9 @@ const SignupForm = (props) => {
 						onChange={handleChange}
 						type="text"
 						value={orgPositionTitle}
-						placeholder="Your position in the organization"
+						placeholder={intl.formatMessage({
+							id: 'aboutyou.organization-postion-placeholder'
+						})}
 						data-test-id="about-you-organization-position"
 						InputLabelProps={{shrink: true}}
 						variant="outlined"
@@ -970,7 +952,7 @@ const SignupForm = (props) => {
 						classes={classes.fontWeightMedium}
 						margin="none"
 					>
-						Reason for joining
+						<FormattedMessage id="aboutyou.organization-reason" />
 					</FormLabel>
 					<TextField
 						onBlur={handleTouchReason}
@@ -980,7 +962,9 @@ const SignupForm = (props) => {
 						onChange={handleChange}
 						type="text"
 						value={reasonForJoining}
-						placeholder="I joined AsylumConnect because.."
+						placeholder={intl.formatMessage({
+							id: 'aboutyou.organization-reason-placeholder'
+						})}
 						data-test-id="about-you-organization-reason"
 						InputLabelProps={{shrink: true}}
 						variant="outlined"
@@ -1005,7 +989,7 @@ const SignupForm = (props) => {
 			{activeStep === 6 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
-						I am a(n)..
+						<FormattedMessage id="aboutyou.immigration" />
 					</Typography>
 					<RadioGroup
 						name="immigrationStatus"
@@ -1039,7 +1023,7 @@ const SignupForm = (props) => {
 			{activeStep === 7 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
-						My country of origin is in..
+						<FormattedMessage id="aboutyou.country" />
 					</Typography>
 					<RadioGroup
 						name="countryOfOrigin"
@@ -1068,20 +1052,27 @@ const SignupForm = (props) => {
 								classes={classes.fontWeightMedium}
 								margin="none"
 							>
-								My home country is located in..
+								<FormattedMessage id="aboutyou.country-other" />
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchCountry}
 								error={
-									touchedCountry && nameTest.test(specifiedCountry) === false
+									touchedCountry &&
+									textFieldTest.test(specifiedCountry) === false
 								}
 								helperText={
 									handleTouchCountry &&
-									nameTest.test(specifiedCountry) === false ? (
-										<FormattedMessage id="error.org-format" />
+									textFieldTest.test(specifiedCountry) === false ? (
+										<FormattedMessage
+											id="error.text-field"
+											values={{field: 'Country'}}
+										/>
 									) : touchedCountry &&
-									  nameTest.test(specifiedCountry) === true ? (
-										<FormattedMessage id="form.org-valid" />
+									  textFieldTest.test(specifiedCountry) === true ? (
+										<FormattedMessage
+											id="form.field-valid"
+											values={{field: 'country'}}
+										/>
 									) : null
 								}
 								id="specifiedCountry"
@@ -1091,7 +1082,9 @@ const SignupForm = (props) => {
 								required
 								type="text"
 								value={specifiedCountry}
-								placeholder="Ex Indian Ocean"
+								placeholder={intl.formatMessage({
+									id: 'aboutyou.country-other-placeholder'
+								})}
 								data-test-id="about-you-country"
 								InputLabelProps={{shrink: true}}
 								variant="outlined"
@@ -1108,7 +1101,7 @@ const SignupForm = (props) => {
 					<AsylumConnectButton
 						disabled={
 							countryOfOrigin.includes('Other (specify)') &&
-							nameTest.test(specifiedCountry) === false
+							textFieldTest.test(specifiedCountry) === false
 						}
 						testIdName="about-you-next-button"
 						variant="primary"
@@ -1121,10 +1114,10 @@ const SignupForm = (props) => {
 			{activeStep === 8 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion1} variant="h3">
-						I identify as..
+						<FormattedMessage id="aboutyou.identity" />
 					</Typography>
 					<Typography className={classes.formQuestion2} variant="h3">
-						(Select all that apply)
+						<FormattedMessage id="aboutyou.select-all" />
 					</Typography>
 
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
@@ -1150,20 +1143,27 @@ const SignupForm = (props) => {
 								classes={classes.fontWeightMedium}
 								margin="none"
 							>
-								I identify as..
+								<FormattedMessage id="aboutyou.identity" />
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchIdentity}
 								error={
-									touchedIdentity && nameTest.test(specifiedIdentity) === false
+									touchedIdentity &&
+									textFieldTest.test(specifiedIdentity) === false
 								}
 								helperText={
 									handleTouchIdentity &&
-									nameTest.test(specifiedIdentity) === false ? (
-										<FormattedMessage id="error.org-format" />
+									textFieldTest.test(specifiedIdentity) === false ? (
+										<FormattedMessage
+											id="error.text-field"
+											values={{field: 'Self-Identity'}}
+										/>
 									) : touchedCountry &&
-									  nameTest.test(specifiedIdentity) === true ? (
-										<FormattedMessage id="form.org-valid" />
+									  textFieldTest.test(specifiedIdentity) === true ? (
+										<FormattedMessage
+											id="form.field-valid"
+											values={{field: 'self-identity'}}
+										/>
 									) : null
 								}
 								id="specifiedIdentity"
@@ -1173,7 +1173,9 @@ const SignupForm = (props) => {
 								required
 								type="text"
 								value={specifiedIdentity}
-								placeholder="Specify here"
+								placeholder={intl.formatMessage({
+									id: 'account.signup-generic-placeholder'
+								})}
 								data-test-id="about-you-sogIdentity"
 								InputLabelProps={{shrink: true}}
 								variant="outlined"
@@ -1190,7 +1192,7 @@ const SignupForm = (props) => {
 					<AsylumConnectButton
 						disabled={
 							sogIdentity.includes('Other (specify)') &&
-							nameTest.test(specifiedIdentity) === false
+							textFieldTest.test(specifiedIdentity) === false
 						}
 						testIdName="about-you-next-button"
 						variant="primary"
@@ -1203,10 +1205,10 @@ const SignupForm = (props) => {
 			{activeStep === 9 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion1} variant="h3">
-						My ethnicity/race is..
+						<FormattedMessage id="aboutyou.ethnicity" />
 					</Typography>
 					<Typography className={classes.formQuestion2} variant="h3">
-						(Select all that apply)
+						<FormattedMessage id="aboutyou.select-all" />
 					</Typography>
 
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
@@ -1232,21 +1234,27 @@ const SignupForm = (props) => {
 								classes={classes.fontWeightMedium}
 								margin="none"
 							>
-								My ethnicity/race is..
+								<FormattedMessage id="aboutyou.ethnicity" />
 							</FormLabel>
 							<TextField
 								onBlur={handleTouchEthnicity}
 								error={
 									touchedEthnicity &&
-									nameTest.test(specifiedEthnicity) === false
+									textFieldTest.test(specifiedEthnicity) === false
 								}
 								helperText={
 									handleTouchEthnicity &&
-									nameTest.test(specifiedEthnicity) === false ? (
-										<FormattedMessage id="error.org-format" />
+									textFieldTest.test(specifiedEthnicity) === false ? (
+										<FormattedMessage
+											id="error.text-field"
+											values={{field: 'Ethnicity or Race'}}
+										/>
 									) : touchedCountry &&
-									  nameTest.test(specifiedEthnicity) === true ? (
-										<FormattedMessage id="form.org-valid" />
+									  textFieldTest.test(specifiedEthnicity) === true ? (
+										<FormattedMessage
+											id="form.field-valid"
+											values={{field: 'Ethnicty or Race'}}
+										/>
 									) : null
 								}
 								id="specifiedEthnicity"
@@ -1256,7 +1264,9 @@ const SignupForm = (props) => {
 								required
 								type="text"
 								value={specifiedEthnicity}
-								placeholder="Specify here"
+								placeholder={intl.formatMessage({
+									id: 'account.signup-generic-placeholder'
+								})}
 								data-test-id="about-you-ethnicity"
 								InputLabelProps={{shrink: true}}
 								variant="outlined"
@@ -1273,7 +1283,7 @@ const SignupForm = (props) => {
 					<AsylumConnectButton
 						disabled={
 							ethnicityRace.includes('Other (specify)') &&
-							nameTest.test(specifiedEthnicity) === false
+							textFieldTest.test(specifiedEthnicity) === false
 						}
 						testIdName="about-you-next-button"
 						variant="primary"
@@ -1286,7 +1296,7 @@ const SignupForm = (props) => {
 			{activeStep === 10 && (
 				<form className={classes.formContainer} onSubmit={handleUpdateUser}>
 					<Typography className={classes.formQuestion} variant="h3">
-						How old are you?
+						<FormattedMessage id="aboutyou.age" />
 					</Typography>
 					<RadioGroup name="age" onChange={handleChange} required={true}>
 						<Grid container spacing={0} className={classes.gridTxtAlign}>
@@ -1303,7 +1313,6 @@ const SignupForm = (props) => {
 						</Grid>
 					</RadioGroup>
 					<AsylumConnectButton
-						// disabled={isOrgValid() === false ? true : false}
 						testIdName="sign-up-form-next-button"
 						variant="primary"
 						className={classes.nextBtn}
@@ -1314,7 +1323,7 @@ const SignupForm = (props) => {
 			)}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
-					You may complete this information later in Account Settings.
+					<FormattedMessage id="aboutyou.complete-later" />
 				</Typography>
 			)}
 			{activeStep < 3 && (
@@ -1431,7 +1440,8 @@ SignupForm.propTypes = {
 	organizationSelection: PropTypes.object,
 	password: PropTypes.string.isRequired,
 	passwordConfirmation: PropTypes.string.isRequired,
-	selection: PropTypes.string.isRequired
+	selection: PropTypes.string.isRequired,
+	intl: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(SignupForm);
