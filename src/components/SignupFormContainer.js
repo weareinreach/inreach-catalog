@@ -51,9 +51,14 @@ class SignupFormContainer extends React.Component {
 
 		//add to sogIdentity array
 		if (event.target.name === 'sogIdentity' && isChecked) {
-			tempArray = this.state.sogIdentity.slice();
-			tempArray.push(event.target.value);
-			this.setState({sogIdentity: tempArray});
+			if (event.target.value === 'Prefer not to say') {
+				tempArray.push(event.target.value);
+				this.setState({sogIdentity: tempArray});
+			} else {
+				tempArray = this.state.sogIdentity.slice();
+				tempArray.push(event.target.value);
+				this.setState({sogIdentity: tempArray});
+			}
 		}
 		//remove from sogIdentity array
 		if (event.target.name === 'sogIdentity' && !isChecked) {
@@ -66,10 +71,15 @@ class SignupFormContainer extends React.Component {
 		}
 
 		//add to ethnicityRace array
-		if (event.target.name === 'ethnicityRace') {
-			tempArray = this.state.ethnicityRace.slice();
-			tempArray.push(event.target.value);
-			this.setState({ethnicityRace: tempArray});
+		if (event.target.name === 'ethnicityRace' && isChecked) {
+			if (event.target.value === 'Prefer not to say') {
+				tempArray.push(event.target.value);
+				this.setState({ethnicityRace: tempArray});
+			} else {
+				tempArray = this.state.ethnicityRace.slice();
+				tempArray.push(event.target.value);
+				this.setState({ethnicityRace: tempArray});
+			}
 		}
 
 		//remove from ethnicityRace array
@@ -255,7 +265,7 @@ class SignupFormContainer extends React.Component {
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
 		const emailTest = new RegExp(/\S+@\S+\.\S+/);
 		const pswdTest = new RegExp(
-			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
+			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
 		);
 
 		if (pswdTest.test(password) === false) {
