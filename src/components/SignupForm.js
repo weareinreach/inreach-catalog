@@ -336,7 +336,7 @@ const SignupForm = (props) => {
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 	const emailTest = new RegExp(/\S+@\S+\.\S+/);
 	const pswdTest = new RegExp(
-		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{10,})'
+		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
 	);
 
 	const orgTypeQuestion =
@@ -1124,6 +1124,10 @@ const SignupForm = (props) => {
 						{aboutYouSogOptions.map((type, index) => (
 							<Grid item xs={4}>
 								<FormControlLabel
+									disabled={
+										sogIdentity.includes('Prefer not to say') &&
+										type != 'Prefer not to say'
+									}
 									key={type}
 									value={type}
 									control={<Checkbox />}
@@ -1215,6 +1219,10 @@ const SignupForm = (props) => {
 						{aboutYouEthnicityOptions.map((type, index) => (
 							<Grid item xs={6}>
 								<FormControlLabel
+									disabled={
+										ethnicityRace.includes('Prefer not to say') &&
+										type != 'Prefer not to say'
+									}
 									key={type}
 									value={type}
 									control={<Checkbox />}
