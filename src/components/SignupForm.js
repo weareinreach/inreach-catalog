@@ -35,6 +35,8 @@ import DialogSubTitle from './DialogSubTitle';
 import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
 import OrganizationAutocomplete from './OrganizationAutocomplete';
 
+import SeekerType from './SeekerType';
+
 const LAWYER_TYPE = 'lawyer';
 const PROVIDER_TYPE = 'provider';
 const SEEKER_TYPE = 'seeker';
@@ -438,51 +440,56 @@ const SignupForm = (props) => {
 			className={classes.container}
 			data-test-id="sign-up-form-base-container"
 		>
-			<DialogTitle>{dialogTitle}</DialogTitle>
+			{/*			<DialogTitle>{dialogTitle}</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				{dialogSubTitle}
 			</DialogSubTitle>
-			<div className={classes.greyLine} />
+			<div className={classes.greyLine} />*/}
 			{activeStep === 0 && (
-				<div data-test-id="sign-up-catalog-type">
-					<Typography className={classes.question} variant="h3">
-						<FormattedMessage id="account.signup-catalog-type-selection-prompt" />
-					</Typography>
-					<AsylumConnectButton
-						className={classes.marginBottom}
-						onClick={() => handleSelect(SEEKER_TYPE)}
-						variant="primary"
-						testIdName="dialog-container-sign-up-help-myself-button"
-					>
-						<FormattedMessage id="account.signup-catalog-type-asylum-seeker" />
-					</AsylumConnectButton>
-					<AsylumConnectButton
-						className={classes.marginBottom}
-						onClick={() => handleSelect(LAWYER_TYPE)}
-						variant="primary"
-						testIdName="dialog-container-sign-up-attorney-button"
-					>
-						<FormattedMessage id="account.signup-catalog-type-legal-provider" />
-					</AsylumConnectButton>
-					<AsylumConnectButton
-						className={classes.marginBottomLg}
-						onClick={() => handleSelect(PROVIDER_TYPE)}
-						variant="primary"
-						testIdName="dialog-container-sign-up-non-legal-service-provider-button"
-					>
-						<FormattedMessage id="account.signup-catalog-type-non-legal-provider" />
-					</AsylumConnectButton>
-					<div
-						onClick={() => handleRequestOpen('login')}
-						data-test-id="dialog-container-sign-up-already-have-account"
-					>
-						<Typography variant="body1">
-							<span className={classes.link}>
-								<FormattedMessage id="account.already-have-account" />
-							</span>
-						</Typography>
-					</div>
-				</div>
+				<SeekerType
+					{...props}
+					handleSelect={handleSelect}
+					handleRequestOpen={handleRequestOpen}
+				></SeekerType>
+				// <div data-test-id="sign-up-catalog-type">
+				// 	<Typography className={classes.question} variant="h3">
+				// 		<FormattedMessage id="account.signup-catalog-type-selection-prompt" />
+				// 	</Typography>
+				// 	<AsylumConnectButton
+				// 		className={classes.marginBottom}
+				// 		onClick={() => handleSelect(SEEKER_TYPE)}
+				// 		variant="primary"
+				// 		testIdName="dialog-container-sign-up-help-myself-button"
+				// 	>
+				// 		<FormattedMessage id="account.signup-catalog-type-asylum-seeker" />
+				// 	</AsylumConnectButton>
+				// 	<AsylumConnectButton
+				// 		className={classes.marginBottom}
+				// 		onClick={() => handleSelect(LAWYER_TYPE)}
+				// 		variant="primary"
+				// 		testIdName="dialog-container-sign-up-attorney-button"
+				// 	>
+				// 		<FormattedMessage id="account.signup-catalog-type-legal-provider" />
+				// 	</AsylumConnectButton>
+				// 	<AsylumConnectButton
+				// 		className={classes.marginBottomLg}
+				// 		onClick={() => handleSelect(PROVIDER_TYPE)}
+				// 		variant="primary"
+				// 		testIdName="dialog-container-sign-up-non-legal-service-provider-button"
+				// 	>
+				// 		<FormattedMessage id="account.signup-catalog-type-non-legal-provider" />
+				// 	</AsylumConnectButton>
+				// 	<div
+				// 		onClick={() => handleRequestOpen('login')}
+				// 		data-test-id="dialog-container-sign-up-already-have-account"
+				// 	>
+				// 		<Typography variant="body1">
+				// 			<span className={classes.link}>
+				// 				<FormattedMessage id="account.already-have-account" />
+				// 			</span>
+				// 		</Typography>
+				// 	</div>
+				// </div>
 			)}
 			{activeStep === 1 && (
 				<form
