@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
+import {breakpoints} from '../theme';
 
 const LAWYER_TYPE = 'lawyer';
 const PROVIDER_TYPE = 'provider';
@@ -51,11 +52,16 @@ const styles = (theme) => ({
 const SeekerType = (props) => {
 	const {classes, handleSelect, handleRequestOpen} = props;
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	return (
 		<>
-			<DialogTitle>
-				<FormattedMessage id="account.sign-up" />
-			</DialogTitle>
+			{!isMobile && (
+				<DialogTitle>
+					<FormattedMessage id="account.sign-up" />
+				</DialogTitle>
+			)}
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage id="account.signup-subtitle" />
 			</DialogSubTitle>

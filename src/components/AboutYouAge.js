@@ -11,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
+import {breakpoints} from '../theme';
 
 import {aboutYouAgeOptions} from '../data/aboutYouFormOptions';
 
@@ -29,6 +30,14 @@ const styles = (theme) => ({
 		marginLeft: '48px',
 		marginRight: '36px',
 		marginTop: '24px'
+	},
+	formContainerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '24px',
+		marginRight: '24px',
+		marginTop: '12px'
 	},
 	formQuestion: {
 		textAlign: 'left',
@@ -133,6 +142,9 @@ const styles = (theme) => ({
 const AboutYouAge = (props) => {
 	const {classes, handleChange, handleUpdateUser} = props;
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	return (
 		<>
 			<DialogTitle>
@@ -142,7 +154,12 @@ const AboutYouAge = (props) => {
 				<FormattedMessage id="account.signup-about-you-subtitle" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
-			<form className={classes.formContainer} onSubmit={handleUpdateUser}>
+			<form
+				className={
+					isMobile ? classes.formContainerMobile : classes.formContainer
+				}
+				onSubmit={handleUpdateUser}
+			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage id="aboutyou.age" />
 				</Typography>

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
 
+import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -15,6 +16,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {breakpoints} from '../theme';
 
 import {
 	organizationTypesLawyer,
@@ -22,11 +24,8 @@ import {
 } from '../data/organizationTypeFormOptions';
 
 import AsylumConnectButton from './AsylumConnectButton';
-import AsylumConnectBackButton from './AsylumConnectBackButton';
-
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
-import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
 import OrganizationAutocomplete from './OrganizationAutocomplete';
 
 import SeekerType from './SeekerType';
@@ -49,6 +48,14 @@ const styles = (theme) => ({
 		flexDirection: 'column',
 		textAlign: 'center',
 		width: 'auto',
+		marginTop: '25px'
+	},
+	containerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		width: 'auto',
+		height: '900px',
 		marginTop: '25px'
 	},
 	subTitle: {
@@ -98,6 +105,10 @@ const styles = (theme) => ({
 	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]},
 	backButton: {
 		marginLeft: '48px',
+		marginBottom: '36px'
+	},
+	backButtonMobile: {
+		marginLeft: '12px',
 		marginBottom: '36px'
 	},
 	formContainer: {
@@ -211,6 +222,9 @@ const SignupForm = (props) => {
 
 	const intl = useIntl();
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	const dialogSubTitle =
 		selection === LAWYER_TYPE ? (
 			<FormattedMessage id="account.signup-organization-law-affiliation-subtitle" />
@@ -219,7 +233,7 @@ const SignupForm = (props) => {
 		);
 	return (
 		<div
-			className={classes.container}
+			className={isMobile ? classes.containerMobile : classes.container}
 			data-test-id="sign-up-form-base-container"
 		>
 			{activeStep === 0 && <SeekerType {...props}></SeekerType>}
@@ -399,24 +413,24 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{(activeStep === 1 || activeStep === 2) && (
-				<div className={classes.flex + ' ' + classes.backButton}>
-					<AsylumConnectBackButton
+			{(activeStep === 1 ||
+				activeStep === 2 ||
+				(activeStep > 6 && activeStep < 11)) && (
+				<div
+					className={
+						isMobile
+							? classes.flex + ' ' + classes.backButtonMobile
+							: +classes.flex + ' ' + classes.backButton
+					}
+				>
+					<Button
 						data-test-id="sign-up-form-back-button"
 						size="small"
 						onClick={handleStepBack}
-						text={<FormattedMessage id="navigation.back" />}
-					></AsylumConnectBackButton>
-				</div>
-			)}
-			{activeStep > 6 && activeStep < 11 && (
-				<div className={classes.flex + ' ' + classes.backButton}>
-					<AsylumConnectBackButton
-						data-test-id="sign-up-form-back-button"
-						size="small"
-						onClick={handleStepBack}
-						text={<FormattedMessage id="navigation.back" />}
-					></AsylumConnectBackButton>
+					>
+						<KeyboardArrowLeft />
+						<FormattedMessage id="navigation.back" />
+					</Button>
 				</div>
 			)}
 		</div>
