@@ -15,6 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
+import {breakpoints} from '../theme';
 
 import {aboutYouSogOptions} from '../data/aboutYouFormOptions';
 
@@ -33,6 +34,14 @@ const styles = (theme) => ({
 		marginLeft: '48px',
 		marginRight: '36px',
 		marginTop: '24px'
+	},
+	formContainerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '24px',
+		marginRight: '24px',
+		marginTop: '12px'
 	},
 	formQuestion1: {
 		textAlign: 'left',
@@ -153,6 +162,9 @@ const AboutYouIdentity = (props) => {
 
 	const intl = useIntl();
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 
 	const [touchedIdentity, setTouchedIdentity] = useState(false);
@@ -170,7 +182,12 @@ const AboutYouIdentity = (props) => {
 				<FormattedMessage id="account.signup-about-you-subtitle" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
-			<form className={classes.formContainer} onSubmit={handleUpdateUser}>
+			<form
+				className={
+					isMobile ? classes.formContainerMobile : classes.formContainer
+				}
+				onSubmit={handleUpdateUser}
+			>
 				<Typography className={classes.formQuestion1} variant="h3">
 					<FormattedMessage id="aboutyou.identity" />
 				</Typography>
@@ -180,7 +197,7 @@ const AboutYouIdentity = (props) => {
 
 				<Grid container spacing={0} className={classes.gridTxtAlign}>
 					{aboutYouSogOptions.map((type, index) => (
-						<Grid item xs={4}>
+						<Grid item xs={6}>
 							<FormControlLabel
 								disabled={
 									sogIdentity.includes('Prefer not to say') &&

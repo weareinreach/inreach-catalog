@@ -15,6 +15,7 @@ import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
+import {breakpoints} from '../theme';
 
 const LAWYER_TYPE = 'lawyer';
 const PROVIDER_TYPE = 'provider';
@@ -126,6 +127,9 @@ const NameEmailPswd = (props) => {
 		handleChange
 	} = props;
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	const emailLabel =
 		selection === SEEKER_TYPE ? (
 			<FormattedMessage id="form.email" />
@@ -182,9 +186,11 @@ const NameEmailPswd = (props) => {
 
 	return (
 		<>
-			<DialogTitle>
-				<FormattedMessage id="account.sign-up" />
-			</DialogTitle>
+			{!isMobile && (
+				<DialogTitle>
+					<FormattedMessage id="account.sign-up" />
+				</DialogTitle>
+			)}
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage id="account.signup-subtitle" />
 			</DialogSubTitle>

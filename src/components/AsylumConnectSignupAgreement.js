@@ -3,6 +3,7 @@ import {FormattedMessage} from 'react-intl';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import {breakpoints} from '../theme';
 
 const styles = (theme) => ({
 	container: {
@@ -11,6 +12,13 @@ const styles = (theme) => ({
 		width: 'fit-content',
 		marginTop: '48px',
 		marginBottom: '24px'
+	},
+	containerMobile: {
+		flexDirection: 'column',
+		textAlign: 'center',
+		width: 'fit-content',
+		marginTop: '12px',
+		marginBottom: '12px'
 	},
 	flex: {display: 'flex'},
 	link: {
@@ -23,10 +31,13 @@ const styles = (theme) => ({
 const AsylumConnectSignupAgreement = (props) => {
 	const {classes} = props;
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	return (
 		<Typography
 			variant="body1"
-			className={classes.container}
+			className={isMobile ? classes.containerMobile : classes.container}
 			data-test-id="sign-up-form-agreement-statement"
 		>
 			<FormattedMessage id="legal.sign-up-agree-to-terms" />

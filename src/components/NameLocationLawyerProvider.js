@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
+import {breakpoints} from '../theme';
 
 import {
 	organizationTypesLawyer,
@@ -39,6 +40,14 @@ const styles = (theme) => ({
 		marginLeft: '48px',
 		marginRight: '36px',
 		marginTop: '24px'
+	},
+	formContainerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '24px',
+		marginRight: '24px',
+		marginTop: '12px'
 	},
 	formQuestion0: {
 		textAlign: 'left',
@@ -157,6 +166,9 @@ const NameLocationLawyerProvider = (props) => {
 
 	const intl = useIntl();
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	const [touchedName, setTouchedName] = useState(false);
 	const [touchedLocation, setTouchedLocation] = useState(false);
 	const [touchedOrgType, setTouchedOrgType] = useState(false);
@@ -213,15 +225,19 @@ const NameLocationLawyerProvider = (props) => {
 
 	return (
 		<>
-			<DialogTitle>
-				<FormattedMessage id="account.sign-up" />
-			</DialogTitle>
+			{!isMobile && (
+				<DialogTitle>
+					<FormattedMessage id="account.sign-up" />
+				</DialogTitle>
+			)}
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage id="account.signup-subtitle" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
-				className={classes.formContainer}
+				className={
+					isMobile ? classes.formContainerMobile : classes.formContainer
+				}
 				onSubmit={handleStepNext}
 				data-test-id="name-location-form"
 			>
