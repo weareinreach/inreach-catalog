@@ -52,7 +52,8 @@ const styles = (theme) => ({
 		outline: 'none',
 		paddingBottom: '20px',
 		height: 'fit-content',
-		width: '80%'
+		width: '80%',
+		zIndex: 2
 	},
 	dialogBody1: {
 		marginLeft: '10%',

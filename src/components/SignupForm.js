@@ -55,7 +55,7 @@ const styles = (theme) => ({
 		flexDirection: 'column',
 		textAlign: 'center',
 		width: 'auto',
-		height: '900px',
+		height: '950px',
 		marginTop: '25px'
 	},
 	subTitle: {
@@ -119,6 +119,14 @@ const styles = (theme) => ({
 		marginRight: '36px',
 		marginTop: '24px'
 	},
+	formContainerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '24px',
+		marginRight: '24px',
+		marginTop: '24px'
+	},
 	formStatement: {
 		textAlign: 'center',
 		fontSize: '14px',
@@ -135,6 +143,10 @@ const styles = (theme) => ({
 	sideMargin: {
 		marginLeft: '48px',
 		marginRight: '48px'
+	},
+	sideMarginMobile: {
+		marginLeft: '24px',
+		marginRight: '24px'
 	},
 	borderOutline: {
 		borderWidth: '2px',
@@ -246,12 +258,16 @@ const SignupForm = (props) => {
 					<DialogTitle>
 						<FormattedMessage id="account.signup-organization-affiliation-title" />
 					</DialogTitle>
-					<DialogSubTitle className={classes.sideMargin}>
+					<DialogSubTitle
+						className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
+					>
 						{dialogSubTitle}
 					</DialogSubTitle>
 					<div className={classes.greyLine} />
 					<form
-						className={classes.formContainer}
+						className={
+							isMobile ? classes.formContainerMobile : classes.formContainer
+						}
 						onSubmit={handleCreateAffiliation}
 					>
 						<Typography

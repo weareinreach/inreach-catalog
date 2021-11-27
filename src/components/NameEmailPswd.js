@@ -37,6 +37,14 @@ const styles = (theme) => ({
 		marginRight: '36px',
 		marginTop: '24px'
 	},
+	formContainerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '24px',
+		marginRight: '24px',
+		marginTop: '24px'
+	},
 	greyLine: {
 		width: 'auto',
 		height: '1px',
@@ -196,7 +204,9 @@ const NameEmailPswd = (props) => {
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
-				className={classes.formContainer}
+				className={
+					isMobile ? classes.formContainerMobile : classes.formContainer
+				}
 				onSubmit={handleSignUp}
 				data-test-id="name-email-password-form"
 			>

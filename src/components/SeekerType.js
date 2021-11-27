@@ -46,6 +46,10 @@ const styles = (theme) => ({
 	sideMargin: {
 		marginLeft: '48px',
 		marginRight: '48px'
+	},
+	sideMarginMobile: {
+		marginLeft: '24px',
+		marginRight: '24px'
 	}
 });
 
@@ -66,7 +70,10 @@ const SeekerType = (props) => {
 				<FormattedMessage id="account.signup-subtitle" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
-			<div data-test-id="sign-up-catalog-type">
+			<div
+				data-test-id="sign-up-catalog-type"
+				className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
+			>
 				<Typography className={classes.question} variant="h3">
 					<FormattedMessage id="account.signup-catalog-type-selection-prompt" />
 				</Typography>
