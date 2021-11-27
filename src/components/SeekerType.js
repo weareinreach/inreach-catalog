@@ -41,6 +41,7 @@ const styles = (theme) => ({
 		marginTop: `${theme.spacing(4.5)}px`
 	},
 	marginBottom: {marginBottom: '2rem'},
+	marginBottomLg: {marginBottom: '3rem'},
 	sideMargin: {
 		marginLeft: '48px',
 		marginRight: '48px'

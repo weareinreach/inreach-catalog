@@ -8,7 +8,7 @@ const styles = (theme) => ({
 	container: {
 		flexDirection: 'column',
 		textAlign: 'center',
-		width: '400px',
+		width: 'fit-content',
 		marginTop: '48px',
 		marginBottom: '24px'
 	},
