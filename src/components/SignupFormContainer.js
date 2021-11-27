@@ -39,6 +39,7 @@ class SignupFormContainer extends React.Component {
 		this.handleStepBack = this.handleStepBack.bind(this);
 		this.handleSignUp = this.handleSignUp.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
+		this.handleSkip = this.handleSkip.bind(this);
 	}
 
 	handleChange(event) {
@@ -118,6 +119,10 @@ class SignupFormContainer extends React.Component {
 				}
 			}
 		);
+	}
+
+	handleSkip() {
+		this.setState((prevState) => ({activeStep: prevState.activeStep + 2}));
 	}
 
 	handleStepBack() {
@@ -339,6 +344,7 @@ class SignupFormContainer extends React.Component {
 				handleStepNext={this.handleStepNext}
 				handleStepBack={this.handleStepBack}
 				handleUpdateUser={this.handleUpdateUser}
+				handleSkip={this.handleSkip}
 			/>
 		);
 	}
