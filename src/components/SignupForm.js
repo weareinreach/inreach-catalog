@@ -55,7 +55,7 @@ const styles = (theme) => ({
 		flexDirection: 'column',
 		textAlign: 'center',
 		width: 'auto',
-		height: '950px',
+		height: '975px',
 		marginTop: '25px'
 	},
 	subTitle: {
@@ -92,6 +92,14 @@ const styles = (theme) => ({
 		marginLeft: '48px',
 		marginRight: '48px'
 	},
+	orgBodyMobile: {
+		fontSize: '16px',
+		fontWeight: '400',
+		lineHeight: '24px',
+		marginBottom: '48px',
+		marginLeft: '24px',
+		marginRight: '24px'
+	},
 	marginVertical: {margin: '2rem 0'},
 	stepperSpacing1: {
 		marginTop: '24px',
@@ -105,7 +113,8 @@ const styles = (theme) => ({
 	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]},
 	backButton: {
 		marginLeft: '48px',
-		marginBottom: '36px'
+		marginBottom: '36px',
+		textAlign: 'center'
 	},
 	backButtonMobile: {
 		marginLeft: '12px',
@@ -147,60 +156,60 @@ const styles = (theme) => ({
 	sideMarginMobile: {
 		marginLeft: '24px',
 		marginRight: '24px'
-	},
-	borderOutline: {
-		borderWidth: '2px',
-		//border box colors
-		//border color when not hover or focus, darkGrey: '#e9e9e9', but have to use code not theme
-		'& .MuiOutlinedInput-root': {
-			borderColor: '#e9e9e9'
-		},
-		//border color when hover, light black, 'rgba(29, 31, 35, .5)', but have to use code not theme
-		'&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-			borderColor: 'rgba(29, 31, 35, .5)'
-		},
-		//border color on focus, blue with box shadow but have to use code not theme
-		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-			borderColor: '#5073B3',
-			boxShadow: '0px 0px 10px rgba(80, 115, 179, 0.5)'
-		},
-		//border color with error
-		'& .MuiOutlinedInput-root.Mui-error': {
-			borderColor: 'red'
-		},
-
-		//input box text color is black under all conditions except error
-		'& .MuiOutlinedInput-input': {
-			color: '#1D1F23'
-		},
-		'&:hover .MuiOutlinedInput-input': {
-			color: 'black'
-		},
-		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input': {
-			color: '#1D1F23'
-		},
-
-		//Input label
-		'& .MuiInputLabel-outlined': {
-			color: 'grey'
-		},
-		'&:hover .MuiInputLabel-outlined': {
-			color: 'brown'
-		},
-		'& .MuiInputLabel-outlined.Mui-focused': {
-			color: 'maroon'
-		},
-
-		//helper text
-		'& .MuiFormHelperText-root': {
-			color: 'green',
-			fontSize: '12px'
-		},
-		'& .MuiFormHelperText-root.Mui-error': {
-			color: 'red',
-			fontSize: '12px'
-		}
 	}
+	// borderOutline: {
+	// 	borderWidth: '2px',
+	// 	//border box colors
+	// 	//border color when not hover or focus, darkGrey: '#e9e9e9', but have to use code not theme
+	// 	'& .MuiOutlinedInput-root': {
+	// 		borderColor: '#e9e9e9'
+	// 	},
+	// 	//border color when hover, light black, 'rgba(29, 31, 35, .5)', but have to use code not theme
+	// 	'&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+	// 		borderColor: 'rgba(29, 31, 35, .5)'
+	// 	},
+	// 	//border color on focus, blue with box shadow but have to use code not theme
+	// 	'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+	// 		borderColor: '#5073B3',
+	// 		boxShadow: '0px 0px 10px rgba(80, 115, 179, 0.5)'
+	// 	},
+	// 	//border color with error
+	// 	'& .MuiOutlinedInput-root.Mui-error': {
+	// 		borderColor: 'red'
+	// 	},
+
+	// 	//input box text color is black under all conditions except error
+	// 	'& .MuiOutlinedInput-input': {
+	// 		color: '#1D1F23'
+	// 	},
+	// 	'&:hover .MuiOutlinedInput-input': {
+	// 		color: 'black'
+	// 	},
+	// 	'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input': {
+	// 		color: '#1D1F23'
+	// 	},
+
+	// 	//Input label
+	// 	'& .MuiInputLabel-outlined': {
+	// 		color: 'grey'
+	// 	},
+	// 	'&:hover .MuiInputLabel-outlined': {
+	// 		color: 'brown'
+	// 	},
+	// 	'& .MuiInputLabel-outlined.Mui-focused': {
+	// 		color: 'maroon'
+	// 	},
+
+	// 	//helper text
+	// 	'& .MuiFormHelperText-root': {
+	// 		color: 'green',
+	// 		fontSize: '12px'
+	// 	},
+	// 	'& .MuiFormHelperText-root.Mui-error': {
+	// 		color: 'red',
+	// 		fontSize: '12px'
+	// 	}
+	// }
 });
 
 const SignupForm = (props) => {
@@ -337,7 +346,7 @@ const SignupForm = (props) => {
 							</Typography>
 							<Typography
 								variant="body1"
-								className={classes.orgBody2}
+								className={isMobile ? classes.orgBodyMobile : classes.orgBody2}
 								data-test-id="sign-up-form-org-request-next"
 							>
 								<FormattedMessage id="account.join-organization-next-step" />
@@ -436,7 +445,7 @@ const SignupForm = (props) => {
 					className={
 						isMobile
 							? classes.flex + ' ' + classes.backButtonMobile
-							: +classes.flex + ' ' + classes.backButton
+							: classes.flex + ' ' + classes.backButton
 					}
 				>
 					<Button
