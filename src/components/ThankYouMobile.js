@@ -52,8 +52,7 @@ const styles = (theme) => ({
 		outline: 'none',
 		paddingBottom: '20px',
 		height: 'fit-content',
-		width: '80%',
-		zIndex: 2
+		width: '80%'
 	},
 	dialogBody1: {
 		marginLeft: '10%',
@@ -81,9 +80,19 @@ const ThankYouMobile = (props) => {
 		history.push('/');
 	};
 
+	// document.getElementById("myElementID").classList.add('myClassName');
+
 	return (
 		<Paper className={classes.root}>
-			<Modal isOpen={true} className={classes.reactContent}>
+			<Modal
+				isOpen={true}
+				className={classes.reactContent}
+				style={{
+					overlay: {
+						zIndex: 10
+					}
+				}}
+			>
 				<div className={classes.blueBar} />
 				<DialogTitle data-test-id="thank-you-header">
 					<FormattedMessage id="app.thank-you-heading" />
@@ -94,6 +103,7 @@ const ThankYouMobile = (props) => {
 					data-test-id="thank-you-text"
 				>
 					<FormattedMessage id="app.thank-you-text" />
+					sdfsdf
 				</Typography>
 				<img
 					data-test-id="thank-you-image"

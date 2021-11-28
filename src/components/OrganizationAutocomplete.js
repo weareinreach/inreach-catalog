@@ -144,7 +144,7 @@ const styles = (theme) => ({
 	container: {
 		flexGrow: 1,
 		position: 'relative',
-		zIndex: 1,
+		zIndex: 10,
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[2]
 	},

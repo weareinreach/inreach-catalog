@@ -331,7 +331,7 @@ const NameLocationLawyerProvider = (props) => {
 				>
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
 						{orgTypeOptions.map((type, index) => (
-							<Grid item xs={6}>
+							<Grid item xs={isMobile ? 12 : 6}>
 								<FormControlLabel
 									key={type}
 									value={type}

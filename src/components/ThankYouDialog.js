@@ -20,8 +20,10 @@ const styles = (theme) => ({
 		minWidth: '503px',
 		minHeight: '561px',
 		overflowY: 'auto',
-		'border-top': 'solid 6px #5073B3',
-		zIndex: 2
+		borderTop: 'solid 6px #5073B3',
+		' & .OrganizationAutocomplete-container': {
+			zIndex: 'unset'
+		}
 	},
 	img: {
 		height: '205px',

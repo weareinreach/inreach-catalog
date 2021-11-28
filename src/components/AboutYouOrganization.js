@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
+import {breakpoints} from '../theme';
 
 import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -129,6 +130,9 @@ const AboutYouOrganization = (props) => {
 
 	const intl = useIntl();
 
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
 	const [touchedOrgName, setTouchedOrgName] = useState(false);
 	const [touchedPosition, setTouchedPosition] = useState(false);
 	const [touchedReason, setTouchedReason] = useState(false);
@@ -149,9 +153,11 @@ const AboutYouOrganization = (props) => {
 
 	return (
 		<>
-			<DialogTitle>
-				<FormattedMessage id="account.sign-up" />
-			</DialogTitle>
+			{!isMobile && (
+				<DialogTitle>
+					<FormattedMessage id="account.sign-up" />
+				</DialogTitle>
+			)}
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage id="account.signup-subtitle" />
 			</DialogSubTitle>
