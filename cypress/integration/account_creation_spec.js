@@ -31,9 +31,9 @@ describe('Home Page Create Account Form Tests', () => {
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
             userTypes.forEach(userType=>{
-                // it(`Create account ${userType} elements state 0`,()=>{
-                //     cy.testCreateAccountState0Elements(viewport,userType);
-                // });
+                it(`Create account ${userType} elements state 0`,()=>{
+                    cy.testCreateAccountOptionTypes(viewport,userType);
+                });
                 if(userType === 'myself'){
                     it(`Create account ${userType} elements state 1`,()=>{
                         cy.testCreateAccountSeeker(viewport,userType);
@@ -44,12 +44,14 @@ describe('Home Page Create Account Form Tests', () => {
                         cy.testCreateAccountLawyer(viewport,userType);
                     });
                 };
-                // it(`Create account ${userType} - already have account`,()=>{
-                //     cy.testCreateAccountAlreadyHaveOne(viewport,userType);
-                // });
-                // it(`Create account ${userType} - back button`,()=>{
-                //     cy.testCreateAccountBackButton(viewport,userType);
-                // });
+                it(`Create account ${userType} - already have account`,()=>{
+                    cy.testCreateAccountAlreadyHaveOne(viewport,userType);
+                });
+                if(userType === 'provider'){
+                    it(`Create account ${userType} - back button`,()=>{
+                        cy.testCreateAccountBackButton(viewport,userType);
+                    });
+                };
                 // it(`Create account ${userType} - password tests`,()=>{
                 //     cy.testCreateAccountPasswordTests(viewport,userType);
                 // });
