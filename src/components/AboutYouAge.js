@@ -180,7 +180,7 @@ const AboutYouAge = (props) => {
 					</Grid>
 				</RadioGroup>
 				<AsylumConnectButton
-					testIdName="sign-up-form-next-button"
+					testIdName="about-you-next-button"
 					variant="primary"
 					className={classes.nextBtn}
 				>
