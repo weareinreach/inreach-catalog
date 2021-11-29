@@ -155,11 +155,11 @@ const AboutYouOrganization = (props) => {
 		<>
 			{!isMobile && (
 				<DialogTitle>
-					<FormattedMessage id="account.sign-up" />
+					<FormattedMessage id="account.signup-about-you" />
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-subtitle" />
+				<FormattedMessage id="account.signup-about-you-subtitle" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
