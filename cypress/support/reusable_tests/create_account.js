@@ -178,7 +178,10 @@ Cypress.Commands.add('testCreateAccountState1Elements',(viewport,userType)=>{
             });
             cy.getElementByTestId('sign-up-form-submit-button').click();
 
-            //new user about you dialogs
+            //new user about you dialogs - need to wait until the POST 
+            //completes before accessing the About You dialog
+            cy.intercept('/v1/*').as('user');
+            cy.wait(['@user']);
             cy.getElementByTestId('dialog-container-title').then($element=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("About You");
@@ -206,13 +209,79 @@ Cypress.Commands.add('testCreateAccountState1Elements',(viewport,userType)=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("My country of origin is in..");
             });
-            cy.getElementByTestId('Africa').click();
+            cy.getElementByTestId('africa').click();
             cy.getElementByTestId('about-you-next-button').then($element=>{
                 expect($element).to.be.visible;
                 expect($element.children()).to.contain("Next");
                 expect($element).to.have.attr('type','submit');
             });
             cy.getElementByTestId('about-you-next-button').click();
+
+            //identity
+            cy.getElementByTestId('about-you-identity-form').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("I identity as..");
+            });
+            cy.getElementByTestId('asexual').click();
+            cy.getElementByTestId('about-you-next-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Next");
+                expect($element).to.have.attr('type','submit');
+            });
+            cy.getElementByTestId('about-you-next-button').click();
+
+            //ethnicity
+            cy.getElementByTestId('about-you-ethnicity-form').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("My ethnicity/race is..");
+            });
+            cy.getElementByTestId('indian').click();
+            cy.getElementByTestId('about-you-next-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Next");
+                expect($element).to.have.attr('type','submit');
+            });
+            cy.getElementByTestId('about-you-next-button').click();
+
+            //age
+            cy.getElementByTestId('about-you-age-form').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("How old are you?");
+            });
+            cy.getElementByTestId('65').click();
+            cy.getElementByTestId('about-you-next-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Submit");
+                expect($element).to.have.attr('type','submit');
+            });
+            cy.getElementByTestId('about-you-next-button').click();
+
+            if(viewport !== Cypress.env('mobile')){
+                //thank you modal
+                cy.getElementByTestId('dialog-container-title').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.contain("Thank you!"); 
+                 });
+                //resources button
+                cy.getElementByTestId('thank-you-resource-button').then($element=>{
+                    expect($element).to.be.visible;
+                 });
+                //profile button
+                cy.getElementByTestId('thank-you-profile-button').then($element=>{
+                    expect($element).to.be.visible;
+                 });
+            };
+            
+            //logout
+            if(viewport === Cypress.env('mobile')){
+                //close thank you dialog
+                cy.getElementByTestId('thank-you-profile-button').click();
+                //then log out
+                cy.getElementByTestId('mobile-nav-button-account').click()
+                cy.getElementByTestId('account-page-logout').click();
+            }else{
+                cy.getElementByTestId('nav-account-sign-out').click({force:true});
+            }; 
         });
     });
 });
@@ -297,7 +366,7 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                         cy.getElementByTestId('thank-you-profile-button').then($element=>{
                             expect($element).to.be.visible;
                          });
-                    }
+                    };
                 };
                 
                 //logout
@@ -309,7 +378,7 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
                     cy.getElementByTestId('account-page-logout').click();
                 }else{
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
-                } 
+                }; 
             });
         });
     }); 
