@@ -159,6 +159,7 @@ const AboutYouAge = (props) => {
 					isMobile ? classes.formContainerMobile : classes.formContainer
 				}
 				onSubmit={handleUpdateUser}
+				data-test-id="about-you-age-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage id="aboutyou.age" />
@@ -168,10 +169,11 @@ const AboutYouAge = (props) => {
 						{aboutYouAgeOptions.map((type, index) => (
 							<Grid item xs={6}>
 								<FormControlLabel
-									key={type}
-									value={type}
+									key={type.value}
+									value={type.value}
 									control={<Radio />}
-									label={type}
+									label={type.value}
+									data-test-id={type.testId}
 								/>
 							</Grid>
 						))}

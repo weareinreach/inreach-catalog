@@ -165,7 +165,7 @@ const AboutYouOrganization = (props) => {
 			<form
 				className={classes.formContainer}
 				onSubmit={handleUpdateUser}
-				data-test-id="about-you-organization"
+				data-test-id="about-you-organization-form"
 			>
 				<FormLabel
 					className={classes.formLabel}

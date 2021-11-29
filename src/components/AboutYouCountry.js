@@ -177,6 +177,7 @@ const AboutYouCountry = (props) => {
 					isMobile ? classes.formContainerMobile : classes.formContainer
 				}
 				onSubmit={handleUpdateUser}
+				data-test-id="about-you-country-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage id="aboutyou.country" />
@@ -190,11 +191,12 @@ const AboutYouCountry = (props) => {
 						{aboutYouCountryOptions.map((type, index) => (
 							<Grid item xs={6}>
 								<FormControlLabel
-									key={type}
-									value={type}
+									key={type.value}
+									value={type.value}
 									control={<Radio />}
-									label={type}
-									checked={countryOfOrigin === type}
+									label={type.value}
+									checked={countryOfOrigin === type.value}
+									data-test-id={type.testId}
 								/>
 							</Grid>
 						))}

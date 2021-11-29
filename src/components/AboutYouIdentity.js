@@ -187,6 +187,7 @@ const AboutYouIdentity = (props) => {
 					isMobile ? classes.formContainerMobile : classes.formContainer
 				}
 				onSubmit={handleUpdateUser}
+				data-test-id="about-you-identity-form"
 			>
 				<Typography className={classes.formQuestion1} variant="h3">
 					<FormattedMessage id="aboutyou.identity" />
@@ -201,15 +202,16 @@ const AboutYouIdentity = (props) => {
 							<FormControlLabel
 								disabled={
 									sogIdentity.includes('Prefer not to say') &&
-									type != 'Prefer not to say'
+									type.value != 'Prefer not to say'
 								}
-								key={type}
-								value={type}
+								key={type.value}
+								value={type.value}
 								control={<Checkbox />}
-								label={type}
+								label={type.value}
 								name="sogIdentity"
 								onChange={handleChangeArray}
-								checked={sogIdentity.includes(type)}
+								checked={sogIdentity.includes(type.value)}
+								data-test-id={type.testId}
 							/>
 						</Grid>
 					))}

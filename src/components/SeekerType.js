@@ -71,7 +71,7 @@ const SeekerType = (props) => {
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<div
-				data-test-id="sign-up-catalog-type"
+				data-test-id="dialog-container-sign-up-question"
 				className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
 			>
 				<Typography className={classes.question} variant="h3">

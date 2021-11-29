@@ -10,19 +10,34 @@ let variables =  {
     myself:{
         user:user_regular,
         dialog_container_button:'dialog-container-sign-up-help-myself-button',
-        email_content:'Email',
+        name_placeholder_content:'John Smith',
+        name_content: 'Test User Myself',
+        email_placeholder_content:'john@gmail.com',
+        email_content: 'automation-regular@gmail.com',
+        password_placeholder_content: '***',
+        password_content: '1111111Kl#',
         organization:organization
     },
     lawyer:{
         user:user_attorney,
         dialog_container_button:'dialog-container-sign-up-attorney-button',
-        email_content:'Firm, Organization or School Email',
+        name_placeholder_content:'John Smith',
+        name_content: 'Test User lawyer',
+        email_placeholder_content:'Firm, Organization or School Email',
+        email_content: 'automation-attorney@gmail.com',
+        password_placeholder_content: '***',
+        password_content: '1111111Kl#',
         organization:organization
     },
     service_provider:{
         user:user_service_provider,
         dialog_container_button:'dialog-container-sign-up-non-legal-service-provider-button',
-        email_content:'Organization Email',
+        name_placeholder_content:'John Smith',
+        name_content: 'Test User Provider',
+        email_placeholder_content:'Organization Email',
+        email_content: 'automation-service-provider@gmail.com',
+        password_placeholder_content: '***',
+        password_content: '1111111Kl#',
         organization:organization
     } 
 };
@@ -118,60 +133,90 @@ Cypress.Commands.add('testCreateAccountAlreadyHaveOne',(viewport)=>{
     });
 });
 
-//Create Account Elements State 1
+//Create Account - Seeker Form input fields
 Cypress.Commands.add('testCreateAccountState1Elements',(viewport,userType)=>{
+
     cy.viewport(viewport);
     cy.getElementByTestId('nav-account-sign-up').then($element => {
         cy.wrap($element).click({force: true});
-    cy.getElementByTestId(variables[userType].dialog_container_button).then($element=>{
-        cy.wrap($element).click({force: true});
-        cy.getElementByTestId('sign-up-form-email-input').then($element=>{
-            expect($element).to.be.visible;
-            expect($element.children()).contain(variables[userType].email_content);
+        cy.getElementByTestId(variables[userType].dialog_container_button).then($element=>{
+            cy.wrap($element).click({force: true});
 
-        });
-        cy.getElementByTestId('sign-up-form-password-input').then($element=>{
-            expect($element).to.be.visible;
-            expect($element.children()).contain("Password");
-        });
-        cy.getElementByTestId('sign-up-form-password-confirmation-input').then($element=>{
-            expect($element).to.be.visible;
-            expect($element.children()).contain("Confirm Password");
-        });
-        cy.getElementByTestId('sign-up-form-agreement-statement').then($element=>{
-            expect($element).to.be.visible;
-        });
-        cy.getElementByTestId('sign-up-form-privacy-link').then($element=>{
-            expect($element).to.be.visible;
-            expect($element).to.contain("Privacy Policy");
-            expect($element).to.have.attr('href','https://asylumconnect.org/privacy');
-            expect($element).to.have.attr('target','_blank');
-            expect($element).to.have.attr('rel','noopener noreferrer');
-        });
-        cy.getElementByTestId('sign-up-form-terms-link').then($element=>{
-            expect($element).to.be.visible;
-            expect($element).to.contain("Terms of Use");
-            expect($element).to.have.attr('href','https://asylumconnect.org/terms-of-use');
-            expect($element).to.have.attr('target','_blank');
-            expect($element).to.have.attr('rel','noopener noreferrer');
-        });
-        cy.getElementByTestId('sign-up-form-submit-button').then($element=>{
-            expect($element).to.be.visible;
-            expect($element.children()).to.contain("Sign Up");
-            expect($element).to.have.attr('type','submit');
-        });
-        cy.getElementByTestId('sign-up-form-submit-button').click();
-
-        //Only Test if Mobile
-        if(viewport == Cypress.env('mobile')){
-            cy.getElementByTestId('sign-up-form-back-button').then($element=>{
-                expect($element).to.be.visible;
-                expect($element.children()).to.contain("Back");
+            //create user - seeker
+            cy.getElementByTestId('name-email-password-form').within(() => {
+              cy.get('input[name="name"]').should('have.attr', 'placeholder', variables[userType].name_placeholder_content);
+              cy.get('input[name="email"]').should('have.attr', 'placeholder', variables[userType].email_placeholder_content);
+              cy.get('input[name="password"]').should('have.attr', 'placeholder', variables[userType].password_placeholder_content);
             });
-        }
+
+            cy.getElementByTestId('name-email-password-form').within (() => {
+                cy.get('input[name="name"]').type(variables[userType].name_content);
+                cy.get('input[name="email"]').type(variables[userType].email_content);
+                cy.get('input[name="password"]').type(variables[userType].password_content);
+            });
+            cy.getElementByTestId('sign-up-form-agreement-statement').then($element=>{
+                expect($element).to.be.visible;
+            });
+            cy.getElementByTestId('sign-up-form-privacy-link').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("Privacy Policy");
+                expect($element).to.have.attr('href','https://asylumconnect.org/privacy');
+                expect($element).to.have.attr('target','_blank');
+                expect($element).to.have.attr('rel','noopener noreferrer');
+            });
+            cy.getElementByTestId('sign-up-form-terms-link').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("Terms of Use");
+                expect($element).to.have.attr('href','https://asylumconnect.org/terms-of-use');
+                expect($element).to.have.attr('target','_blank');
+                expect($element).to.have.attr('rel','noopener noreferrer');
+            });
+            cy.getElementByTestId('sign-up-form-submit-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Sign Up");
+                expect($element).to.have.attr('type','submit');
+            });
+            cy.getElementByTestId('sign-up-form-submit-button').click();
+
+            //new user about you dialogs
+            cy.getElementByTestId('dialog-container-title').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("About You");
+            });
+            cy.getElementByTestId('dialog-container-subtitle').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("Help us improve your experience by telling us more about yourself");
+            });
+
+            //immigration
+            cy.getElementByTestId('about-you-immigration-form').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("I am a(n)..");
+            });
+            cy.getElementByTestId('asylum-seeker').click();
+            cy.getElementByTestId('about-you-next-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Next");
+                expect($element).to.have.attr('type','submit');
+            });
+            cy.getElementByTestId('about-you-next-button').click();
+
+            //country of origin
+            cy.getElementByTestId('about-you-country-form').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).to.contain("My country of origin is in..");
+            });
+            cy.getElementByTestId('Africa').click();
+            cy.getElementByTestId('about-you-next-button').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).to.contain("Next");
+                expect($element).to.have.attr('type','submit');
+            });
+            cy.getElementByTestId('about-you-next-button').click();
         });
     });
 });
+
 
 //Create Account Actions And Elements State 2 and 3    
 Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
@@ -181,9 +226,9 @@ Cypress.Commands.add('testCreateAccountAction',(viewport,userType)=>{
             cy.getElementByTestId(variables[userType].dialog_container_button).then($element=>{
                 cy.wrap($element).click({force: true});
                 //sign up
+                cy.getElementByTestId('sign-up-form-name-input').type(variables[userType].user.name);
                 cy.getElementByTestId('sign-up-form-email-input').type(variables[userType].user.email);
                 cy.getElementByTestId('sign-up-form-password-input').type(variables[userType].user.password);
-                cy.getElementByTestId('sign-up-form-password-confirmation-input').type(variables[userType].user.password);
                 cy.getElementByTestId('sign-up-form-submit-button').click();
                 
                 if(userType !== 'myself'){
