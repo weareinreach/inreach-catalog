@@ -211,11 +211,12 @@ const SignupForm = (props) => {
 			{activeStep === 2 && <NameEmailPswd {...props}></NameEmailPswd>}
 			{activeStep === 3 && (
 				<>
-					<DialogTitle>
+					<DialogTitle data-test-id="dialog-container-title">
 						<FormattedMessage id="account.signup-organization-affiliation-title" />
 					</DialogTitle>
 					<DialogSubTitle
 						className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
+						data-test-id="dialog-container-subtitle"
 					>
 						{dialogSubTitle}
 					</DialogSubTitle>

@@ -36,9 +36,14 @@ describe('Home Page Create Account Form Tests', () => {
                 // });
                 if(userType === 'myself'){
                     it(`Create account ${userType} elements state 1`,()=>{
-                        cy.testCreateAccountState1Elements(viewport,userType);
+                        cy.testCreateAccountSeeker(viewport,userType);
                     });
-                }
+                };
+                if(userType === 'lawyer'){
+                    it(`Create account ${userType} elements state 1`,()=>{
+                        cy.testCreateAccountLawyer(viewport,userType);
+                    });
+                };
                 // it(`Create account ${userType} - already have account`,()=>{
                 //     cy.testCreateAccountAlreadyHaveOne(viewport,userType);
                 // });
