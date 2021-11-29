@@ -1,6 +1,11 @@
 {
-	"password": "testPassword123",
+	"password": "testPassword123$",
 	"name": "Test Automation User Attorney",
 	"email": "automation-attorney@gmail.com",
-	"age": "56"
+	"age": "56",
+	"currentLocation": "San Francisco",
+	"currentLocationOther": "location other",
+	"orgName": "test org name - lawyer",
+	"orgPositionTitle": "test position - lawyer",
+	"reasonForJoining": "test reason - lawyer"
 }

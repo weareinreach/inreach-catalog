@@ -202,7 +202,7 @@ const SignupForm = (props) => {
 	return (
 		<div
 			className={isMobile ? classes.containerMobile : classes.container}
-			data-test-id="sign-up-form-base-container"
+			data-test-id="dialog-container-sign-up-form"
 		>
 			{activeStep === 0 && <SeekerType {...props}></SeekerType>}
 			{activeStep === 1 && (

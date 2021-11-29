@@ -1,6 +1,11 @@
 {
-	"password": "testPassword987",
+	"password": "testPassword987$",
 	"name": "Test Automation User Service Provider",
 	"email": "automation-service-provider@gmail.com",
-	"age": "44"
+	"age": "44",
+	"currentLocation": "San Francisco",
+	"currentLocationOther": "location other",
+	"orgName": "test org name - provider",
+	"orgPositionTitle": "test position - provider",
+	"reasonForJoining": "test reason - provider"
 }

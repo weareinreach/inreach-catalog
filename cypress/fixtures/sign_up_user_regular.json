@@ -1,6 +1,13 @@
 {
-	"password": "testPassword567",
-	"name": "Test Automation User Regular",
-	"email": "automation-regular@gmail.com",
-	"age": "20"
+	"password": "testPassword$",
+	"name": "test automation user",
+	"email": "automation@gmail.com",
+	"age": "46-55",
+	"ethnicityRace": "Indian",
+	"ethnicityRaceOther":"ethnicity other",
+	"countryOfOrigin": "Africa",
+	"countryOfOriginOther": "country other",
+	"sogIdentity": "Lesbian",
+	"sogIdentityOther": "identiy other",
+	"immigrationStatus": "Immigrant"
 }
