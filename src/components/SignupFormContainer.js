@@ -99,8 +99,17 @@ class SignupFormContainer extends React.Component {
 
 		//remove from ethnicityRace array
 		if (event.target.name === 'ethnicityRace' && !isChecked) {
-			tempArray = [...this.state.ethnicityRace]; // make a separate copy of the array
-			let index = tempArray.indexOf(event.target.value);
+			tempArray = [...this.state.ethnicityRace];
+
+			//if 'Other' was unchecked, remove the specifiedId value from the array
+			if (event.target.value === 'aboutyou.answer-other') {
+				tempArray2 = tempArray.filter(function (item) {
+					return item.indexOf('specifiedEthnicity:') !== 0;
+				});
+				tempArray = tempArray2;
+			}
+			//remove unchecked items from array
+			index = tempArray.indexOf(event.target.value);
 			if (index !== -1) {
 				tempArray.splice(index, 1);
 				this.setState({ethnicityRace: tempArray});
@@ -211,20 +220,15 @@ class SignupFormContainer extends React.Component {
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
 		if (this.state.sogIdentity.includes('aboutyou.answer-other')) {
-			console.log('other is selected');
 			let specifiedID = 'specifiedIdentity: ' + this.state.specifiedIdentity;
 			tempArray = this.state.sogIdentity.slice();
 			tempArray.push(specifiedID);
 			let uniq = [...new Set(tempArray)];
 			this.setState({sogIdentity: uniq}, function () {
 				body['sogIdentity'] = this.state.sogIdentity;
-				console.log('other body: ', body);
 				updateUser(userData, body)
 					.then((data) => {
-						this.setState({userData: data.user}, function () {
-							console.log('data from the update: ', data);
-						});
-						// this.props.handleMessageNew('Your email has been updated.');
+						this.setState({userData: data.user}, function () {});
 					})
 					.catch((error) => console.og(error));
 				//if error, send to screen
@@ -233,19 +237,14 @@ class SignupFormContainer extends React.Component {
 			body['sogIdentity'] = this.state.sogIdentity;
 			updateUser(userData, body)
 				.then((data) => {
-					this.setState({userData: data.user}, function () {
-						console.log('data from the update: ', data);
-					});
-					// this.props.handleMessageNew('Your email has been updated.');
+					this.setState({userData: data.user}, function () {});
 				})
 				.catch((error) => console.og(error));
 			//if error, send to screen
 		}
 
-		if (
-			this.state.specifiedEthnicity !== '' &&
-			this.state.ethnicityRace.includes('aboutyou.answer-other')
-		) {
+		if (this.state.ethnicityRace.includes('aboutyou.answer-other')) {
+			let specifiedID = 'specifiedIdentity: ' + this.state.specifiedEthnicity;
 			tempArray = this.state.ethnicityRace.slice();
 			tempArray.push(this.state.specifiedEthnicity);
 			let uniq = [...new Set(tempArray)];
@@ -255,15 +254,16 @@ class SignupFormContainer extends React.Component {
 		} else {
 			body['ethnicityRace'] = this.state.ethnicityRace;
 		}
-		console.log('body: ', body);
 
-		// updateUser(userData, body)
-		// 	.then((data) => {
-		// 		this.setState({userData: data.user}, function(){console.log('data from the update: ', data)});
-		// 		// this.props.handleMessageNew('Your email has been updated.');
-		// 	})
-		// 	.catch((error) => console.og(error));
-		// //if error, send to screen
+		updateUser(userData, body)
+			.then((data) => {
+				this.setState({userData: data.user}, function () {
+					console.log('data from the update: ', data);
+				});
+				// this.props.handleMessageNew('Your email has been updated.');
+			})
+			.catch((error) => console.og(error));
+		//if error, send to screen
 
 		//determine next step in the workflow
 		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
