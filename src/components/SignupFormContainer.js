@@ -40,6 +40,17 @@ class SignupFormContainer extends React.Component {
 		this.handleSignUp = this.handleSignUp.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
 		this.handleSkip = this.handleSkip.bind(this);
+		this.handleResetState = this.handleResetState.bind(this);
+	}
+
+	handleResetState() {
+		this.setState({selection: ''});
+		this.setState({specifiedOrgType: ''});
+		this.setState({orgType: ''});
+		this.setState({email: ''});
+		this.setState({name: ''});
+		this.setState({currentLocation: ''});
+		this.setState({password: ''});
 	}
 
 	handleChange(event) {
@@ -161,12 +172,18 @@ class SignupFormContainer extends React.Component {
 					} else {
 						this.setState(
 							{activeStep: this.state.seekerSteps[this.state.activeStep - 1]},
-							function () {}
+							function () {
+								//reset values if the user goes back to the beginning
+								if (this.state.activeStep === 0) {
+									this.handleResetState();
+								}
+							}
 						);
 					}
 				}
+				//reset values if the user goes back to the beginning
 				if (this.state.activeStep === 0) {
-					this.setState({selection: ''});
+					this.handleResetState();
 				}
 			}
 		);
@@ -209,7 +226,7 @@ class SignupFormContainer extends React.Component {
 		let body = {
 			age: this.state.age,
 			countryOfOrigin:
-				this.state.countryOfOrigin === 'Other (specify)'
+				this.state.countryOfOrigin === 'aboutyou.answer-other'
 					? this.state.specifiedCountry
 					: this.state.countryOfOrigin,
 			immigrationStatus: this.state.immigrationStatus,
