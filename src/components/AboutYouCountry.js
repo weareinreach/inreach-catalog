@@ -192,17 +192,17 @@ const AboutYouCountry = (props) => {
 							<Grid item xs={6}>
 								<FormControlLabel
 									key={type.testId}
-									value={type.value}
+									value={type.formatMessageId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={countryOfOrigin === type.value}
+									checked={countryOfOrigin === type.formatMessageId}
 									data-test-id={type.testId}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{countryOfOrigin === 'Other (specify)' ? (
+				{countryOfOrigin === 'aboutyou.answer-other' ? (
 					<>
 						<FormLabel
 							required
@@ -257,7 +257,7 @@ const AboutYouCountry = (props) => {
 				) : null}
 				<AsylumConnectButton
 					disabled={
-						countryOfOrigin.includes('Other (specify)') &&
+						countryOfOrigin.includes('aboutyou.answer-other') &&
 						textFieldTest.test(specifiedCountry) === false
 					}
 					testIdName="about-you-next-button"

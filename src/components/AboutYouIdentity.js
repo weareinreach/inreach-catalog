@@ -202,7 +202,7 @@ const AboutYouIdentity = (props) => {
 							<FormControlLabel
 								disabled={
 									sogIdentity.includes('aboutyou.answer-prefer-not-to-say') &&
-									type.value != 'aboutyou.answer-prefer-not-to-say'
+									type.formatMessageId != 'aboutyou.answer-prefer-not-to-say'
 								}
 								key={type.testId}
 								value={type.formatMessageId}
