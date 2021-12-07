@@ -198,22 +198,22 @@ const AboutYouEthnicity = (props) => {
 						<Grid item xs={6}>
 							<FormControlLabel
 								disabled={
-									ethnicityRace.includes('Prefer not to say') &&
-									type.value !== 'Prefer not to say'
+									ethnicityRace.includes('aboutyou.answer-prefer-not-to-say') &&
+									type.value !== 'aboutyou.answer-prefer-not-to-say'
 								}
-								key={type.value}
-								value={type.value}
+								key={type.testId}
+								value={type.formatMessageId}
 								control={<Checkbox />}
-								label={type.value}
+								label={intl.formatMessage({id: type.formatMessageId})}
 								name="ethnicityRace"
 								onChange={handleChangeArray}
-								checked={ethnicityRace.includes(type.value)}
+								checked={ethnicityRace.includes(type.formatMessageId)}
 								data-test-id={type.testId}
 							/>
 						</Grid>
 					))}
 				</Grid>
-				{ethnicityRace.includes('Other (specify)') ? (
+				{ethnicityRace.includes('aboutyou.answer-other') ? (
 					<>
 						<FormLabel
 							required
@@ -269,7 +269,7 @@ const AboutYouEthnicity = (props) => {
 				) : null}
 				<AsylumConnectButton
 					disabled={
-						ethnicityRace.includes('Other (specify)') &&
+						ethnicityRace.includes('aboutyou.answer-other') &&
 						textFieldTest.test(specifiedEthnicity) === false
 					}
 					testIdName="about-you-next-button"

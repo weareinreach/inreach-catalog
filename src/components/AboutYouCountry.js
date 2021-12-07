@@ -191,10 +191,10 @@ const AboutYouCountry = (props) => {
 						{aboutYouCountryOptions.map((type, index) => (
 							<Grid item xs={6}>
 								<FormControlLabel
-									key={type.value}
+									key={type.testId}
 									value={type.value}
 									control={<Radio />}
-									label={type.value}
+									label={intl.formatMessage({id: type.formatMessageId})}
 									checked={countryOfOrigin === type.value}
 									data-test-id={type.testId}
 								/>

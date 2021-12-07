@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -145,6 +145,8 @@ const AboutYouImmigration = (props) => {
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
+	const intl = useIntl();
+
 	return (
 		<>
 			<DialogTitle>
@@ -173,11 +175,11 @@ const AboutYouImmigration = (props) => {
 						{aboutYouImmigrationOptions.map((type, index) => (
 							<Grid item xs={6}>
 								<FormControlLabel
-									key={type.value}
+									key={type.testId}
 									value={type.value}
 									control={<Radio />}
-									label={type.value}
-									checked={immigrationStatus.includes(type.value)}
+									label={intl.formatMessage({id: type.formatMessageId})}
+									checked={immigrationStatus === type.value}
 									data-test-id={type.testId}
 								/>
 							</Grid>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -140,10 +140,12 @@ const styles = (theme) => ({
 });
 
 const AboutYouAge = (props) => {
-	const {classes, handleChange, handleUpdateUser} = props;
+	const {classes, handleChange, handleUpdateUser, age} = props;
 
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
+
+	const intl = useIntl();
 
 	return (
 		<>
@@ -169,10 +171,11 @@ const AboutYouAge = (props) => {
 						{aboutYouAgeOptions.map((type, index) => (
 							<Grid item xs={6}>
 								<FormControlLabel
-									key={type.value}
+									key={type.testId}
 									value={type.value}
 									control={<Radio />}
-									label={type.value}
+									label={intl.formatMessage({id: type.formatMessageId})}
+									checked={age === type.value}
 									data-test-id={type.testId}
 								/>
 							</Grid>

@@ -201,22 +201,22 @@ const AboutYouIdentity = (props) => {
 						<Grid item xs={6}>
 							<FormControlLabel
 								disabled={
-									sogIdentity.includes('Prefer not to say') &&
-									type.value != 'Prefer not to say'
+									sogIdentity.includes('aboutyou.answer-prefer-not-to-say') &&
+									type.value != 'aboutyou.answer-prefer-not-to-say'
 								}
-								key={type.value}
-								value={type.value}
+								key={type.testId}
+								value={type.formatMessageId}
 								control={<Checkbox />}
-								label={type.value}
+								label={intl.formatMessage({id: type.formatMessageId})}
 								name="sogIdentity"
 								onChange={handleChangeArray}
-								checked={sogIdentity.includes(type.value)}
+								checked={sogIdentity.includes(type.formatMessageId)}
 								data-test-id={type.testId}
 							/>
 						</Grid>
 					))}
 				</Grid>
-				{sogIdentity.includes('Other (specify)') ? (
+				{sogIdentity.includes('aboutyou.answer-other') ? (
 					<>
 						<FormLabel
 							required
@@ -272,7 +272,7 @@ const AboutYouIdentity = (props) => {
 				) : null}
 				<AsylumConnectButton
 					disabled={
-						sogIdentity.includes('Other (specify)') &&
+						sogIdentity.includes('aboutyou.answer-other') &&
 						textFieldTest.test(specifiedIdentity) === false
 					}
 					testIdName="about-you-next-button"

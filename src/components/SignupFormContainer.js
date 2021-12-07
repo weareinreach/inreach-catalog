@@ -49,22 +49,35 @@ class SignupFormContainer extends React.Component {
 
 	handleChangeArray(event, isChecked) {
 		let tempArray = [];
+		let tempArray2 = [];
+
+		let index = '';
 
 		//add to sogIdentity array
 		if (event.target.name === 'sogIdentity' && isChecked) {
-			if (event.target.value === 'Prefer not to say') {
+			if (event.target.value === 'aboutyou.answer-prefer-not-to-say') {
 				tempArray.push(event.target.value);
 				this.setState({sogIdentity: tempArray});
 			} else {
 				tempArray = this.state.sogIdentity.slice();
 				tempArray.push(event.target.value);
-				this.setState({sogIdentity: tempArray});
+				let uniq = [...new Set(tempArray)];
+				this.setState({sogIdentity: uniq});
 			}
 		}
 		//remove from sogIdentity array
 		if (event.target.name === 'sogIdentity' && !isChecked) {
-			tempArray = [...this.state.sogIdentity]; // make a separate copy of the array
-			let index = tempArray.indexOf(event.target.value);
+			tempArray = [...this.state.sogIdentity];
+
+			//if 'Other' was unchecked, remove the specifiedId value from the array
+			if (event.target.value === 'aboutyou.answer-other') {
+				tempArray2 = tempArray.filter(function (item) {
+					return item.indexOf('specifiedIdentity:') !== 0;
+				});
+				tempArray = tempArray2;
+			}
+			//remove unchecked items from array
+			index = tempArray.indexOf(event.target.value);
 			if (index !== -1) {
 				tempArray.splice(index, 1);
 				this.setState({sogIdentity: tempArray});
@@ -73,13 +86,14 @@ class SignupFormContainer extends React.Component {
 
 		//add to ethnicityRace array
 		if (event.target.name === 'ethnicityRace' && isChecked) {
-			if (event.target.value === 'Prefer not to say') {
+			if (event.target.value === 'aboutyou.answer-prefer-not-to-say') {
 				tempArray.push(event.target.value);
 				this.setState({ethnicityRace: tempArray});
 			} else {
 				tempArray = this.state.ethnicityRace.slice();
 				tempArray.push(event.target.value);
-				this.setState({ethnicityRace: tempArray});
+				let uniq = [...new Set(tempArray)];
+				this.setState({ethnicityRace: uniq});
 			}
 		}
 
@@ -181,69 +195,75 @@ class SignupFormContainer extends React.Component {
 		const {handleMessageNew, organizationSelection, session, userData} =
 			this.props;
 
-		//get all of the state values
-		const {
-			age,
-			ethnicityRace,
-			countryOfOrigin,
-			sogIdentity,
-			immigrationStatus,
-			orgName,
-			orgPositionTitle,
-			reasonForJoining,
-			specifiedCountry,
-			specifiedIdentity,
-			specifiedEthnicity
-		} = this.state;
+		let tempArray = [];
 
-		//if 'Other' is selected for a multi-select, need to push the specified value into the array
-		if (
-			specifiedIdentity &&
-			specifiedIdentity !== '' &&
-			sogIdentity.includes('Other (specify)') &&
-			!sogIdentity.includes(specifiedIdentity)
-		) {
-			let tempObj = {
-				target: {name: 'sogIdentity', value: specifiedIdentity}
-			};
-			this.handleChangeArray(tempObj, true);
-		}
-
-		if (
-			specifiedEthnicity &&
-			specifiedEthnicity !== '' &&
-			ethnicityRace.includes('Other (specify)') &&
-			!ethnicityRace.includes(specifiedEthnicity)
-		) {
-			let tempObj = {
-				target: {name: 'ethnicityRace', value: specifiedEthnicity}
-			};
-			this.handleChangeArray(tempObj, true);
-		}
-
-		// if countryOfOrigin state is 'other', need to set it to the specified value before saving
-		// don't want to change the state directly, else the "Other" checkbox won't be checked
-		const body = {
-			age,
-			ethnicityRace,
+		let body = {
+			age: this.state.age,
 			countryOfOrigin:
-				countryOfOrigin === 'Other (specify)'
-					? specifiedCountry
-					: countryOfOrigin,
-			sogIdentity,
-			immigrationStatus,
-			orgName,
-			orgPositionTitle,
-			reasonForJoining
+				this.state.countryOfOrigin === 'Other (specify)'
+					? this.state.specifiedCountry
+					: this.state.countryOfOrigin,
+			immigrationStatus: this.state.immigrationStatus,
+			orgName: this.state.orgName,
+			orgPositionTitle: this.state.orgPositionTitle,
+			reasonForJoining: this.state.reasonForJoining
 		};
 
-		updateUser(userData, body)
-			.then((data) => {
-				this.setState({userData: data.user});
-				// this.props.handleMessageNew('Your email has been updated.');
-			})
-			.catch((error) => console.og(error));
-		//if error, send to screen
+		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
+		if (this.state.sogIdentity.includes('aboutyou.answer-other')) {
+			console.log('other is selected');
+			let specifiedID = 'specifiedIdentity: ' + this.state.specifiedIdentity;
+			tempArray = this.state.sogIdentity.slice();
+			tempArray.push(specifiedID);
+			let uniq = [...new Set(tempArray)];
+			this.setState({sogIdentity: uniq}, function () {
+				body['sogIdentity'] = this.state.sogIdentity;
+				console.log('other body: ', body);
+				updateUser(userData, body)
+					.then((data) => {
+						this.setState({userData: data.user}, function () {
+							console.log('data from the update: ', data);
+						});
+						// this.props.handleMessageNew('Your email has been updated.');
+					})
+					.catch((error) => console.og(error));
+				//if error, send to screen
+			});
+		} else {
+			body['sogIdentity'] = this.state.sogIdentity;
+			updateUser(userData, body)
+				.then((data) => {
+					this.setState({userData: data.user}, function () {
+						console.log('data from the update: ', data);
+					});
+					// this.props.handleMessageNew('Your email has been updated.');
+				})
+				.catch((error) => console.og(error));
+			//if error, send to screen
+		}
+
+		if (
+			this.state.specifiedEthnicity !== '' &&
+			this.state.ethnicityRace.includes('aboutyou.answer-other')
+		) {
+			tempArray = this.state.ethnicityRace.slice();
+			tempArray.push(this.state.specifiedEthnicity);
+			let uniq = [...new Set(tempArray)];
+			this.setState({ethnicityRace: uniq}, function () {
+				body['ethnicityRace'] = this.state.ethnicityRace;
+			});
+		} else {
+			body['ethnicityRace'] = this.state.ethnicityRace;
+		}
+		console.log('body: ', body);
+
+		// updateUser(userData, body)
+		// 	.then((data) => {
+		// 		this.setState({userData: data.user}, function(){console.log('data from the update: ', data)});
+		// 		// this.props.handleMessageNew('Your email has been updated.');
+		// 	})
+		// 	.catch((error) => console.og(error));
+		// //if error, send to screen
 
 		//determine next step in the workflow
 		if (this.state.activeStep === 10 || this.state.activeStep === 5) {

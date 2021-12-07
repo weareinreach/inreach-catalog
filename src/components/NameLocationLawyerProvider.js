@@ -333,11 +333,11 @@ const NameLocationLawyerProvider = (props) => {
 						{orgTypeOptions.map((type, index) => (
 							<Grid item xs={isMobile ? 12 : 6}>
 								<FormControlLabel
-									key={type.value}
+									key={type.testId}
 									value={type.value}
 									control={<Radio />}
-									label={type.value}
-									checked={orgType.includes(type.value)}
+									label={intl.formatMessage({id: type.formatMessageId})}
+									checked={orgType === type.value}
 									data-test-id={type.testId}
 								/>
 							</Grid>
