@@ -247,8 +247,9 @@ class SignupFormContainer extends React.Component {
 					.then((data) => {
 						this.setState({userData: data.user}, function () {});
 					})
-					.catch((error) => console.og(error));
-				//if error, send to screen
+					.catch((error) => {
+						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					});
 			});
 		} else {
 			body['sogIdentity'] = this.state.sogIdentity;
@@ -256,8 +257,9 @@ class SignupFormContainer extends React.Component {
 				.then((data) => {
 					this.setState({userData: data.user}, function () {});
 				})
-				.catch((error) => console.og(error));
-			//if error, send to screen
+				.catch((error) => {
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				});
 		}
 
 		if (this.state.ethnicityRace.includes('aboutyou.answer-other')) {
@@ -274,13 +276,11 @@ class SignupFormContainer extends React.Component {
 
 		updateUser(userData, body)
 			.then((data) => {
-				this.setState({userData: data.user}, function () {
-					console.log('data from the update: ', data);
-				});
-				// this.props.handleMessageNew('Your email has been updated.');
+				this.setState({userData: data.user}, function () {});
 			})
-			.catch((error) => console.og(error));
-		//if error, send to screen
+			.catch((error) => {
+				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+			});
 
 		//determine next step in the workflow
 		if (this.state.activeStep === 10 || this.state.activeStep === 5) {

@@ -334,17 +334,17 @@ const NameLocationLawyerProvider = (props) => {
 							<Grid item xs={isMobile ? 12 : 6}>
 								<FormControlLabel
 									key={type.testId}
-									value={type.value}
+									value={type.formatMessageId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={orgType === type.value}
+									checked={orgType === type.formatMessageId}
 									data-test-id={type.testId}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{orgType === 'Other (specify)' ? (
+				{orgType === 'aboutyou.answer-other' ? (
 					<>
 						<FormLabel required className={classes.labels} margin="none">
 							{orgTypeOther}
