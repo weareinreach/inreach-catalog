@@ -71,7 +71,7 @@ const SignupForm = ({
 		) : selection === LAWYER_TYPE ? (
 			<FormattedMessage id="form.lawyer-email" />
 		) : (
-			<FormattedMessage id="form.organisation.email" />
+			<FormattedMessage id="form.organization.email" />
 		);
 
 	return (
@@ -210,7 +210,7 @@ const SignupForm = ({
 				<form onSubmit={handleCreateAffiliation}>
 					""
 					<Typography variant="h6" data-test-id="sign-up-form-header-text">
-						<FormattedMessage id="account.join-organisation" />
+						<FormattedMessage id="account.join-organization" />
 					</Typography>
 					<OrganizationAutocomplete
 						handleBlurOrganizations={handleBlurOrganizations}
@@ -236,11 +236,11 @@ const SignupForm = ({
 							testIdName="sign-up-form-join-organization-button"
 							type="submit"
 						>
-							<FormattedMessage id="account.join-organisation" />
+							<FormattedMessage id="account.join-organization" />
 						</AsylumConnectButton>
 					</div>
 					<Typography variant="body1" data-test-id="sign-up-form-body-text">
-						<FormattedMessage id="account.join-organisation-later" />
+						<FormattedMessage id="account.join-organization-later" />
 					</Typography>
 					<Typography
 						className={classes.cursor}
@@ -259,7 +259,7 @@ const SignupForm = ({
 					</Typography>
 					<div className={classes.marginVertical}>
 						<Typography variant="body1" data-test-id="sign-up-form-body-text">
-							<FormattedMessage id="account.join-organisation-request-received" />
+							<FormattedMessage id="account.join-organization-request-received" />
 						</Typography>
 					</div>
 					<div className={classes.marginVertical}>

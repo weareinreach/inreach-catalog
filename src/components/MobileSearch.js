@@ -125,7 +125,7 @@ const MobileSearch = (props) => {
 							<AsylumConnectCheckbox
 								label={
 									<FormattedMessage
-										id="search.show-national-organisations-country"
+										id="search.show-national-organizations-country"
 										defaultMessage="Show me national organizations who can help anyone located in the country"
 									/>
 								}
