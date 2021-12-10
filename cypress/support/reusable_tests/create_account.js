@@ -265,6 +265,16 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             cy.get('[name="specifiedIdentity"]').focus().type('id me').blur();
             cy.getElementByTestId('about-you-next-button').click();
 
+            cy.getElementByTestId('sign-up-form-back-button').click();
+
+            //deselect Other
+            cy.getElementByTestId('other').click();
+            cy.getElementByTestId('about-you-next-button').click();
+
+            cy.getElementByTestId('sign-up-form-back-button').click();
+            cy.getElementByTestId('prefer').click();
+            cy.getElementByTestId('about-you-next-button').click();
+
 
             //ethnicity
             cy.getElementByTestId('about-you-ethnicity-form').then($element=>{
@@ -286,7 +296,11 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             cy.getElementByTestId('other').click();
             cy.get('[name="specifiedEthnicity"]').focus().type('ethnicity me').blur();
             cy.getElementByTestId('about-you-next-button').click();
+            cy.getElementByTestId('sign-up-form-back-button').click();
 
+            //deselect Other
+            cy.getElementByTestId('other').click();
+            cy.getElementByTestId('about-you-next-button').click();
 
 
             //age
