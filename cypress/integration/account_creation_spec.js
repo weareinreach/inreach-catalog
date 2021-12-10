@@ -39,7 +39,7 @@ describe('Home Page Create Account Form Tests', () => {
                 });
                 it(`Create account ${userType} - back button`,()=>{
                         cy.testCreateAccountBackButton(viewport,userType);
-                    });
+                });
                 if(userType === 'myself'){
                     it(`Create account ${userType} - Seeker`,()=>{
                         cy.testCreateAccountSeeker(viewport,userType);
@@ -82,9 +82,6 @@ describe('Home Page Create Account Form Tests', () => {
                         });
                     });
                 };
-                // it(`Create account ${userType} - password tests`,()=>{
-                //     cy.testCreateAccountPasswordTests(viewport,userType);
-                // });
             });
         });
     });
