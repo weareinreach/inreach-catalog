@@ -27,65 +27,63 @@ describe('Home Page Create Account Form Tests', () => {
         cy.root().should('match', 'html');
     });
 
-    //Create Account Elements state 0
+    //Create Account Elements 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
             userTypes.forEach(userType=>{
-                it(`Create account ${userType} elements state 0`,()=>{
+                it(`Create account ${userType} all account options`,()=>{
                     cy.testCreateAccountOptionTypes(viewport,userType);
                 });
-                if(userType === 'myself'){
-                    it(`Create account ${userType} elements state 1`,()=>{
-                        cy.testCreateAccountSeeker(viewport,userType);
-                    });
-                };
-                if(userType === 'lawyer'){
-                    it(`Create account ${userType} elements state 1`,()=>{
-                        cy.testCreateAccountLawyer(viewport,userType);
-                    });
-                };
                 it(`Create account ${userType} - already have account`,()=>{
                     cy.testCreateAccountAlreadyHaveOne(viewport,userType);
                 });
-                if(userType === 'provider'){
-                    it(`Create account ${userType} - back button`,()=>{
+                it(`Create account ${userType} - back button`,()=>{
                         cy.testCreateAccountBackButton(viewport,userType);
+                    });
+                if(userType === 'myself'){
+                    it(`Create account ${userType} - Seeker`,()=>{
+                        cy.testCreateAccountSeeker(viewport,userType);
+                    });
+                    it(`Create account ${userType} - password tests`,()=>{
+                        cy.testCreateAccountPasswordTests(viewport,userType);
+                    });
+                };
+                if(userType === 'lawyer'){
+                    it(`Create account ${userType} - Lawyer`,()=>{
+                        cy.testCreateAccountLawyer(viewport,userType);
+                    });
+                    it(`Creating account for ${userType} - click resource`,()=>{
+                        cy.get('@organization').then(org=>{
+                            //Add Org
+                            cy.addOrg(org).then(()=>{
+                                cy.testCreateAccountActionSkipOrganizationResource(viewport,userType);
+                            }); 
+                        });
+                    });
+                    it(`Creating account for ${userType} - click profile`,()=>{
+                        cy.get('@organization').then(org=>{
+                            //Add Org
+                            cy.addOrg(org).then(()=>{
+                                cy.testCreateAccountActionSkipOrganizationProfile(viewport,userType);
+                            }); 
+                        });
+                    });
+                };
+                if(userType === 'service_provider'){
+                    it(`Create account ${userType} - Provider`,()=>{
+                        cy.testCreateAccountProvider(viewport,userType);
+                    });
+                    it(`Creating account for ${userType} -Provider skip org`,()=>{
+                        cy.get('@organization').then(org=>{
+                            //Add Org
+                            cy.addOrg(org).then(()=>{
+                                cy.testCreateAccountActionSkipOrganization(viewport,userType);
+                            }); 
+                        });
                     });
                 };
                 // it(`Create account ${userType} - password tests`,()=>{
                 //     cy.testCreateAccountPasswordTests(viewport,userType);
-                // });
-                // it(`Creating account for ${userType}`,()=>{
-                //     cy.get('@organization').then(org=>{
-                //         //Add Org
-                //         cy.addOrg(org).then(()=>{
-                //             cy.testCreateAccountAction(viewport,userType);
-                //         }); 
-                //     });
-                // });
-                // it(`Creating account for ${userType} skip org`,()=>{
-                //     cy.get('@organization').then(org=>{
-                //         //Add Org
-                //         cy.addOrg(org).then(()=>{
-                //             cy.testCreateAccountActionSkipOrganization(viewport,userType);
-                //         }); 
-                //     });
-                // });
-                // it(`Creating account for ${userType} skip org click resource`,()=>{
-                //     cy.get('@organization').then(org=>{
-                //         //Add Org
-                //         cy.addOrg(org).then(()=>{
-                //             cy.testCreateAccountActionSkipOrganizationResource(viewport,userType);
-                //         }); 
-                //     });
-                // });
-                // it(`Creating account for ${userType} skip org click profile`,()=>{
-                //     cy.get('@organization').then(org=>{
-                //         //Add Org
-                //         cy.addOrg(org).then(()=>{
-                //             cy.testCreateAccountActionSkipOrganizationProfile(viewport,userType);
-                //         }); 
-                //     });
                 // });
             });
         });
