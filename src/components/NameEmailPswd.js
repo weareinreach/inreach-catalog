@@ -144,7 +144,7 @@ const NameEmailPswd = (props) => {
 		) : selection === LAWYER_TYPE ? (
 			<FormattedMessage id="form.lawyer-email" />
 		) : (
-			<FormattedMessage id="form.organisation-email" />
+			<FormattedMessage id="form.organization-email" />
 		);
 
 	const nameLabel =

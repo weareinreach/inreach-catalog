@@ -260,11 +260,11 @@ const SignupForm = (props) => {
 								testIdName="sign-up-form-join-organization-button"
 								type="submit"
 							>
-								<FormattedMessage id="account.join-organisation" />
+								<FormattedMessage id="account.join-organization" />
 							</AsylumConnectButton>
 						</div>
 						<Typography variant="body1" data-test-id="sign-up-form-body-text">
-							<FormattedMessage id="account.join-organisation-later" />
+							<FormattedMessage id="account.join-organization-later" />
 						</Typography>
 						<Typography
 							className={classes.cursor}
@@ -290,7 +290,7 @@ const SignupForm = (props) => {
 								className={classes.orgBody1}
 								data-test-id="sign-up-form-org-request-rcv"
 							>
-								<FormattedMessage id="account.join-organisation-request-received" />
+								<FormattedMessage id="account.join-organization-request-received" />
 							</Typography>
 							<Typography
 								variant="body1"
