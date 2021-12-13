@@ -1,15 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
 import Modal from 'react-modal';
-
-import {useHistory} from 'react-router-dom';
-
 import {withStyles, Typography} from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
-
-import classNames from 'classnames';
 
 import AsylumConnectButton from './AsylumConnectButton';
 
@@ -66,7 +59,7 @@ const styles = (theme) => ({
 });
 
 const ThankYouMobile = (props) => {
-	const {classes, history, handleRequestClose, locale, state} = props;
+	const {classes, history, handleRequestClose, locale} = props;
 
 	const intl = useIntl();
 
