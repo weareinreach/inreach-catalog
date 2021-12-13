@@ -329,7 +329,7 @@ class SignupFormContainer extends React.Component {
 			password,
 			name,
 			currentLocation,
-			orgType: orgType === 'Other (specify)' ? specifiedOrgType : orgType
+			orgType: orgType === 'aboutyou.answer-other' ? specifiedOrgType : orgType
 		};
 
 		const handleError = () =>

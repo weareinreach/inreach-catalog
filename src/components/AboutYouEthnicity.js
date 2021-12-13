@@ -232,16 +232,10 @@ const AboutYouEthnicity = (props) => {
 							helperText={
 								handleTouchEthnicity &&
 								textFieldTest.test(specifiedEthnicity) === false ? (
-									<FormattedMessage
-										id="error.text-field"
-										values={{field: 'Ethnicity or Race'}}
-									/>
+									<FormattedMessage id="error.text-field-ethnicity" />
 								) : touchedEthnicity &&
 								  textFieldTest.test(specifiedEthnicity) === true ? (
-									<FormattedMessage
-										id="form.field-valid"
-										values={{field: 'Ethnicty or Race'}}
-									/>
+									<FormattedMessage id="form.field-valid-ethnicity" />
 								) : null
 							}
 							id="specifiedEthnicity"

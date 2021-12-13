@@ -229,11 +229,11 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             cy.getElementByTestId('other').click();
             cy.get('[name="specifiedCountry"]').focus().type('a').blur()
             cy.get('[id=specifiedCountry-helper-text]').should('be.visible')
-                      .should('contain', 'Country field must contain at least 2 characters');
+                      .should('contain', "'Country' field must contain at least 2 characters");
             cy.getElementByTestId('about-you-next-button').should('be.disabled');
             cy.get('[name="specifiedCountry"]').focus().type('abc').blur()
             cy.get('[id=specifiedCountry-helper-text]').should('be.visible')
-                      .should('contain', 'Valid country');
+                      .should('contain', "'Country' field is valid");
             cy.getElementByTestId('about-you-next-button').click();
 
             //identity
