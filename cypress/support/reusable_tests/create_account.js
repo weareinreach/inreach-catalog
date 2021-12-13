@@ -227,7 +227,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
                 expect($element).to.contain("My country of origin is in..");
             });
             cy.getElementByTestId('other').click();
-            cy.get('[name="specifiedCountry"]').focus().type('a').blur()
+            cy.get('[name="specifiedCountry"]').focus().type('a').blur();
             cy.get('[id=specifiedCountry-helper-text]').should('be.visible')
                       .should('contain', "'Country' field must contain at least 2 characters");
             cy.getElementByTestId('about-you-next-button').should('be.disabled');
@@ -366,7 +366,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-corp');
+                cy.getElementByTestId('corp').click();
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -511,7 +511,7 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you work or volunteer? *");
                 });
-                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-healthcare');
+                cy.getElementByTestId('healthcare').click();
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -520,7 +520,7 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                 cy.getElementByTestId('sign-up-form-next-button').click();
 
                 cy.getElementByTestId('sign-up-form-back-button').click();
-                cy.get('[type="radio"]').check('aboutyou.answer-other');
+                cy.getElementByTestId('other').click();
                 cy.get('[name="specifiedOrgType"]').focus().type('an organization').blur();
                 cy.getElementByTestId('sign-up-form-next-button').click();
 
@@ -691,7 +691,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you work or volunteer? *");
                 });
-                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-healthcare');
+                cy.getElementByTestId('healthcare').click();
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -805,7 +805,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-corp');
+                cy.getElementByTestId('corp').click();
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -901,7 +901,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-corp');
+                cy.getElementByTestId('corp').click();
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
