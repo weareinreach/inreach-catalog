@@ -372,7 +372,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-next-button').click();
+                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
                 //create user - lawyer
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -387,7 +387,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element.children()).to.contain("Sign Up");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-submit-button').click();
+                cy.getElementByTestId('sign-up-form-submit-button').click({force: true});
                 
                 
                 //user is created, need to wait until POST  
@@ -517,12 +517,12 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-next-button').click();
+                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
                 cy.getElementByTestId('sign-up-form-back-button').click();
                 cy.getElementByTestId('other').click();
                 cy.get('[name="specifiedOrgType"]').focus().type('an organization').blur();
-                cy.getElementByTestId('sign-up-form-next-button').click();
+                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
                 //create user - provider
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -697,7 +697,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-next-button').click();
+                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
                 //create user - provider
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -712,7 +712,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                     expect($element.children()).to.contain("Sign Up");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-submit-button').click();
+                cy.getElementByTestId('sign-up-form-submit-button').click({force: true});
                 
                 
                 //user is created, need to wait until POST  
@@ -811,7 +811,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-next-button').click();
+                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
                 //create user - lawyer
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -826,7 +826,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                     expect($element.children()).to.contain("Sign Up");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-submit-button').click();
+                cy.getElementByTestId('sign-up-form-submit-button').click({force: true});
                 
                 
                 //user is created, need to wait until POST  
@@ -907,7 +907,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-next-button').click();
+                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
                 //create user - lawyer
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -922,7 +922,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                     expect($element.children()).to.contain("Sign Up");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-submit-button').click();
+                cy.getElementByTestId('sign-up-form-submit-button').click({force: true});
                 
                 
                 //user is created, need to wait until POST  
