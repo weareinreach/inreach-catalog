@@ -235,16 +235,10 @@ const AboutYouIdentity = (props) => {
 							helperText={
 								handleTouchIdentity &&
 								textFieldTest.test(specifiedIdentity) === false ? (
-									<FormattedMessage
-										id="error.text-field"
-										values={{field: 'Self-Identity'}}
-									/>
+									<FormattedMessage id="error.text-field-identity" />
 								) : touchedIdentity &&
 								  textFieldTest.test(specifiedIdentity) === true ? (
-									<FormattedMessage
-										id="form.field-valid"
-										values={{field: 'self-identity'}}
-									/>
+									<FormattedMessage id="form.field-valid-identity" />
 								) : null
 							}
 							id="specifiedIdentity"

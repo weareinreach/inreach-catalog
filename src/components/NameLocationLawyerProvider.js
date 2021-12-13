@@ -212,8 +212,8 @@ const NameLocationLawyerProvider = (props) => {
 			textFieldTest.test(currentLocation) === true
 		) {
 			if (
-				(orgType && orgType !== 'Other (specify)') ||
-				(orgType === 'Other (specify)' &&
+				(orgType && orgType !== 'aboutyou.answer-other') ||
+				(orgType === 'aboutyou.answer-other' &&
 					textFieldTest.test(specifiedOrgType) === true)
 			) {
 				return true;
@@ -249,15 +249,9 @@ const NameLocationLawyerProvider = (props) => {
 					error={touchedName && textFieldTest.test(name) === false}
 					helperText={
 						touchedName && textFieldTest.test(name) === false ? (
-							<FormattedMessage
-								id="error.text-field"
-								values={{field: 'Name'}}
-							/>
+							<FormattedMessage id="error.text-field-name" />
 						) : touchedName && textFieldTest.test(name) === true ? (
-							<FormattedMessage
-								id="form.field-valid"
-								values={{field: 'name'}}
-							/>
+							<FormattedMessage id="form.field-valid-name" />
 						) : null
 					}
 					id="name"
@@ -289,16 +283,10 @@ const NameLocationLawyerProvider = (props) => {
 					}
 					helperText={
 						touchedLocation && textFieldTest.test(currentLocation) === false ? (
-							<FormattedMessage
-								id="error.text-field"
-								values={{field: 'Location'}}
-							/>
+							<FormattedMessage id="error.text-field-location" />
 						) : touchedLocation &&
 						  textFieldTest.test(currentLocation) === true ? (
-							<FormattedMessage
-								id="form.field-valid"
-								values={{field: 'location'}}
-							/>
+							<FormattedMessage id="form.field-valid-location" />
 						) : null
 					}
 					id="currentLocation"
@@ -355,18 +343,12 @@ const NameLocationLawyerProvider = (props) => {
 								touchedOrgType && textFieldTest.test(specifiedOrgType) === false
 							}
 							helperText={
-								touchedOrgType &&
+								handleTouchOrgType &&
 								textFieldTest.test(specifiedOrgType) === false ? (
-									<FormattedMessage
-										id="error.text-field"
-										values={{field: 'Organization type'}}
-									/>
+									<FormattedMessage id="error.text-field-orgType" />
 								) : touchedOrgType &&
 								  textFieldTest.test(specifiedOrgType) === true ? (
-									<FormattedMessage
-										id="form.field-valid"
-										values={{field: 'organization type'}}
-									/>
+									<FormattedMessage id="form.field-valid-orgType" />
 								) : null
 							}
 							id="specifiedOrgType"

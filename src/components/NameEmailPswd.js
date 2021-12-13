@@ -225,15 +225,9 @@ const NameEmailPswd = (props) => {
 							error={touchedName && textFieldTest.test(name) === false}
 							helperText={
 								touchedName && textFieldTest.test(name) === false ? (
-									<FormattedMessage
-										id="error.text-field"
-										values={{field: 'Name'}}
-									/>
+									<FormattedMessage id="error.text-field-name" />
 								) : touchedName && textFieldTest.test(name) === true ? (
-									<FormattedMessage
-										id="form.field-valid"
-										values={{field: 'name'}}
-									/>
+									<FormattedMessage id="form.field-valid-name" />
 								) : null
 							}
 							id="name"
@@ -267,10 +261,7 @@ const NameEmailPswd = (props) => {
 						touchedEmail && emailTest.test(email) === false ? (
 							<FormattedMessage id="error.email-format" />
 						) : touchedEmail && emailTest.test(email) === true ? (
-							<FormattedMessage
-								id="form.field-valid"
-								values={{field: 'email'}}
-							/>
+							<FormattedMessage id="form.field-valid-email" />
 						) : null
 					}
 					id="email"
@@ -302,10 +293,7 @@ const NameEmailPswd = (props) => {
 						touchedPassword && pswdTest.test(password) === false ? (
 							<FormattedMessage id="error.password-format" />
 						) : touchedPassword && pswdTest.test(password) === true ? (
-							<FormattedMessage
-								id="form.field-valid"
-								values={{field: 'password'}}
-							/>
+							<FormattedMessage id="form.field-valid-password" />
 						) : null
 					}
 					id="password"

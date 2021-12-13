@@ -220,16 +220,10 @@ const AboutYouCountry = (props) => {
 							helperText={
 								handleTouchCountry &&
 								textFieldTest.test(specifiedCountry) === false ? (
-									<FormattedMessage
-										id="error.text-field"
-										values={{field: 'Country'}}
-									/>
+									<FormattedMessage id="error.text-field-country" />
 								) : touchedCountry &&
 								  textFieldTest.test(specifiedCountry) === true ? (
-									<FormattedMessage
-										id="form.field-valid"
-										values={{field: 'country'}}
-									/>
+									<FormattedMessage id="form.field-valid-country" />
 								) : null
 							}
 							id="specifiedCountry"
