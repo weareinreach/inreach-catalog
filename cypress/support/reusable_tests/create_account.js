@@ -366,13 +366,13 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.getElementByTestId('corp').click();
+                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-corp');
+
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
-                });
-                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
+                }).click({force:true});
 
                 //create user - lawyer
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -386,9 +386,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Sign Up");
                     expect($element).to.have.attr('type','submit');
-                });
-                cy.getElementByTestId('sign-up-form-submit-button').click({force: true});
-                
+                }).click({force: true});                
                 
                 //user is created, need to wait until POST  
                 //completes before accessing the organization search dialog
@@ -432,8 +430,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                 cy.getElementByTestId('sign-up-form-finish-registration-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element).to.contain("Next"); 
-                 });
-                cy.getElementByTestId('sign-up-form-finish-registration-button').click();
+                 }).click();
                 
 
                 //organization about you details
@@ -458,8 +455,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
-                });
-                cy.getElementByTestId('about-you-next-button').click();
+                }).click();
 
                 if(viewport !== Cypress.env('mobile')){
                     //thank you modal

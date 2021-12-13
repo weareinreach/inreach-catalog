@@ -1,12 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
-import Modal from 'react-modal';
-import classNames from 'classnames';
 import {withStyles, Typography} from '@material-ui/core';
-
-import {useHistory} from 'react-router-dom';
-
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import ThankYou from '../images/thanks.svg';
