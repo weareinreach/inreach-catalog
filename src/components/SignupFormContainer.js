@@ -305,20 +305,6 @@ class SignupFormContainer extends React.Component {
 		} = this.state;
 
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
-		const emailTest = new RegExp(/\S+@\S+\.\S+/);
-		const pswdTest = new RegExp(
-			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
-		);
-
-		if (pswdTest.test(password) === false) {
-			handleMessageNew(<FormattedMessage id="error.password-format" />);
-			return;
-		}
-
-		if (emailTest.test(email) === false) {
-			handleMessageNew(<FormattedMessage id="error.email-format" />);
-			return;
-		}
 
 		// if orgType state is 'other', need to set it to the specified value before saving
 		// don't want to change the state directly, else the "Other" radio button won't be checked
