@@ -375,12 +375,19 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                 }).click({force:true});
 
                 //create user - lawyer
-                cy.getElementByTestId('name-email-password-form').within(() => {
-                  cy.get('input[name="email"]').should('have.attr', 'placeholder', variables[userType].email_placeholder_content);
-                  cy.get('input[name="password"]').should('have.attr', 'placeholder', variables[userType].password_placeholder_content);
-                  cy.get('input[name="email"]').type(variables[userType].email_content);
-                  cy.get('input[name="password"]').type(variables[userType].password_content);
-                });
+                if(viewport !== Cypress.env('mobile')){
+                    cy.getElementByTestId('name-email-password-form').within(() => {
+                      cy.get('input[name="email"]').should('have.attr', 'placeholder', variables[userType].email_placeholder_content);
+                      cy.get('input[name="password"]').should('have.attr', 'placeholder', variables[userType].password_placeholder_content);
+                      cy.get('input[name="email"]').type(variables[userType].email_content);
+                      cy.get('input[name="password"]').type(variables[userType].password_content);
+                    });
+                };
+
+                if(viewport === Cypress.env('mobile')){
+                    cy.get('input[name="email"]').type(variables[userType].email_content);
+                    cy.get('input[name="password"]').type(variables[userType].password_content);
+                };
 
                 cy.getElementByTestId('sign-up-form-submit-button').then($element=>{
                     expect($element).to.be.visible;
