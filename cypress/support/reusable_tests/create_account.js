@@ -107,7 +107,30 @@ Cypress.Commands.add('testCreateAccountBackButton',(viewport)=>{
             cy.wrap($element).click();
         });
         cy.getElementByTestId('sign-up-form-back-button').click();
-        cy.getElementByTestId('dialog-container-sign-up-question').should('be.visible');
+
+        cy.getElementByTestId('dialog-container-sign-up-question').then($element => {
+            expect($element).to.be.visible;
+            expect($element.children()).contain('Which are you?');
+        });
+        cy.getElementByTestId('dialog-container-sign-up-attorney-button').then($element => {
+            expect($element).to.be.visible;
+            expect($element.children()).contain("I am an attorney or law student");
+            expect($element).to.have.attr('type', 'submit');
+            cy.wrap($element).click();
+        });
+        cy.getElementByTestId('sign-up-form-back-button').click();
+
+        cy.getElementByTestId('dialog-container-sign-up-question').then($element => {
+            expect($element).to.be.visible;
+            expect($element.children()).contain('Which are you?');
+        });
+        cy.getElementByTestId('dialog-container-sign-up-non-legal-service-provider-button').then($element => {
+            expect($element).to.be.visible;
+            expect($element.children()).contain("I am a non-legal service provider");
+            expect($element).to.have.attr('type', 'submit');
+            cy.wrap($element).click();
+        });
+        cy.getElementByTestId('sign-up-form-back-button').click();
     });
 });
 
@@ -366,28 +389,28 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.get('[type="radio"]').check('account.sign-up-orgType-answer-corp');
+                
+                cy.getElementByTestId('sign-up-form-next-button').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.be.disabled;
+                    expect($element.children()).to.contain("Next");
+                    expect($element).to.have.attr('type','submit');
+                });
+
+                cy.get('[type="radio"]').first().check({force:true});
 
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element.children()).to.contain("Next");
-                    expect($element).to.have.attr('type','submit');
+                    expect($element).to.not.be.disabled;
                 }).click({force:true});
 
                 //create user - lawyer
-                if(viewport !== Cypress.env('mobile')){
-                    cy.getElementByTestId('name-email-password-form').within(() => {
-                      cy.get('input[name="email"]').should('have.attr', 'placeholder', variables[userType].email_placeholder_content);
-                      cy.get('input[name="password"]').should('have.attr', 'placeholder', variables[userType].password_placeholder_content);
-                      cy.get('input[name="email"]').type(variables[userType].email_content);
-                      cy.get('input[name="password"]').type(variables[userType].password_content);
-                    });
-                };
-
-                if(viewport === Cypress.env('mobile')){
-                    cy.get('input[name="email"]').type(variables[userType].email_content);
-                    cy.get('input[name="password"]').type(variables[userType].password_content);
-                };
+                cy.getElementByTestId('name-email-password-form').within(() => {
+                  cy.get('input[name="email"]').should('have.attr', 'placeholder', variables[userType].email_placeholder_content);
+                  cy.get('input[name="password"]').should('have.attr', 'placeholder', variables[userType].password_placeholder_content);
+                  cy.get('input[name="email"]').type(variables[userType].email_content);
+                  cy.get('input[name="password"]').type(variables[userType].password_content);
+                });
 
                 cy.getElementByTestId('sign-up-form-submit-button').then($element=>{
                     expect($element).to.be.visible;
@@ -514,18 +537,31 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you work or volunteer? *");
                 });
-                cy.getElementByTestId('healthcare').click();
+                
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
+                    expect($element).to.be.disabled;
                     expect($element.children()).to.contain("Next");
                     expect($element).to.have.attr('type','submit');
                 });
-                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
 
-                cy.getElementByTestId('sign-up-form-back-button').click();
+                cy.get('[type="radio"]').first().check({force:true});
+                cy.getElementByTestId('sign-up-form-next-button').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.not.be.disabled;
+                }).click({force: true});
+
+                cy.getElementByTestId('sign-up-form-back-button').click({force: true});
                 cy.getElementByTestId('other').click();
+                cy.getElementByTestId('sign-up-form-next-button').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.be.disabled;
+                });
                 cy.get('[name="specifiedOrgType"]').focus().type('an organization').blur();
-                cy.getElementByTestId('sign-up-form-next-button').click({force: true});
+                cy.getElementByTestId('sign-up-form-next-button').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).to.not.be.disabled;
+                }).click({force: true});
 
                 //create user - provider
                 cy.getElementByTestId('name-email-password-form').within(() => {
@@ -539,8 +575,8 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Sign Up");
                     expect($element).to.have.attr('type','submit');
-                });
-                cy.getElementByTestId('sign-up-form-submit-button').click();
+                    expect($element).to.not.be.disabled;
+                }).click({force:true});
                 
                 
                 //user is created, need to wait until POST  
@@ -694,7 +730,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you work or volunteer? *");
                 });
-                cy.getElementByTestId('healthcare').click();
+                cy.getElementByTestId('healthcare').click({force:true});
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -808,7 +844,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.getElementByTestId('corp').click();
+                cy.getElementByTestId('corp').click({force:true});
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -904,7 +940,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.getElementByTestId('corp').click();
+                cy.getElementByTestId('corp').click({force:true});
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -982,5 +1018,3 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
 
         });
     }); 
-
-
