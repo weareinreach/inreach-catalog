@@ -263,17 +263,32 @@ class SignupFormContainer extends React.Component {
 		}
 
 		if (this.state.ethnicityRace.includes('aboutyou.answer-other')) {
-			let specifiedID = 'specifiedIdentity: ' + this.state.specifiedEthnicity;
+			let specifiedEth = 'specifiedEthnicity: ' + this.state.specifiedEthnicity;
 			tempArray = this.state.ethnicityRace.slice();
-			tempArray.push(this.state.specifiedEthnicity);
+			tempArray.push(specifiedEth);
 			let uniq = [...new Set(tempArray)];
 			this.setState({ethnicityRace: uniq}, function () {
 				body['ethnicityRace'] = this.state.ethnicityRace;
+				updateUser(userData, body)
+					.then((data) => {
+						this.setState({userData: data.user}, function () {});
+					})
+					.catch((error) => {
+						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					});
 			});
 		} else {
 			body['ethnicityRace'] = this.state.ethnicityRace;
+			updateUser(userData, body)
+				.then((data) => {
+					this.setState({userData: data.user}, function () {});
+				})
+				.catch((error) => {
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				});
 		}
 
+		//update other attributes here
 		updateUser(userData, body)
 			.then((data) => {
 				this.setState({userData: data.user}, function () {});
