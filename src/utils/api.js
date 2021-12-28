@@ -47,8 +47,6 @@ export const catalogPatch = (path, body, options) => {
 export const catalogPost = (path, body, options) => {
 	const url = `${CATALOG_API_URL}${path}`;
 
-	// console.log('POST', url);
-
 	return post(url, body, {headers: {'x-json-web-token': jwt}}, options)
 		.then(({data, status}) => {
 			return {status, ...data};

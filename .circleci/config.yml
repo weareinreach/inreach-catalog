@@ -8,7 +8,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/node:15.6.0
+      - image: cimg/node:16.12.0
     working_directory: ~/control-panel
     steps:
       - checkout
@@ -38,7 +38,7 @@ jobs:
   
   e2e:
     docker:
-      - image: cypress/base:12
+      - image: cypress/base:16.5.0
         environment:
           TERM: xterm
     working_directory: ~/asylunconnect-catalog
