@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import {FormattedMessage} from 'react-intl';
 
 import FavoritesList from './FavoritesList';
 import FavoritesListMobile from './FavoritesListMobile';
@@ -143,7 +144,9 @@ class FavoritesListContainer extends React.Component {
 				this.props.handleListRemoveFavorite(parseInt(listId), resourceId);
 			})
 			.catch((error) => {
-				this.props.handleMessageNew('Oops! Something went wrong.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="error.unspecified" />
+				);
 			});
 	}
 
