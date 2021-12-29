@@ -68,7 +68,8 @@ export const fetchOrganizations = (params) => {
 		selectedResourceTypes,
 		state,
 		isNational,
-		county
+		county,
+		nearLatLng
 	} = params || {};
 	const tagLocale = localeTagMap[locale] || '';
 	const query = {};
@@ -147,6 +148,10 @@ export const fetchOrganizations = (params) => {
 	if (tagLocale && selectedResourceTypes?.length > 0) {
 		query.tagLocale = tagLocale;
 		query.tags = selectedResourceTypes;
+	}
+	if (nearLatLng?.lng && nearLatLng?.lat) {
+		query.long = nearLatLng?.lng;
+		query.lat = nearLatLng?.lat;
 	}
 
 	const queryString = qs.stringify(query, {arrayFormat: 'comma'});
