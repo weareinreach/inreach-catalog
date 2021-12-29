@@ -47,8 +47,6 @@ export const catalogPatch = (path, body, options) => {
 export const catalogPost = (path, body, options) => {
 	const url = `${CATALOG_API_URL}${path}`;
 
-	// console.log('POST', url);
-
 	return post(url, body, {headers: {'x-json-web-token': jwt}}, options)
 		.then(({data, status}) => {
 			return {status, ...data};
@@ -70,7 +68,8 @@ export const fetchOrganizations = (params) => {
 		selectedResourceTypes,
 		state,
 		isNational,
-		county
+		county,
+		nearLatLng
 	} = params || {};
 	const tagLocale = localeTagMap[locale] || '';
 	const query = {};
@@ -149,6 +148,10 @@ export const fetchOrganizations = (params) => {
 	if (tagLocale && selectedResourceTypes?.length > 0) {
 		query.tagLocale = tagLocale;
 		query.tags = selectedResourceTypes;
+	}
+	if (nearLatLng?.lng && nearLatLng?.lat) {
+		query.long = nearLatLng?.lng;
+		query.lat = nearLatLng?.lat;
 	}
 
 	const queryString = qs.stringify(query, {arrayFormat: 'comma'});
@@ -267,6 +270,16 @@ export const createList = ({name, userId}) => {
 			return result;
 		})
 		.catch((err) => err);
+};
+
+export const deleteList = (listId, user) => {
+	return catalogDelete(`/users/${user}/lists/${listId}`)
+		.then((result) => {
+			return result;
+		})
+		.catch((err) => {
+			return err;
+		});
 };
 
 export const createListFavorite = ({listId, itemId, orgId, userId}) => {

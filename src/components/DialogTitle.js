@@ -4,7 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
-	title: {paddingBottom: theme.spacing(2), textAlign: 'center'}
+	title: {paddingBottom: theme.spacing(2), textAlign: 'center'},
+	wordWrap: 'break-word'
 });
 
 const DialogTitle = ({children, classes}) => (
