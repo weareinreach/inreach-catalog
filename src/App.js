@@ -22,6 +22,9 @@ import PrivacyMobile from './components/PrivacyMobile';
 import PrivacyNotice from './components/PrivacyNotice';
 import RedirectWithParams from './components/RedirectWithParams';
 import ShareMobile from './components/ShareMobile';
+import DeleteListMobile from './components/DeleteListMobile';
+import ThankYouMobile from './components/ThankYouMobile';
+
 import withWidth from './components/withWidth';
 import LogoImg from './images/logo@2x.png';
 import LogoImgMobile from './images/logo-mobile@3x.png';
@@ -186,8 +189,9 @@ class AppConnectCatalog extends React.Component {
 		this.setState({sessionConfirmed: false});
 	}
 
-	handleListNew(list) {
+	handleListNew(list, session) {
 		this.setState((prevState) => ({lists: [...prevState.lists, list]}));
+		this.handleFetchUser(session);
 	}
 
 	handleListRemoveFavorite(listId, favorite) {
@@ -299,10 +303,15 @@ class AppConnectCatalog extends React.Component {
 		const isDialogForgotLoginSignUp = ['forgot', 'login', 'signup'].includes(
 			dialog
 		);
+		const isDialogThankYou = ['thankyou'].includes(dialog);
 		const isDialogLanguage = ['language'].includes(dialog);
 		const isDialogMore = ['more'].includes(dialog);
 		const isDialogPassword = ['password'].includes(dialog);
-		const dialogHasShare = dialog && dialog.indexOf('share') >= 0;
+		const dialogHasShare =
+			dialog &&
+			dialog.indexOf('share') >= 0 &&
+			dialog.indexOf('deleteList') < 0;
+		const dialogHasDeleteList = dialog && dialog.indexOf('deleteList') >= 0;
 		const dialogHasListNew = dialog && dialog.indexOf('listNew') >= 0;
 		const onMobieShowPage =
 			isMobile &&
@@ -317,10 +326,13 @@ class AppConnectCatalog extends React.Component {
 				'more'
 			].includes(dialog) &&
 			(!dialog ||
-				(dialog.indexOf('share') === -1 && dialog.indexOf('listNew') === -1));
+				(dialog.indexOf('share') === -1 &&
+					dialog.indexOf('listNew') === -1 &&
+					dialog.indexOf('deleteList') === -1));
 		if (session && !user) {
 			this.handleFetchUser(session);
 		}
+
 		return (
 			<IntlProvider
 				messages={LanguageMap[locale]}
@@ -384,6 +396,13 @@ class AppConnectCatalog extends React.Component {
 										session={session}
 									/>
 								)}
+								{isDialogThankYou && (
+									<ThankYouMobile
+										history={history}
+										locale={locale}
+										handleRequestClose={this.handleRequestClose}
+									/>
+								)}
 								{dialogHasShare && (
 									<ShareMobile
 										dialog={dialog}
@@ -393,6 +412,23 @@ class AppConnectCatalog extends React.Component {
 										handleRequestOpen={this.handleRequestOpen}
 										session={session}
 										user={user}
+									/>
+								)}
+								{dialogHasDeleteList && (
+									<DeleteListMobile
+										dialog={dialog}
+										handleLogIn={this.handleLogIn}
+										handleFetchUser={this.handleFetchUser}
+										handleMessageNew={this.handleMessageNew}
+										handleRequestClose={this.handleRequestClose}
+										handleRequestOpen={this.handleRequestOpen}
+										session={session}
+										user={user}
+										history={history}
+										locale={locale}
+										listId={dialog.split('/')[1]}
+										listTitle={dialog.split('/')[2]}
+										listVisibility={dialog.split('/')[3]}
 									/>
 								)}
 								{dialogHasListNew && (
@@ -425,6 +461,7 @@ class AppConnectCatalog extends React.Component {
 								dialog={dialog}
 								handleConfirmSession={this.handleConfirmSession}
 								handleListNew={this.handleListNew}
+								handleFetchUser={this.handleFetchUser}
 								handleLogIn={this.handleLogIn}
 								handleLogOut={this.handleLogOut}
 								handleMessageNew={this.handleMessageNew}
@@ -499,6 +536,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
@@ -522,6 +560,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
@@ -547,6 +586,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
@@ -571,6 +611,7 @@ class AppConnectCatalog extends React.Component {
 											handleFavoriteUpdate={this.handleFavoriteUpdate}
 											handleListRemoveFavorite={this.handleListRemoveFavorite}
 											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
 											handleLogOut={this.handleLogOut}
 											handleMessageNew={this.handleMessageNew}
 											handleRequestOpen={this.handleRequestOpen}
