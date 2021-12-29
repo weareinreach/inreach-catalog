@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 import DialogTitle from './DialogTitle';
 import LoginFormContainer from './LoginFormContainer';
@@ -11,7 +12,9 @@ const LoginDialog = ({
 	handleRequestOpen
 }) => (
 	<div data-test-id="log-in-dialog-container">
-		<DialogTitle>Log In</DialogTitle>
+		<DialogTitle>
+			<FormattedMessage id="account.sign-in" defaultMessage="Sign In" />
+		</DialogTitle>
 		<LoginFormContainer
 			handleLogIn={handleLogIn}
 			handleMessageNew={handleMessageNew}

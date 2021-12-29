@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 import {shareResource} from '../utils/api';
 import ShareForm from './ShareForm';
@@ -41,7 +42,7 @@ class ShareFormContainer extends React.Component {
 			!listId ||
 			!shareType
 		) {
-			handleMessageNew('Invalid request');
+			handleMessageNew(<FormattedMessage id="error.invalid-request" />);
 			return;
 		}
 		try {
@@ -55,18 +56,22 @@ class ShareFormContainer extends React.Component {
 			};
 			await shareResource(payload);
 			handleMessageNew(
-				`${shareType === 'collection' ? 'List' : 'Resource'} shared sucessfully`
+				shareType === 'collection' ? (
+					<FormattedMessage id="favorites.share-list-success-message" />
+				) : (
+					<FormattedMessage id="favorites.share-resource-success-message" />
+				)
 			);
 			handleRequestClose();
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
-				handleMessageNew('Your session has expired. Please log in again.');
+				handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
 				handleLogOut();
 				handleRequestClose();
 			} else if (error.response && error.response.status === 403) {
 				handleRequestOpen('password');
 			} else {
-				handleMessageNew('Oops! Something went wrong.');
+				handleMessageNew(<FormattedMessage id="error.unspecified" />);
 				handleRequestClose();
 			}
 		}

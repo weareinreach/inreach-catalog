@@ -73,11 +73,13 @@ const AccountMobile = ({
 				centered
 			>
 				<Tab
+					data-test-id="account-mobile-sign-in"
 					label={
 						<FormattedMessage id="account.sign-in" defaultMessage="Sign In" />
 					}
 				/>
 				<Tab
+					data-test-id="account-mobile-sign-up"
 					label={
 						<FormattedMessage id="account.sign-up" defaultMessage="Sign Up" />
 					}
