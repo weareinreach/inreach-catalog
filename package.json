@@ -24,7 +24,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "autosuggest-highlight": "^3.1.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-plugin-react-remove-properties": "^0.3.0",
     "classnames": "^2.2.6",
     "customize-cra": "^1.0.0",
