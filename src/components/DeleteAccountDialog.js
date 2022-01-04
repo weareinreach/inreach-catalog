@@ -88,7 +88,7 @@ class DeleteAccountDialog extends React.Component {
 				</form>
 
 				<AsylumConnectButton
-					variant="primary"
+					variant="secondary"
 					testIdName="delete-account-cancel-button"
 					onClick={handleRequestClose}
 				>
