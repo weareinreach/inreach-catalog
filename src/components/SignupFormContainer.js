@@ -342,12 +342,12 @@ class SignupFormContainer extends React.Component {
 			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
 		);
 
-		if (pswdTest.test(password) === false) {
+		if (!pswdTest.test(password)) {
 			handleMessageNew(<FormattedMessage id="error.password-format" />);
 			return;
 		}
 
-		if (emailTest.test(email) === false) {
+		if (!emailTest.test(email)) {
 			handleMessageNew(<FormattedMessage id="error.email-format" />);
 			return;
 		}
