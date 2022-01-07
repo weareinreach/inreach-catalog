@@ -198,22 +198,22 @@ const AboutYouEthnicity = (props) => {
 						<Grid item xs={6}>
 							<FormControlLabel
 								disabled={
-									ethnicityRace.includes('aboutyou.answer-prefer-not-to-say') &&
-									type.formatMessageId !== 'aboutyou.answer-prefer-not-to-say'
+									ethnicityRace.includes('prefer-not-to-say') &&
+									type.formatMessageId !== 'prefer-not-to-say'
 								}
 								key={type.testId}
-								value={type.formatMessageId}
+								value={type.testId}
 								control={<Checkbox />}
 								label={intl.formatMessage({id: type.formatMessageId})}
 								name="ethnicityRace"
 								onChange={handleChangeArray}
-								checked={ethnicityRace.includes(type.formatMessageId)}
+								checked={ethnicityRace.includes(type.testId)}
 								data-test-id={type.testId}
 							/>
 						</Grid>
 					))}
 				</Grid>
-				{ethnicityRace.includes('aboutyou.answer-other') ? (
+				{ethnicityRace.includes('other') ? (
 					<>
 						<FormLabel
 							required
@@ -226,15 +226,14 @@ const AboutYouEthnicity = (props) => {
 						<TextField
 							onBlur={handleTouchEthnicity}
 							error={
-								touchedEthnicity &&
-								textFieldTest.test(specifiedEthnicity) === false
+								touchedEthnicity && !textFieldTest.test(specifiedEthnicity)
 							}
 							helperText={
 								handleTouchEthnicity &&
-								textFieldTest.test(specifiedEthnicity) === false ? (
+								!textFieldTest.test(specifiedEthnicity) ? (
 									<FormattedMessage id="error.text-field-ethnicity" />
 								) : touchedEthnicity &&
-								  textFieldTest.test(specifiedEthnicity) === true ? (
+								  textFieldTest.test(specifiedEthnicity) ? (
 									<FormattedMessage id="form.field-valid-ethnicity" />
 								) : null
 							}
@@ -263,8 +262,8 @@ const AboutYouEthnicity = (props) => {
 				) : null}
 				<AsylumConnectButton
 					disabled={
-						ethnicityRace.includes('aboutyou.answer-other') &&
-						textFieldTest.test(specifiedEthnicity) === false
+						ethnicityRace.includes('other') &&
+						!textFieldTest.test(specifiedEthnicity)
 					}
 					testIdName="about-you-next-button"
 					variant="primary"

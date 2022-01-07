@@ -192,17 +192,17 @@ const AboutYouCountry = (props) => {
 							<Grid item xs={6}>
 								<FormControlLabel
 									key={type.testId}
-									value={type.formatMessageId}
+									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={countryOfOrigin === type.formatMessageId}
+									checked={countryOfOrigin === type.testId}
 									data-test-id={type.testId}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{countryOfOrigin === 'aboutyou.answer-other' ? (
+				{countryOfOrigin === 'other' ? (
 					<>
 						<FormLabel
 							required
@@ -214,15 +214,11 @@ const AboutYouCountry = (props) => {
 						</FormLabel>
 						<TextField
 							onBlur={handleTouchCountry}
-							error={
-								touchedCountry && textFieldTest.test(specifiedCountry) === false
-							}
+							error={touchedCountry && !textFieldTest.test(specifiedCountry)}
 							helperText={
-								handleTouchCountry &&
-								textFieldTest.test(specifiedCountry) === false ? (
+								handleTouchCountry && !textFieldTest.test(specifiedCountry) ? (
 									<FormattedMessage id="error.text-field-country" />
-								) : touchedCountry &&
-								  textFieldTest.test(specifiedCountry) === true ? (
+								) : touchedCountry && textFieldTest.test(specifiedCountry) ? (
 									<FormattedMessage id="form.field-valid-country" />
 								) : null
 							}
@@ -252,7 +248,7 @@ const AboutYouCountry = (props) => {
 				<AsylumConnectButton
 					disabled={
 						countryOfOrigin.includes('aboutyou.answer-other') &&
-						textFieldTest.test(specifiedCountry) === false
+						!textFieldTest.test(specifiedCountry)
 					}
 					testIdName="about-you-next-button"
 					variant="primary"

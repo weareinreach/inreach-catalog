@@ -201,22 +201,22 @@ const AboutYouIdentity = (props) => {
 						<Grid item xs={6}>
 							<FormControlLabel
 								disabled={
-									sogIdentity.includes('aboutyou.answer-prefer-not-to-say') &&
-									type.formatMessageId != 'aboutyou.answer-prefer-not-to-say'
+									sogIdentity.includes('prefer-not-to-say') &&
+									type.testId != 'prefer-not-to-say'
 								}
 								key={type.testId}
-								value={type.formatMessageId}
+								value={type.testId}
 								control={<Checkbox />}
 								label={intl.formatMessage({id: type.formatMessageId})}
 								name="sogIdentity"
 								onChange={handleChangeArray}
-								checked={sogIdentity.includes(type.formatMessageId)}
+								checked={sogIdentity.includes(type.testId)}
 								data-test-id={type.testId}
 							/>
 						</Grid>
 					))}
 				</Grid>
-				{sogIdentity.includes('aboutyou.answer-other') ? (
+				{sogIdentity.includes('other') ? (
 					<>
 						<FormLabel
 							required
@@ -228,16 +228,12 @@ const AboutYouIdentity = (props) => {
 						</FormLabel>
 						<TextField
 							onBlur={handleTouchIdentity}
-							error={
-								touchedIdentity &&
-								textFieldTest.test(specifiedIdentity) === false
-							}
+							error={touchedIdentity && !textFieldTest.test(specifiedIdentity)}
 							helperText={
 								handleTouchIdentity &&
-								textFieldTest.test(specifiedIdentity) === false ? (
+								!textFieldTest.test(specifiedIdentity) ? (
 									<FormattedMessage id="error.text-field-identity" />
-								) : touchedIdentity &&
-								  textFieldTest.test(specifiedIdentity) === true ? (
+								) : touchedIdentity && textFieldTest.test(specifiedIdentity) ? (
 									<FormattedMessage id="form.field-valid-identity" />
 								) : null
 							}
@@ -266,8 +262,8 @@ const AboutYouIdentity = (props) => {
 				) : null}
 				<AsylumConnectButton
 					disabled={
-						sogIdentity.includes('aboutyou.answer-other') &&
-						textFieldTest.test(specifiedIdentity) === false
+						sogIdentity.includes('other') &&
+						!textFieldTest.test(specifiedIdentity)
 					}
 					testIdName="about-you-next-button"
 					variant="primary"

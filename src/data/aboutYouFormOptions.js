@@ -24,7 +24,7 @@ export const aboutYouImmigrationOptions = [
 		formatMessageId: 'aboutyou.answer-none-apply'
 	},
 	{
-		testId: 'prefer',
+		testId: 'prefer-not-to-say',
 		formatMessageId: 'aboutyou.answer-prefer-not-to-say'
 	}
 ];
@@ -63,7 +63,7 @@ export const aboutYouCountryOptions = [
 		formatMessageId: 'aboutyou.country-answer-europe'
 	},
 	{
-		testId: 'prefer',
+		testId: 'prefer-not-to-say',
 		formatMessageId: 'aboutyou.answer-prefer-not-to-say'
 	},
 	{
@@ -130,7 +130,7 @@ export const aboutYouSogOptions = [
 		formatMessageId: 'aboutyou.identity-answer-man'
 	},
 	{
-		testId: 'prefer',
+		testId: 'prefer-not-to-say',
 		formatMessageId: 'aboutyou.answer-prefer-not-to-say'
 	},
 	{
@@ -141,19 +141,19 @@ export const aboutYouSogOptions = [
 
 export const aboutYouEthnicityOptions = [
 	{
-		testId: 'af-md',
+		testId: 'african-middle-eastern',
 		formatMessageId: 'aboutyou.ethnicity-answer-af-md'
 	},
 	{
-		testId: 'af-am',
+		testId: 'african-american-black',
 		formatMessageId: 'aboutyou.ethnicity-answer-af-am'
 	},
 	{
-		testId: 'af-car',
+		testId: 'afro-caribbean-black',
 		formatMessageId: 'aboutyou.ethnicity-answer-af-car'
 	},
 	{
-		testId: 'asian',
+		testId: 'asian-asian-american',
 		formatMessageId: 'aboutyou.ethnicity-answer-asian'
 	},
 	{
@@ -169,7 +169,7 @@ export const aboutYouEthnicityOptions = [
 		formatMessageId: 'aboutyou.ethnicity-answer-native'
 	},
 	{
-		testId: 'pacific',
+		testId: 'pacific-islander',
 		formatMessageId: 'aboutyou.ethnicity-answer-pacific'
 	},
 	{
@@ -177,7 +177,7 @@ export const aboutYouEthnicityOptions = [
 		formatMessageId: 'aboutyou.ethnicity-answer-white'
 	},
 	{
-		testId: 'prefer',
+		testId: 'prefer-not-to-say',
 		formatMessageId: 'aboutyou.answer-prefer-not-to-say'
 	},
 	{
@@ -187,19 +187,19 @@ export const aboutYouEthnicityOptions = [
 ];
 
 export const aboutYouAgeOptions = [
-	{testId: '18', formatMessageId: 'aboutyou.age-answer-18'},
-	{testId: '25', formatMessageId: 'aboutyou.age-answer-25'},
-	{testId: '35', formatMessageId: 'aboutyou.age-answer-35'},
-	{testId: '45', formatMessageId: 'aboutyou.age-answer-45'},
-	{testId: '55', formatMessageId: 'aboutyou.age-answer-55'},
-	{testId: '65', formatMessageId: 'aboutyou.age-answer-65'},
-	{testId: '75', formatMessageId: 'aboutyou.age-answer-75'},
+	{testId: 'under-18', formatMessageId: 'aboutyou.age-answer-18'},
+	{testId: '18-25', formatMessageId: 'aboutyou.age-answer-25'},
+	{testId: '26-35', formatMessageId: 'aboutyou.age-answer-35'},
+	{testId: '36-45', formatMessageId: 'aboutyou.age-answer-45'},
+	{testId: '46-55', formatMessageId: 'aboutyou.age-answer-55'},
+	{testId: '56-65', formatMessageId: 'aboutyou.age-answer-65'},
+	{testId: '66-75', formatMessageId: 'aboutyou.age-answer-75'},
 	{
-		testId: 'older',
+		testId: '76-older',
 		formatMessageId: 'aboutyou.age-answer-older'
 	},
 	{
-		testId: 'prefer',
+		testId: 'prefer-not-to-say',
 		formatMessageId: 'aboutyou.answer-prefer-not-to-say'
 	}
 ];

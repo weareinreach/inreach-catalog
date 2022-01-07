@@ -176,10 +176,10 @@ const AboutYouImmigration = (props) => {
 							<Grid item xs={6}>
 								<FormControlLabel
 									key={type.testId}
-									value={type.formatMessageId}
+									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={immigrationStatus === type.formatMessageId}
+									checked={immigrationStatus === type.testId}
 									data-test-id={type.testId}
 								/>
 							</Grid>

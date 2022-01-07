@@ -66,7 +66,7 @@ class SignupFormContainer extends React.Component {
 
 		//add to sogIdentity array
 		if (event.target.name === 'sogIdentity' && isChecked) {
-			if (event.target.value === 'aboutyou.answer-prefer-not-to-say') {
+			if (event.target.value === 'prefer-not-to-say') {
 				tempArray.push(event.target.value);
 				this.setState({sogIdentity: tempArray});
 			} else {
@@ -81,7 +81,7 @@ class SignupFormContainer extends React.Component {
 			tempArray = [...this.state.sogIdentity];
 
 			//if 'Other' was unchecked, remove the specifiedId value from the array
-			if (event.target.value === 'aboutyou.answer-other') {
+			if (event.target.value === 'other') {
 				tempArray2 = tempArray.filter(function (item) {
 					return item.indexOf('specifiedIdentity:') !== 0;
 				});
@@ -97,7 +97,7 @@ class SignupFormContainer extends React.Component {
 
 		//add to ethnicityRace array
 		if (event.target.name === 'ethnicityRace' && isChecked) {
-			if (event.target.value === 'aboutyou.answer-prefer-not-to-say') {
+			if (event.target.value === 'prefer-not-to-say') {
 				tempArray.push(event.target.value);
 				this.setState({ethnicityRace: tempArray});
 			} else {
@@ -113,7 +113,7 @@ class SignupFormContainer extends React.Component {
 			tempArray = [...this.state.ethnicityRace];
 
 			//if 'Other' was unchecked, remove the specifiedId value from the array
-			if (event.target.value === 'aboutyou.answer-other') {
+			if (event.target.value === 'other') {
 				tempArray2 = tempArray.filter(function (item) {
 					return item.indexOf('specifiedEthnicity:') !== 0;
 				});
@@ -222,11 +222,12 @@ class SignupFormContainer extends React.Component {
 			this.props;
 
 		let tempArray = [];
+		let tempArray2 = [];
 
 		let body = {
 			age: this.state.age,
 			countryOfOrigin:
-				this.state.countryOfOrigin === 'aboutyou.answer-other'
+				this.state.countryOfOrigin === 'other'
 					? this.state.specifiedCountry
 					: this.state.countryOfOrigin,
 			immigrationStatus: this.state.immigrationStatus,
@@ -236,9 +237,17 @@ class SignupFormContainer extends React.Component {
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
-		if (this.state.sogIdentity.includes('aboutyou.answer-other')) {
+		if (this.state.sogIdentity.includes('other')) {
 			let specifiedID = 'specifiedIdentity: ' + this.state.specifiedIdentity;
 			tempArray = this.state.sogIdentity.slice();
+
+			//remove previously specified values before saving newly specified value
+			tempArray2 = tempArray.filter(function (item) {
+				return item.indexOf('specifiedIdentity:') !== 0;
+			});
+			tempArray = tempArray2;
+
+			//set newly specified value
 			tempArray.push(specifiedID);
 			let uniq = [...new Set(tempArray)];
 			this.setState({sogIdentity: uniq}, function () {
@@ -262,9 +271,17 @@ class SignupFormContainer extends React.Component {
 				});
 		}
 
-		if (this.state.ethnicityRace.includes('aboutyou.answer-other')) {
+		if (this.state.ethnicityRace.includes('other')) {
 			let specifiedEth = 'specifiedEthnicity: ' + this.state.specifiedEthnicity;
 			tempArray = this.state.ethnicityRace.slice();
+
+			//remove previously specified values before saving newly specified value
+			tempArray2 = tempArray.filter(function (item) {
+				return item.indexOf('specifiedEthnicity:') !== 0;
+			});
+			tempArray = tempArray2;
+
+			//set newly specified value
 			tempArray.push(specifiedEth);
 			let uniq = [...new Set(tempArray)];
 			this.setState({ethnicityRace: uniq}, function () {
@@ -344,7 +361,7 @@ class SignupFormContainer extends React.Component {
 			password,
 			name,
 			currentLocation,
-			orgType: orgType === 'aboutyou.answer-other' ? specifiedOrgType : orgType
+			orgType: orgType === 'other' ? specifiedOrgType : orgType
 		};
 
 		const handleError = () =>
