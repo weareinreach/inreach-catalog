@@ -172,10 +172,10 @@ const AboutYouAge = (props) => {
 							<Grid item xs={6}>
 								<FormControlLabel
 									key={type.testId}
-									value={type.formatMessageId}
+									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={age === type.formatMessageId}
+									checked={age === type.testId}
 									data-test-id={type.testId}
 								/>
 							</Grid>

@@ -207,14 +207,13 @@ const NameLocationLawyerProvider = (props) => {
 	const isOrgValid = () => {
 		if (
 			name &&
-			textFieldTest.test(name) === true &&
+			textFieldTest.test(name) &&
 			currentLocation &&
-			textFieldTest.test(currentLocation) === true
+			textFieldTest.test(currentLocation)
 		) {
 			if (
-				(orgType && orgType !== 'aboutyou.answer-other') ||
-				(orgType === 'aboutyou.answer-other' &&
-					textFieldTest.test(specifiedOrgType) === true)
+				(orgType && orgType !== 'other') ||
+				(orgType === 'other' && textFieldTest.test(specifiedOrgType))
 			) {
 				return true;
 			}
@@ -246,11 +245,11 @@ const NameLocationLawyerProvider = (props) => {
 				</FormLabel>
 				<TextField
 					onBlur={handleTouchName}
-					error={touchedName && textFieldTest.test(name) === false}
+					error={touchedName && !textFieldTest.test(name)}
 					helperText={
-						touchedName && textFieldTest.test(name) === false ? (
+						touchedName && !textFieldTest.test(name) ? (
 							<FormattedMessage id="error.text-field-name" />
-						) : touchedName && textFieldTest.test(name) === true ? (
+						) : touchedName && textFieldTest.test(name) ? (
 							<FormattedMessage id="form.field-valid-name" />
 						) : null
 					}
@@ -278,14 +277,11 @@ const NameLocationLawyerProvider = (props) => {
 				</FormLabel>
 				<TextField
 					onBlur={handleTouchLocation}
-					error={
-						touchedLocation && textFieldTest.test(currentLocation) === false
-					}
+					error={touchedLocation && !textFieldTest.test(currentLocation)}
 					helperText={
-						touchedLocation && textFieldTest.test(currentLocation) === false ? (
+						touchedLocation && !textFieldTest.test(currentLocation) ? (
 							<FormattedMessage id="error.text-field-location" />
-						) : touchedLocation &&
-						  textFieldTest.test(currentLocation) === true ? (
+						) : touchedLocation && textFieldTest.test(currentLocation) ? (
 							<FormattedMessage id="form.field-valid-location" />
 						) : null
 					}
@@ -322,32 +318,28 @@ const NameLocationLawyerProvider = (props) => {
 							<Grid item xs={isMobile ? 12 : 6}>
 								<FormControlLabel
 									key={type.testId}
-									value={type.formatMessageId}
+									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={orgType === type.formatMessageId}
+									checked={orgType === type.testId}
 									data-test-id={type.testId}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{orgType === 'aboutyou.answer-other' ? (
+				{orgType === 'other' ? (
 					<>
 						<FormLabel required className={classes.labels} margin="none">
 							{orgTypeOther}
 						</FormLabel>
 						<TextField
 							onBlur={handleTouchOrgType}
-							error={
-								touchedOrgType && textFieldTest.test(specifiedOrgType) === false
-							}
+							error={touchedOrgType && !textFieldTest.test(specifiedOrgType)}
 							helperText={
-								handleTouchOrgType &&
-								textFieldTest.test(specifiedOrgType) === false ? (
+								handleTouchOrgType && !textFieldTest.test(specifiedOrgType) ? (
 									<FormattedMessage id="error.text-field-orgType" />
-								) : touchedOrgType &&
-								  textFieldTest.test(specifiedOrgType) === true ? (
+								) : touchedOrgType && textFieldTest.test(specifiedOrgType) ? (
 									<FormattedMessage id="form.field-valid-orgType" />
 								) : null
 							}
@@ -375,7 +367,7 @@ const NameLocationLawyerProvider = (props) => {
 					</>
 				) : null}
 				<AsylumConnectButton
-					disabled={isOrgValid() === false ? true : false}
+					disabled={!isOrgValid()}
 					testIdName="sign-up-form-next-button"
 					variant="primary"
 					className={classes.nextBtn}

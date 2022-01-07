@@ -180,11 +180,11 @@ const NameEmailPswd = (props) => {
 	const isValid = () => {
 		if (
 			name &&
-			textFieldTest.test(name) === true &&
+			textFieldTest.test(name) &&
 			email &&
-			emailTest.test(email) === true &&
+			emailTest.test(email) &&
 			password &&
-			pswdTest.test(password) === true
+			pswdTest.test(password)
 		) {
 			return true;
 		}
@@ -222,11 +222,11 @@ const NameEmailPswd = (props) => {
 						</FormLabel>
 						<TextField
 							onBlur={handleTouchName}
-							error={touchedName && textFieldTest.test(name) === false}
+							error={touchedName && !textFieldTest.test(name)}
 							helperText={
-								touchedName && textFieldTest.test(name) === false ? (
+								touchedName && !textFieldTest.test(name) ? (
 									<FormattedMessage id="error.text-field-name" />
-								) : touchedName && textFieldTest.test(name) === true ? (
+								) : touchedName && textFieldTest.test(name) ? (
 									<FormattedMessage id="form.field-valid-name" />
 								) : null
 							}
@@ -256,11 +256,11 @@ const NameEmailPswd = (props) => {
 				</FormLabel>
 				<TextField
 					onBlur={handleTouchEmail}
-					error={touchedEmail && emailTest.test(email) === false}
+					error={touchedEmail && !emailTest.test(email)}
 					helperText={
-						touchedEmail && emailTest.test(email) === false ? (
+						touchedEmail && !emailTest.test(email) ? (
 							<FormattedMessage id="error.email-format" />
-						) : touchedEmail && emailTest.test(email) === true ? (
+						) : touchedEmail && emailTest.test(email) ? (
 							<FormattedMessage id="form.field-valid-email" />
 						) : null
 					}
@@ -288,11 +288,11 @@ const NameEmailPswd = (props) => {
 				</FormLabel>
 				<TextField
 					onBlur={handleTouchPassword}
-					error={touchedPassword && pswdTest.test(password) === false}
+					error={touchedPassword && !pswdTest.test(password)}
 					helperText={
-						touchedPassword && pswdTest.test(password) === false ? (
+						touchedPassword && !pswdTest.test(password) ? (
 							<FormattedMessage id="error.password-format" />
-						) : touchedPassword && pswdTest.test(password) === true ? (
+						) : touchedPassword && pswdTest.test(password) ? (
 							<FormattedMessage id="form.field-valid-password" />
 						) : null
 					}
@@ -317,7 +317,7 @@ const NameEmailPswd = (props) => {
 				/>
 				<AsylumConnectSignupAgreement />
 				<AsylumConnectButton
-					disabled={isValid() === false ? true : false}
+					disabled={!isValid()}
 					testIdName="sign-up-form-submit-button"
 					variant="primary"
 					className={classes.noBottomMargin}

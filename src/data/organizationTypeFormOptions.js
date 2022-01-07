@@ -1,10 +1,10 @@
 export const organizationTypesLawyer = [
 	{
-		testId: 'corp',
+		testId: 'corporate-law',
 		formatMessageId: 'account.sign-up-orgType-answer-corp'
 	},
 	{
-		testId: 'law',
+		testId: 'law-school-clinic',
 		formatMessageId: 'account.sign-up-orgType-answer-law'
 	},
 	{
@@ -19,11 +19,11 @@ export const organizationTypesLawyer = [
 
 export const organizationTypesProvider = [
 	{
-		testId: 'healthcare',
+		testId: 'healthcare-provider',
 		formatMessageId: 'account.sign-up-orgType-answer-healthcare'
 	},
 	{
-		testId: 'government',
+		testId: 'government-agency',
 		formatMessageId: 'account.sign-up-orgType-answer-government'
 	},
 	{
@@ -35,7 +35,7 @@ export const organizationTypesProvider = [
 		formatMessageId: 'account.sign-up-orgType-answer-grassroots'
 	},
 	{
-		testId: 'student',
+		testId: 'student-club',
 		formatMessageId: 'account.sign-up-orgType-answer-student'
 	},
 	{
