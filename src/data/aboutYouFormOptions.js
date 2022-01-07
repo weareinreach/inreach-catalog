@@ -142,39 +142,39 @@ export const aboutYouSogOptions = [
 export const aboutYouEthnicityOptions = [
 	{
 		testId: 'af-md',
-		formatMessageId: 'aboutyou.ehnicity-answer-af-md'
+		formatMessageId: 'aboutyou.ethnicity-answer-af-md'
 	},
 	{
 		testId: 'af-am',
-		formatMessageId: 'aboutyou.ehnicity-answer-af-am'
+		formatMessageId: 'aboutyou.ethnicity-answer-af-am'
 	},
 	{
 		testId: 'af-car',
-		formatMessageId: 'aboutyou.ehnicity-answer-af-car'
+		formatMessageId: 'aboutyou.ethnicity-answer-af-car'
 	},
 	{
 		testId: 'asian',
-		formatMessageId: 'aboutyou.ehnicity-answer-asian'
+		formatMessageId: 'aboutyou.ethnicity-answer-asian'
 	},
 	{
 		testId: 'hispanic',
-		formatMessageId: 'aboutyou.ehnicity-answer-hispanic'
+		formatMessageId: 'aboutyou.ethnicity-answer-hispanic'
 	},
 	{
 		testId: 'indian',
-		formatMessageId: 'aboutyou.ehnicity-answer-indian'
+		formatMessageId: 'aboutyou.ethnicity-answer-indian'
 	},
 	{
 		testId: 'native',
-		formatMessageId: 'aboutyou.ehnicity-answer-native'
+		formatMessageId: 'aboutyou.ethnicity-answer-native'
 	},
 	{
 		testId: 'pacific',
-		formatMessageId: 'aboutyou.ehnicity-answer-pacific'
+		formatMessageId: 'aboutyou.ethnicity-answer-pacific'
 	},
 	{
 		testId: 'white',
-		formatMessageId: 'aboutyou.ehnicity-answer-white'
+		formatMessageId: 'aboutyou.ethnicity-answer-white'
 	},
 	{
 		testId: 'prefer',
