@@ -173,9 +173,8 @@ const AboutYouImmigration = (props) => {
 				>
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
 						{aboutYouImmigrationOptions.map((type, index) => (
-							<Grid item xs={6}>
+							<Grid item xs={6} key={index}>
 								<FormControlLabel
-									key={type.testId}
 									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}

@@ -192,18 +192,6 @@ const NameLocationLawyerProvider = (props) => {
 			<FormattedMessage id="account.signup-organization-orgType-provider-other" />
 		);
 
-	const handleTouchName = () => {
-		setTouchedName(true);
-	};
-
-	const handleTouchLocation = () => {
-		setTouchedLocation(true);
-	};
-
-	const handleTouchOrgType = () => {
-		setTouchedOrgType(true);
-	};
-
 	const isOrgValid = () => {
 		if (
 			name &&
@@ -244,7 +232,7 @@ const NameLocationLawyerProvider = (props) => {
 					<FormattedMessage id="form.lawyer-organization-name" />
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchName}
+					onBlur={setTouchedName}
 					error={touchedName && !textFieldTest.test(name)}
 					helperText={
 						touchedName && !textFieldTest.test(name) ? (
@@ -276,7 +264,7 @@ const NameLocationLawyerProvider = (props) => {
 					<FormattedMessage id="account.signup-organization-location" />
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchLocation}
+					onBlur={setTouchedLocation}
 					error={touchedLocation && !textFieldTest.test(currentLocation)}
 					helperText={
 						touchedLocation && !textFieldTest.test(currentLocation) ? (
@@ -315,9 +303,8 @@ const NameLocationLawyerProvider = (props) => {
 				>
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
 						{orgTypeOptions.map((type, index) => (
-							<Grid item xs={isMobile ? 12 : 6}>
+							<Grid item xs={isMobile ? 12 : 6} key={index}>
 								<FormControlLabel
-									key={type.testId}
 									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
@@ -334,10 +321,10 @@ const NameLocationLawyerProvider = (props) => {
 							{orgTypeOther}
 						</FormLabel>
 						<TextField
-							onBlur={handleTouchOrgType}
+							onBlur={setTouchedOrgType}
 							error={touchedOrgType && !textFieldTest.test(specifiedOrgType)}
 							helperText={
-								handleTouchOrgType && !textFieldTest.test(specifiedOrgType) ? (
+								touchedOrgType && !textFieldTest.test(specifiedOrgType) ? (
 									<FormattedMessage id="error.text-field-orgType" />
 								) : touchedOrgType && textFieldTest.test(specifiedOrgType) ? (
 									<FormattedMessage id="form.field-valid-orgType" />

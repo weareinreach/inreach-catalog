@@ -169,10 +169,6 @@ const AboutYouIdentity = (props) => {
 
 	const [touchedIdentity, setTouchedIdentity] = useState(false);
 
-	const handleTouchIdentity = () => {
-		setTouchedIdentity(true);
-	};
-
 	return (
 		<>
 			<DialogTitle>
@@ -198,13 +194,12 @@ const AboutYouIdentity = (props) => {
 
 				<Grid container spacing={0} className={classes.gridTxtAlign}>
 					{aboutYouSogOptions.map((type, index) => (
-						<Grid item xs={6}>
+						<Grid item xs={6} key={index}>
 							<FormControlLabel
 								disabled={
 									sogIdentity.includes('prefer-not-to-say') &&
 									type.testId != 'prefer-not-to-say'
 								}
-								key={type.testId}
 								value={type.testId}
 								control={<Checkbox />}
 								label={intl.formatMessage({id: type.formatMessageId})}
@@ -227,11 +222,10 @@ const AboutYouIdentity = (props) => {
 							<FormattedMessage id="aboutyou.identity" />
 						</FormLabel>
 						<TextField
-							onBlur={handleTouchIdentity}
+							onBlur={setTouchedIdentity}
 							error={touchedIdentity && !textFieldTest.test(specifiedIdentity)}
 							helperText={
-								handleTouchIdentity &&
-								!textFieldTest.test(specifiedIdentity) ? (
+								touchedIdentity && !textFieldTest.test(specifiedIdentity) ? (
 									<FormattedMessage id="error.text-field-identity" />
 								) : touchedIdentity && textFieldTest.test(specifiedIdentity) ? (
 									<FormattedMessage id="form.field-valid-identity" />
