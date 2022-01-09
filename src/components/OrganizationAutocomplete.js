@@ -22,13 +22,7 @@ function renderInput(inputProps) {
 		<FormControl className={classes.textField}>
 			<InputLabel
 				htmlFor="organization"
-				className={
-					classes.textFieldLabel +
-					' ' +
-					classes.textAlignLeft +
-					' ' +
-					classes.colorGrey
-				}
+				className={`${classes.textFieldLabel} ${classes.textAlignLeft} ${classes.colorGrey}`}
 			>
 				<FormattedMessage id="form.organization-name-placeholder" />
 			</InputLabel>
