@@ -139,18 +139,6 @@ const AboutYouOrganization = (props) => {
 
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 
-	const handleTouchOrgName = () => {
-		setTouchedOrgName(true);
-	};
-
-	const handleTouchPosition = () => {
-		setTouchedPosition(true);
-	};
-
-	const handleTouchReason = () => {
-		setTouchedReason(true);
-	};
-
 	return (
 		<>
 			{!isMobile && (
@@ -175,7 +163,7 @@ const AboutYouOrganization = (props) => {
 					<FormattedMessage id="aboutyou.organization-name" />
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchOrgName}
+					onBlur={setTouchedOrgName}
 					id="orgName"
 					margin="none"
 					name="orgName"
@@ -204,7 +192,7 @@ const AboutYouOrganization = (props) => {
 					<FormattedMessage id="aboutyou.organization-postion" />
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchPosition}
+					onBlur={setTouchedPosition}
 					id="orgPositionTitle"
 					margin="none"
 					name="orgPositionTitle"
@@ -233,7 +221,7 @@ const AboutYouOrganization = (props) => {
 					<FormattedMessage id="aboutyou.organization-reason" />
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchReason}
+					onBlur={setTouchedReason}
 					id="reasonForJoining"
 					margin="none"
 					name="reasonForJoining"

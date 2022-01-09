@@ -165,18 +165,6 @@ const NameEmailPswd = (props) => {
 		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
 	);
 
-	const handleTouchName = () => {
-		setTouchedName(true);
-	};
-
-	const handleTouchEmail = () => {
-		setTouchedEmail(true);
-	};
-
-	const handleTouchPassword = () => {
-		setTouchedPassword(true);
-	};
-
 	const isValid = () => {
 		if (
 			name &&
@@ -221,7 +209,7 @@ const NameEmailPswd = (props) => {
 							{nameLabel}
 						</FormLabel>
 						<TextField
-							onBlur={handleTouchName}
+							onBlur={setTouchedName}
 							error={touchedName && !textFieldTest.test(name)}
 							helperText={
 								touchedName && !textFieldTest.test(name) ? (
@@ -255,7 +243,7 @@ const NameEmailPswd = (props) => {
 					{emailLabel}
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchEmail}
+					onBlur={setTouchedEmail}
 					error={touchedEmail && !emailTest.test(email)}
 					helperText={
 						touchedEmail && !emailTest.test(email) ? (
@@ -287,7 +275,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage id="form.password" />
 				</FormLabel>
 				<TextField
-					onBlur={handleTouchPassword}
+					onBlur={setTouchedPassword}
 					error={touchedPassword && !pswdTest.test(password)}
 					helperText={
 						touchedPassword && !pswdTest.test(password) ? (

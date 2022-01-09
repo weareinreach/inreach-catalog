@@ -189,9 +189,8 @@ const AboutYouCountry = (props) => {
 				>
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
 						{aboutYouCountryOptions.map((type, index) => (
-							<Grid item xs={6}>
+							<Grid item xs={6} key={index}>
 								<FormControlLabel
-									key={type.testId}
 									value={type.testId}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
@@ -213,10 +212,10 @@ const AboutYouCountry = (props) => {
 							<FormattedMessage id="aboutyou.country-other" />
 						</FormLabel>
 						<TextField
-							onBlur={handleTouchCountry}
+							onBlur={setTouchedCountry}
 							error={touchedCountry && !textFieldTest.test(specifiedCountry)}
 							helperText={
-								handleTouchCountry && !textFieldTest.test(specifiedCountry) ? (
+								touchedCountry && !textFieldTest.test(specifiedCountry) ? (
 									<FormattedMessage id="error.text-field-country" />
 								) : touchedCountry && textFieldTest.test(specifiedCountry) ? (
 									<FormattedMessage id="form.field-valid-country" />

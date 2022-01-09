@@ -166,10 +166,6 @@ const AboutYouEthnicity = (props) => {
 
 	const [touchedEthnicity, setTouchedEthnicity] = useState(false);
 
-	const handleTouchEthnicity = () => {
-		setTouchedEthnicity(true);
-	};
-
 	return (
 		<>
 			<DialogTitle>
@@ -195,13 +191,12 @@ const AboutYouEthnicity = (props) => {
 
 				<Grid container spacing={0} className={classes.gridTxtAlign}>
 					{aboutYouEthnicityOptions.map((type, index) => (
-						<Grid item xs={6}>
+						<Grid item xs={6} key={index}>
 							<FormControlLabel
 								disabled={
 									ethnicityRace.includes('prefer-not-to-say') &&
 									type.formatMessageId !== 'prefer-not-to-say'
 								}
-								key={type.testId}
 								value={type.testId}
 								control={<Checkbox />}
 								label={intl.formatMessage({id: type.formatMessageId})}
@@ -224,13 +219,12 @@ const AboutYouEthnicity = (props) => {
 							<FormattedMessage id="aboutyou.ethnicity" />
 						</FormLabel>
 						<TextField
-							onBlur={handleTouchEthnicity}
+							onBlur={setTouchedEthnicity}
 							error={
 								touchedEthnicity && !textFieldTest.test(specifiedEthnicity)
 							}
 							helperText={
-								handleTouchEthnicity &&
-								!textFieldTest.test(specifiedEthnicity) ? (
+								touchedEthnicity && !textFieldTest.test(specifiedEthnicity) ? (
 									<FormattedMessage id="error.text-field-ethnicity" />
 								) : touchedEthnicity &&
 								  textFieldTest.test(specifiedEthnicity) ? (
