@@ -169,14 +169,13 @@ const AboutYouAge = (props) => {
 				<RadioGroup name="age" onChange={handleChange} required={true}>
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
 						{aboutYouAgeOptions.map((type, index) => (
-							<Grid item xs={6}>
+							<Grid item xs={6} key={index}>
 								<FormControlLabel
-									key={type.testId}
-									value={type.testId}
+									value={type.dbValue}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={age === type.testId}
-									data-test-id={type.testId}
+									checked={age === type.dbValue}
+									data-test-id={type.dbValue}
 								/>
 							</Grid>
 						))}
