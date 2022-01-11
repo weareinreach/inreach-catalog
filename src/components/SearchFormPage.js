@@ -246,7 +246,7 @@ class SearchFormContainer extends React.Component {
 								<Disclaimer>
 									<FormattedMessage
 										id="announcement.localisation"
-										defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish by the end of the year, with all other languages available via Google Translate."
+										defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish in 2022, with all other languages available via Google Translate."
 									/>
 								</Disclaimer>
 							)}
