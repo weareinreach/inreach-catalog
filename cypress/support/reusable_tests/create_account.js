@@ -295,7 +295,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             cy.getElementByTestId('about-you-next-button').click();
 
             cy.getElementByTestId('sign-up-form-back-button').click();
-            cy.getElementByTestId('prefer').click();
+            cy.getElementByTestId('prefer-not-to-say').click();
             cy.getElementByTestId('about-you-next-button').click();
 
 
@@ -304,7 +304,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("My ethnicity/race is..");
             });
-            cy.getElementByTestId('prefer').click();
+            cy.getElementByTestId('prefer-not-to-say').click();
             cy.get('form').find('[value="aboutyou.answer-other"]').should('be.disabled');
             cy.getElementByTestId('about-you-next-button').then($element=>{
                 expect($element).to.be.visible;
@@ -313,7 +313,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             });
             cy.getElementByTestId('about-you-next-button').click();
             cy.getElementByTestId('sign-up-form-back-button').click();
-            cy.getElementByTestId('prefer').click();
+            cy.getElementByTestId('prefer-not-to-say').click();
 
             //also select 'other'
             cy.getElementByTestId('other').click();
@@ -331,7 +331,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("How old are you?");
             });
-            cy.getElementByTestId('65').click();
+            cy.getElementByTestId('56-65').click();
             cy.getElementByTestId('about-you-next-button').then($element=>{
                 expect($element).to.be.visible;
                 expect($element.children()).to.contain("Submit");
@@ -730,7 +730,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you work or volunteer? *");
                 });
-                cy.getElementByTestId('healthcare').click({force:true});
+                cy.getElementByTestId('healthcare-provider').click({force:true});
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -844,7 +844,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.getElementByTestId('corp').click({force:true});
+                cy.getElementByTestId('corporate-law').click({force:true});
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");
@@ -940,7 +940,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                     expect($element).to.be.visible;
                     expect($element).to.contain("Where do you practice law? *");
                 });
-                cy.getElementByTestId('corp').click({force:true});
+                cy.getElementByTestId('corporate-law').click({force:true});
                 cy.getElementByTestId('sign-up-form-next-button').then($element=>{
                     expect($element).to.be.visible;
                     expect($element.children()).to.contain("Next");

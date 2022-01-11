@@ -305,11 +305,11 @@ const NameLocationLawyerProvider = (props) => {
 						{orgTypeOptions.map((type, index) => (
 							<Grid item xs={isMobile ? 12 : 6} key={index}>
 								<FormControlLabel
-									value={type.testId}
+									value={type.dbValue}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={orgType === type.testId}
-									data-test-id={type.testId}
+									checked={orgType === type.dbValue}
+									data-test-id={type.dbValue}
 								/>
 							</Grid>
 						))}

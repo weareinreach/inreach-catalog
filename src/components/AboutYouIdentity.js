@@ -198,15 +198,15 @@ const AboutYouIdentity = (props) => {
 							<FormControlLabel
 								disabled={
 									sogIdentity.includes('prefer-not-to-say') &&
-									type.testId != 'prefer-not-to-say'
+									type.dbValue != 'prefer-not-to-say'
 								}
-								value={type.testId}
+								value={type.dbValue}
 								control={<Checkbox />}
 								label={intl.formatMessage({id: type.formatMessageId})}
 								name="sogIdentity"
 								onChange={handleChangeArray}
-								checked={sogIdentity.includes(type.testId)}
-								data-test-id={type.testId}
+								checked={sogIdentity.includes(type.dbValue)}
+								data-test-id={type.dbValue}
 							/>
 						</Grid>
 					))}

@@ -175,11 +175,11 @@ const AboutYouImmigration = (props) => {
 						{aboutYouImmigrationOptions.map((type, index) => (
 							<Grid item xs={6} key={index}>
 								<FormControlLabel
-									value={type.testId}
+									value={type.dbValue}
 									control={<Radio />}
 									label={intl.formatMessage({id: type.formatMessageId})}
-									checked={immigrationStatus === type.testId}
-									data-test-id={type.testId}
+									checked={immigrationStatus === type.dbValue}
+									data-test-id={type.dbValue}
 								/>
 							</Grid>
 						))}

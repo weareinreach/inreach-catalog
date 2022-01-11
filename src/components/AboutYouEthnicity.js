@@ -197,13 +197,13 @@ const AboutYouEthnicity = (props) => {
 									ethnicityRace.includes('prefer-not-to-say') &&
 									type.formatMessageId !== 'prefer-not-to-say'
 								}
-								value={type.testId}
+								value={type.dbValue}
 								control={<Checkbox />}
 								label={intl.formatMessage({id: type.formatMessageId})}
 								name="ethnicityRace"
 								onChange={handleChangeArray}
-								checked={ethnicityRace.includes(type.testId)}
-								data-test-id={type.testId}
+								checked={ethnicityRace.includes(type.dbValue)}
+								data-test-id={type.dbValue}
 							/>
 						</Grid>
 					))}

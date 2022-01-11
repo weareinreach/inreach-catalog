@@ -1,49 +1,49 @@
 export const organizationTypesLawyer = [
 	{
-		testId: 'corporate-law',
+		dbValue: 'corporate-law',
 		formatMessageId: 'account.sign-up-orgType-answer-corp'
 	},
 	{
-		testId: 'law-school-clinic',
+		dbValue: 'law-school-clinic',
 		formatMessageId: 'account.sign-up-orgType-answer-law'
 	},
 	{
-		testId: 'legal-non-profit',
+		dbValue: 'legal-non-profit',
 		formatMessageId: 'account.sign-up-orgType-answer-legal-non-profit'
 	},
 	{
-		testId: 'other',
+		dbValue: 'other',
 		formatMessageId: 'aboutyou.answer-other'
 	}
 ];
 
 export const organizationTypesProvider = [
 	{
-		testId: 'healthcare-provider',
+		dbValue: 'healthcare-provider',
 		formatMessageId: 'account.sign-up-orgType-answer-healthcare'
 	},
 	{
-		testId: 'government-agency',
+		dbValue: 'government-agency',
 		formatMessageId: 'account.sign-up-orgType-answer-government'
 	},
 	{
-		testId: 'non-profit',
+		dbValue: 'non-profit',
 		formatMessageId: 'account.sign-up-orgType-answer-non-profit'
 	},
 	{
-		testId: 'grassroots',
+		dbValue: 'grassroots',
 		formatMessageId: 'account.sign-up-orgType-answer-grassroots'
 	},
 	{
-		testId: 'student-club',
+		dbValue: 'student-club',
 		formatMessageId: 'account.sign-up-orgType-answer-student'
 	},
 	{
-		testId: 'na',
+		dbValue: 'na',
 		formatMessageId: 'account.sign-up-orgType-answer-na'
 	},
 	{
-		testId: 'other',
+		dbValue: 'other',
 		formatMessageId: 'aboutyou.answer-other'
 	}
 ];
