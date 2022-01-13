@@ -246,7 +246,7 @@ const AboutYouCountry = (props) => {
 				) : null}
 				<AsylumConnectButton
 					disabled={
-						countryOfOrigin.includes('aboutyou.answer-other') &&
+						countryOfOrigin.includes('other') &&
 						!textFieldTest.test(specifiedCountry)
 					}
 					testIdName="about-you-next-button"
