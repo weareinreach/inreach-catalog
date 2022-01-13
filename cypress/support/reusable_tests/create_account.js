@@ -262,7 +262,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             //identity
             cy.getElementByTestId('about-you-identity-form').then($element=>{
                 expect($element).to.be.visible;
-                expect($element).to.contain("I identity as..");
+                expect($element).to.contain("I identify as..");
             });
             cy.getElementByTestId('asexual').click();
             cy.getElementByTestId('about-you-next-button').then($element=>{
@@ -305,7 +305,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
                 expect($element).to.contain("My ethnicity/race is..");
             });
             cy.getElementByTestId('prefer-not-to-say').click();
-            cy.get('form').find('[value="aboutyou.answer-other"]').should('be.disabled');
+            cy.get('form').find('[value="other"]').should('be.disabled');
             cy.getElementByTestId('about-you-next-button').then($element=>{
                 expect($element).to.be.visible;
                 expect($element.children()).to.contain("Next");
