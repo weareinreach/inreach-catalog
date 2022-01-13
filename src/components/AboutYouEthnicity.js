@@ -195,7 +195,7 @@ const AboutYouEthnicity = (props) => {
 							<FormControlLabel
 								disabled={
 									ethnicityRace.includes('prefer-not-to-say') &&
-									type.formatMessageId !== 'prefer-not-to-say'
+									type.dbValue !== 'prefer-not-to-say'
 								}
 								value={type.dbValue}
 								control={<Checkbox />}
