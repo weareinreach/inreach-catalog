@@ -75,11 +75,9 @@ class GeneralSettings extends React.Component {
 	}
 
 	updateName(newName) {
-		console.log(this.props);
 		updateUser(this.state.userData, {name: newName})
 			.then((data) => {
-				this.setState({userData: data.user, isNameUpdated: true});
-				console.log(this.props);
+				this.setState({userData: data, isNameUpdated: true});
 				this.props.handleMessageNew('Your name has been updated.');
 			})
 			.catch((error) => this.handleOdasError(error));
