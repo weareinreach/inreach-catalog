@@ -99,6 +99,12 @@ class GeneralSettingsEmail extends React.Component {
 		if (currentEmail && newEmail && confirmedEmail) {
 			if (newEmail === confirmedEmail) {
 				this.props.handleUpdateEmail(newEmail);
+				//update the UI with the new value, clear the form
+				this.setState({
+					currentEmail: newEmail,
+					newEmail: '',
+					confirmedEmail: ''
+				});
 			} else {
 				handleMessageNew('Your new email is not matching the confirmed email.');
 			}

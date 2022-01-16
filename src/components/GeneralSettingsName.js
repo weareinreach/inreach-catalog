@@ -132,7 +132,13 @@ class GeneralSettingsName extends React.Component {
 							name="currentName"
 							type="text"
 							label="Old name or alias"
-							value={currentName}
+							value={
+								!currentName ||
+								currentName === 'user name' ||
+								currentName.trim().length < 1
+									? ''
+									: currentName
+							}
 							InputLabelProps={{
 								shrink: true
 							}}
@@ -150,7 +156,7 @@ class GeneralSettingsName extends React.Component {
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Johnny Smith"
+							placeholder="New name"
 							onChange={this.handleChange}
 							required
 						/>
@@ -164,7 +170,7 @@ class GeneralSettingsName extends React.Component {
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Johnny Smith"
+							placeholder="New name"
 							onChange={this.handleChange}
 							required
 						/>
