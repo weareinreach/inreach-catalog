@@ -86,7 +86,7 @@ class GeneralSettings extends React.Component {
 	updateEmail(newEmail) {
 		updateUser(this.state.userData, {email: newEmail})
 			.then((data) => {
-				this.setState({userData: data.user, isEmailUpdated: true});
+				this.setState({userData: data, isEmailUpdated: true});
 				this.props.handleMessageNew('Your email has been updated.');
 			})
 			.catch((error) => this.handleOdasError(error));
