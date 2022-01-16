@@ -99,6 +99,12 @@ class GeneralSettingsName extends React.Component {
 		if (currentName && newName && confirmedName) {
 			if (newName === confirmedName) {
 				this.props.handleUpdateName(newName);
+				//update the UI with the new value, clear the form
+				this.setState({
+					currentName: newName,
+					newName: '',
+					confirmedName: ''
+				});
 			} else {
 				handleMessageNew('Your new name does not match the confirmed name.');
 			}
