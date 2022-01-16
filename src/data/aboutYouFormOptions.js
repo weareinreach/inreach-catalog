@@ -55,7 +55,7 @@ export const aboutYouCountryOptions = [
 		formatMessageId: 'aboutyou.country-answer-central-america'
 	},
 	{
-		tetId: 'middle-east',
+		dbValue: 'middle-east',
 		formatMessageId: 'aboutyou.country-answer-middle-east'
 	},
 	{
