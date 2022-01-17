@@ -106,7 +106,7 @@ class GeneralSettingsName extends React.Component {
 					confirmedName: ''
 				});
 			} else {
-				handleMessageNew('Your new name does not match the confirmed name.');
+				handleMessageNew('New name and Confirmed name do not match.');
 			}
 		}
 	}
