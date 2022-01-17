@@ -143,7 +143,7 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
         .should('be.visible');
 
     cy.get('input[name="confirmedName"]').clear()
-        .should('have.attr', 'placeholder', 'Confimr new name')
+        .should('have.attr', 'placeholder', 'Confirm new name')
         .should('be.visible');
 
     cy.getElementByTestId('account-page-logout').click();
