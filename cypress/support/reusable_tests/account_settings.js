@@ -129,7 +129,7 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
     //look for error message
     cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('New name and Confirmed name do not match.');
+        expect($element).contain('The new names values you have entered do not match.');
     });
 
     
@@ -143,7 +143,7 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
         .should('be.visible');
 
     cy.get('input[name="confirmedName"]').clear()
-        .should('have.attr', 'placeholder', 'New name')
+        .should('have.attr', 'placeholder', 'Confimr new name')
         .should('be.visible');
 
     cy.getElementByTestId('account-page-logout').click();
