@@ -152,9 +152,13 @@
 	"favorites.share-resource-success-message": "Resource shared successfully.",
 	"favorites.list-shared": "This list was shared with you.",
 	"form.email": "Email",
+<<<<<<< HEAD
 	"form.name": "Current Name or alias",
 	"form.new-name": "Enter new name or alias",
 	"form.confirm-new-name": "Confirm new name or alias",
+=======
+	"form.name": "Name",
+>>>>>>> some translations for Change Name settings
 	"form.password": "Password",
 	"form.confirm-password": "Confirm Password",
 	"form.send": "Send",
