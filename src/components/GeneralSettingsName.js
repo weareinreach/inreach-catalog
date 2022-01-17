@@ -106,7 +106,7 @@ class GeneralSettingsName extends React.Component {
 					confirmedName: ''
 				});
 			} else {
-				handleMessageNew('New name and Confirmed name do not match.');
+				handleMessageNew('The new name values you have entered do not match.');
 			}
 		}
 	}
@@ -121,7 +121,7 @@ class GeneralSettingsName extends React.Component {
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>Change Name</span>
+					<span>Update Name</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
@@ -131,7 +131,7 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="currentName"
 							type="text"
-							label="Old name or alias"
+							label="Enter current name or alias"
 							value={
 								!currentName ||
 								currentName === 'user name' ||
@@ -170,7 +170,7 @@ class GeneralSettingsName extends React.Component {
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="New name"
+							placeholder="Confirm new name"
 							onChange={this.handleChange}
 							required
 						/>
@@ -179,7 +179,7 @@ class GeneralSettingsName extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-name-button"
 							>
-								Change Name
+								Update Name
 							</AsylumConnectButton>
 						</div>
 					</form>
