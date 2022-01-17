@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 // Define a custom style for button
 const styles = (theme) => ({
@@ -13,18 +14,32 @@ const styles = (theme) => ({
 		fontWeight: 'bold',
 		background: 'none',
 		border: 'none'
+	},
+	primary: {
+		fontSize: '3rem',
+		color: '#5073B3',
+		fontWeight: 'unset',
+		top: 'unset',
+		right: '27px'
 	}
 });
 
 // Custom Button component with variant property
 function ActionButton(props) {
-	const {children, classes, onClick, testIdName} = props;
+	const {children, classes, onClick, testIdName, variant, className} = props;
 
 	return (
 		<Button
-			className={classes.button}
+			className={classNames(
+				classes.button,
+				{
+					[classes.primary]: variant === 'primary'
+				},
+				className
+			)}
 			onClick={onClick}
 			data-test-id={testIdName}
+			classes={classes}
 		>
 			{children}
 		</Button>
@@ -35,7 +50,7 @@ ActionButton.propTypes = {
 	children: PropTypes.node.isRequired,
 	classes: PropTypes.object.isRequired,
 	className: PropTypes.string,
-	variant: PropTypes.oneOf(['primary', 'secondary'])
+	variant: PropTypes.oneOf(['primary'])
 };
 
 // Inject style to Custom Button component

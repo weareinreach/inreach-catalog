@@ -1,21 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
-import Modal from 'react-modal';
-import classNames from 'classnames';
 import {withStyles, Typography} from '@material-ui/core';
-
-import {useHistory} from 'react-router-dom';
-
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
 import ThankYou from '../images/thanks.svg';
+import ActionButton from './ActionButton';
 
 const styles = (theme) => ({
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
-		textAlign: 'center'
+		textAlign: 'center',
+		minWidth: '503px',
+		minHeight: '561px',
+		overflowY: 'auto',
+		borderTop: 'solid 6px #5073B3',
+		' & .OrganizationAutocomplete-container': {
+			zIndex: 'unset'
+		}
 	},
 	img: {
 		height: '205px',
@@ -35,6 +37,9 @@ const styles = (theme) => ({
 		height: '34px',
 		paddingLeft: '0',
 		paddingRight: '0'
+	},
+	dialogTitle: {
+		marginTop: '41px'
 	}
 });
 
@@ -55,7 +60,18 @@ const ThankYouDialog = (props) => {
 
 	return (
 		<div className={classes.container}>
-			<DialogTitle data-test-id="thank-you-header">
+			<ActionButton
+				onClick={handleRequestClose}
+				testIdName="dialog-close-button"
+				variant="primary"
+			>
+				&times;
+			</ActionButton>
+			<DialogTitle
+				className={classes.dialogTitle}
+				data-test-id="thank-you-header"
+				variant="primary"
+			>
 				<FormattedMessage id="app.thank-you-heading" />
 			</DialogTitle>
 			<Typography

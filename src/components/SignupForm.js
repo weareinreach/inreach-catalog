@@ -1,17 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import TextField from '@material-ui/core/TextField';
+import FormLabel from '@material-ui/core/FormLabel';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Radio from '@material-ui/core/Radio';
+import Checkbox from '@material-ui/core/Checkbox';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {breakpoints} from '../theme';
+
+import {
+	organizationTypesLawyer,
+	organizationTypesProvider
+} from '../data/organizationTypeFormOptions';
 
 import AsylumConnectButton from './AsylumConnectButton';
-
+import DialogTitle from './DialogTitle';
+import DialogSubTitle from './DialogSubTitle';
 import OrganizationAutocomplete from './OrganizationAutocomplete';
+
+import SeekerType from './SeekerType';
+import NameLocationLawyerProvider from './NameLocationLawyerProvider';
+import NameEmailPswd from './NameEmailPswd';
+import AboutYouImmigration from './AboutYouImmigration';
+import AboutYouCountry from './AboutYouCountry';
+import AboutYouIdentity from './AboutYouIdentity';
+import AboutYouEthnicity from './AboutYouEthnicity';
+import AboutYouAge from './AboutYouAge';
+import AboutYouOrganization from './AboutYouOrganization';
 
 const LAWYER_TYPE = 'lawyer';
 const PROVIDER_TYPE = 'provider';
@@ -21,269 +46,356 @@ const styles = (theme) => ({
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
-		textAlign: 'center'
+		textAlign: 'center',
+		width: 'auto',
+		marginTop: '25px'
+	},
+	containerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		width: 'auto',
+		height: '975px',
+		marginTop: '25px'
+	},
+	subTitle: {
+		fontStyle: 'italic',
+		marginBottom: '24px',
+		borderBottom: '1px'
+	},
+	greyLine: {
+		width: 'auto',
+		height: '1px',
+		backgroundColor: theme.palette.common.darkGrey,
+		marginTop: `${theme.spacing(3)}px`
 	},
 	flex: {display: 'flex'},
 	link: {
 		color: theme.palette.secondary[500],
-		cursor: 'pointer'
+		cursor: 'pointer',
+		fontSize: '16px',
+		fontWeight: '600',
+		lineHeight: '20px',
+		marginTop: '48px'
 	},
-	paddingVertical: {padding: '2.5rem 0'},
-	marginBottom: {marginBottom: '2rem'},
-	marginBottomLg: {marginBottom: '3rem'},
-	marginTop: {marginTop: '2rem'},
+	orgBody1: {
+		fontSize: '18px',
+		fontWeight: '400',
+		lineHeight: '24px',
+		marginBottom: '17px'
+	},
+	orgBody2: {
+		fontSize: '16px',
+		fontWeight: '400',
+		lineHeight: '24px',
+		marginBottom: '64px',
+		marginLeft: '48px',
+		marginRight: '48px'
+	},
+	orgBodyMobile: {
+		fontSize: '16px',
+		fontWeight: '400',
+		lineHeight: '24px',
+		marginBottom: '48px',
+		marginLeft: '24px',
+		marginRight: '24px'
+	},
 	marginVertical: {margin: '2rem 0'},
-	spacingTop: {marginTop: '1rem'},
+	stepperSpacing1: {
+		marginTop: '24px',
+		marginBottom: '8px'
+	},
+	stepperSpacing2: {
+		marginTop: '24px',
+		marginBottom: '60px'
+	},
 	backgroundTransparent: {backgroundColor: 'transparent'},
-	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]}
+	cursor: {cursor: 'pointer', color: theme.palette.secondary[400]},
+	backButton: {
+		marginLeft: '48px',
+		marginBottom: '36px',
+		textAlign: 'center'
+	},
+	backButtonMobile: {
+		marginLeft: '12px',
+		marginBottom: '36px'
+	},
+	formContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '48px',
+		marginRight: '36px',
+		marginTop: '24px'
+	},
+	formContainerMobile: {
+		display: 'flex',
+		flexDirection: 'column',
+		textAlign: 'center',
+		marginLeft: '24px',
+		marginRight: '24px',
+		marginTop: '24px'
+	},
+	formStatement: {
+		textAlign: 'center',
+		fontSize: '14px',
+		fontWeight: '400',
+		lineHeight: '24px',
+		marginTop: '24px'
+	},
+	labels: {
+		textAlign: 'left',
+		paddingLeft: '.25rem',
+		marginBottom: '.25rem',
+		marginTop: '1rem'
+	},
+	sideMargin: {
+		marginLeft: '48px',
+		marginRight: '48px'
+	},
+	sideMarginMobile: {
+		marginLeft: '24px',
+		marginRight: '24px'
+	}
 });
 
-const SignupForm = ({
-	activeStep,
-	classes,
-	email,
-	handleBlurOrganizations,
-	handleChange,
-	handleCreateAffiliation,
-	handleMessageNew,
-	handleOrganizationSearchChange,
-	handleOrganizationSelect,
-	handleOrganizationsFetchRequested,
-	handleOrganizationsClearRequested,
-	handleRequestClose,
-	handleRequestOpen,
-	handleSelect,
-	handleSignUp,
-	handleStepNext,
-	handleStepBack,
-	isLoadingOrganizations,
-	locale,
-	organizations,
-	organizationSearch,
-	organizationSelection,
-	password,
-	passwordConfirmation,
-	selection
-}) => {
-	const emailLabel =
-		selection === SEEKER_TYPE ? (
-			<FormattedMessage id="form.email" />
-		) : selection === LAWYER_TYPE ? (
-			<FormattedMessage id="form.lawyer-email" />
-		) : (
-			<FormattedMessage id="form.organisation.email" />
-		);
+const SignupForm = (props) => {
+	const {
+		activeStep,
+		classes,
+		handleBlurOrganizations,
+		handleChange,
+		handleChangeArray,
+		handleCreateAffiliation,
+		handleMessageNew,
+		handleOrganizationSearchChange,
+		handleOrganizationSelect,
+		handleOrganizationsFetchRequested,
+		handleOrganizationsClearRequested,
+		handleRequestClose,
+		handleRequestOpen,
+		handleSelect,
+		handleSignUp,
+		handleStepNext,
+		handleStepBack,
+		handleSkip,
+		handleUpdateUser,
+		isLoadingOrganizations,
+		locale,
+		organizations,
+		organizationSearch,
+		organizationSelection,
+		selection
+	} = props;
 
+	const intl = useIntl();
+
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+
+	const dialogSubTitle =
+		selection === LAWYER_TYPE ? (
+			<FormattedMessage id="account.signup-organization-law-affiliation-subtitle" />
+		) : (
+			<FormattedMessage id="account.signup-organization-provider-affiliation-subtitle" />
+		);
 	return (
 		<div
-			className={classes.container}
+			className={isMobile ? classes.containerMobile : classes.container}
 			data-test-id="dialog-container-sign-up-form"
 		>
-			{activeStep === 0 && (
-				<div
-					className={classes.container}
-					data-test-id="dialog-container-sign-up-question"
-				>
-					<Typography className={classes.marginBottomLg} variant="h5">
-						<FormattedMessage id="user.type-selection-prompt" />
-					</Typography>
-					<AsylumConnectButton
-						className={classes.marginBottom}
-						onClick={() => handleSelect(SEEKER_TYPE)}
-						variant="primary"
-						testIdName="dialog-container-sign-up-help-myself-button"
-					>
-						<FormattedMessage id="user.type-asylum-seeker" />
-					</AsylumConnectButton>
-					<AsylumConnectButton
-						className={classes.marginBottom}
-						onClick={() => handleSelect(LAWYER_TYPE)}
-						variant="primary"
-						testIdName="dialog-container-sign-up-attorney-button"
-					>
-						<FormattedMessage id="user.type-legal-provider" />
-					</AsylumConnectButton>
-					<AsylumConnectButton
-						className={classes.marginBottomLg}
-						onClick={() => handleSelect(PROVIDER_TYPE)}
-						variant="primary"
-						testIdName="dialog-container-sign-up-non-legal-service-provider-button"
-					>
-						<FormattedMessage id="user.type-non-legal-provider" />
-					</AsylumConnectButton>
-					<div
-						onClick={() => handleRequestOpen('login')}
-						data-test-id="dialog-container-sign-up-already-have-account"
-					>
-						<Typography variant="body1">
-							<span className={classes.link}>
-								<FormattedMessage id="account.already-have-account" />
-							</span>
-						</Typography>
-					</div>
-				</div>
-			)}
+			{activeStep === 0 && <SeekerType {...props}></SeekerType>}
 			{activeStep === 1 && (
-				<form className={classes.container} onSubmit={handleSignUp}>
-					<TextField
-						id="email"
-						label={emailLabel}
-						margin="normal"
-						name="email"
-						onChange={handleChange}
-						required
-						type="email"
-						value={email}
-						data-test-id="sign-up-form-email-input"
-					/>
-					<TextField
-						error={password.length > 0 && password.length < 8}
-						helperText={
-							password.length > 0 && password.length < 8 ? (
-								<FormattedMessage id="error.password-length" />
-							) : null
-						}
-						id="password"
-						label=<FormattedMessage id="form.password" />
-						margin="normal"
-						name="password"
-						onChange={handleChange}
-						required
-						type="password"
-						value={password}
-						data-test-id="sign-up-form-password-input"
-					/>
-					<TextField
-						id="passwordConfirmation"
-						label=<FormattedMessage id="form.confirm-password" />
-						margin="normal"
-						name="passwordConfirmation"
-						onChange={handleChange}
-						required
-						type="password"
-						value={passwordConfirmation}
-						data-test-id="sign-up-form-password-confirmation-input"
-					/>
-					<Typography
-						variant="body1"
-						className={classes.paddingVertical}
-						data-test-id="sign-up-form-agreement-statement"
-					>
-						<FormattedMessage id="legal.sign-up-agree-to-terms" />
-						{` `}
-						<FormattedMessage id="legal.privacy-policy">
-							{(privacy) => (
-								<a
-									href="https://asylumconnect.org/privacy"
-									rel="noopener noreferrer"
-									target="_blank"
-									data-test-id="sign-up-form-privacy-link"
-								>
-									{privacy}
-								</a>
-							)}
-						</FormattedMessage>{' '}
-						<FormattedMessage id="legal.and" />{' '}
-						<FormattedMessage id="legal.terms-of-use">
-							{(terms) => (
-								<a
-									href="https://asylumconnect.org/terms-of-use"
-									rel="noopener noreferrer"
-									target="_blank"
-									data-test-id="sign-up-form-terms-link"
-								>
-									{terms}
-								</a>
-							)}
-						</FormattedMessage>
-						{'.'}
-					</Typography>
-					<AsylumConnectButton
-						testIdName="sign-up-form-submit-button"
-						variant="primary"
-					>
-						<FormattedMessage id="account.sign-up" />
-					</AsylumConnectButton>
-				</form>
+				<NameLocationLawyerProvider {...props}></NameLocationLawyerProvider>
 			)}
-			{activeStep === 2 && (
-				<form onSubmit={handleCreateAffiliation}>
-					""
-					<Typography variant="h6" data-test-id="sign-up-form-header-text">
-						<FormattedMessage id="account.join-organisation" />
-					</Typography>
-					<OrganizationAutocomplete
-						handleBlurOrganizations={handleBlurOrganizations}
-						handleMessageNew={handleMessageNew}
-						handleOrganizationSearchChange={handleOrganizationSearchChange}
-						handleOrganizationSelect={handleOrganizationSelect}
-						handleOrganizationsFetchRequested={
-							handleOrganizationsFetchRequested
-						}
-						handleOrganizationsClearRequested={
-							handleOrganizationsClearRequested
-						}
-						handleRequestClose={handleRequestClose}
-						isLoadingOrganizations={isLoadingOrganizations}
-						locale={locale}
-						organizationSearch={organizationSearch}
-						organizationSelection={organizationSelection}
-						organizations={organizations}
-					/>
-					<div className={classes.marginVertical}>
-						<AsylumConnectButton
-							variant="primary"
-							testIdName="sign-up-form-join-organization-button"
-							type="submit"
-						>
-							<FormattedMessage id="account.join-organisation" />
-						</AsylumConnectButton>
-					</div>
-					<Typography variant="body1" data-test-id="sign-up-form-body-text">
-						<FormattedMessage id="account.join-organisation-later" />
-					</Typography>
-					<Typography
-						className={classes.cursor}
-						variant="body1"
-						data-test-id="sign-up-form-skip-text"
-						onClick={() => handleRequestOpen('thankyou')}
-					>
-						<FormattedMessage id="action.skip" />
-					</Typography>
-				</form>
-			)}
+			{activeStep === 2 && <NameEmailPswd {...props}></NameEmailPswd>}
 			{activeStep === 3 && (
-				<form>
-					<Typography variant="h6 " data-test-id="sign-up-form-header-text">
-						<FormattedMessage id="action.confirmation" />
-					</Typography>
-					<div className={classes.marginVertical}>
-						<Typography variant="body1" data-test-id="sign-up-form-body-text">
-							<FormattedMessage id="account.join-organisation-request-received" />
-						</Typography>
-					</div>
-					<div className={classes.marginVertical}>
-						<AsylumConnectButton
-							variant="primary"
-							testIdName="sign-up-form-finish-registration-button"
-							onClick={() => handleRequestOpen('thankyou')}
+				<>
+					<DialogTitle data-test-id="dialog-container-title">
+						<FormattedMessage id="account.signup-organization-affiliation-title" />
+					</DialogTitle>
+					<DialogSubTitle
+						className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
+						data-test-id="dialog-container-subtitle"
+					>
+						{dialogSubTitle}
+					</DialogSubTitle>
+					<div className={classes.greyLine} />
+					<form
+						className={
+							isMobile ? classes.formContainerMobile : classes.formContainer
+						}
+						onSubmit={handleCreateAffiliation}
+					>
+						<Typography
+							variant="body1"
+							className={classes.labels}
+							data-test-id="sign-up-form-header-text"
+							align="left"
 						>
-							<FormattedMessage id="account.finish-registration" />
-						</AsylumConnectButton>
-					</div>
-				</form>
+							<FormattedMessage id="form.organization-name-title" />
+						</Typography>
+						<OrganizationAutocomplete
+							handleBlurOrganizations={handleBlurOrganizations}
+							handleMessageNew={handleMessageNew}
+							handleOrganizationSearchChange={handleOrganizationSearchChange}
+							handleOrganizationSelect={handleOrganizationSelect}
+							handleOrganizationsFetchRequested={
+								handleOrganizationsFetchRequested
+							}
+							handleOrganizationsClearRequested={
+								handleOrganizationsClearRequested
+							}
+							handleRequestClose={handleRequestClose}
+							isLoadingOrganizations={isLoadingOrganizations}
+							locale={locale}
+							organizationSearch={organizationSearch}
+							organizationSelection={organizationSelection}
+							organizations={organizations}
+						/>
+						<div className={classes.marginVertical}>
+							<AsylumConnectButton
+								disabled={organizationSelection === null ? true : false}
+								variant="primary"
+								testIdName="sign-up-form-join-organization-button"
+								type="submit"
+							>
+								<FormattedMessage id="account.join-organization" />
+							</AsylumConnectButton>
+						</div>
+						<Typography variant="body1" data-test-id="sign-up-form-body-text">
+							<FormattedMessage id="account.join-organization-later" />
+						</Typography>
+						<Typography
+							className={classes.cursor}
+							variant="body1"
+							data-test-id="sign-up-form-skip-text"
+							onClick={() => handleSkip()}
+						>
+							<FormattedMessage id="action.skip" />
+						</Typography>
+					</form>
+				</>
 			)}
-			<MobileStepper
-				className={classes.spacingTop + ' ' + classes.backgroundTransparent}
-				type="dots"
-				steps={selection === 'provider' || selection === 'lawyer' ? 4 : 2}
-				position="static"
-				activeStep={activeStep}
-				nextButton={<div />}
-				backButton={<div />}
-			/>
-			{activeStep === 1 && (
-				<div className={classes.flex}>
+			{activeStep === 4 && (
+				<>
+					<DialogTitle>
+						<FormattedMessage id="account.signup-organization-affiliation-title" />
+					</DialogTitle>
+					<div className={classes.greyLine} />
+					<form className={classes.formContainer} onSubmit={handleStepNext}>
+						<div className={classes.marginVertical}>
+							<Typography
+								variant="body1"
+								className={classes.orgBody1}
+								data-test-id="sign-up-form-org-request-rcv"
+							>
+								<FormattedMessage id="account.join-organization-request-received" />
+							</Typography>
+							<Typography
+								variant="body1"
+								className={isMobile ? classes.orgBodyMobile : classes.orgBody2}
+								data-test-id="sign-up-form-org-request-next"
+							>
+								<FormattedMessage id="account.join-organization-next-step" />
+							</Typography>
+						</div>
+						<div className={classes.marginVertical}>
+							<AsylumConnectButton
+								variant="primary"
+								testIdName="sign-up-form-finish-registration-button"
+							>
+								<FormattedMessage id="navigation.next" />
+							</AsylumConnectButton>
+						</div>
+					</form>
+				</>
+			)}
+			{activeStep === 5 && (
+				<AboutYouOrganization {...props}></AboutYouOrganization>
+			)}
+			{activeStep === 6 && (
+				<AboutYouImmigration {...props}></AboutYouImmigration>
+			)}
+			{activeStep === 7 && <AboutYouCountry {...props}></AboutYouCountry>}
+			{activeStep === 8 && <AboutYouIdentity {...props}></AboutYouIdentity>}
+			{activeStep === 9 && <AboutYouEthnicity {...props}></AboutYouEthnicity>}
+			{activeStep === 10 && <AboutYouAge {...props}></AboutYouAge>}
+			{activeStep > 4 && activeStep < 11 && (
+				<Typography className={classes.formStatement} variant="h5">
+					<FormattedMessage id="aboutyou.complete-later" />
+				</Typography>
+			)}
+			{activeStep < 3 && (
+				<MobileStepper
+					className={
+						classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+					}
+					type="dots"
+					steps={selection === SEEKER_TYPE || selection === '' ? 2 : 3}
+					position="static"
+					activeStep={
+						selection === SEEKER_TYPE && activeStep > 0
+							? activeStep - 1
+							: activeStep
+					}
+					nextButton={<div />}
+					backButton={<div />}
+				/>
+			)}
+			{(activeStep >= 3 && selection !== SEEKER_TYPE) ||
+				activeStep !== 5 ||
+				(activeStep !== 2 && (
+					<MobileStepper
+						className={
+							classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+						}
+						type="dots"
+						steps={2}
+						position="static"
+						activeStep={activeStep - 3}
+						nextButton={<div />}
+						backButton={<div />}
+					/>
+				))}
+			{activeStep === 5 && (
+				<MobileStepper
+					className={
+						classes.stepperSpacing2 + ' ' + classes.backgroundTransparent
+					}
+					type="dots"
+					steps={1}
+					position="static"
+					activeStep={0}
+					nextButton={<div />}
+					backButton={<div />}
+				/>
+			)}
+			{activeStep > 5 && activeStep < 11 && (
+				<MobileStepper
+					className={
+						activeStep === 6
+							? classes.stepperSpacing2
+							: classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+					}
+					type="dots"
+					steps={5}
+					position="static"
+					activeStep={activeStep - 6}
+					nextButton={<div />}
+					backButton={<div />}
+				/>
+			)}
+			{(activeStep === 1 ||
+				activeStep === 2 ||
+				(activeStep > 6 && activeStep < 11)) && (
+				<div
+					className={
+						isMobile
+							? classes.flex + ' ' + classes.backButtonMobile
+							: classes.flex + ' ' + classes.backButton
+					}
+				>
 					<Button
 						data-test-id="sign-up-form-back-button"
 						size="small"
@@ -305,7 +417,6 @@ SignupForm.defaultProps = {
 SignupForm.propTypes = {
 	activeStep: PropTypes.number.isRequired,
 	classes: PropTypes.object.isRequired,
-	email: PropTypes.string.isRequired,
 	handleBlurOrganizations: PropTypes.func.isRequired,
 	handleChange: PropTypes.func.isRequired,
 	handleCreateAffiliation: PropTypes.func.isRequired,
@@ -322,8 +433,6 @@ SignupForm.propTypes = {
 	organizations: PropTypes.arrayOf(PropTypes.object).isRequired,
 	organizationSearch: PropTypes.string.isRequired,
 	organizationSelection: PropTypes.object,
-	password: PropTypes.string.isRequired,
-	passwordConfirmation: PropTypes.string.isRequired,
 	selection: PropTypes.string.isRequired
 };
 

@@ -2,8 +2,7 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 
-import {createOrgOwner} from '../utils/api';
-import {catalogPost} from '../utils/api';
+import {createOrgOwner, catalogPost, updateUser} from '../utils/api';
 
 import SignupForm from './SignupForm';
 import withOrganizations from './withOrganizations';
@@ -15,18 +14,43 @@ class SignupFormContainer extends React.Component {
 		this.state = {
 			activeStep: 0,
 			email: '',
-			name: 'user name',
+			name: '',
 			password: '',
-			passwordConfirmation: '',
-			selection: ''
+			selection: '',
+			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
+			currentLocation: '',
+			orgType: '',
+			immigrationStatus: '',
+			countryOfOrigin: '',
+			ethnicityRace: [],
+			sogIdentity: [],
+			age: '',
+			specifiedOrgType: '',
+			specifiedCountry: '',
+			specifiedIdentity: '',
+			specifiedEthnicity: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleChangeArray = this.handleChangeArray.bind(this);
 		this.handleCreateAffiliation = this.handleCreateAffiliation.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleStepNext = this.handleStepNext.bind(this);
 		this.handleStepBack = this.handleStepBack.bind(this);
 		this.handleSignUp = this.handleSignUp.bind(this);
+		this.handleUpdateUser = this.handleUpdateUser.bind(this);
+		this.handleSkip = this.handleSkip.bind(this);
+		this.handleResetState = this.handleResetState.bind(this);
+	}
+
+	handleResetState() {
+		this.setState({selection: ''});
+		this.setState({specifiedOrgType: ''});
+		this.setState({orgType: ''});
+		this.setState({email: ''});
+		this.setState({name: ''});
+		this.setState({currentLocation: ''});
+		this.setState({password: ''});
 	}
 
 	handleChange(event) {
@@ -34,17 +58,135 @@ class SignupFormContainer extends React.Component {
 		this.setState({[name]: value});
 	}
 
-	handleSelect(selection) {
-		this.setState({selection});
-		this.handleStepNext();
+	handleChangeArray(event, isChecked) {
+		let tempArray = [];
+		let tempArray2 = [];
+
+		let index = '';
+
+		//add to sogIdentity array
+		if (event.target.name === 'sogIdentity' && isChecked) {
+			if (event.target.value === 'prefer-not-to-say') {
+				tempArray.push(event.target.value);
+				this.setState({sogIdentity: tempArray});
+			} else {
+				tempArray = this.state.sogIdentity.slice();
+				tempArray.push(event.target.value);
+				let uniq = [...new Set(tempArray)];
+				this.setState({sogIdentity: uniq});
+			}
+		}
+		//remove from sogIdentity array
+		if (event.target.name === 'sogIdentity' && !isChecked) {
+			tempArray = [...this.state.sogIdentity];
+
+			//if 'Other' was unchecked, remove the specifiedId value from the array
+			if (event.target.value === 'other') {
+				tempArray2 = tempArray.filter(function (item) {
+					return item.indexOf('specifiedIdentity:') !== 0;
+				});
+				tempArray = tempArray2;
+			}
+			//remove unchecked items from array
+			index = tempArray.indexOf(event.target.value);
+			if (index !== -1) {
+				tempArray.splice(index, 1);
+				this.setState({sogIdentity: tempArray});
+			}
+		}
+
+		//add to ethnicityRace array
+		if (event.target.name === 'ethnicityRace' && isChecked) {
+			if (event.target.value === 'prefer-not-to-say') {
+				tempArray.push(event.target.value);
+				this.setState({ethnicityRace: tempArray});
+			} else {
+				tempArray = this.state.ethnicityRace.slice();
+				tempArray.push(event.target.value);
+				let uniq = [...new Set(tempArray)];
+				this.setState({ethnicityRace: uniq});
+			}
+		}
+
+		//remove from ethnicityRace array
+		if (event.target.name === 'ethnicityRace' && !isChecked) {
+			tempArray = [...this.state.ethnicityRace];
+
+			//if 'Other' was unchecked, remove the specifiedId value from the array
+			if (event.target.value === 'other') {
+				tempArray2 = tempArray.filter(function (item) {
+					return item.indexOf('specifiedEthnicity:') !== 0;
+				});
+				tempArray = tempArray2;
+			}
+			//remove unchecked items from array
+			index = tempArray.indexOf(event.target.value);
+			if (index !== -1) {
+				tempArray.splice(index, 1);
+				this.setState({ethnicityRace: tempArray});
+			}
+		}
+	}
+
+	handleSelect(type) {
+		this.setState({selection: type}, function () {
+			this.handleStepNext();
+		});
 	}
 
 	handleStepNext() {
-		this.setState((prevState) => ({activeStep: prevState.activeStep + 1}));
+		this.setState(
+			(prevState) => ({activeStep: prevState.activeStep + 1}),
+			function () {
+				if (this.state.selection === 'seeker') {
+					if (this.state.activeStep > 6) {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep]},
+							function () {}
+						);
+					}
+				}
+			}
+		);
+	}
+
+	handleSkip() {
+		this.setState((prevState) => ({activeStep: prevState.activeStep + 2}));
 	}
 
 	handleStepBack() {
-		this.setState((prevState) => ({activeStep: prevState.activeStep - 1}));
+		this.setState(
+			(prevState) => ({activeStep: prevState.activeStep - 1}),
+			function () {
+				if (this.state.selection === 'seeker') {
+					if (this.state.activeStep > 4) {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 1]},
+							function () {
+								//reset values if the user goes back to the beginning
+								if (this.state.activeStep === 0) {
+									this.handleResetState();
+								}
+							}
+						);
+					}
+				}
+				//reset values if the user goes back to the beginning
+				if (this.state.activeStep === 0) {
+					this.handleResetState();
+				}
+			}
+		);
 	}
 
 	handleCreateAffiliation(event) {
@@ -69,7 +211,114 @@ class SignupFormContainer extends React.Component {
 					);
 				});
 		} else {
-			handleMessageNew(`Please enter a valid organization name.`);
+			handleMessageNew(<FormattedMessage id="error.organization-empty" />);
+		}
+	}
+
+	handleUpdateUser(event) {
+		event.preventDefault();
+
+		const {handleMessageNew, organizationSelection, session, userData} =
+			this.props;
+
+		let tempArray = [];
+		let tempArray2 = [];
+
+		let body = {
+			age: this.state.age,
+			countryOfOrigin:
+				this.state.countryOfOrigin === 'other'
+					? this.state.specifiedCountry
+					: this.state.countryOfOrigin,
+			immigrationStatus: this.state.immigrationStatus,
+			orgName: this.state.orgName,
+			orgPositionTitle: this.state.orgPositionTitle,
+			reasonForJoining: this.state.reasonForJoining
+		};
+
+		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
+		if (this.state.sogIdentity.includes('other')) {
+			let specifiedID = 'specifiedIdentity: ' + this.state.specifiedIdentity;
+			tempArray = this.state.sogIdentity.slice();
+
+			//remove previously specified values before saving newly specified value
+			tempArray2 = tempArray.filter(function (item) {
+				return item.indexOf('specifiedIdentity:') !== 0;
+			});
+			tempArray = tempArray2;
+
+			//set newly specified value
+			tempArray.push(specifiedID);
+			let uniq = [...new Set(tempArray)];
+			this.setState({sogIdentity: uniq}, function () {
+				body['sogIdentity'] = this.state.sogIdentity;
+				updateUser(userData, body)
+					.then((data) => {
+						this.setState({userData: data.user}, function () {});
+					})
+					.catch((error) => {
+						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					});
+			});
+		} else {
+			body['sogIdentity'] = this.state.sogIdentity;
+			updateUser(userData, body)
+				.then((data) => {
+					this.setState({userData: data.user}, function () {});
+				})
+				.catch((error) => {
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				});
+		}
+
+		if (this.state.ethnicityRace.includes('other')) {
+			let specifiedEth = 'specifiedEthnicity: ' + this.state.specifiedEthnicity;
+			tempArray = this.state.ethnicityRace.slice();
+
+			//remove previously specified values before saving newly specified value
+			tempArray2 = tempArray.filter(function (item) {
+				return item.indexOf('specifiedEthnicity:') !== 0;
+			});
+			tempArray = tempArray2;
+
+			//set newly specified value
+			tempArray.push(specifiedEth);
+			let uniq = [...new Set(tempArray)];
+			this.setState({ethnicityRace: uniq}, function () {
+				body['ethnicityRace'] = this.state.ethnicityRace;
+				updateUser(userData, body)
+					.then((data) => {
+						this.setState({userData: data.user}, function () {});
+					})
+					.catch((error) => {
+						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					});
+			});
+		} else {
+			body['ethnicityRace'] = this.state.ethnicityRace;
+			updateUser(userData, body)
+				.then((data) => {
+					this.setState({userData: data.user}, function () {});
+				})
+				.catch((error) => {
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				});
+		}
+
+		//update other attributes here
+		updateUser(userData, body)
+			.then((data) => {
+				this.setState({userData: data.user}, function () {});
+			})
+			.catch((error) => {
+				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+			});
+
+		//determine next step in the workflow
+		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
+			this.props.handleRequestOpen('thankyou');
+		} else {
+			this.handleStepNext();
 		}
 	}
 
@@ -77,26 +326,44 @@ class SignupFormContainer extends React.Component {
 		event.preventDefault();
 		const {handleMessageNew, handleRequestClose, handleRequestOpen} =
 			this.props;
-		const {email, name, password, passwordConfirmation, selection} = this.state;
+		const {
+			email,
+			name,
+			password,
+			selection,
+			currentLocation,
+			orgType,
+			specifiedOrgType
+		} = this.state;
+
 		const isProfessional = selection === 'lawyer' || selection === 'provider';
+		const emailTest = new RegExp(/\S+@\S+\.\S+/);
+		const pswdTest = new RegExp(
+			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
+		);
 
-		if (password.length < 8) {
-			handleMessageNew(<FormattedMessage id="error.password-length" />);
+		if (!pswdTest.test(password)) {
+			handleMessageNew(<FormattedMessage id="error.password-format" />);
 			return;
 		}
 
-		if (password !== passwordConfirmation) {
-			handleMessageNew(<FormattedMessage id="error.password-mismatch" />);
+		if (!emailTest.test(email)) {
+			handleMessageNew(<FormattedMessage id="error.email-format" />);
 			return;
 		}
 
+		// if orgType state is 'other', need to set it to the specified value before saving
+		// don't want to change the state directly, else the "Other" radio button won't be checked
 		const body = {
 			catalogType: selection,
 			email,
 			isProfessional,
 			password,
-			name
+			name,
+			currentLocation,
+			orgType: orgType === 'other' ? specifiedOrgType : orgType
 		};
+
 		const handleError = () =>
 			handleMessageNew(<FormattedMessage id="error.unspecified" />);
 
@@ -121,8 +388,10 @@ class SignupFormContainer extends React.Component {
 
 					this.props.handleLogIn(auth.token);
 					if (!isProfessional) {
-						handleRequestClose();
-						handleRequestOpen('thankyou');
+						this.setState(
+							{activeStep: this.state.seekerSteps[2]},
+							function () {}
+						);
 					} else {
 						this.handleStepNext();
 					}
@@ -137,11 +406,14 @@ class SignupFormContainer extends React.Component {
 				{...this.props}
 				{...this.state}
 				handleChange={this.handleChange}
+				handleChangeArray={this.handleChangeArray}
 				handleCreateAffiliation={this.handleCreateAffiliation}
 				handleSelect={this.handleSelect}
 				handleSignUp={this.handleSignUp}
 				handleStepNext={this.handleStepNext}
 				handleStepBack={this.handleStepBack}
+				handleUpdateUser={this.handleUpdateUser}
+				handleSkip={this.handleSkip}
 			/>
 		);
 	}
