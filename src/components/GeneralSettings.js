@@ -135,12 +135,14 @@ class GeneralSettings extends React.Component {
 						isApproved={isApproved}
 					/>
 				)}
-				<GeneralSettingsName
-					currentName={name}
-					handleUpdateName={this.updateName}
-					isNameUpdated={isNameUpdated}
-					handleMessageNew={handleMessageNew}
-				/>
+				{!isProfessional && (
+					<GeneralSettingsName
+						currentName={name}
+						handleUpdateName={this.updateName}
+						isNameUpdated={isNameUpdated}
+						handleMessageNew={handleMessageNew}
+					/>
+				)}
 				<GeneralSettingsEmail
 					currentEmail={email}
 					handleUpdateEmail={this.updateEmail}
