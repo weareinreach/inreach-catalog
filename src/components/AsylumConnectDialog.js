@@ -5,6 +5,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import ActionButton from './ActionButton';
 import DeleteAccountDialog from './DeleteAccountDialog';
+import ConfirmPassword from './ConfirmPassword';
 import DisclaimerDialog from './DisclaimerDialog';
 import ForgotDialog from './ForgotDialog';
 import ListNewDialog from './ListNewDialog';
@@ -32,6 +33,7 @@ const AsylumConnectDialog = ({
 	handleFetchUser,
 	handleLogIn,
 	handleDeleteAccount,
+	handleConfirmPassword,
 	handleLogOut,
 	handleMessageNew,
 	handleRequestClose,
@@ -145,6 +147,18 @@ const AsylumConnectDialog = ({
 						handleRequestClose={handleRequestClose}
 						handleRequestOpen={handleRequestOpen}
 						history={history}
+						locale={locale}
+						session={session}
+						user={user}
+						userData={userData}
+					/>
+				)}
+				{dialog == 'confirmPassword' && (
+					<ConfirmPassword
+						handleConfirmSession={handleConfirmSession}
+						handleMessageNew={handleMessageNew}
+						handleRequestOpen={handleRequestOpen}
+						handleRequestClose={handleRequestClose}
 						locale={locale}
 						session={session}
 						user={user}

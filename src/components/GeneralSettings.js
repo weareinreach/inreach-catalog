@@ -135,6 +135,15 @@ class GeneralSettings extends React.Component {
 					isPasswordUpdated={isPasswordUpdated}
 					handleMessageNew={handleMessageNew}
 				/>
+				{!isProfessional && (
+					<div
+						data-test-id="account-page-about-you"
+						onClick={() => handleRequestOpen('confirmPassword')}
+						className={classes.settingsTypeFont}
+					>
+						<span>Update About You</span>
+					</div>
+				)}
 				<div
 					data-test-id="account-page-logout"
 					onClick={() => {
