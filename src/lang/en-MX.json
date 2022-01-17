@@ -154,7 +154,7 @@
 	"form.email": "Email",
 	"form.password": "Password",
 	"form.confirm-password": "Confirm Password",
-	"form.name": "Name",
+	"form.name": "Name (or Alias)",
 	"form.re-enter-password": "Please re-enter your password",
 	"form.send": "Send",
 	"form.lawyer-email": "Firm, Organization or School Email",
