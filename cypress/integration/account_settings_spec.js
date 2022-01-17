@@ -35,6 +35,14 @@ describe('Home Page Navigation Bar Tests', () => {
                         cy.testAccountSettingsElements(viewport,user);
                     });
                 });
+                it(`Account Settings Change Name`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.get('@user_update').then(update_user=>{
+                            cy.testChangeUserName(viewport,user,update_user);
+                        });
+                       
+                    });
+                });
                 it(`Account Settings Change Email`,()=>{
                     cy.get('@user').then(user=>{
                         cy.get('@user_update').then(update_user=>{
@@ -55,7 +63,7 @@ describe('Home Page Navigation Bar Tests', () => {
                     cy.get('@user').then(user=>{
                             cy.testDeleteAccount(viewport,user);
                         });
-                    });
+                });
         });
     });
 });
