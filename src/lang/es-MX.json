@@ -155,6 +155,8 @@
 	"form.password": "Contraseña",
 	"form.confirm-password": "Confirmar tu contraseña",
 	"form.name": "Nombre",
+	"form.new-name": "Nombre nuevo",
+	"form.confirm-new-name": "Confirmar Nombre nuevo",
 	"form.send": "Enviar",
 	"form.lawyer-email": "Correo del bufete jurídico, la organización o escuela",
 	"form.organisation.email": "Correo de la organización",
