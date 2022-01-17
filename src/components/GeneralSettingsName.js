@@ -1,4 +1,6 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
+import Typography from '@material-ui/core/Typography';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -131,7 +133,7 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="currentName"
 							type="text"
-							label="Enter current name or alias"
+							label={<FormattedMessage id="form.name" />}
 							value={
 								!currentName ||
 								currentName === 'user name' ||
@@ -151,7 +153,7 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="newName"
 							type="text"
-							label="Enter new name or alias"
+							label={<FormattedMessage id="form.new-name" />}
 							value={newName}
 							InputLabelProps={{
 								shrink: true
@@ -165,7 +167,7 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="confirmedName"
 							type="text"
-							label="Confirm new name or alias"
+							label={<FormattedMessage id="form.confirm-new-name" />}
 							value={confirmedName}
 							InputLabelProps={{
 								shrink: true
