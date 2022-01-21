@@ -104,6 +104,7 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
         cy.getElementByTestId('mobile-nav-button-account').click();
     } 
     //Log back in to verify name change
+    cy.viewport(viewport);
     cy.login(user,viewport);
     //Verify Login
     cy.wait(1000);
@@ -128,10 +129,8 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
 
     //look for error message
     cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
-        expect($element).to.be.visible;
-        expect($element).contain('The new names values you have entered do not match.');
+        expect($element).contain("The new name values you have entered do not match.");
     });
-
     
     //check default values
     cy.get('input[name="currentName"]').clear()

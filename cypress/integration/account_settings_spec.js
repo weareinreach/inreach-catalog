@@ -12,7 +12,9 @@ describe('Home Page Navigation Bar Tests', () => {
         cy.visit(Cypress.env('baseUrl'));
         cy.fixture('user_new_update.json').as('user_update');
         cy.fixture('user_new.json').as('user').then(user=>{
-            //Add User
+            //Delete user if exists
+            cy.deleteUsersIfExist();
+            //Add new User
             cy.addUser(user);
         });
     });
