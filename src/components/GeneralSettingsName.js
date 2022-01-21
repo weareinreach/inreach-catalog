@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -94,7 +94,7 @@ class GeneralSettingsName extends React.Component {
 
 		const {currentName, newName, confirmedName} = this.state;
 		if (!currentName || !newName || !confirmedName) {
-			handleMessageNew('Missing name input.');
+			handleMessageNew(<FormattedMessage id="error.name-missing" />);
 		}
 
 		if (currentName && newName && confirmedName) {
@@ -107,7 +107,7 @@ class GeneralSettingsName extends React.Component {
 					confirmedName: ''
 				});
 			} else {
-				handleMessageNew('The new name values you have entered do not match.');
+				handleMessageNew(<FormattedMessage id="error.name-mismatch" />);
 			}
 		}
 	}
@@ -115,6 +115,7 @@ class GeneralSettingsName extends React.Component {
 	render() {
 		const {classes} = this.props;
 		const {currentName, newName, confirmedName} = this.state;
+		const {intl} = this.props;
 		return (
 			<div>
 				<div
@@ -122,7 +123,7 @@ class GeneralSettingsName extends React.Component {
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>Update Name</span>
+					<span>{<FormattedMessage id="form.name-update-label" />}</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
@@ -152,12 +153,14 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="newName"
 							type="text"
-							label={<FormattedMessage id="form.new-name" />}
+							label={<FormattedMessage id="form.name-new" />}
 							value={newName}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="New name"
+							placeholder={intl.formatMessage({
+								id: 'form.name-new-placeholder'
+							})}
 							onChange={this.handleChange}
 							required
 						/>
@@ -166,12 +169,14 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="confirmedName"
 							type="text"
-							label={<FormattedMessage id="form.confirm-new-name" />}
+							label={<FormattedMessage id="form.name-confirm" />}
 							value={confirmedName}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Confirm new name"
+							placeholder={intl.formatMessage({
+								id: 'form.name-confirm-placeholder'
+							})}
 							onChange={this.handleChange}
 							required
 						/>
@@ -180,7 +185,7 @@ class GeneralSettingsName extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-name-button"
 							>
-								Update Name
+								{<FormattedMessage id="form.name-update-label" />}
 							</AsylumConnectButton>
 						</div>
 					</form>
@@ -195,4 +200,4 @@ GeneralSettingsName.propTypes = {
 	currentName: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(GeneralSettingsName);
+export default withStyles(styles)(injectIntl(GeneralSettingsName));
