@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
+import {FormattedMessage} from 'react-intl';
+
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 
@@ -18,8 +20,11 @@ function renderInput(inputProps) {
 	const {classes, value, ref} = inputProps;
 	return (
 		<FormControl className={classes.textField}>
-			<InputLabel htmlFor="organization" className={classes.textFieldLabel}>
-				Organization Name
+			<InputLabel
+				htmlFor="organization"
+				className={`${classes.textFieldLabel} ${classes.textAlignLeft} ${classes.colorGrey}`}
+			>
+				<FormattedMessage id="form.organization-name-placeholder" />
 			</InputLabel>
 			<Input
 				id="organization"
@@ -159,6 +164,64 @@ const styles = (theme) => ({
 	},
 	textFieldLabel: {
 		paddingLeft: theme.spacing(1)
+	},
+	colorGrey: {
+		color: 'grey'
+	},
+	borderOutline: {
+		tetxAlign: 'center',
+		width: '407px',
+		borderWidth: '2px',
+		//border box colors
+		//border color when not hover or focus, darkGrey: '#e9e9e9', but have to use code not theme
+		'& .MuiOutlinedInput-root': {
+			borderColor: '#e9e9e9'
+		},
+		//border color when hover, light black, 'rgba(29, 31, 35, .5)', but have to use code not theme
+		'&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+			borderColor: 'rgba(29, 31, 35, .5)'
+		},
+		//border color on focus, blue with box shadow but have to use code not theme
+		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+			borderColor: '#5073B3',
+			boxShadow: '0px 0px 10px rgba(80, 115, 179, 0.5)'
+		},
+		//border color with error
+		'& .MuiOutlinedInput-root.Mui-error': {
+			borderColor: 'red'
+		},
+
+		//input box text color is black under all conditions except error
+		'& .MuiOutlinedInput-input': {
+			color: '#1D1F23'
+		},
+		'&:hover .MuiOutlinedInput-input': {
+			color: 'black'
+		},
+		'& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input': {
+			color: '#1D1F23'
+		},
+
+		//Input label
+		'& .MuiInputLabel-outlined': {
+			color: 'grey'
+		},
+		'&:hover .MuiInputLabel-outlined': {
+			color: 'brown'
+		},
+		'& .MuiInputLabel-outlined.Mui-focused': {
+			color: 'maroon'
+		},
+
+		//helper text
+		'& .MuiFormHelperText-root': {
+			color: 'green',
+			fontSize: '12px'
+		},
+		'& .MuiFormHelperText-root.Mui-error': {
+			color: 'red',
+			fontSize: '12px'
+		}
 	}
 });
 

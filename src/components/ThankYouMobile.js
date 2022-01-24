@@ -1,15 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
 import Modal from 'react-modal';
-
-import {useHistory} from 'react-router-dom';
-
 import {withStyles, Typography} from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
-
-import classNames from 'classnames';
 
 import AsylumConnectButton from './AsylumConnectButton';
 
@@ -66,7 +59,7 @@ const styles = (theme) => ({
 });
 
 const ThankYouMobile = (props) => {
-	const {classes, history, handleRequestClose, locale, state} = props;
+	const {classes, history, handleRequestClose, locale} = props;
 
 	const intl = useIntl();
 
@@ -80,9 +73,19 @@ const ThankYouMobile = (props) => {
 		history.push('/');
 	};
 
+	// document.getElementById("myElementID").classList.add('myClassName');
+
 	return (
 		<Paper className={classes.root}>
-			<Modal isOpen={true} className={classes.reactContent}>
+			<Modal
+				isOpen={true}
+				className={classes.reactContent}
+				style={{
+					overlay: {
+						zIndex: 10
+					}
+				}}
+			>
 				<div className={classes.blueBar} />
 				<DialogTitle data-test-id="thank-you-header">
 					<FormattedMessage id="app.thank-you-heading" />
@@ -93,6 +96,7 @@ const ThankYouMobile = (props) => {
 					data-test-id="thank-you-text"
 				>
 					<FormattedMessage id="app.thank-you-text" />
+					sdfsdf
 				</Typography>
 				<img
 					data-test-id="thank-you-image"

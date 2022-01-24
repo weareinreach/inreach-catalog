@@ -1,8 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DialogTitle from './DialogTitle';
+import {withStyles} from '@material-ui/core/styles';
+
 import SignupFormContainer from './SignupFormContainer';
+import ActionButton from './ActionButton';
+
+const styles = (theme) => ({
+	container: {
+		minWidth: '503px',
+		minHeight: '561px',
+		overflowY: 'auto',
+		'border-top': 'solid 6px #5073B3'
+	}
+});
 
 const SignupDialog = ({
 	handleLogIn,
@@ -12,10 +23,17 @@ const SignupDialog = ({
 	history,
 	locale,
 	session,
-	userData
+	userData,
+	classes
 }) => (
-	<div data-test-id="dialog-container-sign-up">
-		<DialogTitle>Sign Up</DialogTitle>
+	<div className={classes.container} data-test-id="dialog-container-sign-up">
+		<ActionButton
+			onClick={handleRequestClose}
+			testIdName="dialog-close-button"
+			variant="primary"
+		>
+			&times;
+		</ActionButton>
 		<SignupFormContainer
 			handleLogIn={handleLogIn}
 			handleMessageNew={handleMessageNew}
@@ -42,4 +60,4 @@ SignupDialog.propTypes = {
 	session: PropTypes.string
 };
 
-export default SignupDialog;
+export default withStyles(styles)(SignupDialog);

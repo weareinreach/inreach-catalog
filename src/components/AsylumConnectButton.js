@@ -42,7 +42,6 @@ const styles = (theme) => ({
 		}
 	},
 	disabledPrimary: {
-		color: theme.palette.common.white,
 		backgroundColor: theme.palette.primary[100],
 		borderColor: theme.palette.primary[100],
 		'&:active': {
@@ -54,10 +53,12 @@ const styles = (theme) => ({
 			color: theme.palette.common.white,
 			backgroundColor: theme.palette.primary[100],
 			borderColor: theme.palette.primary[100]
+		},
+		'&:disabled': {
+			color: theme.palette.common.white
 		}
 	},
 	disabledSecondary: {
-		color: theme.palette.common.white,
 		backgroundColor: theme.palette.secondary[100],
 		borderColor: theme.palette.secondary[100],
 		'&:active': {
@@ -69,6 +70,9 @@ const styles = (theme) => ({
 			color: theme.palette.common.white,
 			backgroundColor: theme.palette.secondary[100],
 			borderColor: theme.palette.secondary[100]
+		},
+		'&:disabled': {
+			color: theme.palette.common.white
 		}
 	}
 });
