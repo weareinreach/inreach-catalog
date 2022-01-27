@@ -78,6 +78,76 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
 });
 
+Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    
+    cy.getElementByTestId('account-page-name').click();
+    cy.get('input[name="currentName"]').should('have.value', user.name);
+    cy.getElementByTestId('account-settings-name-new').type(user_update.name);
+    cy.getElementByTestId('account-settings-name-new-confirm').type(user_update.name);
+    cy.getElementByTestId('account-settings-name-button').click();
+
+    //make sure UI is updated (new name appears and form is cleared)
+    cy.get('input[name="currentName"]').should('have.value', user_update.name);
+    cy.get('input[name="newName"]').should('have.value', '');
+    cy.get('input[name="confirmedName"]').should('have.value', '');
+
+    //Close dropdown
+    cy.getElementByTestId('account-page-name').click();
+    //logout 
+    cy.getElementByTestId('account-page-logout').click();
+    cy.wait(1000);
+    if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('snackbar-close-button').click()
+        cy.getElementByTestId('mobile-nav-button-account').click();
+    } 
+    //Log back in to verify name change
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    //Verify Login
+    cy.wait(1000);
+
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    cy.getElementByTestId('account-page-name').click();
+    cy.get('input[name="currentName"]').should('have.value', user_update.name);
+
+    //check for empty values - error should appear
+    cy.get('input[name="currentName"]').clear();
+    cy.getElementByTestId('account-settings-name-button').click();
+    cy.get('input:invalid').should('have.length', 3)
+    cy.get('input[name="currentName"]').then(($input) => {
+      expect($input[0].validationMessage).to.eq('Please fill out this field.')
+    })
+
+    //new name and confirmed name should match
+    cy.getElementByTestId('account-settings-name-old').type(user.name);
+    cy.getElementByTestId('account-settings-name-new').type(user_update.name);
+    cy.getElementByTestId('account-settings-name-new-confirm').type('xx');
+    cy.getElementByTestId('account-settings-name-button').click();
+
+    //look for error message
+    cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+        expect($element).contain("The new name values you have entered do not match.");
+    });
+    
+    //check default values
+    cy.get('input[name="currentName"]').clear()
+        .should('have.attr', 'placeholder', 'John Smith')
+        .should('be.visible');
+    
+    cy.get('input[name="newName"]').clear()
+        .should('have.attr', 'placeholder', 'New name')
+        .should('be.visible');
+
+    cy.get('input[name="confirmedName"]').clear()
+        .should('have.attr', 'placeholder', 'Confirm new name')
+        .should('be.visible');
+
+    cy.getElementByTestId('account-page-logout').click();
+});
+
 Cypress.Commands.add('testChangeUserEmail',(viewport,user,user_update)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
