@@ -7,6 +7,7 @@ import ListSubheader from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
+import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
@@ -125,6 +126,19 @@ const styles = (theme) => ({
 		width: '35px',
 		height: '30px',
 		paddingRight: '3px'
+	},
+	centerButton: {
+		display: 'block',
+		width: '50%',
+		marginTop: '20px',
+		marginLeft: '25%'
+	},
+	greyLine: {
+		width: '85%',
+		height: '1px',
+		backgroundColor: theme.palette.common.darkGrey,
+		marginTop: `${theme.spacing(3)}px`,
+		marginLeft: '7%'
 	}
 });
 
@@ -161,9 +175,8 @@ class Language extends React.Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleReload = this.handleReload.bind(this);
-		this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(
-			this
-		);
+		this.handleRequestCloseAfterSelect =
+			this.handleRequestCloseAfterSelect.bind(this);
 		this.generateLanguageItems = this.generateLanguageItems.bind(this);
 		this.generateLanguageList = this.generateLanguageList.bind(this);
 		this.generateLabelWithIcon = this.generateLabelWithIcon.bind(this);
@@ -188,56 +201,68 @@ class Language extends React.Component {
 
 	generateLanguageList() {
 		return (
-			<List
-				className={[
-					this.props.classes.languageList,
-					'skiptranslate',
-					this.props.classes.mobilePadding
-				].join(' ')}
-				spacing={3}
-			>
-				<div className={this.props.classes.filterInputBar}>
-					<Filter
-						className={this.props.classes.filterFormControl}
-						handleOnChange={this.handleOnFilterChange}
-						handleOnClick={this.handleOnFilterBarClick}
-						inputClassName={this.props.classes.filterInput}
-					/>
+			<div>
+				<div className={this.props.classes.centerButton}>
+					<AsylumConnectButton variant="secondary">
+						<FormattedMessage id="navigation.next" />
+					</AsylumConnectButton>
+					<AsylumConnectButton variant="secondary">
+						<FormattedMessage id="navigation.next" />
+					</AsylumConnectButton>
 				</div>
-				<ListSubheader className={this.props.classes.poweredByGoogle}>
-					<FormattedMessage
-						id="language.google-attribution"
-						defaultMessage="Powered by"
-					>
-						{(poweredBy) => <span>{poweredBy}</span>}
-					</FormattedMessage>
-					<a
-						className={this.props.classes.gooLogoLink}
-						href="https://translate.google.com"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<img
-							src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png"
-							width="37px"
-							height="14px"
-							className={this.props.classes.gooLogoImg}
-							alt="Google Translate"
+				<p>Powered by AsylumConnect </p>
+				<div className={this.props.classes.greyLine} />
+				<List
+					className={[
+						this.props.classes.languageList,
+						'skiptranslate',
+						this.props.classes.mobilePadding
+					].join(' ')}
+					spacing={3}
+				>
+					<div className={this.props.classes.filterInputBar}>
+						<Filter
+							className={this.props.classes.filterFormControl}
+							handleOnChange={this.handleOnFilterChange}
+							handleOnClick={this.handleOnFilterBarClick}
+							inputClassName={this.props.classes.filterInput}
 						/>
+					</div>
+					<ListSubheader className={this.props.classes.poweredByGoogle}>
 						<FormattedMessage
-							id="language.dropdown-translate"
+							id="language.google-attribution"
 							defaultMessage="Powered by"
 						>
-							{(translate) => (
-								<span className={this.props.classes.blackTranslateColor}>
-									{translate}
-								</span>
-							)}
+							{(poweredBy) => <span>{poweredBy}</span>}
 						</FormattedMessage>
-					</a>
-				</ListSubheader>
-				{this.generateLanguageItems()}
-			</List>
+						<a
+							className={this.props.classes.gooLogoLink}
+							href="https://translate.google.com"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<img
+								src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png"
+								width="37px"
+								height="14px"
+								className={this.props.classes.gooLogoImg}
+								alt="Google Translate"
+							/>
+							<FormattedMessage
+								id="language.dropdown-translate"
+								defaultMessage="Powered by"
+							>
+								{(translate) => (
+									<span className={this.props.classes.blackTranslateColor}>
+										{translate}
+									</span>
+								)}
+							</FormattedMessage>
+						</a>
+					</ListSubheader>
+					{this.generateLanguageItems()}
+				</List>
+			</div>
 		);
 	}
 
