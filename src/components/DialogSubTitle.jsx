@@ -5,11 +5,11 @@ import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const styles = (theme) => ({
-	title: {paddingBottom: theme.spacing(2), textAlign: 'center'},
-	wordWrap: 'break-word'
+	title: {paddingBottom: theme.spacing(2), textAlign: 'center', fontStyle: 'italic'},
+	wordWrap: 'break-word',
 });
 
-const DialogTitle = ({children, classes, variant, className}) => (
+const DialogSubTitle = ({children, classes, variant, className}) => (
 	<Typography
 		className={classNames(
 			classes.title,
@@ -18,12 +18,12 @@ const DialogTitle = ({children, classes, variant, className}) => (
 			},
 			className
 		)}
-		variant="h3"
-		data-test-id="dialog-container-title"
+		variant="body2"
+		data-test-id="dialog-container-subtitle"
 		classes={classes}
 	>
 		{children}
 	</Typography>
 );
 
-export default withStyles(styles)(DialogTitle);
+export default withStyles(styles)(DialogSubTitle);

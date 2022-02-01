@@ -88,7 +88,13 @@ jobs:
           destination: E2E Coverage Reports
       - store_artifacts:
           path: "reports/"
-          destination: E2E Test Reports 
+          destination: E2E Test Reports
+      - store_artifacts:
+          path: ./cypress/screenshots
+          destination: E2E Screenshots
+      - store_artifacts:
+          path: ./cypress/videos
+          destination: E2E Videos 
 
     
 

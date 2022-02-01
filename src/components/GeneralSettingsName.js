@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -48,14 +49,14 @@ const styles = (theme) => ({
 	}
 });
 
-class GeneralSettingsEmail extends React.Component {
+class GeneralSettingsName extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			open: false,
-			currentEmail: this.props.currentEmail,
-			newEmail: '',
-			confirmedEmail: ''
+			currentName: this.props.currentName,
+			newName: '',
+			confirmedName: ''
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
@@ -64,14 +65,14 @@ class GeneralSettingsEmail extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (
-			nextProps.currentEmail !== this.props.currentEmail &&
-			this.props.currentEmail !== null &&
-			this.props.currentEmail !== null
+			nextProps.currentName !== this.props.currentName &&
+			this.props.currentName !== null &&
+			this.props.currentName !== null
 		) {
 			this.setState({
-				currentEmail: nextProps.currentEmail,
-				newEmail: '',
-				confirmedEmail: ''
+				currentName: nextProps.currentName,
+				newName: '',
+				confirmedName: ''
 			});
 		}
 	}
@@ -91,89 +92,100 @@ class GeneralSettingsEmail extends React.Component {
 		e.preventDefault();
 		const {handleMessageNew} = this.props;
 
-		const {currentEmail, newEmail, confirmedEmail} = this.state;
-		if (!currentEmail || !newEmail || !confirmedEmail) {
-			handleMessageNew('Missing email input.');
+		const {currentName, newName, confirmedName} = this.state;
+		if (!currentName || !newName || !confirmedName) {
+			handleMessageNew(<FormattedMessage id="error.name-missing" />);
 		}
 
-		if (currentEmail && newEmail && confirmedEmail) {
-			if (newEmail === confirmedEmail) {
-				this.props.handleUpdateEmail(newEmail);
+		if (currentName && newName && confirmedName) {
+			if (newName === confirmedName) {
+				this.props.handleUpdateName(newName);
 				//update the UI with the new value, clear the form
 				this.setState({
-					currentEmail: newEmail,
-					newEmail: '',
-					confirmedEmail: ''
+					currentName: newName,
+					newName: '',
+					confirmedName: ''
 				});
 			} else {
-				handleMessageNew('Your new email is not matching the confirmed email.');
+				handleMessageNew(<FormattedMessage id="error.name-mismatch" />);
 			}
 		}
 	}
 
 	render() {
 		const {classes} = this.props;
-		const {currentEmail, newEmail, confirmedEmail} = this.state;
+		const {currentName, newName, confirmedName} = this.state;
+		const {intl} = this.props;
 		return (
 			<div>
 				<div
-					data-test-id="account-page-email"
+					data-test-id="account-page-name"
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>Change Email Address</span>
+					<span>{<FormattedMessage id="form.name-update-label" />}</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
 					<form className={classes.form} onSubmit={this.handleSubmit}>
 						<TextField
-							data-test-id="account-settings-email-old-address"
+							data-test-id="account-settings-name-old"
 							className={classes.inputLabel}
-							name="currentEmail"
-							type="email"
-							label="Enter Old Email Address:"
-							value={currentEmail}
+							name="currentName"
+							type="text"
+							label={<FormattedMessage id="form.name" />}
+							value={
+								!currentName ||
+								currentName === 'user name' ||
+								currentName.trim().length < 1
+									? ''
+									: currentName
+							}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="old_example@email.org"
+							placeholder="John Smith"
 							onChange={this.handleChange}
 							required
 						/>
 						<TextField
-							data-test-id="account-settings-email-new-address"
+							data-test-id="account-settings-name-new"
 							className={classes.inputLabel}
-							name="newEmail"
-							type="email"
-							label="Enter New Email Address:"
-							value={newEmail}
+							name="newName"
+							type="text"
+							label={<FormattedMessage id="form.name-new" />}
+							value={newName}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="new_example@email.org"
+							placeholder={intl.formatMessage({
+								id: 'form.name-new-placeholder'
+							})}
 							onChange={this.handleChange}
 							required
 						/>
 						<TextField
-							data-test-id="account-settings-email-new-address-confirm"
+							data-test-id="account-settings-name-new-confirm"
 							className={classes.inputLabel}
-							name="confirmedEmail"
-							type="email"
-							label="Confirm New Email Address:"
-							value={confirmedEmail}
+							name="confirmedName"
+							type="text"
+							label={<FormattedMessage id="form.name-confirm" />}
+							value={confirmedName}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="new_example@email.org"
+							placeholder={intl.formatMessage({
+								id: 'form.name-confirm-placeholder'
+							})}
 							onChange={this.handleChange}
 							required
 						/>
 						<div>
 							<AsylumConnectButton
 								variant="secondary"
-								testIdName="account-settings-email-button"
+								testIdName="account-settings-name-button"
 							>
-								Change Email Address
+								{<FormattedMessage id="form.name-update-label" />}
 							</AsylumConnectButton>
 						</div>
 					</form>
@@ -183,9 +195,9 @@ class GeneralSettingsEmail extends React.Component {
 	}
 }
 
-GeneralSettingsEmail.propTypes = {
+GeneralSettingsName.propTypes = {
 	classes: PropTypes.object.isRequired,
-	currentEmail: PropTypes.string.isRequired
+	currentName: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(GeneralSettingsEmail);
+export default withStyles(styles)(injectIntl(GeneralSettingsName));
