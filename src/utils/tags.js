@@ -271,6 +271,12 @@ const resourceTypes = [
 	{
 		category: 'Medical',
 		type: 'medical',
+		acTag: 'COVID-19 services',
+		title: 'COVID-19 services'
+	},
+	{
+		category: 'Medical',
+		type: 'medical',
 		acTag: 'Dental care',
 		title: 'Dental care'
 	},

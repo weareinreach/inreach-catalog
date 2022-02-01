@@ -1,4 +1,5 @@
 import React from 'react';
+import GeneralSettingsName from './GeneralSettingsName';
 import GeneralSettingsEmail from './GeneralSettingsEmail';
 import GeneralSettingsOrganization from './GeneralSettingsOrganization';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
@@ -56,6 +57,7 @@ class GeneralSettings extends React.Component {
 			dialog: 'none'
 		};
 		this.handleOdasError = this.handleOdasError.bind(this);
+		this.updateName = this.updateName.bind(this);
 		this.updateEmail = this.updateEmail.bind(this);
 		this.updatePassword = this.updatePassword.bind(this);
 	}
@@ -72,10 +74,19 @@ class GeneralSettings extends React.Component {
 		}
 	}
 
+	updateName(newName) {
+		updateUser(this.state.userData, {name: newName})
+			.then((data) => {
+				this.setState({userData: data, isNameUpdated: true});
+				this.props.handleMessageNew('Your name has been updated.');
+			})
+			.catch((error) => this.handleOdasError(error));
+	}
+
 	updateEmail(newEmail) {
 		updateUser(this.state.userData, {email: newEmail})
 			.then((data) => {
-				this.setState({userData: data.user, isEmailUpdated: true});
+				this.setState({userData: data, isEmailUpdated: true});
 				this.props.handleMessageNew('Your email has been updated.');
 			})
 			.catch((error) => this.handleOdasError(error));
@@ -102,9 +113,9 @@ class GeneralSettings extends React.Component {
 			session,
 			userData,
 			isApproved,
-			userData: {isProfessional, email}
+			userData: {isProfessional, email, name}
 		} = this.props;
-		const {isPasswordUpdated, isEmailUpdated} = this.state;
+		const {isPasswordUpdated, isEmailUpdated, isNameUpdated} = this.state;
 
 		return (
 			<div className={classes.root}>
@@ -122,6 +133,14 @@ class GeneralSettings extends React.Component {
 						session={session}
 						userData={userData}
 						isApproved={isApproved}
+					/>
+				)}
+				{!isProfessional && (
+					<GeneralSettingsName
+						currentName={name}
+						handleUpdateName={this.updateName}
+						isNameUpdated={isNameUpdated}
+						handleMessageNew={handleMessageNew}
 					/>
 				)}
 				<GeneralSettingsEmail
@@ -168,7 +187,8 @@ GeneralSettings.propTypes = {
 	userData: PropTypes.shape({
 		affiliation: PropTypes.shape({}),
 		isProfessional: PropTypes.bool.isRequired,
-		email: PropTypes.string.isRequired
+		email: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired
 	}).isRequired
 };
 
