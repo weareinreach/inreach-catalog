@@ -295,6 +295,12 @@ const resourceTypes = [
 	{
 		category: 'Medical',
 		type: 'medical',
+		acTag: 'OBGYN services',
+		title: 'OBGYN services'
+	},
+	{
+		category: 'Medical',
+		type: 'medical',
 		acTag: 'Physical evaluations for asylum claim',
 		title: 'Physical evaluations for asylum claim'
 	},
@@ -309,12 +315,6 @@ const resourceTypes = [
 		type: 'medical',
 		acTag: 'Trans health',
 		title: 'Trans health'
-	},
-	{
-		category: 'Medical',
-		type: 'medical',
-		acTag: "Women's health",
-		title: "Women's health"
 	},
 
 	/* AC Mental Health Category */
