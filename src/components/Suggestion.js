@@ -411,7 +411,7 @@ class Suggestion extends React.Component {
 		const {handleMessageNew, handleRequestOpen, session} = this.props;
 		if (!session) {
 			handleRequestOpen('login');
-			handleMessageNew('You need to log in to view your account.');
+			handleMessageNew('You need to sign in to view your account.');
 		} else {
 			// Organize resourceData ready for submiting request (154)
 			this.organizeData();
