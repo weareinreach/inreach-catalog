@@ -65,7 +65,7 @@ class GeneralSettings extends React.Component {
 	handleOdasError(error) {
 		const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
 		if (error.response && error.response.status === 401) {
-			handleMessageNew('Your session has expired. Please log in again.');
+			handleMessageNew('Your session has expired. Please sign in again.');
 			handleLogOut();
 		} else if (error.response && error.response.status === 403) {
 			handleRequestOpen('password');
