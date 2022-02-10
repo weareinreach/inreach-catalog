@@ -69,7 +69,7 @@ class SaveToFavoritesButton extends React.Component {
 	handleFetchError(error) {
 		const {handleLogOut, handleMessageNew} = this.props;
 		if (error.response && error.response.status === 401) {
-			handleMessageNew('Your session has expired. Please log in again.');
+			handleMessageNew('Your session has expired. Please sign in again.');
 			handleLogOut();
 		} else if (error.response && error.response.status === 403) {
 			this.handleOpen('password');

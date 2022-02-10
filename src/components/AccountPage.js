@@ -115,7 +115,7 @@ class AccountPage extends React.Component {
 
 	handleNullSession() {
 		this.props.history.push('/');
-		this.props.handleMessageNew('You need to log in to view your account.');
+		this.props.handleMessageNew('You need to sign in to view your account.');
 	}
 
 	handleChange(event, value) {

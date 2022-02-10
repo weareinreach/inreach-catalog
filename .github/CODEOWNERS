@@ -1,0 +1,5 @@
+# This file is to be used to control MR approvals.
+# This allows the organization to have certain individuals as gate keepers for repositories.
+# All PRs must be approved by users below
+
+* @Alfredo-Moreira @trigal2012
