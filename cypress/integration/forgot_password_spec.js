@@ -28,13 +28,17 @@ describe('Forgot Password Tests', () => {
                 cy.testForgotPasswordElements(viewport);
             });
             it('Testing Forgot Password bad Account',()=>{
-                cy.testForgotPasswordAction(viewport,"random@gmail.com");
+                cy.testForgotPasswordActionBadEmail(viewport,"random@gmail.com");
             });
             it('Testing Forgot Password Good Acccount',()=>{
                 cy.get('@new_user').then(user =>{
                     cy.addUser(user).then(() => {
+                        cy.testForgotPasswordActionGoodEmail(viewport,user.email);
                     });
                 });
+            });
+            it('Generic error test', ()=>{
+                cy.testGenericError(viewport, "anything@gmail.com");
             });
         });
     });
