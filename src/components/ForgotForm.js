@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -30,11 +31,11 @@ const ForgotForm = ({
 }) => (
 	<form className={classes.container} onSubmit={handleSubmit}>
 		<Typography variant="body1" data-test-id="forgot-password-body">
-			We'll send you an email to reset your password.
+			<FormattedMessage id="account.request-password-reset" />
 		</Typography>
 		<TextField
 			id="email"
-			label="Email"
+			label={<FormattedMessage id="form.email" />}
 			margin="normal"
 			name="email"
 			onChange={handleChange}
@@ -48,11 +49,15 @@ const ForgotForm = ({
 			variant="primary"
 			testIdName="forgot-password-send-button"
 		>
-			Send
+			<FormattedMessage id="form.send" />
 		</AsylumConnectButton>
 		<div onClick={() => handleRequestOpen('login')}>
-			<Typography variant="body1" data-test-id="forgot-password-back-button">
-				<span className={classes.link}>Back</span>
+			<Typography
+				variant="body1"
+				className={classes.link}
+				data-test-id="forgot-password-back-button"
+			>
+				<FormattedMessage id="navigation.back" />
 			</Typography>
 		</div>
 	</form>
