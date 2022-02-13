@@ -182,12 +182,12 @@ const FavoritesListMobile = ({
 						className={classes.spacingTop}
 						variant="body1"
 						align="center"
-						data-test-id="favorites-page-create-new-list-button"
 					>
 						<FormattedMessage id="favorites.action-help-part-1" />
 						<span
 							className={classes.bodyLink}
 							onClick={() => handleRequestOpen('listNew/favoritesList')}
+							data-test-id="favorites-page-create-new-list-button"
 						>
 							<FormattedMessage id="favorites.action-help-part-2" />
 						</span>
