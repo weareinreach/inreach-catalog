@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
-import {deleteUser, catalogPost, catalogGet, checkUser} from '../utils/api';
+import {deleteUser, catalogPost} from '../utils/api';
 
 const styles = (theme) => ({
 	container: {
