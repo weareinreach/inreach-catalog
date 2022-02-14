@@ -230,6 +230,46 @@ Cypress.Commands.add('testChangeUserPassword',(viewport,user,user_update)=>{
     }
 });
 
+Cypress.Commands.add('testDeleteAccountNoPassword',(viewport,user)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
+    if(viewport !== Cypress.env('mobile')){
+        cy.getElementByTestId('account-page-delete-account').click();
+        cy.getElementByTestId('delete-account-delete-button').should('be.disabled');
+        //force click to make sure no password can't be sent from front end
+        cy.getElementByTestId('delete-account-delete-button').then($element => {
+            cy.wrap($element).click({force:true});
+        });
+        //look for error message
+        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+            expect($element).contain("Please fill out all fields");
+        });
+        cy.getElementByTestId('snackbar-close-button').click();
+        cy.getElementByTestId('delete-account-password').should('have.value', '');
+
+    }    
+});
+
+Cypress.Commands.add('testDeleteAccountWrongPassword',(viewport,user)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
+    if(viewport !== Cypress.env('mobile')){
+        cy.getElementByTestId('account-page-delete-account').click();
+        cy.getElementByTestId('delete-account-password').type('wrong password');
+        cy.getElementByTestId('delete-account-delete-button').click();
+        //look for error message
+        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+            expect($element).contain("The password you entered was incorrect.");
+        });
+        cy.getElementByTestId('snackbar-close-button').click();
+        cy.getElementByTestId('delete-account-password').should('have.value', '');
+    }    
+});
+
 Cypress.Commands.add('testDeleteAccount',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
@@ -239,6 +279,13 @@ Cypress.Commands.add('testDeleteAccount',(viewport,user)=>{
         cy.getElementByTestId('account-page-delete-account').click();
         cy.getElementByTestId('delete-account-password').type(user.password);
         cy.getElementByTestId('delete-account-delete-button').click();
-    }
-    
+        //look for logout
+        cy.getElementByTestId('nav-account-sign-in').should('be.visible');
+        //look for success message
+        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+            expect($element).contain("Your account has been deleted successfully.");
+        });
+        cy.getElementByTestId('snackbar-close-button').click();    
+    }    
 });
+

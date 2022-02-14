@@ -45,9 +45,7 @@ class DeleteAccountDialog extends React.Component {
 
 		//confirm user enters password, then confirm the password, then delete account
 		if (!this.state.password) {
-			handleMessageNew(
-				<FormattedMessage id="error.incorrect-email-password" />
-			);
+			handleMessageNew(<FormattedMessage id="error.required-field-empty" />);
 		} else {
 			//verify entered password
 			catalogPost('/auth', {email, password})
@@ -69,7 +67,7 @@ class DeleteAccountDialog extends React.Component {
 					} else {
 						this.setState({password: ''});
 						handleMessageNew(
-							<FormattedMessage id="error.incorrect-email-password"></FormattedMessage>
+							<FormattedMessage id="error.incorrect-password"></FormattedMessage>
 						);
 					}
 				})
@@ -106,7 +104,7 @@ class DeleteAccountDialog extends React.Component {
 						value={password}
 					/>
 					<AsylumConnectButton
-						// disabled={!password}
+						disabled={!password}
 						variant="primary"
 						onClick={this.confirmDelete}
 						className={classes.marginTop}
