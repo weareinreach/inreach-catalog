@@ -57,19 +57,19 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
                 expect($element).contain('Delete Account');
             });
             cy.getElementByTestId('delete-account-body-1').then($element=>{
-                expect($element).contain('Are you sure you want to delete your account? Your account will be delete permanently, and any stored information will be erased.');
+                expect($element).contain('Are you sure you want to delete your account? Your account will be deleted permanently and any stored information will be erased.');
             });
             cy.getElementByTestId('delete-account-body-2').then($element=>{
-                expect($element).contain('Deleting your account requires your password.');
+                expect($element).contain('Please re-enter your password.');
             });
             cy.getElementByTestId('delete-account-password').then($element=>{
                 expect($element).to.be.visible;
             });
             cy.getElementByTestId('delete-account-delete-button').then($element=>{
-                expect($element).contain('delete account');
+                expect($element).contain('Delete Account');
             });
             cy.getElementByTestId('delete-account-cancel-button').then($element=>{
-                expect($element).contain('cancel');
+                expect($element).contain('Cancel');
             });
         });
         cy.getElementByTestId('dialog-close-button').click();

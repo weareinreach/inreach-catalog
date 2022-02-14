@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -6,7 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
-import {deleteUser} from '../utils/api';
+import {deleteUser, catalogPost, catalogGet, checkUser} from '../utils/api';
 
 const styles = (theme) => ({
 	container: {
@@ -36,19 +37,47 @@ class DeleteAccountDialog extends React.Component {
 		});
 	}
 
-	confirmDelete() {
+	confirmDelete(e) {
+		e.preventDefault();
 		const {handleMessageNew, handleLogOut} = this.props;
+		const password = this.state.password;
+		const email = this.props.userData.email;
 
-		deleteUser(this.props.userData)
-			.then(() => {
-				this.props.handleRequestClose();
-				this.setState({password: ''});
-				handleMessageNew('Your account has been deleted.');
-				handleLogOut();
-			})
-			.catch(() => {
-				handleMessageNew('Oops! Something went wrong.');
-			});
+		//confirm user enters password, then confirm the password, then delete account
+		if (!this.state.password) {
+			handleMessageNew(
+				<FormattedMessage id="error.incorrect-email-password" />
+			);
+		} else {
+			//verify entered password
+			catalogPost('/auth', {email, password})
+				.then((response) => {
+					if (response.status === 200) {
+						//delete account here
+						deleteUser(this.props.userData)
+							.then(() => {
+								this.props.handleRequestClose();
+								this.setState({password: ''});
+								handleLogOut();
+								handleMessageNew(
+									<FormattedMessage id="action.account-deleted-successfully" />
+								);
+							})
+							.catch(() => {
+								handleMessageNew(<FormattedMessage id="error.unspecified" />);
+							});
+					} else {
+						this.setState({password: ''});
+						handleMessageNew(
+							<FormattedMessage id="error.incorrect-email-password"></FormattedMessage>
+						);
+					}
+				})
+				.catch((error) => {
+					this.setState({password: ''});
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				});
+		}
 	}
 
 	render() {
@@ -57,19 +86,18 @@ class DeleteAccountDialog extends React.Component {
 		return (
 			<div className={classes.container}>
 				<DialogTitle data-test-id="delete-account-title">
-					Delete Account
+					<FormattedMessage id="action.delete-account" />
 				</DialogTitle>
 				<Typography type="body1" data-test-id="delete-account-body-1">
-					Are you sure you want to delete your account? Your account will be
-					delete permanently, and any stored information will be erased.
+					<FormattedMessage id="action.confirm-account-deletion" />
 				</Typography>
 				<form className={classes.container}>
 					<Typography variant="body1" data-test-id="delete-account-body-2">
-						Deleting your account requires your password.
+						<FormattedMessage id="form.re-enter-password" />
 					</Typography>
 					<TextField
 						data-test-id="delete-account-password"
-						label="Password"
+						label={<FormattedMessage id="form.password" />}
 						margin="normal"
 						name="password"
 						onChange={this.handleChange}
@@ -78,12 +106,13 @@ class DeleteAccountDialog extends React.Component {
 						value={password}
 					/>
 					<AsylumConnectButton
+						// disabled={!password}
 						variant="primary"
 						onClick={this.confirmDelete}
 						className={classes.marginTop}
 						testIdName="delete-account-delete-button"
 					>
-						delete account
+						<FormattedMessage id="action.delete-account" />
 					</AsylumConnectButton>
 				</form>
 
@@ -92,7 +121,7 @@ class DeleteAccountDialog extends React.Component {
 					testIdName="delete-account-cancel-button"
 					onClick={handleRequestClose}
 				>
-					cancel
+					<FormattedMessage id="action.cancel" />
 				</AsylumConnectButton>
 			</div>
 		);
@@ -100,7 +129,7 @@ class DeleteAccountDialog extends React.Component {
 }
 
 DeleteAccountDialog.propTypes = {
-	//handleDeleteAccount: PropTypes.func.isRequired,
+	handleDeleteAccount: PropTypes.func.isRequired,
 	handleRequestClose: PropTypes.func.isRequired
 };
 
