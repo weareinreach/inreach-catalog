@@ -38,6 +38,12 @@ jobs:
             CI: 'false'
   
   e2e:
+    parameters:
+      group:
+             type: integer
+             default: 1
+    environment:
+      GROUP: << parameters.group >>
     docker:
       - image: cypress/base:16.5.0
         environment:
@@ -111,4 +117,8 @@ workflows:
   pull_request:
     jobs: 
       - build
-      - e2e
+      - e2e:
+          group: 1
+      - e2e: 
+          group: 2
+      
