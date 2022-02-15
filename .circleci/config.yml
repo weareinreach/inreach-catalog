@@ -100,9 +100,6 @@ jobs:
       - codecov/upload:
           file: 'catalog/cypressCoverage/coverage-final.json'
           flags: 'Integration'
-      - run:
-          name: "Post E2E Commands"
-          command: "yarn test:post-e2e"
       - store_artifacts:
           path: ./cypressCoverage
           destination: E2E Coverage Reports
