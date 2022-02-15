@@ -102,7 +102,15 @@ class LocaleForm extends React.Component {
 	handleNextClick(ev) {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
+
+			//will need this once catalog is fully translasted to spanish
+			/* if(this.state.selectedLocale === 'en_MX' && this.state.selectedLanguage === 'es'){
+				this.props.changeLocale('es_MX');
+			}else {
+				this.props.changeLocale(this.state.selectedLocale);
+			} */
 		}
+
 		if (typeof this.props.onLocaleSelect === 'function') {
 			this.props.onLocaleSelect(
 				this.state.selectedLocale,
