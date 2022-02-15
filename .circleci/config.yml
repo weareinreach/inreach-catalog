@@ -127,4 +127,10 @@ workflows:
       - e2e: 
           group: 2
           group_name: group2
+      - e2e:
+          group: 3
+          group_name: group3
+      - e2e:
+          group: 4
+          group_name: group4
       
