@@ -18,7 +18,7 @@
     "test:e2e": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:open'",
     "test:e2e:local": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:open'",
     "test:e2e:ci": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:run'",
-    "test:e2e:ci:local": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:run --record --group $GROUP --key=57c5c982-91a8-48be-99dd-5f5792a8542f --spec 'cypress/integration/group${GROUP}/**/*''",
+    "test:e2e:ci:local": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:run --record --group $GROUP_NAME --key=57c5c982-91a8-48be-99dd-5f5792a8542f --spec 'cypress/integration/group${GROUP}/**/*''",
     "show-coverage": "npx nyc report --reporter json --reporter=text"
   },
   "dependencies": {
