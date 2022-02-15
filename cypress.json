@@ -2,6 +2,7 @@
 	"integrationFolder": "cypress/integration",
 	"reporter": "mochawesome",
 	"video":false,
+	"screenshotOnRunFailure":false,
 	"chromeWebSecurity": false,
 	"reporterOptions": {
 		"overwrite": false,
@@ -9,9 +10,9 @@
 		"json": true
 	},
 	"retries":{
-        "runMode":3,
+        "runMode":2,
         "openMode":0
     },
-    "defaultCommandTimeout":10000,
-    "waitForAnimations":true
+    "defaultCommandTimeout":4000,
+    "waitForAnimations":false
 }
