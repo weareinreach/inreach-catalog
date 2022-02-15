@@ -96,7 +96,7 @@ jobs:
           command: (cd catalog-api && yarn dev-background) && (cd catalog && yarn test:pre-e2e && yarn test:e2e:ci:local)
       - run:
           name: "Show Coverage"
-          command: "yarn show-coverage"
+          command: "cd catalog && yarn show-coverage"
       - codecov/upload:
           file: 'catalog/cypressCoverage/coverage-final.json'
           flags: 'Integration'
