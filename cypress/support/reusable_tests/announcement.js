@@ -27,12 +27,12 @@ Cypress.Commands.add('testAnnouncementBannerElementsAndActions',(viewport)=>{
     });
     cy.getElementByTestId('announcement-privacy-button').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('User Privacy Statement');
+        expect($element).contain('Privacy Statement');
         cy.wrap($element).click();
         cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('AsylumConnect User Privacy Statement');
+            expect($element).contain('AsylumConnect Privacy Statement');
         });
         cy.getElementByTestId('dialog-button').then($element=>{
             expect($element).to.be.visible;
