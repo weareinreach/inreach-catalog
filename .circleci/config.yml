@@ -47,6 +47,7 @@ jobs:
               default: group
     environment:
       GROUP: << parameters.group >>
+      GROUP_NAME: << parameters.group_name >>
     docker:
       - image: cypress/base:16.5.0
         environment:
