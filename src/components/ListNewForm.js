@@ -25,14 +25,13 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			variant="body1"
 			data-test-id="favorites-create-new-page-header-text"
 		>
-			Your favorites lists are only visible to you and anyone you share
-			them&nbsp;with.
+			<FormattedMessage id="favorites.privacy-disclaimer" />
 		</Typography>
 		<TextField
 			id="name"
-			label="List name"
+			label={<FormattedMessage id="favorites.list-name" />}
 			margin="normal"
-			helperText="You could name your list by category, by day of the week, or by the name of whoever this list is for."
+			helperText={<FormattedMessage id="favorites.name-list-help" />}
 			className={classes.helperText}
 			name="name"
 			onChange={handleChange}
