@@ -54,7 +54,6 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-page-create-new-list-button').then($element=>{
         expect($element).to.be.visible;
-        viewport === Cypress.env('mobile') ? expect($element).contain("Select one of your favorites lists or create a new list.")  : expect($element).contain("Create New Favorites List");
         cy.wrap($element).click();
     });
     cy.wait(1000);
@@ -68,12 +67,21 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-create-new-list-name-input').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("You could name your list by category, by day of the week, or by the name of whoever this list is for.");
+        expect($element).contain("Name your list by category, day of the week, or the name of whomever this list is for.");
     });
     cy.getElementByTestId('favorites-create-new-button').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain("Create New Favorites List");
     });
+    if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('back-button').then($element=>{
+            cy.wrap($element[0]).click();
+            cy.getElementByTestId('favorites-page-title-text').then($element=>{
+                expect($element).to.be.visible;
+                expect($element).contain("Favorites");
+            });
+        });
+    }
 
 });
 
@@ -87,7 +95,9 @@ Cypress.Commands.add('testFavoritesCreateNewList',(viewport,user,listName)=>{
         cy.getElementByTestId('nav-button-view-favorites').click();
     }
     cy.getElementByTestId('favorites-page-create-new-list-button').click();
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
+    viewport === Cypress.env('mobile') ? 
+        cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) 
+        : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
     cy.getElementByTestId('favorites-create-new-button').click();
     //New Item created
     cy.getElementByTestId('favorites-page-list').then($element=>{
