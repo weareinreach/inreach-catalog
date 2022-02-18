@@ -212,7 +212,7 @@ class SearchFormContainer extends React.Component {
 								<AsylumConnectBackButton
 									className={changeCountryButton}
 									color="default"
-									text="Choose a different country"
+									text={<FormattedMessage id="app.choose-different-country" />}
 									onClick={this.handleLocaleReset}
 								/>
 							</Grid>

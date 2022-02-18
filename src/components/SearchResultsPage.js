@@ -165,11 +165,12 @@ const ResultsContainer = (props) => {
 					<Loading colorClass={searchResults.length ? null : loadingColor} />
 				) : searchResults.length ? null : (
 					<Typography variant="body2" className={noResults}>
-						We didn't currently find any verified resources within your search
-						criteria.
-						<br />
-						Try choosing different resource types or searching for a different
-						location.
+						<FormattedMessage
+							id="search.no-results-for-location"
+							values={{
+								br: <br />
+							}}
+						/>
 					</Typography>
 				)}
 			</div>
@@ -338,7 +339,7 @@ class SearchResultsContainer extends React.Component {
 									className={centerText + ' ' + halfBottomMargin}
 								>
 									<AsylumConnectCheckbox
-										label="Only show me resources that provide walk-in hours"
+										label={<FormattedMessage id="search.show-walk-in-orgs" />}
 										value="time-walk-in"
 										onChange={this.props.handleFilterSelect}
 										checked={
@@ -366,9 +367,9 @@ class SearchResultsContainer extends React.Component {
 									indicator: indicatorColor
 								}}
 							>
-								<Tab label="List" />
-								<Tab label="Map" />
-								<Tab label="Filter" />
+								<Tab label={<FormattedMessage id="navigation.tab-list" />} />
+								<Tab label={<FormattedMessage id="navigation.tab-map" />} />
+								<Tab label={<FormattedMessage id="navigation.tab-filter" />} />
 							</Tabs>
 							<SwipeableViews
 								index={this.state.tab}

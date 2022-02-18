@@ -148,7 +148,7 @@ class SearchForm extends React.Component {
 		const {searchButton, infographicContainer} = this.props.classes;
 		const {handleOrgSelection, handleSearchByOrgName, handleSearchButtonClick} =
 			this.props;
-		const localeLabel = 'Select country';
+		const localeLabel = <FormattedMessage id="app.select-country" />;
 		const isMobile = this.props.width < breakpoints['sm'];
 
 		return (

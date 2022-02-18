@@ -14,7 +14,7 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.getElementByTestId('search-form-body-2').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).contain(
-			'Find verified LGBTQ+ and immigrant-friendly services'
+			'Find services verified to be safe for LGBTQ+ asylum seekers and other LGBTQ+ people in need.'
 		);
 	});
 
