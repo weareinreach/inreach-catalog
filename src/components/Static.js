@@ -1,4 +1,6 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
+
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -249,7 +251,7 @@ class Static extends React.Component {
 								<AsylumConnectBackButton
 									className={classes.changeCountryButton}
 									color="default"
-									text="Choose a different country"
+									text={<FormattedMessage id="app.choose-different-country" />}
 									onClick={this.handleLocaleReset}
 								/>
 							</Grid>
