@@ -14,5 +14,6 @@
         "openMode":0
     },
     "defaultCommandTimeout":4000,
-    "waitForAnimations":false
+    "waitForAnimations":false,
+	"projectId":"xq2qjw"
 }

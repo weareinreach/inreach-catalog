@@ -38,6 +38,16 @@ jobs:
             CI: 'false'
   
   e2e:
+    parameters:
+      group:
+             type: integer
+             default: 1
+      group_name:
+              type: string
+              default: group
+    environment:
+      GROUP: << parameters.group >>
+      GROUP_NAME: << parameters.group_name >>
     docker:
       - image: cypress/base:16.5.0
         environment:
@@ -86,13 +96,10 @@ jobs:
           command: (cd catalog-api && yarn dev-background) && (cd catalog && yarn test:pre-e2e && yarn test:e2e:ci:local)
       - run:
           name: "Show Coverage"
-          command: "yarn show-coverage"
+          command: "cd catalog && yarn show-coverage"
       - codecov/upload:
           file: 'catalog/cypressCoverage/coverage-final.json'
           flags: 'Integration'
-      - run:
-          name: "Post E2E Commands"
-          command: "yarn test:post-e2e"
       - store_artifacts:
           path: ./cypressCoverage
           destination: E2E Coverage Reports
@@ -111,4 +118,16 @@ workflows:
   pull_request:
     jobs: 
       - build
-      - e2e
+      - e2e:
+          group: 1
+          group_name: group1
+      - e2e: 
+          group: 2
+          group_name: group2
+      - e2e:
+          group: 3
+          group_name: group3
+      - e2e:
+          group: 4
+          group_name: group4
+      
