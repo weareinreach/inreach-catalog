@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import GeneralSettingsName from './GeneralSettingsName';
 import GeneralSettingsEmail from './GeneralSettingsEmail';
 import GeneralSettingsOrganization from './GeneralSettingsOrganization';
@@ -65,12 +66,12 @@ class GeneralSettings extends React.Component {
 	handleOdasError(error) {
 		const {handleLogOut, handleMessageNew, handleRequestOpen} = this.props;
 		if (error.response && error.response.status === 401) {
-			handleMessageNew('Your session has expired. Please sign in again.');
+			handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
 			handleLogOut();
 		} else if (error.response && error.response.status === 403) {
 			handleRequestOpen('password');
 		} else {
-			handleMessageNew('Oops! Something went wrong.');
+			handleMessageNew(<FormattedMessage id="error.unspecified" />);
 		}
 	}
 
@@ -78,7 +79,9 @@ class GeneralSettings extends React.Component {
 		updateUser(this.state.userData, {name: newName})
 			.then((data) => {
 				this.setState({userData: data, isNameUpdated: true});
-				this.props.handleMessageNew('Your name has been updated.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="action.update-name-successful" />
+				);
 			})
 			.catch((error) => this.handleOdasError(error));
 	}
@@ -87,7 +90,9 @@ class GeneralSettings extends React.Component {
 		updateUser(this.state.userData, {email: newEmail})
 			.then((data) => {
 				this.setState({userData: data, isEmailUpdated: true});
-				this.props.handleMessageNew('Your email has been updated.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="action.update-email-successful" />
+				);
 			})
 			.catch((error) => this.handleOdasError(error));
 	}
@@ -96,7 +101,9 @@ class GeneralSettings extends React.Component {
 		updateUserPassword(this.state.userData, newPassword)
 			.then((data) => {
 				this.setState({isPasswordUpdated: true});
-				this.props.handleMessageNew('Password has been updated.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="action.update-password-successful" />
+				);
 			})
 			.catch((error) => this.handleOdasError(error));
 	}
@@ -121,7 +128,7 @@ class GeneralSettings extends React.Component {
 			<div className={classes.root}>
 				{affiliation && (
 					<Typography variant="h5" className={classes.formType}>
-						Your Account
+						<FormattedMessage id="account.your-account-heading" />
 					</Typography>
 				)}
 				{isProfessional && (
@@ -157,19 +164,25 @@ class GeneralSettings extends React.Component {
 				<div
 					data-test-id="account-page-logout"
 					onClick={() => {
-						handleMessageNew('Logout successful.');
+						handleMessageNew(
+							<FormattedMessage id="action.sign-out-successful" />
+						);
 						handleLogOut();
 					}}
 					className={classes.settingsTypeFont}
 				>
-					<span>Logout</span>
+					<span>
+						<FormattedMessage id="account.sign-out" />
+					</span>
 				</div>
 				<div
 					data-test-id="account-page-delete-account"
 					onClick={() => handleRequestOpen('deleteAccount')}
 					className={classes.settingsTypeFont}
 				>
-					<span>Delete Account</span>
+					<span>
+						<FormattedMessage id="action.delete-account" />
+					</span>
 				</div>
 			</div>
 		);
