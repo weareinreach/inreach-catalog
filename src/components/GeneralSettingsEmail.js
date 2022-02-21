@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -93,7 +94,7 @@ class GeneralSettingsEmail extends React.Component {
 
 		const {currentEmail, newEmail, confirmedEmail} = this.state;
 		if (!currentEmail || !newEmail || !confirmedEmail) {
-			handleMessageNew('Missing email input.');
+			handleMessageNew(<FormattedMessage id="error.required-field-empty" />);
 		}
 
 		if (currentEmail && newEmail && confirmedEmail) {
@@ -106,7 +107,9 @@ class GeneralSettingsEmail extends React.Component {
 					confirmedEmail: ''
 				});
 			} else {
-				handleMessageNew('Your new email is not matching the confirmed email.');
+				handleMessageNew(
+					<FormattedMessage id="error.email-address-mismatch" />
+				);
 			}
 		}
 	}
@@ -121,7 +124,9 @@ class GeneralSettingsEmail extends React.Component {
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>Change Email Address</span>
+					<span>
+						<FormattedMessage id="action.update-email-address" />
+					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
@@ -131,12 +136,12 @@ class GeneralSettingsEmail extends React.Component {
 							className={classes.inputLabel}
 							name="currentEmail"
 							type="email"
-							label="Enter Old Email Address:"
+							label={<FormattedMessage id="form.current-email-address" />}
 							value={currentEmail}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="old_example@email.org"
+							placeholder="current_example@email.org"
 							onChange={this.handleChange}
 							required
 						/>
@@ -145,7 +150,7 @@ class GeneralSettingsEmail extends React.Component {
 							className={classes.inputLabel}
 							name="newEmail"
 							type="email"
-							label="Enter New Email Address:"
+							label={<FormattedMessage id="form.new-email-address" />}
 							value={newEmail}
 							InputLabelProps={{
 								shrink: true
@@ -159,7 +164,7 @@ class GeneralSettingsEmail extends React.Component {
 							className={classes.inputLabel}
 							name="confirmedEmail"
 							type="email"
-							label="Confirm New Email Address:"
+							label={<FormattedMessage id="form.confirm-new-email-address" />}
 							value={confirmedEmail}
 							InputLabelProps={{
 								shrink: true
@@ -173,7 +178,7 @@ class GeneralSettingsEmail extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-email-button"
 							>
-								Change Email Address
+								<FormattedMessage id="action.update-email-address" />
 							</AsylumConnectButton>
 						</div>
 					</form>

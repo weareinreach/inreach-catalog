@@ -7,7 +7,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-email').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Change Email Address');
+        expect($element).contain('Update email dddress');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-email-old-address').then($element=>{
                 expect($element.children()).contain('Enter Old Email Address:');
@@ -19,7 +19,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
                 expect($element.children()).contain('Confirm New Email Address:');
             });
             cy.getElementByTestId('account-settings-email-button').then($element=>{
-                expect($element).contain('Change Email Address');
+                expect($element).contain('Update email address');
             });
         });
         //Close the element

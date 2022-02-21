@@ -160,6 +160,7 @@ class GeneralSettings extends React.Component {
 					handleUpdatePassword={this.updatePassword}
 					isPasswordUpdated={isPasswordUpdated}
 					handleMessageNew={handleMessageNew}
+					userData={userData}
 				/>
 				<div
 					data-test-id="account-page-logout"
