@@ -227,11 +227,12 @@ class GeneralSettingsPassword extends React.Component {
 							label={<FormattedMessage id="form.confirm-new-password" />}
 							type="password"
 							error={
-								newPassword.length > 0 && !pswdTest.test(confirmedPassword)
+								confirmedPassword.length > 0 && confirmedPassword != newPassword
 							}
 							helperText={
-								newPassword.length > 0 && !pswdTest.test(confirmedPassword) ? (
-									<FormattedMessage id="error.password-format" />
+								confirmedPassword.length > 0 &&
+								confirmedPassword != newPassword ? (
+									<FormattedMessage id="error.password-mismatch" />
 								) : null
 							}
 							value={confirmedPassword}
