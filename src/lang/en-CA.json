@@ -211,7 +211,7 @@
 	"error.invalid-request": "Invalid request.",
 	"error.invalid-reset-token": "Invalid password reset token",
 	"error.joining-organization-failed": "An error occurred while trying to connect you to your organisation. Please try again.",
-	"error.no-location-entered": "Please enter a city or state in the location search box above.",
+	"error.no-location-entered": "Please enter a city, province, or territory in the location search box above.",
 	"error.name-mismatch": "The new name values you have entered do not match.",
 	"error.name-missing": "Missing Name input",
 	"error.organization-empty": "Please enter a valid organisation name.",

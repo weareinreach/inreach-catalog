@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -148,7 +149,7 @@ class LocaleForm extends React.Component {
 			languageIconColor
 		} = this.props.classes;
 		const variant = 'primary';
-		const localeLabel = 'Select country';
+		const localeLabel = <FormattedMessage id="app.select-country" />;
 		return (
 			<Grid
 				container
@@ -158,7 +159,7 @@ class LocaleForm extends React.Component {
 			>
 				<Grid item xs={12} md={6}>
 					<Typography variant="caption" className={labelRow} component="p">
-						What is your preferred language?
+						<FormattedMessage id="language.select-preferred-language" />
 					</Typography>
 					<Language
 						useMobile={false}
@@ -173,7 +174,7 @@ class LocaleForm extends React.Component {
 				</Grid>
 				<Grid item xs={12} md={6}>
 					<Typography variant="caption" className={labelRow} component="p">
-						Where are you looking for help?
+						<FormattedMessage id="search.search-location-prompt" />
 					</Typography>
 					<LocaleSelector
 						label={localeLabel}
@@ -186,7 +187,7 @@ class LocaleForm extends React.Component {
 						testIdName="search-page-next-button"
 						onClick={this.handleNextClick}
 					>
-						Next
+						<FormattedMessage id="navigation.next" />
 					</AsylumConnectButton>
 				</Grid>
 			</Grid>
