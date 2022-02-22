@@ -455,7 +455,7 @@
 	"search.filter-proof-residence": "Prueba de domicilio",
 	"search.filter-referral": "Referencia",
 	"search.filter-resources-placeholder": "Filtrar los recursos por...",
-	"search.no-results-for-location": "Actualmente no hemos encontrado ningún recurso verificado dentro de tus criterios de búsqueda.{br}Intenta elegir otros tipos de recursos o buscar en otra ubicación.",
+	"search.no-results-for-location": "No encontramos servicios verificados de acuerdo a tus criterios de búsqueda.{br}Intenta de nuevo con otro tipo de servicio o ubicación.",
 	"search.search-by-location-tab-heading": "Encuentra servicios cerca de ti",
 	"search.search-by-name-field-placeholder": "Comienza a escribir el nombre de una organización...",
 	"search.search-by-name-tab-heading": "Encuentra una organización por nombre",

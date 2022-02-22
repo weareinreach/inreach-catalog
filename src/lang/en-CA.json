@@ -455,7 +455,7 @@
 	"search.filter-proof-residence": "Proof of residence",
 	"search.filter-referral": "A referral",
 	"search.filter-resources-placeholder": "Filter resources by...",
-	"search.no-results-for-location": "We didn't currently find any verified resources within your search criteria.{br}Try choosing different resource types or searching for a different location.",
+	"search.no-results-for-location": "We found no verified resources within your search criteria.{br}Try choosing different resource types or location.",
 	"search.search-by-location-tab-heading": "Find services near you",
 	"search.search-by-name-field-placeholder": "Start typing an organisation’s name...",
 	"search.search-by-name-tab-heading": "Find an organisation by name",
