@@ -1,4 +1,7 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
+import {catalogPost} from '../utils/api';
+
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
@@ -50,11 +53,13 @@ class GeneralSettingsPassword extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			userData: this.props.userData,
 			phoneTextMask: '(  )   -   ',
 			open: false,
 			currentPassword: '',
 			newPassword: '',
-			confirmedPassword: ''
+			confirmedPassword: '',
+			email: this.props.userData.email
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleToggleDropDown = this.handleToggleDropDown.bind(this);
@@ -75,17 +80,52 @@ class GeneralSettingsPassword extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		const {handleMessageNew} = this.props;
-		const {currentPassword, newPassword, confirmedPassword} = this.state;
+		const {currentPassword, newPassword, confirmedPassword, email} = this.state;
+
 		if (!currentPassword || !newPassword || !confirmedPassword) {
-			handleMessageNew('Missing password input');
+			handleMessageNew(<FormattedMessage id="error.required-field-empty" />);
 		}
 		if (currentPassword && newPassword && confirmedPassword) {
 			if (newPassword === confirmedPassword) {
-				this.props.handleUpdatePassword(currentPassword, newPassword);
+				let password = currentPassword;
+				//verify current password, then update to the new password
+				catalogPost('/auth', {email, password})
+					.then((response) => {
+						if (response.status === 200) {
+							//update password here
+							this.props
+								.handleUpdatePassword(currentPassword, newPassword)
+								.then(() => {
+									handleMessageNew(
+										<FormattedMessage id="action.update-password-successful" />
+									);
+								})
+								.catch(() => {
+									this.setState({currentPassword: ''});
+									this.setState({newPassword: ''});
+									this.setState({confirmedPassword: ''});
+									handleMessageNew(<FormattedMessage id="error.unspecified" />);
+								});
+						} else {
+							this.setState({currentPassword: ''});
+							this.setState({newPassword: ''});
+							this.setState({confirmedPassword: ''});
+							handleMessageNew(
+								<FormattedMessage id="error.incorrect-password" />
+							);
+						}
+					})
+					.catch((error) => {
+						this.setState({currentPassword: ''});
+						this.setState({newPassword: ''});
+						this.setState({confirmedPassword: ''});
+						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					});
 			} else {
-				handleMessageNew(
-					'Your new password is not matching confirmed password.'
-				);
+				this.setState({currentPassword: ''});
+				this.setState({newPassword: ''});
+				this.setState({confirmedPassword: ''});
+				handleMessageNew(<FormattedMessage id="error.password-mismatch" />);
 			}
 		}
 	}
@@ -102,6 +142,18 @@ class GeneralSettingsPassword extends React.Component {
 	render() {
 		const {classes} = this.props;
 		const {currentPassword, newPassword, confirmedPassword} = this.state;
+		const pswdTest = new RegExp(
+			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
+		);
+		let fullDate = new Date(this.state.userData.created_at);
+		let year = fullDate.getFullYear();
+		let errorMsg = '';
+
+		if (year < '2022') {
+			errorMsg = <FormattedMessage id="error.password-length" />;
+		} else if (year > '2021') {
+			errorMsg = <FormattedMessage id="error.password-format" />;
+		}
 		return (
 			<div>
 				<div
@@ -109,7 +161,9 @@ class GeneralSettingsPassword extends React.Component {
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>Change Password</span>
+					<span>
+						<FormattedMessage id="action.update-password" />
+					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
@@ -118,19 +172,31 @@ class GeneralSettingsPassword extends React.Component {
 							data-test-id="account-settings-password-old-password"
 							className={classes.inputLabel}
 							name="currentPassword"
-							label="Enter Old Password:"
+							label={<FormattedMessage id="form.current-password" />}
 							type="password"
-							error={currentPassword.length > 0 && currentPassword.length < 8}
+							error={
+								(year < '2022' &&
+									currentPassword.length > 0 &&
+									currentPassword.length < 8) ||
+								(year > '2021' &&
+									currentPassword.length > 0 &&
+									!pswdTest.test(currentPassword))
+							}
 							helperText={
-								currentPassword.length > 0 && currentPassword.length < 8
-									? 'Password must be at least 8 characters.'
+								(year < '2022' &&
+									currentPassword.length > 0 &&
+									currentPassword.length < 8) ||
+								(year > '2021' &&
+									currentPassword.length > 0 &&
+									!pswdTest.test(currentPassword))
+									? errorMsg
 									: null
 							}
 							value={currentPassword}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Password must be at least 8 characters."
+							placeholder="***"
 							onChange={this.handleChange}
 							required
 						/>
@@ -138,19 +204,19 @@ class GeneralSettingsPassword extends React.Component {
 							data-test-id="account-settings-password-new-password"
 							className={classes.inputLabel}
 							name="newPassword"
-							label="Enter New Password:"
+							label={<FormattedMessage id="form.new-password" />}
 							type="password"
-							error={newPassword.length > 0 && newPassword.length < 8}
+							error={newPassword.length > 0 && !pswdTest.test(newPassword)}
 							helperText={
-								newPassword.length > 0 && newPassword.length < 8
-									? 'Password must be at least 8 characters.'
-									: null
+								newPassword.length > 0 && !pswdTest.test(newPassword) ? (
+									<FormattedMessage id="error.password-format" />
+								) : null
 							}
 							value={newPassword}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Password must be at least 8 characters."
+							placeholder="***"
 							onChange={this.handleChange}
 							required
 						/>
@@ -158,21 +224,22 @@ class GeneralSettingsPassword extends React.Component {
 							data-test-id="account-settings-password-new-password-confirm"
 							className={classes.inputLabel}
 							name="confirmedPassword"
-							label="Confirm New Password:"
+							label={<FormattedMessage id="form.confirm-new-password" />}
 							type="password"
 							error={
-								confirmedPassword.length > 0 && confirmedPassword.length < 8
+								confirmedPassword.length > 0 && confirmedPassword != newPassword
 							}
 							helperText={
-								confirmedPassword.length > 0 && confirmedPassword.length < 8
-									? 'Password must be at least 8 characters.'
-									: null
+								confirmedPassword.length > 0 &&
+								confirmedPassword != newPassword ? (
+									<FormattedMessage id="error.password-mismatch" />
+								) : null
 							}
 							value={confirmedPassword}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Password must be at least 8 characters."
+							placeholder="***"
 							onChange={this.handleChange}
 							required
 						/>
@@ -181,7 +248,7 @@ class GeneralSettingsPassword extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-password-button"
 							>
-								Change Password
+								<FormattedMessage id="action.update-password" />
 							</AsylumConnectButton>
 						</div>
 					</form>

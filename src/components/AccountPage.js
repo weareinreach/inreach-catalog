@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -92,13 +93,17 @@ class AccountPage extends React.Component {
 						});
 					})
 					.catch((err) => {
-						this.props.handleMessageNew('Oops! Something went wrong.');
+						this.props.handleMessageNew(
+							<FormattedMessage id="error-unspecified" />
+						);
 
 						return;
 					});
 			})
 			.catch((err) => {
-				this.props.handleMessageNew('Oops! Something went wrong.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="error-unspecified" />
+				);
 
 				return;
 			});
@@ -115,7 +120,9 @@ class AccountPage extends React.Component {
 
 	handleNullSession() {
 		this.props.history.push('/');
-		this.props.handleMessageNew('You need to sign in to view your account.');
+		this.props.handleMessageNew(
+			<FormattedMessage id="account.user-sign-in-prompt" />
+		);
 	}
 
 	handleChange(event, value) {
@@ -146,8 +153,14 @@ class AccountPage extends React.Component {
 							indicatorColor="primary"
 							fullWidth
 						>
-							<Tab label="Your Account" />
-							<Tab label="Your Org" />
+							<Tab
+								label={<FormattedMessage id="account.your-account-heading" />}
+							/>
+							<Tab
+								label={
+									<FormattedMessage id="account.your-organization-heading" />
+								}
+							/>
 						</Tabs>
 					</AppBar>
 					{value === 0 && (
@@ -178,7 +191,7 @@ class AccountPage extends React.Component {
 			) : (
 				<div>
 					<Typography variant="h4" className={classes.textAlignCenter}>
-						Organization
+						<FormattedMessage id="account.organization" />
 					</Typography>
 					<div className={classes.formRow}>
 						<OrgSettings
@@ -213,8 +226,15 @@ class AccountPage extends React.Component {
 							indicatorColor="primary"
 							fullWidth
 						>
-							<Tab label="Your Account" />
-							<Tab label="Your Org" disabled />
+							<Tab
+								label={<FormattedMessage id="account.your-account-heading" />}
+							/>
+							<Tab
+								label={
+									<FormattedMessage id="account.your-organization-heading" />
+								}
+								disabled
+							/>
 						</Tabs>
 					</AppBar>
 					{value === 0 && (
@@ -260,7 +280,7 @@ class AccountPage extends React.Component {
 					variant="h3"
 					className={[classes.marginBottom, classes.textAlignCenter].join(' ')}
 				>
-					Your Account
+					<FormattedMessage id="account.your-account-heading" />
 				</Typography>
 				{this.props.sessionConfirmed ? (
 					settings

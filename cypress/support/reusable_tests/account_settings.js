@@ -7,19 +7,19 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-email').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Change Email Address');
+        expect($element).contain('Update email address');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-email-old-address').then($element=>{
-                expect($element.children()).contain('Enter Old Email Address:');
+                expect($element.children()).contain('Current email address');
             });
             cy.getElementByTestId('account-settings-email-new-address').then($element=>{
-                expect($element.children()).contain('Enter New Email Address:');
+                expect($element.children()).contain('New email address');
             });
             cy.getElementByTestId('account-settings-email-new-address-confirm').then($element=>{
-                expect($element.children()).contain('Confirm New Email Address:');
+                expect($element.children()).contain('Confirm new email address');
             });
             cy.getElementByTestId('account-settings-email-button').then($element=>{
-                expect($element).contain('Change Email Address');
+                expect($element).contain('Update email address');
             });
         });
         //Close the element
@@ -27,26 +27,26 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-change-password').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Change Password');
+        expect($element).contain('Update password');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-password-old-password').then($element=>{
-                expect($element.children()).contain('Enter Old Password:');
+                expect($element.children()).contain('Current password');
             });
             cy.getElementByTestId('account-settings-password-new-password').then($element=>{
-                expect($element.children()).contain('Enter New Password:');
+                expect($element.children()).contain('New password');
             });
             cy.getElementByTestId('account-settings-password-new-password-confirm').then($element=>{
-                expect($element.children()).contain('Confirm New Password:');
+                expect($element.children()).contain('Confirm new password');
             });
             cy.getElementByTestId('account-settings-password-button').then($element=>{
-                expect($element).contain('Change Password');
+                expect($element).contain('Update password');
             });
         });
          //Close the element
          cy.wrap($element).click();
     });
     cy.getElementByTestId('account-page-logout').then($element=>{
-        expect($element).contain('Logout');
+        expect($element).contain('Sign Out');
     });
     cy.getElementByTestId('account-page-delete-account').then($element=>{
         expect($element).contain('Delete Account');
