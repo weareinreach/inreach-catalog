@@ -65,7 +65,7 @@ const Visit = ({
 		<Grid item xs={12}>
 			<Typography variant="body2" className={classes.lineSpacing}>
 				<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-					Website:{' '}
+					<FormattedMessage id="resource.website-label" />{' '}
 				</strong>
 				{website ? (
 					<a
@@ -82,7 +82,7 @@ const Visit = ({
 			{emails && emails.length ? (
 				<Typography variant="body2" className={classes.lineSpacing}>
 					<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-						Email:{' '}
+						<FormattedMessage id="resource.email-label" />{' '}
 					</strong>
 					{emails.map((email) => {
 						let name = trim(
@@ -109,7 +109,7 @@ const Visit = ({
 			{phones && phones.length ? (
 				<Typography variant="body2" className={classes.lineSpacing}>
 					<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-						Phone number(s):{' '}
+						<FormattedMessage id="resource.phone-numbers" />{' '}
 					</strong>
 					{phones.map((phone) => (
 						<Phone
@@ -147,7 +147,7 @@ const Visit = ({
 										<strong
 											className={classes.boldFont + ' ' + classes.mobileHide}
 										>
-											Hours:{' '}
+											<FormattedMessage id="form.schedule" />{' '}
 										</strong>
 										{schedule
 											.map((sch) => {
@@ -163,7 +163,7 @@ const Visit = ({
 								trim(location.schedule.notes).length ? (
 									<Typography variant="body2" className={classes.lineSpacing}>
 										<strong className={classes.boldFont}>
-											Additional Information:{' '}
+											<FormattedMessage id="resource.additional-information" />{' '}
 										</strong>
 										{location.schedule.notes}
 										<Fa name="info-circle" className={classes.mobileIcon} />
