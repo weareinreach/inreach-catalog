@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
@@ -32,7 +33,8 @@ const SubAnnouncement = ({classes, handleRequestOpen, url}) => (
 			rel="noopener noreferrer"
 			className={classes.subAnnouncementText}
 		>
-			Download our free mobile app&nbsp;&nbsp;
+			<FormattedMessage id="app.download-mobile-app" />
+			&nbsp;&nbsp;
 			<KeyboardArrowRightIcon className={classes.subAnnouncementTextArrow} />
 		</a>
 	</Typography>

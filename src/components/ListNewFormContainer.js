@@ -43,7 +43,7 @@ class ListNewFormContainer extends React.Component {
 		createList(payload, session)
 			.then((data) => {
 				if (data.error) {
-					handleMessageNew('Oops! Something went wrong.');
+					handleMessageNew(<FormattedMessage id="error.unspecified" />);
 					handleRequestClose();
 					return;
 				}

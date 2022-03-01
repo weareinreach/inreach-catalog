@@ -31,7 +31,7 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
         });
         cy.getElementByTestId('account-page-email').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain("Change Email Address");
+            expect($element.children()).contain("Update email Address");
         });
         cy.getElementByTestId('account-page-change-password').then($element=>{
             expect($element).to.be.visible;

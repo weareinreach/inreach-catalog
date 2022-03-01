@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -371,7 +372,7 @@ class ResourceTypeSelector extends React.Component {
 
 		return (
 			<AsylumConnectSelector
-				label="Service Type"
+				label={<FormattedMessage id="resource.service-type-heading" />}
 				selected={selectedResourceTypes}
 				containerWidth={containerWidth}
 				containerClass={searchInput}
@@ -379,7 +380,7 @@ class ResourceTypeSelector extends React.Component {
 				moveSearchButton={moveSearchButton}
 			>
 				<span href="#" onClick={clearResourceTypes} className={uncheckLink}>
-					Uncheck All
+					<FormattedMessage id="search.uncheck-all" />
 				</span>
 				{isMobile ? (
 					resourceTypes.map((filter, i) => (

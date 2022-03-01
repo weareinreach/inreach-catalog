@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -78,7 +79,7 @@ class ResourceTagSelector extends React.Component {
 
 		return (
 			<AsylumConnectSelector
-				label="Service Types"
+				label={<FormattedMessage id="search.service-types" />}
 				selected={selectedResourceTags}
 				containerWidth={containerWidth}
 				containerClass={searchInput}

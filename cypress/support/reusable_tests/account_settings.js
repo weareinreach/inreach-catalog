@@ -7,19 +7,19 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-email').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Change Email Address');
+        expect($element).contain('Update email address');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-email-old-address').then($element=>{
-                expect($element.children()).contain('Enter Old Email Address:');
+                expect($element.children()).contain('Current email address');
             });
             cy.getElementByTestId('account-settings-email-new-address').then($element=>{
-                expect($element.children()).contain('Enter New Email Address:');
+                expect($element.children()).contain('New email address');
             });
             cy.getElementByTestId('account-settings-email-new-address-confirm').then($element=>{
-                expect($element.children()).contain('Confirm New Email Address:');
+                expect($element.children()).contain('Confirm new email address');
             });
             cy.getElementByTestId('account-settings-email-button').then($element=>{
-                expect($element).contain('Change Email Address');
+                expect($element).contain('Update email address');
             });
         });
         //Close the element
@@ -27,26 +27,26 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-change-password').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Change Password');
+        expect($element).contain('Update password');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-password-old-password').then($element=>{
-                expect($element.children()).contain('Enter Old Password:');
+                expect($element.children()).contain('Current password');
             });
             cy.getElementByTestId('account-settings-password-new-password').then($element=>{
-                expect($element.children()).contain('Enter New Password:');
+                expect($element.children()).contain('New password');
             });
             cy.getElementByTestId('account-settings-password-new-password-confirm').then($element=>{
-                expect($element.children()).contain('Confirm New Password:');
+                expect($element.children()).contain('Confirm new password');
             });
             cy.getElementByTestId('account-settings-password-button').then($element=>{
-                expect($element).contain('Change Password');
+                expect($element).contain('Update password');
             });
         });
          //Close the element
          cy.wrap($element).click();
     });
     cy.getElementByTestId('account-page-logout').then($element=>{
-        expect($element).contain('Logout');
+        expect($element).contain('Sign Out');
     });
     cy.getElementByTestId('account-page-delete-account').then($element=>{
         expect($element).contain('Delete Account');
@@ -57,19 +57,19 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
                 expect($element).contain('Delete Account');
             });
             cy.getElementByTestId('delete-account-body-1').then($element=>{
-                expect($element).contain('Are you sure you want to delete your account? Your account will be delete permanently, and any stored information will be erased.');
+                expect($element).contain('Are you sure you want to delete your account? Your account will be deleted permanently and any stored information will be erased.');
             });
             cy.getElementByTestId('delete-account-body-2').then($element=>{
-                expect($element).contain('Deleting your account requires your password.');
+                expect($element).contain('Please re-enter your password.');
             });
             cy.getElementByTestId('delete-account-password').then($element=>{
                 expect($element).to.be.visible;
             });
             cy.getElementByTestId('delete-account-delete-button').then($element=>{
-                expect($element).contain('delete account');
+                expect($element).contain('Delete Account');
             });
             cy.getElementByTestId('delete-account-cancel-button').then($element=>{
-                expect($element).contain('cancel');
+                expect($element).contain('Cancel');
             });
         });
         cy.getElementByTestId('dialog-close-button').click();
@@ -230,6 +230,46 @@ Cypress.Commands.add('testChangeUserPassword',(viewport,user,user_update)=>{
     }
 });
 
+Cypress.Commands.add('testDeleteAccountNoPassword',(viewport,user)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
+    if(viewport !== Cypress.env('mobile')){
+        cy.getElementByTestId('account-page-delete-account').click();
+        cy.getElementByTestId('delete-account-delete-button').should('be.disabled');
+        //force click to make sure no password can't be sent from front end
+        cy.getElementByTestId('delete-account-delete-button').then($element => {
+            cy.wrap($element).click({force:true});
+        });
+        //look for error message
+        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+            expect($element).contain("Please fill out all fields");
+        });
+        cy.getElementByTestId('snackbar-close-button').click();
+        cy.getElementByTestId('delete-account-password').should('have.value', '');
+
+    }    
+});
+
+Cypress.Commands.add('testDeleteAccountWrongPassword',(viewport,user)=>{
+    cy.viewport(viewport);
+    cy.login(user,viewport);
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
+    if(viewport !== Cypress.env('mobile')){
+        cy.getElementByTestId('account-page-delete-account').click();
+        cy.getElementByTestId('delete-account-password').type('wrong password');
+        cy.getElementByTestId('delete-account-delete-button').click();
+        //look for error message
+        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+            expect($element).contain("The password you entered was incorrect.");
+        });
+        cy.getElementByTestId('snackbar-close-button').click();
+        cy.getElementByTestId('delete-account-password').should('have.value', '');
+    }    
+});
+
 Cypress.Commands.add('testDeleteAccount',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
@@ -239,6 +279,13 @@ Cypress.Commands.add('testDeleteAccount',(viewport,user)=>{
         cy.getElementByTestId('account-page-delete-account').click();
         cy.getElementByTestId('delete-account-password').type(user.password);
         cy.getElementByTestId('delete-account-delete-button').click();
-    }
-    
+        //look for logout
+        cy.getElementByTestId('nav-account-sign-in').should('be.visible');
+        //look for success message
+        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+            expect($element).contain("Your account has been deleted successfully.");
+        });
+        cy.getElementByTestId('snackbar-close-button').click();    
+    }    
 });
+

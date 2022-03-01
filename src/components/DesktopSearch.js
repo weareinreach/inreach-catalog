@@ -130,7 +130,7 @@ const DesktopSearch = (props) => {
 						<Tooltip
 							className={tooltip}
 							classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-							title="Print Results"
+							title={<FormattedMessage id="action.print-results" />}
 							placement="top"
 						>
 							<IconButton

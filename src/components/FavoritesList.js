@@ -182,7 +182,7 @@ const FavoritesList = ({
 						>
 							<Grid item xs={12} md={6}>
 								{lists.length > 0 && (
-									<Typography className={classes.listName} variant="h3">
+									<Typography variant="h3">
 										<FormattedMessage id="favorites.action-select-list" />
 									</Typography>
 								)}

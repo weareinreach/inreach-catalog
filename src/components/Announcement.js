@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -45,9 +46,11 @@ const Announcement = ({classes, handleRequestOpen}) => (
 			className={classes.textContent}
 			data-test-id="announcement-header"
 		>
-			Users contact service providers at their own risk.
+			<FormattedMessage id="legal.user-contact-provider-risk" />
 			<br />
-			<span>Please read our complete </span>
+			<span>
+				<FormattedMessage id="legal.read-disclaimer-prompt-pt1" />{' '}
+			</span>
 			<strong
 				className={classes.pointer}
 				onClick={() => handleRequestOpen('disclaimer')}
@@ -57,10 +60,14 @@ const Announcement = ({classes, handleRequestOpen}) => (
 					className={classes.pointerText}
 					data-test-id="announcement-disclaimer-button"
 				>
-					Disclaimer
+					{' '}
+					<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />{' '}
 				</span>
 			</strong>
-			<span> and </span>
+			<span>
+				{' '}
+				<FormattedMessage id="legal.and" />{' '}
+			</span>
 			<strong
 				className={classes.pointer}
 				onClick={() => handleRequestOpen('privacy')}
@@ -70,10 +77,14 @@ const Announcement = ({classes, handleRequestOpen}) => (
 					className={classes.pointerText}
 					data-test-id="announcement-privacy-button"
 				>
-					User Privacy Statement
+					{' '}
+					<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />{' '}
 				</span>
 			</strong>
-			<span> before using our catalog.</span>
+			<span>
+				{' '}
+				<FormattedMessage id="legal.read-disclaimer-prompt-pt4" />
+			</span>
 		</Typography>
 	</div>
 );

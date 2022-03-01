@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import ReactDOM from 'react-dom';
 import {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import {Route, Switch} from 'react-router-dom';
@@ -342,7 +343,7 @@ class MapPage extends React.Component {
 				.then(redirect)
 				.catch((error) => {
 					this.props.handleMessageNew(
-						'Unable to find your location, please try entering your city, state in the box above.'
+						<FormattedMessage id="error.no-location-entered" />
 					);
 					this.setState({
 						searchDisabled: false
@@ -473,7 +474,9 @@ class MapPage extends React.Component {
 					);
 				})
 				.catch((error) => {
-					this.props.handleMessageNew('An error occured. Please try again');
+					this.props.handleMessageNew(
+						<FormattedMessage id="error.unspecified" />
+					);
 				});
 		} else if (name !== null && name !== 'undefined') {
 			nextState = {
