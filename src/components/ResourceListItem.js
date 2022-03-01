@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 import React from 'react';
 import Fa from 'react-fontawesome';
 import {Link} from 'react-router-dom';
@@ -128,7 +129,11 @@ class ResourceListItem extends React.Component {
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
 		const displayData = [
-			{fieldName: 'description', label: 'About', value: resource.description}
+			{
+				fieldName: 'description',
+				label: <FormattedMessage id="resource.about-header" />,
+				value: resource.description
+			}
 		];
 		const labelClass = format === 'search' ? 'hide--on-screen' : null;
 		const name = resource.name || resource.title;
@@ -220,9 +225,8 @@ class ResourceListItem extends React.Component {
 										className={nationalOrg}
 										data-test-id="resource-list-item"
 									>
-										<Fa name="info-circle" className={moreInfo} /> This
-										organization can help people located anywhere in the
-										country.
+										<Fa name="info-circle" className={moreInfo} />
+										<FormattedMessage id="resource.is-national-organization" />
 									</Typography>
 								</Grid>
 							) : null}
@@ -325,9 +329,8 @@ class ResourceListItem extends React.Component {
 							).length ? (
 								<Grid item xs={12}>
 									<Typography variant="body1" className={nationalOrg}>
-										<Fa name="info-circle" className={moreInfo} /> This
-										organization can help people located anywhere in the
-										country.
+										<Fa name="info-circle" className={moreInfo} />
+										<FormattedMessage id="resource.is-national-organization" />
 									</Typography>
 								</Grid>
 							) : null}
@@ -344,7 +347,7 @@ class ResourceListItem extends React.Component {
 														<span>
 															...
 															<Link to={link} className={moreInfo}>
-																read more
+																<FormattedMessage id="resource.read-more" />
 															</Link>
 														</span>
 													}
@@ -373,7 +376,7 @@ class ResourceListItem extends React.Component {
 										<Grid item xs={12} className={labelClass}>
 											<Typography variant="body2" className={lineSpacing}>
 												<strong className={classes.boldFont + ' ' + labelClass}>
-													Who it serves:{' '}
+													<FormattedMessage id="resource.who-it-serves" />{' '}
 												</strong>
 												{resource.opportunity_community_properties
 													.map((item) => {

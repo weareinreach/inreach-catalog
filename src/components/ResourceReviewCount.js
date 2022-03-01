@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +13,12 @@ class ReviewCount extends React.Component {
 				className="center-align"
 				data-test-id="resource-review-count"
 			>
-				{total + ' review' + (total !== 1 ? 's' : '')}
+				{total}{' '}
+				{total !== 1 ? (
+					<FormattedMessage id="resource.reviews-heading" />
+				) : (
+					<FormattedMessage id="resource.review-single" />
+				)}
 			</Typography>
 		);
 	}
