@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-modal';
+import {FormattedMessage} from 'react-intl';
 import MediaQuery from 'react-responsive';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -69,12 +70,12 @@ class SaveToFavoritesButton extends React.Component {
 	handleFetchError(error) {
 		const {handleLogOut, handleMessageNew} = this.props;
 		if (error.response && error.response.status === 401) {
-			handleMessageNew('Your session has expired. Please sign in again.');
+			handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
 			handleLogOut();
 		} else if (error.response && error.response.status === 403) {
 			this.handleOpen('password');
 		} else {
-			handleMessageNew('Oops! Something went wrong.');
+			handleMessageNew(<FormattedMessage id="error.unspecified" />);
 		}
 	}
 
@@ -116,7 +117,9 @@ class SaveToFavoritesButton extends React.Component {
 		} = this.props;
 		const list = lists ? lists.find((it) => it._id === listId) : null;
 		if (list && isInList(resourceId, list)) {
-			handleMessageNew('Resource is already in this list.');
+			handleMessageNew(
+				<FormattedMessage id="app.feature-save-reseource-already-in-list" />
+			);
 			return;
 		}
 		createListFavorite({
@@ -213,23 +216,32 @@ class SaveToFavoritesButton extends React.Component {
 							</div>
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%'}}>
-							<p>Oops! You need to be logged in to share resources.</p>
+							<p>
+								<FormattedMessage id="error.sign-in-to-share-resources" />
+							</p>
 							<p
 								style={{
 									fontWeight: 'bold'
 								}}
 							>
-								With a free AsylumConnect account you can unlock additional
-								features:
+								<FormattedMessage id="app.unlock-features-with-account-prompt" />
 							</p>
 							<div>
-								<li>Save and share personalized resources lists</li>
+								<li>
+									<FormattedMessage id="app.feature-save-resource-lists" />
+								</li>
 								<br />
-								<li>Leave public rating/reviews on resources</li>
+								<li>
+									<FormattedMessage id="app.feature-rate-review-resources" />
+								</li>
 								<br />
-								<li>Suggest new resources in your area</li>
+								<li>
+									<FormattedMessage id="app.feature-suggest-resource" />
+								</li>
 								<br />
-								<li>Claim your organization's profile page</li>
+								<li>
+									<FormattedMessage id="app.feature-claim-resource-page" />
+								</li>
 							</div>
 						</div>
 						<div style={{textAlign: 'center', paddingBottom: '15px'}}>
@@ -249,7 +261,8 @@ class SaveToFavoritesButton extends React.Component {
 								}}
 								onClick={() => this.handleOpen('signup')}
 							>
-								sign up/sign in
+								<FormattedMessage id="account.sign-in" />/
+								<FormattedMessage id="account.sign-up" />
 							</Button>
 						</div>
 						<div style={{paddingBottom: '20px', textAlign: 'center'}}>
@@ -272,7 +285,7 @@ class SaveToFavoritesButton extends React.Component {
 									this.setState({modal: false});
 								}}
 							>
-								close
+								<FormattedMessage id="action.close" />
 							</Button>
 						</div>
 					</Modal>
@@ -327,23 +340,32 @@ class SaveToFavoritesButton extends React.Component {
 							</div>
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%', fontSize: '14px'}}>
-							<p>Oops! You need to be logged in to share resources.</p>
+							<p>
+								<FormattedMessage id="error.sign-in-to-share-resources" />
+							</p>
 							<p
 								style={{
 									fontWeight: 'bold'
 								}}
 							>
-								With a free AsylumConnect account you can unlock additional
-								features:
+								<FormattedMessage id="app.unlock-features-with-account-prompt" />
 							</p>
 							<div>
-								<li>Save and share personalized resources lists</li>
+								<li>
+									<FormattedMessage id="app.feature-save-resource-lists" />
+								</li>
 								<br />
-								<li>Leave public rating/reviews on resources</li>
+								<li>
+									<FormattedMessage id="app.feature-rate-review-resources" />
+								</li>
 								<br />
-								<li>Suggest new resources in your area</li>
+								<li>
+									<FormattedMessage id="app.feature-suggest-resource" />
+								</li>
 								<br />
-								<li>Claim your organization's profile page</li>
+								<li>
+									<FormattedMessage id="app.feature-claim-resource-page" />
+								</li>
 							</div>
 						</div>
 						<div style={{textAlign: 'center', paddingBottom: '15px'}}>
@@ -363,7 +385,8 @@ class SaveToFavoritesButton extends React.Component {
 								}}
 								onClick={() => this.handleOpen('signup')}
 							>
-								sign up/sign in
+								<FormattedMessage id="account.sign-in" />/
+								<FormattedMessage id="account.sign-up" />
 							</Button>
 						</div>
 						<div style={{paddingBottom: '20px', textAlign: 'center'}}>
@@ -386,7 +409,7 @@ class SaveToFavoritesButton extends React.Component {
 									this.setState({modal: false});
 								}}
 							>
-								close
+								<FormattedMessage id="action.close" />
 							</Button>
 						</div>
 					</Modal>
@@ -432,7 +455,9 @@ class SaveToFavoritesButton extends React.Component {
 							this.handleOpen(`listNew/saveToFavorites/${resourceId}`)
 						}
 					>
-						<span className={classes.textBlue}>+ Create New List</span>
+						<span className={classes.textBlue}>
+							<FormattedMessage id="favorites.create-new-list" />
+						</span>
 					</MenuItem>
 				</AsylumConnectPopUp>
 			</div>
