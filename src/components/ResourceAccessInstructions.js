@@ -82,7 +82,7 @@ const DetailAccessInstructions = (props) => {
 														classes.boldFont + ' ' + classes.mobileHide
 													}
 												>
-													<FormattedMessage id="resource.phone-numbers" />{' '}
+													<FormattedMessage id="resource.phone-numbers" />:{' '}
 												</strong>
 												{typeof phoneValue.digits !== 'undefined' ? (
 													<Phone
@@ -119,7 +119,7 @@ const DetailAccessInstructions = (props) => {
 											<strong
 												className={classes.boldFont + ' ' + classes.mobileHide}
 											>
-												<FormattedMessage id="resource.email-label" />{' '}
+												<FormattedMessage id="resource.email-label" />:{' '}
 											</strong>
 											{[emailValue].map((email) => {
 												if (!email) {
@@ -166,7 +166,7 @@ const DetailAccessInstructions = (props) => {
 													className={classes.lineSpacing}
 												>
 													<strong className={classes.boldFont}>
-														<FormattedMessage id="resource.location-label" />{' '}
+														<FormattedMessage id="resource.location-label" />:{' '}
 													</strong>
 													{item?.access_value ||
 														AddressParser({address: location})}
@@ -189,7 +189,7 @@ const DetailAccessInstructions = (props) => {
 																	classes.boldFont + ' ' + classes.mobileHide
 																}
 															>
-																<FormattedMessage id="form.schedule" />{' '}
+																<FormattedMessage id="form.schedule" />:{' '}
 															</strong>
 															{schedule
 																.map((sch) => {
@@ -226,7 +226,7 @@ const DetailAccessInstructions = (props) => {
 											<strong
 												className={classes.boldFont + ' ' + classes.mobileHide}
 											>
-												<FormattedMessage id="resource.website-label" />{' '}
+												<FormattedMessage id="resource.website-label" />:{' '}
 											</strong>
 											<a
 												href={linkValue}

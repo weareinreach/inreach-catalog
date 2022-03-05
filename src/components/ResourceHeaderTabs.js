@@ -17,7 +17,7 @@ const DetailHeaderTabs = (props) => (
 	>
 		{props.tabs.map((tab) => (
 			<Tab
-				data-test-id={'tabs-value-' + tab.label.toLowerCase()}
+				data-test-id={'tabs-value-' + tab.value.toLowerCase()}
 				key={tab.value}
 				label={props.isMobile && tab.mobileLabel ? tab.mobileLabel : tab.label}
 				className={classNames(
