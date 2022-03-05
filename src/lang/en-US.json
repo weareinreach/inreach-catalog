@@ -112,7 +112,7 @@
 	"action.account-deleted-successfully": "Your account has been deleted successfully.",
 	"action.cancel": "Cancel",
 	"action.close": "Close",
-	"action.comment-submitted-confirmation": "Thank you for your comment! Questions? Please email [email_address]",
+	"action.comment-submitted-confirmation": "Thank you for your comment! Questions? Please email",
 	"action.confirm-account-deletion": "Are you sure you want to delete your account? Your account will be deleted permanently and any stored information will be erased.",
 	"action.confirm-password": "Password Confirmed",
 	"action.confirmation": "Confirmation",

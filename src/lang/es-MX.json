@@ -112,7 +112,7 @@
 	"action.account-deleted-successfully": "Se ha eliminado tu cuenta exitosamente",
 	"action.cancel": "Cancelar",
 	"action.close": "Cerrar",
-	"action.comment-submitted-confirmation": "¡Gracias por tu comentario! ¿Tienes preguntas? Por favor manda un correo electrónico a [email_address]",
+	"action.comment-submitted-confirmation": "¡Gracias por tu comentario! ¿Tienes preguntas? Por favor manda un correo electrónico a",
 	"action.confirm-account-deletion": "¿Estás segurx que quieres eliminar tu cuenta?  Tu cuenta se eliminará permanentemente y se borrará cualquier información guardada.",
 	"action.confirm-password": "Confirmar contraseña",
 	"action.confirmation": "Confirmación",

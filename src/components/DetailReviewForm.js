@@ -1,4 +1,6 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
+
 import trim from 'trim';
 
 import Grid from '@material-ui/core/Grid';
@@ -115,10 +117,12 @@ class ReviewForm extends React.Component {
 								variant="body2"
 								className={'center-align ' + classes.bottomSpacing}
 							>
-								<span className={classes.boldFont}>Rate this resource </span>{' '}
-								{isMobile
-									? null
-									: '(your rating will not be recorded until you hit "submit" below)'}
+								<span className={classes.boldFont}>
+									<FormattedMessage id="resource-property.rate-this-resource" />
+								</span>{' '}
+								{isMobile ? null : (
+									<FormattedMessage id="resource-property.save-rating" />
+								)}
 							</Typography>
 						</Grid>
 						{isMobile ? null : (
@@ -128,9 +132,7 @@ class ReviewForm extends React.Component {
 									variant="body2"
 									className={classes.italicFont + ' ' + classes.bottomSpacing}
 								>
-									Is this resource LGBTQ-friendly? Is this resource friendly to
-									asylum seekers? AsylumConnect will update our resource catalog
-									based on your review.
+									<FormattedMessage id="resource.lgbtq-friendly-prompt" />
 								</Typography>
 							</Grid>
 						)}
@@ -149,7 +151,7 @@ class ReviewForm extends React.Component {
 								variant="secondary"
 								onClick={this.handleFormSubmission}
 							>
-								Submit
+								<FormattedMessage id="action.submit" />
 							</AsylumConnectButton>
 						</Grid>
 					</div>
@@ -160,7 +162,7 @@ class ReviewForm extends React.Component {
 							data-test-id="details-review-form-post-review"
 							className={classes.boldFont + ' ' + classes.bottomSpacing}
 						>
-							Thank you for your comment! Questions? Please email{' '}
+							<FormattedMessage id="action.comment-submitted-confirmation" />{' '}
 							<a
 								href="mailto:catalog@asylumconnect.org"
 								className={classes.bodyLink}
