@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import url from 'url';
 import Grid from '@material-ui/core/Grid';
@@ -31,6 +31,8 @@ const DetailHeader = ({
 	renderEditButton,
 	socialMedia
 }) => {
+	const intl = useIntl();
+
 	return (
 		<Fragment>
 			<Grid container spacing={0} alignItems="center">
@@ -141,7 +143,11 @@ const DetailHeader = ({
 							{verified ? (
 								<Tooltip
 									classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-									title={`<FormattedMessage id="resource.last-updated" /> ${verified.toDateString()}. <FormattedMessage id="resource.accuracy-disclaimer" />`}
+									title={
+										intl.formatMessage({id: 'resource.last-updated'}) +
+										` ${verified.toDateString()}. ` +
+										intl.formatMessage({id: 'resource.accuracy-disclaimer'})
+									}
 									arrow
 									placement="bottom"
 								>
@@ -189,7 +195,11 @@ const DetailHeader = ({
 							/>
 							<Tooltip
 								classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-								title={`<FormattedMessage id="resource.last-updated" /> ${verified.toDateString()}. <FormattedMessage id="resource.accuracy-disclaimer" />`}
+								title={
+									intl.formatMessage({id: 'resource.last-updated'}) +
+									` ${verified.toDateString()}. ` +
+									intl.formatMessage({id: 'resource.accuracy-disclaimer'})
+								}
 								arrow
 								placement="bottom"
 							>
