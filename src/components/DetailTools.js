@@ -1,6 +1,8 @@
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {FormattedMessage} from 'react-intl';
+
 import Modal from 'react-modal';
 import _ from 'lodash';
 import Button from '@material-ui/core/Button';
@@ -180,24 +182,31 @@ const Tools = (props) => {
 					</div>
 					<div style={{paddingTop: '40px', padding: '8%'}}>
 						<p data-test-id="resource-detail-dialog-title">
-							Oops! You need to be logged in to share resources.
+							<FormattedMessage id="error.sign-in-to-share-resources" />
 						</p>
 						<p
 							style={{
 								fontWeight: 'bold'
 							}}
 						>
-							With a free AsylumConnect account you can unlock additional
-							features:
+							<FormattedMessage id="app.unlock-features-with-account-prompt" />
 						</p>
 						<div data-test-id="resource-detail-dialog-body">
-							<li>Save and share personalized resources lists</li>
+							<li>
+								<FormattedMessage id="app.feature-save-resource-lists" />
+							</li>
 							<br />
-							<li>Leave public rating/reviews on resources</li>
+							<li>
+								<FormattedMessage id="app.feature-rate-review-resources" />
+							</li>
 							<br />
-							<li>Suggest new resources in your area</li>
+							<li>
+								<FormattedMessage id="app.feature-suggest-resource" />
+							</li>
 							<br />
-							<li>Claim your organization's profile page</li>
+							<li>
+								<FormattedMessage id="app.feature-claim-resource-page" />
+							</li>
 						</div>
 					</div>
 					<div style={{textAlign: 'center', paddingBottom: '15px'}}>
@@ -218,7 +227,8 @@ const Tools = (props) => {
 							}}
 							onClick={() => handleOpen('signup')}
 						>
-							sign up/sign in
+							<FormattedMessage id="account.sign-in" />/
+							<FormattedMessage id="account.sign-up" />
 						</Button>
 					</div>
 					<div style={{paddingBottom: '20px', textAlign: 'center'}}>
@@ -240,7 +250,7 @@ const Tools = (props) => {
 							}}
 							onClick={() => setModalIsOpen(false)}
 						>
-							close
+							<FormattedMessage id="action.close" />
 						</Button>
 					</div>
 				</Modal>
