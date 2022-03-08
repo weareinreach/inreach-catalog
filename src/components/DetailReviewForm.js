@@ -101,6 +101,7 @@ class ReviewForm extends React.Component {
 	render() {
 		const {classes} = this.props;
 		const isMobile = this.props.width < breakpoints['sm'];
+
 		return (
 			<Grid container spacing={0}>
 				{!this.state.complete ? (

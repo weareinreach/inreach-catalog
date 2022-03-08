@@ -32,7 +32,7 @@ import ReviewForm from './DetailReviewForm';
 import Tools from './DetailTools';
 import AccessInstructions from './ResourceAccessInstructions';
 import HeaderTabs from './ResourceHeaderTabs';
-import PropertyList from './ResourcePropertyList';
+import DetailPropertyList from './ResourcePropertyList';
 import Visit from './ResourceVisit';
 import SaveToFavoritesButton from './SaveToFavoritesButton';
 import {ShareIcon} from './icons';
@@ -649,9 +649,12 @@ class Detail extends React.Component {
 			) || null;
 		const showReviewForm =
 			session && (userComment === false || userComment === null);
-		const whoThis = `Who this ${type} ${
-			this.isServicePage ? 'helps' : 'serves'
-		}`;
+		const whoThis = this.isServicePage ? (
+			<FormattedMessage id="resource.who-it-helps" />
+		) : (
+			<FormattedMessage id="resource.who-it-serves" />
+		);
+
 		const isMobile = width < breakpoints['sm'];
 		let sharePath = `resource/${organization?._id}/${organization?.name}`;
 		const primaryPhone =
@@ -962,7 +965,7 @@ class Detail extends React.Component {
 																		<FormattedMessage id="resource.cost-heading" />
 																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType['cost']}
 																			classes={classes}
 																		/>
@@ -976,7 +979,7 @@ class Detail extends React.Component {
 																		<FormattedMessage id="resource.requirements-heading" />
 																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType.eligibility}
 																			classes={classes}
 																		/>
@@ -990,7 +993,7 @@ class Detail extends React.Component {
 																		<FormattedMessage id="resource.required-header" />
 																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType['required']}
 																			classes={classes}
 																		/>
@@ -1004,7 +1007,7 @@ class Detail extends React.Component {
 																		<FormattedMessage id="form.additional-information" />
 																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType['additional-info']}
 																			classes={classes}
 																		/>
@@ -1126,7 +1129,7 @@ class Detail extends React.Component {
 											this.isServicePage ? (
 												<FormattedMessage id="resource.back-to-organization" />
 											) : this.state.isEditing ? (
-												'Back to view mode'
+												<FormattedMessage id="resource.back-to-view-mode" />
 											) : (
 												<FormattedMessage id="resource.back-to-search-results" />
 											)
@@ -1362,7 +1365,7 @@ class Detail extends React.Component {
 																<FormattedMessage id="resource.cost-heading" />
 															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType['cost']}
 																	classes={classes}
 																/>
@@ -1376,7 +1379,7 @@ class Detail extends React.Component {
 																<FormattedMessage id="resource.requirements-heading" />
 															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType.eligibility}
 																	classes={classes}
 																/>
@@ -1390,7 +1393,7 @@ class Detail extends React.Component {
 																<FormattedMessage id="resource.required-header" />
 															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType['required']}
 																	classes={classes}
 																/>
@@ -1404,7 +1407,7 @@ class Detail extends React.Component {
 																<FormattedMessage id="resource.additional-information" />
 															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType['additional-info']}
 																	classes={classes}
 																/>
@@ -1417,7 +1420,7 @@ class Detail extends React.Component {
 												<AsylumConnectCollapsibleSection
 													testIdName="language-services"
 													title={
-														<FormattedMessage id="resource.additional-information" />
+														<FormattedMessage id="resource.language-services" />
 													}
 													content={
 														<Languages
