@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -75,7 +76,7 @@ const ReviewList = ({title, classes, list}) => (
 				variant="body2"
 				className={classes.boldFont}
 			>
-				No Reviews
+				<FormattedMessage id="resource.no-reviews" />
 			</Typography>
 		)}
 	</div>
@@ -89,7 +90,11 @@ const Reviews = ({classes, reviews}) => (
 					{reviews === false ? (
 						<Loading />
 					) : (
-						<ReviewList title="User Reviews" list={reviews} classes={classes} />
+						<ReviewList
+							title={<FormattedMessage id="resource.reviews-heading" />}
+							list={reviews}
+							classes={classes}
+						/>
 					)}
 				</Grid>
 			</Grid>

@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import url from 'url';
 import Grid from '@material-ui/core/Grid';
@@ -30,6 +31,8 @@ const DetailHeader = ({
 	renderEditButton,
 	socialMedia
 }) => {
+	const intl = useIntl();
+
 	return (
 		<Fragment>
 			<Grid container spacing={0} alignItems="center">
@@ -58,7 +61,7 @@ const DetailHeader = ({
 												width="12px"
 											/>
 											<span className={classes.verifiedHeaderText}>
-												Claimed
+												<FormattedMessage id="resource.claimed" />
 											</span>
 										</>
 									) : null}
@@ -69,7 +72,8 @@ const DetailHeader = ({
 						{isService && isMobile ? (
 							<Grid item xs={12} className={classes.serviceOrgContainer}>
 								<Typography variant="h6" className={classes.serviceOrg}>
-									Service from <Link to={orgLink}>{orgName}</Link>
+									<FormattedMessage id="resource.service-from" />{' '}
+									<Link to={orgLink}>{orgName}</Link>
 								</Typography>
 							</Grid>
 						) : null}
@@ -139,7 +143,11 @@ const DetailHeader = ({
 							{verified ? (
 								<Tooltip
 									classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-									title={`The information on this page was last updated on ${verified.toDateString()}. AsylumConnect prioritizes accuracy and user safety, and updates all information at least once every 6 months.`}
+									title={
+										intl.formatMessage({id: 'resource.last-updated'}) +
+										` ${verified.toDateString()}. ` +
+										intl.formatMessage({id: 'resource.accuracy-disclaimer'})
+									}
 									arrow
 									placement="bottom"
 								>
@@ -152,7 +160,7 @@ const DetailHeader = ({
 											color="secondary"
 											data-test-id="details-header-verified-text"
 										>
-											Verified Information
+											<FormattedMessage id="resource.verified-information" />
 										</Typography>
 									</Badge>
 								</Tooltip>
@@ -187,7 +195,11 @@ const DetailHeader = ({
 							/>
 							<Tooltip
 								classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-								title={`The information on this page was last updated on ${verified.toDateString()}. AsylumConnect prioritizes accuracy and user safety, and updates all information at least once every 6 months.`}
+								title={
+									intl.formatMessage({id: 'resource.last-updated'}) +
+									` ${verified.toDateString()}. ` +
+									intl.formatMessage({id: 'resource.accuracy-disclaimer'})
+								}
 								arrow
 								placement="bottom"
 							>
@@ -196,7 +208,7 @@ const DetailHeader = ({
 									variant="body1"
 									data-test-id="details-header-verified-text"
 								>
-									Verified Information
+									<FormattedMessage id="resource.verified-information" />
 								</Typography>
 							</Tooltip>
 						</Badge>

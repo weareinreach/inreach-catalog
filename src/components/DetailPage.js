@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import Modal from 'react-modal';
 import {Element, scroller} from 'react-scroll';
 import _ from 'lodash';
@@ -31,7 +32,7 @@ import ReviewForm from './DetailReviewForm';
 import Tools from './DetailTools';
 import AccessInstructions from './ResourceAccessInstructions';
 import HeaderTabs from './ResourceHeaderTabs';
-import PropertyList from './ResourcePropertyList';
+import DetailPropertyList from './ResourcePropertyList';
 import Visit from './ResourceVisit';
 import SaveToFavoritesButton from './SaveToFavoritesButton';
 import {ShareIcon} from './icons';
@@ -338,9 +339,16 @@ class Detail extends React.Component {
 		this.isServicePage = Boolean(id && serviceId);
 
 		this.tabs = [
-			{label: 'ABOUT', value: 'about'},
-			{label: 'VISIT', mobileLabel: 'VISIT (MAP)', value: 'visit'},
-			{label: 'REVIEWS', value: 'reviews'}
+			{label: <FormattedMessage id="resource.about-header" />, value: 'about'},
+			{
+				label: <FormattedMessage id="resource.visit" />,
+				mobileLabel: <FormattedMessage id="resource.visit-mobile" />,
+				value: 'visit'
+			},
+			{
+				label: <FormattedMessage id="resource.reviews-heading" />,
+				value: 'reviews'
+			}
 		];
 
 		this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -549,7 +557,7 @@ class Detail extends React.Component {
 					<EditIcon />
 				</IconButton>
 				<Typography className={this.props.classes.editText} variant="h5">
-					EDIT
+					<FormattedMessage id="action.edit" />
 				</Typography>
 			</div>
 		);
@@ -565,7 +573,7 @@ class Detail extends React.Component {
 						this.setState({editFocus: ''});
 					}}
 				>
-					Cancel
+					<FormattedMessage id="action.cancel" />
 				</Button>
 				<Button
 					className={classNames(classes.button, classes.red)}
@@ -573,7 +581,7 @@ class Detail extends React.Component {
 						this.setState({editFocus: ''});
 					}}
 				>
-					Save Changes
+					<FormattedMessage id="action.save-edits" />
 				</Button>
 			</Grid>
 		);
@@ -641,9 +649,12 @@ class Detail extends React.Component {
 			) || null;
 		const showReviewForm =
 			session && (userComment === false || userComment === null);
-		const whoThis = `Who this ${type} ${
-			this.isServicePage ? 'helps' : 'serves'
-		}`;
+		const whoThis = this.isServicePage ? (
+			<FormattedMessage id="resource.who-it-helps" />
+		) : (
+			<FormattedMessage id="resource.who-it-serves" />
+		);
+
 		const isMobile = width < breakpoints['sm'];
 		let sharePath = `resource/${organization?._id}/${organization?.name}`;
 		const primaryPhone =
@@ -782,24 +793,31 @@ class Detail extends React.Component {
 													}}
 												>
 													<p>
-														Oops! You need to be logged in to share resources.
+														<FormattedMessage id="error.sign-in-to-share-resources" />
 													</p>
 													<p
 														style={{
 															fontWeight: 'bold'
 														}}
 													>
-														With a free AsylumConnect account you can unlock
-														additional features:
+														<FormattedMessage id="app.unlock-features-with-account-prompt" />
 													</p>
 													<div>
-														<li>Save and share personalized resources lists</li>
+														<li>
+															<FormattedMessage id="app.feature-save-resource-lists" />
+														</li>
 														<br />
-														<li>Leave public rating/reviews on resources</li>
+														<li>
+															<FormattedMessage id="app.feature-rate-review-resources" />
+														</li>
 														<br />
-														<li>Suggest new resources in your area</li>
+														<li>
+															<FormattedMessage id="app.feature-suggest-resource" />
+														</li>
 														<br />
-														<li>Claim your organization's profile page</li>
+														<li>
+															<FormattedMessage id="app.feature-claim-resource-page" />
+														</li>
 													</div>
 												</div>
 												<div
@@ -821,7 +839,8 @@ class Detail extends React.Component {
 														}}
 														onClick={() => this.handleOpen('signup')}
 													>
-														sign up/sign in
+														<FormattedMessage id="account.sign-in" />/
+														<FormattedMessage id="account.sign-up" />
 													</Button>
 												</div>
 												<div
@@ -846,7 +865,7 @@ class Detail extends React.Component {
 															this.setState({modal: false});
 														}}
 													>
-														close
+														<FormattedMessage id="action.close" />
 													</Button>
 												</div>
 											</Modal>
@@ -910,7 +929,9 @@ class Detail extends React.Component {
 													{services?.length > 0 && (
 														<AsylumConnectCollapsibleSection
 															testIdName="services"
-															title="Services"
+															title={
+																<FormattedMessage id="resource.services-heading" />
+															}
 															content={
 																<Services
 																	resource={resource}
@@ -940,9 +961,11 @@ class Detail extends React.Component {
 															{propsByType?.['cost']?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
 																	testIdName="cost"
-																	title="Cost"
+																	title={
+																		<FormattedMessage id="resource.cost-heading" />
+																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType['cost']}
 																			classes={classes}
 																		/>
@@ -952,9 +975,11 @@ class Detail extends React.Component {
 															{propsByType?.eligibility?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
 																	testIdName="requirements"
-																	title="Requirements"
+																	title={
+																		<FormattedMessage id="resource.requirements-heading" />
+																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType.eligibility}
 																			classes={classes}
 																		/>
@@ -964,9 +989,11 @@ class Detail extends React.Component {
 															{propsByType?.['required']?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
 																	testIdName="required"
-																	title="Required"
+																	title={
+																		<FormattedMessage id="resource.required-header" />
+																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType['required']}
 																			classes={classes}
 																		/>
@@ -976,9 +1003,11 @@ class Detail extends React.Component {
 															{propsByType?.['additional-info']?.length > 0 ? (
 																<AsylumConnectCollapsibleSection
 																	testIdName="additional-information"
-																	title="Additional information"
+																	title={
+																		<FormattedMessage id="form.additional-information" />
+																	}
 																	content={
-																		<PropertyList
+																		<DetailPropertyList
 																			list={propsByType['additional-info']}
 																			classes={classes}
 																		/>
@@ -990,7 +1019,9 @@ class Detail extends React.Component {
 													{propsByType?.language?.length > 0 && (
 														<AsylumConnectCollapsibleSection
 															testIdName="language-services"
-															title="Language services"
+															title={
+																<FormattedMessage id="resource.language-services" />
+															}
 															content={
 																<Languages
 																	list={propsByType.language}
@@ -1006,7 +1037,7 @@ class Detail extends React.Component {
 											<AsylumConnectCollapsibleSection
 												testIdName="visit"
 												borderTop={false}
-												title="Visit"
+												title={<FormattedMessage id="resource.visit" />}
 												content={
 													this.isServicePage ? (
 														<AccessInstructions
@@ -1064,7 +1095,9 @@ class Detail extends React.Component {
 												<AsylumConnectCollapsibleSection
 													testIdName="leave-review"
 													borderTop={false}
-													title="Leave a review"
+													title={
+														<FormattedMessage id="resource.leave-review" />
+													}
 													content={
 														<ReviewForm
 															resource={resource}
@@ -1079,7 +1112,9 @@ class Detail extends React.Component {
 											<AsylumConnectCollapsibleSection
 												testIdName="review"
 												borderTop={showReviewForm}
-												title="Reviews"
+												title={
+													<FormattedMessage id="resource.reviews-heading" />
+												}
 												content={<Reviews reviews={comments} />}
 											/>
 										</div>
@@ -1091,11 +1126,13 @@ class Detail extends React.Component {
 									<Tools
 										{...this.props}
 										backText={
-											this.isServicePage
-												? 'Back to Organization'
-												: this.state.isEditing
-												? 'Back to view mode'
-												: 'Back to Search Results'
+											this.isServicePage ? (
+												<FormattedMessage id="resource.back-to-organization" />
+											) : this.state.isEditing ? (
+												<FormattedMessage id="resource.back-to-view-mode" />
+											) : (
+												<FormattedMessage id="resource.back-to-search-results" />
+											)
 										}
 										classes={classes}
 										handleBackButtonClick={this.handleBackButtonClick}
@@ -1119,7 +1156,7 @@ class Detail extends React.Component {
 												>
 													<Grid item>
 														<Typography variant="subtitle2">
-															Edit organization info
+															<FormattedMessage id="form.resource-edit-organization-help" />
 														</Typography>
 													</Grid>
 													<Grid item xs={12}>
@@ -1127,7 +1164,7 @@ class Detail extends React.Component {
 															variant="body1"
 															classes={{body1: classes.inputLabel}}
 														>
-															Organization Name
+															<FormattedMessage id="form.organization-name-title" />
 														</Typography>
 														<TextField
 															variant="outlined"
@@ -1143,7 +1180,7 @@ class Detail extends React.Component {
 															variant="body1"
 															classes={{body1: classes.inputLabel}}
 														>
-															City
+															<FormattedMessage id="form.city" />
 														</Typography>
 														<TextField
 															variant="outlined"
@@ -1163,7 +1200,7 @@ class Detail extends React.Component {
 															variant="body1"
 															classes={{body1: classes.inputLabel}}
 														>
-															State
+															<FormattedMessage id="form.state" />
 														</Typography>
 														<TextField
 															variant="outlined"
@@ -1183,7 +1220,7 @@ class Detail extends React.Component {
 															variant="body1"
 															classes={{body1: classes.inputLabel}}
 														>
-															Website
+															<FormattedMessage id="resource.website-label" />
 														</Typography>
 														<TextField
 															variant="outlined"
@@ -1199,7 +1236,7 @@ class Detail extends React.Component {
 															variant="body1"
 															classes={{body1: classes.inputLabel}}
 														>
-															Phone Number
+															<FormattedMessage id="resource.phone-numbers" />
 														</Typography>
 														<TextField
 															variant="outlined"
@@ -1224,7 +1261,7 @@ class Detail extends React.Component {
 														variant="body1"
 														classes={{body1: classes.inputLabel}}
 													>
-														Brief description (MAX 1000 CHARACTERS)
+														<FormattedMessage id="form.resource-description-placeholder" />
 													</Typography>
 													<TextField
 														variant="outlined"
@@ -1241,9 +1278,11 @@ class Detail extends React.Component {
 														onChange={this.handleEditOrgChange}
 														error={editedOrg?.description?.length > 1000}
 														helperText={
-															editedOrg?.description?.length > 1000
-																? 'Description cannot be longer than 1000 characters.'
-																: ''
+															editedOrg?.description?.length > 1000 ? (
+																<FormattedMessage id="error.form-description-length" />
+															) : (
+																''
+															)
 														}
 													/>
 												</Grid>
@@ -1287,7 +1326,9 @@ class Detail extends React.Component {
 											{services?.length > 0 && (
 												<AsylumConnectCollapsibleSection
 													testIdName="services"
-													title="Services"
+													title={
+														<FormattedMessage id="resource.services-heading" />
+													}
 													content={
 														<Services
 															resource={resource}
@@ -1304,7 +1345,9 @@ class Detail extends React.Component {
 													{resourceTags && (
 														<AsylumConnectCollapsibleSection
 															testIdName="service-type"
-															title="Service Type"
+															title={
+																<FormattedMessage id="resource.service-type-heading" />
+															}
 															content={
 																<ServiceType
 																	list={resourceTags}
@@ -1318,9 +1361,11 @@ class Detail extends React.Component {
 													{propsByType?.['cost']?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
 															testIdName="cost"
-															title="Cost"
+															title={
+																<FormattedMessage id="resource.cost-heading" />
+															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType['cost']}
 																	classes={classes}
 																/>
@@ -1330,9 +1375,11 @@ class Detail extends React.Component {
 													{propsByType?.eligibility?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
 															testIdName="requirements"
-															title="Requirements"
+															title={
+																<FormattedMessage id="resource.requirements-heading" />
+															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType.eligibility}
 																	classes={classes}
 																/>
@@ -1342,9 +1389,11 @@ class Detail extends React.Component {
 													{propsByType?.['required']?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
 															testIdName="required"
-															title="Required"
+															title={
+																<FormattedMessage id="resource.required-header" />
+															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType['required']}
 																	classes={classes}
 																/>
@@ -1354,9 +1403,11 @@ class Detail extends React.Component {
 													{propsByType?.['additional-info']?.length > 0 ? (
 														<AsylumConnectCollapsibleSection
 															testIdName="additional-information"
-															title="Additional information"
+															title={
+																<FormattedMessage id="resource.additional-information" />
+															}
 															content={
-																<PropertyList
+																<DetailPropertyList
 																	list={propsByType['additional-info']}
 																	classes={classes}
 																/>
@@ -1368,7 +1419,9 @@ class Detail extends React.Component {
 											{propsByType?.language?.length > 0 && (
 												<AsylumConnectCollapsibleSection
 													testIdName="language-services"
-													title="Language services"
+													title={
+														<FormattedMessage id="resource.language-services" />
+													}
 													content={
 														<Languages
 															list={propsByType.language}
@@ -1382,7 +1435,7 @@ class Detail extends React.Component {
 									<Element name="visit" />
 									<AsylumConnectCollapsibleSection
 										testIdName="visit"
-										title="Visit"
+										title={<FormattedMessage id="resource.visit" />}
 										content={
 											this.isServicePage ? (
 												<AccessInstructions
@@ -1407,7 +1460,7 @@ class Detail extends React.Component {
 									{showReviewForm && (
 										<AsylumConnectCollapsibleSection
 											testIdName="leave-review"
-											title="Leave a review"
+											title={<FormattedMessage id="resource.leave-review" />}
 											content={
 												<ReviewForm
 													resource={resource}
@@ -1421,7 +1474,7 @@ class Detail extends React.Component {
 									)}
 									<AsylumConnectCollapsibleSection
 										testIdName="reviews"
-										title="Reviews"
+										title={<FormattedMessage id="resource.reviews-heading" />}
 										content={<Reviews reviews={comments} />}
 									/>
 								</div>

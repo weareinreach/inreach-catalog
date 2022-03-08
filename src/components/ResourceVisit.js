@@ -65,7 +65,7 @@ const Visit = ({
 		<Grid item xs={12}>
 			<Typography variant="body2" className={classes.lineSpacing}>
 				<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-					<FormattedMessage id="resource.website-label" />{' '}
+					<FormattedMessage id="resource.website-label" />:{' '}
 				</strong>
 				{website ? (
 					<a
@@ -82,7 +82,7 @@ const Visit = ({
 			{emails && emails.length ? (
 				<Typography variant="body2" className={classes.lineSpacing}>
 					<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-						<FormattedMessage id="resource.email-label" />{' '}
+						<FormattedMessage id="resource.email-label" />:{' '}
 					</strong>
 					{emails.map((email) => {
 						let name = trim(
@@ -109,7 +109,7 @@ const Visit = ({
 			{phones && phones.length ? (
 				<Typography variant="body2" className={classes.lineSpacing}>
 					<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-						<FormattedMessage id="resource.phone-numbers" />{' '}
+						<FormattedMessage id="resource.phone-numbers" />:{' '}
 					</strong>
 					{phones.map((phone) => (
 						<Phone
@@ -134,7 +134,12 @@ const Visit = ({
 							>
 								<Typography variant="body2" className={classes.lineSpacing}>
 									<strong className={classes.boldFont}>
-										{location.name ? location.name : 'Location'}:{' '}
+										{location.name ? (
+											location.name
+										) : (
+											<FormattedMessage id="resource.location-label" />
+										)}
+										:{' '}
 									</strong>
 									{AddressParser({address: location})}
 									<Fa name="map-marker" className={classes.mobileIcon} />
@@ -147,7 +152,7 @@ const Visit = ({
 										<strong
 											className={classes.boldFont + ' ' + classes.mobileHide}
 										>
-											<FormattedMessage id="form.schedule" />{' '}
+											<FormattedMessage id="form.schedule" />:{' '}
 										</strong>
 										{schedule
 											.map((sch) => {
@@ -163,7 +168,7 @@ const Visit = ({
 								trim(location.schedule.notes).length ? (
 									<Typography variant="body2" className={classes.lineSpacing}>
 										<strong className={classes.boldFont}>
-											<FormattedMessage id="resource.additional-information" />{' '}
+											<FormattedMessage id="resource.additional-information" />:{' '}
 										</strong>
 										{location.schedule.notes}
 										<Fa name="info-circle" className={classes.mobileIcon} />
