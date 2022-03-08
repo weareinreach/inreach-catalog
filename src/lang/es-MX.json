@@ -67,6 +67,7 @@
 	"account.finish-registration": "Finalizar el registro",
 	"account.forgot-password": "¿Olvidaste tu contraseña?",
 	"account.join-organization": "Únete a tu organización",
+	"account.join-organization-error": "xxx",
 	"account.join-organization-later": "Puedes unirte a tu organización después en la configuración de la cuenta",
 	"account.join-organization-request-received": "Gracias por pedir unirte a la página de tu organización en AsylumConnect. Nuestro equipo revisará tu solicitud en breve. Nos pondremos en contacto contigo si necesitamos más información para verificar tu conexión con la organización solicitada.",
 	"account.join-organization-next-step": "Esté atentx a un correo electrónico del equipo de AsylumConnect en breve con los próximos pasos.",

@@ -114,7 +114,9 @@ const Footer = ({classes, locale}) => {
 									<img
 										height="35"
 										src={AppStoreBadge}
-										alt="Download on the App Store badge"
+										alt={
+											<FormattedMessage id="alt-text.download-on-app-store" />
+										}
 										data-test-id="footer-apple-store-image"
 									/>
 								</a>
@@ -129,7 +131,9 @@ const Footer = ({classes, locale}) => {
 									<img
 										height="35"
 										src={GooglePlayBadge}
-										alt="Get it on Google Play badge"
+										alt={
+											<FormattedMessage id="alt-text.download-on-google-play" />
+										}
 										data-test-id="footer-google-play-image"
 									/>
 								</a>
