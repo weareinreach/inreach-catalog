@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
@@ -121,7 +121,7 @@ function renderSuggestionsContainer(options) {
 							style={{fontWeight: 200}}
 							data-test-id="sign-up-form-no-organization"
 						>
-							Can't find it? Suggest a new organization here...
+							<FormattedMessage id="form.cant-find-organization" />
 						</span>
 					</MenuItem>
 				</Link>
