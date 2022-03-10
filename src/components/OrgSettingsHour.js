@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-int';
+import {FormattedMessage} from 'react-intl';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
@@ -96,7 +96,7 @@ class OrgSettingsHour extends React.Component {
 					<form className={classes.form}>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-monday" />}
+								label="Monday"
 								value="monday"
 								onChange={(ref) =>
 									onSelect(
@@ -147,7 +147,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-tuesday" />}
+								label="Tuesday"
 								value="tuesday"
 								onChange={(ref) =>
 									onSelect(
@@ -198,7 +198,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-wednesday" />}
+								label="Wednesday"
 								value="wednesday"
 								onChange={(ref) =>
 									onSelect(
@@ -249,7 +249,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-thrusday" />}
+								label="Thursday"
 								value="thursday"
 								onChange={(ref) =>
 									onSelect(
@@ -300,7 +300,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-friday" />}
+								label="Friday"
 								value="friday"
 								onChange={(ref) =>
 									onSelect(
@@ -351,7 +351,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-saturday" />}
+								label="Saturday"
 								value="saturday"
 								onChange={(ref) =>
 									onSelect(
@@ -402,7 +402,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label={<FormattedMessage id="app.days-sunday" />}
+								label="Sunday"
 								value="sunday"
 								onChange={(ref) =>
 									onSelect(
@@ -453,9 +453,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<TextField
 							className={classes.inputLabel}
-							label={
-								<FormattedMessage id="form.additional-information" /> + ':'
-							}
+							label="Additional Information:"
 							defaultValue={schedule.notes}
 							multiline={true}
 							name="notes"
