@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
@@ -54,6 +54,8 @@ const Footer = ({classes, locale}) => {
 			</a>
 		</Grid>
 	);
+
+	const intl = useIntl();
 
 	return (
 		<footer className={classNames(textCenter, bgDarkGrey)}>
@@ -114,9 +116,9 @@ const Footer = ({classes, locale}) => {
 									<img
 										height="35"
 										src={AppStoreBadge}
-										alt={
-											<FormattedMessage id="alt-text.download-on-app-store" />
-										}
+										alt={intl.formatMessage({
+											id: 'alt-text.download-on-app-store'
+										})}
 										data-test-id="footer-apple-store-image"
 									/>
 								</a>
@@ -131,9 +133,9 @@ const Footer = ({classes, locale}) => {
 									<img
 										height="35"
 										src={GooglePlayBadge}
-										alt={
-											<FormattedMessage id="alt-text.download-on-google-play" />
-										}
+										alt={intl.formatMessage({
+											id: 'alt-text.download-on-google-play'
+										})}
 										data-test-id="footer-google-play-image"
 									/>
 								</a>
@@ -204,7 +206,7 @@ const Footer = ({classes, locale}) => {
 			<div className={classNames(bgLightGrey, paddingVertical)}>
 				<Typography variant="caption" data-test-id="footer-copy-rights">
 					<FormattedMessage id="app.company-name" /> {new Date().getFullYear()}.{' '}
-					<FormattedMessage id="app.copyright" />
+					<FormattedMessage id="app.copyright" />.
 				</Typography>
 			</div>
 		</footer>
