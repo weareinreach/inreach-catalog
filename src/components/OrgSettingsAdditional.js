@@ -128,9 +128,7 @@ class OrgSettingsAdditional extends React.Component {
 				<form className={classes.form}>
 					<TextField
 						className={classes.inputLabel}
-						label={
-							<FormattedMessage id="resource.additional-information" /> + ':'
-						}
+						label="Additional Information:"
 						InputLabelProps={{
 							shrink: true
 						}}
