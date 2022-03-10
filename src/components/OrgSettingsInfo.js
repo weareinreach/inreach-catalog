@@ -119,9 +119,7 @@ class OrgSettingsInfo extends React.Component {
 					) : (
 						<TextField
 							className={classes.inputLabel}
-							label={
-								<FormattedMessage id="form.organization-name-title" /> + ':'
-							}
+							label="Organization Name:"
 							name="name"
 							value={name}
 							InputLabelProps={{
@@ -133,7 +131,7 @@ class OrgSettingsInfo extends React.Component {
 					)}
 					<TextField
 						className={classes.inputLabel}
-						label={<FormattedMessage id="resource.about-header" /> + ':'}
+						label="About:"
 						name="description"
 						value={description}
 						multiline={true}
@@ -145,7 +143,7 @@ class OrgSettingsInfo extends React.Component {
 					/>
 					<TextField
 						className={classes.inputLabel}
-						label={<FormattedMessage id="form.alert-message" /> + ':'}
+						label="Alert Message:"
 						name="alert_message"
 						value={alert_message}
 						multiline={true}
@@ -157,7 +155,7 @@ class OrgSettingsInfo extends React.Component {
 					/>
 					<TextField
 						className={classes.inputLabel}
-						label={<FormattedMessage id="resource.website-label" /> + ':'}
+						label="Website:"
 						name="website"
 						value={website}
 						InputLabelProps={{
