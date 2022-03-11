@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import MaskedInput from 'react-text-mask';
 
 import {withStyles} from '@material-ui/core/styles';
@@ -105,7 +105,8 @@ class OrgSettingsInfo extends React.Component {
 			name,
 			phones,
 			region,
-			website
+			website,
+			intl
 		} = this.props;
 		const {digits} = phones?.[0] || '(   )   -   ';
 
@@ -119,49 +120,57 @@ class OrgSettingsInfo extends React.Component {
 					) : (
 						<TextField
 							className={classes.inputLabel}
-							label="Organization Name:"
+							label={
+								intl.formatMessage({id: 'form.organization-name-title'}) + ':'
+							}
 							name="name"
 							value={name}
 							InputLabelProps={{
 								shrink: true
 							}}
-							placeholder="Organization Name"
+							placeholder={intl.formatMessage({
+								id: 'form.organization-name-title'
+							})}
 							onChange={this.handleChange}
 						/>
 					)}
 					<TextField
 						className={classes.inputLabel}
-						label="About:"
+						label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
 						name="description"
 						value={description}
 						multiline={true}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="Short description of resource"
+						placeholder={intl.formatMessage({
+							id: 'form.resource-description-placeholder'
+						})}
 						onChange={this.handleChange}
 					/>
 					<TextField
 						className={classes.inputLabel}
-						label="Alert Message:"
+						label={intl.formatMessage({id: 'form.alert-message'}) + ':'}
 						name="alert_message"
 						value={alert_message}
 						multiline={true}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="A message to display to users that is urgent or pressing"
+						placeholder={intl.formatMessage({
+							id: 'form.alert-message-placeholder'
+						})}
 						onChange={this.handleChange}
 					/>
 					<TextField
 						className={classes.inputLabel}
-						label="Website:"
+						label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
 						name="website"
 						value={website}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="URL"
+						placeholder={intl.formatMessage({id: 'form.website-placeholder'})}
 						onChange={this.handleChange}
 					/>
 					{/* <FormControl className={classes.inputLabel}>
@@ -240,4 +249,4 @@ OrgSettingsInfo.propTypes = {
 	handleCollectInfoData: PropTypes.func
 };
 
-export default withStyles(styles)(OrgSettingsInfo);
+export default withStyles(styles)(injectIntl(OrgSettingsInfo));

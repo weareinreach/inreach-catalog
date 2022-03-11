@@ -230,7 +230,7 @@ class OrgSettings extends React.Component {
 									<FormattedMessage id="resource.change-request" />
 								</AsylumConnectButton>
 								<Typography type="body1" className={classes.extraMargin}>
-									<FormattedMessage id="resource.changes-subject-to-review" />
+									<FormattedMessage id="resource.changes-subject-to-review" />.
 								</Typography>
 							</div>
 						) : (
