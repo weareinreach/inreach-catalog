@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
@@ -80,7 +80,7 @@ class OrgSettingsHour extends React.Component {
 		this.props.onChange('schedule', name, value);
 	}
 	render() {
-		const {classes, schedule, selectedDays, onSelect} = this.props;
+		const {classes, schedule, selectedDays, onSelect, intl} = this.props;
 		return (
 			<div className={classes.root}>
 				<div
@@ -96,7 +96,7 @@ class OrgSettingsHour extends React.Component {
 					<form className={classes.form}>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Monday"
+								label={intl.formatMessage({id: 'app.days-monday'})}
 								value="monday"
 								onChange={(ref) =>
 									onSelect(
@@ -147,7 +147,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Tuesday"
+								label={intl.formatMessage({id: 'app.days-tuesday'})}
 								value="tuesday"
 								onChange={(ref) =>
 									onSelect(
@@ -198,7 +198,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Wednesday"
+								label={intl.formatMessage({id: 'app.days-wednesday'})}
 								value="wednesday"
 								onChange={(ref) =>
 									onSelect(
@@ -249,7 +249,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Thursday"
+								label={intl.formatMessage({id: 'app.days-thursday'})}
 								value="thursday"
 								onChange={(ref) =>
 									onSelect(
@@ -300,7 +300,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Friday"
+								label={intl.formatMessage({id: 'app.days-friday'})}
 								value="friday"
 								onChange={(ref) =>
 									onSelect(
@@ -351,7 +351,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Saturday"
+								label={intl.formatMessage({id: 'app.days-saturday'})}
 								value="saturday"
 								onChange={(ref) =>
 									onSelect(
@@ -402,7 +402,7 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
-								label="Sunday"
+								label={intl.formatMessage({id: 'app.days-sunday'})}
 								value="sunday"
 								onChange={(ref) =>
 									onSelect(
@@ -453,7 +453,9 @@ class OrgSettingsHour extends React.Component {
 						</div>
 						<TextField
 							className={classes.inputLabel}
-							label="Additional Information:"
+							label={
+								intl.formatMessage({id: 'form.additional-information'}) + ':'
+							}
 							defaultValue={schedule.notes}
 							multiline={true}
 							name="notes"
@@ -461,7 +463,9 @@ class OrgSettingsHour extends React.Component {
 								shrink: true
 							}}
 							onChange={this.handleChange}
-							placeholder="i.e: closed on holidays."
+							placeholder={intl.formatMessage({
+								id: 'form.resource-schedule-additional-information-placeholder'
+							})}
 						/>
 					</form>
 				</Collapse>
@@ -474,4 +478,4 @@ OrgSettingsHour.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(OrgSettingsHour);
+export default withStyles(styles)(injectIntl(OrgSettingsHour));
