@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import PropTypes from 'prop-types';
 
@@ -71,10 +71,16 @@ class GeneralSettingsOrganization extends Component {
 				if (affiliate) {
 					affiliate.isApproved
 						? handleMessageNew(
-								`You are already affiliated with ${organizationSelection.name}`
+								<FormattedMessage
+									id="account.already-organization-affiliate"
+									values={{name: organizationSelection.name}}
+								/>
 						  )
 						: handleMessageNew(
-								`Your request to be affiliated with ${organizationSelection.name} is pending.`
+								<FormattedMessage
+									id="account.organization-affiliation-pending"
+									values={{name: organizationSelection.name}}
+								/>
 						  );
 					return;
 				}
@@ -86,7 +92,10 @@ class GeneralSettingsOrganization extends Component {
 			)
 				.then(() => {
 					handleMessageNew(
-						`Request to be affiliated with ${organizationSelection.name} received. You will be notified when it is approved.`
+						<FormattedMessage
+							id="account.organization-affiliation-request-received"
+							values={{name: organizationSelection.name}}
+						/>
 					);
 					window.location.reload();
 				})
@@ -104,7 +113,10 @@ class GeneralSettingsOrganization extends Component {
 				{affiliation && !isApproved ? (
 					<div>
 						<Typography>
-							Your request to join {affiliation.name} is pending.
+							<FormattedMessage
+								id="account.organization-affiliation-pending"
+								values={{name: affiliation.name}}
+							/>
 						</Typography>
 					</div>
 				) : affiliation && isApproved ? (
@@ -176,5 +188,5 @@ GeneralSettingsOrganization.propTypes = {
 };
 
 export default withStyles(styles)(
-	withOrganizations(GeneralSettingsOrganization)
+	injectIntl(withOrganizations(GeneralSettingsOrganization))
 );

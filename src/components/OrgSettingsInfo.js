@@ -55,7 +55,10 @@ const styles = (theme) => ({
 		'&>div': {
 			marginTop: '20px'
 		},
-		'& input': theme.custom.inputText
+		'& input': theme.custom.inputText,
+		'& .Mui-disabled': {
+			color: 'black'
+		}
 	}
 });
 
@@ -114,9 +117,14 @@ class OrgSettingsInfo extends React.Component {
 			<div className={classes.root}>
 				<form className={classes.form}>
 					{!isSuggestion ? (
-						<Typography variant="h4" className={classes.formType}>
-							{name}
-						</Typography>
+						<TextField
+							className={classes.inputLabel}
+							label={
+								intl.formatMessage({id: 'form.organization-name-title'}) + ':'
+							}
+							value={name}
+							disabled={!isSuggestion}
+						/>
 					) : (
 						<TextField
 							className={classes.inputLabel}
