@@ -57,7 +57,7 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('account-page-logout').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain("Logout");
+            expect($element.children()).contain("Sign Out");
             cy.wrap($element).click();
         });
     }else{

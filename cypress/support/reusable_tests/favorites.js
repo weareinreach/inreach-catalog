@@ -259,7 +259,6 @@ Cypress.Commands.add('testSharingFavoritesList',(viewport,user,listName,shareEma
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-share-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     //Share with no email
@@ -290,7 +289,6 @@ Cypress.Commands.add('testDeleteDialogBackButtonMobile',(viewport,user,listName)
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     //delete dialog back button - mobile only
@@ -326,7 +324,6 @@ Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,l
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     //delete dialog cancel button
@@ -357,13 +354,11 @@ Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,list
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-share-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
 
     //share with email
     cy.getElementByTestId('favorites-list-share-email-input').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element).type(shareEmail);
     });
     cy.getElementByTestId('favorites-list-share-dialog-button').click();
@@ -381,7 +376,6 @@ Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,list
     cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -413,7 +407,6 @@ Cypress.Commands.add('testDeletingFavoritesListNotShared',(viewport,user,listNam
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -449,13 +442,11 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName,s
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-share-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
 
     //share with email
     cy.getElementByTestId('favorites-list-share-email-input').then($element=>{
-        expect($element).to.be.visible;
         cy.wrap($element).type(shareEmail);
     });
     cy.getElementByTestId('favorites-list-share-dialog-button').click();
@@ -473,7 +464,6 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName,s
     cy.getElementByTestId('favorites-page-delete-button').should('be.visible');
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -511,7 +501,6 @@ Cypress.Commands.add('testDeletingFavoritesListError401',(viewport,user,listName
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -547,7 +536,6 @@ Cypress.Commands.add('testDeletingFavoritesListError404',(viewport,user,listName
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -583,7 +571,6 @@ Cypress.Commands.add('testDeletingFavoritesListError500',(viewport,user,listName
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -619,7 +606,6 @@ Cypress.Commands.add('testDeletingFavoritesListErrorNot200',(viewport,user,listN
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     
@@ -655,7 +641,6 @@ Cypress.Commands.add('testDeletingFavoritesListErrorSomethingElse',(viewport,use
     cy.getElementByTestId('favorites-page-list-item').click();
     cy.getElementByTestId('favorites-page-delete-button').click();
     cy.getElementByTestId('dialog-container-title').then($element=>{
-        expect($element).to.be.visible;
         expect($element).contain(listName);
     });
     

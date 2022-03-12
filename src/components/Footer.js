@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
@@ -53,6 +54,8 @@ const Footer = ({classes, locale}) => {
 			</a>
 		</Grid>
 	);
+
+	const intl = useIntl();
 
 	return (
 		<footer className={classNames(textCenter, bgDarkGrey)}>
@@ -113,7 +116,9 @@ const Footer = ({classes, locale}) => {
 									<img
 										height="35"
 										src={AppStoreBadge}
-										alt="Download on the App Store badge"
+										alt={intl.formatMessage({
+											id: 'alt-text.download-on-app-store'
+										})}
 										data-test-id="footer-apple-store-image"
 									/>
 								</a>
@@ -128,7 +133,9 @@ const Footer = ({classes, locale}) => {
 									<img
 										height="35"
 										src={GooglePlayBadge}
-										alt="Get it on Google Play badge"
+										alt={intl.formatMessage({
+											id: 'alt-text.download-on-google-play'
+										})}
 										data-test-id="footer-google-play-image"
 									/>
 								</a>
@@ -158,7 +165,7 @@ const Footer = ({classes, locale}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									Suggest a Resource
+									<FormattedMessage id="suggestion.suggest-resource" />
 								</Typography>
 							</Link>
 						</Grid>
@@ -173,7 +180,7 @@ const Footer = ({classes, locale}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									Subscribe to Newsletter
+									<FormattedMessage id="action.subscribe-to-newsletter" />
 								</Typography>
 							</a>
 						</Grid>
@@ -188,7 +195,7 @@ const Footer = ({classes, locale}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									Share Feedback
+									<FormattedMessage id="action.share-feedback" />
 								</Typography>
 							</a>
 						</Grid>
@@ -198,7 +205,8 @@ const Footer = ({classes, locale}) => {
 
 			<div className={classNames(bgLightGrey, paddingVertical)}>
 				<Typography variant="caption" data-test-id="footer-copy-rights">
-					AsylumConnect, Inc. {new Date().getFullYear()}. All rights reserved.
+					<FormattedMessage id="app.company-name" /> {new Date().getFullYear()}.{' '}
+					<FormattedMessage id="app.copyright" />.
 				</Typography>
 			</div>
 		</footer>
