@@ -45,7 +45,7 @@ cy.getElementByTestId('suggest-page-address').then($element=>{
 });
 cy.getElementByTestId('suggest-page-address-input').then($element =>{
     expect($element).to.be.visible;
-    expect($element.children()).to.have.attr('placeholder','Start typing county, city or state in the US…')
+    expect($element.children()).to.have.attr('placeholder','Start typing city, county or state in the US…')
 });
 
 cy.getElementByTestId('suggest-page-about').then($element =>{

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import {withStyles} from '@material-ui/core/styles';
@@ -195,7 +196,8 @@ class SuggestInfo extends React.Component {
 			locale,
 			organizations,
 			organizationSearch,
-			organizationSelection
+			organizationSelection,
+			intl
 		} = this.props;
 
 		const searchOptions = {
@@ -203,6 +205,13 @@ class SuggestInfo extends React.Component {
 				country: typeof country === 'string' ? country.toLowerCase() : 'us'
 			}
 		};
+
+		const placeholderAddressString = intl
+			.formatMessage({id: 'search.search-field-placeholder'})
+			.toString();
+		const placeholderEmailString = intl
+			.formatMessage({id: 'form.resource-email-address-placeholder'})
+			.toString();
 
 		return (
 			<div className={classes.root}>
@@ -225,26 +234,33 @@ class SuggestInfo extends React.Component {
 					/>
 					{organizationSelection ? (
 						<p style={{lineHeight: '25px'}} data-test-id="suggest-page-body-2">
-							Thank you for your interest in contributing to the AsylumConnect
-							resource catalog! It seems we already have
-							<Link
-								to={`/${locale}/resource/${organizationSelection.slug}`}
-								className="hide--on-print"
-							>
-								{' '}
-								{organizationSelection.name}{' '}
-							</Link>
-							on the catalog. You can join this organization by signing up for a
-							provider account
-							<Link to={`/${locale}/resource/${organizationSelection.slug}`}>
-								{' '}
-								here.
-							</Link>
+							<FormattedMessage
+								id="suggestion.organization-already-exists"
+								values={{
+									existingOrgLink: (
+										<Link
+											to={`/${locale}/resource/${organizationSelection.slug}`}
+											className="hide--on-print"
+										>
+											{' '}
+											{organizationSelection.name}{' '}
+										</Link>
+									),
+									orgSignup: (
+										<Link
+											to={`/${locale}/resource/${organizationSelection.slug}`}
+										>
+											{' '}
+											<FormattedMessage id="legal.privacy-here" />
+										</Link>
+									)
+								}}
+							/>
 						</p>
 					) : null}
 					<FormControl className={classes.inputAddressLabel}>
 						<InputLabel
-							children="Address:"
+							children={'Address:'}
 							shrink
 							data-test-id="suggest-page-address"
 						/>
@@ -271,15 +287,17 @@ class SuggestInfo extends React.Component {
 												classes.placesContainer +
 												' ' +
 												classes.placesContainer2,
-											placeholder: t(
-												'Start typing county, city or state in the US…'
-											),
+											placeholder: t(placeholderAddressString),
 											name: 'search--near',
 											id: 'search--near'
 										})}
 									/>
 									<div className={classes.placesContainer}>
-										{loading && <div>Loading...</div>}
+										{loading && (
+											<div>
+												<FormattedMessage id="form.resource-email-address-placeholder" />
+											</div>
+										)}
 										{suggestions.map((suggestion) => {
 											return (
 												<ListItem
@@ -309,18 +327,25 @@ class SuggestInfo extends React.Component {
 					<TextField
 						data-test-id="suggest-page-about"
 						className={classes.inputLabel}
-						label="About:"
+						label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
 						name="description"
 						value={description}
 						multiline={true}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="Short description of resource"
+						placeholder={intl.formatMessage({
+							id: 'form.resource-description-placeholder'
+						})}
 						onChange={this.handleChange}
 					/>
 					<FormControl className={classes.inputAddressLabel}>
-						<InputLabel children="Language Service(s):" shrink />
+						<InputLabel
+							children={
+								intl.formatMessage({id: 'resource.language-services'}) + ':'
+							}
+							shrink
+						/>
 						<SuggestInfoNonEngServices
 							services={nonEngServices}
 							handleClick={this.handleServiceSelect}
@@ -330,17 +355,22 @@ class SuggestInfo extends React.Component {
 					<TextField
 						data-test-id="suggest-page-website"
 						className={classes.inputLabel}
-						label="Websites:"
+						label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
 						name="website"
 						value={website}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="URL"
+						placeholder={intl.formatMessage({id: 'form.website-placeholder'})}
 						onChange={this.handleChange}
 					/>
 					<FormControl className={classes.inputLabel}>
-						<InputLabel children="Phone number:" shrink />
+						<InputLabel
+							children={
+								intl.formatMessage({id: 'resource.phone-numbers'}) + ':'
+							}
+							shrink
+						/>
 						<Input
 							data-test-id="suggest-page-phone-number"
 							name="digits"
@@ -352,14 +382,14 @@ class SuggestInfo extends React.Component {
 					<TextField
 						data-test-id="suggest-page-email"
 						className={classes.inputLabel}
-						label="Email:"
+						label={intl.formatMessage({id: 'resource.email-label'}) + ':'}
 						name="email"
 						type="text"
 						value={emails.join(', ')}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="Contact email(s) for resource"
+						placeholder={placeholderEmailString}
 						onChange={this.handleChangeEmail}
 					/>
 				</form>
@@ -374,4 +404,4 @@ SuggestInfo.propTypes = {
 	handleCollectInfoData: PropTypes.func
 };
 
-export default withStyles(styles)(SuggestInfo);
+export default withStyles(styles)(injectIntl(SuggestInfo));

@@ -540,7 +540,7 @@
 	"suggestion.country-disclaimer-canada": "Ojo: Este formulario es para sugerir recursos en Canadá. Si quieres sugerir un nuevo recurso en otro país, por favor [elige otro país]",
 	"suggestion.country-disclaimer-mexico": "Ojo: Este formulario es para sugerir recursos en México. Si quieres sugerir un nuevo recurso en otro país, por favor [elige otro país]",
 	"suggestion.country-disclaimer-united-states": "Ojo: Este formulario es para sugerir recursos en los Estados Unidos. Si quieres sugerir un nuevo recurso en otro país, por favor [elige otro país]",
-	"suggestion.organization-already-exists": "¡Gracias por tu interés en contribuir al Catálogo de Recursos de AsylumConnect! Parece que ya contamos con [nombre] en el Catálogo. Puedes unirte a esta organización creando una cuenta de proveedor [aquí].",
+	"suggestion.organization-already-exists": "¡Gracias por tu interés en contribuir al Catálogo de Recursos de AsylumConnect! Parece que ya contamos con {existingOrgLink} en el Catálogo. Puedes unirte a esta organización creando una cuenta de proveedor {orgSignup}.",
 	"suggestion.suggest-resource-new": "Sugerir un nuevo Recurso",
 	"suggestion.suggest-resource": "Sugerir un Recurso",
 	"suggestion.suggest-resource-canada": "Sugerir un recurso en Canadá",
