@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
@@ -185,8 +186,13 @@ class IntegrationAutosuggest extends React.Component {
 		this.props.handleDelete(service);
 	}
 	render() {
-		const {classes, services} = this.props;
+		const {classes, services, intl} = this.props;
 		const {value, suggestions} = this.state;
+
+		const placeholderLangugeServiceString = intl
+			.formatMessage({id: 'resource.language-services-placeholder'})
+			.toString();
+
 		return (
 			<div data-test-id="suggest-page-services">
 				<Autosuggest
@@ -210,7 +216,7 @@ class IntegrationAutosuggest extends React.Component {
 					)}
 					inputProps={{
 						classes,
-						placeholder: 'List any language service(s) offered',
+						placeholder: placeholderLangugeServiceString,
 						value,
 						onChange: this.handleChange
 					}}
@@ -238,4 +244,4 @@ IntegrationAutosuggest.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(IntegrationAutosuggest);
+export default withStyles(styles)(injectIntl(IntegrationAutosuggest));
