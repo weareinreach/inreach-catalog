@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -82,14 +83,16 @@ class SuggestHour extends React.Component {
 		this.props.handleChange(name, value);
 	}
 	render() {
-		const {classes, schedule, selectedDays, handleDaySelect} = this.props;
+		const {classes, schedule, selectedDays, handleDaySelect, intl} = this.props;
 		return (
 			<div className={classes.root} data-test-id="suggest-page-hour">
 				<div
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>Hour</span>
+					<span>
+						<FormattedMessage id="form.schedule" />
+					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
@@ -97,7 +100,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-monday"
-								label="Monday"
+								label={<FormattedMessage id="app.days-monday" />}
 								value="monday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -151,7 +154,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-tuesday"
-								label="Tuesday"
+								label={<FormattedMessage id="app.days-tuesday" />}
 								value="tuesday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -205,7 +208,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-wednesday"
-								label="Wednesday"
+								label={<FormattedMessage id="app.days-wednesday" />}
 								value="wednesday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -259,7 +262,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-thursday"
-								label="Thursday"
+								label={<FormattedMessage id="app.days-thursday" />}
 								value="thursday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -313,7 +316,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-friday"
-								label="Friday"
+								label={<FormattedMessage id="app.days-friday" />}
 								value="friday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -367,7 +370,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-saturday"
-								label="Saturday"
+								label={<FormattedMessage id="app.days-saturday" />}
 								value="saturday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -421,7 +424,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-sunday"
-								label="Sunday"
+								label={<FormattedMessage id="app.days-sunday" />}
 								value="sunday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -475,7 +478,9 @@ class SuggestHour extends React.Component {
 						<TextField
 							data-test-id="suggest-page-hour-additional-information"
 							className={classes.inputLabel}
-							label="Additional Information:"
+							label={
+								intl.formatMessage({id: 'form.additional-information'}) + ':'
+							}
 							defaultValue={schedule.notes}
 							multiline={true}
 							name="notes"
@@ -483,7 +488,9 @@ class SuggestHour extends React.Component {
 								shrink: true
 							}}
 							onChange={this.handleChange}
-							placeholder="i.e: closed on holidays."
+							placeholder={intl.formatMessage({
+								id: 'form.resource-schedule-additional-information-placeholder'
+							})}
 						/>
 					</form>
 				</Collapse>
@@ -496,4 +503,4 @@ SuggestHour.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SuggestHour);
+export default withStyles(styles)(injectIntl(SuggestHour));

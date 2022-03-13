@@ -313,7 +313,7 @@ const SuggestEditsModal = ({
 		if (isDescIncorrect) {
 			suggestions.push({
 				...sharedInfo,
-				field: 'Description',
+				field: 'About',
 				value:
 					SELECT_VALUE.DESCRIPTION_INACCURATE.dbValue +
 					(comment ? `. ${comment}` : '')
