@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, useIntl, injectIntl} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -101,7 +102,8 @@ class SuggestAdditional extends React.Component {
 			handleRequirementSelect,
 			selectedRequirements,
 			handleFeatureSelect,
-			selectedFeatures
+			selectedFeatures,
+			intl
 		} = this.props;
 		return (
 			<div className={classes.root}>
@@ -126,7 +128,7 @@ class SuggestAdditional extends React.Component {
 											<AsylumConnectCheckbox
 												testIdName="suggest-page-feature-checkbox-options"
 												key={feature.name}
-												label={feature.label}
+												label={intl.formatMessage({id: feature.label})}
 												value={feature.name}
 												onChange={handleFeatureSelect}
 												checked={feature.value}
@@ -156,7 +158,7 @@ class SuggestAdditional extends React.Component {
 											<AsylumConnectCheckbox
 												testIdName="suggest-page-requirement-checkbox-options"
 												key={requirement.name}
-												label={requirement.label}
+												label={intl.formatMessage({id: requirement.label})}
 												value={requirement.name}
 												onChange={handleRequirementSelect}
 												checked={requirement.value}
@@ -182,4 +184,4 @@ SuggestAdditional.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SuggestAdditional);
+export default withStyles(styles)(injectIntl(SuggestAdditional));
