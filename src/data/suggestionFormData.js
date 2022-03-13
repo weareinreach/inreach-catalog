@@ -43,3 +43,19 @@ export const requirements = [
 		value: false
 	}
 ];
+
+export const suggestEditsOptions = {
+	RESOURCE_IS_CLOSED: {
+		label: 'resource.suggest-edits-closed-or-inactive',
+		dbValue: 'This resource is closed or inactive'
+	},
+	CONTACT_LOCATION_INCORRECT: {
+		label: 'resource.suggest-edits-contact-location-incorrect',
+		dbValue: ' Contact or location information is incorrect'
+	},
+	DESCRIPTION_INACCURATE: {
+		label: 'resource.suggest-edits-inaccurate-description',
+		dbValue: 'Description is inaccurate'
+	},
+	OTHER: {label: 'resource.suggest-edits-other', dbValue: 'Other'}
+};
