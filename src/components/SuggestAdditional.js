@@ -114,7 +114,9 @@ class SuggestAdditional extends React.Component {
 							className={classes.settingsTypeFont}
 							data-test-id="suggest-page-feature"
 						>
-							<span>Feature</span>
+							<span>
+								<FormattedMessage id="resource.features-heading" />{' '}
+							</span>
 							{this.state.openFeature ? <ExpandLess /> : <ExpandMore />}
 						</div>
 						<Collapse
@@ -144,7 +146,9 @@ class SuggestAdditional extends React.Component {
 							className={classes.settingsTypeFont}
 							data-test-id="suggest-page-requirement"
 						>
-							<span>Requirement</span>
+							<span>
+								<FormattedMessage id="resource.requirements-heading" />
+							</span>
 							{this.state.openRequirement ? <ExpandLess /> : <ExpandMore />}
 						</div>
 						<Collapse
