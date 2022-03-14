@@ -260,7 +260,7 @@ class SuggestInfo extends React.Component {
 					) : null}
 					<FormControl className={classes.inputAddressLabel}>
 						<InputLabel
-							children={'Address:'}
+							children={intl.formatMessage({id: 'suggestion.address'}) + ':'}
 							shrink
 							data-test-id="suggest-page-address"
 						/>

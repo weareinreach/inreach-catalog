@@ -536,6 +536,7 @@
 	"services.transit-passes-and-discounts": "Boletos de tránsito y descuentos",
 	"services.transportation-assistance": "Asistencia con transporte",
 	"services.obgyn-services": "Salud femenina",
+	"suggestion.address": "Direcciones",
 	"suggestion.choose-different-country": "elige otro país",
 	"suggeston.click-here": "haz click aquí para el formulario de {other}",
 	"suggestion.country-disclaimer-canada": "<b>Ojo:</b> Este formulario es para sugerir recursos en <b>Canadá</b>. Si te gustaría sugerir un nuevo recurso en <b>Estados Unidos</b> o <b>México</b> por favor {otherLocale1Link} o {otherLocale2Link}",

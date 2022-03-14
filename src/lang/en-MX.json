@@ -536,6 +536,7 @@
 	"services.transit-passes-and-discounts": "Transit passes and discounts",
 	"services.transportation-assistance": "Transportation assistance",
 	"services.obgyn-services": "OBGYN services",
+	"suggestion.address": "Address",
 	"suggestion.choose-different-country": "choose a different country",
 	"suggeston.click-here": "click here for the {other} form",
 	"suggestion.country-disclaimer-canada": "<b>Note:</b> This form is to suggest resources in <b>Canada</b>. If you would like to suggest a new resource in either the <b>United States</b> or <b>Mexico</b>, please {otherLocale1Link} or {otherLocale2Link}",
