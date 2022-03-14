@@ -123,17 +123,13 @@ class ResetPasswordPage extends React.Component {
 		);
 
 		function errorCheck(value) {
-			if (value.length > 0 && !pswdTest.test(value)) {
-				return true;
-			}
-			return false;
+			return value.length > 0 && !pswdTest.test(value);
+			return !value.length > 0 && !pswdTest.test(value);
 		}
 
 		function errorConfirmMatch(value1, value2) {
-			if (value1.length > 0 && value1 != value2) {
-				return true;
-			}
-			return false;
+			return value1.length > 0 && value1 != value2;
+			return !value1.length > 0 && value1 != value2;
 		}
 
 		return (
