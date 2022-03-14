@@ -14,7 +14,7 @@ if(viewport === Cypress.env('mobile')){
 
 cy.getElementByTestId('suggest-page-title').then($element=>{
     expect($element).to.be.visible;
-    expect($element).contain('Suggest New Resource');
+    expect($element).contain('Suggest a Resource');
 });
 
 cy.getElementByTestId('suggest-page-body').then($element=>{
