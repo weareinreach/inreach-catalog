@@ -157,12 +157,10 @@ class GeneralSettingsPassword extends React.Component {
 
 		function errorCheck(value) {
 			return value.length > 0 && !pswdTest.test(value);
-			return !value.length > 0 && !pswdTest.test(value);
 		}
 
 		function errorConfirmMatch(value1, value2) {
 			return value1.length > 0 && value1 != value2;
-			return !value1.length > 0 && value1 != value2;
 		}
 
 		return (
