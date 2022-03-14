@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage, useIntl, injectIntl} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';

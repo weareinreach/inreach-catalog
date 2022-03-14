@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage, useIntl, injectIntl} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import trim from 'trim';
 
