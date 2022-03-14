@@ -154,6 +154,21 @@ class GeneralSettingsPassword extends React.Component {
 		} else if (year > '2021') {
 			errorMsg = <FormattedMessage id="error.password-format" />;
 		}
+
+		function errorCheck(value) {
+			if (value.length > 0 && !pswdTest.test(value)) {
+				return true;
+			}
+			return false;
+		}
+
+		function errorConfirmMatch(value1, value2) {
+			if (value1.length > 0 && value1 != value2) {
+				return true;
+			}
+			return false;
+		}
+
 		return (
 			<div>
 				<div
@@ -206,9 +221,9 @@ class GeneralSettingsPassword extends React.Component {
 							name="newPassword"
 							label={<FormattedMessage id="form.new-password" />}
 							type="password"
-							error={newPassword.length > 0 && !pswdTest.test(newPassword)}
+							error={errorCheck(newPassword)}
 							helperText={
-								newPassword.length > 0 && !pswdTest.test(newPassword) ? (
+								errorCheck(newPassword) ? (
 									<FormattedMessage id="error.password-format" />
 								) : null
 							}
@@ -226,12 +241,9 @@ class GeneralSettingsPassword extends React.Component {
 							name="confirmedPassword"
 							label={<FormattedMessage id="form.confirm-new-password" />}
 							type="password"
-							error={
-								confirmedPassword.length > 0 && confirmedPassword != newPassword
-							}
+							error={errorConfirmMatch(confirmedPassword, newPassword)}
 							helperText={
-								confirmedPassword.length > 0 &&
-								confirmedPassword != newPassword ? (
+								errorConfirmMatch(confirmedPassword, newPassword) ? (
 									<FormattedMessage id="error.password-mismatch" />
 								) : null
 							}

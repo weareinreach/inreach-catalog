@@ -121,6 +121,21 @@ class ResetPasswordPage extends React.Component {
 		const pswdTest = new RegExp(
 			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
 		);
+
+		function errorCheck(value) {
+			if (value.length > 0 && !pswdTest.test(value)) {
+				return true;
+			}
+			return false;
+		}
+
+		function errorConfirmMatch(value1, value2) {
+			if (value1.length > 0 && value1 != value2) {
+				return true;
+			}
+			return false;
+		}
+
 		return (
 			<Grid
 				container
@@ -136,9 +151,9 @@ class ResetPasswordPage extends React.Component {
 								<FormattedMessage id="account.reset-password" />
 							</Typography>
 							<TextField
-								error={password.length > 0 && !pswdTest.test(password)}
+								error={errorCheck(password)}
 								helperText={
-									password.length > 0 && !pswdTest.test(password) ? (
+									errorCheck(password) ? (
 										<FormattedMessage id="error.password-format" />
 									) : null
 								}
@@ -154,11 +169,9 @@ class ResetPasswordPage extends React.Component {
 								fullWidth
 							/>
 							<TextField
-								error={
-									confirmPassword.length > 0 && confirmPassword != password
-								}
+								error={errorConfirmMatch(confirmPassword, password)}
 								helperText={
-									confirmPassword.length > 0 && confirmPassword != password ? (
+									errorConfirmMatch(confirmPassword, password) ? (
 										<FormattedMessage id="error.password-mismatch" />
 									) : null
 								}
