@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
@@ -74,13 +74,13 @@ class ResetPasswordPage extends React.Component {
 
 		//check token
 		if (!this.token) {
-			handleMessageNew('Missing token');
+			handleMessageNew(<FormattedMessage id="error.invalid-reset-token" />);
 			history.push('/');
 		}
 
 		//confirm passwords match
 		if (this.state.password !== this.state.confirmPassword) {
-			handleMessageNew('Passwords do not match. Please try again.');
+			handleMessageNew(<FormattedMessage id="error.password-mismatch" />);
 			this.setState({
 				password: '',
 				confirmPassword: ''
@@ -116,8 +116,11 @@ class ResetPasswordPage extends React.Component {
 	}
 
 	render() {
-		const {classes} = this.props;
+		const {classes, intl} = this.props;
 		const {password, confirmPassword, submitted} = this.state;
+		const pswdTest = new RegExp(
+			'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
+		);
 		return (
 			<Grid
 				container
@@ -133,44 +136,48 @@ class ResetPasswordPage extends React.Component {
 								<FormattedMessage id="account.reset-password" />
 							</Typography>
 							<TextField
-								error={password.length > 0 && password.length < 8}
+								error={password.length > 0 && !pswdTest.test(password)}
 								helperText={
-									password.length > 0 && password.length < 8
-										? 'Password must be at least 8 characters.'
-										: null
+									password.length > 0 && !pswdTest.test(password) ? (
+										<FormattedMessage id="error.password-format" />
+									) : null
 								}
 								id="password"
-								label="Password"
+								label={intl.formatMessage({id: 'form.new-password'})}
 								margin="normal"
 								name="password"
 								onChange={this.handleChangePassword}
 								required
 								value={password}
 								type="password"
-								placeholder="New password"
+								placeholder={intl.formatMessage({id: 'form.new-password'})}
 								fullWidth
 							/>
 							<TextField
-								error={password.length >= 8 && password !== confirmPassword}
+								error={
+									confirmPassword.length > 0 && confirmPassword != password
+								}
 								helperText={
-									password.length >= 8 && password !== confirmPassword
-										? 'Confirmation does not match password.'
-										: null
+									confirmPassword.length > 0 && confirmPassword != password ? (
+										<FormattedMessage id="error.password-mismatch" />
+									) : null
 								}
 								id="confirmPassword"
-								label="Confirm Password"
+								label={intl.formatMessage({id: 'form.confirm-new-password'})}
 								margin="normal"
 								name="confirmPassword"
 								onChange={this.handleChangeConfirmPassword}
 								required
 								value={confirmPassword}
 								type="password"
-								placeholder="Confirm new password"
+								placeholder={intl.formatMessage({
+									id: 'form.confirm-new-password'
+								})}
 								fullWidth
 								className={classes.bottomSpacing}
 							/>
 							<AsylumConnectButton variant="primary">
-								Reset Password
+								<FormattedMessage id="action.reset-password" />
 							</AsylumConnectButton>
 						</form>
 					</Grid>
@@ -181,11 +188,10 @@ class ResetPasswordPage extends React.Component {
 							style={{textAlign: 'center'}}
 							className={classes.bottomSpacing}
 						>
-							Password Reset!
+							<FormattedMessage id="action.reset-password-success-no-email" />
 						</Typography>
 						<Typography variant="body2">
-							Your password has reset. You can now login again using your new
-							password.
+							<FormattedMessage id="action.reset-password-sign-in-prompt" />
 						</Typography>
 					</Grid>
 				)}
@@ -201,4 +207,4 @@ ResetPasswordPage.propTypes = {
 	history: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(withWidth(ResetPasswordPage));
+export default withStyles(styles)(withWidth(injectIntl(ResetPasswordPage)));
