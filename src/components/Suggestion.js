@@ -3,6 +3,7 @@ import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import update from 'react-addons-update';
 import {geocodeByAddress} from 'react-places-autocomplete';
+import {Link} from 'react-router-dom';
 
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -487,6 +488,7 @@ class Suggestion extends React.Component {
 			tags,
 			emails
 		} = this.state;
+
 		const locale = this?.props?.match?.params?.locale;
 		const {name, website, description, phones} = resourceData;
 
@@ -508,25 +510,34 @@ class Suggestion extends React.Component {
 							<FormattedMessage
 								id="suggestion.country-disclaimer-united-states"
 								values={{
+									b: (chunks) => (
+										<strong style={{color: 'black'}}>{chunks}</strong>
+									),
 									otherLocale1Link: (
-										<a href="/en_CA/suggestions/new">
+										<Link
+											to={`/en_CA/suggestions/new`}
+											className="hide--on-print"
+										>
 											<FormattedMessage
 												id="suggeston.click-here"
 												values={{
 													other: <FormattedMessage id="app.country-canada" />
 												}}
 											/>
-										</a>
+										</Link>
 									),
 									otherLocale2Link: (
-										<a href="/en_MX/suggestions/new">
+										<Link
+											to={`/en_MX/suggestions/new`}
+											className="hide--on-print"
+										>
 											<FormattedMessage
 												id="suggeston.click-here"
 												values={{
 													other: <FormattedMessage id="app.country-mexico" />
 												}}
 											/>
-										</a>
+										</Link>
 									)
 								}}
 							/>
@@ -535,8 +546,14 @@ class Suggestion extends React.Component {
 							<FormattedMessage
 								id="suggestion.country-disclaimer-canada"
 								values={{
+									b: (chunks) => (
+										<strong style={{color: 'black'}}>{chunks}</strong>
+									),
 									otherLocale1Link: (
-										<a href="/en_US/suggestions/new">
+										<Link
+											to={`/en_US/suggestions/new`}
+											className="hide--on-print"
+										>
 											<FormattedMessage
 												id="suggeston.click-here"
 												values={{
@@ -545,17 +562,20 @@ class Suggestion extends React.Component {
 													)
 												}}
 											/>
-										</a>
+										</Link>
 									),
 									otherLocale2Link: (
-										<a href="/en_MX/suggestions/new">
+										<Link
+											to={`/en_MX/suggestions/new`}
+											className="hide--on-print"
+										>
 											<FormattedMessage
 												id="suggeston.click-here"
 												values={{
 													other: <FormattedMessage id="app.country-mexico" />
 												}}
 											/>
-										</a>
+										</Link>
 									)
 								}}
 							/>
@@ -564,8 +584,14 @@ class Suggestion extends React.Component {
 							<FormattedMessage
 								id="suggestion.country-disclaimer-mexico"
 								values={{
+									b: (chunks) => (
+										<strong style={{color: 'black'}}>{chunks}</strong>
+									),
 									otherLocale1Link: (
-										<a href="/en_US/suggestions/new">
+										<Link
+											to={`/en_US/suggestions/new`}
+											className="hide--on-print"
+										>
 											<FormattedMessage
 												id="suggeston.click-here"
 												values={{
@@ -574,17 +600,20 @@ class Suggestion extends React.Component {
 													)
 												}}
 											/>
-										</a>
+										</Link>
 									),
 									otherLocale2Link: (
-										<a href="/en_CA/suggestions/new">
+										<Link
+											to={`/en_CA/suggestions/new`}
+											className="hide--on-print"
+										>
 											<FormattedMessage
 												id="suggeston.click-here"
 												values={{
 													other: <FormattedMessage id="app.country-canada" />
 												}}
 											/>
-										</a>
+										</Link>
 									)
 								}}
 							/>
