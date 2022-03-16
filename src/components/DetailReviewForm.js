@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import trim from 'trim';
 
@@ -99,7 +99,7 @@ class ReviewForm extends React.Component {
 	}
 
 	render() {
-		const {classes} = this.props;
+		const {classes, intl} = this.props;
 		const isMobile = this.props.width < breakpoints['sm'];
 
 		return (
@@ -142,7 +142,9 @@ class ReviewForm extends React.Component {
 								data-test-id="details-review-form-input"
 								className={classes.reviewField + ' ' + classes.bottomSpacing}
 								onChange={this.handleCommentChange}
-								placeholder="Start typing your review..."
+								placeholder={intl.formatMessage({
+									id: 'resource.review-input-placeholder'
+								})}
 								name="comment"
 							/>
 						</Grid>
@@ -178,4 +180,4 @@ class ReviewForm extends React.Component {
 	}
 }
 
-export default withStyles(styles)(withWidth(ReviewForm));
+export default withStyles(styles)(withWidth(injectIntl(ReviewForm)));

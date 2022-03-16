@@ -96,7 +96,6 @@ const ThankYouMobile = (props) => {
 					data-test-id="thank-you-text"
 				>
 					<FormattedMessage id="app.thank-you-text" />
-					sdfsdf
 				</Typography>
 				<img
 					data-test-id="thank-you-image"

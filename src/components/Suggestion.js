@@ -1,7 +1,9 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import update from 'react-addons-update';
 import {geocodeByAddress} from 'react-places-autocomplete';
+import {Link} from 'react-router-dom';
 
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +14,8 @@ import SuggestAdditional from './SuggestAdditional';
 import AsylumConnectButton from './AsylumConnectButton';
 import {catalogPost} from '../utils/api';
 import withOrganizations from './withOrganizations';
+
+import {features, requirements} from '../data/suggestionFormData';
 
 const styles = (theme) => ({
 	root: {
@@ -137,46 +141,8 @@ class Suggestion extends React.Component {
 			resourceData: defaultResource,
 			nonEngServices: [],
 			address: '',
-			features: [
-				{
-					label: 'Has A Confidentiality Policy',
-					name: 'has-confidentiality-policy',
-					value: false
-				},
-				{label: 'Cost Free', name: 'cost-free', value: false}
-			],
-			requirements: [
-				{
-					label: 'Photo ID required',
-					name: 'req-photo-id',
-					value: false
-				},
-				{
-					label: 'Proof of income required',
-					name: 'req-proof-of-income',
-					value: false
-				},
-				{
-					label: 'Proof of age required',
-					name: 'req-proof-of-age',
-					value: false
-				},
-				{
-					label: 'Medical insurance required',
-					name: 'req-medical-insurance',
-					value: false
-				},
-				{
-					label: 'Proof of residence required',
-					name: 'req-proof-of-residence',
-					value: false
-				},
-				{
-					label: 'A referral required',
-					name: 'req-referral',
-					value: false
-				}
-			],
+			features: features,
+			requirements: requirements,
 			tags: [],
 			emails: [],
 			location: {}
@@ -261,7 +227,7 @@ class Suggestion extends React.Component {
 			})
 			.catch((error) => {
 				this.props.handleMessageNew(
-					'Unable to find your location, please try entering your city, state in the box above.'
+					<FormattedMessage id="error.no-location-entered" />
 				);
 			});
 		this.setState({location: updatedLocation});
@@ -411,7 +377,7 @@ class Suggestion extends React.Component {
 		const {handleMessageNew, handleRequestOpen, session} = this.props;
 		if (!session) {
 			handleRequestOpen('login');
-			handleMessageNew('You need to sign in to view your account.');
+			handleMessageNew(<FormattedMessage id="account.user-sign-in-prompt" />);
 		} else {
 			// Organize resourceData ready for submiting request (154)
 			this.organizeData();
@@ -499,11 +465,13 @@ class Suggestion extends React.Component {
 			.then(() => {
 				this.setState({isSent: true});
 				this.props.handleMessageNew(
-					'Your information has been submitted to be reviewed.'
+					<FormattedMessage id="action.suggestion-received" />
 				);
 			})
 			.catch(() => {
-				this.props.handleMessageNew('Oops! Something went wrong.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="error.unspecified" />
+				);
 			});
 	}
 
@@ -520,6 +488,7 @@ class Suggestion extends React.Component {
 			tags,
 			emails
 		} = this.state;
+
 		const locale = this?.props?.match?.params?.locale;
 		const {name, website, description, phones} = resourceData;
 
@@ -531,34 +500,125 @@ class Suggestion extends React.Component {
 						className={classes.formType}
 						data-test-id="suggest-page-title"
 					>
-						Suggest New Resource
+						<FormattedMessage id="suggestion.suggest-resource" />
 					</Typography>
 					<Typography type="body1" data-test-id="suggest-page-body">
-						Thank you for your interest in contributing to the AsylumConnect
-						resource catalog! Use this form to suggest a resource you think
-						should be included. It's ok if you do not have all of the
-						information the form asks for - just fill in what you know, and
-						we'll do the rest! We appreciate your submission and thank you for
-						helping to connect asylum seekers to helpful services. All suggested
-						resources are subject to review by AsylumConnect staff before being
-						published.{' '}
-						{locale === 'en_US' ? (
-							<>
-								<strong>Note:</strong> This form is to suggest new resources in
-								the United States. If you would like to suggest a new resource
-								in Canada, please{' '}
-								<a href="/en_CA/suggestions/new">click here</a> to fill out our
-								Canadian form.
-							</>
-						) : (
-							<>
-								<strong>Note:</strong> This form is to suggest new resources in
-								Canada. If you would like to suggest a new resource in the
-								United States, please{' '}
-								<a href="/en_US/suggestions/new">click here</a> to fill out our
-								United States form.
-							</>
+						<FormattedMessage id="suggestion.thank-you-for-contributing" />{' '}
+					</Typography>
+					<Typography type="body1" data-test-id="suggest-page-body">
+						{locale === 'en_US' && (
+							<FormattedMessage
+								id="suggestion.country-disclaimer-united-states"
+								values={{
+									b: (chunks) => (
+										<strong style={{color: 'black'}}>{chunks}</strong>
+									),
+									otherLocale1Link: (
+										<Link
+											to={`/en_CA/suggestions/new`}
+											className="hide--on-print"
+										>
+											<FormattedMessage
+												id="suggeston.click-here"
+												values={{
+													other: <FormattedMessage id="app.country-canada" />
+												}}
+											/>
+										</Link>
+									),
+									otherLocale2Link: (
+										<Link
+											to={`/en_MX/suggestions/new`}
+											className="hide--on-print"
+										>
+											<FormattedMessage
+												id="suggeston.click-here"
+												values={{
+													other: <FormattedMessage id="app.country-mexico" />
+												}}
+											/>
+										</Link>
+									)
+								}}
+							/>
 						)}
+						{locale === 'en_CA' && (
+							<FormattedMessage
+								id="suggestion.country-disclaimer-canada"
+								values={{
+									b: (chunks) => (
+										<strong style={{color: 'black'}}>{chunks}</strong>
+									),
+									otherLocale1Link: (
+										<Link
+											to={`/en_US/suggestions/new`}
+											className="hide--on-print"
+										>
+											<FormattedMessage
+												id="suggeston.click-here"
+												values={{
+													other: (
+														<FormattedMessage id="app.country-united-states" />
+													)
+												}}
+											/>
+										</Link>
+									),
+									otherLocale2Link: (
+										<Link
+											to={`/en_MX/suggestions/new`}
+											className="hide--on-print"
+										>
+											<FormattedMessage
+												id="suggeston.click-here"
+												values={{
+													other: <FormattedMessage id="app.country-mexico" />
+												}}
+											/>
+										</Link>
+									)
+								}}
+							/>
+						)}
+						{locale === 'en_MX' && (
+							<FormattedMessage
+								id="suggestion.country-disclaimer-mexico"
+								values={{
+									b: (chunks) => (
+										<strong style={{color: 'black'}}>{chunks}</strong>
+									),
+									otherLocale1Link: (
+										<Link
+											to={`/en_US/suggestions/new`}
+											className="hide--on-print"
+										>
+											<FormattedMessage
+												id="suggeston.click-here"
+												values={{
+													other: (
+														<FormattedMessage id="app.country-united-states" />
+													)
+												}}
+											/>
+										</Link>
+									),
+									otherLocale2Link: (
+										<Link
+											to={`/en_CA/suggestions/new`}
+											className="hide--on-print"
+										>
+											<FormattedMessage
+												id="suggeston.click-here"
+												values={{
+													other: <FormattedMessage id="app.country-canada" />
+												}}
+											/>
+										</Link>
+									)
+								}}
+							/>
+						)}
+						.
 					</Typography>
 					<SuggestInfo
 						address={address}
@@ -605,23 +665,20 @@ class Suggestion extends React.Component {
 								onClick={this.handleClick}
 								disabled={this.props.organizationSelection}
 							>
-								suggest resource
+								<FormattedMessage id="suggestion.suggest-resource-new" />
 							</AsylumConnectButton>
 							<Typography
 								type="body1"
 								className={classes.extraMargin}
 								data-test-id="suggest-page-footer"
 							>
-								All organization changes are subject to review by AsylumConnect
-								before publication
+								<FormattedMessage id="resource.changes-subject-to-review" />
 							</Typography>
 						</div>
 					) : (
 						<div className={classes.settingsTypeFont}>
 							<span>
-								Thank you for your request! All changes will be reviewed by the
-								AsylumConnect team and verification permitting, published as
-								soon as possible. Question? Please email{' '}
+								<FormattedMessage id="resource.change-request-received" />{' '}
 								<a
 									href="mailto:catalog@asylumconnect.org"
 									className={classes.boldFont}
