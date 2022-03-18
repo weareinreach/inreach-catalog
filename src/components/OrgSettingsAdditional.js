@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-int';
+import {FormattedMessage, injectIntl} from 'react-int';
 import ResourceTypeSelector from './ResourceTypeSelector';
 
 import {withStyles} from '@material-ui/core/styles';
@@ -122,17 +122,21 @@ class OrgSettingsAdditional extends React.Component {
 		}
 	}
 	render() {
-		const {classes} = this.props;
+		const {classes, intl} = this.props;
 		return (
 			<div className={classes.root}>
 				<form className={classes.form}>
 					<TextField
 						className={classes.inputLabel}
-						label="Additional Information:"
+						label={
+							intl.formatMessage({id: 'resource.additional-information'}) + ':'
+						}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder="Additional Info"
+						placeholder={intl.formatMessage({
+							id: 'resource.additional-information'
+						})}
 					/>
 					<FormControl className={classes.formControl}>
 						<div>
@@ -170,4 +174,4 @@ OrgSettingsAdditional.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(OrgSettingsAdditional);
+export default withStyles(styles)(injectIntl(OrgSettingsAdditional));
