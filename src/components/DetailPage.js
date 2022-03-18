@@ -679,7 +679,6 @@ class Detail extends React.Component {
 			socialMedia: social_media
 		};
 		const resourceTags = getTags(resource, locale);
-
 		return (
 			<Grid
 				container

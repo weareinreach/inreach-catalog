@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 import React from 'react';
 import Fa from 'react-fontawesome';
 import {Link} from 'react-router-dom';
@@ -108,7 +108,8 @@ class ResourceListItem extends React.Component {
 			user,
 			userData,
 			width,
-			isOwner
+			isOwner,
+			intl
 		} = this.props;
 		const {
 			ratingSpacing,
@@ -317,6 +318,7 @@ class ResourceListItem extends React.Component {
 											<Button
 												data-test-id="favorites-list-remove-item-button"
 												onClick={() => handleListRemoveFavorite(resource._id)}
+												title="remove from favorites list"
 											>
 												<Fa name="times" />
 											</Button>
@@ -502,4 +504,4 @@ ResourceListItem.defaultProps = {
 	user: null
 };
 
-export default withStyles(styles)(withWidth(ResourceListItem));
+export default withStyles(styles)(withWidth(injectIntl(ResourceListItem)));
