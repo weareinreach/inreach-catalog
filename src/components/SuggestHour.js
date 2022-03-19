@@ -100,7 +100,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-monday"
-								label={<FormattedMessage id="app.days-monday" />}
+								label={intl.formatMessage({id: 'app.days-monday'})}
 								value="monday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -154,7 +154,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-tuesday"
-								label={<FormattedMessage id="app.days-tuesday" />}
+								label={intl.formatMessage({id: 'app.days-tuesday'})}
 								value="tuesday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -208,7 +208,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-wednesday"
-								label={<FormattedMessage id="app.days-wednesday" />}
+								label={intl.formatMessage({id: 'app.days-wednesday'})}
 								value="wednesday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -262,7 +262,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-thursday"
-								label={<FormattedMessage id="app.days-thursday" />}
+								label={intl.formatMessage({id: 'app.days-thursday'})}
 								value="thursday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -316,7 +316,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-friday"
-								label={<FormattedMessage id="app.days-friday" />}
+								label={intl.formatMessage({id: 'app.days-friday'})}
 								value="friday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -370,7 +370,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-saturday"
-								label={<FormattedMessage id="app.days-saturday" />}
+								label={intl.formatMessage({id: 'app.days-saturday'})}
 								value="saturday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -424,7 +424,7 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-sunday"
-								label={<FormattedMessage id="app.days-sunday" />}
+								label={intl.formatMessage({id: 'app.days-sunday'})}
 								value="sunday"
 								onChange={(ref) =>
 									handleDaySelect(

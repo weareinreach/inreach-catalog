@@ -6,7 +6,9 @@
 
 //Test Suite
 describe('Home Suggest New Resource Tests', () => {
-    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+    // let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+    let viewports = [Cypress.env('desktop')];
+
     
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
@@ -16,7 +18,10 @@ describe('Home Suggest New Resource Tests', () => {
             cy.addUser(user);
         });
         //org
-        cy.fixture('organization.json').as('organization');
+        cy.fixture('organization.json').as('organization').then(organization=>{
+            //Add Org
+            cy.addOrg(organization);
+        });;
     });
 
     afterEach(() => {
