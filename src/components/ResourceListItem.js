@@ -108,8 +108,7 @@ class ResourceListItem extends React.Component {
 			user,
 			userData,
 			width,
-			isOwner,
-			intl
+			isOwner
 		} = this.props;
 		const {
 			ratingSpacing,
