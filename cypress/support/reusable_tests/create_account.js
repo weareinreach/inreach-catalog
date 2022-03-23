@@ -29,7 +29,7 @@ let variables =  {
         currentLocation_content: 'New York City, NY',
         password_placeholder_content: '***',
         password_content: '1111111Kl#',
-        organization:'Another Test'
+        organization:'Surprisingly Unique Org Name"'
     },
     service_provider:{
         user:user_service_provider,
@@ -42,7 +42,7 @@ let variables =  {
         currentLocation_content: 'New York City, NY',
         password_placeholder_content: '***',
         password_content: '1111111Kl#',
-        organization:'Another Test'
+        organization:'Surprisingly Unique Org Name"'
     } 
 };
 

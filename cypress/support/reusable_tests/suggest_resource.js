@@ -33,7 +33,6 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
         });
         cy.getElementByTestId('suggest-page-body-2').then($element=>{
             expect($element).to.be.visible;
-            // expect($element).contain(`Thank you for your interest in contributing to the AsylumConnect resource catalog! It seems we already have " <a class="hide--on-print" href="/en_US/resource/another-test"> Another Test </a> "  on the catalog. You can join this organization by signing up for a provider account "<a href="/en_US/resource/another-test"> here.</a>.`);
             expect($element).contain('Thank you for your interest in contributing to the AsylumConnect resource catalog! It seems we already have'); 
             expect($element).contain(`${org.name}`);
             expect($element).contain('on the catalog. You can join this organization by signing up for a provider account');
