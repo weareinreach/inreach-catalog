@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import {breakpoints} from '../theme';
 
@@ -52,59 +53,59 @@ const Badge = ({
 }) => {
 	const typeMapping = {
 		communitySupport: {
-			label: 'Community Support',
+			label: 'service-type.community-support',
 			icon: <CommunitySupportIcon />
 		},
 		computers: {
-			label: 'Computers and Internet',
+			label: 'service-type.computers-internet',
 			icon: <ComputersIcon />
 		},
 		educationEmployment: {
-			label: 'Education / Employment',
+			label: 'service-type.education-employment',
 			icon: <EducationEmploymentIcon />
 		},
 		food: {
-			label: 'Food',
+			label: 'service-type.food',
 			icon: <FoodIcon />
 		},
 		housing: {
-			label: 'Housing',
+			label: 'service-type.housing',
 			icon: <HousingIcon />
 		},
 		hygiene: {
-			label: 'Hygiene',
+			label: 'service-type.hygiene-clothing',
 			icon: <ClothingIcon />
 		},
 		legal: {
-			label: 'Legal',
+			label: 'service-type.legal',
 			icon: <LegalIcon />
 		},
 		mail: {
-			label: 'Mail Services',
+			label: 'service-type.mail',
 			icon: <MailIcon />
 		},
 		medical: {
-			label: 'Medical',
+			label: 'service-type.medical',
 			icon: <MedicalIcon />
 		},
 		mentalHealth: {
-			label: 'Mental Health',
+			label: 'service-type.mental-health',
 			icon: <MentalHealthIcon />
 		},
 		misc: {
-			label: 'Other Services',
+			label: 'service-type.other-services',
 			icon: <MiscIcon />
 		},
 		speechBubble: {
-			label: 'Translation and interpretation',
+			label: 'service-type.translation-interpretation',
 			icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />
 		},
 		sportsEntertainment: {
-			label: 'Sports / Entertainment',
+			label: 'service-type.sports-entertainment',
 			icon: <SportsEntertainmentIcon />
 		},
 		transportation: {
-			label: 'Transportation',
+			label: 'service-type.transportation',
 			icon: <TransportationIcon />
 		}
 	};
@@ -121,10 +122,16 @@ const Badge = ({
 
 	const isMobile = window.innerWidth < breakpoints['sm'];
 
+	const intl = useIntl();
+
 	if (isMobile && (typeof useIcon === 'undefined' || useIcon === false)) {
 		return (
 			<div className={classes.flair} data-test-id="badge">
-				{mobileLabel ? mobileLabel : typeMapping[type].label}
+				{mobileLabel ? (
+					mobileLabel
+				) : (
+					<FormattedMessage id={typeMapping[type].label} />
+				)}
 			</div>
 		);
 	} else {
@@ -133,7 +140,7 @@ const Badge = ({
 				data-test-id="badge-tooltip"
 				className={classes.tooltip}
 				classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-				title={typeMapping[type].label}
+				title={intl.formatMessage({id: typeMapping[type].label})}
 				placement="top"
 			>
 				<div

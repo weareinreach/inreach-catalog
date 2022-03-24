@@ -16,7 +16,10 @@ describe('Home Suggest New Resource Tests', () => {
             cy.addUser(user);
         });
         //org
-        cy.fixture('organization.json').as('organization');
+        cy.fixture('organization.json').as('organization').then(organization=>{
+            //Add Org
+            cy.addOrg(organization);
+        });
     });
 
     afterEach(() => {

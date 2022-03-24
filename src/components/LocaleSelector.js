@@ -80,7 +80,6 @@ class LocaleSelector extends React.Component {
 
 	render() {
 		const {localeLabel} = this.props;
-		console.log(this.props);
 		const {inputClass} = this.props.classes;
 
 		return (
