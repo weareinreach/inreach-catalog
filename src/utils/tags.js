@@ -8,460 +8,487 @@ import {localeTagMap} from '../utils/locale';
 const resourceTypes = [
 	/* AC Community support Category */
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Community Support'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Cultural centers',
-		title: 'Cultural centers'
+		title: 'services.cultural-centers'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Cultural centres',
-		title: 'Cultural centres'
+		title: 'services.cultural-centres'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'LGBTQ centers',
-		title: 'LGBTQ centers'
+		title: 'services.lgbtq-centers'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Reception services',
-		title: 'Reception services'
+		title: 'services.reception-services'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'LGBTQ centres',
-		title: 'LGBTQ centres'
+		title: 'services.lgbtq-centres'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Sponsors',
-		title: 'Sponsors'
+		title: 'services.sponsors'
 	},
 	{
-		category: 'Community Support',
+		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Spiritual Support',
-		title: 'Spiritual Support'
+		title: 'services.spiritual'
 	},
 
 	/* AC Computers and Internet Category */
 	{
-		category: 'Computers and Internet',
+		category: 'service-type.computers-internet',
 		type: 'computers',
-		acTag: 'Computers and Internet'
+		acTag: 'service-type.computers-internet'
 	},
 
 	/* AC Education and Employment Category */
 	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
-		acTag: 'Education and Employment'
+		acTag: 'service-type.education-employment'
 	},
 	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
+		type: 'educationEmployment',
+		acTag: 'Career counselling',
+		title: 'services.career-counselling'
+	},
+	{
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Career counseling',
-		title: 'Career counseling'
+		title: 'services.career-counseling'
 	},
 	{
-		category: 'Education and Employment',
-		type: 'educationEmployment',
-		acTag: 'Career counseling',
-		title: 'Career counselling'
-	},
-	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Educational support for LGBTQ youth',
-		title: 'Educational support for LGBTQ youth'
+		title: 'services.educational-support-lgbtq-youth'
 	},
 	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'English classes',
-		title: 'English classes'
+		title: 'services.english-classes'
 	},
 	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Language classes',
-		title: 'Language classes'
+		title: 'services.language-classes'
 	},
 	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Libraries',
-		title: 'Libraries'
+		title: 'services.libraries'
 	},
 	{
-		category: 'Education and Employment',
+		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Scholarships',
-		title: 'Scholarships'
+		title: 'services.scholarships'
 	},
 
 	/* AC Food Category */
 	{
-		category: 'Food',
+		category: 'service-type.food',
 		type: 'food',
 		acTag: 'Food'
 	},
 
 	/* AC Housing Category */
-	{category: 'Housing', type: 'housing', acTag: 'Housing'},
+	{category: 'service-type.housing', type: 'housing', acTag: 'Housing'},
 	{
-		category: 'Housing',
+		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Drop-in centers for LGBTQ youth',
-		title: 'Drop-in centers for LGBTQ youth'
+		title: 'services.drop-in-centers-lgbtq-youth'
 	},
 	{
-		category: 'Housing',
+		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Drop-in centres for LGBTQ youth',
-		title: 'Drop-in centres for LGBTQ youth'
+		title: 'services.drop-in-centres-lgbtq-youth'
 	},
 	{
-		category: 'Housing',
+		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Emergency housing',
-		title: 'Emergency housing'
+		title: 'services.emergency-housing'
 	},
 	{
-		category: 'Housing',
+		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Housing information and referrals',
-		title: 'Housing information and referrals'
+		title: 'services.housing-information-referrals'
 	},
 	{
-		category: 'Housing',
+		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Short-term housing',
-		title: 'Short-term housing'
+		title: 'services.short-term-housing'
 	},
 
 	/* AC Hygiene and Clothing Category */
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Hygiene and Clothing'
 	},
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Clothes',
-		title: 'Clothes'
+		title: 'services.clothes'
 	},
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-affirming items',
-		title: 'Gender-affirming items'
+		title: 'services.gender-affirming-items'
 	},
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-neutral bathrooms',
-		title: 'Gender-neutral bathrooms'
+		title: 'services.gender-neutral-bathrooms'
 	},
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-neutral restrooms',
-		title: 'Gender-neutral restrooms'
+		title: 'services.gender-neutral-restrooms'
 	},
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-neutral washrooms',
-		title: 'Gender-neutral washrooms'
+		title: 'services.gender-neutral-washrooms'
 	},
 	{
-		category: 'Hygiene and Clothing',
+		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Hygiene',
-		title: 'Hygiene'
+		title: 'services.hygiene'
 	},
 
 	/* AC Legal Category */
-	{category: 'Legal', type: 'legal', acTag: 'Legal'},
+	{category: 'service-type.legal', type: 'legal', acTag: 'Legal'},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Asylum application in Mexico',
-		title: 'Asylum application in Mexico (Affirmative Asylum)'
+		title: 'services.asylum-application-in-mexico'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Asylum application in the US from Mexico',
-		title: 'Asylum application in the US from Mexico (Affirmative Asylum)'
+		title: 'services.asylum-application-in-united-states-from-mexico'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Asylum application',
-		title: 'Asylum application (Affirmative Asylum)'
+		title: 'services.asylum-application'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Crime and discrimination',
-		title: 'Crime and discrimination'
+		title: 'services.crime-discrimination'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Deferred Action for Childhood Arrivals (DACA)',
-		title: 'Deferred Action for Childhood Arrivals (DACA)'
+		title: 'services.deferred-action-childhood-arrivals'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Deportation or removal',
-		title: 'Deportation or removal (Defensive Asylum)'
+		title: 'services.deportation-or-removal'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Immigration detention',
-		title: 'Immigration detention'
+		title: 'services.immigration-detention'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Legal hotlines',
-		title: 'Legal hotlines'
+		title: 'services.legal-hotlines'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Name and gender change',
-		title: 'Name and gender change'
+		title: 'services.name-gender-change'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Refugee claim',
-		title: 'Refugee claim'
+		title: 'services.refugee-claim'
 	},
 	{
-		category: 'Legal',
+		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Special Immigrant Juvenile Status (SIJS)',
-		title: 'Special Immigrant Juvenile Status (SIJS)'
+		title: 'services.special-immigrant-juvenile-status'
 	},
 
 	/* AC Mail services Category */
-	{category: 'Mail', type: 'mail', acTag: 'Mail'},
+	{category: 'service-type.mail', type: 'mail', acTag: 'Mail'},
 
 	/* AC Medical Category */
-	{category: 'Medical', type: 'medical', acTag: 'Medical'},
+	{category: 'service-type.medical', type: 'medical', acTag: 'Medical'},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Abortion services',
-		title: 'Abortion services'
+		title: 'services.abortion-services'
 	},
 	{
 		category: 'Medical',
 		type: 'medical',
 		acTag: 'COVID-19 services',
-		title: 'COVID-19 services'
+		title: 'services.covid-19'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Dental care',
-		title: 'Dental care'
+		title: 'services.dental-care'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'HIV and sexual health',
-		title: 'HIV and sexual health'
+		title: 'services.hiv-sexual-health'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Medical clinics',
-		title: 'Medical clinics'
+		title: 'services.medical-clinics'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'OBGYN services',
-		title: 'OBGYN services'
+		title: 'services.obgyn-services'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Physical evaluations for asylum claim',
-		title: 'Physical evaluations for asylum claim'
+		title: 'services.physical-evaluations-for-asylum'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Physical evaluations for refugee claim',
-		title: 'Physical evaluations for refugee claim'
+		title: 'services.physical-evaluations-for-refugee'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Trans health',
-		title: 'Trans health'
+		title: 'services.trans-health'
 	},
 
 	/* AC Mental Health Category */
-	{category: 'Mental Health', type: 'mentalHealth', acTag: 'Mental Health'},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
+		type: 'mentalHealth',
+		acTag: 'Mental Health'
+	},
+	{
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Hotlines',
-		title: 'Hotlines'
+		title: 'services.hotlines'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Private therapy and counseling',
-		title: 'Private therapy and counseling'
+		title: 'services.private-therapy-counseling'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
-		acTag: 'Private therapy and counseling',
-		title: 'Private therapy and counselling'
+		acTag: 'Private therapy and counselling',
+		title: 'services.private-therapy-counselling'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Psychological evaluations for asylum claim',
-		title: 'Psychological evaluations for asylum claim'
+		title: 'services.psychological-evaluation-for-asylum'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Psychological evaluations for refugee claim',
-		title: 'Psychological evaluations for refugee claim'
+		title: 'services.psychological-evaluation-for-refugee'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Substance use',
-		title: 'Substance use'
+		title: 'services.substance-use'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Support groups',
-		title: 'Support groups'
+		title: 'services.support-groups'
 	},
 	{
-		category: 'Mental Health',
+		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Trans support groups',
-		title: 'Trans support groups'
+		title: 'services.trans-support-groups'
 	},
 
 	/* AC Sports and Entertainment Category */
 	{
-		category: 'Sports and Entertainment',
+		category: 'service-type.sports-entertainment',
 		type: 'sportsEntertainment',
-		acTag: 'Sports and Entertainment'
+		acTag: 'service-type.sports-entertainment'
 	},
 
 	/* AC Translation and interpretation Category */
 	{
-		category: 'Translation and Interpretation',
+		category: 'service-type.translation-interpretation',
 		type: 'speechBubble',
-		acTag: 'Translation and Interpretation'
+		acTag: 'service-type.translation-interpretation'
 	},
 
 	/* AC Transportation Category */
-	{category: 'Transportation', type: 'transportation', acTag: 'Transportation'},
 	{
-		category: 'Transportation',
+		category: 'service-type.transportation',
 		type: 'transportation',
-		acTag: 'Transit passes and discounts',
-		title: 'Transit passes and discounts'
+		acTag: 'Transportation'
 	},
 	{
-		category: 'Transportation',
+		category: 'service-type.transportation',
+		type: 'transportation',
+		acTag: 'Transit passes and discounts',
+		title: 'services.transit-passes-and-discounts'
+	},
+	{
+		category: 'service-type.transportation',
 		type: 'transportation',
 		acTag: 'Transportation assistance',
-		title: 'Transportation assistance'
+		title: 'services.transportation-assistance'
 	}
 ];
 
 //use this to exclude certain resource types from the list for certain locales
 const localeExclusions = {
 	en_US: [
-		'Asylum application in Mexico (Affirmative Asylum)',
-		'Asylum application in the US from Mexico (Affirmative Asylum)',
-		'Career counselling',
-		'Cultural centres',
-		'Drop-in centres for LGBTQ youth',
-		'Gender-neutral restrooms',
-		'Gender-neutral washrooms',
-		'LGBTQ centres',
-		'Reception services',
-		'Language classes',
-		'Private therapy and counselling',
-		'Physical evaluations for refugee claim',
-		'Psychological evaluations for refugee claim',
-		'Refugee claim'
+		'services.asylum-application-in-mexico',
+		'services.asylum-application-in-united-states-from-mexico',
+		'services.career-counselling',
+		'services.cultural-centres',
+		'services.drop-in-centres-lgbtq-youth',
+		'services.gender-neutral-restrooms',
+		'services.gender-neutral-washrooms',
+		'services.lgbtq-centres',
+		'services.reception-services',
+		'services.language-classes',
+		'services.private-therapy-counselling',
+		'services.physical-evaluations-for-refugee',
+		'services.psychological-evaluation-for-refugee',
+		'services.refugee-claim'
 	],
 	en_CA: [
-		'Abortion services',
-		'Asylum application (Affirmative Asylum)',
-		'Asylum application in Mexico (Affirmative Asylum)',
-		'Asylum application in the US from Mexico (Affirmative Asylum)',
-		'Career counseling',
-		'Cultural centers',
-		'Deferred Action for Childhood Arrivals (DACA)',
-		'Drop-in centers for LGBTQ youth',
-		'English classes',
-		'Gender-neutral bathrooms',
-		'Gender-neutral restrooms',
-		'LGBTQ centers',
-		'Physical evaluations for asylum claim',
-		'Private therapy and counseling',
-		'Psychological evaluations for asylum claim',
-		'Special Immigrant Juvenile Status (SIJS)',
-		'Sponsors'
+		'services.asylum-application',
+		'services.asylum-application-in-mexico',
+		'services.asylum-application-in-united-states-from-mexico',
+		'services.career-counseling',
+		'services.cultural-centers',
+		'services.deferred-action-childhood-arrivals',
+		'services.drop-in-centers-lgbtq-youth',
+		'services.english-classes',
+		'services.gender-neutral-bathrooms',
+		'services.gender-neutral-restrooms',
+		'services.lgbtq-centers',
+		'services.physical-evaluations-for-asylum',
+		'services.private-therapy-counseling',
+		'services.psychological-evaluation-for-asylum',
+		'services.special-immigrant-juvenile-status',
+		'services.sponsors'
 	],
 	en_MX: [
-		'Abortion services',
-		'Asylum application (Affirmative Asylum)',
-		'Career counselling',
-		'Cultural centres',
-		'Deferred Action for Childhood Arrivals (DACA)',
-		'Drop-in centres for LGBTQ youth',
-		'English classes',
-		'Gender-neutral restrooms',
-		'Gender-neutral washrooms',
-		'Legal hotlines',
-		'LGBTQ centres',
-		'Mail',
-		'Physical evaluations for refugee claim',
-		'Private therapy and counselling',
-		'Psychological evaluations for refugee claim',
-		'Reception services',
-		'Refugee claim',
-		'Short-term housing',
-		'Special Immigrant Juvenile Status (SIJS)',
-		'Sponsors'
+		'services.asylum-application',
+		'services.career-counselling',
+		'services.cultural-centres',
+		'services.deferred-action-childhood-arrivals',
+		'services.drop-in-centres-lgbtq-youth',
+		'services.english-classes',
+		'services.gender-neutral-restrooms',
+		'services.gender-neutral-washrooms',
+		'services.legal-hotlines',
+		'services.lgbtq-centres',
+		'service-type.mail',
+		'services.physical-evaluations-for-refugee',
+		'services.private-therapy-counselling',
+		'services.psychological-evaluation-for-refugee',
+		'services.reception-services',
+		'services.refugee-claim',
+		'services.short-term-housing',
+		'services.special-immigrant-juvenile-status',
+		'services.sponsors'
+	],
+	es_MX: [
+		'services.asylum-application',
+		'services.career-counselling',
+		'services.cultural-centres',
+		'services.deferred-action-childhood-arrivals',
+		'services.drop-in-centres-lgbtq-youth',
+		'services.english-classes',
+		'services.gender-neutral-restrooms',
+		'services.gender-neutral-washrooms',
+		'services.legal-hotlines',
+		'services.lgbtq-centres',
+		'service-type.mail',
+		'services.physical-evaluations-for-refugee',
+		'services.private-therapy-counselling',
+		'services.psychological-evaluation-for-refugee',
+		'services.reception-services',
+		'services.refugee-claim',
+		'services.short-term-housing',
+		'services.special-immigrant-juvenile-status',
+		'services.sponsors'
 	]
 };
 const filterResourceType = function (item, locale) {

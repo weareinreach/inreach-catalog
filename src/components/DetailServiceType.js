@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 import Grid from '@material-ui/core/Grid';
 
 import ACBadge from './Badge';
@@ -11,6 +12,8 @@ const ServiceType = (props) => {
 	let subcategories = [];
 	let categories = [];
 	let list = false;
+
+	const intl = useIntl();
 
 	if (props.list && props.list.length) {
 		props.list.map((item) => {
@@ -66,28 +69,25 @@ const ServiceType = (props) => {
 									) {
 										listedTags.push(tag.label);
 										return (
-											<Grid item xs={12}>
-												<span key={index} style={{position: 'relative'}}>
-													<ACBadge
-														extraClasses={{
-															icon: props.classes.serviceBadge,
-															tooltip: props.classes.serviceTooltip
-														}}
-														type={tag.type}
-														mobileLabel={tag.label}
-														width="48px"
-														height="48px"
-													/>
-													{!props.isMobile && (
-														<p className={props.classes.serviceText}>
-															{tag.label}
-														</p>
-													)}
-												</span>
-											</Grid>
+											<span key={index} style={{position: 'relative'}}>
+												<ACBadge
+													extraClasses={{
+														icon: props.classes.serviceBadge,
+														tooltip: props.classes.serviceTooltip
+													}}
+													type={tag.type}
+													mobileLabel={intl.formatMessage({id: tag.label})}
+													width="48px"
+													height="48px"
+												/>
+												{!props.isMobile && (
+													<p className={props.classes.serviceText}>
+														<FormattedMessage id={tag.label} />
+													</p>
+												)}
+											</span>
 										);
 									}
-
 									return null;
 							  })
 							: null}

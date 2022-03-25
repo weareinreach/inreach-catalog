@@ -9,8 +9,8 @@ const enCA = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States InReach App!':
-		'Welcome to the Canada InReach App!',
+	'Welcome to the United States AsylumConnect Catalog!':
+		'Welcome to the Canada AsylumConnect Catalog!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in the Canada',
 	'Physical evaluations for asylum claim':
@@ -33,8 +33,8 @@ const enMX = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States InReach App!':
-		'Welcome to the Mexico InReach App!',
+	'Welcome to the United States AsylumConnect Catalog!':
+		'Welcome to the Mexico AsylumConnect Catalog!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in Mexico',
 	'Physical evaluations for asylum claim':
@@ -49,7 +49,7 @@ const enMX = {
 };
 
 //will need this once the catalog is fully translated to Spanish (also need to translate this section)
-/*const esMX = {
+const esMX = {
 	'Start typing county, city or state in the US…':
 		'Start typing city or state in Mexico…',
 	'Download Legal Guides on LGBTQ Asylum in the U.S.':
@@ -58,8 +58,8 @@ const enMX = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States InReach App!':
-		'Welcome to the Mexico InReach App!',
+	'Welcome to the United States AsylumConnect Catalog!':
+		'Welcome to the Mexico AsylumConnect Catalog!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in Mexico',
 	'Physical evaluations for asylum claim':
@@ -71,7 +71,7 @@ const enMX = {
 	'Private therapy and counseling': 'Private therapy and counselling',
 	39.8333333: '23.634501',
 	'-98.585522': '-102.552784'
-}*/
+};
 
 export const fetchLocale = (locale) => {
 	switch (locale) {
@@ -79,9 +79,8 @@ export const fetchLocale = (locale) => {
 			return enCA;
 		case 'en_MX':
 			return enMX;
-		//will need this once the catalog is fully translated to Spanish
-		/* case 'es_MX':
-			return esMX; */
+		case 'es_MX':
+			return esMX;
 		case 'en_US':
 		default:
 			return enUS;
