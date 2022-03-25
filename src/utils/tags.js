@@ -275,7 +275,7 @@ const resourceTypes = [
 		title: 'services.abortion-services'
 	},
 	{
-		category: 'Medical',
+		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'COVID-19 services',
 		title: 'services.covid-19'
