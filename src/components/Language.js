@@ -125,6 +125,11 @@ const styles = (theme) => ({
 		width: '35px',
 		height: '30px',
 		paddingRight: '3px'
+	},
+	underline: {
+		borderBottom: 'solid',
+		width: '90%',
+		marginLeft: '5%'
 	}
 });
 
@@ -156,14 +161,14 @@ class Language extends React.Component {
 		this.state = {
 			open: false,
 			langsList: ValidLanguageList.all(),
+			acLangsList: ValidLanguageList.ac(),
 			selectedLang: 'English'
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleReload = this.handleReload.bind(this);
-		this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(
-			this
-		);
+		this.handleRequestCloseAfterSelect =
+			this.handleRequestCloseAfterSelect.bind(this);
 		this.generateLanguageItems = this.generateLanguageItems.bind(this);
 		this.generateLanguageList = this.generateLanguageList.bind(this);
 		this.generateLabelWithIcon = this.generateLabelWithIcon.bind(this);
@@ -171,10 +176,27 @@ class Language extends React.Component {
 		this.handleOnFilterBarClick = this.handleOnFilterBarClick.bind(this);
 	}
 
+	//google translate languages
 	generateLanguageItems() {
 		return (
 			<Fragment>
 				{this.state.langsList.map((lang, index) => (
+					<LangMenuItem
+						key={index}
+						langName={lang.local}
+						langCode={lang['1']}
+						handleSelectLang={this.handleRequestCloseAfterSelect}
+					/>
+				))}
+			</Fragment>
+		);
+	}
+
+	//ac native languages
+	generateACLanguageItems() {
+		return (
+			<Fragment>
+				{this.state.acLangsList.map((lang, index) => (
 					<LangMenuItem
 						key={index}
 						langName={lang.local}
@@ -196,6 +218,16 @@ class Language extends React.Component {
 				].join(' ')}
 				spacing={3}
 			>
+				<ListSubheader className={this.props.classes.poweredByGoogle}>
+					<FormattedMessage
+						id="language.ac-attribution"
+						defaultMessage="Provided by AsylumConnect"
+					>
+						{(poweredBy) => <span>{poweredBy}</span>}
+					</FormattedMessage>
+				</ListSubheader>
+				{this.generateACLanguageItems()}
+				<div className={this.props.classes.underline} />
 				<div className={this.props.classes.filterInputBar}>
 					<Filter
 						className={this.props.classes.filterFormControl}
@@ -276,7 +308,7 @@ class Language extends React.Component {
 
 	handleRequestCloseAfterSelect(langCode, langName) {
 		this.setState({open: false, selectedLang: langName});
-		window.location.hash = '#googtrans(' + langCode + ')';
+		// window.location.hash = '#googtrans(' + langCode + ')';
 		language.setLanguage(langName);
 		//window.localStorage.setItem('lang', langName);
 		this.handleSelect(langCode, langName);
