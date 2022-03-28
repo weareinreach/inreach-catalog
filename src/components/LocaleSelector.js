@@ -30,6 +30,14 @@ const supportedLocales = [
 	{name: '🌎 Other / Travel Support', code: 'intl'}
 ];
 
+const supportedLocalesList = [
+	{name: '🇨🇦 Canada', code: 'en_CA'},
+	{name: '🇲🇽 Mexico', code: 'en_MX'},
+	{name: '🇲🇽 Mexico', code: 'es_MX'},
+	{name: '🇺🇸 United States', code: 'en_US'},
+	{name: '🌎 Other / Travel Support', code: 'intl'}
+];
+
 class LocaleSelector extends React.Component {
 	constructor(props) {
 		super(props);
@@ -61,7 +69,9 @@ class LocaleSelector extends React.Component {
 	}
 
 	getLocaleNameFromCode(code) {
-		let selectedLocale = supportedLocales.filter((item) => item.code === code);
+		let selectedLocale = supportedLocalesList.filter(
+			(item) => item.code === code
+		);
 		if (selectedLocale.length) {
 			return selectedLocale[0].name;
 		} else {

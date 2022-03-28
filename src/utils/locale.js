@@ -48,7 +48,6 @@ const enMX = {
 	'-98.585522': '-102.552784'
 };
 
-//will need this once the catalog is fully translated to Spanish (also need to translate this section)
 const esMX = {
 	'Start typing county, city or state in the US…':
 		'Start typing city or state in Mexico…',

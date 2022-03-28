@@ -2,12 +2,12 @@ import langs from 'langs/data';
 
 var validLangs = [
 	{name: 'Arabic'},
-	{name: 'English'},
+	// {name: 'English'},
 	{name: 'French'},
 	{name: 'Hindi'},
 	{name: 'Russian'},
 	{name: 'Somali'},
-	{name: 'Spanish'},
+	// {name: 'Spanish'},
 	{name: 'Chinese (Simplified)', 1: 'zh-cn', local: '廣東話'},
 	{name: 'Chinese (Traditional)', 1: 'zh-tw', local: '台語'},
 	{name: 'Afrikaans'},
@@ -109,11 +109,14 @@ var validLangs = [
 	{name: 'Zulu'}
 ];
 
+var validACLangs = [{name: 'English'}, {name: 'Spanish'}];
+
 var ValidLanguageList = {
 	all: getValidLanguagueList,
 	byCode: getValidLanguageByCode,
 	codeByName: getValidLanguageCodeByName,
-	filteredLanguageList: getFilteredLanguageList
+	filteredLanguageList: getFilteredLanguageList,
+	ac: getValidACLanguageList
 };
 
 function getValidLanguagueList() {
@@ -127,6 +130,19 @@ function getValidLanguagueList() {
 		});
 	}
 	return validLangs;
+}
+
+function getValidACLanguageList() {
+	for (var validLang of validACLangs) {
+		// eslint-disable-next-line
+		langs.forEach(function (lang) {
+			if (lang['name'] === validLang['name']) {
+				validLang['1'] = lang['1'];
+				validLang['local'] = lang['local'];
+			}
+		});
+	}
+	return validACLangs;
 }
 
 function getValidLanguageByCode(code) {
