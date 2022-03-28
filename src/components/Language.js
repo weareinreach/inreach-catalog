@@ -212,6 +212,22 @@ class Language extends React.Component {
 		);
 	}
 
+	//ac native languages
+	generateACLanguageItems() {
+		return (
+			<Fragment>
+				{this.state.acLangsList.map((lang, index) => (
+					<LangMenuItem
+						key={index}
+						langName={lang.local}
+						langCode={lang['1']}
+						handleSelectLang={this.handleRequestCloseAfterSelect}
+					/>
+				))}
+			</Fragment>
+		);
+	}
+
 	generateLanguageList() {
 		return (
 			<List
@@ -326,6 +342,7 @@ class Language extends React.Component {
 			//use google translate
 			window.location.hash = '#googtrans(' + langCode + ')';
 		}
+		// window.location.hash = '#googtrans(' + langCode + ')';
 		language.setLanguage(langName);
 		// window.localStorage.setItem('lang', langName);
 		this.handleSelect(langCode, langName);
