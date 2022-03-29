@@ -104,7 +104,7 @@ export const setLocale = (locale) => {
 	window.localStorage.setItem('locale', locale);
 };
 
-export const removeLocale = () => {
+export const clearLocale = () => {
 	window.localStorage.removeItem('locale');
 };
 
