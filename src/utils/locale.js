@@ -108,6 +108,10 @@ export const clearLocale = () => {
 	window.localStorage.removeItem('locale');
 };
 
+export const removeLocale = () => {
+	window.localStorage.removeItem('locale');
+};
+
 export const localeTagMap = {
 	en_CA: 'canada',
 	en_MX: 'mexico',

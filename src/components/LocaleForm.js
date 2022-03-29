@@ -208,6 +208,7 @@ class LocaleForm extends React.Component {
 		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
+
 		if (isMobile) {
 			return (
 				<Grid container style={{margin: '16px'}}>
@@ -244,7 +245,6 @@ class LocaleForm extends React.Component {
 							<FormattedMessage id="navigation.next" />
 						</AsylumConnectButton>
 					</Grid>
-
 				</Grid>
 			);
 		} else {
