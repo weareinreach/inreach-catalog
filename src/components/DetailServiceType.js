@@ -69,23 +69,25 @@ const ServiceType = (props) => {
 									) {
 										listedTags.push(tag.label);
 										return (
-											<span key={index} style={{position: 'relative'}}>
-												<ACBadge
-													extraClasses={{
-														icon: props.classes.serviceBadge,
-														tooltip: props.classes.serviceTooltip
-													}}
-													type={tag.type}
-													mobileLabel={intl.formatMessage({id: tag.label})}
-													width="48px"
-													height="48px"
-												/>
-												{!props.isMobile && (
-													<p className={props.classes.serviceText}>
-														<FormattedMessage id={tag.label} />
-													</p>
-												)}
-											</span>
+											<Grid item xs={12}>
+												<span key={index} style={{position: 'relative'}}>
+													<ACBadge
+														extraClasses={{
+															icon: props.classes.serviceBadge,
+															tooltip: props.classes.serviceTooltip
+														}}
+														type={tag.type}
+														mobileLabel={intl.formatMessage({id: tag.label})}
+														width="48px"
+														height="48px"
+													/>
+													{!props.isMobile && (
+														<p className={props.classes.serviceText}>
+															<FormattedMessage id={tag.label} />
+														</p>
+													)}
+												</span>
+											</Grid>
 										);
 									}
 
