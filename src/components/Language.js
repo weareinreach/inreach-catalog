@@ -186,7 +186,7 @@ class Language extends React.Component {
 			<Fragment>
 				{this.state.langsList.map((lang, index) => (
 					<LangMenuItem
-						key={index}
+						// key={index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
@@ -202,7 +202,7 @@ class Language extends React.Component {
 			<Fragment>
 				{this.state.acLangsList.map((lang, index) => (
 					<LangMenuItem
-						key={index}
+						// key={index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
@@ -312,9 +312,21 @@ class Language extends React.Component {
 
 	handleRequestCloseAfterSelect(langCode, langName) {
 		this.setState({open: false, selectedLang: langName});
-		// window.location.hash = '#googtrans(' + langCode + ')';
+		if (langCode === 'en' || langCode === 'es') {
+			//clear location.hash
+			var uri = window.location.toString();
+
+			if (uri.indexOf('#') > 0) {
+				var clean_uri = uri.substring(0, uri.indexOf('#'));
+
+				window.history.replaceState({}, document.title, clean_uri);
+			}
+		} else {
+			//use google translate
+			window.location.hash = '#googtrans(' + langCode + ')';
+		}
 		language.setLanguage(langName);
-		//window.localStorage.setItem('lang', langName);
+		// window.localStorage.setItem('lang', langName);
 		this.handleSelect(langCode, langName);
 		if (this.props.autoReload) {
 			window.location.reload();

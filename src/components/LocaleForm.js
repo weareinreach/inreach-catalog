@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
+import language from '../utils/language';
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
@@ -98,10 +99,12 @@ class LocaleForm extends React.Component {
 			selectedLanguageName: false,
 			selectedLocale: false,
 			selectedLocaleName: false,
-			startingLang: this.getStartingLanguage()
+			startingLang: this.getStartingLanguage(),
+			startingLocale: this.getStartingLocale()
 		};
 
 		this.getStartingLanguage = this.getStartingLanguage.bind(this);
+		this.getStartingLocale = this.getStartingLocale.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
 		this.handleSelectLanguage = this.handleSelectLanguage.bind(this);
 		this.handleSelectLocale = this.handleSelectLocale.bind(this);
@@ -113,14 +116,36 @@ class LocaleForm extends React.Component {
 			: 'English';
 	}
 
-	handleSelectLanguage(languageCode, languageName) {
-		this.setState({
+	getStartingLocale() {
+		return window.localStorage.getItem('locale')
+			? window.localStorage.getItem('locale')
+			: 'en_US';
+	}
+
+	handleSelectLanguage = async (languageCode, languageName) => {
+		await this.setState({
 			selectedLanguage: languageCode,
 			selectedLanguageName: languageName
 		});
-	}
+	};
+
+	handleSelectLocale = async (localeCode, localeName) => {
+		this.setState({
+			selectedLocale: localeCode,
+			selectedLocaleName: localeName
+		});
+	};
 
 	handleNextClick(ev) {
+		//need to set defaults if user does not make a selection
+		//set language to english and locale to US
+		if (this.state.selectedLocaleName === false) {
+			this.handleSelectLocale('en_US', '🇺🇸 United States');
+		}
+		if (this.state.selectedLanguage === undefined) {
+			this.handleSelectLanguage('en', 'Engish');
+		}
+
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
 
@@ -149,12 +174,6 @@ class LocaleForm extends React.Component {
     } */
 	}
 
-	handleSelectLocale(localeCode, localeName) {
-		this.setState({
-			selectedLocale: localeCode
-		});
-	}
-
 	componentWillMount() {
 		this.setState({
 			startingLang: this.getStartingLanguage(),
@@ -175,7 +194,6 @@ class LocaleForm extends React.Component {
 		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
-
 		if (isMobile) {
 			return (
 				<Grid container style={{margin: '16px'}}>
@@ -212,6 +230,7 @@ class LocaleForm extends React.Component {
 							<FormattedMessage id="navigation.next" />
 						</AsylumConnectButton>
 					</Grid>
+
 				</Grid>
 			);
 		} else {

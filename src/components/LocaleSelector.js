@@ -50,6 +50,7 @@ class LocaleSelector extends React.Component {
 
 		this.handleSelectLocale = this.handleSelectLocale.bind(this);
 		this.getLocaleNameFromCode = this.getLocaleNameFromCode.bind(this);
+		this.getLocaleCodeFromName = this.getLocaleCodeFromName.bind(this);
 	}
 
 	handleSelectLocale(localeCode, localeName) {
@@ -74,6 +75,17 @@ class LocaleSelector extends React.Component {
 		);
 		if (selectedLocale.length) {
 			return selectedLocale[0].name;
+		} else {
+			return false;
+		}
+	}
+
+	getLocaleCodeFromName(name) {
+		let selectedLocale = supportedLocalesList.filter(
+			(item) => item.name === name
+		);
+		if (selectedLocale.length) {
+			return selectedLocale[0].code;
 		} else {
 			return false;
 		}

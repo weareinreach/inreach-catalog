@@ -149,6 +149,12 @@ function getValidLanguageByCode(code) {
 	for (var validLang of validLangs) {
 		if (validLang['1'] === code) {
 			return validLang['local'];
+		} else {
+			for (validLang of validACLangs) {
+				if (validLang['1'] === code) {
+					return validLang['local'];
+				}
+			}
 		}
 	}
 }
@@ -157,6 +163,12 @@ function getValidLanguageCodeByName(name) {
 	for (var validLang of validLangs) {
 		if (validLang['local'] === name) {
 			return validLang['1'];
+		} else {
+			for (var validLang of validACLangs) {
+				if (validLang['local'] === name) {
+					return validLang['1'];
+				}
+			}
 		}
 	}
 }

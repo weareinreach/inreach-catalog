@@ -15,6 +15,7 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import {StandaloneIcon} from './icons';
 import withWidth from './withWidth';
 import {getStaticPage} from '../utils/api';
+import {removeLocale} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -185,6 +186,7 @@ class Static extends React.Component {
 		this.setState({
 			locale: false
 		});
+		removeLocale();
 		this.handleLocaleSelect();
 	}
 

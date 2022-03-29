@@ -104,6 +104,10 @@ export const setLocale = (locale) => {
 	window.localStorage.setItem('locale', locale);
 };
 
+export const removeLocale = () => {
+	window.localStorage.removeItem('locale');
+};
+
 export const localeTagMap = {
 	en_CA: 'canada',
 	en_MX: 'mexico',

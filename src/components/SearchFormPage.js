@@ -14,7 +14,7 @@ import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
 import Announcement from './Announcement';
 import withWidth from './withWidth';
-import {getLocale, isLocaleSet, fetchLocaleName} from '../utils/locale';
+import {getLocale, isLocaleSet, setLocale, fetchLocaleName} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -180,6 +180,8 @@ class SearchFormContainer extends React.Component {
 		switch (locale) {
 			case 'intl':
 				redirect = '/intl/page/outside-US-and-Canada';
+				this.setState({locale: locale});
+				setLocale(locale);
 				break;
 			default:
 				this.setState({
