@@ -187,11 +187,8 @@ class Static extends React.Component {
 		this.setState({
 			locale: false
 		});
-<<<<<<< HEAD
-		clearLocale();
-=======
 		removeLocale();
->>>>>>> 'choose a different country' from intl page, now goes back to home page LocaleSelector
+		clearLocale();
 		this.handleLocaleSelect();
 	}
 
