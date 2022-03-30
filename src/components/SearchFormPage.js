@@ -15,6 +15,7 @@ import SubAnnouncement from './SubAnnouncement';
 import Announcement from './Announcement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet, setLocale, fetchLocaleName} from '../utils/locale';
+import {getLanguage, isLanguageSet, setLanguage} from '../utils/language';
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -161,7 +162,8 @@ class SearchFormContainer extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			locale: isLocaleSet() ? getLocale() : false
+			locale: isLocaleSet() ? getLocale() : false,
+			language: isLocaleSet() ? getLanguage() : false
 		};
 
 		this.handleLocaleSelect = this.handleLocaleSelect.bind(this);
@@ -213,6 +215,7 @@ class SearchFormContainer extends React.Component {
 	render() {
 		const {classes, logo, width} = this.props;
 		const {locale} = this.state;
+		const {language} = this.state;
 		const {
 			container,
 			iconButton,
@@ -336,12 +339,15 @@ class SearchFormContainer extends React.Component {
 										onLocaleReset={this.handleLocaleReset}
 										onLocaleSelect={this.handleLocaleSelect}
 										locale={locale}
+										language={language}
 									/>
 								) : (
 									<LocaleForm
 										{...this.props}
 										classes={null}
 										onLocaleSelect={this.handleLocaleSelect}
+										locale={locale}
+										language={language}
 									/>
 								)}
 							</Grid>
