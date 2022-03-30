@@ -15,3 +15,23 @@ export default {
 		window.localStorage.setItem('lang', 'English');
 	}
 };
+
+export const isLanguageSet = () => {
+	return window.localStorage.getItem('lang');
+};
+
+export const getLanguage = () => {
+	return window.localStorage.getItem('lang') || 'English';
+};
+
+export const setLanguage = (langauge) => {
+	window.localStorage.setItem('lang', langauge);
+};
+
+export const clearLanguage = () => {
+	window.localStorage.removeItem('lang');
+};
+
+export const resetLanguage = () => {
+	window.localStorage.setItem('lang', 'English');
+};
