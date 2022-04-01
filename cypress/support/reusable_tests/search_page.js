@@ -88,20 +88,20 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 		cy.getElementByTestId('tabs-value-about').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('type', 'button');
-			expect($element.children()).contain('ABOUT');
+			expect($element.children()).contain('About');
 		});
 		cy.getElementByTestId('tabs-value-visit').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('type', 'button');
 			viewport === Cypress.env('mobile')
-				? expect($element.children()).contain('VISIT (MAP)')
-				: expect($element.children()).contain('VISIT');
+				? expect($element.children()).contain('Visit (Map)')
+				: expect($element.children()).contain('Visit');
 		});
 
 		cy.getElementByTestId('tabs-value-reviews').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('type', 'button');
-			expect($element.children()).contain('REVIEWS');
+			expect($element.children()).contain('Reviews');
 		});
 
 		cy.getElementByTestId('search-result-favorite-button').then(($element) => {
@@ -131,7 +131,7 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 
 		cy.getElementByTestId('resource-details-communities').then(($element) => {
 			expect($element).to.be.visible;
-			expect($element).contain('Who this organization serves');
+			expect($element).contain('Who this resource serves');
 		});
 
 		cy.getElementByTestId('resource-details-services').then(($element) => {
@@ -141,7 +141,7 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 		cy.getElementByTestId('resource-details-language-services').then(
 			($element) => {
 				expect($element).to.be.visible;
-				expect($element).contain('Language services');
+				expect($element).contain('Language Services');
 			}
 		);
 		cy.getElementByTestId('resource-details-visit').then(($element) => {

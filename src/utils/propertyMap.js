@@ -1,50 +1,63 @@
 import _forEach from 'lodash/forEach';
 
+// each of these properties listed here (except for 'language') have a key and a value.
+// The value refers to a corresponding key in the language files (see the 'lang' directory)
+// The string in the language file is what is displayed in the app UI
 const propertyMap = {
 	'additional-info': {
-		'at-capacity': 'At capacity',
-		'geo-near-public-transit': 'Near public transportation',
-		'geo-public-transit-description': 'Transit details: [value]',
-		'has-confidentiality-policy': 'Has a confidentiality policy',
-		'time-walk-in': 'Walk-ins welcome'
+		'at-capacity': 'resource-property.at-capacity',
+		'geo-near-public-transit': 'resource-property.near-public-transportation',
+		'geo-public-transit-description': 'resource-property.transit-details',
+		'has-confidentiality-policy':
+			'resource-property.has-confidentiality-policy',
+		'time-walk-in': 'resource-property.walk-ins-welcome'
 	},
 	community: {
-		'community-adults': 'Adults (18+)',
-		'community-africa-immigrant': 'Immigrants from Africa',
-		'community-african-american': 'African American community',
-		'community-api': 'Asian/Pacific Islander community',
-		'community-asia-immigrant': 'Immigrants from Asia',
-		'community-asylee': 'Asylum seekers',
-		'community-daca-recipient-seeker': 'DACA Recipient Seeker',
-		'community-detained-immigrant': 'Detained Immigrants',
-		'community-disabled': 'People with disabilities',
-		'community-hiv-aids': 'Individuals with HIV/AIDS',
-		'community-homeless': 'Homeless individuals',
-		'community-human-trafficking-survivor': 'Human Trafficking survivors',
-		'community-latin-america-immigrant': 'Immigrants from Latin America',
-		'community-latino': 'Latino community',
-		'community-lgbtq-youth': 'LGBTQ Youth',
-		'community-middle-east-immigrant': 'Immigrants from the Middle East',
-		'community-muslim': 'Muslim community',
-		'community-native-american': 'Native American community',
-		'community-refugee': 'Refugees',
-		'community-russia-immigrant': 'Immigrants from Russia',
-		'community-seniors': 'Seniors',
-		'community-teens': 'Teens',
-		'community-transgender':
-			'Transgender, non-binary and gender non-conforming community',
-		'community-undocumented': 'Undocumented community'
+		'community-adults': 'resource-property.community-adult',
+		'community-africa-immigrant':
+			'resource-property.community-immigrants-from-africa',
+		'community-african-american':
+			'resource-property.community-african-american',
+		'community-api': 'resource-property.community-asian-islander',
+		'community-asia-immigrant':
+			'resource-property.community-immigrants-from-asia',
+		'community-asylee': 'resource-property.community-asylum-seekers',
+		'community-daca-recipient-seeker':
+			'resource-property.community-daca-seeker',
+		'community-detained-immigrant':
+			'resource-property.community-detained-immigrants',
+		'community-disabled':
+			'resource-property.community-people-with-disabilities',
+		'community-hiv-aids': 'resource-property.community-individuals-with-hiv',
+		'community-homeless': 'resource-property.community-homeless-individuals',
+		'community-human-trafficking-survivor':
+			'resource-property.community-human-trafficking-survivors',
+		'community-latin-america-immigrant':
+			'resource-property.community-latin-immigrants',
+		'community-latino': 'resource-property.community-latino',
+		'community-lgbtq-youth': 'resource-property.community-lgbtq-youth',
+		'community-middle-east-immigrant':
+			'resource-property.community-middle-east-immigrants',
+		'community-muslim': 'resource-property.community-muslim',
+		'community-native-american': 'resource-property.community-native-american',
+		'community-refugee': 'resource-property.community-refugees',
+		'community-russia-immigrant':
+			'resource-property.community-russian-immigrants',
+		'community-seniors': 'resource-property.community-seniors',
+		'community-teens': 'resource-property.community-teenagers',
+		'community-transgender': 'resource-property.community-transgender',
+		'community-undocumented': 'resource-property.community-undocumented'
 	},
 	cost: {
-		'cost-fees': 'Costs: [value]',
-		'cost-free': 'Free of cost'
+		'cost-fees': 'resource-property.community-cost-heading',
+		'cost-free': 'resource-property.free-of-cost'
 	},
 	eligibility: {
-		'elig-age-or-over': 'Ages [value] and over',
-		'elig-age-or-under': 'Ages [value] and under',
-		'elig-age-range': 'Ages [value]',
+		'elig-age-or-over': 'resource-property.ages-over',
+		'elig-age-or-under': 'resource-property.ages-under',
+		'elig-age-range': 'resource-property.age',
 		'elig-description': '[value]',
-		'time-appointment-required': 'Appointment Required'
+		'time-appointment-required': 'resource-property.appointment-required'
 	},
 	language: {
 		'lang-american-sign-language': {name: 'American Sign Language'},
@@ -161,12 +174,12 @@ const propertyMap = {
 		'lang-yoruba': {code: 'yo'}
 	},
 	required: {
-		'req-medical-insurance': 'Medical insurance',
-		'req-photo-id': 'A photo ID',
-		'req-proof-of-age': 'Proof of age',
-		'req-proof-of-income': 'Proof of income',
-		'req-proof-of-residence': 'Proof of residence',
-		'req-referral': 'A referral'
+		'req-medical-insurance': 'resource-property.medical-insurance',
+		'req-photo-id': 'resource-property.photo-id',
+		'req-proof-of-age': 'resource-property.proof-of-age',
+		'req-proof-of-income': 'resource-property.proof-of-income',
+		'req-proof-of-residence': 'resource-property.proof-of-residence',
+		'req-referral': 'resource-property.referral'
 	}
 };
 

@@ -150,7 +150,9 @@ class Static extends React.Component {
 		getStaticPage(name).then((data) => {
 			if (data.error) {
 				this.props.history.push('/');
-				this.props.handleMessageNew('Page not found.');
+				this.props.handleMessageNew(
+					<FormattedMessage id="error.page-not-found" />
+				);
 
 				return;
 			}
@@ -182,14 +184,13 @@ class Static extends React.Component {
 			locale: false
 		});
 		this.handleLocaleSelect();
-		console.log('Its been pushed');
 	}
 
 	render() {
 		const classes = this.props.classes;
 		const lastSection = this.state.page ? this.state.page.length : 0;
 		const isMobile = this.props.width < breakpoints['sm'];
-		const localeLabel = 'Select country';
+		const localeLabel = <FormattedMessage id="app.select-country" />;
 
 		return (
 			<>
@@ -219,8 +220,7 @@ class Static extends React.Component {
 									className={classes.subheading}
 									data-test-id="static-page-header"
 								>
-									Search for verified LGBTQ- and immigrant-friendly services
-									near you
+									<FormattedMessage id="app.search-services" />
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>

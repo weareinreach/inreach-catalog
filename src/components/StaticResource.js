@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -88,7 +89,7 @@ const Resource = ({
 				className={classes.infoItem}
 				data-test-id="static-resource-header-1"
 			>
-				Who this resource serves:
+				<FormattedMessage id="resource.who-it-serves" />:
 			</Typography>
 		)}
 		{who && (
@@ -111,7 +112,7 @@ const Resource = ({
 				className={classes.infoItem}
 				data-test-id="static-resource-header-2"
 			>
-				How to use this resource:
+				<FormattedMessage id="resource.how-to-use" />:
 			</Typography>
 		)}
 		{how && (
@@ -134,7 +135,7 @@ const Resource = ({
 				className={classes.infoItem}
 				data-test-id="static-resource-header-3"
 			>
-				How to visit this resource:
+				<FormattedMessage id="resource.how-to-visit" />:
 			</Typography>
 		)}
 		{visit && (

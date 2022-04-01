@@ -103,11 +103,11 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
             });
             cy.getElementByTestId('resource-details-additional-information').then($element=>{
                 expect($element).to.be.visible;
-                expect($element).contain('Additional information');
+                expect($element).contain('Additional Information');
             });
             cy.getElementByTestId('resource-details-language-services').then($element=>{
                 expect($element).to.be.visible;
-                expect($element).contain('Language services');
+                expect($element).contain('Language Services');
             });
         });
         });
@@ -201,7 +201,7 @@ Cypress.Commands.add('testSearchDetailsPageReviewsAction',(viewport,user,org)=>{
     }
     cy.getElementByTestId('review-list-title').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain("User Reviews");
+        expect($element).contain("Reviews");
     })
     cy.getElementByTestId('review-list-comment').then($element=>{
         expect($element).to.be.visible;

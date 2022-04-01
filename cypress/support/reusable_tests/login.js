@@ -31,11 +31,11 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
         });
         cy.getElementByTestId('account-page-email').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain("Update email Address");
+            expect($element.children()).contain("Update email address");
         });
         cy.getElementByTestId('account-page-change-password').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain("Change Password");
+            expect($element.children()).contain("Update password");
         });
         cy.getElementByTestId('account-page-delete-account').then($element=>{
             expect($element).to.be.visible;
@@ -57,7 +57,7 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('account-page-logout').then($element=>{
             expect($element).to.be.visible;
-            expect($element.children()).contain("Logout");
+            expect($element.children()).contain("Sign Out");
             cy.wrap($element).click();
         });
     }else{

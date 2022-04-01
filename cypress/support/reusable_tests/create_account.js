@@ -29,7 +29,7 @@ let variables =  {
         currentLocation_content: 'New York City, NY',
         password_placeholder_content: '***',
         password_content: '1111111Kl#',
-        organization:'Another Test'
+        organization:'Surprisingly Unique Org Name"'
     },
     service_provider:{
         user:user_service_provider,
@@ -42,7 +42,7 @@ let variables =  {
         currentLocation_content: 'New York City, NY',
         password_placeholder_content: '***',
         password_content: '1111111Kl#',
-        organization:'Another Test'
+        organization:'Surprisingly Unique Org Name"'
     } 
 };
 
@@ -447,7 +447,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
 
                 cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element.children()).to.contain("Request to join Organization"); 
+                    expect($element.children()).to.contain("Request to join organization"); 
                     cy.wrap($element).click();
                 });
 
@@ -608,7 +608,7 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
 
                 cy.getElementByTestId('sign-up-form-join-organization-button').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element.children()).to.contain("Request to join Organization"); 
+                    expect($element.children()).to.contain("Request to join organization"); 
                     cy.wrap($element).click();
                 });
 

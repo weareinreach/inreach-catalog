@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
@@ -15,6 +15,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/core/styles';
+
+import ReactDOMServer from 'react-dom/server';
 
 function renderInput(inputProps) {
 	const {classes, value, ref} = inputProps;
@@ -121,7 +123,7 @@ function renderSuggestionsContainer(options) {
 							style={{fontWeight: 200}}
 							data-test-id="sign-up-form-no-organization"
 						>
-							Can't find it? Suggest a new organization here...
+							<FormattedMessage id="form.cant-find-organization" />
 						</span>
 					</MenuItem>
 				</Link>
@@ -241,7 +243,8 @@ const OrganizationAutocomplete = ({
 	organizations,
 	organizationSearch,
 	organizationSelection,
-	previousOrganizationSearch
+	previousOrganizationSearch,
+	intl
 }) => {
 	useEffect(() => {
 		organizationSelection = {name: previousOrganizationSearch};
@@ -249,6 +252,11 @@ const OrganizationAutocomplete = ({
 			handleOrganizationSearchReset();
 		}
 	}, [previousOrganizationSearch]);
+
+	const placeholderString = intl
+		.formatMessage({id: 'form.organization-name-prompt'})
+		.toString();
+
 	return (
 		<Autosuggest
 			theme={{
@@ -279,7 +287,7 @@ const OrganizationAutocomplete = ({
 			focusInputOnSuggestionClick={false}
 			inputProps={{
 				classes,
-				placeholder: 'Start typing...',
+				placeholder: placeholderString,
 				value: organizationSearch ?? organizationSelection?.name ?? '',
 				onBlur: handleBlurOrganizations,
 				onChange: handleOrganizationSearchChange
@@ -306,4 +314,6 @@ OrganizationAutocomplete.propTypes = {
 	previousOrganizationSearch: PropTypes.string
 };
 
-export default withRouter(withStyles(styles)(OrganizationAutocomplete));
+export default withRouter(
+	withStyles(styles)(injectIntl(OrganizationAutocomplete))
+);

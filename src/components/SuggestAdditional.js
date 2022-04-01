@@ -1,4 +1,5 @@
 import React from 'react';
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -101,7 +102,8 @@ class SuggestAdditional extends React.Component {
 			handleRequirementSelect,
 			selectedRequirements,
 			handleFeatureSelect,
-			selectedFeatures
+			selectedFeatures,
+			intl
 		} = this.props;
 		return (
 			<div className={classes.root}>
@@ -112,7 +114,9 @@ class SuggestAdditional extends React.Component {
 							className={classes.settingsTypeFont}
 							data-test-id="suggest-page-feature"
 						>
-							<span>Feature</span>
+							<span>
+								<FormattedMessage id="resource.features-heading" />{' '}
+							</span>
 							{this.state.openFeature ? <ExpandLess /> : <ExpandMore />}
 						</div>
 						<Collapse
@@ -126,7 +130,7 @@ class SuggestAdditional extends React.Component {
 											<AsylumConnectCheckbox
 												testIdName="suggest-page-feature-checkbox-options"
 												key={feature.name}
-												label={feature.label}
+												label={intl.formatMessage({id: feature.label})}
 												value={feature.name}
 												onChange={handleFeatureSelect}
 												checked={feature.value}
@@ -142,7 +146,9 @@ class SuggestAdditional extends React.Component {
 							className={classes.settingsTypeFont}
 							data-test-id="suggest-page-requirement"
 						>
-							<span>Requirement</span>
+							<span>
+								<FormattedMessage id="resource.requirements-heading" />
+							</span>
 							{this.state.openRequirement ? <ExpandLess /> : <ExpandMore />}
 						</div>
 						<Collapse
@@ -156,7 +162,7 @@ class SuggestAdditional extends React.Component {
 											<AsylumConnectCheckbox
 												testIdName="suggest-page-requirement-checkbox-options"
 												key={requirement.name}
-												label={requirement.label}
+												label={intl.formatMessage({id: requirement.label})}
 												value={requirement.name}
 												onChange={handleRequirementSelect}
 												checked={requirement.value}
@@ -182,4 +188,4 @@ SuggestAdditional.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SuggestAdditional);
+export default withStyles(styles)(injectIntl(SuggestAdditional));
