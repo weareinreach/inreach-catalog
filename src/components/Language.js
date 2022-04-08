@@ -308,15 +308,16 @@ class Language extends React.Component {
 
 	handleRequestCloseAfterSelect(langCode, langName) {
 		this.setState({open: false, selectedLang: langName});
+		console.log(langCode + ', ' + langName);
 		if (langCode === 'en' || langCode === 'es') {
 			//clear location.hash
 			var uri = window.location.toString();
-
 			if (uri.indexOf('#') > 0) {
 				var clean_uri = uri.substring(0, uri.indexOf('#'));
-
 				window.history.replaceState({}, document.title, clean_uri);
 			}
+			//also clear googltrans cookie
+			document.cookie = 'googtrans=; path=/;Max-Age=0;';
 		} else {
 			//use google translate
 			window.location.hash = '#googtrans(' + langCode + ')';
