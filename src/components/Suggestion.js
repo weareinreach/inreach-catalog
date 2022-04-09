@@ -224,6 +224,10 @@ class Suggestion extends React.Component {
 						}
 					});
 				}
+				if (results.length && results[0].geometry.location) {
+					updatedLocation.lat = results[0].geometry.location.lat();
+					updatedLocation.long = results[0].geometry.location.lng();
+				}
 			})
 			.catch((error) => {
 				this.props.handleMessageNew(
@@ -421,7 +425,9 @@ class Suggestion extends React.Component {
 					},
 					city: {$set: location ? location.city : ''},
 					state: {$set: location ? location.state : ''},
-					zip_code: {$set: location ? location.zip_code : ''}
+					zip_code: {$set: location ? location.zip_code : ''},
+					lat: {$set: location ? location.lat : ''},
+					long: {$set: location ? location.long : ''}
 				}
 			}
 		});
