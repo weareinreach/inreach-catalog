@@ -492,6 +492,8 @@ class Suggestion extends React.Component {
 		const locale = this?.props?.match?.params?.locale;
 		const {name, website, description, phones} = resourceData;
 
+		const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
+
 		return (
 			<div className={classes.root}>
 				<div>
@@ -620,6 +622,7 @@ class Suggestion extends React.Component {
 						)}
 						.
 					</Typography>
+
 					<SuggestInfo
 						address={address}
 						country={this.props.country}
@@ -638,57 +641,60 @@ class Suggestion extends React.Component {
 						handleSelectNonEngServices={this.handleSelectNonEngServices}
 						{...this.props}
 					/>
+					{!this.props.organizationSelection ? (
+						<>
+							<SuggestHour
+								schedule={defaultSchedule}
+								selectedDays={selectedDays}
+								handleChange={this.handleChangeSchedule}
+								handleDaySelect={this.handleDaySelect}
+							/>
 
-					<SuggestHour
-						schedule={defaultSchedule}
-						selectedDays={selectedDays}
-						handleChange={this.handleChangeSchedule}
-						handleDaySelect={this.handleDaySelect}
-					/>
+							<SuggestAdditional
+								handleRequirementSelect={this.handleRequirementSelect}
+								selectedRequirements={requirements}
+								handleFeatureSelect={this.handleFeatureSelect}
+								selectedFeatures={features}
+								handleTagSelect={this.handleTagSelect}
+								selectedTags={tags}
+								locale={this.props.locale}
+								t={this.props.t}
+							/>
 
-					<SuggestAdditional
-						handleRequirementSelect={this.handleRequirementSelect}
-						selectedRequirements={requirements}
-						handleFeatureSelect={this.handleFeatureSelect}
-						selectedFeatures={features}
-						handleTagSelect={this.handleTagSelect}
-						selectedTags={tags}
-						locale={this.props.locale}
-						t={this.props.t}
-					/>
-
-					{!isSent ? (
-						<div>
-							<AsylumConnectButton
-								variant="secondary"
-								testIdName="suggest-page-suggest-button"
-								onClick={this.handleClick}
-								disabled={this.props.organizationSelection}
-							>
-								<FormattedMessage id="suggestion.suggest-resource-new" />
-							</AsylumConnectButton>
-							<Typography
-								type="body1"
-								className={classes.extraMargin}
-								data-test-id="suggest-page-footer"
-							>
-								<FormattedMessage id="resource.changes-subject-to-review" />
-							</Typography>
-						</div>
-					) : (
-						<div className={classes.settingsTypeFont}>
-							<span>
-								<FormattedMessage id="resource.change-request-received" />{' '}
-								<a
-									href="mailto:catalog@asylumconnect.org"
-									className={classes.boldFont}
-								>
-									catalog@asylumconnect.org
-								</a>
-								.
-							</span>
-						</div>
-					)}
+							{!isSent ? (
+								<div>
+									<AsylumConnectButton
+										variant="secondary"
+										testIdName="suggest-page-suggest-button"
+										onClick={this.handleClick}
+										disabled={this.props.organizationSelection}
+									>
+										<FormattedMessage id="suggestion.suggest-resource-new" />
+									</AsylumConnectButton>
+									<Typography
+										type="body1"
+										className={classes.extraMargin}
+										data-test-id="suggest-page-footer"
+									>
+										<FormattedMessage id="resource.changes-subject-to-review" />
+									</Typography>
+								</div>
+							) : (
+								<div className={classes.settingsTypeFont}>
+									<span>
+										<FormattedMessage id="resource.change-request-received" />{' '}
+										<a
+											href="mailto:catalog@asylumconnect.org"
+											className={classes.boldFont}
+										>
+											catalog@asylumconnect.org
+										</a>
+										.
+									</span>
+								</div>
+							)}
+						</>
+					) : null}
 				</div>
 			</div>
 		);

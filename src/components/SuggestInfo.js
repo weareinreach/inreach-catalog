@@ -44,6 +44,19 @@ function TextMaskCustom(props) {
 	);
 }
 
+function getOrgEmails(organizationSelection) {
+	let orgEmail = '';
+	if (organizationSelection && organizationSelection.emails) {
+		organizationSelection.emails.forEach(getEmail);
+		function getEmail(item) {
+			if (item.is_primary) {
+				orgEmail = item.email;
+			}
+		}
+	}
+	return orgEmail;
+}
+
 const styles = (theme) => ({
 	root: {},
 	form: {
@@ -258,140 +271,184 @@ class SuggestInfo extends React.Component {
 							/>
 						</p>
 					) : null}
-					<FormControl className={classes.inputAddressLabel}>
-						<InputLabel
-							children={intl.formatMessage({id: 'suggestion.address'}) + ':'}
-							shrink
-							data-test-id="suggest-page-address"
-						/>
-						<PlacesAutocomplete
-							onChange={this.handlePlaceSelect}
-							onSelect={this.handlePlaceSelect}
-							searchOptions={searchOptions}
-							value={address}
-						>
-							{({
-								getInputProps,
-								suggestions,
-								getSuggestionItemProps,
-								loading
-							}) => (
-								<div
-									className={classes.searchInputContainer}
-									data-test-id="suggest-page-address-input"
+					{!organizationSelection ? (
+						<>
+							<FormControl className={classes.inputAddressLabel}>
+								<InputLabel
+									children={
+										intl.formatMessage({id: 'suggestion.address'}) + ':'
+									}
+									shrink
+									data-test-id="suggest-page-address"
+								/>
+								<PlacesAutocomplete
+									onChange={this.handlePlaceSelect}
+									onSelect={this.handlePlaceSelect}
+									searchOptions={searchOptions}
+									value={
+										organizationSelection
+											? organizationSelection.address
+											: address
+									}
 								>
-									<input
-										{...getInputProps({
-											type: 'text',
-											className:
-												classes.placesContainer +
-												' ' +
-												classes.placesContainer2,
-											placeholder: t(placeholderAddressString),
-											name: 'search--near',
-											id: 'search--near'
-										})}
-									/>
-									<div className={classes.placesContainer}>
-										{loading && (
-											<div>
-												<FormattedMessage id="form.resource-email-address-placeholder" />
+									{({
+										getInputProps,
+										suggestions,
+										getSuggestionItemProps,
+										loading
+									}) => (
+										<div
+											className={classes.searchInputContainer}
+											data-test-id="suggest-page-address-input"
+										>
+											<input
+												{...getInputProps({
+													type: 'text',
+													className:
+														classes.placesContainer +
+														' ' +
+														classes.placesContainer2,
+													placeholder: t(placeholderAddressString),
+													name: 'search--near',
+													id: 'search--near'
+												})}
+											/>
+											<div className={classes.placesContainer}>
+												{loading && (
+													<div>
+														<FormattedMessage id="form.resource-email-address-placeholder" />
+													</div>
+												)}
+												{suggestions.map((suggestion) => {
+													return (
+														<ListItem
+															button
+															key={suggestion.id}
+															divider={true}
+															dense={true}
+															{...getSuggestionItemProps(suggestion)}
+														>
+															<ListItemIcon>
+																<PlaceIcon />
+															</ListItemIcon>
+															<ListItemText
+																primary={
+																	suggestion?.formattedSuggestion?.mainText
+																}
+																secondary={
+																	suggestion?.formattedSuggestion?.secondaryText
+																}
+															/>
+														</ListItem>
+													);
+												})}
 											</div>
-										)}
-										{suggestions.map((suggestion) => {
-											return (
-												<ListItem
-													button
-													key={suggestion.id}
-													divider={true}
-													dense={true}
-													{...getSuggestionItemProps(suggestion)}
-												>
-													<ListItemIcon>
-														<PlaceIcon />
-													</ListItemIcon>
-													<ListItemText
-														primary={suggestion?.formattedSuggestion?.mainText}
-														secondary={
-															suggestion?.formattedSuggestion?.secondaryText
-														}
-													/>
-												</ListItem>
-											);
-										})}
-									</div>
-								</div>
-							)}
-						</PlacesAutocomplete>
-					</FormControl>
-					<TextField
-						data-test-id="suggest-page-about"
-						className={classes.inputLabel}
-						label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
-						name="description"
-						value={description}
-						multiline={true}
-						InputLabelProps={{
-							shrink: true
-						}}
-						placeholder={intl.formatMessage({
-							id: 'form.resource-description-placeholder'
-						})}
-						onChange={this.handleChange}
-					/>
-					<FormControl className={classes.inputAddressLabel}>
-						<InputLabel
-							children={
-								intl.formatMessage({id: 'resource.language-services'}) + ':'
-							}
-							shrink
-						/>
-						<SuggestInfoNonEngServices
-							services={nonEngServices}
-							handleClick={this.handleServiceSelect}
-							handleDelete={this.handleServiceDelete}
-						/>
-					</FormControl>
-					<TextField
-						data-test-id="suggest-page-website"
-						className={classes.inputLabel}
-						label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
-						name="website"
-						value={website}
-						InputLabelProps={{
-							shrink: true
-						}}
-						placeholder={intl.formatMessage({id: 'form.website-placeholder'})}
-						onChange={this.handleChange}
-					/>
-					<FormControl className={classes.inputLabel}>
-						<InputLabel
-							children={
-								intl.formatMessage({id: 'resource.phone-numbers'}) + ':'
-							}
-							shrink
-						/>
-						<Input
-							data-test-id="suggest-page-phone-number"
-							name="digits"
-							value={digits}
-							inputComponent={TextMaskCustom}
-							onChange={this.handleChangePhone}
-						/>
-					</FormControl>
-					<TextField
-						data-test-id="suggest-page-email"
-						className={classes.inputLabel}
-						label={intl.formatMessage({id: 'resource.email-label'}) + ':'}
-						name="email"
-						type="text"
-						value={emails.join(', ')}
-						InputLabelProps={{
-							shrink: true
-						}}
-						placeholder={placeholderEmailString}
-						onChange={this.handleChangeEmail}
-					/>
+										</div>
+									)}
+								</PlacesAutocomplete>
+							</FormControl>
+							<TextField
+								data-test-id="suggest-page-name"
+								className={classes.inputLabel}
+								label={intl.formatMessage({id: 'suggestion.name'}) + ':'}
+								name="name"
+								value={
+									organizationSelection ? organizationSelection.name : null
+								}
+								multiline={true}
+								InputLabelProps={{
+									shrink: true
+								}}
+								placeholder={intl.formatMessage({
+									id: 'suggestion.name'
+								})}
+								onChange={this.handleChange}
+								type="text"
+							/>
+							<TextField
+								data-test-id="suggest-page-about"
+								className={classes.inputLabel}
+								label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
+								name="description"
+								value={
+									organizationSelection
+										? organizationSelection.description
+										: null
+								}
+								multiline={true}
+								InputLabelProps={{
+									shrink: true
+								}}
+								placeholder={intl.formatMessage({
+									id: 'form.resource-description-placeholder'
+								})}
+								onChange={this.handleChange}
+								type="text"
+							/>
+							<FormControl className={classes.inputAddressLabel}>
+								<InputLabel
+									children={
+										intl.formatMessage({id: 'resource.language-services'}) + ':'
+									}
+									shrink
+								/>
+								<SuggestInfoNonEngServices
+									services={nonEngServices}
+									handleClick={this.handleServiceSelect}
+									handleDelete={this.handleServiceDelete}
+								/>
+							</FormControl>
+							<TextField
+								data-test-id="suggest-page-website"
+								className={classes.inputLabel}
+								label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
+								name="website"
+								value={
+									organizationSelection ? organizationSelection.website : null
+								}
+								InputLabelProps={{
+									shrink: true
+								}}
+								placeholder={intl.formatMessage({
+									id: 'form.website-placeholder'
+								})}
+								onChange={this.handleChange}
+							/>
+							<FormControl className={classes.inputLabel}>
+								<InputLabel
+									children={
+										intl.formatMessage({id: 'resource.phone-numbers'}) + ':'
+									}
+									shrink
+								/>
+								<Input
+									data-test-id="suggest-page-phone-number"
+									name="digits"
+									value={digits}
+									inputComponent={TextMaskCustom}
+									onChange={this.handleChangePhone}
+								/>
+							</FormControl>
+							<TextField
+								data-test-id="suggest-page-email"
+								className={classes.inputLabel}
+								label={intl.formatMessage({id: 'resource.email-label'}) + ':'}
+								name="email"
+								type="text"
+								// value={organizationSelection ? organizationSelection.emails.join(', ') : null}
+								value={
+									organizationSelection
+										? getOrgEmails(organizationSelection)
+										: null
+								}
+								InputLabelProps={{
+									shrink: true
+								}}
+								placeholder={placeholderEmailString}
+								onChange={this.handleChangeEmail}
+							/>
+						</>
+					) : null}
 				</form>
 			</div>
 		);
