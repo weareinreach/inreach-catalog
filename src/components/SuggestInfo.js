@@ -152,10 +152,12 @@ class SuggestInfo extends React.Component {
 		this.handleServiceSelect = this.handleServiceSelect.bind(this);
 		this.handleServiceDelete = this.handleServiceDelete.bind(this);
 	}
-	handleChange(value) {
+
+	handleChange(event) {
 		// Checks value from resource search to prevent infinite setState
-		if (value !== undefined) {
-			this.props.handleChangeGeneralInfo(value);
+		if (event !== undefined) {
+			const {name, value} = event.target;
+			this.props.handleChangeGeneralInfo(name, value);
 		}
 	}
 	handleChangePhone(e) {
@@ -273,6 +275,25 @@ class SuggestInfo extends React.Component {
 					) : null}
 					{!organizationSelection ? (
 						<>
+							<TextField
+								data-test-id="suggest-page-name"
+								className={classes.inputLabel}
+								label={intl.formatMessage({id: 'suggestion.name'}) + ':'}
+								id="name"
+								name="name"
+								value={
+									organizationSelection ? organizationSelection.name : null
+								}
+								multiline={true}
+								InputLabelProps={{
+									shrink: true
+								}}
+								placeholder={intl.formatMessage({
+									id: 'suggestion.name'
+								})}
+								onChange={this.handleChange}
+								type="text"
+							/>
 							<FormControl className={classes.inputAddressLabel}>
 								<InputLabel
 									children={
@@ -348,24 +369,6 @@ class SuggestInfo extends React.Component {
 								</PlacesAutocomplete>
 							</FormControl>
 							<TextField
-								data-test-id="suggest-page-name"
-								className={classes.inputLabel}
-								label={intl.formatMessage({id: 'suggestion.name'}) + ':'}
-								name="name"
-								value={
-									organizationSelection ? organizationSelection.name : null
-								}
-								multiline={true}
-								InputLabelProps={{
-									shrink: true
-								}}
-								placeholder={intl.formatMessage({
-									id: 'suggestion.name'
-								})}
-								onChange={this.handleChange}
-								type="text"
-							/>
-							<TextField
 								data-test-id="suggest-page-about"
 								className={classes.inputLabel}
 								label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
@@ -402,6 +405,7 @@ class SuggestInfo extends React.Component {
 								data-test-id="suggest-page-website"
 								className={classes.inputLabel}
 								label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
+								id="website"
 								name="website"
 								value={
 									organizationSelection ? organizationSelection.website : null
