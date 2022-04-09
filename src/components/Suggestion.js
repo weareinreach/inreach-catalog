@@ -468,11 +468,20 @@ class Suggestion extends React.Component {
 
 	submitResource(data) {
 		catalogPost('/organizations', data)
-			.then(() => {
-				this.setState({isSent: true});
-				this.props.handleMessageNew(
-					<FormattedMessage id="action.suggestion-received" />
-				);
+			.then((response) => {
+				if (response.status === 200) {
+					this.setState({isSent: true});
+					this.props.handleMessageNew(
+						<FormattedMessage id="action.suggestion-received" />
+					);
+				} else if (
+					(response.error && response.status.status === 401) ||
+					response.status.status === 500
+				) {
+					this.props.handleMessageNew(
+						<FormattedMessage id="error.no-location-entered" />
+					);
+				}
 			})
 			.catch(() => {
 				this.props.handleMessageNew(
