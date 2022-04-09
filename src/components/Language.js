@@ -186,7 +186,7 @@ class Language extends React.Component {
 			<Fragment>
 				{this.state.langsList.map((lang, index) => (
 					<LangMenuItem
-						// key={index}
+						key={index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
@@ -202,7 +202,7 @@ class Language extends React.Component {
 			<Fragment>
 				{this.state.acLangsList.map((lang, index) => (
 					<LangMenuItem
-						// key={index}
+						key={index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
