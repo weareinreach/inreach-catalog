@@ -498,8 +498,6 @@ class Suggestion extends React.Component {
 		const locale = this?.props?.match?.params?.locale;
 		const {name, website, description, phones} = resourceData;
 
-		const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
-
 		return (
 			<div className={classes.root}>
 				<div>
