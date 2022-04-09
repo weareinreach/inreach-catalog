@@ -673,7 +673,11 @@ class Suggestion extends React.Component {
 										variant="secondary"
 										testIdName="suggest-page-suggest-button"
 										onClick={this.handleClick}
-										disabled={this.props.organizationSelection}
+										disabled={
+											this.props.organizationSelection ||
+											!resourceData.name ||
+											!this.state.address
+										}
 									>
 										<FormattedMessage id="suggestion.suggest-resource-new" />
 									</AsylumConnectButton>
