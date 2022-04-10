@@ -185,10 +185,10 @@ class SearchFormContainer extends React.Component {
 		document.cookie = 'googtrans=; path=/;Max-Age=0;';
 
 		//reset to English and US
-		if (isLocaleSet()) {
-			this.handleLocaleSelect(getLocale());
-		}
-		this.handleLocaleSelect();
+		// if (isLocaleSet()) {
+		// 	this.handleLocaleSelect(getLocale());
+		// }
+		// this.handleLocaleSelect();
 	}
 
 	render() {
