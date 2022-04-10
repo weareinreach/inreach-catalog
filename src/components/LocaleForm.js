@@ -172,12 +172,12 @@ class LocaleForm extends React.Component {
       this.setState({
         reload: true
       });
-    } */
+    }*/
 	}
 
 	componentWillMount() {
 		this.setState({
-			startingLang: this.getStartingLanguage(),
+			selectedLanguage: this.getStartingLanguage(),
 			selectedLocale: getLocale()
 		});
 	}
