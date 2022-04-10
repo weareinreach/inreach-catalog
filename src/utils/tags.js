@@ -430,6 +430,22 @@ const localeExclusions = {
 		'services.psychological-evaluation-for-refugee',
 		'services.refugee-claim'
 	],
+	es_US: [
+		'services.asylum-application-in-mexico',
+		'services.asylum-application-in-united-states-from-mexico',
+		'services.career-counselling',
+		'services.cultural-centres',
+		'services.drop-in-centres-lgbtq-youth',
+		'services.gender-neutral-restrooms',
+		'services.gender-neutral-washrooms',
+		'services.lgbtq-centres',
+		'services.reception-services',
+		'services.language-classes',
+		'services.private-therapy-counselling',
+		'services.physical-evaluations-for-refugee',
+		'services.psychological-evaluation-for-refugee',
+		'services.refugee-claim'
+	],
 	en_CA: [
 		'services.asylum-application',
 		'services.asylum-application-in-mexico',

@@ -35,6 +35,7 @@ const supportedLocalesList = [
 	{name: '🇲🇽 Mexico', code: 'en_MX'},
 	{name: '🇲🇽 Mexico', code: 'es_MX'},
 	{name: '🇺🇸 United States', code: 'en_US'},
+	{name: '🇺🇸 United States', code: 'es_US'},
 	{name: '🌎 Other / Travel Support', code: 'intl'}
 ];
 

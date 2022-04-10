@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
+import language from '../utils/language';
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
@@ -140,9 +141,11 @@ class LocaleForm extends React.Component {
 		//set language to english and locale to US
 		if (this.state.selectedLocaleName === false) {
 			this.handleSelectLocale('en_US', '🇺🇸 United States');
+			this.getStartingLocale();
 		}
 		if (this.state.selectedLanguage === undefined) {
 			this.handleSelectLanguage('en', 'Engish');
+			this.getStartingLanguage();
 		}
 
 		if (this.state.selectedLocale) {
@@ -171,6 +174,13 @@ class LocaleForm extends React.Component {
 			this.state.selectedLanguage == 'es'
 		) {
 			this.props.changeLocale('es_US');
+		}
+
+		if (
+			this.state.selectedLanguage == 'en' &&
+			this.state.selectedLocale == 'es_US'
+		) {
+			this.props.changeLocale('en_US');
 		}
 
 		if (typeof this.props.onLocaleSelect === 'function') {
@@ -207,7 +217,7 @@ class LocaleForm extends React.Component {
 		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
-
+		
 		if (isMobile) {
 			return (
 				<Grid container style={{margin: '16px'}}>
