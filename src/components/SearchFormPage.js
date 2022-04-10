@@ -14,8 +14,14 @@ import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
 import Announcement from './Announcement';
 import withWidth from './withWidth';
-import {getLocale, isLocaleSet, setLocale, fetchLocaleName} from '../utils/locale';
-import {getLanguage, isLanguageSet, setLanguage} from '../utils/language';
+import {getLocale, isLocaleSet, setLocale, fetchLocaleName, clearLocale} from '../utils/locale';
+import {
+	getLanguage,
+	isLanguageSet,
+	setLanguage,
+	clearLanguage
+} from '../utils/language';
+
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -208,8 +214,27 @@ class SearchFormContainer extends React.Component {
 
 	handleLocaleReset() {
 		this.setState({
-			locale: false
+			locale: false,
+			language: false
 		});
+		//remove from local storage
+		clearLocale();
+		clearLanguage();
+
+		//clear uri
+		var uri = window.location.toString();
+		if (uri.indexOf('#') > 0) {
+			var clean_uri = uri.substring(0, uri.indexOf('#'));
+			window.history.replaceState({}, document.title, clean_uri);
+		}
+		//also clear googltrans cookie
+		document.cookie = 'googtrans=; path=/;Max-Age=0;';
+
+		//reset to English and US
+		if (isLocaleSet()) {
+			this.handleLocaleSelect(getLocale());
+		}
+		this.handleLocaleSelect();
 	}
 
 	render() {

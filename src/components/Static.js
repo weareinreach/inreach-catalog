@@ -15,8 +15,13 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import {StandaloneIcon} from './icons';
 import withWidth from './withWidth';
 import {getStaticPage} from '../utils/api';
-import {clearLocale} from '../utils/locale';
-import {removeLocale} from '../utils/locale';
+import {getLocale, isLocaleSet, setLocale, clearLocale, removeLocale} from '../utils/locale';
+import {
+	getLanguage,
+	isLanguageSet,
+	setLanguage,
+	clearLanguage
+} from '../utils/language';
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -170,8 +175,12 @@ class Static extends React.Component {
 		switch (locale) {
 			case 'intl':
 				redirect = '/intl/page/outside-US-and-Canada';
+				this.setState({locale: locale});
+				setLocale(locale);
 				break;
 			default:
+				clearLocale();
+				clearLanguage();
 				redirect = '/';
 				break;
 		}
@@ -180,15 +189,32 @@ class Static extends React.Component {
 
 		if (redirect) {
 			this.props.history.push(redirect);
+			window.location.reload();
 		}
 	}
 
 	handleLocaleReset() {
 		this.setState({
-			locale: false
+			locale: false,
+			language: false
 		});
 		removeLocale();
 		clearLocale();
+		clearLanguage();
+
+		//clear uri
+		var uri = window.location.toString();
+		if (uri.indexOf('#') > 0) {
+			var clean_uri = uri.substring(0, uri.indexOf('#'));
+			window.history.replaceState({}, document.title, clean_uri);
+		}
+		//also clear googltrans cookie
+		document.cookie = 'googtrans=; path=/;Max-Age=0;';
+
+		//reset to English and US
+		if (isLocaleSet()) {
+			this.handleLocaleSelect(getLocale());
+		}
 		this.handleLocaleSelect();
 	}
 

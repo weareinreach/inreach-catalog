@@ -150,11 +150,10 @@ class LangMenuItem extends React.Component {
 	render() {
 		return (
 			<AsylumConnectDropdownListItem
-				key={this.props.index}
+				key={this.props.key}
 				data-test-id="nav-button-language-item"
 				button
 				onClick={this.handleSelectLang}
-				selected={this.props.selected}
 			>
 				{this.props.langName}
 			</AsylumConnectDropdownListItem>
@@ -329,10 +328,11 @@ class Language extends React.Component {
 		} else {
 			//use google translate
 			window.location.hash = '#googtrans(' + langCode + ')';
+			console.log(window.location.hash);
 		}
 		// window.location.hash = '#googtrans(' + langCode + ')';
 		language.setLanguage(langName);
-		// window.localStorage.setItem('lang', langName);
+		//window.localStorage.setItem('lang', langName);
 		this.handleSelect(langCode, langName);
 		if (this.props.autoReload) {
 			window.location.reload();
@@ -350,9 +350,10 @@ class Language extends React.Component {
 	}
 
 	componentWillMount() {
-		var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
+		var currentLang = language.getLanguage();
+		var langCode;
 		if (window.location.hash.length !== 0) {
-			let langCode = window.location.hash
+			langCode = window.location.hash
 				.substring(window.location.hash.indexOf('(') + 1)
 				.slice(0, -1)
 				.toLowerCase();
@@ -360,7 +361,7 @@ class Language extends React.Component {
 		}
 		this.setState({selectedLang: currentLang});
 		this.handleSelect(ValidLanguageList.codeByName(currentLang), currentLang);
-		if (currentLang === 'English') {
+		if (langCode !== 'en' || langCode !== 'es') {
 			document.cookie =
 				'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
@@ -396,8 +397,7 @@ class Language extends React.Component {
 			noArrow
 		} = this.props;
 		const {selectedLang} = this.state;
-		// const selectorLabel = label || selectedLang;
-		const selectorLabel = selectedLang;
+		const selectorLabel = label || selectedLang;
 
 		const isMobile = this.props.width < breakpoints['sm'] && useMobile;
 		if (triggerReload === true) {
@@ -476,8 +476,7 @@ Language.propTypes = {
 
 LangMenuItem.propTypes = {
 	langName: PropTypes.string.isRequired,
-	langCode: PropTypes.string.isRequired,
-	index: PropTypes.string
+	langCode: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(withWidth(Language));
