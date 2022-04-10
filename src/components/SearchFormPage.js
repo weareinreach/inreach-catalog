@@ -234,7 +234,7 @@ class SearchFormContainer extends React.Component {
 		// if (isLocaleSet()) {
 		// 	this.handleLocaleSelect(getLocale());
 		// }
-		// this.handleLocaleSelect();
+		this.handleLocaleSelect();
 	}
 
 	render() {
