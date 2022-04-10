@@ -150,6 +150,7 @@ class SearchForm extends React.Component {
 			this.props;
 		const localeLabel = <FormattedMessage id="app.select-country" />;
 		const isMobile = this.props.width < breakpoints['sm'];
+		console.log(this.props.infographic);
 
 		return (
 			<div>

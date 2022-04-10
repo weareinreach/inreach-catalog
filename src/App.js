@@ -41,6 +41,7 @@ import {
 	validLocales
 } from './utils/locale';
 import en_US from './lang/en-US.json';
+import es_US from './lang/es-US.json';
 import en_CA from './lang/en-CA.json';
 import es_MX from './lang/es-MX.json';
 import en_MX from './lang/en-MX.json';
@@ -65,6 +66,7 @@ const styles = (theme) => {
 
 const LanguageMap = {
 	en_US: en_US,
+	es_US: es_US,
 	en_CA: en_CA,
 	es_MX: es_MX,
 	en_MX: en_MX,

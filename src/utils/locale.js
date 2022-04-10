@@ -1,4 +1,5 @@
 const enUS = {};
+const esUS = {};
 
 const enCA = {
 	'Start typing county, city or state in the US…':
@@ -80,13 +81,15 @@ export const fetchLocale = (locale) => {
 			return enMX;
 		case 'es_MX':
 			return esMX;
+		case 'es_US':
+			return esUS;
 		case 'en_US':
 		default:
 			return enUS;
 	}
 };
 
-export const validLocales = ['en_US', 'en_CA', 'en_MX', 'es_MX'];
+export const validLocales = ['en_US', 'es_US', 'en_CA', 'en_MX', 'es_MX'];
 
 export const resetLocale = () => {
 	window.localStorage.setItem('locale', 'en_US');
@@ -112,5 +115,6 @@ export const localeTagMap = {
 	en_CA: 'canada',
 	en_MX: 'mexico',
 	en_US: 'united_states',
-	es_MX: 'mexico'
+	es_MX: 'mexico',
+	es_US: 'united_states'
 };

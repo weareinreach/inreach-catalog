@@ -145,9 +145,11 @@ class LangMenuItem extends React.Component {
 	render() {
 		return (
 			<AsylumConnectDropdownListItem
+				key={this.props.index}
 				data-test-id="nav-button-language-item"
 				button
 				onClick={this.handleSelectLang}
+				selected={this.props.selected}
 			>
 				{this.props.langName}
 			</AsylumConnectDropdownListItem>
@@ -182,10 +184,11 @@ class Language extends React.Component {
 			<Fragment>
 				{this.state.langsList.map((lang, index) => (
 					<LangMenuItem
-						key={index}
+						key={'100' + index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
+						selected={lang.local == this.state.selectedLang}
 					/>
 				))}
 			</Fragment>
@@ -198,10 +201,11 @@ class Language extends React.Component {
 			<Fragment>
 				{this.state.acLangsList.map((lang, index) => (
 					<LangMenuItem
-						key={index}
+						key={'200' + index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
+						selected={lang.local == this.state.selectedLang}
 					/>
 				))}
 			</Fragment>
@@ -308,7 +312,6 @@ class Language extends React.Component {
 
 	handleRequestCloseAfterSelect(langCode, langName) {
 		this.setState({open: false, selectedLang: langName});
-		console.log(langCode + ', ' + langName);
 		if (langCode === 'en' || langCode === 'es') {
 			//clear location.hash
 			var uri = window.location.toString();
@@ -385,7 +388,9 @@ class Language extends React.Component {
 			enableOverlay
 		} = this.props;
 		const {selectedLang} = this.state;
-		const selectorLabel = label || selectedLang;
+		// const selectorLabel = label || selectedLang;
+		const selectorLabel = selectedLang;
+
 		const isMobile = this.props.width < breakpoints['sm'] && useMobile;
 		if (triggerReload === true) {
 			this.handleReload();
@@ -398,11 +403,12 @@ class Language extends React.Component {
 			>
 				{!isMobile ? (
 					<AsylumConnectSelector
-						label={
-							useIcon
-								? this.generateLabelWithIcon(selectorLabel, colorClass)
-								: selectorLabel
-						}
+						// label={
+						// 	useIcon
+						// 		? this.generateLabelWithIcon(selectorLabel, colorClass)
+						// 		: selectorLabel
+						// }
+						label={this.generateLabelWithIcon(selectorLabel, colorClass)}
 						containerClass={inputClass}
 						selected={[]}
 						closeOnClick={true}
@@ -458,7 +464,8 @@ Language.propTypes = {
 
 LangMenuItem.propTypes = {
 	langName: PropTypes.string.isRequired,
-	langCode: PropTypes.string.isRequired
+	langCode: PropTypes.string.isRequired,
+	index: PropTypes.string
 };
 
 export default withStyles(styles)(withWidth(Language));
