@@ -20,6 +20,7 @@ import {
 	searchInputMobile
 } from '../theme';
 import {FormattedMessage} from 'react-intl';
+import {getLocale} from '../utils/locale';
 
 const styles = (theme) => ({
 	root: {

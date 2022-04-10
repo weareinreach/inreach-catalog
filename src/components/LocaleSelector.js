@@ -125,6 +125,10 @@ class LocaleSelector extends React.Component {
 							onClick={(event) => {
 								this.handleSelectLocale(item.code, item.name);
 							}}
+							disabled={
+								this.props.selectedLanguage == 'es' &&
+								(item.code == 'en_CA' || item.code == 'intl')
+							}
 						>
 							{item.name}
 						</AsylumConnectDropdownListItem>

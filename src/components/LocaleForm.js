@@ -9,7 +9,7 @@ import Language from './Language';
 import language from '../utils/language';
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
-import {getLocale} from '../utils/locale';
+import {getLocale, setLocale} from '../utils/locale';
 import {searchInput, searchInputMobile} from '../theme';
 
 const styles = (theme) => ({
@@ -125,13 +125,12 @@ class LocaleForm extends React.Component {
 		}
 		if (this.state.selectedLanguage === undefined) {
 			this.handleSelectLanguage('en', 'Engish');
-			this.getStartingLanguage();
+			language.setLanguage('Engish');
 		}
 
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
 
-			//will need this once catalog is fully translasted to spanish
 			if (
 				this.state.selectedLocale == 'en_MX' &&
 				this.state.selectedLanguage == 'es'
@@ -141,7 +140,6 @@ class LocaleForm extends React.Component {
 				this.props.changeLocale(this.state.selectedLocale);
 			}
 		}
-
 		if (
 			this.state.selectedLanguage == 'en' &&
 			this.state.selectedLocale == 'es_MX'
@@ -224,6 +222,7 @@ class LocaleForm extends React.Component {
 					<LocaleSelector
 						label={localeLabel}
 						handleSelectLocale={this.handleSelectLocale}
+						selectedLanguage={this.state.selectedLanguage}
 					/>
 				</Grid>
 				<Grid item xs={12} className={searchButton}>
