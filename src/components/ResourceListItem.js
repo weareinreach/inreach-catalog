@@ -19,6 +19,9 @@ import SaveToFavoritesButton from './SaveToFavoritesButton';
 import withWidth from './withWidth';
 import propertyMap, {combineProperties} from '../utils/propertyMap';
 import resourceTypes, {getTags, getOrgTags} from '../utils/tags';
+import {getESData} from '../utils/utils';
+import {getLanguage} from '../utils/language';
+
 import {boldFont, breakpoints} from '../theme';
 
 const styles = (theme) => ({
@@ -128,20 +131,30 @@ class ResourceListItem extends React.Component {
 			badge,
 			badgeItem
 		} = classes;
+		const lang = getLanguage();
 		const isMobile = width < breakpoints['sm'];
 		const displayData = [
 			{
-				fieldName: 'description',
+				fieldName: lang == 'Español' ? 'description_ES' : 'description',
 				label: <FormattedMessage id="resource.about-header" />,
-				value: resource.description
+				value:
+					lang == 'Español' ? resource.description_ES : resource.description
 			}
 		];
 		const labelClass = format === 'search' ? 'hide--on-screen' : null;
-		const name = resource.name || resource.title;
+		const name =
+			lang == 'Español'
+				? resource.name_ES || resource.title_ES
+				: resource.name || resource.title;
 		const isOrganizationItem = resource.services ? true : false;
-		const link = isOrganizationItem
-			? `/${locale}/resource/${resource.slug}`
-			: `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
+		const link =
+			lang == 'Español'
+				? isOrganizationItem
+					? `/${locale}/resource/${resource.slug_ES}`
+					: `/${locale}/resource/${resource?.organization?.slug_ES}/service/${resource.slug_ES}`
+				: isOrganizationItem
+				? `/${locale}/resource/${resource.slug}`
+				: `/${locale}/resource/${resource?.organization?.slug}/service/${resource.slug}`;
 		const tags = isOrganizationItem
 			? getOrgTags(resource, locale)
 			: getTags(resource || {}, locale);
@@ -153,6 +166,7 @@ class ResourceListItem extends React.Component {
 		const commentCount =
 			resource.opportunity_comment_count + resource.comment_count;
 		let resourceIndex = resourceTypes.getResourceIndex(locale);
+
 		return (
 			<div className={paperPadding}>
 				{isMobile ? (
