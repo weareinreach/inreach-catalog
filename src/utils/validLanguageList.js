@@ -133,12 +133,12 @@ function getValidLanguagueList() {
 }
 
 function getValidACLanguageList() {
-	for (var validLang of validACLangs) {
+	for (var validACLang of validACLangs) {
 		// eslint-disable-next-line
 		langs.forEach(function (lang) {
-			if (lang['name'] === validLang['name']) {
-				validLang['1'] = lang['1'];
-				validLang['local'] = lang['local'];
+			if (lang['name'] === validACLang['name']) {
+				validACLang['1'] = lang['1'];
+				validACLang['local'] = lang['local'];
 			}
 		});
 	}
