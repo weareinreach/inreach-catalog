@@ -12,12 +12,7 @@ import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet, setLocale, clearLocale} from '../utils/locale';
-import {
-	getLanguage,
-	isLanguageSet,
-	setLanguage,
-	clearLanguage
-} from '../utils/language';
+import {getLanguage, clearLanguage} from '../utils/language';
 
 import {breakpoints, mobilePadding} from '../theme';
 

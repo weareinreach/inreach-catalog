@@ -77,7 +77,7 @@ class LocaleSelector extends React.Component {
 		if (selectedLocale.length) {
 			return selectedLocale[0].name;
 		} else {
-			return false;
+			return '';
 		}
 	}
 
@@ -88,7 +88,7 @@ class LocaleSelector extends React.Component {
 		if (selectedLocale.length) {
 			return selectedLocale[0].code;
 		} else {
-			return false;
+			return '';
 		}
 	}
 
@@ -108,7 +108,7 @@ class LocaleSelector extends React.Component {
 		return (
 			<AsylumConnectSelector
 				label={
-					this.state.selectedLocaleName
+					this.state.selectedLocaleName.length
 						? this.state.selectedLocaleName
 						: localeLabel
 				}
