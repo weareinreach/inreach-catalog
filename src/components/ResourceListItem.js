@@ -331,7 +331,7 @@ class ResourceListItem extends React.Component {
 							).length ? (
 								<Grid item xs={12}>
 									<Typography variant="body1" className={nationalOrg}>
-										<Fa name="info-circle" className={moreInfo} />
+										<Fa name="info-circle" className={moreInfo} />{' '}
 										<FormattedMessage id="resource.is-national-organization" />
 									</Typography>
 								</Grid>
