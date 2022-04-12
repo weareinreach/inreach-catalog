@@ -39,3 +39,15 @@ const sharedWithUser = (email, list) => {
 		? true
 		: false;
 };
+
+export const getESData = (orgObject, orgDataField) => {
+	// potential _ES fileds
+	// top level - website_ES, description_ES, alert_message_ES, slug_ES, name_ES
+	// phone - phone_type_ES
+	// emails - title_ES
+	// locations - name_ES, city_ES, state_ES, country_ES
+	// services - description_ES, name_ES, slug_ES, access_instructions -> access_value_ES, instructions_ES
+	return orgObject[orgDataField + '_ES']
+		? orgObject[orgDataField + '_ES']
+		: orgObject[orgDataField];
+};
