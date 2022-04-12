@@ -40,7 +40,12 @@ const sharedWithUser = (email, list) => {
 		: false;
 };
 
-export const getESData = (orgObject, orgDataField) => {
+const googleTranslate = (data, language) => {
+	console.log('google translate function called');
+	return; //google translated value
+};
+
+export const getLangData = (orgObject, language) => {
 	// potential _ES fileds
 	// top level - website_ES, description_ES, alert_message_ES, slug_ES, name_ES
 	// phone - phone_type_ES
