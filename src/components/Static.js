@@ -171,7 +171,6 @@ class Static extends React.Component {
 	}
 
 	handleLocaleSelect(locale, language) {
-		console.log(locale);
 		let redirect = false;
 		switch (locale) {
 			case 'intl':

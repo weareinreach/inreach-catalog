@@ -128,12 +128,16 @@ class ResourceListItem extends React.Component {
 			badge,
 			badgeItem
 		} = classes;
+
+		console.log(resource);
+		console.log(resource.services ? true : false);
+
 		const isMobile = width < breakpoints['sm'];
 		const displayData = [
 			{
 				fieldName: 'description',
 				label: <FormattedMessage id="resource.about-header" />,
-				value: lang == resource.description
+				value: resource.description
 			}
 		];
 		const labelClass = format === 'search' ? 'hide--on-screen' : null;
