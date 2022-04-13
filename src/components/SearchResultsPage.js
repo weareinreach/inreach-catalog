@@ -24,6 +24,7 @@ import Disclaimer from './Disclaimer';
 import withWidth from './withWidth';
 import {boldFont, breakpoints, mobilePadding} from '../theme';
 import SearchForm from './SearchForm';
+import {getLangData} from '../utils/utils';
 
 const styles = (theme) => ({
 	tooltip: {fontFamily: 'sans-serif'},
@@ -181,7 +182,6 @@ const ResultsContainer = (props) => {
 class SearchResultsContainer extends React.Component {
 	constructor(props, context) {
 		super(props, context);
-
 		this.state = {
 			tab: 0,
 			moveButton: false
@@ -268,6 +268,7 @@ class SearchResultsContainer extends React.Component {
 			tooltip,
 			nationalOrgCheckboxContainer
 		} = this.props.classes;
+
 		const searchResultsProps = {
 			containerSearchResults:
 				containerSearchResults + (this.state.tab !== 0 ? ' ' + shrinkTab : ''),
@@ -283,7 +284,7 @@ class SearchResultsContainer extends React.Component {
 			locale: this.props.locale,
 			noResults: noResults,
 			session: this.props.session,
-			searchResults: this.props.searchResults,
+			searchResults: getLangData(this.props.searchResults),
 			searching: this.props.searching,
 			user: this.props.user,
 			userData: this.props.userData

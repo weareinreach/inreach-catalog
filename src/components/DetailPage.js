@@ -53,6 +53,7 @@ import {
 	mobilePadding
 } from '../theme';
 import {getSocialMediaLinks} from './ResourceSocialMedia';
+import {getLangData} from '../utils/utils';
 
 const formatOrganization = (organization) => {
 	return {
@@ -418,7 +419,10 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getOrganizationBySlug(orgSlug).then((organization) => {
-			const formattedOrg = formatOrganization(organization);
+			let formattedOrg = formatOrganization(organization);
+			console.log(formattedOrg);
+			formattedOrg = getLangData(organization);
+			console.log(formattedOrg);
 
 			this.setState({
 				loading: false,
@@ -436,7 +440,10 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getServiceBySlug(orgSlug, serviceSlug).then((service) => {
-			const formattedService = formatService(service);
+			let formattedService = formatService(service);
+			console.log(formattedService);
+			formattedService = getLangData(service);
+			console.log(formattedService);
 
 			this.setState({
 				loading: false,

@@ -324,7 +324,6 @@ class Language extends React.Component {
 		} else {
 			//use google translate
 			window.location.hash = '#googtrans(' + langCode + ')';
-			console.log(window.location.hash);
 		}
 		language.setLanguage(langName);
 		//window.localStorage.setItem('lang', langName);
