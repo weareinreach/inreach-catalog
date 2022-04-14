@@ -419,10 +419,7 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getOrganizationBySlug(orgSlug).then((organization) => {
-			let formattedOrg = formatOrganization(organization);
-			console.log(formattedOrg);
-			formattedOrg = getLangData(organization);
-			console.log(formattedOrg);
+			const formattedOrg = formatOrganization(organization);
 
 			this.setState({
 				loading: false,
@@ -440,10 +437,7 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getServiceBySlug(orgSlug, serviceSlug).then((service) => {
-			let formattedService = formatService(service);
-			console.log(formattedService);
-			formattedService = getLangData(service);
-			console.log(formattedService);
+			const formattedService = formatService(service);
 
 			this.setState({
 				loading: false,
