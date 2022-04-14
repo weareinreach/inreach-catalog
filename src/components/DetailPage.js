@@ -625,7 +625,17 @@ class Detail extends React.Component {
 			editedOrg
 		} = this.state;
 		const type = this.isServicePage ? 'service' : 'organization';
-		const resource = this.isServicePage ? service : organization;
+		console.log(type);
+		var resource = this.isServicePage ? service : organization;
+		console.log(resource);
+		var resourceNew = resource;
+		console.log(resourceNew);
+		if (resourceNew) {
+			getLangData(resourceNew, type);
+			console.log(resourceNew);
+		}
+		console.log(resourceNew);
+
 		const {
 			_id,
 			alertMessage,

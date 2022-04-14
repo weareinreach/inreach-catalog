@@ -284,7 +284,7 @@ class SearchResultsContainer extends React.Component {
 			locale: this.props.locale,
 			noResults: noResults,
 			session: this.props.session,
-			searchResults: getLangData(this.props.searchResults),
+			searchResults: getLangData(this.props.searchResults, 'organization'),
 			searching: this.props.searching,
 			user: this.props.user,
 			userData: this.props.userData
