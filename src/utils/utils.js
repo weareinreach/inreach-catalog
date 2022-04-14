@@ -48,41 +48,34 @@ const googleTranslate = (data, language) => {
 	return; //google translated value
 };
 
-export const getLangData = (orgObjectResults) => {
-	//this function will return obejct data based on locale and language choices
-	// English + locale = English
-	// Spanish + locale = Either Native Spanish or Google translate spanish depending on the locale
-	//	// if locale is MX or US - return values from _ES fields,
-	//	// else use the google translate function and retun google translate Spanish
-	// Any language other than English or Spanish, use google translate
-	// Applicable fields to translate
-	//	// top level - website_ES, description_ES, alert_message_ES, slug_ES, name_ES
-	//	// phones - phone_type_ES
-	// 	// emails - title_ES
-	// 	// locations - name_ES, city_ES, state_ES, country_ES
-	// 	// services - description_ES, name_ES, slug_ES,
-	//	//	// services.access_instructions - access_value_ES, instructions_ES
+export const getLangData = (data, type) => {
+	// if(!orgObjectResults){
+	// 	return
+	// }else {
+	console.log(data);
+
 	const languageCode = ValidLanguageList.codeByName(getLanguage());
 
-	let tempObjectResults;
-	tempObjectResults = orgObjectResults;
+	let tempData;
+	tempData = data;
 
-	console.log(tempObjectResults);
+	console.log(tempData);
 
 	switch (languageCode) {
 		case 'es':
 			console.log('use spanish from DB');
 			//update tempObject
-			Array.isArray(tempObjectResults)
-				? tempObjectResults.forEach(changeData)
-				: changeData(tempObjectResults);
+			Array.isArray(tempData) && type == 'organization'
+				? tempData.forEach(changeData)
+				: changeData(tempData);
 			//return new object
-			return tempObjectResults;
+			return tempData;
 			break;
 		default:
 			//return the original object
-			return orgObjectResults;
+			return data;
 	}
+	// }
 
 	function whichField(item, fieldName) {
 		if (Array.isArray(item)) {
@@ -105,7 +98,9 @@ export const getLangData = (orgObjectResults) => {
 		item.alert_message
 			? whichField(item, 'alert_message')
 			: console.log('no alert_message data');
-		item.slug ? whichField(item, 'slug') : console.log('no slug data');
+		type == 'organization' && item.slug
+			? whichField(item, 'slug')
+			: console.log('no slug data');
 		item.name ? whichField(item, 'name') : console.log('no name data');
 		item.phones.length > 0
 			? whichField(item.phones, 'phone_type')
@@ -125,29 +120,51 @@ export const getLangData = (orgObjectResults) => {
 		item.locations.length > 0
 			? whichField(item.locations, 'country')
 			: console.log('no location country data');
-		item.services.length > 0
+		//for organizations only
+		type == 'organization' && item.services && item.services.length > 0
 			? whichField(item.services, 'description')
-			: console.log('no data');
-		item.services.length > 0
+			: console.log('no services description data');
+		type == 'organization' && item.services && item.services.length > 0
 			? whichField(item.services, 'name')
-			: console.log('no data');
-		item.services.length > 0
-			? whichField(item.services, 'slug')
-			: console.log('no data');
-		item.services.length > 0
+			: console.log('no services name data');
+		// type == 'organization' && item.services.length > 0
+		// 	? whichField(item.services, 'slug')
+		// 	: console.log('no services slug data');
+		type == 'organization' && item.servces && item.services.length > 0
 			? item.services.access_instructions
 				? whichField(item.services.access_instructions, 'access_value')
-				: console.log('no data')
-			: console.log('no data');
-		item.services.length > 0
+				: console.log('no access_value data')
+			: console.log('no access instructions data');
+		type == 'organization' && item.services && item.services.length > 0
 			? item.services.access_instructions
 				? whichField(item.services.access_instructions, 'instructions')
-				: console.log('no data')
-			: console.log('no data');
-		tempObjectResults[index] = item;
+				: console.log('no access_instructions data')
+			: console.log('no access instructions data');
+		//for services only
+		type == 'service' &&
+		item.access_instructions &&
+		item.access_instructions.length > 0
+			? whichField(item.access_instructions, 'access_value')
+			: console.log('no access_value data');
+		type == 'service' &&
+		item.access_instructions &&
+		item.access_instructions.length > 0
+			? whichField(item.access_instructions, 'instructions')
+			: console.log('no access_instructions data');
+		tempData[index] = item;
 	}
 
-	// orgObjectResults instanceof Array
-	// 	? console.log('object is array: ' + languageCode) //map each object in array
-	// 	: console.log('object is not array: ' + languageCode) //else update the fields of this object
+	//this function will return obejct data based on locale and language choices
+	// English + locale = English
+	// Spanish + locale = Either Native Spanish or Google translate spanish depending on the locale
+	//	// if locale is MX or US - return values from _ES fields,
+	//	// else use the google translate function and retun google translate Spanish
+	// Any language other than English or Spanish, use google translate
+	// Applicable fields to translate
+	//	// top level - website_ES, description_ES, alert_message_ES, slug_ES, name_ES
+	//	// phones - phone_type_ES
+	// 	// emails - title_ES
+	// 	// locations - name_ES, city_ES, state_ES, country_ES
+	// 	// services - description_ES, name_ES, slug_ES,
+	//	//	// services.access_instructions - access_value_ES, instructions_ES
 };

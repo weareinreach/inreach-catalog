@@ -53,7 +53,6 @@ const styles = (theme) => ({
 const DetailAccessInstructions = (props) => {
 	const {classes, email, list, location, phone, rawSchedule, website} = props;
 	let schedule;
-	console.log(list);
 	return (
 		<Grid container spacing={0}>
 			<Grid item xs={12}>
