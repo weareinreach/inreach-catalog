@@ -39,6 +39,10 @@ const SearchByLocation = (props) => {
 			country: typeof country === 'string' ? country.toLowerCase() : 'us'
 		}
 	};
+	//https://app.asana.com/0/1132189118126148/1202125382246302 find addresses in the U.S. Virgin Islands
+	if (searchOptions.componentRestrictions.country == 'us') {
+		searchOptions.componentRestrictions.country = ['us', 'vi'];
+	}
 	return (
 		<Grid item xs={12}>
 			<PlacesAutocomplete
