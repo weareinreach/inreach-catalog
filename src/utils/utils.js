@@ -1,5 +1,6 @@
 import {getLanguage} from './language';
 import ValidLanguageList from './validLanguageList';
+// const translate = require('google-translate-free');
 
 export const VISIBILITY = {
 	PRIVATE: 'private',
@@ -43,8 +44,20 @@ const sharedWithUser = (email, list) => {
 		: false;
 };
 
-const googleTranslate = (data, language) => {
+const googleTranslate = (data, languageCode) => {
 	console.log('google translate function called');
+	const translate = require('google-translate-api-without-node');
+
+	translate('Ik spreek Engels', {to: 'en'})
+		.then((res) => {
+			console.log(res.text);
+			//=> I speak English
+			console.log(res.from.language.iso);
+			//=> nl
+		})
+		.catch((err) => {
+			console.error(err);
+		});
 	return; //google translated value
 };
 
@@ -53,6 +66,8 @@ export const getLangData = (data, type) => {
 	// 	return
 	// }else {
 	console.log(data);
+	console.log('gonna call google translate');
+	googleTranslate('blah', 'blah');
 
 	const languageCode = ValidLanguageList.codeByName(getLanguage());
 
@@ -80,11 +95,13 @@ export const getLangData = (data, type) => {
 	function whichField(item, fieldName) {
 		if (Array.isArray(item)) {
 			item.forEach(function (item) {
+				googleTranslate(item[fieldName], languageCode);
 				item[fieldName] = item[fieldName + '_ES']
 					? item[fieldName + '_ES']
 					: item[fieldName];
 			});
 		} else {
+			googleTranslate(item[fieldName], languageCode);
 			item[fieldName] = item[fieldName + '_ES']
 				? item[fieldName + '_ES']
 				: item[fieldName];
