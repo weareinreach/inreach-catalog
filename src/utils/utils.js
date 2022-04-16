@@ -45,30 +45,20 @@ const sharedWithUser = (email, list) => {
 };
 
 const googleTranslate = (data, languageCode) => {
-	console.log('google translate function called');
-	const translate = require('google-translate-api-without-node');
+	console.log('in the function');
+	// var translate = require('react-node-google-translate');
 
-	translate('Ik spreek Engels', {to: 'en'})
-		.then((res) => {
-			console.log(res.text);
-			//=> I speak English
-			console.log(res.from.language.iso);
-			//=> nl
-		})
-		.catch((err) => {
-			console.error(err);
-		});
+	// translate({
+	// 	  text: 'text',
+	// 	  source: 'en',
+	// 	  target: 'es'
+	// 	}, function(result) {
+	// 	  console.log('translate function was called');
+	// 	});
 	return; //google translated value
 };
 
 export const getLangData = (data, type) => {
-	// if(!orgObjectResults){
-	// 	return
-	// }else {
-	console.log(data);
-	console.log('gonna call google translate');
-	googleTranslate('blah', 'blah');
-
 	const languageCode = ValidLanguageList.codeByName(getLanguage());
 
 	let tempData;
@@ -169,6 +159,7 @@ export const getLangData = (data, type) => {
 			? whichField(item.access_instructions, 'instructions')
 			: console.log('no access_instructions data');
 		tempData[index] = item;
+		// googleTranslate('x', 'y');
 	}
 
 	//this function will return obejct data based on locale and language choices
