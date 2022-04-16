@@ -7063,22 +7063,6 @@
   "resolved" "https://registry.npmjs.org/google-maps-infobox/-/google-maps-infobox-2.0.0.tgz"
   "version" "2.0.0"
 
-"google-translate-api-without-node@^2.3.0":
-  "integrity" "sha512-un9zdE1GQ1oXcRIErXm+IIOr1hCtlWGzGfud9DtBslbukBZme5Z4FuPwpszWhZAhFdJ/bq/r6EZBm9T67krqOA=="
-  "resolved" "https://registry.npmjs.org/google-translate-api-without-node/-/google-translate-api-without-node-2.3.0.tgz"
-  "version" "2.3.0"
-  dependencies:
-    "google-translate-token-without-node" "1.0.2"
-    "jquery" "^3.1.1"
-    "safe-eval" "^0.3.0"
-
-"google-translate-token-without-node@1.0.2":
-  "integrity" "sha1-AJ+9VJkedAFHa/o+o3MfS1dsBZQ="
-  "resolved" "https://registry.npmjs.org/google-translate-token-without-node/-/google-translate-token-without-node-1.0.2.tgz"
-  "version" "1.0.2"
-  dependencies:
-    "jquery" "^3.1.1"
-
 "graceful-fs@^4.1.11", "graceful-fs@^4.1.15", "graceful-fs@^4.1.2", "graceful-fs@^4.1.6", "graceful-fs@^4.2.0", "graceful-fs@^4.2.3", "graceful-fs@^4.2.4":
   "integrity" "sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ=="
   "resolved" "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.6.tgz"
@@ -8704,11 +8688,6 @@
     "@sideway/address" "^4.1.0"
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
-
-"jquery@^3.1.1":
-  "integrity" "sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw=="
-  "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
-  "version" "3.6.0"
 
 "js-base64@^2.1.8":
   "integrity" "sha512-pZe//GGmwJndub7ZghVHz7vjb2LgC1m8B07Au3eYqeqv9emhESByMXxaEgkUkEqJe87oBbSniGYoQNIBklc7IQ=="
@@ -12945,11 +12924,6 @@
   "integrity" "sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g=="
   "resolved" "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz"
   "version" "5.1.2"
-
-"safe-eval@^0.3.0":
-  "integrity" "sha1-Bs4RHuvZwYWrr/AI7A/P/Fxb4Aw="
-  "resolved" "https://registry.npmjs.org/safe-eval/-/safe-eval-0.3.0.tgz"
-  "version" "0.3.0"
 
 "safe-regex@^1.1.0":
   "integrity" "sha1-QKNmnzsHfR6UPURinhV91IAjvy4="
