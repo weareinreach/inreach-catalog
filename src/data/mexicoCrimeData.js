@@ -2,7 +2,7 @@ export const generalizedCrime = [
 	// 'Aguascalientes':
 	{
 		name: 'Aguascalientes',
-		data: 6.5,
+		data: 5.3,
 		lat: 22.0000001,
 		lng: -102.5000001,
 		coordinates: [
@@ -151,7 +151,7 @@ export const generalizedCrime = [
 	// 'Baja California':
 	{
 		name: 'Baja California',
-		data: 57.1,
+		data: 57.7,
 		lat: 30.0338923,
 		lng: -115.1425107,
 		coordinates: [
@@ -695,7 +695,7 @@ export const generalizedCrime = [
 	// 'Baja California Sur':
 	{
 		name: 'Baja California Sur',
-		data: 15.7,
+		data: 6.2,
 		lat: 25.5818014,
 		lng: -111.5706164,
 		coordinates: [
@@ -841,7 +841,7 @@ export const generalizedCrime = [
 	// Campeche
 	{
 		name: 'Campeche',
-		data: 10.5,
+		data: 7.5,
 		lat: 19.329205549999998,
 		lng: -89.9439148263377,
 		coordinates: [
@@ -1159,7 +1159,7 @@ export const generalizedCrime = [
 	// Chiapas
 	{
 		name: 'Chiapas',
-		data: 8.1,
+		data: 10.1,
 		lat: 16.5000001,
 		lng: -92.5000001,
 		coordinates: [
@@ -1267,7 +1267,7 @@ export const generalizedCrime = [
 	// 'Chihuahua':
 	{
 		name: 'Chihuahua',
-		data: 61.2,
+		data: 47.3,
 		lat: 28.5000001,
 		lng: -106.0000001,
 		coordinates: [
@@ -1895,7 +1895,7 @@ export const generalizedCrime = [
 	// 'Ciudad de Mexico':
 	{
 		name: 'Ciudad de Mexico',
-		data: 19.6,
+		data: 8.0,
 		lat: 19.4326296,
 		lng: -99.1331785,
 		coordinates: [
@@ -2085,7 +2085,7 @@ export const generalizedCrime = [
 	// 'Coahuila':
 	{
 		name: 'Coahuila',
-		data: 8.3,
+		data: 3.5,
 		lat: 27.3333331,
 		lng: -102.0000001,
 		coordinates: [
@@ -2613,7 +2613,7 @@ export const generalizedCrime = [
 	// 'Colima':
 	{
 		name: 'Colima',
-		data: 89.2,
+		data: 108.7,
 		lat: 19.166667,
 		lng: -104,
 		coordinates: [
@@ -2806,7 +2806,7 @@ export const generalizedCrime = [
 	// 'Durango':
 	{
 		name: 'Durango',
-		data: 7.4,
+		data: 7.5,
 		lat: 24.833333,
 		lng: -104.833333,
 		coordinates: [
@@ -3292,7 +3292,7 @@ export const generalizedCrime = [
 	// 'Estado de Mexico':
 	{
 		name: 'Estado de Mexico',
-		data: 20,
+		data: 12.6,
 		lat: 19.4839446,
 		lng: -99.6899716,
 		coordinates: [
@@ -3834,7 +3834,7 @@ export const generalizedCrime = [
 	// 'Guanajuato':
 	{
 		name: 'Guanajuato',
-		data: 65.0,
+		data: 47.3,
 		lat: 20.9876996,
 		lng: -101,
 		coordinates: [
@@ -4084,7 +4084,7 @@ export const generalizedCrime = [
 	// 'Guerrero':
 	{
 		name: 'Guerrero',
-		data: 36.5,
+		data: 33.9,
 		lat: 17.666667,
 		lng: -100,
 		coordinates: [
@@ -4671,7 +4671,7 @@ export const generalizedCrime = [
 	// 'Hidalgo'
 	{
 		name: 'Hidalgo',
-		data: 9.4,
+		data: 8.2,
 		lat: 20.5,
 		lng: -99,
 		coordinates: [
@@ -5310,7 +5310,7 @@ export const generalizedCrime = [
 	// 'Jalisco':
 	{
 		name: 'Jalisco',
-		data: 26.4,
+		data: 25,
 		lat: 20.3333331,
 		lng: -103.6666671,
 		coordinates: [
@@ -5576,7 +5576,7 @@ export const generalizedCrime = [
 	// 'Michoacan':
 	{
 		name: 'Michoacan',
-		data: 48.0,
+		data: 66.7,
 		lat: 19.207098,
 		lng: -101.878113,
 		coordinates: [
@@ -5742,7 +5742,7 @@ export const generalizedCrime = [
 	// 'Morelos':
 	{
 		name: 'Morelos',
-		data: 44.7,
+		data: 45.2,
 		lat: 18.75,
 		lng: -99,
 		coordinates: [
@@ -6468,7 +6468,7 @@ export const generalizedCrime = [
 	// 'Nayarit':
 	{
 		name: 'Nayarit',
-		data: 9.9,
+		data: 19.5,
 		lat: 21.8438765,
 		lng: -104.87148535201122,
 		coordinates: [
@@ -6967,7 +6967,7 @@ export const generalizedCrime = [
 	// 'Nuevo Leon':
 	{
 		name: 'Nuevo Leon',
-		data: 12.4,
+		data: 25.1,
 		lat: 26.2384363,
 		lng: -99.8873,
 		coordinates: [
@@ -7281,7 +7281,7 @@ export const generalizedCrime = [
 	// 'Oaxaca'
 	{
 		name: 'Oaxaca',
-		data: 16.2,
+		data: 22.5,
 		lat: 17,
 		lng: -96.5,
 		coordinates: [
@@ -7413,7 +7413,7 @@ export const generalizedCrime = [
 	// 'Puebla':
 	{
 		name: 'Puebla',
-		data: 14.0,
+		data: 18.6,
 		lat: 18.833333,
 		lng: -98,
 		coordinates: [
@@ -8199,7 +8199,7 @@ export const generalizedCrime = [
 	// 'Queretaro':
 	{
 		name: 'Queretaro',
-		data: 8.6,
+		data: 7.1,
 		lat: 20.8542575,
 		lng: -99.84756,
 		coordinates: [
@@ -8514,7 +8514,7 @@ export const generalizedCrime = [
 	// 'Quintana Roo'
 	{
 		name: 'Quintana Roo',
-		data: 22.7,
+		data: 31.0,
 		lat: 19.6666671,
 		lng: -88.5000001,
 		coordinates: [
@@ -8857,7 +8857,7 @@ export const generalizedCrime = [
 	// 'San Luis Potosi':
 	{
 		name: 'San Luis Potosi',
-		data: 25.0,
+		data: 27.1,
 		lat: 22.5000001,
 		lng: -100.5000001,
 		coordinates: [
@@ -9198,7 +9198,7 @@ export const generalizedCrime = [
 	// 'Sinaloa':
 	{
 		name: 'Sinaloa',
-		data: 27.3,
+		data: 14.5,
 		lat: 25.0000001,
 		lng: -107.5000001,
 		coordinates: [
@@ -9388,7 +9388,7 @@ export const generalizedCrime = [
 	// 'Sonora':
 	{
 		name: 'Sonora',
-		data: 38.7,
+		data: 48.0,
 		lat: 29.3333331,
 		lng: -110.6666671,
 		coordinates: [
@@ -9585,7 +9585,7 @@ export const generalizedCrime = [
 	// 'Tabasco'
 	{
 		name: 'Tabasco',
-		data: 19.8,
+		data: 13.8,
 		lat: 17.95078635,
 		lng: -92.48312213241397,
 		coordinates: [
@@ -9688,7 +9688,7 @@ export const generalizedCrime = [
 	// 'Tamaulipas'
 	{
 		name: 'Tamaulipas',
-		data: 15.2,
+		data: 12.9,
 		lat: 23.9891553,
 		lng: -98.7026825,
 		coordinates: [
@@ -10096,7 +10096,7 @@ export const generalizedCrime = [
 	// 'Tlaxcala'
 	{
 		name: 'Tlaxcala',
-		data: 10.1,
+		data: 12.8,
 		lat: 19.416667,
 		lng: -98.166667,
 		coordinates: [
@@ -10262,7 +10262,7 @@ export const generalizedCrime = [
 	// 'Veracruz'
 	{
 		name: 'Veracruz',
-		data: 12.9,
+		data: 10.6,
 		lat: 19.333333,
 		lng: -96.666667,
 		coordinates: [
@@ -10482,7 +10482,7 @@ export const generalizedCrime = [
 	// 'Yucatan'
 	{
 		name: 'Yucatan',
-		data: 1.5,
+		data: 2.8,
 		lat: 20.6845957,
 		lng: -88.8755669,
 		coordinates: [
@@ -10671,7 +10671,7 @@ export const generalizedCrime = [
 	// 'Zacatecas':
 	{
 		name: 'Zacatecas',
-		data: 98.7,
+		data: 63.4,
 		lat: 23.0000001,
 		lng: -103.0000001,
 		coordinates: [
