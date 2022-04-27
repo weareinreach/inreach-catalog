@@ -29,7 +29,7 @@ let variables =  {
         currentLocation_content: 'New York City, NY',
         password_placeholder_content: '***',
         password_content: '1111111Kl#',
-        organization:'Surprisingly Unique Org Name"'
+        organization:'Surprisingly Unique Org Name'
     },
     service_provider:{
         user:user_service_provider,
@@ -42,7 +42,7 @@ let variables =  {
         currentLocation_content: 'New York City, NY',
         password_placeholder_content: '***',
         password_content: '1111111Kl#',
-        organization:'Surprisingly Unique Org Name"'
+        organization:'Surprisingly Unique Org Name'
     } 
 };
 
@@ -370,7 +370,7 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
 });
 
 //Create Account - Lawyer   
-Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType)=>{
+Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType,org)=>{
         cy.viewport(viewport);
         cy.getElementByTestId('nav-account-sign-up').then($element => {
             cy.wrap($element).click({force: true});

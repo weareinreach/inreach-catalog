@@ -340,9 +340,10 @@ class SuggestInfo extends React.Component {
 														<FormattedMessage id="form.resource-email-address-placeholder" />
 													</div>
 												)}
-												{suggestions.map((suggestion) => {
+												{suggestions.map((suggestion, index) => {
 													return (
 														<ListItem
+															data-test-id={`suggested-address-item-${index}`}
 															button
 															key={suggestion.id}
 															divider={true}
@@ -386,7 +387,7 @@ class SuggestInfo extends React.Component {
 									id: 'form.resource-description-placeholder'
 								})}
 								onChange={this.handleChange}
-								type="text"
+								type="email"
 							/>
 							<FormControl className={classes.inputAddressLabel}>
 								<InputLabel

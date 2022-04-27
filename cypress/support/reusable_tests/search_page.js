@@ -1,5 +1,3 @@
-import {element} from 'prop-types';
-
 Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
 	cy.getElementByTestId('search-page-next-button').click();
@@ -52,9 +50,12 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	cy.viewport(viewport);
 	cy.getElementByTestId('search-page-next-button').click();
 	cy.waitFor(1000);
-	//Check checkbox
-	cy.getElementByTestId('search-page-checkbox').click();
-	cy.getElementByTestId('search-bar-input').type(org.search);
+	// //Check checkbox
+	// cy.getElementByTestId('search-page-checkbox').then($element=>{
+	// 	expect($element.children()[0].children()).to.be.checked;
+	// })
+	cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
+	cy.getElementByTestId('search-bar-input').type(org.locations[0].city + ", "+org.locations[0].state);
 	cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
 		cy.wrap($element[0]).click();
 	});
@@ -77,8 +78,12 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	cy.getElementByTestId('favorites-list-item').then(($element) => {
 		expect($element).to.be.visible;
 		//click the org
-		cy.wrap($element).click();
+		cy.wrap($element[0]).click();
 
+		cy.wait('@clickedOrg').then(responseObject =>{
+			cy.log(responseObject.response);
+		});
+		
 		cy.getElementByTestId('back-button').then(($element) => {
 			expect($element).to.be.visible;
 			if (viewport !== Cypress.env('mobile')) {
@@ -120,7 +125,7 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 			});
 		}
 
-		cy.getElementByTestId('disclaimer').then(($element) => {
+		cy.getElementByTestId('details-about').then(($element) => {
 			expect($element).to.be.visible;
 		});
 
@@ -129,21 +134,21 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 			expect($element).contain('Services');
 		});
 
-		cy.getElementByTestId('resource-details-communities').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).contain('Who this resource serves');
-		});
+		// cy.getElementByTestId('resource-details-communities').then(($element) => {
+		// 	expect($element).to.be.visible;
+		// 	expect($element).contain('Who this resource serves');
+		// });
 
 		cy.getElementByTestId('resource-details-services').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).contain('Services');
 		});
-		cy.getElementByTestId('resource-details-language-services').then(
-			($element) => {
-				expect($element).to.be.visible;
-				expect($element).contain('Language Services');
-			}
-		);
+		// cy.getElementByTestId('resource-details-language-services').then(
+		// 	($element) => {
+		// 		expect($element).to.be.visible;
+		// 		expect($element).contain('Language Services');
+		// 	}
+		// );
 		cy.getElementByTestId('resource-details-visit').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).contain('Visit');
