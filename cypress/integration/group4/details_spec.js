@@ -6,10 +6,10 @@
 
 //Test Suite
 describe('Organization Details Tests', () => {
-    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+    let viewports = [Cypress.env('desktop')]//,Cypress.env('tablet'),Cypress.env('mobile')];
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
-        cy.fixture('organization_search.json').as('organization');
+        cy.fixture('organization_suggestion.json').as('organization');
         cy.fixture('user_new.json').as('user').then(user=>{
             //Add User
             cy.addUser(user);
@@ -18,7 +18,8 @@ describe('Organization Details Tests', () => {
     afterEach(()=>{
         //Do the clean up
         cy.deleteUsersIfExist();
-        cy.deleteCommentsOrgsIfExist('nebraska-aids-project');
+        cy.deleteOrgsIfExist();
+        cy.deleteCommentsOrgsIfExist('surprisingly-unique-organizations-slug');
     });
 
     //Root
@@ -30,29 +31,38 @@ describe('Organization Details Tests', () => {
         context(`Testing the ${viewport} Version of the application`,()=>{
             it('Testing Search page Detail Page About elements',()=>{
                 cy.get('@organization').then(org=>{
-                    cy.get('@user').then(user=>{
-                        cy.testSearchDetailPageAbout(viewport,user,org);
+                    cy.addOrg(org).then(()=>{
+                        cy.get('@user').then(user=>{
+                            cy.testSearchDetailPageAbout(viewport,user,org);
+                        });
                     });
+                    
                 });
             });
             it('Testing Search page Detail Page Service elements',()=>{
                 cy.get('@organization').then(org=>{
-                    cy.get('@user').then(user=>{
-                        cy.testSearchDetailsPageService(viewport,user,org);
+                    cy.addOrg(org).then(()=>{
+                        cy.get('@user').then(user=>{
+                            cy.testSearchDetailsPageService(viewport,user,org);
+                        });
                     });
                 });
             });
             it('Testing Search page Detail Page Reviews elements',()=>{
                 cy.get('@organization').then(org=>{
-                    cy.get('@user').then(user=>{
-                        cy.testSearchDetailsPageReviews(viewport,user,org);
+                    cy.addOrg(org).then(()=>{
+                        cy.get('@user').then(user=>{
+                            cy.testSearchDetailsPageReviews(viewport,user,org);
+                        });
                     });
                 });
             });
             it('Testing Search page Detail Page Reviews Action',()=>{
                 cy.get('@organization').then(org=>{
-                    cy.get('@user').then(user=>{
-                        cy.testSearchDetailsPageReviewsAction(viewport,user,org);
+                    cy.addOrg(org).then(()=>{
+                        cy.get('@user').then(user=>{
+                            cy.testSearchDetailsPageReviewsAction(viewport,user,org);
+                        });
                     });
                 });
             });

@@ -23,6 +23,7 @@ function renderInput(inputProps) {
 
 	return (
 		<TextField
+			data-test-id="suggest-languages-input"
 			className={classes.textField}
 			value={value}
 			inputRef={ref}
