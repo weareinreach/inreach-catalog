@@ -73,7 +73,7 @@
     "@testing-library/user-event": "^10.0.2",
     "babel-plugin-istanbul": "^6.0.0",
     "babel-plugin-jsx-remove-data-test-id": "^3.0.0",
-    "cypress": "^6.6.0",
+    "cypress": "^9.6.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.1.7",
     "mochawesome": "^6.2.2",
