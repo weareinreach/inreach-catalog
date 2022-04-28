@@ -226,7 +226,7 @@ class SearchFormContainer extends React.Component {
 									<IconButton className={iconButton}>
 										<img
 											src={logo}
-											alt="asylumconnect logo"
+											alt="inreach logo"
 											className={logoFitHeight}
 										/>
 									</IconButton>
@@ -259,7 +259,7 @@ class SearchFormContainer extends React.Component {
 									>
 										<FormattedMessage
 											id="app.welcome"
-											defaultMessage="Welcome to the United States AsylumConnect Catalog!"
+											defaultMessage="Welcome to the United States InReach Catalog!"
 										/>
 									</Typography>
 								</Grid>

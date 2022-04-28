@@ -76,6 +76,6 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
     });
     cy.getElementByTestId('footer-copy-rights').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain(`AsylumConnect, Inc. ${new Date().getFullYear()}. All rights reserved.`);
+        expect($element).contain(`InReach, Inc. ${new Date().getFullYear()}. All rights reserved.`);
     });
 });

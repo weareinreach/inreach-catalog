@@ -152,7 +152,7 @@ Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
         if(viewport !== Cypress.env('mobile')){
             cy.getElementByTestId('details-review-form-body1').scrollIntoView().then($element=>{
                 expect($element).to.be.visible;
-                expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? AsylumConnect will update our resource catalog based on your review.');
+                expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? InReach will update our resource catalog based on your review.');
             });
         }
         cy.getElementByTestId('details-review-form-input').scrollIntoView().then($element=>{

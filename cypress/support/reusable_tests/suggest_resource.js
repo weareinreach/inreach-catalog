@@ -33,7 +33,7 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
         });
         cy.getElementByTestId('suggest-page-body-2').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('Thank you for your interest in contributing to the AsylumConnect resource catalog! It seems we already have'); 
+            expect($element).contain('Thank you for your interest in contributing to the InReach resource catalog! It seems we already have'); 
             expect($element).contain(`${org.name}`);
             expect($element).contain('on the catalog. You can join this organization by signing up for a provider account');
             expect($element).contain('here');
@@ -324,7 +324,7 @@ cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
 
     cy.getElementByTestId('suggest-page-footer').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('All organization changes are subject to review by AsylumConnect before publication.');
+        expect($element).contain('All organization changes are subject to review by InReach before publication.');
     });
 
 });
