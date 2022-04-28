@@ -205,6 +205,8 @@
 	"app.thank-you-text": "Está todo listo.",
 	"app.unlock-features-with-account-prompt": "Con una cuenta gratuita de InReach, puedes desbloquear funciones adicionales",
 	"app.welcome": "¡Bienvenidx al Catálogo de México de InReach!",
+	"app.welcome-main": "Welcome to InReach! | Seek LGBTQ+ resources. Reach safety. Find belonging.",
+	"app.welcome-main-tag": "The world's first tech platform matching LGBTQ+ people with safe, verified resources.",
 	"error.email-address-mismatch": "Las direcciones de correo electrónico que ingresaste no coinciden",
 	"error.email-format": "Su correo electrónico debe tener un formato similar a 'john@gmail.com'",
 	"error.form-description-length": "La descripción no puede tener más de 1000 caracteres",
