@@ -11,11 +11,11 @@ Cypress.Commands.add('testAnnouncementBannerElementsAndActions',(viewport)=>{
         cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('AsylumConnect Disclaimer');
+            expect($element).contain('InReach Disclaimer');
         });
         cy.getElementByTestId('disclaimer-text').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('The AsylumConnect team will do its best to confirm the eligibility and basic facts about service providers listed on this website. However, we cannot guarantee the viability or capabilities of any such providers. Consequently, AsylumConnect assumes no responsibility for the actions of providers listed on this website and asylum seekers who contact any such providers do so at their own risk.')
+            expect($element).contain('The InReach team will do its best to confirm the eligibility and basic facts about service providers listed on this website. However, we cannot guarantee the viability or capabilities of any such providers. Consequently, InReach assumes no responsibility for the actions of providers listed on this website and asylum seekers who contact any such providers do so at their own risk.')
         });
         cy.getElementByTestId('dialog-button').then($element=>{
             expect($element).to.be.visible;
@@ -32,7 +32,7 @@ Cypress.Commands.add('testAnnouncementBannerElementsAndActions',(viewport)=>{
         cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('AsylumConnect Privacy Statement');
+            expect($element).contain('InReach Privacy Statement');
         });
         cy.getElementByTestId('dialog-button').then($element=>{
             expect($element).to.be.visible;

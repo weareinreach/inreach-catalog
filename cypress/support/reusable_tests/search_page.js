@@ -5,7 +5,7 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
     if(viewport!==Cypress.env('mobile')){
         cy.getElementByTestId('search-form-body').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('Welcome to the United States AsylumConnect Catalog!');
+            expect($element).contain('Welcome to the United States InReach Catalog!');
         });
     }
 
