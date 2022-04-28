@@ -257,10 +257,17 @@ class SearchFormContainer extends React.Component {
 										className={title}
 										data-test-id="search-form-body"
 									>
-										<FormattedMessage
-											id="app.welcome"
-											defaultMessage="Welcome to the United States InReach Catalog!"
-										/>
+										{this.state.locale ? (
+											<FormattedMessage
+												id="app.welcome"
+												defaultMessage="Welcome to the United States InReach Catalog!"
+											/>
+										) : (
+											<FormattedMessage
+												id="app.welcome-main"
+												defaultMessage="Welcome to InReach! | Seek LGBTQ+ resources. Reach safety. Find belonging."
+											/>
+										)}
 									</Typography>
 								</Grid>
 							) : null}
@@ -270,10 +277,17 @@ class SearchFormContainer extends React.Component {
 									className={subheading}
 									data-test-id="search-form-body-2"
 								>
-									<FormattedMessage
-										id="app.search-services"
-										defaultMessage="Find verified LGBTQ+ and immigrant-friendly services"
-									/>
+									{this.state.locale ? (
+										<FormattedMessage
+											id="app.search-services"
+											defaultMessage="Find verified LGBTQ+ and immigrant-friendly services"
+										/>
+									) : (
+										<FormattedMessage
+											id="app.welcome-main-tag"
+											defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+										/>
+									)}
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
