@@ -10,16 +10,8 @@ describe('Home Suggest New Resource Tests', () => {
     
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
-        //user
-        cy.fixture('user_new.json').as('user').then(user=>{
-            //Add User
-            cy.addUser(user);
-        });
-        //org
-        cy.fixture('organization.json').as('organization').then(organization=>{
-            //Add Org
-            cy.addOrg(organization);
-        });
+        cy.fixture('organization.json').as('organization');
+        cy.fixture('user_new.json').as('user');
     });
 
     afterEach(() => {
@@ -38,16 +30,26 @@ describe('Home Suggest New Resource Tests', () => {
         context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Suggest New Organization Elements`,()=>{
                     cy.get('@organization').then(org=>{
-                        cy.addOrg(org).then(()=>{
-                            cy.testSuggestionElements(viewport,org);
-                        }); 
+                        cy.testSuggestionElements(viewport,org);
+                    });
+                });
+                it(`Suggest New Organization Action Already Exists`,()=>{
+                    cy.get('@user').then(user=>{
+                        cy.get('@organization').then(org=>{
+                            cy.addOrg(org).then(()=>{
+                                cy.testSuggestionAlreadyExists(viewport,org);
+                            });
+                        });
                     });
                 });
                 it(`Suggest New Organization Action`,()=>{
                     cy.get('@user').then(user=>{
-                        cy.get('@organization').then(org=>{
-                            cy.testSuggestionAction(viewport,user,org);
+                        cy.addUser(user).then(()=>{
+                            cy.get('@organization').then(org=>{
+                                cy.testSuggestionAction(viewport,user,org);
+                            });
                         });
+                        
                     });
                 });
         });

@@ -10,8 +10,15 @@ describe('Home Page Search Tests', () => {
     
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
-        cy.fixture('organization_search.json').as('organization');
+        cy.fixture('organization.json').as('organization');
     });
+
+    afterEach(() => {
+        //Do the clean up
+        cy.deleteUsersIfExist();
+        cy.deleteOrgsIfExist();
+    });
+
 
     //Root
     it('Root Test - Elements', () => {
@@ -25,7 +32,9 @@ describe('Home Page Search Tests', () => {
             });
             it('Testing Search Page Actions',()=>{
                  cy.get('@organization').then(org=>{
-                    cy.testSearchAction(viewport,org);
+                    cy.addOrg(org).then(()=>{
+                        cy.testSearchAction(viewport,org);
+                    });
                 });
             });
         });

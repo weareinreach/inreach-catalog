@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
-Cypress.Commands.add('testSuggestionElements',(viewport,org)=>{
-cy.viewport(viewport);
+
+
+Cypress.Commands.add('testSuggestionAlreadyExists',(viewport,org)=>{
+    cy.viewport(viewport);
 
 //Navigate to suggestion
 if(viewport === Cypress.env('mobile')){
@@ -29,6 +31,7 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
         cy.wait(2000);
         //select first
         cy.getElementByTestId('sign-up-form-searched-organization').then($elements=>{
+            expect($elements).to.be.visible;
             cy.wrap($elements[0]).click();
         });
         cy.getElementByTestId('suggest-page-body-2').then($element=>{
@@ -40,6 +43,35 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
          });
     });
    
+});
+});
+
+
+
+Cypress.Commands.add('testSuggestionElements',(viewport,org)=>{
+cy.viewport(viewport);
+
+//Navigate to suggestion
+if(viewport === Cypress.env('mobile')){
+    cy.getElementByTestId('mobile-nav-button-more').click();
+    cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
+    cy.getElementByTestId('more-suggest-a-resource-us').click();
+}else{
+    cy.scrollTo('bottom');
+    cy.getElementByTestId('footer-suggest-new').click();
+}
+
+cy.getElementByTestId('suggest-page-title').then($element=>{
+    expect($element).to.be.visible;
+    expect($element).contain('Suggest a Resource');
+});
+
+cy.getElementByTestId('suggest-page-body').then($element=>{
+    expect($element).to.be.visible;
+});
+
+cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
+    expect($element).to.be.visible;
 });
 
 
@@ -317,7 +349,7 @@ cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
     });
 
     cy.getElementByTestId('suggest-page-suggest-button').then($element=>{
-        expect($element).to.be.visible;
+        expect($element).to.be.visible
         expect($element).to.have.attr('type','submit');
         expect($element.children()).contain('Suggest New Resource');
     });
@@ -344,22 +376,28 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
         cy.getElementByTestId('footer-suggest-new').click();
     }
 
-    cy.getElementByTestId('sign-up-form-find-organization').type(org.name);
-    //wait for to populate
-    cy.wait(2000);
-    //select first
-    cy.getElementByTestId('sign-up-form-no-organization').click();
-    
-    //AUTOMATION BUG - About input cannot be populated - 155
-    // cy.getElementByTestId('suggest-page-about').type(org.description, {force: true});
-    // cy.getElementByTestId('suggest-page-services').type("English", {force: true});
-    // cy.getElementByTestId('suggest-searched-language').then($element=>{
-    //     cy.wrap($element[0]).click({force:true});
-    // });
-    //AUTOMATION BUG - Website input cannot be populated - 155
-    // cy.getElementByTestId('suggest-page-website').scrollIntoView().type(org.website, {force: true});
-    // cy.getElementByTestId('suggest-page-phone-number').clear().type(org.phone);
-    // cy.getElementByTestId('suggest-page-email').type(org.emails[0].email);
+    cy.getElementByTestId('suggest-page-name').children().then($element=>{
+        cy.wrap($element[1]).type(org.name)
+    });
+
+    cy.getElementByTestId('suggest-page-address-input').type(org.locations[0].city);
+    cy.getElementByTestId('suggested-address-item-0').click();
+
+    cy.getElementByTestId('suggest-page-about').children().then($element=>{
+        cy.wrap($element[1]).type(org.description)
+    })
+    cy.getElementByTestId('suggest-languages-input').children().then($element=>{
+        cy.wrap($element.children()).type("English", {force: true});
+    });
+    cy.getElementByTestId('suggest-searched-language').then($element=>{
+        cy.wrap($element[0]).click({force:true});
+    });
+
+    cy.getElementByTestId('suggest-page-website').scrollIntoView().children().then($element=>{
+        cy.wrap($element[1]).children().type(org.website, {force: true});
+    })
+    cy.getElementByTestId('suggest-page-phone-number').clear().type(org.phone);
+    cy.getElementByTestId('suggest-page-email').type(org.emails[0].email);
 
     //hours
     cy.getElementByTestId('suggest-page-hour').click();
