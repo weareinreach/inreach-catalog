@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
 import {searchInput, searchInputMobile} from '../theme';
+import SearchRefinementControls from './SearchRefinementControls';
 
 const styles = (theme) => ({
 	searchInput: searchInput(theme),
@@ -28,7 +29,7 @@ const styles = (theme) => ({
 	inlineSearchButton: {
 		position: 'absolute',
 		top: 0,
-		right: 0,
+		left: 0,
 		zIndex: 100,
 		height: '48px',
 		borderRadius: 0,
@@ -72,22 +73,49 @@ const SearchBar = (props) => {
 	} = props;
 
 	return (
-		<Grid container spacing={0}>
+		<Grid container spacing={0} data-test-id="search-bar">
 			<Grid item xs className="position-relative">
 				{children}
 			</Grid>
 			{showResourceSelector && (
-				<Grid item md={4} sm={12} xs={12} className="hide--on-print">
-					<ResourceTypeSelector
-						containerWidth={containerWidth}
-						onChange={handleResourceTypeSelect}
-						selectedResourceTypes={selectedResourceTypes}
-						clearResourceTypes={clearResourceTypes}
-						locale={locale}
-						t={t}
-						moveSearchButton={moveSearchButton}
-					/>
-				</Grid>
+				<>
+					<Grid
+						item
+						md={6}
+						sm={12}
+						xs={12}
+						className="hide--on-print"
+						data-test-id="search-service-type"
+					>
+						<ResourceTypeSelector
+							containerWidth={containerWidth}
+							onChange={handleResourceTypeSelect}
+							selectedResourceTypes={selectedResourceTypes}
+							clearResourceTypes={clearResourceTypes}
+							locale={locale}
+							t={t}
+							moveSearchButton={moveSearchButton}
+						/>
+					</Grid>
+					<Grid
+						item
+						md={6}
+						sm={12}
+						xs={12}
+						className="hide--on-print"
+						data-test-id="search-additional-filters"
+					>
+						<SearchRefinementControls
+							clearSearchFilters={props.clearSearchFilters}
+							handleFilterSelect={props.handleFilterSelect}
+							handleSortSelect={props.handleSortSelect}
+							selectedFilters={props.selectedFilters.filter(
+								(item) => item !== 'time-walk-in'
+							)}
+							selectedSort={props.selectedSort}
+						/>
+					</Grid>
+				</>
 			)}
 		</Grid>
 	);

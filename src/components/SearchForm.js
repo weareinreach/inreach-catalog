@@ -181,7 +181,7 @@ class SearchForm extends React.Component {
 						{...this.state}
 					/>
 				)}
-				{this.props.infographic && (
+				{/*				{this.props.infographic && (
 					<Grid container className={infographicContainer}>
 						<Grid item xs={12} className={searchButton}>
 							<FormattedMessage
@@ -208,7 +208,7 @@ class SearchForm extends React.Component {
 							</FormattedMessage>
 						</Grid>
 					</Grid>
-				)}
+				)}*/}
 			</div>
 		);
 	}
