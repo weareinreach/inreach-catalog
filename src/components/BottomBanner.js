@@ -24,14 +24,14 @@ const BottomBanner = ({classes}) => {
 				<Typography
 					variant="subtitle2"
 					className={classes.paddingVertical}
-					data-test-id="announcement-header"
+					data-test-id="banner-header"
 				>
 					<FormattedMessage id="app.banner" />
 				</Typography>
 				<Typography
 					variant="subtitle1"
 					className={classes.paddingVertical}
-					data-test-id="announcement-header"
+					data-test-id="banner-text"
 				>
 					<FormattedMessage id="app.welcome-4" />
 				</Typography>
