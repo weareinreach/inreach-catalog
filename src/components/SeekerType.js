@@ -80,7 +80,7 @@ const SeekerType = (props) => {
 				<AsylumConnectButton
 					className={classes.marginBottom}
 					onClick={() => handleSelect(SEEKER_TYPE)}
-					variant="primary"
+					variant="signUp"
 					testIdName="dialog-container-sign-up-help-myself-button"
 				>
 					<FormattedMessage id="account.signup-catalog-type-asylum-seeker" />
@@ -88,7 +88,7 @@ const SeekerType = (props) => {
 				<AsylumConnectButton
 					className={classes.marginBottom}
 					onClick={() => handleSelect(LAWYER_TYPE)}
-					variant="primary"
+					variant="signUp"
 					testIdName="dialog-container-sign-up-attorney-button"
 				>
 					<FormattedMessage id="account.signup-catalog-type-legal-provider" />
@@ -96,7 +96,7 @@ const SeekerType = (props) => {
 				<AsylumConnectButton
 					className={classes.marginBottomLg}
 					onClick={() => handleSelect(PROVIDER_TYPE)}
-					variant="primary"
+					variant="signUp"
 					testIdName="dialog-container-sign-up-non-legal-service-provider-button"
 				>
 					<FormattedMessage id="account.signup-catalog-type-non-legal-provider" />

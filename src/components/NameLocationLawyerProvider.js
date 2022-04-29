@@ -356,7 +356,7 @@ const NameLocationLawyerProvider = (props) => {
 				<AsylumConnectButton
 					disabled={!isOrgValid()}
 					testIdName="sign-up-form-next-button"
-					variant="primary"
+					variant="signUp"
 					className={classes.nextBtn}
 				>
 					<FormattedMessage id="navigation.next" />
