@@ -105,37 +105,37 @@ const catalogTheme = createMuiTheme({
 		},
 		type: 'light',
 		primary: {
-			50: '#FCDCDB',
-			100: '#FCDCDB',
-			200: '#CC4747',
-			300: '#CC4747',
-			400: '#CC4747',
-			500: '#CC4747',
-			600: '#CC4747',
-			700: '#CC4747',
-			800: '#CC4747',
-			900: '#991F1F',
-			A100: '#CC4747',
-			A200: '#CC4747',
-			A400: '#CC4747',
-			A700: '#CC4747',
+			50: '#B3F2D3',
+			100: '#B3F2D3',
+			200: '#00D56C',
+			300: '#00D56C',
+			400: '#00D56C',
+			500: '#00D56C',
+			600: '#00D56C',
+			700: '#00D56C',
+			800: '#00D56C',
+			900: '#008041',
+			A100: '#00D56C',
+			A200: '#00D56C',
+			A400: '#00D56C',
+			A700: '#00D56C',
 			contrastDefaultColor: 'light'
 		},
 		secondary: {
-			50: '#E3E9F3',
-			100: '#E3E9F3',
-			200: '#5073B3',
-			300: '#5073B3',
-			400: '#5073B3',
-			500: '#5073B3',
-			600: '#5073B3',
-			700: '#5073B3',
-			800: '#5073B3',
-			900: '#2D4A80',
-			A100: '#5073B3',
-			A200: '#5073B3',
-			A400: '#5073B3',
-			A700: '#5073B3',
+			50: '#C8DEF4',
+			100: '#C8DEF4',
+			200: '#4792DA',
+			300: '#4792DA',
+			400: '#4792DA',
+			500: '#4792DA',
+			600: '#4792DA',
+			700: '#4792DA',
+			800: '#4792DA',
+			900: '#2B5883',
+			A100: '#4792DA',
+			A200: '#4792DA',
+			A400: '#4792DA',
+			A700: '#4792DA',
 			contrastDefaultColor: 'light'
 		},
 		error: {
@@ -259,7 +259,7 @@ const catalogTheme = createMuiTheme({
 		}
 	},
 	typography: {
-		fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+		fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
 		fontSize: 16,
 		fontWeightLight: 300,
 		fontWeightRegular: 400,
@@ -268,35 +268,35 @@ const catalogTheme = createMuiTheme({
 		h1: {
 			fontSize: 32,
 			fontWeight: 700,
-			fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+			fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
 			lineHeight: 1.2,
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		h2: {
 			fontSize: 24,
-			fontWeight: 600,
-			fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+			fontWeight: 400,
+			fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
 			lineHeight: 1.2,
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		h3: {
 			fontSize: 22,
 			fontWeight: 700,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			lineHeight: '40px',
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		h4: {
 			fontSize: 18,
 			fontWeight: 500,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			lineHeight: 'inherit',
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		h5: {
 			fontSize: 16,
 			fontWeight: 700,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			letterSpacing: '-.02em',
 			lineHeight: 1.35,
 			color: 'rgba(29, 31, 35, 1)'
@@ -304,7 +304,7 @@ const catalogTheme = createMuiTheme({
 		h6: {
 			fontSize: 12,
 			fontWeight: 600,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			letterSpacing: '-.04em',
 			lineHeight: 1,
 			color: 'rgba(29, 31, 35, 1)',
@@ -313,28 +313,28 @@ const catalogTheme = createMuiTheme({
 		subtitle2: {
 			fontSize: 18,
 			fontWeight: 600,
-			fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+			fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
 			lineHeight: 1.2,
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		body1: {
 			fontSize: 14,
 			fontWeight: 400,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			lineHeight: '20px',
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		body2: {
 			fontSize: 16,
 			fontWeight: 400,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			lineHeight: '20px',
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		caption: {
 			fontSize: 14,
 			fontWeight: 400,
-			fontFamily: '"Open Sans", "Helvetica", "Arial", sans-serif',
+			fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
 			lineHeight: '20px',
 			color: 'rgba(0, 0, 0, 0.54)'
 		},
@@ -342,8 +342,16 @@ const catalogTheme = createMuiTheme({
 			fontSize: 16,
 			textTransform: 'uppercase',
 			fontWeight: 700,
-			fontFamily: '"Open Sans", sans-serif',
-			letterSpacing: '1px'
+			fontFamily: '"Inter", sans-serif',
+			letterSpacing: '1px',
+			lineHeight: '1.25px'
+		},
+		textButton: {
+			fontSize: 16,
+			fontWeight: 700,
+			fontFamily: '"Inter", sans-serif',
+			lineHeight: '1.5px',
+			color: 'rgba(29, 31, 35, 1)'
 		}
 	},
 	mixins: {
@@ -423,7 +431,7 @@ const catalogTheme = createMuiTheme({
 		inputLabel: {
 			fontSize: 17,
 			fontWeight: 700,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			letterSpacing: '-.02em',
 			'& p': {
 				fontSize: 12,
@@ -438,7 +446,7 @@ const catalogTheme = createMuiTheme({
 		inputText: {
 			fontSize: 13,
 			fontWeight: 400,
-			fontFamily: '"Open Sans", sans-serif',
+			fontFamily: '"Inter", sans-serif',
 			color: 'rgba(0, 0, 0, 0.90)'
 		}
 	},
@@ -454,7 +462,7 @@ const catalogTheme = createMuiTheme({
 					height: '0.8px'
 				},
 				'&:after': {
-					backgroundColor: '#5073B3'
+					backgroundColor: '#4792DA'
 				}
 			}
 		},
@@ -478,7 +486,7 @@ const catalogTheme = createMuiTheme({
 		MuiFormLabel: {
 			root: {
 				'&$focused': {
-					color: '#5073B3'
+					color: '#4792DA'
 				}
 			}
 		},
