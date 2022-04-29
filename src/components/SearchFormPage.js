@@ -260,13 +260,20 @@ class SearchFormContainer extends React.Component {
 										{this.state.locale ? (
 											<FormattedMessage
 												id="app.welcome"
-												defaultMessage="Welcome to the United States InReach Catalog!"
+												defaultMessage="Welcome to InReach!"
 											/>
 										) : (
-											<FormattedMessage
-												id="app.welcome-main"
-												defaultMessage="Welcome to InReach! | Seek LGBTQ+ resources. Reach safety. Find belonging."
-											/>
+											<>
+												<FormattedMessage
+													id="app.welcome-1"
+													defaultMessage="Welcome to InReach!"
+												/>{' '}
+												|
+												<FormattedMessage
+													id="app.welcome-2"
+													defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+												/>
+											</>
 										)}
 									</Typography>
 								</Grid>
@@ -278,13 +285,26 @@ class SearchFormContainer extends React.Component {
 									data-test-id="search-form-body-2"
 								>
 									{this.state.locale ? (
-										<FormattedMessage
-											id="app.search-services"
-											defaultMessage="Find verified LGBTQ+ and immigrant-friendly services"
-										/>
+										<>
+											<FormattedMessage
+												id="app.welcome-main-3"
+												defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+											/>
+											<br />
+											<FormattedMessage
+												id="app.welcome-main-2"
+												defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+											/>
+											<br />
+											<br />
+											<FormattedMessage
+												id="app.welcome-main-4"
+												defaultMessage="InReach is for the entire diverse LGBTQ+ community – including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
+											/>
+										</>
 									) : (
 										<FormattedMessage
-											id="app.welcome-main-tag"
+											id="app.welcome-main-2"
 											defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
 										/>
 									)}
