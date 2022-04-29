@@ -8,6 +8,7 @@ import {IntlProvider, FormattedMessage, FormattedNumber} from 'react-intl';
 import './App.scss';
 import AccountMobile from './components/AccountMobile';
 import Announcement from './components/Announcement';
+import BottomBanner from './components/BottomBanner';
 import AsylumConnectDialog from './components/AsylumConnectDialog';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -673,7 +674,10 @@ class AppConnectCatalog extends React.Component {
 							handleRequestOpen={this.handleRequestOpen}
 						/>
 					) : (
-						<Footer locale={locale} />
+						<div>
+							<BottomBanner handleRequestOpen={this.handleRequestOpen} />
+							<Footer locale={locale} />
+						</div>
 					)}
 					<Message
 						handleMessageClose={this.handleMessageClose}

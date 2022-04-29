@@ -17,14 +17,8 @@ const styles = (theme) => ({
 	paddingVertical: {padding: '1.5rem 0'},
 	paddingVerticalIcons: {padding: '2.5rem 0 1rem 0'},
 	paddingVerticalText: {padding: '1rem 0 1.5rem 0'},
-	centerColumn: {
-		maxWidth: theme.maxColumnWidth
-	},
 	textBlue: {
 		color: theme.palette.secondary
-	},
-	flex: {
-		'& .MuiGrid-grid-xs-true': {flexBasis: 'auto'}
 	},
 	textCenter: {textAlign: 'center'},
 	footerLink: {
@@ -40,9 +34,7 @@ const Footer = ({classes, locale}) => {
 		paddingVerticalIcons,
 		paddingVerticalText,
 		textBlue,
-		flex,
 		textCenter,
-		centerColumn,
 		footerLink
 	} = classes;
 
@@ -63,7 +55,7 @@ const Footer = ({classes, locale}) => {
 	const intl = useIntl();
 
 	return (
-		<footer className={classNames(centerColumn, textCenter, bgDarkGrey)}>
+		<footer className={classNames(textCenter, bgDarkGrey)}>
 			<Grid
 				container
 				spacing={0}
@@ -155,11 +147,11 @@ const Footer = ({classes, locale}) => {
 				spacing={0}
 				alignItems="center"
 				justify="center"
-				className={classNames(centerColumn, paddingVerticalText)}
+				className={classNames(paddingVerticalText)}
 			>
 				<Grid item xs={12} md={6}>
 					<Grid container spacing={0}>
-						<Grid item xs className={flex}>
+						<Grid item xs>
 							<Link
 								to={'/' + locale + '/suggestions/new'}
 								className={textBlue}

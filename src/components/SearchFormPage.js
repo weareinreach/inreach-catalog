@@ -234,14 +234,6 @@ class SearchFormContainer extends React.Component {
 							</Grid>
 						) : null}
 						<Grid container spacing={0} className={containerSearchForm}>
-							{locale && (locale === 'en_MX' || locale === 'es_MX') && (
-								<Disclaimer>
-									<FormattedMessage
-										id="announcement.border-closure-full"
-										defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish in 2022, with all other languages available via Google Translate."
-									/>
-								</Disclaimer>
-							)}
 							{!isMobile ? (
 								<Grid item xs={12}>
 									<Typography

@@ -57,13 +57,13 @@ const styles = (theme) => ({
 		textAlign: 'center'
 	},
 	low: {
-		backgroundColor: '#F2D0D0'
+		backgroundColor: '#F4C0C6'
 	},
 	medium: {
-		backgroundColor: '#CC4747'
+		backgroundColor: '#DB2C40'
 	},
 	high: {
-		backgroundColor: '#991F1F'
+		backgroundColor: '#831A26'
 	},
 	listItem: {
 		[theme.breakpoints.down('xs')]: {

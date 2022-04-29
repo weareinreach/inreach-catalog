@@ -363,6 +363,13 @@ const catalogTheme = createMuiTheme({
 			color: 'rgba(0,0,0,0.87)',
 			textTransform: 'uppercase'
 		},
+		subtitle1: {
+			fontSize: 24,
+			fontWeight: 700,
+			fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+			lineHeight: 1.2,
+			color: 'rgba(29, 31, 35, 1)'
+		},
 		subtitle2: {
 			fontSize: 18,
 			fontWeight: 600,
