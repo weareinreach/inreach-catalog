@@ -253,25 +253,20 @@ class SearchFormContainer extends React.Component {
 							{!isMobile ? (
 								<Grid item xs={12}>
 									<Typography
-										variant="h2"
+										variant="h1"
 										className={title}
 										data-test-id="search-form-body"
 									>
 										{this.state.locale ? (
 											<FormattedMessage
 												id="app.welcome"
-												defaultMessage="Welcome to InReach!"
+												defaultMessage="Welcome to InReach"
 											/>
 										) : (
 											<>
 												<FormattedMessage
 													id="app.welcome-1"
-													defaultMessage="Welcome to InReach!"
-												/>{' '}
-												|
-												<FormattedMessage
-													id="app.welcome-2"
-													defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+													defaultMessage="Welcome to InReach"
 												/>
 											</>
 										)}
@@ -280,7 +275,7 @@ class SearchFormContainer extends React.Component {
 							) : null}
 							<Grid item xs={12}>
 								<Typography
-									variant="subtitle2"
+									variant="h3"
 									className={subheading}
 									data-test-id="search-form-body-2"
 								>

@@ -331,7 +331,7 @@ const catalogTheme = createMuiTheme({
 			color: 'rgba(29, 31, 35, 1)'
 		},
 		h3: {
-			fontSize: 22,
+			fontSize: 18,
 			fontWeight: 700,
 			fontFamily: '"Inter", sans-serif',
 			lineHeight: '40px',
