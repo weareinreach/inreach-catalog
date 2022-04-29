@@ -74,6 +74,52 @@ const styles = (theme) => ({
 		'&:disabled': {
 			color: theme.palette.common.white
 		}
+	},
+	signUp: {
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.signUp[500],
+		borderColor: theme.palette.signUp[500],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.signUp[900],
+			borderColor: theme.palette.signUp[900]
+		}
+	},
+	disabledSignUp: {
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.signUp[100],
+		borderColor: theme.palette.signUp[100],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.signUp[100],
+			borderColor: theme.palette.signUp[100]
+		},
+		'&:disabled': {
+			color: theme.palette.common.white
+		}
+	},
+	safety: {
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.safety[500],
+		borderColor: theme.palette.safety[500],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.safety[900],
+			borderColor: theme.palette.safety[900]
+		}
+	},
+	disabledSafety: {
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.safety[100],
+		borderColor: theme.palette.safety[100],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.safety[100],
+			borderColor: theme.palette.safety[100]
+		},
+		'&:disabled': {
+			color: theme.palette.common.white
+		}
 	}
 });
 
@@ -96,7 +142,9 @@ function AsylumConnectButton(props) {
 				classes.button,
 				{
 					[classes.primary]: variant === 'primary',
-					[classes.secondary]: variant === 'secondary'
+					[classes.secondary]: variant === 'secondary',
+					[classes.signUp]: variant === 'signUp',
+					[classes.safety]: variant === 'safety'
 				},
 				'hide--on-print',
 				className
@@ -108,6 +156,10 @@ function AsylumConnectButton(props) {
 				disabled:
 					variant === 'secondary'
 						? classes.disabledSecondary
+						: variant === 'signUp'
+						? classes.disabledSignUp
+						: variant === 'safety'
+						? classes.disabledSafety
 						: classes.disabledPrimary
 			}}
 		>
@@ -122,7 +174,7 @@ AsylumConnectButton.propTypes = {
 	classes: PropTypes.object.isRequired,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
-	variant: PropTypes.oneOf(['primary', 'secondary'])
+	variant: PropTypes.oneOf(['primary', 'secondary', 'signUp', 'safety'])
 };
 
 // Inject style to Custom Button component
