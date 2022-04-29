@@ -77,6 +77,7 @@ export const dividerSpacing = (theme) => ({
  */
 const catalogTheme = createMuiTheme({
 	maxColumnWidth: '1300px',
+	margin: '0 32px',
 	direction: 'ltr',
 	palette: {
 		common: {
@@ -89,6 +90,7 @@ const catalogTheme = createMuiTheme({
 			lightBlack: 'rgba(29, 31, 35, 1)',
 			minBlack: 'rgba(0, 0, 0, 0.26)',
 			faintBlack: 'rgba(0, 0, 0, 0.12)',
+			midBlack: 'rgba(0, 0, 0, 0.54)',
 			fullWhite: 'rgba(255, 255, 255, 1)',
 			darkWhite: 'rgba(255, 255, 255, 0.87)',
 			lightWhite: 'rgba(255, 255, 255, 0.54)',
@@ -394,8 +396,7 @@ const catalogTheme = createMuiTheme({
 			textTransform: 'uppercase',
 			fontWeight: 700,
 			fontFamily: '"Inter", sans-serif',
-			letterSpacing: '1px',
-			lineHeight: '1.25px'
+			letterSpacing: '1px'
 		},
 		textButton: {
 			fontSize: 16,
