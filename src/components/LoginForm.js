@@ -106,7 +106,7 @@ const LoginForm = ({
 		<FormattedMessage id="account.sign-in">
 			{(signIn) => (
 				<AsylumConnectButton
-					variant="primary"
+					variant="signUp"
 					testIdName="log-in-dialog-container-sign-in-button"
 				>
 					{signIn}
