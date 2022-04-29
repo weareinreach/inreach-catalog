@@ -178,7 +178,7 @@ class SaveToFavoritesButton extends React.Component {
 								bottom: 'auto',
 								width: '40%',
 								padding: 0,
-								fontFamily: '"Open Sans", sans-serif',
+								fontFamily: '"Inter", sans-serif',
 								background: '#FFFFFF'
 							}
 						}}
@@ -302,7 +302,7 @@ class SaveToFavoritesButton extends React.Component {
 								top: '5%',
 								bottom: 'auto',
 								padding: 0,
-								fontFamily: '"Open Sans", sans-serif',
+								fontFamily: '"Inter", sans-serif',
 								background: '#FFFFFF'
 							}
 						}}
