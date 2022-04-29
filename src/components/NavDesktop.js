@@ -123,9 +123,7 @@ const NavDesktop = ({
 			>
 				<FormattedMessage id="navigation.safety-exit">
 					{(safety) => (
-						<AsylumConnectButton variant="safety" disabled="true">
-							{safety}
-						</AsylumConnectButton>
+						<AsylumConnectButton variant="safety">{safety}</AsylumConnectButton>
 					)}
 				</FormattedMessage>
 			</a>
