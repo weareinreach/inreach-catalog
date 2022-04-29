@@ -234,18 +234,10 @@ class SearchFormContainer extends React.Component {
 							</Grid>
 						) : null}
 						<Grid container spacing={0} className={containerSearchForm}>
-							{locale && locale !== 'en_US' && (
-								<Disclaimer dataTestId="search-form-header">
-									<FormattedMessage
-										id="announcement.border-closure-full"
-										defaultMessage="Canada opens border to fully vaccinated U.S. citizens on Aug 9, 2021. Restrictions remain in place for Canadian citizens entering U.S."
-									/>
-								</Disclaimer>
-							)}
-							{locale && locale !== 'en_CA' && (
+							{locale && (locale === 'en_MX' || locale === 'es_MX') && (
 								<Disclaimer>
 									<FormattedMessage
-										id="announcement.localisation"
+										id="announcement.border-closure-full"
 										defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish in 2022, with all other languages available via Google Translate."
 									/>
 								</Disclaimer>
@@ -284,17 +276,6 @@ class SearchFormContainer extends React.Component {
 											<FormattedMessage
 												id="app.welcome-main-3"
 												defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
-											/>
-											<br />
-											<FormattedMessage
-												id="app.welcome-main-2"
-												defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-											/>
-											<br />
-											<br />
-											<FormattedMessage
-												id="app.welcome-main-4"
-												defaultMessage="InReach is for the entire diverse LGBTQ+ community – including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
 											/>
 										</>
 									) : (

@@ -18,10 +18,14 @@ const styles = (theme) => ({
 	paddingVerticalIcons: {padding: '2.5rem 0 1rem 0'},
 	paddingVerticalText: {padding: '1rem 0 1.5rem 0'},
 	centerColumn: {
-		maxWidth: theme.maxColumnWidth,
-		margin: '0 auto'
+		maxWidth: theme.maxColumnWidth
 	},
-	textBlue: {color: theme.palette.secondary},
+	textBlue: {
+		color: theme.palette.secondary
+	},
+	flex: {
+		'& .MuiGrid-grid-xs-true': {flexBasis: 'auto'}
+	},
 	textCenter: {textAlign: 'center'},
 	footerLink: {
 		fontWeight: '700'
@@ -36,6 +40,7 @@ const Footer = ({classes, locale}) => {
 		paddingVerticalIcons,
 		paddingVerticalText,
 		textBlue,
+		flex,
 		textCenter,
 		centerColumn,
 		footerLink
@@ -58,13 +63,13 @@ const Footer = ({classes, locale}) => {
 	const intl = useIntl();
 
 	return (
-		<footer className={classNames(textCenter, bgDarkGrey)}>
+		<footer className={classNames(centerColumn, textCenter, bgDarkGrey)}>
 			<Grid
 				container
 				spacing={0}
 				alignItems="center"
 				justify="center"
-				className={classNames(centerColumn, paddingVerticalIcons)}
+				className={classNames(paddingVerticalIcons)}
 			>
 				<Grid item xs={12} md={6}>
 					<Grid container spacing={2} justify="center">
@@ -154,7 +159,7 @@ const Footer = ({classes, locale}) => {
 			>
 				<Grid item xs={12} md={6}>
 					<Grid container spacing={0}>
-						<Grid item xs>
+						<Grid item xs className={flex}>
 							<Link
 								to={'/' + locale + '/suggestions/new'}
 								className={textBlue}
@@ -196,6 +201,36 @@ const Footer = ({classes, locale}) => {
 									classes={{body1: footerLink}}
 								>
 									<FormattedMessage id="action.share-feedback" />
+								</Typography>
+							</a>
+						</Grid>
+						<Grid item xs>
+							<a
+								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+								className={textBlue}
+								data-test-id="footer-share-feedback"
+							>
+								<Typography
+									variant="body1"
+									color="secondary"
+									classes={{body1: footerLink}}
+								>
+									<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />
+								</Typography>
+							</a>
+						</Grid>
+						<Grid item xs>
+							<a
+								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+								className={textBlue}
+								data-test-id="footer-share-feedback"
+							>
+								<Typography
+									variant="body1"
+									color="secondary"
+									classes={{body1: footerLink}}
+								>
+									<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />
 								</Typography>
 							</a>
 						</Grid>

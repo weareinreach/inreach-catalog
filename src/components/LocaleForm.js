@@ -9,7 +9,12 @@ import Language from './Language';
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
-import {searchInput, searchInputMobile} from '../theme';
+import {
+	searchInput,
+	searchInputMobile,
+	breakpoints,
+	mobilePadding
+} from '../theme';
 
 const styles = (theme) => ({
 	inputClass: Object.assign(searchInput(theme), {
@@ -31,6 +36,13 @@ const styles = (theme) => ({
 		marginBottom: theme.spacing(2),
 		[theme.breakpoints.down('xs')]: {
 			color: theme.palette.common.white,
+			fontSize: theme.typography.h2.fontSize
+		}
+	},
+	labelRowMobile: {
+		marginBottom: theme.spacing(2),
+		[theme.breakpoints.down('xs')]: {
+			color: theme.palette.common.midBlack,
 			fontSize: theme.typography.h2.fontSize
 		}
 	},
@@ -142,12 +154,14 @@ class LocaleForm extends React.Component {
 	render() {
 		const {
 			labelRow,
+			labelRowMobile,
 			searchButton,
 			inputClass,
 			listContainerClass,
 			formContainer,
 			languageIconColor
 		} = this.props.classes;
+		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
 		return (
@@ -158,6 +172,15 @@ class LocaleForm extends React.Component {
 				className={formContainer}
 			>
 				<Grid item xs={12} md={6}>
+					{isMobile ? (
+						<Typography
+							variant="caption"
+							className={labelRowMobile}
+							component="p"
+						>
+							<FormattedMessage id="language.select-preferred-language" />
+						</Typography>
+					) : null}
 					<Typography variant="caption" className={labelRow} component="p">
 						<FormattedMessage id="language.select-preferred-language" />
 					</Typography>
@@ -173,6 +196,15 @@ class LocaleForm extends React.Component {
 					/>
 				</Grid>
 				<Grid item xs={12} md={6}>
+					{isMobile ? (
+						<Typography
+							variant="caption"
+							className={labelRowMobile}
+							component="p"
+						>
+							<FormattedMessage id="search.search-location-prompt" />
+						</Typography>
+					) : null}
 					<Typography variant="caption" className={labelRow} component="p">
 						<FormattedMessage id="search.search-location-prompt" />
 					</Typography>
