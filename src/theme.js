@@ -172,6 +172,23 @@ const catalogTheme = createMuiTheme({
 			A700: '#DB2C40',
 			contrastDefaultColor: 'light'
 		},
+		banner: {
+			50: '#F4C0C6',
+			100: '#F4C0C6',
+			200: '#36D686',
+			300: '#36D686',
+			400: '#36D686',
+			500: '#36D686',
+			600: '#36D686',
+			700: '#36D686',
+			800: '#36D686',
+			900: '#831A26',
+			A100: '#36D686',
+			A200: '#36D686',
+			A400: '#36D686',
+			A700: '#36D686',
+			contrastDefaultColor: 'light'
+		},
 		error: {
 			50: '#ffebee',
 			100: '#ffcdd2',
@@ -337,11 +354,11 @@ const catalogTheme = createMuiTheme({
 		},
 		h6: {
 			fontSize: 12,
-			fontWeight: 600,
+			fontWeight: 700,
 			fontFamily: '"Inter", sans-serif',
-			letterSpacing: '-.04em',
+			letterSpacing: '-0.5px',
 			lineHeight: 1,
-			color: 'rgba(29, 31, 35, 1)',
+			color: 'rgba(0,0,0,0.87)',
 			textTransform: 'uppercase'
 		},
 		subtitle2: {
