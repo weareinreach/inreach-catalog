@@ -105,7 +105,23 @@ jobs:
           flags: 'Integration'
       - store_artifacts:
           path: ./catalog/lcov<< parameters.group >>/lcov.info
-
+          destination: lcov<< parameters.group >>.info
+  sonar:
+    docker:
+      - image: cypress/base:16.5.0
+    steps:
+      - checkout
+      #Download artifacts
+      - run: 
+         name: "Install lcov merger"
+         command: yarn add lcov-result-merger --dev
+      - run:
+          name: "Download artifacts"
+          command: "curl -X GET 'https://circleci.com/api/v2/project/github/asylum-connect/asylumconnect-catalog/$CIRCLE_BUILD_NUM/artifacts'  -H 'Accept: application/json' -u '$CIRCLE_API_TOKEN:'"
+      - run: ls
+      - run: 
+         name: "Merge Records"
+         command: ./node_modules/.bin/lcov-result-merger 'lcov-*.info' 'merged-lcov.info'
 workflows:
   version: 2
   development:
@@ -115,11 +131,37 @@ workflows:
             branches:
               only: dev
       - e2e:
+         group: 1
+         group_name: group1
          filters:
             branches:
               only: dev
-      # - sonar:
-      #     context: sonarCloud
+      - e2e:
+         group: 2
+         group_name: group2
+         filters:
+            branches:
+              only: dev
+      - e2e:
+         group: 3
+         group_name: group3
+         filters:
+            branches:
+              only: dev
+      - e2e:
+         group: 4
+         group_name: group4
+         filters:
+            branches:
+              only: dev
+      - sonar:
+          context: sonarCloud
+          requires:
+            - e2e-1
+            - e2e-2
+            - e2e-3
+            - e2e-4
+
   pull_request:
     jobs: 
       - build
@@ -135,5 +177,10 @@ workflows:
       - e2e:
           group: 4
           group_name: group4
-      # - sonar:
-      #     context: SonarCloud
+      - sonar:
+          context: SonarCloud
+          requires:
+            - e2e-1
+            - e2e-2
+            - e2e-3
+            - e2e-4
