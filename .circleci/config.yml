@@ -95,10 +95,14 @@ jobs:
       - run:
           name: "Generate Report"
           command: "cd catalog && yarn report:combined"
+      - run:
+          name: "Generate Report lcov"
+          command: "cd catalog && yarn report:lcov"
       - codecov/upload:
           file: 'catalog/coverageReports/coverage-final.json'
           flags: 'Integration'
-      - sonarcloud/scan
+      - store_artifacts:
+          path: /catalog/lvoc$GROUP/lcov.info
 
 workflows:
   version: 2
@@ -109,27 +113,25 @@ workflows:
             branches:
               only: dev
       - e2e:
-         context: SonarCloud
          filters:
             branches:
               only: dev
+      - sonar:
+          context: sonarCloud
   pull_request:
     jobs: 
       - build
       - e2e:
-          context: SonarCloud
           group: 1
           group_name: group1
       - e2e:
-          context: SonarCloud 
           group: 2
           group_name: group2
       - e2e:
-          context: SonarCloud
           group: 3
           group_name: group3
       - e2e:
-          context: SonarCloud
           group: 4
           group_name: group4
-      
+      - sonar:
+          context: SonarCloud
