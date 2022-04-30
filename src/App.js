@@ -675,8 +675,11 @@ class AppConnectCatalog extends React.Component {
 						/>
 					) : (
 						<div>
-							<BottomBanner handleRequestOpen={this.handleRequestOpen} />
-							<Footer locale={locale} />
+							<BottomBanner />
+							<Footer
+								locale={locale}
+								handleRequestOpen={this.handleRequestOpen}
+							/>
 						</div>
 					)}
 					<Message

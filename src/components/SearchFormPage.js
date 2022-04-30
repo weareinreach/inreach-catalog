@@ -262,7 +262,7 @@ class SearchFormContainer extends React.Component {
 							) : null}
 							<Grid item xs={12}>
 								<Typography
-									variant="h3"
+									variant="h2"
 									className={subheading}
 									data-test-id="search-form-body-2"
 								>

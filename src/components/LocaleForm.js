@@ -173,15 +173,11 @@ class LocaleForm extends React.Component {
 			>
 				<Grid item xs={12} md={6}>
 					{isMobile ? (
-						<Typography
-							variant="caption"
-							className={labelRowMobile}
-							component="p"
-						>
+						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="language.select-preferred-language" />
 						</Typography>
 					) : null}
-					<Typography variant="caption" className={labelRow} component="p">
+					<Typography variant="h3" className={labelRow} component="p">
 						<FormattedMessage id="language.select-preferred-language" />
 					</Typography>
 					<Language
@@ -197,15 +193,11 @@ class LocaleForm extends React.Component {
 				</Grid>
 				<Grid item xs={12} md={6}>
 					{isMobile ? (
-						<Typography
-							variant="caption"
-							className={labelRowMobile}
-							component="p"
-						>
+						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="search.search-location-prompt" />
 						</Typography>
 					) : null}
-					<Typography variant="caption" className={labelRow} component="p">
+					<Typography variant="h3" className={labelRow} component="p">
 						<FormattedMessage id="search.search-location-prompt" />
 					</Typography>
 					<LocaleSelector

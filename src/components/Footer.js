@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AppStoreBadge from '../images/app-store-badge.svg';
 import GooglePlayBadge from '../images/google-play-badge.png';
+import PropTypes from 'prop-types';
 
 const styles = (theme) => ({
 	bgDarkGrey: {backgroundColor: theme.palette.common.darkGrey},
@@ -23,10 +24,22 @@ const styles = (theme) => ({
 	textCenter: {textAlign: 'center'},
 	footerLink: {
 		fontWeight: '700'
+	},
+	pointer: {
+		cursor: 'pointer',
+		display: 'inline-block',
+		position: 'relative'
+	},
+	pointerText: {
+		textShadow:
+			'2px 0 ' +
+			theme.palette.secondary[500] +
+			', -2px 0 ' +
+			theme.palette.secondary[500]
 	}
 });
 
-const Footer = ({classes, locale}) => {
+const Footer = ({classes, locale, handleRequestOpen}) => {
 	const {
 		bgDarkGrey,
 		bgLightGrey,
@@ -197,34 +210,26 @@ const Footer = ({classes, locale}) => {
 							</a>
 						</Grid>
 						<Grid item xs>
-							<a
-								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
-								className={textBlue}
-								data-test-id="footer-share-feedback"
+							<Typography
+								variant="body1"
+								color="secondary"
+								classes={{body1: footerLink}}
+								className={classes.pointer}
+								onClick={() => handleRequestOpen('disclaimer')}
 							>
-								<Typography
-									variant="body1"
-									color="secondary"
-									classes={{body1: footerLink}}
-								>
-									<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />
-								</Typography>
-							</a>
+								<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />
+							</Typography>
 						</Grid>
 						<Grid item xs>
-							<a
-								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
-								className={textBlue}
-								data-test-id="footer-share-feedback"
+							<Typography
+								variant="body1"
+								color="secondary"
+								classes={{body1: footerLink}}
+								className={classes.pointer}
+								onClick={() => handleRequestOpen('privacy')}
 							>
-								<Typography
-									variant="body1"
-									color="secondary"
-									classes={{body1: footerLink}}
-								>
-									<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />
-								</Typography>
-							</a>
+								<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />
+							</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -238,6 +243,9 @@ const Footer = ({classes, locale}) => {
 			</div>
 		</footer>
 	);
+};
+Footer.propTypes = {
+	handleRequestOpen: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Footer);
