@@ -157,10 +157,7 @@ workflows:
       - sonar:
           context: sonarCloud
           requires:
-            - e2e-1
-            - e2e-2
-            - e2e-3
-            - e2e-4
+            - e2e
 
   pull_request:
     jobs: 
@@ -180,7 +177,4 @@ workflows:
       - sonar:
           context: SonarCloud
           requires:
-            - e2e-1
-            - e2e-2
-            - e2e-3
-            - e2e-4
+            - e2e
