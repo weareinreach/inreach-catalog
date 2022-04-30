@@ -181,34 +181,6 @@ class SearchForm extends React.Component {
 						{...this.state}
 					/>
 				)}
-				{/*				{this.props.infographic && (
-					<Grid container className={infographicContainer}>
-						<Grid item xs={12} className={searchButton}>
-							<FormattedMessage
-								id="resources.download-legal-guides"
-								defaultMessage="Download Legal Guides on LGBTQ Asylum in the U.S."
-							>
-								{(text) => (
-									<AsylumConnectInfographicButton
-										testIdName="search-form-download-link"
-										type="link"
-										url={
-											this.props.infographic.url
-												? this.props.infographic.url
-												: null
-										}
-										list={
-											this.props.infographic.list
-												? this.props.infographic.list
-												: null
-										}
-										text={text}
-									/>
-								)}
-							</FormattedMessage>
-						</Grid>
-					</Grid>
-				)}*/}
 			</div>
 		);
 	}
