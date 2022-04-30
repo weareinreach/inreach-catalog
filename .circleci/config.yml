@@ -108,7 +108,7 @@ jobs:
       - store_artifacts:
           path: ./catalog/*/lcov.info
       - store_artifacts:
-          path: ./catalog/<< parameters.grou >>/lcov.info
+          path: ./catalog/<< parameters.group >>/lcov.info
 
 workflows:
   version: 2
