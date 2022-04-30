@@ -205,7 +205,7 @@
 	"app.thank-you-heading": "Thank you!",
 	"app.thank-you-text": "You are all set.",
 	"app.unlock-features-with-account-prompt": "With a free InReach account you can unlock additional features:",
-	"app.welcome": "Welcome to InReach | Canada",
+	"app.welcome": "Welcome to InReach | {country}",
 	"app.welcome-1": "Welcome to InReach",
 	"app.welcome-2": "Seek LGBTQ+ resources. Reach safety. Find belonging.",
 	"app.welcome-3": "The world's first tech platform matching LGBTQ+ people with safe, verified resources.",

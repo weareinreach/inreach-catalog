@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import ResourceTypeSelector from './ResourceTypeSelector';
-import {searchInput, searchInputMobile} from '../theme';
+import {searchInput, searchInputMobile, breakpoints} from '../theme';
 import SearchRefinementControls from './SearchRefinementControls';
 
 const styles = (theme) => ({
@@ -69,9 +69,10 @@ const SearchBar = (props) => {
 		selectedResourceTypes,
 		t,
 		children,
-		showResourceSelector = true
+		showResourceSelector = true,
+		width
 	} = props;
-
+	const isMobile = width < breakpoints['sm'];
 	return (
 		<Grid container spacing={0} data-test-id="search-bar">
 			<Grid item xs className="position-relative">
@@ -97,24 +98,27 @@ const SearchBar = (props) => {
 							moveSearchButton={moveSearchButton}
 						/>
 					</Grid>
-					<Grid
-						item
-						md={6}
-						sm={12}
-						xs={12}
-						className="hide--on-print"
-						data-test-id="search-additional-filters"
-					>
-						<SearchRefinementControls
-							clearSearchFilters={props.clearSearchFilters}
-							handleFilterSelect={props.handleFilterSelect}
-							handleSortSelect={props.handleSortSelect}
-							selectedFilters={props.selectedFilters.filter(
-								(item) => item !== 'time-walk-in'
-							)}
-							selectedSort={props.selectedSort}
-						/>
-					</Grid>
+
+					{!isMobile ? (
+						<Grid
+							item
+							md={6}
+							sm={12}
+							xs={12}
+							className="hide--on-print"
+							data-test-id="search-additional-filters"
+						>
+							<SearchRefinementControls
+								clearSearchFilters={props.clearSearchFilters}
+								handleFilterSelect={props.handleFilterSelect}
+								handleSortSelect={props.handleSortSelect}
+								selectedFilters={props.selectedFilters.filter(
+									(item) => item !== 'time-walk-in'
+								)}
+								selectedSort={props.selectedSort}
+							/>
+						</Grid>
+					) : null}
 				</>
 			)}
 		</Grid>

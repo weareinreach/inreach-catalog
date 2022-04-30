@@ -205,7 +205,7 @@
 	"app.thank-you-heading": "¡Gracias!",
 	"app.thank-you-text": "Está todo listo.",
 	"app.unlock-features-with-account-prompt": "Con una cuenta gratuita de InReach, puedes desbloquear funciones adicionales",
-	"app.welcome": "Welcome to InReach | Mexico",
+	"app.welcome": "Welcome to InReach | {country}",
 	"app.welcome-1": "Welcome to InReach",
 	"app.welcome-2": "Seek LGBTQ+ resources. Reach safety. Find belonging.",
 	"app.welcome-3": "The world's first tech platform matching LGBTQ+ people with safe, verified resources.",
