@@ -23,7 +23,11 @@ const styles = (theme) => ({
 	},
 	lowercaseText: {
 		textTransform: 'capitalize',
-		cursor: 'pointer'
+		cursor: 'pointer',
+		width: '66px',
+		height: '48px',
+		fontWeight: 600,
+		fontSize: '16px'
 	},
 	cursor: {
 		cursor: 'pointer'

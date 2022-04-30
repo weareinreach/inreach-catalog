@@ -54,6 +54,10 @@ const styles = (theme) => ({
 	languageIconColor: {
 		fill: theme.palette.secondary[400],
 		color: theme.palette.secondary[400]
+	},
+	headerLink: {
+		lineHeight: '20px',
+		color: 'rgba(29, 31, 35, 1)'
 	}
 });
 
@@ -65,6 +69,8 @@ const NavDesktop = ({
 	logo,
 	session
 }) => {
+	const {headerLink} = classes;
+
 	return (
 		<div className={classes.root}>
 			<Link to="/">
@@ -86,7 +92,11 @@ const NavDesktop = ({
 				href="https://asylumconnect.org/mission/"
 			>
 				<FormattedMessage id="navigation.about">
-					{(about) => <Typography variant="h6">{about}</Typography>}
+					{(about) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{about}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
@@ -95,7 +105,11 @@ const NavDesktop = ({
 				href="https://asylumconnect.org/donate/"
 			>
 				<FormattedMessage id="navigation.take-action">
-					{(action) => <Typography variant="h6">{action}</Typography>}
+					{(action) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{action}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
@@ -104,7 +118,11 @@ const NavDesktop = ({
 				href="https://asylumconnect.org/faqs/"
 			>
 				<FormattedMessage id="navigation.get-help">
-					{(help) => <Typography variant="h6">{help}</Typography>}
+					{(help) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{help}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
@@ -113,7 +131,11 @@ const NavDesktop = ({
 				href="https://asylumconnect.org/contact/"
 			>
 				<FormattedMessage id="navigation.contact">
-					{(contact) => <Typography variant="h6">{contact}</Typography>}
+					{(contact) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{contact}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a

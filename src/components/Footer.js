@@ -23,7 +23,8 @@ const styles = (theme) => ({
 	},
 	textCenter: {textAlign: 'center'},
 	footerLink: {
-		fontWeight: '700'
+		fontWeight: '600',
+		fontSize: '16px'
 	},
 	pointer: {
 		cursor: 'pointer',
