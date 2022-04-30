@@ -102,7 +102,7 @@ jobs:
           file: 'catalog/coverageReports/coverage-final.json'
           flags: 'Integration'
       - store_artifacts:
-          path: /catalog/lvoc$GROUP/lcov.info
+          path: /catalog/lvoc${GROUP}/lcov.info
 
 workflows:
   version: 2
