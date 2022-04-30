@@ -54,6 +54,7 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: password
           MONGO_INITDB_DATABASE: asylum-connect
     steps:
+      - run: echo ${GROUP}
       - checkout:
           path: catalog
       - jq/install
