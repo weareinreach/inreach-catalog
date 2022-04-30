@@ -13,6 +13,7 @@
 		"show_on_organization": true
 	}],
 	"locations": [{
+			"geolocation":{"type":"Point","coordinates":[]},
 			"address": "1735 Mission Street",
 			"city": "Casper",
 			"is_primary": true,

@@ -50,7 +50,12 @@ describe('Home Page Create Account Form Tests', () => {
                 };
                 if(userType === 'lawyer'){
                     it(`Create account ${userType} - Lawyer`,()=>{
-                        cy.testCreateAccountLawyer(viewport,userType);
+                        cy.get('@organization').then(org=>{
+                            //Add Org
+                            cy.addOrg(org).then(()=>{
+                                cy.testCreateAccountLawyer(viewport,userType,org);
+                            });
+                        });
                     });
                     it(`Creating account for ${userType} - click resource`,()=>{
                         cy.get('@organization').then(org=>{
@@ -71,7 +76,12 @@ describe('Home Page Create Account Form Tests', () => {
                 };
                 if(userType === 'service_provider'){
                     it(`Create account ${userType} - Provider`,()=>{
+                        cy.get('@organization').then(org=>{
+                            //Add Org
+                            cy.addOrg(org).then(()=>{
                         cy.testCreateAccountProvider(viewport,userType);
+                            });
+                        });
                     });
                     it(`Creating account for ${userType} -Provider skip org`,()=>{
                         cy.get('@organization').then(org=>{
