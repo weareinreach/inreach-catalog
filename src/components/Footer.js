@@ -76,7 +76,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 				justify="center"
 				className={classNames(paddingVerticalIcons)}
 			>
-				<Grid item xs={12} md={6}>
+				<Grid item xs={12} md={6} lg={6}>
 					<Grid container spacing={2} justify="center">
 						<ContactLink
 							testIdName="footer-contact-facebook"
@@ -162,7 +162,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 				justify="center"
 				className={classNames(paddingVerticalText)}
 			>
-				<Grid item xs={12} md={6}>
+				<Grid item xs={12} lg={8}>
 					<Grid container spacing={0}>
 						<Grid item xs>
 							<Link
