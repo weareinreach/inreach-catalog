@@ -99,12 +99,13 @@ jobs:
           environment:
             GROUP: << parameters.group >>
           name: "Generate Report lcov"
-          command: "GROUP=${GROUP} cd catalog && yarn report:lcov"
+          command: "cd catalog && yarn report:lcov"
       - codecov/upload:
           file: 'catalog/coverageReports/coverage-final.json'
           flags: 'Integration'
       - store_artifacts:
-          path: ./catalog/*/lcov.info
+          path: ./catalog/lcov/lcov.info
+          destination: lcov${GROUP}.info
 
 workflows:
   version: 2
