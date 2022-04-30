@@ -144,15 +144,15 @@ workflows:
          filters:
             branches:
               only: dev
-      - e2e-3:
+      - e2e:
          name: e2e-3
          group: 3
          group_name: group3
          filters:
             branches:
               only: dev
-      - e2e-4:
-         name: e2e-1
+      - e2e:
+         name: e2e-4
          group: 4
          group_name: group4
          filters:
@@ -169,19 +169,19 @@ workflows:
   pull_request:
     jobs: 
       - build
-      - e2e-1:
+      - e2e:
           name: e2e-1
           group: 1
           group_name: group1
-      - e2e-2:
+      - e2e:
           name: e2e-2
           group: 2
           group_name: group2
-      - e2e-3:
+      - e2e:
           name: e2e-3
           group: 3
           group_name: group3
-      - e2e-4:
+      - e2e:
           name: e2e-4
           group: 4
           group_name: group4
