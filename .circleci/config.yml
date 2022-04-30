@@ -130,25 +130,25 @@ workflows:
           filters:
             branches:
               only: dev
-      - e2e:
+      - e2e-1:
          group: 1
          group_name: group1
          filters:
             branches:
               only: dev
-      - e2e:
+      - e2e-2:
          group: 2
          group_name: group2
          filters:
             branches:
               only: dev
-      - e2e:
+      - e2e-3:
          group: 3
          group_name: group3
          filters:
             branches:
               only: dev
-      - e2e:
+      - e2e-4:
          group: 4
          group_name: group4
          filters:
@@ -157,24 +157,30 @@ workflows:
       - sonar:
           context: sonarCloud
           requires:
-            - e2e
+            - e2e-1
+            - e2e-2
+            - e2e-3
+            - e2e-4
 
   pull_request:
     jobs: 
       - build
-      - e2e:
+      - e2e-1:
           group: 1
           group_name: group1
-      - e2e:
+      - e2e-2:
           group: 2
           group_name: group2
-      - e2e:
+      - e2e-3:
           group: 3
           group_name: group3
-      - e2e:
+      - e2e-4:
           group: 4
           group_name: group4
       - sonar:
           context: SonarCloud
           requires:
-            - e2e
+            - e2e-1
+            - e2e-2
+            - e2e-3
+            - e2e-4
