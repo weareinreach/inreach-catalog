@@ -217,7 +217,7 @@ class SaveToFavoritesButton extends React.Component {
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%'}}>
 							<p>
-								<FormattedMessage id="error.sign-in-to-share-resources" />
+								<FormattedMessage id="error.sign-in-to-save-resources" />
 							</p>
 							<p
 								style={{
@@ -341,7 +341,7 @@ class SaveToFavoritesButton extends React.Component {
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%', fontSize: '14px'}}>
 							<p>
-								<FormattedMessage id="error.sign-in-to-share-resources" />
+								<FormattedMessage id="error.sign-in-to-save-resources" />
 							</p>
 							<p
 								style={{
