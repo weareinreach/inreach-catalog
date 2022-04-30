@@ -99,7 +99,7 @@ jobs:
           environment:
             GROUP: << parameters.group >>
           name: "Generate Report lcov"
-          command: "cd catalog && export GROUP=${GROUP} && yarn report:lcov"
+          command: "cd catalog && export GROUP=${GROUP} && yarn report:lcov && ls"
       - codecov/upload:
           file: 'catalog/coverageReports/coverage-final.json'
           flags: 'Integration'
