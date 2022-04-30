@@ -33,7 +33,7 @@ const BottomBanner = ({classes}) => {
 					className={classes.paddingVertical}
 					data-test-id="banner-text"
 				>
-					<FormattedMessage id="app.welcome-4" />
+					<FormattedMessage id="app.welcome-main-4" />
 				</Typography>
 			</div>
 		</div>
