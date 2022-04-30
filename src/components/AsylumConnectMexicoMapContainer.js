@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
 import {withStyles} from '@material-ui/core/styles';
 import {Card, CardContent, Paper, Typography} from '@material-ui/core/';
@@ -124,6 +125,15 @@ const AsylumConnectMexicoMapContainer = ({classes}) => {
 									<Typography className={classes.legendKey}> &gt;30</Typography>
 								</div>
 							</div>
+							<Typography variant="caption">
+								<Link
+									to={{pathname: 'https://elcri.men/en/state-crime/'}}
+									target="_blank"
+									className="hide--on-print"
+								>
+									<FormattedMessage id="app.mexico-crime-map-source-data-link" />
+								</Link>
+							</Typography>
 						</CardContent>
 					</Card>
 				</>
