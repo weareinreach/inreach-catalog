@@ -116,8 +116,8 @@ workflows:
          filters:
             branches:
               only: dev
-      - sonar:
-          context: sonarCloud
+      # - sonar:
+      #     context: sonarCloud
   pull_request:
     jobs: 
       - build
@@ -133,5 +133,5 @@ workflows:
       - e2e:
           group: 4
           group_name: group4
-      - sonar:
-          context: SonarCloud
+      # - sonar:
+      #     context: SonarCloud
