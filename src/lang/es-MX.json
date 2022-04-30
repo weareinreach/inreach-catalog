@@ -232,6 +232,7 @@
 	"error.resource-not-found": "No se encuentra el recurso",
 	"error.sign-in-to-delete-resources": "¡Oops! Tienes que iniciar una sesión para eliminar recursos.",
 	"error.sign-in-to-share-resources": "¡Oops! Tienes que iniciar una sesión para compartir recursos.",
+	"error.sign-in-to-save-resources": "Oops! You need to be signed in to save resources.",
 	"error.text-field": "{field} campo debe contener al menos 2 caracteres",
 	"error.text-field-country": "El campo 'País' debe contener al menos 2 caracteres",
 	"error.text-field-ethnicity": "El campo 'Etnicidad' debe contener al menos 2 caracteres",
