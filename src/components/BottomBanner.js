@@ -22,7 +22,7 @@ const BottomBanner = ({classes}) => {
 		<div className={classNames(textCenter, bgLightGrey)}>
 			<div className={classNames(content)}>
 				<Typography
-					variant="subtitle2"
+					variant="h3"
 					className={classes.paddingVertical}
 					data-test-id="banner-header"
 				>
