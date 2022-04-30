@@ -54,7 +54,6 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: password
           MONGO_INITDB_DATABASE: asylum-connect
     steps:
-      - run: echo ${GROUP}
       - checkout:
           path: catalog
       - jq/install
@@ -100,12 +99,12 @@ jobs:
           environment:
             GROUP: << parameters.group >>
           name: "Generate Report lcov"
-          command: "cd catalog && yarn report:lcov"
+          command: "GROUP=${GROUP} cd catalog && yarn report:lcov"
       - codecov/upload:
           file: 'catalog/coverageReports/coverage-final.json'
           flags: 'Integration'
       - store_artifacts:
-          path: /catalog/*/lcov.info
+          path: ./catalog/*/lcov.info
 
 workflows:
   version: 2
