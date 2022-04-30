@@ -188,7 +188,7 @@ const NameEmailPswd = (props) => {
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="app.welcome-3" />
+				<FormattedMessage id="app.welcome-main-3" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form

@@ -112,3 +112,18 @@ export const localeTagMap = {
 	en_US: 'united_states',
 	es_MX: 'mexico'
 };
+
+const supportedLocales = [
+	{name: '🇨🇦 Canada', code: 'en_CA'},
+	{name: '🇲🇽 Mexico', code: 'en_MX'},
+	{name: '🇺🇸 United States', code: 'en_US'},
+	{name: '🌎 Other / Travel Support', code: 'intl'}
+];
+
+export const fetchLocaleName = (locale) => {
+	for (var locale1 of supportedLocales) {
+		if (locale1['code'] === locale) {
+			return locale1['name'];
+		}
+	}
+};

@@ -11,7 +11,7 @@ import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
 import withWidth from './withWidth';
-import {getLocale, isLocaleSet} from '../utils/locale';
+import {getLocale, isLocaleSet, fetchLocaleName} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -245,11 +245,14 @@ class SearchFormContainer extends React.Component {
 											<FormattedMessage
 												id="app.welcome"
 												defaultMessage="Welcome to InReach"
+												values={{
+													country: fetchLocaleName(locale)
+												}}
 											/>
 										) : (
 											<>
 												<FormattedMessage
-													id="app.welcome-1"
+													id="app.welcome-main-1"
 													defaultMessage="Welcome to InReach"
 												/>
 											</>
