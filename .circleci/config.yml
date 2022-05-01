@@ -180,14 +180,14 @@ workflows:
           group_name: group1
           filters:
             branches:
-              ignore: main,dev
+              ignore: [main,dev]
       - e2e:
           name: e2e-2
           group: 2
           group_name: group2
           filters:
             branches:
-              ignore: main,dev
+              ignore: [main,dev]
 
       - e2e:
           name: e2e-3
@@ -195,7 +195,7 @@ workflows:
           group_name: group3
           filters:
             branches:
-              ignore: main,dev
+              ignore: [main,dev]
 
       - e2e:
           name: e2e-4
@@ -203,7 +203,7 @@ workflows:
           group_name: group4
           filters:
             branches:
-              ignore: main,dev
+              ignore: [main,dev]
 
       - sonar:
           context: SonarCloud
@@ -214,4 +214,4 @@ workflows:
             - e2e-4
           filters:
             branches:
-              ignore: main,dev
+              ignore: [main,dev]
