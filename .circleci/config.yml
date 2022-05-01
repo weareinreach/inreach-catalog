@@ -111,14 +111,14 @@ jobs:
       - image: cypress/base:16.5.0
     steps:
       - checkout
-      #Download artifacts
+      #Install dependencies
       - run: 
          name: "Install lcov merger"
-         command: yarn add lcov-result-merger --dev
+         command: yarn add lcov-result-merger axios --dev
+      #Download artifacts
       - run:
-          name: "Download artifacts"
-          command: |
-              curl -X GET "https://circleci.com/api/v2/project/github/asylum-connect/asylumconnect-catalog/$CIRCLE_BUILD_NUM/artifacts"  -H "Accept: application/json" -u "$CIRCLE_API_TOKEN:"
+          name: "Download reports"
+          command: cd .circleci && node getLcovReports.js
       - run: ls
       - run: 
          name: "Merge Records"
