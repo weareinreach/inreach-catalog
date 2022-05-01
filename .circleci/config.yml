@@ -124,6 +124,7 @@ jobs:
          name: "Merge Records"
          command: ./node_modules/.bin/lcov-result-merger 'lcov-*.info' 'merged-lcov.info'
       - run: ls
+
 workflows:
   version: 2
   development:
