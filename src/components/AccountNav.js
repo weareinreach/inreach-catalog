@@ -7,30 +7,37 @@ import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	accountNav: {
-		display: 'flex',
-		flex: '0 0 200px'
+		width: 'auto'
 	},
 	root: {
-		display: 'flex',
-		padding: '0 5px 0'
-	},
-	accountLinks: {
-		padding: '5px 10px'
-	},
-	divider: {
-		borderRight: '1px solid',
-		borderColor: theme.palette.text.divider
+		display: 'flex'
 	},
 	lowercaseText: {
 		textTransform: 'capitalize',
 		cursor: 'pointer',
 		width: '66px',
 		height: '48px',
-		fontWeight: 600,
-		fontSize: '16px'
+		fontWeight: theme.typography.fontWeightMedium,
+		fontSize: '14px',
+		'@media(max-width:961px)': {
+			fontSize: '12px',
+			fontWeight: theme.typography.fontWeightHeavy
+		}
 	},
 	cursor: {
 		cursor: 'pointer'
+	},
+	line: {
+		border: '0.5px solid #1D1F23'
+	},
+	linePadding: {
+		paddingRight: '16px'
+	},
+	signInUp: {
+		width: '58px',
+		'@media(max-width:961px)': {
+			width: '49px'
+		}
 	}
 });
 
@@ -45,7 +52,7 @@ const AccountNav = ({
 		{session && (
 			<div className={classes.root}>
 				<Link
-					className={[classes.divider, classes.accountLinks].join(' ')}
+					className={classes.linePadding}
 					to={'/' + locale + '/account'}
 					data-test-id="nav-account-account-settings"
 				>
@@ -57,13 +64,17 @@ const AccountNav = ({
 						/>
 					</Typography>
 				</Link>
+				<div className={classes.line} />
 				<Link
 					to="/"
-					className={classes.accountLinks}
+					// className={classes.accountLinks}
 					onClick={handleLogOut}
 					data-test-id="nav-account-sign-out"
 				>
-					<Typography type="body1" className={classes.lowercaseText}>
+					<Typography
+						type="body1"
+						className={[classes.lowercaseText, classes.signInUp].join(' ')}
+					>
 						<FormattedMessage
 							id="account.sign-out"
 							description="Account sign out text"
@@ -73,19 +84,17 @@ const AccountNav = ({
 				</Link>
 			</div>
 		)}
-
 		{!session && (
 			<div className={classes.root}>
 				<a
-					className={[
-						classes.divider,
-						classes.accountLinks,
-						classes.cursor
-					].join(' ')}
+					className={[classes.cursor, classes.linePadding].join(' ')}
 					data-test-id="nav-account-sign-in"
 					onClick={() => handleRequestOpen('login')}
 				>
-					<Typography type="body1" className={classes.lowercaseText}>
+					<Typography
+						type="body1"
+						className={[classes.lowercaseText, classes.signInUp].join(' ')}
+					>
 						<FormattedMessage
 							id="account.sign-in"
 							description="Account sign in text"
@@ -93,12 +102,16 @@ const AccountNav = ({
 						/>
 					</Typography>
 				</a>
+				<div className={classes.line} />
 				<a
-					className={[classes.accountLinks, classes.cursor].join(' ')}
+					className={classes.cursor}
 					onClick={() => handleRequestOpen('signup')}
 					data-test-id="nav-account-sign-up"
 				>
-					<Typography type="body1" className={classes.lowercaseText}>
+					<Typography
+						type="body1"
+						className={[classes.lowercaseText, classes.signInUp].join(' ')}
+					>
 						<FormattedMessage
 							id="account.sign-up"
 							description="Account sign up text"
