@@ -113,17 +113,16 @@ jobs:
       - checkout
       #Install dependencies
       - run: 
-         name: "Install lcov merger"
+         name: "Install dependencies"
          command: yarn add lcov-result-merger axios --dev
       #Download artifacts
       - run:
           name: "Download reports"
           command: cd .circleci && node getLcovReports.js
-      - run: ls
       - run: 
          name: "Merge Records"
          command: ./node_modules/.bin/lcov-result-merger 'lcov-*.info' 'merged-lcov.info'
-      - run: ls
+      - sonarcloud/scan
 
 workflows:
   version: 2
