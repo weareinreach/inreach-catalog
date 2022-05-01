@@ -11,15 +11,18 @@ const styles = (theme) => ({
 		'&:hover': {
 			color: theme.palette.secondary[900]
 		},
-		fontSize: '16px',
+		fontSize: '14px',
 		fontWeight: theme.typography.fontWeightMedium,
-		lineHeight: 1.5,
-		display: 'flex',
+		lineHeight: '20px',
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: '82px',
-		height: '48px'
+		height: '48px',
+		'@media(max-width:999px)': {
+			fontSize: '12px',
+			fontWeight: theme.typography.fontWeightHeavy
+		}
 	}
 });
 

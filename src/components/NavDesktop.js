@@ -12,35 +12,16 @@ import Language from './Language';
 
 const styles = (theme) => ({
 	root: {
-		position: 'sticky',
-		top: '0px',
-		zIndex: '1000',
-		width: '100%',
+		width: '1300px',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		margin: '0 auto',
-		backgroundColor: 'white',
-		'@media(min-width:1640px)': {
-			padding: '10px 15%'
-		},
-		'@media(max-width:1639px)': {
-			padding: '10px 9%'
-		},
-		'@media(max-width:1550px)': {
-			padding: '10px 7%'
-		},
-		'@media(max-width:1440px)': {
-			padding: '10px 5%'
-		},
-		'@media(max-width:1400px)': {
-			padding: '10px 2%'
-		},
-		'@media(max-width:1315px)': {
-			padding: '10px 0'
-		},
-		boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)'
+		'@media(min-width:961px)': {
+			width: 'auto',
+			padding: '0 32px'
+		}
 	},
 	displayInherit: {
 		display: 'inherit'
@@ -57,7 +38,11 @@ const styles = (theme) => ({
 	},
 	headerLink: {
 		lineHeight: '20px',
-		color: 'rgba(29, 31, 35, 1)'
+		color: 'rgba(29, 31, 35, 1)',
+		padding: '0 2.5px',
+		'@media(max-width:999px)': {
+			fontSize: '10px'
+		}
 	}
 });
 
