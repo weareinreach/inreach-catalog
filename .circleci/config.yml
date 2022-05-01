@@ -161,12 +161,15 @@ workflows:
             branches:
               only: dev
       - sonar:
-          context: sonarCloud
+          context: SonarCloud
           requires:
             - e2e-1
             - e2e-2
             - e2e-3
             - e2e-4
+          filters:
+            branches:
+              only: dev
 
   pull_request:
     jobs: 
