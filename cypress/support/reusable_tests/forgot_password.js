@@ -95,7 +95,7 @@ Cypress.Commands.add('testForgotPasswordActionBadEmail',(viewport,email)=>{
     });
 });
 
-Cypress.Commands.add('testGenericError',(viewport, email)=>{
+Cypress.Commands.add('testBadRequestError',(viewport, email)=>{
  cy.viewport(viewport);
     //Sign in Button
     if(viewport === Cypress.env('mobile')){
@@ -111,19 +111,22 @@ Cypress.Commands.add('testGenericError',(viewport, email)=>{
         cy.wrap($element).click();
         cy.getElementByTestId('forgot-password-email').type(email);
         
-        //intercept and force generic error
+        //intercept and force 400 error
         cy.intercept('POST', '/v1/users/forgotPassword',{
-            forceNetworkError: true 
+            statusCode:400
         });
-        cy.getElementByTestId('forgot-password-send-button').click();
-
-        //look for error message
-        cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+        cy.getElementByTestId('forgot-password-send-button').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain("Oops! Something went wrong.");
-                cy.getElementByTestId('snackbar-close-button').should('be.visible');
-                cy.getElementByTestId('snackbar-close-button').click();
-                cy.getElementByTestId('snackbar-message').should('not.exist');
+            expect($element).contain('Send');
+            cy.wrap($element).click().then(()=>{
+                cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element.children()).contain("Oops! Please check that you entered the correct email address.");
+                        cy.getElementByTestId('snackbar-close-button').should('be.visible');
+                        cy.getElementByTestId('snackbar-close-button').click();
+                        cy.getElementByTestId('snackbar-message').should('not.exist');
+                    });
+                });
             });
-        });
+});
 });
