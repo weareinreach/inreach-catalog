@@ -173,7 +173,10 @@ workflows:
 
   pull_request:
     jobs: 
-      - build
+      - build:
+          filters:
+            branches:
+              ignore: [main,dev]
       - e2e:
           name: e2e-1
           group: 1
