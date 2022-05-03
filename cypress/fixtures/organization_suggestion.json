@@ -1,0 +1,76 @@
+{
+	"name": "Surprisingly Unique Org Name",
+	"description": "Test organizations Description",
+	"slug": "surprisingly-unique-organizations-slug",
+	"website": "https://google.com",
+	"phone": "7207776666",
+	"is_published": true,
+	"emails": [{
+		"email": "surprising@gmail.com",
+		"first_name": "First",
+		"last_name": "Last",
+		"is_primary": true,
+		"show_on_organization": true
+	}],
+	"services": [{
+        "is_published": true,
+        "is_deleted": false,
+        "description": "Test Service",
+        "name": "Service",
+        "slug": "service-slug-24157",
+        "slug_ES": "service-slug-24157",
+        "properties": {
+            "service-state-wyoming": "true",
+            "cost-free":"true",
+            "community-adults":"true",
+            "community-lgbtq-youth":"true",
+            "community-latin-america-immigrant":"true",
+            "community-latino":"true",
+            "community-teens":"true",
+            "lang-english":"true",
+            "lang-spanish":"true"
+
+        },
+        "access_instructions": [],
+        "notes_log": [],
+        "tags":{
+            "united_states":{
+               "Transportation":{
+                  "Transportation assistance":"true"
+               },
+               "Food":"true",
+               "Hygiene and Clothing":{
+                  "Hygiene":"true"
+               },
+               "Medical":{
+                  "HIV and sexual health":"true"
+               },
+               "Mental Health":{
+                  "Private therapy and counseling":"true",
+                  "Support groups":"true"
+               }
+            }
+         
+        }
+    }],
+	"locations": [{
+			"geolocation":{"type":"Point","coordinates":[]},
+			"address": "1735 Mission Street",
+			"city": "Casper",
+			"is_primary": true,
+			"lat": "42.8501",
+			"long": "-106.3252",
+			"name": "Lyon-Martin Health Services",
+			"show_on_organization": true,
+			"state": "WY",
+			"unit": "",
+			"zip_code": "82601",
+			"country_ES": "",
+			"state_ES": ""
+		}
+
+	],
+    "properties":{
+        "service-state-wyoming":"true"
+     }
+}
