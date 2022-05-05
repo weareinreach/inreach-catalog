@@ -102,6 +102,31 @@ class SearchFilters extends React.Component {
 	render() {
 		const {props} = this;
 		const isMobile = this.props.width < breakpoints['sm'];
+
+		const handleFilterSelect = (event, checked) => {
+			console.log(event);
+			console.log(checked);
+			// var index;
+			// const target = event.target;
+			// var selectedFilters = this.state.selectedFilters.slice();
+
+			// if (checked && selectedFilters.indexOf(target.value) < 0) {
+			// 	selectedFilters.push(target.value);
+			// 	selectedFilters.sort();
+			// 	this.setState({
+			// 		selectedFilters: selectedFilters
+			// 	});
+			// } else if (
+			// 	!checked &&
+			// 	(index = selectedFilters.indexOf(target.value)) >= 0
+			// ) {
+			// 	selectedFilters.splice(index, 1);
+			// 	this.setState({
+			// 		selectedFilters: selectedFilters
+			// 	});
+			// }
+		};
+
 		return (
 			<div>
 				<Grid container spacing={0}>
@@ -120,7 +145,9 @@ class SearchFilters extends React.Component {
 								<AsylumConnectCheckbox
 									label={filter.label}
 									value={filter.name}
-									onChange={props.onChange}
+									onChange={
+										props.onChange ? props.onChange : handleFilterSelect
+									}
 									checked={props.selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (
