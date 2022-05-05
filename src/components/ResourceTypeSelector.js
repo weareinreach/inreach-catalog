@@ -35,15 +35,16 @@ const styles = (theme) => ({
 		position: 'absolute',
 		right: theme.spacing(2),
 		top: theme.spacing(2),
-		textDecoration: 'none'
+		textDecoration: 'none',
+		cursor: 'pointer'
 	},
 	filterLayout: {
 		[theme.breakpoints.up('sm')]: {
-			display: 'flex',
-			width: '100%',
+			// display: 'flex',
+			// width: '100%',
 			'& > div:first-child': {
 				overflowY: 'auto',
-				width: '50%',
+				// width: '50%',
 				position: 'absolute',
 				top: theme.spacing(6),
 				bottom: '0',
@@ -51,9 +52,10 @@ const styles = (theme) => ({
 				marginBottom: theme.spacing(2)
 			},
 			'& > div:last-child': {
-				width: '50%',
+				// width: '50%',
 				height: '420px',
-				marginLeft: '50%'
+				marginLeft: '50%',
+				marginTop: '-32px'
 			}
 		}
 	},
@@ -99,8 +101,8 @@ const styles = (theme) => ({
 	subfilterSpacing: {
 		marginTop: theme.spacing(2),
 		[theme.breakpoints.up('sm')]: {
-			position: 'absolute',
-			left: '50%',
+			// position: 'absolute',
+			// left: '50%',
 			top: theme.spacing(2),
 			bottom: '0',
 			height: '100%',
@@ -116,7 +118,8 @@ const styles = (theme) => ({
 		right: '0',
 		[theme.breakpoints.up('md')]: {
 			maxHeight: '420px',
-			padding: theme.spacing(4)
+			padding: theme.spacing(4),
+			position: 'unset !important'
 		}
 	}
 });

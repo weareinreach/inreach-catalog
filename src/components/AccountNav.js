@@ -34,9 +34,9 @@ const styles = (theme) => ({
 		paddingRight: '16px'
 	},
 	signInUp: {
-		width: '58px',
-		'@media(max-width:961px)': {
-			width: '49px'
+		width: '54px',
+		'@media(max-width:999px)': {
+			width: '46px'
 		}
 	}
 });
