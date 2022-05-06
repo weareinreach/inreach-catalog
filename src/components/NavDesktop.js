@@ -12,7 +12,6 @@ import Language from './Language';
 
 const styles = (theme) => ({
 	root: {
-		// width: '1300px',
 		padding: '0 32px',
 		display: 'flex',
 		flexDirection: 'row',
@@ -27,19 +26,19 @@ const styles = (theme) => ({
 		},
 		'@media(max-width:961px) and @media(min-width: 1235px)': {
 			width: 'auto'
-		},
-		'@media(max-width:960px)': {
-			width: '896px'
 		}
+		// '@media(max-width:960px)': {
+		// 	width: '896px'
+		// }
 	},
 	displayInherit: {
 		display: 'inherit'
 	},
 	IconButton: {
 		display: 'inline',
-		height: '60px',
-		width: 'auto',
-		maxWidth: '65px'
+		height: '48px',
+		width: '127.91px',
+		maxWidth: '128px'
 	},
 	languageIconColor: {
 		fill: theme.palette.secondary[400],

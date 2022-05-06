@@ -161,9 +161,8 @@ class Language extends React.Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleReload = this.handleReload.bind(this);
-		this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(
-			this
-		);
+		this.handleRequestCloseAfterSelect =
+			this.handleRequestCloseAfterSelect.bind(this);
 		this.generateLanguageItems = this.generateLanguageItems.bind(this);
 		this.generateLanguageList = this.generateLanguageList.bind(this);
 		this.generateLabelWithIcon = this.generateLabelWithIcon.bind(this);
@@ -412,8 +411,8 @@ Language.propTypes = {
 };
 
 LangMenuItem.propTypes = {
-	langName: PropTypes.string.isRequired,
-	langCode: PropTypes.string.isRequired
+	langName: PropTypes.string,
+	langCode: PropTypes.string
 };
 
 export default withStyles(styles)(withWidth(Language));

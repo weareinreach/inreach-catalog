@@ -34,12 +34,12 @@ const Header = ({
 	match,
 	messages
 }) => {
-	const isMobile = width < breakpoints['sm'];
-	const isTablet = width < breakpoints['md'];
+	const isMobile = width <= breakpoints['sm'];
+	const isTablet = width <= breakpoints['md'];
 
 	if (isMobile) {
 		return (
-			<div id="header-div" class={classes.root}>
+			<div id="header-div" className={classes.root}>
 				<NavMobile
 					handleLogOut={handleLogOut}
 					handleRequestOpen={handleRequestOpen}
@@ -54,7 +54,7 @@ const Header = ({
 		);
 	} else if (isTablet) {
 		return (
-			<div id="header-div" class={classes.root}>
+			<div id="header-div" className={classes.root}>
 				<NavTablet
 					handleLogOut={handleLogOut}
 					handleRequestOpen={handleRequestOpen}
@@ -66,7 +66,7 @@ const Header = ({
 		);
 	} else {
 		return (
-			<div id="header-div" class={classes.root}>
+			<div id="header-div" className={classes.root}>
 				<NavDesktop
 					handleLogOut={handleLogOut}
 					handleRequestOpen={handleRequestOpen}
