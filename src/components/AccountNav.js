@@ -18,26 +18,34 @@ const styles = (theme) => ({
 		width: '66px',
 		height: '48px',
 		fontWeight: theme.typography.fontWeightMedium,
-		fontSize: '14px',
-		'@media(max-width:961px)': {
-			fontSize: '12px',
-			fontWeight: theme.typography.fontWeightHeavy
-		}
+		fontSize: '14px'
+		// '@media(max-width:961px)': {
+		// 	fontSize: '12px',
+		// 	fontWeight: theme.typography.fontWeightHeavy
+		// }
 	},
 	cursor: {
 		cursor: 'pointer'
 	},
 	line: {
-		border: '0.5px solid #1D1F23'
+		border: '0.5px solid #1D1F23',
+		margin: '0 16px'
 	},
 	linePadding: {
-		paddingRight: '16px'
+		// paddingRight: '16px'
 	},
 	signInUp: {
 		width: '54px',
-		'@media(max-width:999px)': {
-			width: '46px'
-		}
+		// '@media(max-width:999px)': {
+		// 	width: '46px',
+		// },
+		paddingTop: '25%'
+	},
+	signOut: {
+		width: '54px'
+		// '@media(max-width:999px)': {
+		// 	width: '46px',
+		// },
 	}
 });
 
@@ -73,7 +81,7 @@ const AccountNav = ({
 				>
 					<Typography
 						type="body1"
-						className={[classes.lowercaseText, classes.signInUp].join(' ')}
+						className={[classes.lowercaseText, classes.signOut].join(' ')}
 					>
 						<FormattedMessage
 							id="account.sign-out"

@@ -12,15 +12,24 @@ import Language from './Language';
 
 const styles = (theme) => ({
 	root: {
-		width: '1300px',
+		// width: '1300px',
+		padding: '0 32px',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		margin: '0 auto',
-		'@media(min-width:961px)': {
-			width: 'auto',
-			padding: '0 32px'
+		'@media(min-width:1281px)': {
+			width: '1300px'
+		},
+		'@media(max-width:1280px) and @media(min-width: 1236px)': {
+			width: '1236px'
+		},
+		'@media(max-width:961px) and @media(min-width: 1235px)': {
+			width: 'auto'
+		},
+		'@media(max-width:960px)': {
+			width: '896px'
 		}
 	},
 	displayInherit: {
@@ -39,10 +48,10 @@ const styles = (theme) => ({
 	headerLink: {
 		lineHeight: '20px',
 		color: 'rgba(29, 31, 35, 1)',
-		padding: '0 2.5px',
-		'@media(max-width:999px)': {
-			fontSize: '10px'
-		}
+		padding: '0 2.5px'
+		// '@media(max-width:999px)': {
+		// 	fontSize: '10px'
+		// }
 	}
 });
 
