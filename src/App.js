@@ -27,7 +27,7 @@ import DeleteListMobile from './components/DeleteListMobile';
 import ThankYouMobile from './components/ThankYouMobile';
 
 import withWidth from './components/withWidth';
-import LogoImg from './images/logo@2x.png';
+import LogoImg from './images/logo.png';
 import LogoImgMobile from './images/logo-mobile@3x.png';
 import LogoImgCA from './images/logo-ca@2x.png';
 import LogoImgMXMobile from './images/logo-mx@2x.png';

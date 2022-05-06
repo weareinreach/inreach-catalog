@@ -22,9 +22,9 @@ const styles = (theme) => ({
 
 const Announcement = ({classes}) => (
 	<div className={classes.announcement + ' hide--on-print'}>
-		<InformationIcon24 />
+		<InformationIcon24 fillColor={'#000000'} />
 		<Typography
-			variant="bannerText"
+			variant="caption"
 			className={classes.textContent}
 			data-test-id="announcement-header"
 		>

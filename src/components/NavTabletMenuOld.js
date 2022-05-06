@@ -24,7 +24,7 @@ const styles = (theme) => ({
 	}
 });
 
-class NavTabletMenu extends React.Component {
+class NavTabletMenuOld extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -53,7 +53,12 @@ class NavTabletMenu extends React.Component {
 					className={classes.root}
 					data-test-id="tablet-nav-button-icon"
 				>
-					Menu
+					<img
+						src={LogoImg}
+						alt="asylumconnect logo"
+						className={classes.LogoFitHeight}
+						data-test-id="tablet-nav-button-icon-image"
+					/>
 					<ChevronIcon width={'40px'} />
 				</IconButton>
 				<Menu
@@ -64,6 +69,16 @@ class NavTabletMenu extends React.Component {
 					className={classes.AsylumConnectMenu}
 					data-test-id="tablet-nav-menu-button"
 				>
+					<MenuItem onClick={this.handleRequestClose}>
+						<a
+							data-test-id="tablet-nav-menu-item-home"
+							href="https://asylumconnect.org"
+						>
+							<FormattedMessage id="navigation.home">
+								{(home) => <Typography variant="h6">{home}</Typography>}
+							</FormattedMessage>
+						</a>
+					</MenuItem>
 					<MenuItem onClick={this.handleRequestClose}>
 						<a
 							data-test-id="tablet-nav-menu-item-about"
@@ -104,14 +119,24 @@ class NavTabletMenu extends React.Component {
 							</FormattedMessage>
 						</a>
 					</MenuItem>
+					<MenuItem onClick={this.handleRequestClose}>
+						<a
+							data-test-id="tablet-nav-menu-item-safety-exit"
+							href="https://www.google.com/"
+						>
+							<FormattedMessage id="navigation.safety-exit">
+								{(safety) => <Typography variant="h6">{safety}</Typography>}
+							</FormattedMessage>
+						</a>
+					</MenuItem>
 				</Menu>
 			</div>
 		);
 	}
 }
 
-NavTabletMenu.propTypes = {
+NavTabletMenuOld.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(NavTabletMenu);
+export default withStyles(styles)(NavTabletMenuOld);
