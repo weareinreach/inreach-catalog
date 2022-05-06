@@ -9,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import {FormattedMessage} from 'react-intl';
 
 import {ChevronIcon} from './icons';
-import LogoImg from '../images/logo@2x.png';
+// import LogoImg from '../images/logo@2x.png';
+import LogoImg from '../images/logoInReach.png';
 
 const styles = (theme) => ({
 	root: {
