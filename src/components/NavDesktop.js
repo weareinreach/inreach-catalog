@@ -20,13 +20,13 @@ const styles = (theme) => ({
 		margin: '0 auto',
 		'@media(min-width:1281px)': {
 			width: '1300px'
-		},
-		'@media(max-width:1280px) and @media(min-width: 1236px)': {
-			width: '1236px'
-		},
-		'@media(max-width:961px) and @media(min-width: 1235px)': {
-			width: 'auto'
 		}
+		// '@media(max-width:1280px) and @media(min-width: 1236px)': {
+		// 	width: '1236px'
+		// },
+		// '@media(max-width:961px) and @media(min-width: 1235px)': {
+		// 	width: 'auto'
+		// }
 		// '@media(max-width:960px)': {
 		// 	width: '896px'
 		// }

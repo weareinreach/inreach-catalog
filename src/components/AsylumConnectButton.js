@@ -99,6 +99,7 @@ const styles = (theme) => ({
 		}
 	},
 	safety: {
+		marginBottom: 'unset',
 		color: theme.palette.common.white,
 		backgroundColor: theme.palette.safety[500],
 		borderColor: theme.palette.safety[500],
@@ -109,6 +110,7 @@ const styles = (theme) => ({
 		}
 	},
 	disabledSafety: {
+		marginBottom: 'unset',
 		color: theme.palette.common.white,
 		backgroundColor: theme.palette.safety[100],
 		borderColor: theme.palette.safety[100],
