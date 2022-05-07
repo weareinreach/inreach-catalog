@@ -16,9 +16,10 @@ const styles = (theme) => ({
 		textTransform: 'capitalize',
 		cursor: 'pointer',
 		width: '66px',
-		height: '48px',
+		// height: '48px',
 		fontWeight: theme.typography.fontWeightMedium,
-		fontSize: '14px'
+		fontSize: '16px',
+		lineHeight: '24px'
 		// '@media(max-width:961px)': {
 		// 	fontSize: '12px',
 		// 	fontWeight: theme.typography.fontWeightHeavy
@@ -42,7 +43,7 @@ const styles = (theme) => ({
 		paddingTop: '25%'
 	},
 	signOut: {
-		width: '54px'
+		width: '35px'
 		// '@media(max-width:999px)': {
 		// 	width: '46px',
 		// },
