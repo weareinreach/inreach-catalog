@@ -62,6 +62,7 @@
 	"aboutyou.organization-reason-placeholder": "I joined InReach because..",
 	"aboutyou.select-all": "(Select all that apply)",
 	"account.account-settings": "Account Settings",
+	"account.account": "Account",
 	"account.already-have-account": "Already have an account?",
 	"account.already-organization-affiliate": "You are already affiliated with {name}.",
 	"account.finish-registration": "Finish Registration",

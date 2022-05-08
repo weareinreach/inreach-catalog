@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import AsylumConnectButton from './AsylumConnectButton';
 import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
-import AccountNav from './AccountNav';
+import AccountTablet from './AccountTablet';
 import FavoritesLink from './FavoritesLink';
 
 import Typography from '@material-ui/core/Typography';
@@ -101,7 +101,7 @@ const NavTablet = ({
 				useIcon
 				enableOverlay
 			/>
-			<AccountNav
+			<AccountTablet
 				handleLogOut={handleLogOut}
 				handleRequestOpen={handleRequestOpen}
 				locale={locale}

@@ -39,11 +39,11 @@ const styles = (theme) => ({
 		// paddingRight: '16px'
 	},
 	signInUp: {
-		width: '54px',
+		width: 'fit-content'
 		// '@media(max-width:999px)': {
 		// 	width: '46px',
 		// },
-		paddingTop: '25%'
+		// paddingTop: '25%'
 	},
 	signOut: {
 		width: '35px'
