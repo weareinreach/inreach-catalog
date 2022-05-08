@@ -41,9 +41,6 @@ const styles = (theme) => ({
 		border: '0.5px solid #1D1F23',
 		margin: '0 16px'
 	},
-	linePadding: {
-		// paddingRight: '16px'
-	},
 	signInUp: {
 		width: '54px'
 	},
@@ -54,7 +51,6 @@ const styles = (theme) => ({
 		textTransform: 'capitalize',
 		cursor: 'pointer',
 		width: '66px',
-		// height: '48px',
 		fontWeight: theme.typography.fontWeightMedium,
 		fontSize: '16px',
 		lineHeight: '24px'
@@ -134,7 +130,7 @@ const AccountTablet = (props) => {
 			{!session && (
 				<div className={classes.root}>
 					<a
-						className={[classes.cursor, classes.linePadding].join(' ')}
+						className={classes.cursor}
 						data-test-id="nav-account-sign-in"
 						onClick={() => handleRequestOpen('login')}
 					>
