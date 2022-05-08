@@ -107,6 +107,9 @@ const styles = (theme) => ({
 			color: theme.palette.common.white,
 			backgroundColor: theme.palette.safety[900],
 			borderColor: theme.palette.safety[900]
+		},
+		'@media(max-width:1080px)': {
+			padding: '0px 20px'
 		}
 	},
 	disabledSafety: {

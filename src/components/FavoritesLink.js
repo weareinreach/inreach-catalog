@@ -17,8 +17,11 @@ const styles = (theme) => ({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: '82px'
+		width: '82px',
 		// height: '48px',
+		'@media(max-width:972px)': {
+			fontSize: '12px'
+		}
 	}
 });
 

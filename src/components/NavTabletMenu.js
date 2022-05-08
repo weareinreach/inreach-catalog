@@ -1,117 +1,98 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import {FormattedMessage} from 'react-intl';
 
-import {ChevronIcon} from './icons';
-import LogoImg from '../images/logoInReach.png';
+import classNames from 'classnames';
+import Filter from './Filter';
+import withWidth from './withWidth';
+import {
+	breakpoints,
+	mobilePadding,
+	searchInput,
+	searchInputMobile
+} from '../theme';
+
+import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
+import AsylumConnectSelector from './AsylumConnectSelector';
 
 const styles = (theme) => ({
 	root: {
-		display: 'inline'
+		display: 'block'
 	},
-	LogoFitHeight: {
-		maxWidth: '55px'
-		/*height: '100%',*/
-	},
-	AsylumConnectMenu: {
-		marginTop: '56px'
-	}
+	inputClass: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		width: '110px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600]
+	})
 });
 
-class NavTabletMenu extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			anchorEl: null,
-			open: false
-		};
-		this.handleClick = this.handleClick.bind(this);
-		this.handleRequestClose = this.handleRequestClose.bind(this);
-	}
-	handleClick(event) {
-		this.setState({open: true, anchorEl: event.currentTarget});
-	}
+const NavTabletMenu = (props) => {
+	const {classes} = props;
 
-	handleRequestClose() {
-		this.setState({open: false});
-	}
-
-	render() {
-		const {classes} = this.props;
-		return (
-			<div>
-				<IconButton
-					aria-owns={this.state.open ? 'simple-menu' : null}
-					aria-haspopup="true"
-					onClick={this.handleClick}
-					className={classes.root}
-					data-test-id="tablet-nav-button-icon"
+	return (
+		<AsylumConnectSelector
+			label="Menu"
+			containerClass={classes.inputClass}
+			selected={[]}
+			closeOnClick={true}
+			containerWidth="110px"
+		>
+			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-about">
+				<a
+					data-test-id="tablet-nav-menu-item-about"
+					href="https://asylumconnect.org/mission/"
 				>
-					Menu
-					<ChevronIcon width={'40px'} />
-				</IconButton>
-				<Menu
-					id="simple-menu"
-					anchorEl={this.state.anchorEl}
-					open={this.state.open}
-					onRequestClose={this.handleRequestClose}
-					className={classes.AsylumConnectMenu}
-					data-test-id="tablet-nav-menu-button"
+					<FormattedMessage id="navigation.about">
+						{(about) => <Typography variant="h6">{about}</Typography>}
+					</FormattedMessage>
+				</a>
+			</AsylumConnectDropdownListItem>
+			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-action">
+				<a
+					data-test-id="tablet-nav-menu-item-take-action"
+					href="https://asylumconnect.org/donate/"
 				>
-					<MenuItem onClick={this.handleRequestClose}>
-						<a
-							data-test-id="tablet-nav-menu-item-about"
-							href="https://asylumconnect.org/mission/"
-						>
-							<FormattedMessage id="navigation.about">
-								{(about) => <Typography variant="h6">{about}</Typography>}
-							</FormattedMessage>
-						</a>
-					</MenuItem>
-					<MenuItem onClick={this.handleRequestClose}>
-						<a
-							data-test-id="tablet-nav-menu-item-take-action"
-							href="https://asylumconnect.org/donate/"
-						>
-							<FormattedMessage id="navigation.take-action">
-								{(action) => <Typography variant="h6">{action}</Typography>}
-							</FormattedMessage>
-						</a>
-					</MenuItem>
-					<MenuItem onClick={this.handleRequestClose}>
-						<a
-							data-test-id="tablet-nav-menu-item-faqs"
-							href="https://asylumconnect.org/faqs/"
-						>
-							<FormattedMessage id="navigation.get-help">
-								{(help) => <Typography variant="h6">{help}</Typography>}
-							</FormattedMessage>
-						</a>
-					</MenuItem>
-					<MenuItem onClick={this.handleRequestClose}>
-						<a
-							data-test-id="tablet-nav-menu-item-contact"
-							href="https://asylumconnect.org/contact/"
-						>
-							<FormattedMessage id="navigation.contact">
-								{(contact) => <Typography variant="h6">{contact}</Typography>}
-							</FormattedMessage>
-						</a>
-					</MenuItem>
-				</Menu>
-			</div>
-		);
-	}
-}
-
-NavTabletMenu.propTypes = {
-	classes: PropTypes.object.isRequired
+					<FormattedMessage id="navigation.take-action">
+						{(action) => <Typography variant="h6">{action}</Typography>}
+					</FormattedMessage>
+				</a>
+			</AsylumConnectDropdownListItem>
+			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-faq">
+				<a
+					data-test-id="tablet-nav-menu-item-faqs"
+					href="https://asylumconnect.org/faqs/"
+				>
+					<FormattedMessage id="navigation.get-help">
+						{(help) => <Typography variant="h6">{help}</Typography>}
+					</FormattedMessage>
+				</a>
+			</AsylumConnectDropdownListItem>
+			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-contact">
+				<a
+					data-test-id="tablet-nav-menu-item-contact"
+					href="https://asylumconnect.org/contact/"
+				>
+					<FormattedMessage id="navigation.contact">
+						{(contact) => <Typography variant="h6">{contact}</Typography>}
+					</FormattedMessage>
+				</a>
+			</AsylumConnectDropdownListItem>
+		</AsylumConnectSelector>
+	);
 };
 
 export default withStyles(styles)(NavTabletMenu);

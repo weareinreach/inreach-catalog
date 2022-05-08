@@ -19,11 +19,14 @@ const styles = (theme) => ({
 		// height: '48px',
 		fontWeight: theme.typography.fontWeightMedium,
 		fontSize: '16px',
-		lineHeight: '24px'
+		lineHeight: '24px',
 		// '@media(max-width:961px)': {
 		// 	fontSize: '12px',
 		// 	fontWeight: theme.typography.fontWeightHeavy
-		// }
+		// },
+		'@media(max-width:972px)': {
+			fontSize: '12px'
+		}
 	},
 	cursor: {
 		cursor: 'pointer'
