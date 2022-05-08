@@ -16,14 +16,9 @@ const styles = (theme) => ({
 		textTransform: 'capitalize',
 		cursor: 'pointer',
 		width: '66px',
-		// height: '48px',
 		fontWeight: theme.typography.fontWeightMedium,
 		fontSize: '16px',
 		lineHeight: '24px',
-		// '@media(max-width:961px)': {
-		// 	fontSize: '12px',
-		// 	fontWeight: theme.typography.fontWeightHeavy
-		// },
 		'@media(max-width:972px)': {
 			fontSize: '12px'
 		}
@@ -35,21 +30,11 @@ const styles = (theme) => ({
 		border: '0.5px solid #1D1F23',
 		margin: '0 16px'
 	},
-	linePadding: {
-		// paddingRight: '16px'
-	},
 	signInUp: {
 		width: 'fit-content'
-		// '@media(max-width:999px)': {
-		// 	width: '46px',
-		// },
-		// paddingTop: '25%'
 	},
 	signOut: {
 		width: '35px'
-		// '@media(max-width:999px)': {
-		// 	width: '46px',
-		// },
 	}
 });
 
@@ -64,7 +49,6 @@ const AccountNav = ({
 		{session && (
 			<div className={classes.root}>
 				<Link
-					className={classes.linePadding}
 					to={'/' + locale + '/account'}
 					data-test-id="nav-account-account-settings"
 				>
@@ -77,12 +61,7 @@ const AccountNav = ({
 					</Typography>
 				</Link>
 				<div className={classes.line} />
-				<Link
-					to="/"
-					// className={classes.accountLinks}
-					onClick={handleLogOut}
-					data-test-id="nav-account-sign-out"
-				>
+				<Link to="/" onClick={handleLogOut} data-test-id="nav-account-sign-out">
 					<Typography
 						type="body1"
 						className={[classes.lowercaseText, classes.signOut].join(' ')}
@@ -99,7 +78,7 @@ const AccountNav = ({
 		{!session && (
 			<div className={classes.root}>
 				<a
-					className={[classes.cursor, classes.linePadding].join(' ')}
+					className={classes.cursor}
 					data-test-id="nav-account-sign-in"
 					onClick={() => handleRequestOpen('login')}
 				>

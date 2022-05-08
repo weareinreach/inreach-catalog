@@ -27,9 +27,6 @@ const styles = (theme) => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		margin: '0 auto',
-		// width: '960px',
-		// padding: '10 0 10 0',
-		// boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)',
 		'@media(max-width:960px) and @media(min-width: 601px)': {
 			width: '896px'
 		}

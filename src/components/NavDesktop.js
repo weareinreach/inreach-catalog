@@ -27,9 +27,6 @@ const styles = (theme) => ({
 		'@media(max-width:961px) and @media(min-width: 1235px)': {
 			width: 'auto'
 		}
-		// '@media(max-width:960px)': {
-		// 	width: '896px'
-		// }
 	},
 	displayInherit: {
 		display: 'inherit'
@@ -51,9 +48,6 @@ const styles = (theme) => ({
 		'@media(max-width:972px)': {
 			fontSize: '11px'
 		}
-		// '@media(max-width:990px)': {
-		// 	fontSize: '10px'
-		// },
 	}
 });
 
