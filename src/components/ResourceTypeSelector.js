@@ -17,11 +17,17 @@ import withWidth from './withWidth';
 
 const styles = (theme) => ({
 	searchInput: Object.assign(searchInput(theme), {
-		borderLeft: '2px solid ' + theme.palette.common.lightGrey,
+		// borderLeft: '2px solid ' + theme.palette.common.lightGrey,
 		cursor: 'pointer',
 		position: 'relative',
-		boxShadow:
-			'-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		// boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		// width: '400px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		// boxShadow:
+		// 	'-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
 		[theme.breakpoints.down('md')]: {
 			boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
 			borderLeft: 'none'
