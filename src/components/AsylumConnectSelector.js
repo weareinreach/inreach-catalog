@@ -23,9 +23,9 @@ const styles = (theme) => ({
 		zIndex: '50'
 	}),
 	arrow: {
-		width: '20px',
-		height: '20px',
-		color: theme.palette.common.lightBlack,
+		width: '24px',
+		height: '24px',
+		color: theme.palette.signUp[600],
 		float: 'right'
 	},
 	relative: {
@@ -146,7 +146,7 @@ class AsylumConnectSelector extends React.Component {
 			(this.props.rootClass ? this.props.rootClass + ' ' : '') + relative;
 
 		return (
-			<div className={rootClass} data-test-id="language-selector-container">
+			<div className={rootClass} data-test-id="drop-down-selector-container">
 				<div
 					className={containerClasses}
 					onClick={(event) => {
@@ -154,7 +154,10 @@ class AsylumConnectSelector extends React.Component {
 						this.handleOpenDrawer(event);
 					}}
 				>
-					<div className={labelContainer} data-test-id="language-selector-item">
+					<div
+						className={labelContainer}
+						data-test-id="drop-down-selector-item"
+					>
 						<span className={selectedLabel}>{label}</span>
 						{selected && selected.length ? (
 							<AsylumConnectIndicator className={indicator} color="secondary">

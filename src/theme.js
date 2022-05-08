@@ -19,7 +19,7 @@ export const searchInput = (theme) => ({
 	height: '3.4rem',
 	color: theme.palette.common.lightBlack,
 	backgroundColor: theme.palette.common.white,
-	borderRadius: '0.1px'
+	borderRadius: '4px'
 });
 
 export const selectInput = (theme) => ({
@@ -31,7 +31,7 @@ export const selectInput = (theme) => ({
 	height: '3.4rem',
 	color: theme.palette.common.lightBlack,
 	backgroundColor: theme.palette.common.white,
-	borderRadius: '0.1px'
+	borderRadius: '4px'
 });
 
 export const dropShadow = (theme) => ({

@@ -17,7 +17,8 @@ const styles = (theme) => ({
 		position: 'sticky',
 		top: '0px',
 		zIndex: '1000',
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		padding: '16px 0'
 	}
 });
 

@@ -124,7 +124,11 @@ const styles = (theme) => ({
 	languageIcon: {
 		width: '35px',
 		height: '30px',
-		paddingRight: '3px'
+		paddingRight: '3px',
+		'@media(max-width:972px)': {
+			width: '33px',
+			height: '27px'
+		}
 	}
 });
 

@@ -12,6 +12,12 @@ import FavoritesLink from './FavoritesLink';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import {
+	searchInput,
+	searchInputMobile,
+	breakpoints,
+	mobilePadding
+} from '../theme';
 
 const styles = (theme) => ({
 	root: {
@@ -23,7 +29,7 @@ const styles = (theme) => ({
 		margin: '0 auto',
 		// width: '960px',
 		// padding: '10 0 10 0',
-		boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)',
+		// boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)',
 		'@media(max-width:960px) and @media(min-width: 601px)': {
 			width: '896px'
 		}
@@ -41,7 +47,17 @@ const styles = (theme) => ({
 	viewYourFavoritesText: {
 		color: theme.palette.secondary[500],
 		fontWeight: '300'
-	}
+	},
+	inputClass: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		width: '145px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600]
+	})
 });
 
 const NavTablet = ({
@@ -67,9 +83,7 @@ const NavTablet = ({
 					{(catalog) => <Typography variant="h1">{catalog}</Typography>}
 				</FormattedMessage>
 			</a>
-			<Grid item md={2}>
-				<NavTabletMenu />
-			</Grid>
+			<NavTabletMenu />
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
@@ -81,7 +95,12 @@ const NavTablet = ({
 					)}
 				</FormattedMessage>
 			</a>
-			<Language colorClass={classes.languageIconColor} useIcon enableOverlay />
+			<Language
+				colorClass={classes.languageIconColor}
+				inputClass={classes.inputClass}
+				useIcon
+				enableOverlay
+			/>
 			<AccountNav
 				handleLogOut={handleLogOut}
 				handleRequestOpen={handleRequestOpen}

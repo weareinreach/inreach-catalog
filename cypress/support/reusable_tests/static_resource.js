@@ -1,7 +1,7 @@
 Cypress.Commands.add('testStaticResource',(viewport)=>{
     cy.viewport(viewport);
 
-cy.getElementByTestId('language-selector-container').then($element=>{
+cy.getElementByTestId('drop-down-selector-container').then($element=>{
     cy.wrap($element[2]).click();
     cy.getElementByTestId('list-item').then($element=>{
             expect($element[3]).to.be.visible;
