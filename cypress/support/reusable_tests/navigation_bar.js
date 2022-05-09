@@ -124,9 +124,9 @@ function testNavigationBarDesktop(viewport, user) {
 
 function testNavigationBarTablet(viewport, user) {
 	cy.viewport(viewport);
-	cy.getElementByTestId('tablet-nav-button-icon-image').should('be.visible');
+	cy.getElementByTestId('nav-button-logo').should('be.visible');
 
-	cy.getElementByTestId('tablet-nav-button-icon').then(($element) => {
+	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('aria-haspopup', 'true');
 		cy.wrap($element)

@@ -106,7 +106,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						/>
 						<ContactLink
 							testIdName="footer-contact-youtube"
-							link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
+							link="https://www.youtube.com/channel/weareinreach"
 							icon="youtube-play"
 						/>
 						<Grid
@@ -197,7 +197,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item xs>
 							<a
-								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+								href="https://bit.ly/inreach-app-share-feedback"
 								className={textBlue}
 								data-test-id="footer-share-feedback"
 							>

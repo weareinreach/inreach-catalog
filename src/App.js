@@ -28,9 +28,9 @@ import ThankYouMobile from './components/ThankYouMobile';
 
 import withWidth from './components/withWidth';
 import LogoImg from './images/logoInReach.png';
-import LogoImgMobile from './images/logo-mobile@3x.png';
+import LogoImgMobile from './images/logo3x.png';
 import LogoImgCA from './images/logoInReach.png';
-import LogoImgMXMobile from './images/logo-mx@2x.png';
+import LogoImgMXMobile from './images/logo2x.png';
 import LogoImgMX from './images/logoInReach.png';
 import {breakpoints} from './theme';
 import {fetchUser} from './utils/api';

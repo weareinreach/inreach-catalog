@@ -36,9 +36,9 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
         });
         cy.getElementByTestId('suggest-page-body-2').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('Thank you for your interest in contributing to the InReach resource catalog! It seems we already have'); 
+            expect($element).contain('Thank you for your interest in contributing to the InReach resource app! It seems we already have'); 
             expect($element).contain(`${org.name}`);
-            expect($element).contain('on the catalog. You can join this organization by signing up for a provider account');
+            expect($element).contain('on the app. You can join this organization by signing up for a provider account');
             expect($element).contain('here');
          });
     });
