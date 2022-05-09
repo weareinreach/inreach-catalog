@@ -84,12 +84,7 @@ const AccountTablet = (props) => {
 								defaultMessage="View Your Favorites"
 							>
 								{(favorites) => (
-									<Typography
-										variant="h6"
-										className={classes.viewYourFavoritesText}
-									>
-										{favorites}
-									</Typography>
+									<Typography variant="h6">{favorites}</Typography>
 								)}
 							</FormattedMessage>
 						</Link>
