@@ -24,6 +24,8 @@ import {
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
 
+import {navLinks} from '../data/navLinks';
+
 const styles = (theme) => ({
 	root: {
 		display: 'block'
@@ -52,10 +54,7 @@ const NavTabletMenu = (props) => {
 			containerWidth="110px"
 		>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-about">
-				<a
-					data-test-id="tablet-nav-menu-item-about"
-					href="https://asylumconnect.org/mission/"
-				>
+				<a data-test-id="tablet-nav-menu-item-about" href={navLinks.about}>
 					<FormattedMessage id="navigation.about">
 						{(about) => <Typography variant="h6">{about}</Typography>}
 					</FormattedMessage>
@@ -64,7 +63,7 @@ const NavTabletMenu = (props) => {
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-action">
 				<a
 					data-test-id="tablet-nav-menu-item-take-action"
-					href="https://asylumconnect.org/donate/"
+					href={navLinks.action}
 				>
 					<FormattedMessage id="navigation.take-action">
 						{(action) => <Typography variant="h6">{action}</Typography>}
@@ -72,20 +71,14 @@ const NavTabletMenu = (props) => {
 				</a>
 			</AsylumConnectDropdownListItem>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-faq">
-				<a
-					data-test-id="tablet-nav-menu-item-faqs"
-					href="https://asylumconnect.org/faqs/"
-				>
+				<a data-test-id="tablet-nav-menu-item-faqs" href={navLinks.help}>
 					<FormattedMessage id="navigation.get-help">
 						{(help) => <Typography variant="h6">{help}</Typography>}
 					</FormattedMessage>
 				</a>
 			</AsylumConnectDropdownListItem>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-contact">
-				<a
-					data-test-id="tablet-nav-menu-item-contact"
-					href="https://asylumconnect.org/contact/"
-				>
+				<a data-test-id="tablet-nav-menu-item-contact" href={navLinks.contact}>
 					<FormattedMessage id="navigation.contact">
 						{(contact) => <Typography variant="h6">{contact}</Typography>}
 					</FormattedMessage>

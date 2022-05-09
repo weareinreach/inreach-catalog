@@ -9,6 +9,7 @@ import AccountNav from './AccountNav';
 import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
 import Language from './Language';
+import {navLinks} from '../data/navLinks';
 
 const styles = (theme) => ({
 	root: {
@@ -79,7 +80,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-about"
-				href="https://asylumconnect.org/mission/"
+				href={navLinks.about}
 			>
 				<FormattedMessage id="navigation.about">
 					{(about) => (
@@ -92,7 +93,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-take-action"
-				href="https://asylumconnect.org/donate/"
+				href={navLinks.action}
 			>
 				<FormattedMessage id="navigation.take-action">
 					{(action) => (
@@ -105,7 +106,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-get-help"
-				href="https://asylumconnect.org/faqs/"
+				href={navLinks.help}
 			>
 				<FormattedMessage id="navigation.get-help">
 					{(help) => (
@@ -118,7 +119,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-contact"
-				href="https://asylumconnect.org/contact/"
+				href={navLinks.contact}
 			>
 				<FormattedMessage id="navigation.contact">
 					{(contact) => (
@@ -131,7 +132,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
-				href="https://www.google.com/"
+				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">
 					{(safety) => (

@@ -81,32 +81,32 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 					<Grid container spacing={2} justify="center">
 						<ContactLink
 							testIdName="footer-contact-facebook"
-							link="https://www.facebook.com/asylumconnect"
+							link="https://www.facebook.com/weareinreach"
 							icon="facebook-f"
 						/>
 						<ContactLink
 							testIdName="footer-contact-twitter"
-							link="https://twitter.com/AsylumConnect"
+							link="https://twitter.com/weareinreach"
 							icon="twitter"
 						/>
 						<ContactLink
 							testIdName="footer-contact-linkedin"
-							link="https://www.linkedin.com/company/asylumconnect"
+							link="http://linkedin.com/company/weareinreach"
 							icon="linkedin"
 						/>
 						<ContactLink
 							testIdName="footer-contact-email"
-							link="mailto:catalog@asylumconnect.org"
+							link="hello@inreach.org"
 							icon="envelope-o"
 						/>
 						<ContactLink
 							testIdName="footer-contact-instagram"
-							link="https://www.instagram.com/asylumconnect/"
+							link="https://www.instagram.com/weareinreach/"
 							icon="instagram"
 						/>
 						<ContactLink
 							testIdName="footer-contact-youtube"
-							link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
+							link="TBD"
 							icon="youtube-play"
 						/>
 						<Grid
@@ -120,7 +120,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 							<Grid item>
 								<a
 									data-test-id="footer-apple-store-link"
-									href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
+									href="TBD"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -137,7 +137,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 							<Grid item>
 								<a
 									data-test-id="footer-google-play-link"
-									href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
+									href="TBD"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -182,7 +182,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item xs>
 							<a
-								href="https://asylumconnect.org/newsletter/"
+								href="https://inreach.org/newsletter/"
 								className={textBlue}
 								data-test-id="footer-newsletter-subscribe"
 							>
@@ -197,7 +197,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item xs>
 							<a
-								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+								href="TBD"
 								className={textBlue}
 								data-test-id="footer-share-feedback"
 							>

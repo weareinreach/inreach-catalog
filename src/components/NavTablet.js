@@ -8,6 +8,7 @@ import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
 import AccountTablet from './AccountTablet';
 import FavoritesLink from './FavoritesLink';
+import {navLinks} from '../data/navLinks';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -84,7 +85,7 @@ const NavTablet = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
-				href="https://www.google.com/"
+				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">
 					{(safety) => (
