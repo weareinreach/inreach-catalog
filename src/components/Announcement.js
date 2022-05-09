@@ -22,14 +22,21 @@ const styles = (theme) => ({
 
 const Announcement = ({classes}) => (
 	<div className={classes.announcement + ' hide--on-print'}>
-		<InformationIcon24 fillColor={'#000000'} />
-		<Typography
-			variant="caption"
-			className={classes.textContent}
+		<a href="https://bit.ly/inreach-press-release">
+			<InformationIcon24 fillColor={'#000000'} />
+		</a>
+		<a
+			href="https://bit.ly/inreach-press-release"
 			data-test-id="announcement-header"
 		>
-			<FormattedMessage id="announcement-brand" />
-		</Typography>
+			<Typography
+				variant="caption"
+				color="primary"
+				className={classes.textContent}
+			>
+				<FormattedMessage id="announcement-brand" />
+			</Typography>
+		</a>
 	</div>
 );
 
