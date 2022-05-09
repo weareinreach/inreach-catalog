@@ -96,7 +96,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						/>
 						<ContactLink
 							testIdName="footer-contact-email"
-							link="hello@inreach.org"
+							link="mailto:hello@inreach.org"
 							icon="envelope-o"
 						/>
 						<ContactLink
@@ -106,7 +106,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						/>
 						<ContactLink
 							testIdName="footer-contact-youtube"
-							link="TBD"
+							link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
 							icon="youtube-play"
 						/>
 						<Grid
@@ -120,7 +120,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 							<Grid item>
 								<a
 									data-test-id="footer-apple-store-link"
-									href="TBD"
+									href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -137,7 +137,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 							<Grid item>
 								<a
 									data-test-id="footer-google-play-link"
-									href="TBD"
+									href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
@@ -197,7 +197,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item xs>
 							<a
-								href="TBD"
+								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
 								className={textBlue}
 								data-test-id="footer-share-feedback"
 							>

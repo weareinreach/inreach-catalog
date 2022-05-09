@@ -3,5 +3,5 @@ export const navLinks = {
 	action: 'https://inreach.org/donate/',
 	help: 'https://inreach.org/faqs/',
 	contact: 'https://inreach.org/contact/',
-	saftey: 'https://www.google.com/'
+	safety: 'https://www.google.com/'
 };
