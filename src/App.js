@@ -455,7 +455,7 @@ class AppConnectCatalog extends React.Component {
 							</div>
 						) : null
 					) : (
-						<div>
+						<>
 							<Announcement handleRequestOpen={this.handleRequestOpen} />
 							<AsylumConnectDialog
 								locale={locale}
@@ -473,7 +473,7 @@ class AppConnectCatalog extends React.Component {
 								user={user}
 								userData={userData}
 							/>
-						</div>
+						</>
 					)}
 					{onMobieShowPage || !isMobile ? (
 						<div

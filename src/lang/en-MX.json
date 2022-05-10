@@ -211,7 +211,7 @@
 	"app.welcome-main-1": "Welcome to InReach",
 	"app.welcome-main-2": "Seek LGBTQ+ resources. Reach safety. Find belonging.",
 	"app.welcome-main-3": "The world's first tech platform matching LGBTQ+ people with safe, verified resources.",
-	"app.welcome-main-4": "InReach is for the entire diverse LGBTQ+ community –\n including asylum seekers and refugees, undocumented and other immigrants, young\n people experiencing homelessness, those facing family or community rejection due to\n their identity, and other transgender and non-binary people\n in need of safe resources.",
+	"app.welcome-main-4": "InReach is for the entire diverse LGBTQ+ community –-\n including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources.",
 	"app.banner": "Who does InReach serve?",
 	"error.email-address-mismatch": "The email addresses you have entered do not match.",
 	"error.email-format": "Your email should have a format similar to 'john@gmail.com'",

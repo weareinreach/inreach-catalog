@@ -35,14 +35,15 @@ const styles = (theme) => ({
 		[theme.breakpoints.down('xs')]: searchInputMobile(theme)
 	}),
 	uncheckLink: {
-		fontFamily: theme.typography.body2.fontFamily,
-		fontSize: theme.typography.body2.fontSize,
-		fontWeight: theme.typography.body2.fontWeight,
+		fontFamily: theme.typography.body1.fontFamily,
+		fontSize: theme.typography.body1.fontSize,
+		fontWeight: theme.typography.h3.fontWeight,
 		position: 'absolute',
 		right: theme.spacing(2),
 		top: theme.spacing(2),
 		textDecoration: 'none',
-		cursor: 'pointer'
+		cursor: 'pointer',
+		left: '220px'
 	},
 	filterLayout: {
 		[theme.breakpoints.up('sm')]: {
@@ -50,7 +51,7 @@ const styles = (theme) => ({
 			// width: '100%',
 			'& > div:first-child': {
 				overflowY: 'auto',
-				// width: '50%',
+				width: '265px',
 				position: 'absolute',
 				top: theme.spacing(6),
 				bottom: '0',
@@ -60,8 +61,8 @@ const styles = (theme) => ({
 			'& > div:last-child': {
 				// width: '50%',
 				height: '420px',
-				marginLeft: '50%',
-				marginTop: '-32px'
+				marginLeft: '45%',
+				marginTop: '-50px'
 			}
 		}
 	},
@@ -69,7 +70,7 @@ const styles = (theme) => ({
 		color: theme.palette.common.darkBlack
 	},
 	sectionTitle: {
-		fontWeight: '600',
+		// fontWeight: '600',
 		display: 'inline-block',
 		verticalAlign: 'middle'
 	},
@@ -84,7 +85,7 @@ const styles = (theme) => ({
 		marginRight: '0rem'
 	},
 	subFilterCheckBoxLabel: {
-		fontSize: '16px'
+		// fontSize: '16px'
 	},
 	dividerSpacing: {
 		marginTop: theme.spacing(2),
@@ -152,7 +153,7 @@ const FilterCollectionMobile = (props) => {
 	return (
 		<div>
 			<Typography
-				variant="body2"
+				variant="body1"
 				className={classes.sectionHeader}
 				onClick={onClick}
 			>
@@ -236,7 +237,7 @@ const FilterCollection = (props) => {
 			onClick={onClick}
 			style={{backgroundColor: backgroundColor}}
 		>
-			<Typography variant="body2" className={classes.sectionHeader}>
+			<Typography variant="body1" className={classes.sectionHeader}>
 				{typeof categoryValue !== 'undefined' ? (
 					<span className={classes.sectionTitle}>
 						<AsylumConnectCheckbox
@@ -388,9 +389,11 @@ class ResourceTypeSelector extends React.Component {
 				listContainerClass={resourceList}
 				moveSearchButton={moveSearchButton}
 			>
-				<span href="#" onClick={clearResourceTypes} className={uncheckLink}>
-					<FormattedMessage id="search.uncheck-all" />
-				</span>
+				{selectedResourceTypes.length ? (
+					<span href="#" onClick={clearResourceTypes} className={uncheckLink}>
+						<FormattedMessage id="search.uncheck-all" />
+					</span>
+				) : null}
 				{isMobile ? (
 					resourceTypes.map((filter, i) => (
 						<FilterCollectionMobile

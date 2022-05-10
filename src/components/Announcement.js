@@ -6,10 +6,11 @@ import {withStyles} from '@material-ui/core/styles';
 import {InformationIcon24} from './icons';
 
 const styles = (theme) => ({
-	announcement: {
+	root: {
 		backgroundColor: theme.palette.banner[500],
-		padding: '1rem 0',
-		textAlign: 'center'
+		padding: '16px 0',
+		textAlign: 'center',
+		width: '100%'
 	},
 	textContent: {
 		color: theme.palette.common.black,
@@ -21,7 +22,7 @@ const styles = (theme) => ({
 });
 
 const Announcement = ({classes}) => (
-	<div className={classes.announcement + ' hide--on-print'}>
+	<div id="announcement-div" className={classes.root + ' hide--on-print'}>
 		<a href="https://bit.ly/inreach-press-release">
 			<InformationIcon24 fillColor={'#000000'} />
 		</a>

@@ -49,6 +49,17 @@ const styles = (theme) => ({
 		switchLabel: {
 			//color: theme.palette.common.white,
 		}
+	},
+	uncheckLink: {
+		fontFamily: theme.typography.body1.fontFamily,
+		fontSize: theme.typography.body1.fontSize,
+		fontWeight: theme.typography.h3.fontWeight,
+		position: 'absolute',
+		right: theme.spacing(2),
+		top: theme.spacing(2),
+		textDecoration: 'none',
+		cursor: 'pointer',
+		left: '220px'
 	}
 });
 
@@ -103,28 +114,40 @@ class SearchFilters extends React.Component {
 		const {props} = this;
 		const isMobile = this.props.width < breakpoints['sm'];
 
-		const handleFilterSelect = (event, checked) => {
-			console.log(event);
-			console.log(checked);
-			// var index;
-			// const target = event.target;
-			// var selectedFilters = this.state.selectedFilters.slice();
+		var selectedFilters = this.props.selectedFilters;
 
-			// if (checked && selectedFilters.indexOf(target.value) < 0) {
-			// 	selectedFilters.push(target.value);
-			// 	selectedFilters.sort();
-			// 	this.setState({
-			// 		selectedFilters: selectedFilters
-			// 	});
-			// } else if (
-			// 	!checked &&
-			// 	(index = selectedFilters.indexOf(target.value)) >= 0
-			// ) {
-			// 	selectedFilters.splice(index, 1);
-			// 	this.setState({
-			// 		selectedFilters: selectedFilters
-			// 	});
-			// }
+		const handleFilterSelect = (event, checked) => {
+			var index;
+			const target = event.target;
+
+			if (checked && selectedFilters.indexOf(target.value) < 0) {
+				selectedFilters.push(target.value);
+				selectedFilters.sort();
+				this.setState({
+					selectedFilters: selectedFilters
+				});
+				console.log(this.state);
+			} else if (
+				!checked &&
+				(index = selectedFilters.indexOf(target.value)) >= 0
+			) {
+				selectedFilters.splice(index, 1);
+				this.setState({
+					selectedFilters: selectedFilters
+				});
+			}
+			console.log(selectedFilters);
+		};
+
+		const clearResourceTypes = (ev) => {
+			console.log('called');
+			if (ev) {
+				ev.preventDefault();
+			}
+
+			this.setState({
+				selectedFilters: []
+			});
 		};
 
 		return (
@@ -148,14 +171,14 @@ class SearchFilters extends React.Component {
 									onChange={
 										props.onChange ? props.onChange : handleFilterSelect
 									}
-									checked={props.selectedFilters.indexOf(filter.name) >= 0}
+									checked={selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (
 								<AsylumConnectSwitch
 									label={filter.label}
 									value={filter.name}
 									onChange={props.onChange}
-									checked={props.selectedFilters.indexOf(filter.name) >= 0}
+									checked={selectedFilters.indexOf(filter.name) >= 0}
 									additionalClasses={{
 										root: props.classes.switchRoot,
 										label: props.classes.switchLabel
@@ -182,15 +205,17 @@ class SearchFilters extends React.Component {
 								<AsylumConnectCheckbox
 									label={filter.label}
 									value={filter.name}
-									onChange={props.onChange}
-									checked={props.selectedFilters.indexOf(filter.name) >= 0}
+									onChange={
+										props.onChange ? props.onChange : handleFilterSelect
+									}
+									checked={selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (
 								<AsylumConnectSwitch
 									label={filter.label}
 									value={filter.name}
 									onChange={props.onChange}
-									checked={props.selectedFilters.indexOf(filter.name) >= 0}
+									checked={selectedFilters.indexOf(filter.name) >= 0}
 									additionalClasses={{
 										root: props.classes.switchRoot,
 										label: props.classes.switchLabel
@@ -208,15 +233,17 @@ class SearchFilters extends React.Component {
 								<AsylumConnectCheckbox
 									label={filter.label}
 									value={filter.name}
-									onChange={props.onChange}
-									checked={props.selectedFilters.indexOf(filter.name) >= 0}
+									onChange={
+										props.onChange ? props.onChange : handleFilterSelect
+									}
+									checked={selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (
 								<AsylumConnectSwitch
 									label={filter.label}
 									value={filter.name}
 									onChange={props.onChange}
-									checked={props.selectedFilters.indexOf(filter.name) >= 0}
+									checked={selectedFilters.indexOf(filter.name) >= 0}
 									additionalClasses={{
 										root: props.classes.switchRoot,
 										label: props.classes.switchLabel

@@ -37,8 +37,8 @@ const styles = (theme) => ({
 	},
 	subAnnouncement: {
 		backgroundColor: '#e9e9e9',
-		marginLeft: '-34px',
-		paddingLeft: '34px',
+		// marginLeft: '-34px',
+		// paddingLeft: '34px',
 		paddingTop: '1rem',
 		paddingBottom: '1rem',
 		position: 'absolute',
@@ -176,27 +176,17 @@ class SearchFormContainer extends React.Component {
 			subAnnouncement
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
-
 		return (
 			<div style={{position: 'relative'}}>
 				{!isMobile ? (
 					<div
 						className={subAnnouncement}
 						style={{
-							marginLeft: '-' + (width - 1300) / 2 + 'px',
-							paddingLeft: (width - 1300) / 2 + 'px'
+							// marginLeft: '-' + (width - 1300) / 2 + 'px',
+							paddingLeft: Math.abs(width - 1300) + 'px'
 						}}
 					>
-						<Grid
-							container
-							alignItems="center"
-							justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
-							spacing={0}
-						>
-							<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-								<SubAnnouncement />
-							</Grid>
-						</Grid>
+						<SubAnnouncement />
 					</div>
 				) : null}
 				<Grid
