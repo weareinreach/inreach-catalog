@@ -9,8 +9,8 @@ const enCA = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States InReach Catalog!':
-		'Welcome to the Canada InReach Catalog!',
+	'Welcome to the United States InReach App!':
+		'Welcome to the Canada InReach App!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in the Canada',
 	'Physical evaluations for asylum claim':
@@ -33,8 +33,8 @@ const enMX = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States InReach Catalog!':
-		'Welcome to the Mexico InReach Catalog!',
+	'Welcome to the United States InReach App!':
+		'Welcome to the Mexico InReach App!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in Mexico',
 	'Physical evaluations for asylum claim':
@@ -58,8 +58,8 @@ const enMX = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States InReach Catalog!':
-		'Welcome to the Mexico InReach Catalog!',
+	'Welcome to the United States InReach App!':
+		'Welcome to the Mexico InReach App!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in Mexico',
 	'Physical evaluations for asylum claim':
