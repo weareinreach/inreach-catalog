@@ -54,7 +54,10 @@ const styles = (theme) => ({
 		width: '145px',
 		height: '48px',
 		padding: '13px',
-		color: theme.palette.signUp[600]
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		}
 	})
 });
 
@@ -66,6 +69,8 @@ const NavTablet = ({
 	logo,
 	session
 }) => {
+	const useSmall = window.innerWidth <= 750;
+
 	return (
 		<div className={classes.root}>
 			<Link to="/">
@@ -93,18 +98,41 @@ const NavTablet = ({
 					)}
 				</FormattedMessage>
 			</a>
-			<Language
-				colorClass={classes.languageIconColor}
-				inputClass={classes.inputClass}
-				useIcon
-				enableOverlay
-			/>
-			<AccountTablet
-				handleLogOut={handleLogOut}
-				handleRequestOpen={handleRequestOpen}
-				locale={locale}
-				session={session}
-			/>
+
+			{useSmall ? (
+				<Language
+					colorClass={classes.languageIconColor}
+					inputClass={classes.inputClass}
+					useOnlyIcon
+					enableOverlay
+					noArrow
+				/>
+			) : (
+				<Language
+					colorClass={classes.languageIconColor}
+					inputClass={classes.inputClass}
+					useIcon
+					enableOverlay
+				/>
+			)}
+			{useSmall ? (
+				<AccountTablet
+					colorClass={classes.languageIconColor}
+					handleLogOut={handleLogOut}
+					handleRequestOpen={handleRequestOpen}
+					locale={locale}
+					session={session}
+					noArrow
+				/>
+			) : (
+				<AccountTablet
+					colorClass={classes.languageIconColor}
+					handleLogOut={handleLogOut}
+					handleRequestOpen={handleRequestOpen}
+					locale={locale}
+					session={session}
+				/>
+			)}
 		</div>
 	);
 };

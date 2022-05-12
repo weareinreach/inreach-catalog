@@ -10,6 +10,12 @@ import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
 import Language from './Language';
 import {navLinks} from '../data/navLinks';
+import {
+	searchInput,
+	searchInputMobile,
+	breakpoints,
+	mobilePadding
+} from '../theme';
 
 const styles = (theme) => ({
 	root: {
@@ -19,13 +25,19 @@ const styles = (theme) => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		margin: '0 auto',
-		'@media(min-width:1281px)': {
-			width: '1300px'
+		'@media(min-width:1364)': {
+			width: '1364px'
+		},
+		'@media(max-width:1364px) and @media(min-width: 1281px)': {
+			width: 'auto'
 		},
 		'@media(max-width:1280px) and @media(min-width: 1236px)': {
 			width: '1236px'
 		},
-		'@media(max-width:961px) and @media(min-width: 1235px)': {
+		'@media(max-width:1235px) and @media(min-width: 962px)': {
+			width: '1236px'
+		},
+		'@media(max-width:961px)': {
 			width: 'auto'
 		}
 	},
@@ -49,7 +61,20 @@ const styles = (theme) => ({
 		'@media(max-width:972px)': {
 			fontSize: '11px'
 		}
-	}
+	},
+	inputClass: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		width: '145px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		}
+	})
 });
 
 const NavDesktop = ({
@@ -140,7 +165,12 @@ const NavDesktop = ({
 					)}
 				</FormattedMessage>
 			</a>
-			<Language colorClass={classes.languageIconColor} useIcon enableOverlay />
+			<Language
+				colorClass={classes.languageIconColor}
+				inputClass={classes.inputClass}
+				useIcon
+				enableOverlay
+			/>
 			{session && <FavoritesLink locale={locale} />}
 			<AccountNav
 				handleLogOut={handleLogOut}

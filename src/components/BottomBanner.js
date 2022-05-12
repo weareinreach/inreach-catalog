@@ -9,10 +9,26 @@ const styles = (theme) => ({
 	bgLightGrey: {backgroundColor: theme.palette.common.lightGrey},
 	textCenter: {textAlign: 'center'},
 	content: {
-		maxWidth: '80%',
-		margin: '0 10%'
+		padding: '64px 0',
+		margin: '0 10%',
+		'@media(max-width:1280px)': {
+			margin: '0 2%'
+		}
 	},
-	paddingVertical: {padding: '1.5rem 0'}
+	paddingBottom: {
+		'padding-bottom': '16px',
+		'line-height': '22px'
+	},
+	banner1: {
+		color: theme.palette.primary[200]
+	},
+	line: {
+		display: 'inline-block',
+		width: '30px',
+		height: '3px',
+		backgroundColor: 'black',
+		marginBottom: '4px'
+	}
 });
 
 const BottomBanner = ({classes}) => {
@@ -23,17 +39,21 @@ const BottomBanner = ({classes}) => {
 			<div className={classNames(content)}>
 				<Typography
 					variant="h3"
-					className={classes.paddingVertical}
+					className={classes.paddingBottom}
 					data-test-id="banner-header"
 				>
 					<FormattedMessage id="app.banner" />
 				</Typography>
 				<Typography
 					variant="subtitle1"
-					className={classes.paddingVertical}
-					data-test-id="banner-text"
+					data-test-id="banner-text-1"
+					className={classes.banner1}
 				>
-					<FormattedMessage id="app.welcome-main-4" />
+					<FormattedMessage id="app.banner-1" />{' '}
+					<span class={classes.line}></span>
+				</Typography>
+				<Typography variant="subtitle1" data-test-id="banner-text-2">
+					<FormattedMessage id="app.banner-2" />
 				</Typography>
 			</div>
 		</div>

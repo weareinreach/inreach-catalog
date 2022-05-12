@@ -132,7 +132,8 @@ class AsylumConnectSelector extends React.Component {
 			containerClass,
 			listContainerClass,
 			colorClass,
-			enableOverlay
+			enableOverlay,
+			noArrow
 		} = this.props;
 		const containerClasses = classNames(
 			containerClass,
@@ -164,13 +165,19 @@ class AsylumConnectSelector extends React.Component {
 								{selected.length}
 							</AsylumConnectIndicator>
 						) : null}
-						{this.state.open ? (
-							<KeyboardArrowUpIcon className={classNames(arrow, colorClass)} />
-						) : (
-							<KeyboardArrowDownIcon
-								className={classNames(arrow, colorClass)}
-							/>
-						)}
+						{!noArrow ? (
+							<>
+								{this.state.open ? (
+									<KeyboardArrowUpIcon
+										className={classNames(arrow, colorClass)}
+									/>
+								) : (
+									<KeyboardArrowDownIcon
+										className={classNames(arrow, colorClass)}
+									/>
+								)}
+							</>
+						) : null}
 					</div>
 				</div>
 				{this.state.open ? (

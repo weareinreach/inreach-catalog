@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
 import FavoritesLink from './FavoritesLink';
+import {AccountIcon} from './icons';
 
 import {
 	breakpoints,
@@ -17,7 +18,12 @@ import {
 	searchInputMobile
 } from '../theme';
 
+import withWidth from './withWidth';
+
 const styles = (theme) => ({
+	root: {
+		display: 'block'
+	},
 	inputClass: Object.assign(searchInput(theme), {
 		cursor: 'pointer',
 		position: 'relative',
@@ -26,14 +32,12 @@ const styles = (theme) => ({
 		width: '122px',
 		height: '48px',
 		padding: '13px',
-		color: theme.palette.signUp[600]
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset',
+			padding: '8px'
+		}
 	}),
-	accountNav: {
-		width: 'auto'
-	},
-	root: {
-		display: 'flex'
-	},
 	cursor: {
 		cursor: 'pointer'
 	},
@@ -58,20 +62,49 @@ const styles = (theme) => ({
 });
 
 const AccountTablet = (props) => {
-	const {classes, locale, session, handleLogOut, handleRequestOpen} = props;
+	const {
+		classes,
+		locale,
+		session,
+		handleLogOut,
+		handleRequestOpen,
+		width,
+		colorClass,
+		noArrow
+	} = props;
 
 	const intl = useIntl();
 
+	const useSmall = window.innerWidth <= 750;
+
+	const generateOnlyIconLabel = () => {
+		return (
+			<div>
+				<AccountIcon width="33px" color="#4792DA" />
+			</div>
+		);
+	};
+
 	return (
-		<div className={classes.accountNav + ' hide--on-print'}>
+		<div
+			className={classes.root + ' hide--on-print'}
+			data-test-id="nav-button-account"
+		>
 			{session && (
 				<AsylumConnectSelector
-					label={intl.formatMessage({
-						id: 'account.account',
-						description: 'Account menu text',
-						defaultMessage: 'Account'
-					})}
+					label={
+						useSmall
+							? generateOnlyIconLabel()
+							: intl.formatMessage({
+									id: 'account.account',
+									description: 'Account menu text',
+									defaultMessage: 'Account'
+							  })
+					}
 					containerClass={classes.inputClass}
+					closeOnClick={true}
+					containerWidth={'122px'}
+					noArrow={noArrow}
 				>
 					<AsylumConnectDropdownListItem>
 						<Link

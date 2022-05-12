@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -9,6 +9,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 
 import classNames from 'classnames';
@@ -38,20 +39,42 @@ const styles = (theme) => ({
 		width: '110px',
 		height: '48px',
 		padding: '13px',
-		color: theme.palette.signUp[600]
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		}
 	})
 });
 
 const NavTabletMenu = (props) => {
 	const {classes} = props;
+	const intl = useIntl();
+
+	const useSmall = window.innerWidth <= 750;
+
+	const generateOnlyIconLabel = () => {
+		return (
+			<div>
+				<MenuIcon />
+			</div>
+		);
+	};
 
 	return (
 		<AsylumConnectSelector
-			label="Menu"
+			label={
+				useSmall
+					? generateOnlyIconLabel()
+					: intl.formatMessage({
+							id: 'naviagtion.menu',
+							description: 'In Reach Website links',
+							defaultMessage: 'Menu'
+					  })
+			}
 			containerClass={classes.inputClass}
-			selected={[]}
 			closeOnClick={true}
-			containerWidth="110px"
+			containerWidth={'110px'}
+			noArrow={useSmall}
 		>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-about">
 				<a data-test-id="tablet-nav-menu-item-about" href={navLinks.about}>

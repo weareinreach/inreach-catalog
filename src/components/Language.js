@@ -339,8 +339,10 @@ class Language extends React.Component {
 			triggerReload,
 			colorClass,
 			useIcon,
+			useOnlyIcon,
 			listContainerClass,
-			enableOverlay
+			enableOverlay,
+			noArrow
 		} = this.props;
 		const {selectedLang} = this.state;
 		const selectorLabel = label || selectedLang;
@@ -357,7 +359,9 @@ class Language extends React.Component {
 				{!isMobile ? (
 					<AsylumConnectSelector
 						label={
-							useIcon
+							useOnlyIcon
+								? this.generateLabelWithIcon('', colorClass)
+								: useIcon
 								? this.generateLabelWithIcon(selectorLabel, colorClass)
 								: selectorLabel
 						}
@@ -371,6 +375,7 @@ class Language extends React.Component {
 						colorClass={colorClass}
 						containerWidth="250px"
 						enableOverlay={enableOverlay}
+						noArrow={noArrow}
 					>
 						{this.generateLanguageList()}
 					</AsylumConnectSelector>
@@ -405,6 +410,8 @@ Language.defaultProps = {
 	useMobile: true,
 	autoReload: true,
 	useIcon: false,
+	useOnlyIcon: false,
+	noArrow: false,
 	enableOverlay: false
 };
 
