@@ -109,48 +109,39 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 							link="https://www.youtube.com/channel/weareinreach"
 							icon="youtube-play"
 						/>
-						<Grid
-							container
-							item
-							xs={6}
-							spacing={2}
-							align="center"
-							justify="center"
-						>
-							<Grid item>
-								<a
-									data-test-id="footer-apple-store-link"
-									href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<img
-										height="35"
-										src={AppStoreBadge}
-										alt={intl.formatMessage({
-											id: 'alt-text.download-on-app-store'
-										})}
-										data-test-id="footer-apple-store-image"
-									/>
-								</a>
-							</Grid>
-							<Grid item>
-								<a
-									data-test-id="footer-google-play-link"
-									href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<img
-										height="35"
-										src={GooglePlayBadge}
-										alt={intl.formatMessage({
-											id: 'alt-text.download-on-google-play'
-										})}
-										data-test-id="footer-google-play-image"
-									/>
-								</a>
-							</Grid>
+						<Grid item>
+							<a
+								data-test-id="footer-apple-store-link"
+								href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<img
+									height="35"
+									src={AppStoreBadge}
+									alt={intl.formatMessage({
+										id: 'alt-text.download-on-app-store'
+									})}
+									data-test-id="footer-apple-store-image"
+								/>
+							</a>
+						</Grid>
+						<Grid item>
+							<a
+								data-test-id="footer-google-play-link"
+								href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<img
+									height="35"
+									src={GooglePlayBadge}
+									alt={intl.formatMessage({
+										id: 'alt-text.download-on-google-play'
+									})}
+									data-test-id="footer-google-play-image"
+								/>
+							</a>
 						</Grid>
 					</Grid>
 				</Grid>
