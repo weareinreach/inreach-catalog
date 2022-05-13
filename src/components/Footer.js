@@ -17,7 +17,10 @@ const styles = (theme) => ({
 	paddingBelowLarge: {paddingBottom: '2rem'},
 	paddingVertical: {padding: '1.5rem 0'},
 	paddingVerticalIcons: {padding: '2.5rem 0 1rem 0'},
-	paddingVerticalText: {padding: '1rem 0 1.5rem 0'},
+	paddingVerticalText: {
+		padding: '1rem 0 1.5rem 0',
+		margin: 'auto'
+	},
 	textBlue: {
 		color: theme.palette.secondary
 	},
@@ -37,6 +40,15 @@ const styles = (theme) => ({
 			theme.palette.secondary[500] +
 			', -2px 0 ' +
 			theme.palette.secondary[500]
+	},
+	footerLinkContainerSize: {
+		width: 'max-content',
+		margin: 'auto'
+	},
+	footerLinkItemSize: {
+		'@media(max-width: 760px)': {
+			width: 'min-content'
+		}
 	}
 });
 
@@ -49,7 +61,9 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 		paddingVerticalText,
 		textBlue,
 		textCenter,
-		footerLink
+		footerLink,
+		footerLinkContainerSize,
+		footerLinkItemSize
 	} = classes;
 
 	const ContactLink = ({link, icon, testIdName}) => (
@@ -148,15 +162,21 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 			</Grid>
 
 			<Grid
+				data-test-id="footer-bottom-links"
 				container
 				spacing={0}
 				alignItems="center"
 				justify="center"
 				className={classNames(paddingVerticalText)}
 			>
-				<Grid item xs={12} lg={8}>
-					<Grid container spacing={0}>
-						<Grid item xs>
+				<Grid item xs={12} md={8} lg={8}>
+					<Grid
+						container
+						spacing={2}
+						justify="center"
+						className={classNames(footerLinkContainerSize)}
+					>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<Link
 								to={'/' + locale + '/suggestions/new'}
 								className={textBlue}
@@ -171,7 +191,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 								</Typography>
 							</Link>
 						</Grid>
-						<Grid item xs>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
 								href="https://inreach.org/newsletter/"
 								className={textBlue}
@@ -186,7 +206,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 								</Typography>
 							</a>
 						</Grid>
-						<Grid item xs>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
 								href="https://bit.ly/inreach-app-share-feedback"
 								className={textBlue}
@@ -201,7 +221,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 								</Typography>
 							</a>
 						</Grid>
-						<Grid item xs>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<Typography
 								variant="body1"
 								color="secondary"
@@ -212,7 +232,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 								<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />
 							</Typography>
 						</Grid>
-						<Grid item xs>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<Typography
 								variant="body1"
 								color="secondary"
