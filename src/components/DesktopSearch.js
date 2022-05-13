@@ -96,7 +96,12 @@ const DesktopSearch = (props) => {
 					moveSearchButton={onMoveSearchButton}
 					data-test-id="servicetype-searchbar"
 				/>
-				<Grid container spacing={0} className={nationalOrgCheckboxContainer}>
+				<Grid
+					container
+					spacing={0}
+					className={nationalOrgCheckboxContainer}
+					style={{paddingTop: '24px'}}
+				>
 					<Grid item>
 						<AsylumConnectCheckbox
 							label={

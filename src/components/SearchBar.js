@@ -73,6 +73,7 @@ const SearchBar = (props) => {
 		width
 	} = props;
 	const isMobile = width < breakpoints['sm'];
+	const isTablet = width <= breakpoints['md'];
 	return (
 		<Grid container spacing={0} data-test-id="search-bar">
 			<Grid item xs className="position-relative">
@@ -87,6 +88,13 @@ const SearchBar = (props) => {
 						xs={12}
 						className="hide--on-print"
 						data-test-id="search-service-type"
+						style={
+							!isMobile && !isTablet
+								? {paddingRight: '8px'}
+								: isTablet
+								? {paddingBottom: '16px'}
+								: null
+						}
 					>
 						<ResourceTypeSelector
 							containerWidth={containerWidth}
@@ -107,6 +115,7 @@ const SearchBar = (props) => {
 							xs={12}
 							className="hide--on-print"
 							data-test-id="search-additional-filters"
+							style={!isMobile && !isTablet ? {paddingLeft: '8px'} : null}
 						>
 							<SearchRefinementControls
 								clearSearchFilters={props.clearSearchFilters}
