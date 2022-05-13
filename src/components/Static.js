@@ -62,10 +62,10 @@ const styles = (theme) => ({
 	subAnnouncement: {
 		backgroundColor: '#e9e9e9',
 		paddingTop: '1rem',
-		paddingBottom: '1rem',
-		textAlign: 'center',
-		paddingLeft: '5%',
-		paddingRight: '5%'
+		paddingBottom: '1rem'
+		// textAlign: 'center',
+		// paddingLeft: '5%',
+		// paddingRight: '5%'
 	},
 	[`@media (max-width: ${breakpoints['md']}px)`]: {
 		section: {
@@ -187,7 +187,7 @@ class Static extends React.Component {
 	}
 
 	render() {
-		const classes = this.props.classes;
+		const {classes, width} = this.props;
 		const lastSection = this.state.page ? this.state.page.length : 0;
 		const isMobile = this.props.width < breakpoints['sm'];
 		const localeLabel = <FormattedMessage id="app.select-country" />;
@@ -244,10 +244,17 @@ class Static extends React.Component {
 				>
 					{!isMobile ? (
 						<>
-							<Grid item xs={12} className={classes.subAnnouncement}>
-								<SubAnnouncement />
+							<Grid item xs={12}>
+								<div
+									className={classes.subAnnouncement}
+									style={{
+										paddingLeft: Math.abs((width * 0.085) / 2) + 'px'
+									}}
+								>
+									<SubAnnouncement />
+								</div>
 							</Grid>
-							<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+							<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
 								<AsylumConnectBackButton
 									className={classes.changeCountryButton}
 									color="default"

@@ -37,8 +37,6 @@ const styles = (theme) => ({
 	},
 	subAnnouncement: {
 		backgroundColor: '#e9e9e9',
-		// marginLeft: '-34px',
-		// paddingLeft: '34px',
 		paddingTop: '1rem',
 		paddingBottom: '1rem',
 		position: 'absolute',
@@ -176,14 +174,14 @@ class SearchFormContainer extends React.Component {
 			subAnnouncement
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
+
 		return (
 			<div style={{position: 'relative'}}>
 				{!isMobile ? (
 					<div
 						className={subAnnouncement}
 						style={{
-							// marginLeft: '-' + (width - 1300) / 2 + 'px',
-							paddingLeft: Math.abs(width - 1300) + 'px'
+							paddingLeft: Math.abs((width * 0.07) / 2) + 'px'
 						}}
 					>
 						<SubAnnouncement />
@@ -196,7 +194,7 @@ class SearchFormContainer extends React.Component {
 					spacing={0}
 					className={container}
 				>
-					<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+					<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
 						{!isMobile && locale ? (
 							<Grid item xs={12}>
 								<AsylumConnectBackButton
