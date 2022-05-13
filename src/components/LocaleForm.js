@@ -40,6 +40,9 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.down('1017')]: {
 			height: '80px'
+		},
+		[theme.breakpoints.down('sm')]: {
+			height: '40px'
 		}
 	},
 	labelRowMobile: {
