@@ -84,8 +84,8 @@ const styles = (theme) => ({
 			maxWidth: '380px'
 		},
 		[theme.breakpoints.down('md')]: {
-			minWidth: '220px',
-			maxWidth: '320px',
+			minWidth: 'auto',
+			maxWidth: 'auto',
 			'&:first-child': {
 				marginRight: '25px'
 			}
