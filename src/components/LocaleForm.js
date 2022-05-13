@@ -37,6 +37,9 @@ const styles = (theme) => ({
 		[theme.breakpoints.down('xs')]: {
 			color: theme.palette.common.white,
 			fontSize: theme.typography.h2.fontSize
+		},
+		[theme.breakpoints.down('1017')]: {
+			height: '80px'
 		}
 	},
 	labelRowMobile: {
