@@ -63,9 +63,6 @@ const styles = (theme) => ({
 		backgroundColor: '#e9e9e9',
 		paddingTop: '1rem',
 		paddingBottom: '1rem'
-		// textAlign: 'center',
-		// paddingLeft: '5%',
-		// paddingRight: '5%'
 	},
 	[`@media (max-width: ${breakpoints['md']}px)`]: {
 		section: {
@@ -100,7 +97,6 @@ const styles = (theme) => ({
 	logoFitHeight: {
 		maxWidth: '65px',
 		paddingLeft: '20px'
-		//height: '100%',
 	},
 	subheading: {
 		marginBottom: theme.spacing(4),
