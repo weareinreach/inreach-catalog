@@ -75,7 +75,7 @@ const styles = (theme) => ({
 		}
 	},
 	changeCountryButton: {
-		// marginLeft: theme.spacing(-1)
+		color: theme.palette.secondary[400]
 	},
 	backButton: {
 		position: 'fixed',
@@ -175,14 +175,19 @@ class SearchFormContainer extends React.Component {
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
 
+		let leftPadding = '';
+		if (width > 1364) {
+			leftPadding = Math.abs(32 + (width - 1364) / 2);
+		} else {
+			leftPadding = Math.abs((width * 0.06) / 2);
+		}
+
 		return (
 			<div style={{position: 'relative'}}>
 				{!isMobile ? (
 					<div
 						className={subAnnouncement}
-						style={{
-							paddingLeft: Math.abs((width * 0.07) / 2) + 'px'
-						}}
+						style={!isMobile ? {paddingLeft: leftPadding + 'px'} : null}
 					>
 						<SubAnnouncement />
 					</div>
@@ -193,11 +198,7 @@ class SearchFormContainer extends React.Component {
 					// justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
 					spacing={0}
 					className={container}
-					style={
-						!isMobile
-							? {paddingLeft: Math.abs((width * 0.06) / 2) + 'px'}
-							: null
-					}
+					style={!isMobile ? {paddingLeft: leftPadding + 'px'} : null}
 				>
 					<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
 						{!isMobile && locale ? (

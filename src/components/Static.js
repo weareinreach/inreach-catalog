@@ -57,7 +57,8 @@ const styles = (theme) => ({
 	},
 	changeCountryButton: {
 		marginTop: theme.spacing(2),
-		marginLeft: theme.spacing(-1)
+		marginLeft: theme.spacing(-1),
+		color: theme.palette.secondary[400]
 	},
 	subAnnouncement: {
 		backgroundColor: '#e9e9e9',
@@ -188,6 +189,12 @@ class Static extends React.Component {
 		const isMobile = this.props.width < breakpoints['sm'];
 		const localeLabel = <FormattedMessage id="app.select-country" />;
 
+		let leftPadding = '';
+		if (width > 1364) {
+			leftPadding = Math.abs(32 + (width - 1364) / 2);
+		} else {
+			leftPadding = Math.abs((width * 0.06) / 2);
+		}
 		return (
 			<>
 				{isMobile ? (
@@ -243,9 +250,7 @@ class Static extends React.Component {
 							<Grid item xs={12}>
 								<div
 									className={classes.subAnnouncement}
-									style={{
-										paddingLeft: Math.abs((width * 0.085) / 2) + 'px'
-									}}
+									style={{paddingLeft: leftPadding + 'px'}}
 								>
 									<SubAnnouncement />
 								</div>
