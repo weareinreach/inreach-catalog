@@ -35,7 +35,8 @@ const styles = (theme) => ({
 			width: '1236px'
 		},
 		'@media(max-width:1235px) and @media(min-width: 962px)': {
-			width: 'auto'
+			width: 'auto',
+			fontSize: '14px'
 		},
 		'@media(max-width:961px)': {
 			width: 'auto'
@@ -52,13 +53,16 @@ const styles = (theme) => ({
 	},
 	languageIconColor: {
 		fill: theme.palette.secondary[400],
-		color: theme.palette.secondary[400]
+		color: theme.palette.secondary[400],
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '12px'
+		}
 	},
 	headerLink: {
 		lineHeight: '20px',
 		color: 'rgba(29, 31, 35, 1)',
 		padding: '0 2.5px',
-		'@media(max-width:972px)': {
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
 			fontSize: '11px'
 		}
 	},
@@ -73,6 +77,25 @@ const styles = (theme) => ({
 		color: theme.palette.signUp[600],
 		'@media(max-width:750px)': {
 			width: 'unset'
+		},
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '12px'
+		}
+	}),
+	inputClassLanguage: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		// width: '145px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		},
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '12px'
 		}
 	})
 });
@@ -167,7 +190,7 @@ const NavDesktop = ({
 			</a>
 			<Language
 				colorClass={classes.languageIconColor}
-				inputClass={classes.inputClass}
+				inputClass={classes.inputClassLanguage}
 				useIcon
 				enableOverlay
 			/>

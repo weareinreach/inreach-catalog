@@ -58,6 +58,19 @@ const styles = (theme) => ({
 		'@media(max-width:750px)': {
 			width: 'unset'
 		}
+	}),
+	inputClassLanguage: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		// width: '145px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		}
 	})
 });
 
@@ -102,7 +115,7 @@ const NavTablet = ({
 			{useSmall ? (
 				<Language
 					colorClass={classes.languageIconColor}
-					inputClass={classes.inputClass}
+					inputClass={classes.inputClassLanguage}
 					useOnlyIcon
 					enableOverlay
 					noArrow
@@ -110,7 +123,7 @@ const NavTablet = ({
 			) : (
 				<Language
 					colorClass={classes.languageIconColor}
-					inputClass={classes.inputClass}
+					inputClass={classes.inputClassLanguage}
 					useIcon
 					enableOverlay
 				/>

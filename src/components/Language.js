@@ -422,8 +422,8 @@ Language.propTypes = {
 };
 
 LangMenuItem.propTypes = {
-	langName: PropTypes.string,
-	langCode: PropTypes.string
+	langName: PropTypes.string.isRequired,
+	langCode: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(withWidth(Language));
