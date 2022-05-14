@@ -60,7 +60,7 @@ const styles = (theme) => ({
 				textAlign: 'left'
 			},
 			'& > div:nth-child(2)': {
-				overflowY: 'auto',
+				// overflowY: 'auto',
 				width: 'auto',
 				// height: 'fit-content',
 				top: theme.spacing(6),
