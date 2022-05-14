@@ -69,7 +69,7 @@ const NavTablet = ({
 	logo,
 	session
 }) => {
-	const useSmall = window.innerWidth <= 750;
+	const useSmall = window.innerWidth > 600 && window.innerWidth <= 750;
 
 	return (
 		<div className={classes.root}>
