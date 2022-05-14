@@ -106,6 +106,10 @@ const styles = (theme) => ({
 		maxWidth: '65px',
 		paddingLeft: '20px'
 		//height: '100%',
+	},
+	logoMobile: {
+		width: '120px',
+		height: '48px'
 	}
 });
 
@@ -167,6 +171,7 @@ class SearchFormContainer extends React.Component {
 			container,
 			iconButton,
 			logoFitHeight,
+			logoMobile,
 			title,
 			subheading,
 			changeCountryButton,
@@ -182,78 +187,26 @@ class SearchFormContainer extends React.Component {
 			leftPadding = Math.abs((width * 0.06) / 2);
 		}
 
-		return (
-			<div style={{position: 'relative'}}>
-				{!isMobile ? (
-					<div
-						className={subAnnouncement}
-						style={!isMobile ? {paddingLeft: leftPadding + 'px'} : null}
+		if (isMobile) {
+			return (
+				<div style={{position: 'relative'}}>
+					<Grid
+						container
+						alignItems="flex-start"
+						spacing={0}
+						className={container}
 					>
-						<SubAnnouncement />
-					</div>
-				) : null}
-				<Grid
-					container
-					alignItems="flex-start"
-					// justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
-					spacing={0}
-					className={container}
-					style={!isMobile ? {paddingLeft: leftPadding + 'px'} : null}
-				>
-					<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
-						{!isMobile && locale ? (
-							<Grid item xs={12}>
-								<AsylumConnectBackButton
-									className={changeCountryButton}
-									color="default"
-									text={<FormattedMessage id="app.choose-different-country" />}
-									onClick={this.handleLocaleReset}
-								/>
-							</Grid>
-						) : null}
-						{isMobile ? (
+						<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
 							<Grid item xs={12}>
 								<a
 									href="https://www.asylumconnect.org"
 									data-test-id="search-form-logo"
 								>
 									<IconButton className={iconButton}>
-										<img
-											src={logo}
-											alt="inreach logo"
-											className={logoFitHeight}
-										/>
+										<img src={logo} alt="inreach logo" className={logoMobile} />
 									</IconButton>
 								</a>
 							</Grid>
-						) : null}
-						<Grid container spacing={0} className={containerSearchForm}>
-							{!isMobile ? (
-								<Grid item xs={12}>
-									<Typography
-										variant="h1"
-										className={title}
-										data-test-id="search-form-body"
-									>
-										{this.state.locale ? (
-											<FormattedMessage
-												id="app.welcome"
-												defaultMessage="Welcome to InReach"
-												values={{
-													country: fetchLocaleName(locale)
-												}}
-											/>
-										) : (
-											<>
-												<FormattedMessage
-													id="app.welcome-main-1"
-													defaultMessage="Welcome to InReach"
-												/>
-											</>
-										)}
-									</Typography>
-								</Grid>
-							) : null}
 							<Grid item xs={12}>
 								<Typography
 									variant="h2"
@@ -294,9 +247,106 @@ class SearchFormContainer extends React.Component {
 							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-			</div>
-		);
+				</div>
+			);
+		} else {
+			return (
+				<div style={{position: 'relative'}}>
+					<div
+						className={subAnnouncement}
+						style={{paddingLeft: leftPadding + 'px'}}
+					>
+						<SubAnnouncement />
+					</div>
+					<Grid
+						container
+						alignItems="flex-start"
+						spacing={0}
+						className={container}
+						style={{paddingLeft: leftPadding + 'px'}}
+					>
+						<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
+							{locale ? (
+								<Grid item xs={12}>
+									<AsylumConnectBackButton
+										className={changeCountryButton}
+										color="default"
+										text={
+											<FormattedMessage id="app.choose-different-country" />
+										}
+										onClick={this.handleLocaleReset}
+									/>
+								</Grid>
+							) : null}
+							<Grid container spacing={0} className={containerSearchForm}>
+								<Grid item xs={12}>
+									<Typography
+										variant="h1"
+										className={title}
+										data-test-id="search-form-body"
+									>
+										{this.state.locale ? (
+											<FormattedMessage
+												id="app.welcome"
+												defaultMessage="Welcome to InReach"
+												values={{
+													country: fetchLocaleName(locale)
+												}}
+											/>
+										) : (
+											<>
+												<FormattedMessage
+													id="app.welcome-main-1"
+													defaultMessage="Welcome to InReach"
+												/>
+											</>
+										)}
+									</Typography>
+								</Grid>
+								<Grid item xs={12}>
+									<Typography
+										variant="h2"
+										className={subheading}
+										data-test-id="search-form-body-2"
+									>
+										{this.state.locale ? (
+											<>
+												<FormattedMessage
+													id="app.welcome-main-3"
+													defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+												/>
+											</>
+										) : (
+											<FormattedMessage
+												id="app.welcome-main-2"
+												defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+											/>
+										)}
+									</Typography>
+								</Grid>
+								<Grid item xs={12}>
+									{locale ? (
+										<SearchForm
+											{...this.props}
+											classes={null}
+											onLocaleReset={this.handleLocaleReset}
+											onLocaleSelect={this.handleLocaleSelect}
+											locale={locale}
+										/>
+									) : (
+										<LocaleForm
+											{...this.props}
+											classes={null}
+											onLocaleSelect={this.handleLocaleSelect}
+										/>
+									)}
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+				</div>
+			);
+		}
 	}
 }
 

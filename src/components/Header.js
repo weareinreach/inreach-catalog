@@ -40,7 +40,7 @@ const Header = ({
 
 	if (isMobile) {
 		return (
-			<div id="header-div" className={classes.root}>
+			<div id="header-div" className={classes.root} class="hide">
 				<NavMobile
 					handleLogOut={handleLogOut}
 					handleRequestOpen={handleRequestOpen}
