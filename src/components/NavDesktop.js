@@ -25,7 +25,7 @@ const styles = (theme) => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		margin: '0 auto',
-		'@media(min-width:1364)': {
+		'@media(min-width:1364px)': {
 			width: '1364px'
 		},
 		'@media(max-width:1364px) and @media(min-width: 1281px)': {
@@ -35,7 +35,7 @@ const styles = (theme) => ({
 			width: '1236px'
 		},
 		'@media(max-width:1235px) and @media(min-width: 962px)': {
-			width: '1236px'
+			width: 'auto'
 		},
 		'@media(max-width:961px)': {
 			width: 'auto'

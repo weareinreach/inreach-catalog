@@ -75,7 +75,7 @@ const styles = (theme) => ({
 		}
 	},
 	changeCountryButton: {
-		marginLeft: theme.spacing(-1)
+		// marginLeft: theme.spacing(-1)
 	},
 	backButton: {
 		position: 'fixed',
@@ -190,9 +190,14 @@ class SearchFormContainer extends React.Component {
 				<Grid
 					container
 					alignItems="flex-start"
-					justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
+					// justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
 					spacing={0}
 					className={container}
+					style={
+						!isMobile
+							? {paddingLeft: Math.abs((width * 0.06) / 2) + 'px'}
+							: null
+					}
 				>
 					<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
 						{!isMobile && locale ? (

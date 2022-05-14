@@ -36,33 +36,47 @@ const styles = (theme) => ({
 	}),
 	uncheckLink: {
 		fontFamily: theme.typography.body1.fontFamily,
-		fontSize: theme.typography.body1.fontSize,
+		fontSize: '18px',
 		fontWeight: theme.typography.h3.fontWeight,
-		position: 'absolute',
-		right: theme.spacing(2),
-		top: theme.spacing(2),
-		textDecoration: 'none',
-		cursor: 'pointer',
-		left: '220px'
+		cursor: 'pointer'
+	},
+	uncheckLinkDisabled: {
+		fontFamily: theme.typography.body1.fontFamily,
+		fontSize: '18px',
+		fontWeight: theme.typography.h3.fontWeight,
+		color: theme.palette.common.darkGrey,
+		cursor: 'not-allowed'
 	},
 	filterLayout: {
+		backgroundColor: theme.palette.common.white,
 		[theme.breakpoints.up('sm')]: {
 			// display: 'flex',
-			// width: '100%',
+			width: '100%',
 			'& > div:first-child': {
 				overflowY: 'auto',
-				width: '265px',
-				position: 'absolute',
+				padding: '8px',
+				// backgroundColor: 'theme.palette.common.white',
+				// boxShadow: '0px 1px 0px 1px rgba(0, 0, 0, 0.12)',
+				textAlign: 'left'
+			},
+			'& > div:nth-child(2)': {
+				overflowY: 'auto',
+				width: 'auto',
+				// height: 'fit-content',
 				top: theme.spacing(6),
 				bottom: '0',
 				left: '0',
-				marginBottom: theme.spacing(2)
+				marginBottom: theme.spacing(2),
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 6px 10px 0px rgba(0, 0, 0, 0.12)'
 			},
 			'& > div:last-child': {
-				// width: '50%',
-				height: '420px',
-				marginLeft: '45%',
-				marginTop: '-50px'
+				width: '290px',
+				height: 'auto',
+				marginTop: '-615px',
+				marginLeft: '100%',
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 1px 10px 1px rgba(0, 0, 0, 0.12)'
 			}
 		}
 	},
@@ -85,7 +99,7 @@ const styles = (theme) => ({
 		marginRight: '0rem'
 	},
 	subFilterCheckBoxLabel: {
-		// fontSize: '16px'
+		fontSize: '16px'
 	},
 	dividerSpacing: {
 		marginTop: theme.spacing(2),
@@ -106,7 +120,7 @@ const styles = (theme) => ({
 		}
 	},
 	subfilterSpacing: {
-		marginTop: theme.spacing(2),
+		// marginTop: theme.spacing(3),
 		[theme.breakpoints.up('sm')]: {
 			// position: 'absolute',
 			// left: '50%',
@@ -121,12 +135,12 @@ const styles = (theme) => ({
 		}
 	},
 	resourceList: {
-		padding: theme.spacing(2),
+		// padding: theme.spacing(2),
 		right: '0',
 		[theme.breakpoints.up('md')]: {
-			maxHeight: '420px',
-			padding: theme.spacing(4),
-			position: 'unset !important'
+			maxHeight: '24px'
+			// padding: theme.spacing(4),
+			// position: 'unset !important'
 		}
 	}
 });
@@ -366,6 +380,7 @@ class ResourceTypeSelector extends React.Component {
 			arrowIcon,
 			resourceList,
 			uncheckLink,
+			uncheckLinkDisabled,
 			filterLayout
 		} = this.props.classes;
 		const {
@@ -375,10 +390,12 @@ class ResourceTypeSelector extends React.Component {
 			moveSearchButton
 		} = this.props;
 		const isMobile = this.props.width < breakpoints['sm'];
-		const containerWidth = isMobile ? '100%' : this.props.containerWidth + 'px';
+		const containerWidth = isMobile ? '100%' : null;
 		const resourceTypes = ResourceTypes.getResourceTypesByGroup(
 			this.props.locale
 		);
+		// let dynamicMargin = (this.props.width - 290)*.75 +'px';
+		// console.log(dynamicMargin);
 
 		return (
 			<AsylumConnectSelector
@@ -389,11 +406,11 @@ class ResourceTypeSelector extends React.Component {
 				listContainerClass={resourceList}
 				moveSearchButton={moveSearchButton}
 			>
-				{selectedResourceTypes.length ? (
-					<span href="#" onClick={clearResourceTypes} className={uncheckLink}>
+				{/*				{selectedResourceTypes.length ? (
+					<div href="#" onClick={clearResourceTypes} className={uncheckLink}>
 						<FormattedMessage id="search.uncheck-all" />
-					</span>
-				) : null}
+					</div>
+				) : null}*/}
 				{isMobile ? (
 					resourceTypes.map((filter, i) => (
 						<FilterCollectionMobile
@@ -420,6 +437,17 @@ class ResourceTypeSelector extends React.Component {
 					))
 				) : (
 					<div className={filterLayout}>
+						<div>
+							{selectedResourceTypes.length ? (
+								<span onClick={clearResourceTypes} className={uncheckLink}>
+									<FormattedMessage id="search.uncheck-all" />
+								</span>
+							) : (
+								<span className={uncheckLinkDisabled}>
+									<FormattedMessage id="search.uncheck-all" />
+								</span>
+							)}
+						</div>
 						<div>
 							{resourceTypes.map((filter, i) => (
 								<FilterCollection

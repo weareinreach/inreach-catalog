@@ -18,7 +18,8 @@ const styles = (theme) => ({
 		width: '100%',
 		top: '100%',
 		[theme.breakpoints.up('sm')]: {
-			position: 'absolute'
+			position: 'absolute',
+			left: '0'
 		},
 		zIndex: '50'
 	}),
@@ -160,24 +161,26 @@ class AsylumConnectSelector extends React.Component {
 						data-test-id="drop-down-selector-item"
 					>
 						<span className={selectedLabel}>{label}</span>
-						{selected && selected.length ? (
-							<AsylumConnectIndicator className={indicator} color="secondary">
-								{selected.length}
-							</AsylumConnectIndicator>
-						) : null}
-						{!noArrow ? (
-							<>
-								{this.state.open ? (
-									<KeyboardArrowUpIcon
-										className={classNames(arrow, colorClass)}
-									/>
-								) : (
-									<KeyboardArrowDownIcon
-										className={classNames(arrow, colorClass)}
-									/>
-								)}
-							</>
-						) : null}
+						<div style={{display: 'flex'}}>
+							{selected && selected.length ? (
+								<AsylumConnectIndicator className={indicator} color="secondary">
+									{selected.length}
+								</AsylumConnectIndicator>
+							) : null}
+							{!noArrow ? (
+								<>
+									{this.state.open ? (
+										<KeyboardArrowUpIcon
+											className={classNames(arrow, colorClass)}
+										/>
+									) : (
+										<KeyboardArrowDownIcon
+											className={classNames(arrow, colorClass)}
+										/>
+									)}
+								</>
+							) : null}
+						</div>
 					</div>
 				</div>
 				{this.state.open ? (
