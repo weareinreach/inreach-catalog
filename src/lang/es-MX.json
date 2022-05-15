@@ -213,6 +213,7 @@
 	"app.welcome-main-3": "La primera platamorfa tecnológica encontrando recursos seguros y verificados para personas LGBT+.",
 	"app.banner": "¿A quién ayuda InReach?",
 	"app.banner-1": "InReach es para toda la diversa comunidad LGBT+",
+	"app.banner-1-green": "{greenTag}",
 	"app.banner-2": "incluyendo solicitantes de asilo, refugiadxs, personas indocumentadxs, y otrxs inmigrantes; jóvenes sin hogar; personas rechazadas por su familia o comunidad a causa de su identidad; y otras personas transgénero y no binarias que necesitan recursos seguros.",
 	"error.email-address-mismatch": "Las direcciones de correo electrónico que ingresaste no coinciden",
 	"error.email-format": "Su correo electrónico debe tener un formato similar a 'john@gmail.com'",

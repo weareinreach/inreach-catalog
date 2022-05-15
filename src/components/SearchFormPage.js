@@ -221,7 +221,9 @@ class SearchFormContainer extends React.Component {
 			subAnnouncement,
 			mobileGridItem,
 			subheadingMobile,
-			mobileSubContainer
+			mobileSubContainer,
+			banner1,
+			line
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
 
@@ -235,12 +237,7 @@ class SearchFormContainer extends React.Component {
 		if (isMobile) {
 			return (
 				<div style={{position: 'relative'}}>
-					<Grid
-						container
-						// alignItems="flex-start"
-						// spacing={2}
-						className={container}
-					>
+					<Grid container className={container}>
 						<Grid item class={mobileSubContainer}>
 							<Grid item xs={12} sm={12} className={mobileGridItem}>
 								<a
@@ -304,22 +301,28 @@ class SearchFormContainer extends React.Component {
 									data-test-id="who-serve-question"
 								>
 									<AsylumConnectDropdownListItem data-test-id="who-serve-answer">
-										{/*										<Typography
+										<Typography
 											variant="body1"
+											data-test-id="banner-text-1"
 											className={[subheadingMobile, mobileGridItem].join(',')}
-											data-test-id="search-form-body-2"
-											// style={{textAlign: 'center'}}
-										>*/}
-										<FormattedMessage
-											id="app.banner-1"
-											defaultMessage="InReach is for the entire diverse LGBTQ+ community"
-										/>
-										{'-'}
-										<FormattedMessage
-											id="app.banner-2"
-											defaultMessage="including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
-										/>
-										{/*</Typography>*/}
+										>
+											<FormattedMessage
+												id="app.banner-1-green"
+												defaultMessage="InReach is for the entire diverse LGBTQ+ community"
+												values={{
+													greenTag: (
+														<span style={{color: '#00D56C'}}>
+															<FormattedMessage id="app.banner-1" />
+														</span>
+													)
+												}}
+											/>
+											{' - '}
+											<FormattedMessage
+												id="app.banner-2"
+												defaultMessage="including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
+											/>
+										</Typography>
 									</AsylumConnectDropdownListItem>
 								</AsylumConnectSelector>
 							</Grid>
