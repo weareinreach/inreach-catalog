@@ -16,7 +16,6 @@ const styles = (theme) => ({
 	},
 	selectList: {
 		backgroundColor: theme.palette.common.darkGrey,
-		boxShadow: '0px 8px 10px 0px rgba(0, 0, 0, 0.12)',
 		width: '100%',
 		top: '100%',
 		[theme.breakpoints.up('sm')]: {
@@ -195,7 +194,7 @@ class WhoServeSelector extends React.Component {
 						<Paper
 							id={this.id}
 							className={listContainerClasses + ' selector--asylum-connect'}
-							style={{width: containerWidth}}
+							style={{width: containerWidth, boxShadow: 'unset'}}
 							onClick={this.handlePaperClick}
 						>
 							{this.props.children}
