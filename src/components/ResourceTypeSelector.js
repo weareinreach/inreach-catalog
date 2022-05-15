@@ -394,8 +394,6 @@ class ResourceTypeSelector extends React.Component {
 		const resourceTypes = ResourceTypes.getResourceTypesByGroup(
 			this.props.locale
 		);
-		// let dynamicMargin = (this.props.width - 290)*.75 +'px';
-		// console.log(dynamicMargin);
 
 		return (
 			<AsylumConnectSelector
@@ -406,11 +404,19 @@ class ResourceTypeSelector extends React.Component {
 				listContainerClass={resourceList}
 				moveSearchButton={moveSearchButton}
 			>
-				{/*				{selectedResourceTypes.length ? (
-					<div href="#" onClick={clearResourceTypes} className={uncheckLink}>
-						<FormattedMessage id="search.uncheck-all" />
+				{isMobile ? (
+					<div>
+						{selectedResourceTypes.length ? (
+							<span onClick={clearResourceTypes} className={uncheckLink}>
+								<FormattedMessage id="search.uncheck-all" />
+							</span>
+						) : (
+							<span className={uncheckLinkDisabled}>
+								<FormattedMessage id="search.uncheck-all" />
+							</span>
+						)}
 					</div>
-				) : null}*/}
+				) : null}
 				{isMobile ? (
 					resourceTypes.map((filter, i) => (
 						<FilterCollectionMobile

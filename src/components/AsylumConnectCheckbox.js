@@ -25,7 +25,7 @@ const styles = (theme) => ({
 	},
 	[theme.breakpoints.down('xs')]: {
 		root: {
-			marginRight: 0
+			marginRight: '10px'
 		}
 	},
 	checkboxDefault: {
