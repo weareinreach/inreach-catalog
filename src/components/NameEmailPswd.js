@@ -307,7 +307,7 @@ const NameEmailPswd = (props) => {
 				<AsylumConnectButton
 					disabled={!isValid()}
 					testIdName="sign-up-form-submit-button"
-					variant="signUp"
+					variant={SEEKER_TYPE ? 'signUp' : 'primary'}
 					className={classes.noBottomMargin}
 				>
 					<FormattedMessage id="account.sign-up" />

@@ -105,14 +105,14 @@ const styles = (theme) => ({
 		marginTop: '24px',
 		marginBottom: '8px',
 		'& .MuiMobileStepper-dotActive': {
-			backgroundColor: theme.palette.signUp[400]
+			backgroundColor: theme.palette.primary[400]
 		}
 	},
 	stepperSpacing2: {
 		marginTop: '24px',
 		marginBottom: '60px',
 		'& .MuiMobileStepper-dotActive': {
-			backgroundColor: theme.palette.signUp[400]
+			backgroundColor: theme.palette.primary[400]
 		}
 	},
 	backgroundTransparent: {backgroundColor: 'transparent'},
@@ -308,7 +308,7 @@ const SignupForm = (props) => {
 						</div>
 						<div className={classes.marginVertical}>
 							<AsylumConnectButton
-								variant="signUp"
+								variant="primary"
 								testIdName="sign-up-form-finish-registration-button"
 							>
 								<FormattedMessage id="navigation.next" />

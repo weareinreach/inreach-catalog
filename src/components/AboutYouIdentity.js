@@ -260,7 +260,7 @@ const AboutYouIdentity = (props) => {
 						!textFieldTest.test(specifiedIdentity)
 					}
 					testIdName="about-you-next-button"
-					variant="signUp"
+					variant="primary"
 					className={classes.nextBtn}
 				>
 					<FormattedMessage id="navigation.next" />

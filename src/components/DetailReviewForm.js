@@ -151,7 +151,7 @@ class ReviewForm extends React.Component {
 						<Grid item xs={12} className={classes.dividerSpacing}>
 							<AsylumConnectButton
 								testIdName="details-review-form-submit-button"
-								variant="secondary"
+								variant="primary"
 								onClick={this.handleFormSubmission}
 							>
 								<FormattedMessage id="action.submit" />

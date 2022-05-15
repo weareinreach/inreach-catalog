@@ -187,7 +187,7 @@ const AboutYouImmigration = (props) => {
 				</RadioGroup>
 				<AsylumConnectButton
 					testIdName="about-you-next-button"
-					variant="signUp"
+					variant="primary"
 					className={classes.nextBtn}
 				>
 					<FormattedMessage id="navigation.next" />

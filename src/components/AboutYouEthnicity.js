@@ -260,7 +260,7 @@ const AboutYouEthnicity = (props) => {
 						!textFieldTest.test(specifiedEthnicity)
 					}
 					testIdName="about-you-next-button"
-					variant="signUp"
+					variant="primary"
 					className={classes.nextBtn}
 				>
 					<FormattedMessage id="navigation.next" />

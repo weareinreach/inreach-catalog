@@ -32,13 +32,13 @@ const styles = (theme) => ({
 		}
 	},
 	secondary: {
-		color: theme.palette.secondary[500],
+		color: theme.palette.primary[500],
 		backgroundColor: theme.palette.common.white,
-		borderColor: theme.palette.secondary[500],
+		borderColor: theme.palette.primary[500],
 		'&:hover': {
 			color: theme.palette.common.white,
-			backgroundColor: theme.palette.secondary[900],
-			borderColor: theme.palette.secondary[900]
+			backgroundColor: theme.palette.primary[900],
+			borderColor: theme.palette.primary[900]
 		}
 	},
 	disabledPrimary: {
