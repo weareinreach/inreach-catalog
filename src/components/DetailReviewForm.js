@@ -166,11 +166,8 @@ class ReviewForm extends React.Component {
 							className={classes.boldFont + ' ' + classes.bottomSpacing}
 						>
 							<FormattedMessage id="action.comment-submitted-confirmation" />{' '}
-							<a
-								href="mailto:catalog@asylumconnect.org"
-								className={classes.bodyLink}
-							>
-								catalog@asylumconnect.org
+							<a href="mailto:hello@inreach.org" className={classes.bodyLink}>
+								hello@inreach.org
 							</a>
 						</Typography>
 					</Grid>
