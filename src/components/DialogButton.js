@@ -17,7 +17,7 @@ const DialogButton = ({children, classes, handleRequestClose}) => (
 	<div className={classes.buttonContainer}>
 		<AsylumConnectButton
 			onClick={handleRequestClose}
-			variant="primary"
+			variant="signUp"
 			testIdName="dialog-button"
 		>
 			{children}

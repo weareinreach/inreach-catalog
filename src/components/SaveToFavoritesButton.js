@@ -248,7 +248,7 @@ class SaveToFavoritesButton extends React.Component {
 							<Button
 								style={{
 									display: 'inline-block',
-									background: '#CC4747',
+									background: '#4792DA',
 									borderRadius: '100px',
 									fontWeight: 'bold',
 									lineHeight: '22px',
@@ -372,7 +372,7 @@ class SaveToFavoritesButton extends React.Component {
 							<Button
 								style={{
 									display: 'inline-block',
-									background: '#CC4747',
+									background: '#4792DA',
 									borderRadius: '100px',
 									fontWeight: 'bold',
 									lineHeight: '22px',
