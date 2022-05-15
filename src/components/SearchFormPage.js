@@ -79,7 +79,7 @@ const styles = (theme) => ({
 			}
 		},
 		'& > div:nth-child(6)': {
-			padding: '0 0 24px'
+			// padding: '0 0 24px'
 		}
 	},
 	containerSearchForm: {
