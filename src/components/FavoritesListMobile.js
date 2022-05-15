@@ -92,7 +92,7 @@ const FavoritesListMobile = ({
 					<br />
 					<br />
 					<AsylumConnectButton
-						variant="primary"
+						variant="signUp"
 						className={classes.spacingTop}
 						onClick={(ev) => {
 							handleRequestOpen('login');
