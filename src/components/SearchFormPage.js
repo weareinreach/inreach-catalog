@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
 import AsylumConnectSelector from './AsylumConnectSelector';
+import WhoServeSelector from './WhoServeSelector';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import Disclaimer from './Disclaimer';
@@ -62,7 +63,7 @@ const styles = (theme) => ({
 			}
 		},
 		'& > div:nth-child(4)': {
-			padding: '0 5% 8px',
+			// padding: '0 5% 8px',
 			'& > p:nth-child(1)': {
 				fontSize: '24px',
 				fontWeight: 700,
@@ -70,7 +71,7 @@ const styles = (theme) => ({
 			}
 		},
 		'& > div:nth-child(5)': {
-			padding: '0 5% 24px',
+			padding: '16px 5% 24px',
 			'& > p:nth-child(1)': {
 				fontSize: '14px',
 				fontWeight: 400,
@@ -221,9 +222,7 @@ class SearchFormContainer extends React.Component {
 			subAnnouncement,
 			mobileGridItem,
 			subheadingMobile,
-			mobileSubContainer,
-			banner1,
-			line
+			mobileSubContainer
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
 
@@ -296,7 +295,7 @@ class SearchFormContainer extends React.Component {
 								</Grid>
 							) : null}
 							<Grid item xs={12} sm={12}>
-								<AsylumConnectSelector
+								<WhoServeSelector
 									label="Who does inReach Serve"
 									data-test-id="who-serve-question"
 								>
@@ -324,7 +323,7 @@ class SearchFormContainer extends React.Component {
 											/>
 										</Typography>
 									</AsylumConnectDropdownListItem>
-								</AsylumConnectSelector>
+								</WhoServeSelector>
 							</Grid>
 							<Grid item className={mobileGridItem}>
 								{locale ? (

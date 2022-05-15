@@ -12,9 +12,11 @@ import {dropShadow} from '../theme';
 
 const styles = (theme) => ({
 	toggledSelect: {
-		backgroundColor: theme.palette.secondary[100] + ' !important'
+		// backgroundColor: theme.palette.common.darkGrey + ' !important'
 	},
-	selectList: Object.assign(dropShadow(theme), {
+	selectList: {
+		backgroundColor: theme.palette.common.darkGrey,
+		boxShadow: '0px 8px 10px 0px rgba(0, 0, 0, 0.12)',
 		width: '100%',
 		top: '100%',
 		[theme.breakpoints.up('sm')]: {
@@ -22,7 +24,7 @@ const styles = (theme) => ({
 			left: '0'
 		},
 		zIndex: '50'
-	}),
+	},
 	arrow: {
 		width: '24px',
 		height: '24px',
@@ -44,7 +46,10 @@ const styles = (theme) => ({
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		backgroundColor: theme.palette.common.darkGrey,
+		height: '49px',
+		padding: '0 16px'
 	},
 	indicator: {
 		display: 'inline-block',
@@ -66,7 +71,7 @@ const styles = (theme) => ({
 	}
 });
 
-class AsylumConnectSelector extends React.Component {
+class WhoServeSelector extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -202,4 +207,4 @@ class AsylumConnectSelector extends React.Component {
 	}
 }
 
-export default withStyles(styles)(withWidth(AsylumConnectSelector));
+export default withStyles(styles)(withWidth(WhoServeSelector));
