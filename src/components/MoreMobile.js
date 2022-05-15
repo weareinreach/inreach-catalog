@@ -114,7 +114,7 @@ const MoreMobile = ({
 									defaultMessage="Learn More"
 								/>
 							),
-							url: 'https://asylumconnect.org'
+							url: 'https://inreach.org/faqs/'
 						},
 						{
 							testIdName: 'more-help-myself-rate-app',
@@ -158,7 +158,7 @@ const MoreMobile = ({
 									defaultMessage="Learn More"
 								/>
 							),
-							url: 'https://asylumconnect.org/how-to-find-resources-for-clients/'
+							url: 'https://inreach.org/how-to-find-resources-for-clients/'
 						},
 						{
 							testIdName: 'more-help-someone-rate-app',
@@ -197,7 +197,7 @@ const MoreMobile = ({
 									defaultMessage="Donate"
 								/>
 							),
-							url: 'https://secure.actblue.com/donate/asylumconnect'
+							url: 'https://inreach.org/donate/'
 						},
 						{
 							testIdName: 'more-general-supporter-learn-more',
@@ -207,7 +207,7 @@ const MoreMobile = ({
 									defaultMessage="Learn More"
 								/>
 							),
-							url: 'https://asylumconnect.org'
+							url: 'https://inreach.org/'
 						}
 					]}
 					classes={classes}
@@ -247,6 +247,16 @@ const MoreMobile = ({
 								/>
 							),
 							url: '/en_CA/suggestions/new'
+						},
+						{
+							testIdName: 'more-suggest-a-resource-mx',
+							label: (
+								<FormattedMessage
+									id="suggestion.suggest-resource-mexico"
+									defaultMessage="Suggest a Mexico Resource"
+								/>
+							),
+							url: '/en_MX/suggestions/new'
 						}
 					]}
 					classes={classes}
