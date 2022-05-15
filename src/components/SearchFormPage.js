@@ -250,6 +250,7 @@ class SearchFormContainer extends React.Component {
 				</div>
 			);
 		} else {
+			//not mobile so use desktop and tablet components
 			return (
 				<div style={{position: 'relative'}}>
 					<div

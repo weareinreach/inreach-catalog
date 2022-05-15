@@ -167,92 +167,61 @@ class LocaleForm extends React.Component {
 			formContainer,
 			languageIconColor
 		} = this.props.classes;
-		const isMobile = this.props.width <= breakpoints['sm'];
+		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
-
-		if (isMobile) {
-			return (
-				<Grid container>
-					<Grid item xs={12}>
+		return (
+			<Grid
+				container
+				justify="flex-start"
+				spacing={6}
+				className={formContainer}
+			>
+				<Grid item xs={12} md={6}>
+					{isMobile ? (
 						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="language.select-preferred-language" />
 						</Typography>
-						<Language
-							useMobile={false}
-							useIcon={true}
-							colorClass={languageIconColor}
-							inputClass={inputClass}
-							autoReload={false}
-							listContainerClass={listContainerClass}
-							onSelect={this.handleSelectLanguage}
-							triggerReload={this.state.reload}
-						/>
-					</Grid>
-					<Grid item xs={12}>
+					) : null}
+					<Typography variant="h3" className={labelRow} component="p">
+						<FormattedMessage id="language.select-preferred-language" />
+					</Typography>
+					<Language
+						useMobile={false}
+						useIcon={true}
+						colorClass={languageIconColor}
+						inputClass={inputClass}
+						autoReload={false}
+						listContainerClass={listContainerClass}
+						onSelect={this.handleSelectLanguage}
+						triggerReload={this.state.reload}
+					/>
+				</Grid>
+				<Grid item xs={12} md={6}>
+					{isMobile ? (
 						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="search.search-location-prompt" />
 						</Typography>
-						<LocaleSelector
-							label={localeLabel}
-							handleSelectLocale={this.handleSelectLocale}
-						/>
-					</Grid>
-					<Grid item xs={12} className={searchButton}>
-						<AsylumConnectButton
-							variant={variant}
-							testIdName="search-page-next-button"
-							onClick={this.handleNextClick}
-						>
-							<FormattedMessage id="navigation.next" />
-						</AsylumConnectButton>
-					</Grid>
+					) : null}
+					<Typography variant="h3" className={labelRow} component="p">
+						<FormattedMessage id="search.search-location-prompt" />
+					</Typography>
+					<LocaleSelector
+						label={localeLabel}
+						handleSelectLocale={this.handleSelectLocale}
+					/>
 				</Grid>
-			);
-		} else {
-			return (
-				<Grid
-					container
-					justify="flex-start"
-					spacing={6}
-					className={formContainer}
-				>
-					<Grid item xs={12} md={6}>
-						<Typography variant="h3" className={labelRow} component="p">
-							<FormattedMessage id="language.select-preferred-language" />
-						</Typography>
-						<Language
-							useMobile={false}
-							useIcon={true}
-							colorClass={languageIconColor}
-							inputClass={inputClass}
-							autoReload={false}
-							listContainerClass={listContainerClass}
-							onSelect={this.handleSelectLanguage}
-							triggerReload={this.state.reload}
-						/>
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<Typography variant="h3" className={labelRow} component="p">
-							<FormattedMessage id="search.search-location-prompt" />
-						</Typography>
-						<LocaleSelector
-							label={localeLabel}
-							handleSelectLocale={this.handleSelectLocale}
-						/>
-					</Grid>
-					<Grid item xs={12} className={searchButton}>
-						<AsylumConnectButton
-							variant={variant}
-							testIdName="search-page-next-button"
-							onClick={this.handleNextClick}
-						>
-							<FormattedMessage id="navigation.next" />
-						</AsylumConnectButton>
-					</Grid>
+				<Grid item xs={12} className={searchButton}>
+					<AsylumConnectButton
+						variant={variant}
+						testIdName="search-page-next-button"
+						onClick={this.handleNextClick}
+					>
+						<FormattedMessage id="navigation.next" />
+					</AsylumConnectButton>
 				</Grid>
-			);
-		}
+			</Grid>
+		);
 	}
 }
 
