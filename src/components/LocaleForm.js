@@ -46,11 +46,11 @@ const styles = (theme) => ({
 		}
 	},
 	labelRowMobile: {
-		marginBottom: theme.spacing(2),
-		[theme.breakpoints.down('xs')]: {
-			color: theme.palette.common.midBlack,
-			fontSize: theme.typography.h2.fontSize
-		}
+		fontSize: '18px',
+		fontWeight: 600,
+		lineHeight: '22px',
+		textAlign: 'center',
+		padding: '16px 0'
 	},
 	formRow: {
 		marginBottom: theme.spacing(3)
@@ -66,7 +66,9 @@ const styles = (theme) => ({
 	},
 	[theme.breakpoints.down('xs')]: {
 		searchButton: {
-			textAlign: 'center'
+			textAlign: 'center',
+			width: '100%',
+			marginTop: '16px'
 		},
 		body2: {
 			color: theme.palette.common.white
@@ -173,8 +175,8 @@ class LocaleForm extends React.Component {
 
 		if (isMobile) {
 			return (
-				<Grid container>
-					<Grid item xs={12}>
+				<Grid container style={{margin: '16px'}}>
+					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="language.select-preferred-language" />
 						</Typography>
@@ -189,7 +191,7 @@ class LocaleForm extends React.Component {
 							triggerReload={this.state.reload}
 						/>
 					</Grid>
-					<Grid item xs={12}>
+					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="search.search-location-prompt" />
 						</Typography>
@@ -198,7 +200,7 @@ class LocaleForm extends React.Component {
 							handleSelectLocale={this.handleSelectLocale}
 						/>
 					</Grid>
-					<Grid item xs={12} className={searchButton}>
+					<Grid item className={searchButton}>
 						<AsylumConnectButton
 							variant={variant}
 							testIdName="search-page-next-button"

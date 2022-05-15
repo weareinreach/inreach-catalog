@@ -3,7 +3,7 @@ import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
-import {InformationIcon24} from './icons';
+import {InformationIcon, InformationIcon24} from './icons';
 
 const styles = (theme) => ({
 	root: {
@@ -21,28 +21,37 @@ const styles = (theme) => ({
 	}
 });
 
-const Announcement = ({classes}) => (
-	<div id="announcement-div" className={classes.root + ' hide--on-print'}>
-		<a href="https://bit.ly/inreach-press-release">
-			<InformationIcon24 fillColor={'#000000'} />
-		</a>
-		<a
-			href="https://bit.ly/inreach-press-release"
-			data-test-id="announcement-header"
-		>
-			<Typography
-				variant="caption"
-				color="primary"
-				className={classes.textContent}
+const Announcement = (props) => {
+	const {classes, useSmallIcon} = props;
+
+	return (
+		<div id="announcement-div" className={classes.root + ' hide--on-print'}>
+			<a href="https://bit.ly/inreach-press-release">
+				{useSmallIcon ? (
+					<InformationIcon fillColor={'#000000'} />
+				) : (
+					<InformationIcon24 fillColor={'#000000'} />
+				)}
+			</a>
+			<a
+				href="https://bit.ly/inreach-press-release"
+				data-test-id="announcement-header"
 			>
-				<FormattedMessage id="announcement-brand" />
-			</Typography>
-		</a>
-	</div>
-);
+				<Typography
+					variant="caption"
+					color="primary"
+					className={classes.textContent}
+				>
+					<FormattedMessage id="announcement-brand" />
+				</Typography>
+			</a>
+		</div>
+	);
+};
 
 Announcement.propTypes = {
-	classes: PropTypes.object.isRequired
+	classes: PropTypes.object.isRequired,
+	useSmallIcon: false
 };
 
 export default withStyles(styles)(Announcement);

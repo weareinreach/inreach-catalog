@@ -4,12 +4,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
-
+import AsylumConnectSelector from './AsylumConnectSelector';
+import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import Disclaimer from './Disclaimer';
 import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
+import Announcement from './Announcement';
 import withWidth from './withWidth';
 import {getLocale, isLocaleSet, fetchLocaleName} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
@@ -48,6 +50,36 @@ const styles = (theme) => ({
 			paddingTop: '80px',
 			marginLeft: '0'
 		})
+	},
+	mobileSubContainer: {
+		'& > div:nth-child(2)': {
+			padding: '0 5% 16px'
+		},
+		'& > div:nth-child(3)': {
+			padding: '0 5% 24px',
+			'& > div:nth-child(1) > :nth-child(2) :nth-child(1)': {
+				fontSize: '14px'
+			}
+		},
+		'& > div:nth-child(4)': {
+			padding: '0 5% 8px',
+			'& > p:nth-child(1)': {
+				fontSize: '24px',
+				fontWeight: 700,
+				lineHeight: '29px'
+			}
+		},
+		'& > div:nth-child(5)': {
+			padding: '0 5% 24px',
+			'& > p:nth-child(1)': {
+				fontSize: '14px',
+				fontWeight: 400,
+				lineHeight: '17px'
+			}
+		},
+		'& > div:nth-child(6)': {
+			padding: '0 0 24px'
+		}
 	},
 	containerSearchForm: {
 		paddingTop: theme.spacing(8)
@@ -110,6 +142,16 @@ const styles = (theme) => ({
 	logoMobile: {
 		width: '120px',
 		height: '48px'
+	},
+	mobileGridItem: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	subheadingMobile: {
+		fontSize: '14px',
+		lineHeight: '14.97px',
+		textAlign: 'center'
 	}
 });
 
@@ -176,7 +218,10 @@ class SearchFormContainer extends React.Component {
 			subheading,
 			changeCountryButton,
 			containerSearchForm,
-			subAnnouncement
+			subAnnouncement,
+			mobileGridItem,
+			subheadingMobile,
+			mobileSubContainer
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
 
@@ -192,12 +237,12 @@ class SearchFormContainer extends React.Component {
 				<div style={{position: 'relative'}}>
 					<Grid
 						container
-						alignItems="flex-start"
-						spacing={0}
+						// alignItems="flex-start"
+						// spacing={2}
 						className={container}
 					>
-						<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
-							<Grid item xs={12}>
+						<Grid item class={mobileSubContainer}>
+							<Grid item xs={12} sm={12} className={mobileGridItem}>
 								<a
 									href="https://www.asylumconnect.org"
 									data-test-id="search-form-logo"
@@ -207,28 +252,76 @@ class SearchFormContainer extends React.Component {
 									</IconButton>
 								</a>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item xs={12} sm={12}>
 								<Typography
-									variant="h2"
-									className={subheading}
+									variant="body1"
+									className={[subheadingMobile, mobileGridItem].join(',')}
 									data-test-id="search-form-body-2"
+									style={{textAlign: 'center'}}
 								>
-									{this.state.locale ? (
-										<>
-											<FormattedMessage
-												id="app.welcome-main-3"
-												defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
-											/>
-										</>
-									) : (
-										<FormattedMessage
-											id="app.welcome-main-2"
-											defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-										/>
-									)}
+									<FormattedMessage
+										id="app.welcome-main-2"
+										defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+									/>
 								</Typography>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item xs={12} sm={12}>
+								<Announcement useSmallIcon />
+							</Grid>
+							{!locale ? (
+								<Grid item xs={12} sm={12}>
+									<Typography
+										variant="body1"
+										className={[subheadingMobile, mobileGridItem].join(',')}
+										data-test-id="search-form-body-2"
+										style={{textAlign: 'center'}}
+									>
+										<FormattedMessage
+											id="app.welcome-main-1"
+											defaultMessage="Welcome to InReach"
+										/>
+									</Typography>
+								</Grid>
+							) : null}
+							<Grid item xs={12} sm={12}>
+								<Typography
+									variant="body1"
+									className={[subheadingMobile, mobileGridItem].join(',')}
+									data-test-id="search-form-body-2"
+									style={{textAlign: 'center'}}
+								>
+									<FormattedMessage
+										id="app.welcome-main-3"
+										defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+									/>
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<AsylumConnectSelector
+									label="Who does inReach Serve"
+									data-test-id="who-serve-question"
+								>
+									<AsylumConnectDropdownListItem data-test-id="who-serve-answer">
+										{/*										<Typography
+											variant="body1"
+											className={[subheadingMobile, mobileGridItem].join(',')}
+											data-test-id="search-form-body-2"
+											// style={{textAlign: 'center'}}
+										>*/}
+										<FormattedMessage
+											id="app.banner-1"
+											defaultMessage="InReach is for the entire diverse LGBTQ+ community"
+										/>
+										{'-'}
+										<FormattedMessage
+											id="app.banner-2"
+											defaultMessage="including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
+										/>
+										{/*</Typography>*/}
+									</AsylumConnectDropdownListItem>
+								</AsylumConnectSelector>
+							</Grid>
+							<Grid item className={mobileGridItem}>
 								{locale ? (
 									<SearchForm
 										{...this.props}
@@ -250,7 +343,7 @@ class SearchFormContainer extends React.Component {
 				</div>
 			);
 		} else {
-			//not mobile so use desktop and tablet components
+			//not mobile, so use desktop and tablet components
 			return (
 				<div style={{position: 'relative'}}>
 					<div
