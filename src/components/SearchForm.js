@@ -155,7 +155,7 @@ class SearchForm extends React.Component {
 			<div>
 				{isMobile ? (
 					<Grid container>
-						<Grid item xs={12} sm={12}>
+						<Grid item xs={12} sm={12} style={{marginBottom: '16px'}}>
 							<LocaleSelector
 								label={localeLabel}
 								setOnChange={true}
