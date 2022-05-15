@@ -147,7 +147,8 @@ const styles = (theme) => ({
 	mobileGridItem: {
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		padding: 'unset !important'
 	},
 	subheadingMobile: {
 		fontSize: '14px',
