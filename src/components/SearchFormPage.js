@@ -283,19 +283,21 @@ class SearchFormContainer extends React.Component {
 									</Typography>
 								</Grid>
 							) : null}
-							<Grid item xs={12} sm={12}>
-								<Typography
-									variant="body1"
-									className={[subheadingMobile, mobileGridItem].join(',')}
-									data-test-id="search-form-body-2"
-									style={{textAlign: 'center'}}
-								>
-									<FormattedMessage
-										id="app.welcome-main-3"
-										defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-									/>
-								</Typography>
-							</Grid>
+							{!locale ? (
+								<Grid item xs={12} sm={12}>
+									<Typography
+										variant="body1"
+										className={[subheadingMobile, mobileGridItem].join(',')}
+										data-test-id="search-form-body-2"
+										style={{textAlign: 'center'}}
+									>
+										<FormattedMessage
+											id="app.welcome-main-3"
+											defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+										/>
+									</Typography>
+								</Grid>
+							) : null}
 							<Grid item xs={12} sm={12}>
 								<AsylumConnectSelector
 									label="Who does inReach Serve"

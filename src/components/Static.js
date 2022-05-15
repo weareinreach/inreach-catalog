@@ -52,7 +52,7 @@ const styles = (theme) => ({
 	},
 	localeHeader: {
 		[theme.breakpoints.down('xs')]: {
-			backgroundColor: theme.palette.secondary[500]
+			// backgroundColor: theme.palette.secondary[500]
 		}
 	},
 	changeCountryButton: {
@@ -99,6 +99,11 @@ const styles = (theme) => ({
 		maxWidth: '65px',
 		paddingLeft: '20px'
 	},
+	logoMobile: {
+		width: '120px',
+		height: '48px',
+		textAlign: 'center'
+	},
 	subheading: {
 		marginBottom: theme.spacing(4),
 		[theme.breakpoints.down('xs')]: {
@@ -115,7 +120,7 @@ const styles = (theme) => ({
 			alignContent: 'flex-start',
 			paddingTop: theme.spacing(2),
 			paddingBottom: theme.spacing(2),
-			backgroundColor: theme.palette.secondary[500]
+			backgroundColor: theme.palette.primary[500]
 		})
 	}
 });
@@ -205,13 +210,13 @@ class Static extends React.Component {
 						spacing={0}
 						className={classes.localeHeader}
 					>
-						<Grid item xs={12}>
+						<Grid item xs={12} style={{textAlign: 'center'}}>
 							<a href="https://www.asylumconnect.org">
 								<IconButton className={classes.iconButton}>
 									<img
-										alt="asylumconnect logo"
 										src={this.props.logo}
-										className={classes.logoFitHeight}
+										alt="inreach logo"
+										className={classes.logoMobile}
 									/>
 								</IconButton>
 							</a>
@@ -223,7 +228,10 @@ class Static extends React.Component {
 									className={classes.subheading}
 									data-test-id="static-page-header"
 								>
-									<FormattedMessage id="app.search-services" />
+									<FormattedMessage
+										id="app.welcome-main-2"
+										defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+									/>
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
