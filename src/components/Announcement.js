@@ -10,7 +10,10 @@ const styles = (theme) => ({
 		backgroundColor: theme.palette.banner[500],
 		padding: '16px 0',
 		textAlign: 'center',
-		width: '100%'
+		width: '100%',
+		[theme.breakpoints.down('xs')]: {
+			borderRadius: '5px'
+		}
 	},
 	textContent: {
 		color: theme.palette.common.black,
