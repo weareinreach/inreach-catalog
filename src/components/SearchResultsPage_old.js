@@ -320,13 +320,13 @@ class SearchResultsContainer extends React.Component {
 					md={10}
 					lg={10}
 					xl={11}
-					style={!isMobile ? {paddingLeft: leftPadding + 'px'} : null}
+					style={{paddingLeft: leftPadding + 'px'}}
 				>
 					<div className={containerSearchForm + ' no-background'}>
 						{isMobile ? (
 							<div className={backButton}>
 								<AsylumConnectBackButton
-									color="primary"
+									color="secondary"
 									onClick={() => {
 										this.props.history.push('/');
 									}}

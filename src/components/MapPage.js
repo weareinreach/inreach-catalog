@@ -682,7 +682,12 @@ class MapPage extends React.Component {
 
 		return (
 			<div className={'container--map ' + this.props.classes.containerMap}>
-				<Grid container spacing={0} alignItems="stretch">
+				<Grid
+					container
+					spacing={0}
+					alignItems="stretch"
+					style={isMobile ? {display: 'unset'} : null}
+				>
 					<Grid item md={8} sm={7}>
 						<div>
 							<Switch>
