@@ -124,7 +124,7 @@ const MoreMobile = ({
 									defaultMessage="Rate This App"
 								/>
 							),
-							url: 'https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL'
+							url: 'https://bit.ly/inreach-app-share-feedback'
 						}
 					]}
 					classes={classes}
@@ -168,7 +168,7 @@ const MoreMobile = ({
 									defaultMessage="Rate This App"
 								/>
 							),
-							url: 'https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL'
+							url: 'https://bit.ly/inreach-app-share-feedback'
 						}
 					]}
 					classes={classes}

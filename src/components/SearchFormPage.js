@@ -297,7 +297,7 @@ class SearchFormContainer extends React.Component {
 							) : null}
 							<Grid item xs={12} sm={12}>
 								<WhoServeSelector
-									label="Who does inReach Serve"
+									label={<FormattedMessage id="app.banner" />}
 									data-test-id="who-serve-question"
 								>
 									<AsylumConnectDropdownListItem data-test-id="who-serve-answer">
