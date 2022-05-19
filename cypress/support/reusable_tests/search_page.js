@@ -5,14 +5,14 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
     if(viewport!==Cypress.env('mobile')){
         cy.getElementByTestId('search-form-body').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('Welcome to the United States AsylumConnect Catalog!');
+            expect($element).contain('Welcome to InReach United States!');
         });
     }
 
 	cy.getElementByTestId('search-form-body-2').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).contain(
-			'Find services verified to be safe for LGBTQ+ asylum seekers and other LGBTQ+ people in need.'
+			'InReach is for the entire diverse LGBTQ+ community'
 		);
 	});
 

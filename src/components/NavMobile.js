@@ -4,6 +4,7 @@ import {FormattedMessage} from 'react-intl';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {withStyles} from '@material-ui/core/styles';
+import {navLinks} from '../data/navLinks';
 
 import {
 	AccountIcon,

@@ -22,62 +22,66 @@ function testNavigationBarDesktop(viewport, user) {
 	});
 	cy.getElementByTestId('nav-button-about').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/mission/');
+		expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 		expect($element.children()).contain('About Us');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/mission/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/mission/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/mission/');
-		});
+		});*/
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-take-action').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/donate/');
+		expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 		expect($element.children()).contain('Take Action');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/donate/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/donate/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/donate/');
-		});
+		});*/
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-get-help').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/faqs/');
+		expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
 		expect($element.children()).contain('Get Help');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/faqs/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/faqs/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/faqs/');
-		});
+		})*/;
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-contact').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/contact/');
+		expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 		expect($element.children()).contain('Contact Us');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/contact/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/contact/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/contact/');
-		});
+		});*/
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-safety-exit').then(($element) => {
@@ -120,96 +124,56 @@ function testNavigationBarDesktop(viewport, user) {
 
 function testNavigationBarTablet(viewport, user) {
 	cy.viewport(viewport);
-	cy.getElementByTestId('tablet-nav-button-icon-image').should('be.visible');
+	cy.getElementByTestId('nav-button-logo').should('be.visible');
 
-	cy.getElementByTestId('tablet-nav-button-icon').then(($element) => {
-		expect($element).to.be.visible;
-		expect($element).to.have.attr('aria-haspopup', 'true');
-		cy.wrap($element)
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-button').then(($element) => {
-					expect($element).to.be.visible;
-					expect($element).to.have.attr('id', 'simple-menu');
-				});
-				cy.reload();
-			});
-		//Menu Items
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-home').then(($element) => {
-					expect($element).to.have.attr('href', 'https://asylumconnect.org');
-					//click
-					cy.wrap($element).click();
-					cy.location().should((loc) => {
-						expect(loc.href).to.be.eq('https://asylumconnect.org/');
-						expect(loc.hostname).to.be.eq('asylumconnect.org');
-					});
-					cy.goBackAndSwitchToViewport('ipad-2');
-				});
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-about').then(($element) => {
-					expect($element).to.have.attr(
-						'href',
-						'https://asylumconnect.org/mission/'
-					);
-					//click
-					cy.wrap($element).click();
-					cy.location().should((loc) => {
-						expect(loc.href).to.be.eq('https://asylumconnect.org/mission/');
-						expect(loc.hostname).to.be.eq('asylumconnect.org');
-						expect(loc.pathname).to.be.eq('/mission/');
-					});
-					cy.goBackAndSwitchToViewport('ipad-2');
-				});
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-take-action').then(
-					($element) => {
-						expect($element).to.have.attr(
-							'href',
-							'https://asylumconnect.org/donate/'
-						);
-						//click
-						cy.wrap($element).click();
-						cy.location().should((loc) => {
-							expect(loc.href).to.be.eq('https://asylumconnect.org/donate/');
-							expect(loc.hostname).to.be.eq('asylumconnect.org');
-							expect(loc.pathname).to.be.eq('/donate/');
-						});
-						cy.goBackAndSwitchToViewport('ipad-2');
-					}
-				);
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
-					expect($element).to.have.attr(
-						'href',
-						'https://asylumconnect.org/faqs/'
-					);
-					//click
-					cy.wrap($element).click();
-					cy.location().should((loc) => {
-						expect(loc.href).to.be.eq('https://asylumconnect.org/faqs/');
-						expect(loc.hostname).to.be.eq('asylumconnect.org');
-						expect(loc.pathname).to.be.eq('/faqs/');
-					});
-					cy.goBackAndSwitchToViewport('ipad-2');
-				});
-			});
-
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').click();
+	cy.getElementByTestId('tablet-menu-item-about').then(($element) => {
+		expect($element).to.have.attr(
+			'href',
+			'https://inreach.org/mission/'
+		);
+		//click
+		//uncomment once inreach is live	
+		/*cy.wrap($element).click();
+		cy.location().should((loc) => {
+			expect(loc.href).to.be.eq('https://inreach.org/mission/');
+			expect(loc.hostname).to.be.eq('inreach.org');
+			expect(loc.pathname).to.be.eq('/mission/');
+		});*/
+		cy.goBackAndSwitchToViewport('ipad-2');
+	});
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').click();
+	cy.getElementByTestId('tablet-menu-item-take-action').then(
+		($element) => {
+			expect($element).to.have.attr(
+				'href',
+				'https://inreach.org/donate/'
+			);
+			//click
+			//uncomment once inreach is live
+			/*cy.wrap($element).click();
+			cy.location().should((loc) => {
+				expect(loc.href).to.be.eq('https://inreach.org/donate/');
+				expect(loc.hostname).to.be.eq('inreach.org');
+				expect(loc.pathname).to.be.eq('/donate/');
+			});*/
+			cy.goBackAndSwitchToViewport('ipad-2');
+		});
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').click();
+	cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
+		expect($element).to.have.attr(
+			'href',
+			'https://inreach.org/faqs/'
+		);
+		//click
+		/*cy.wrap($element).click();
+		cy.location().should((loc) => {
+			expect(loc.href).to.be.eq('https://inreach.org/faqs/');
+			expect(loc.hostname).to.be.eq('inreach.org');
+			expect(loc.pathname).to.be.eq('/faqs/');
+		});*/
+		cy.goBackAndSwitchToViewport('ipad-2');
+	});
 		cy.getElementByTestId('tablet-nav-button-icon')
 			.click()
 			.then(() => {
@@ -217,15 +181,15 @@ function testNavigationBarTablet(viewport, user) {
 					($element) => {
 						expect($element).to.have.attr(
 							'href',
-							'https://asylumconnect.org/contact/'
+							'https://inreach.org/contact/'
 						);
 						//click
-						cy.wrap($element).click();
+						/*cy.wrap($element).click();
 						cy.location().should((loc) => {
-							expect(loc.href).to.be.eq('https://asylumconnect.org/contact/');
-							expect(loc.hostname).to.be.eq('asylumconnect.org');
+							expect(loc.href).to.be.eq('https://inreach.org/contact/');
+							expect(loc.hostname).to.be.eq('inreach.org');
 							expect(loc.pathname).to.be.eq('/contact/');
-						});
+						});*/
 						cy.goBackAndSwitchToViewport('ipad-2');
 					}
 				);

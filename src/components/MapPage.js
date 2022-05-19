@@ -23,7 +23,7 @@ const styles = (theme) => ({
 	},
 	containerMap: {
 		maxWidth: theme.maxColumnWidth,
-		margin: '0 auto',
+		// margin: '0 auto',
 		[theme.breakpoints.down('xs')]: {
 			overflowY: 'auto',
 			height: '100%',
@@ -682,8 +682,13 @@ class MapPage extends React.Component {
 
 		return (
 			<div className={'container--map ' + this.props.classes.containerMap}>
-				<Grid container spacing={0} alignItems="stretch">
-					<Grid item xs={12} sm={8}>
+				<Grid
+					container
+					spacing={0}
+					alignItems="stretch"
+					style={isMobile ? {display: 'unset'} : null}
+				>
+					<Grid item md={8} sm={7}>
 						<div>
 							<Switch>
 								<Route
@@ -911,7 +916,7 @@ class MapPage extends React.Component {
 						</div>
 					</Grid>
 					{!isMobile && (
-						<Grid item xs={12} sm={4} className="hide--on-print">
+						<Grid item md={4} sm={5} className="hide--on-print">
 							<Sticky>
 								<div>
 									<AsylumConnectMap

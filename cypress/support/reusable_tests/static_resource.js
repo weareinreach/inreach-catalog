@@ -1,7 +1,7 @@
 Cypress.Commands.add('testStaticResource',(viewport)=>{
     cy.viewport(viewport);
 
-cy.getElementByTestId('language-selector-container').then($element=>{
+cy.getElementByTestId('drop-down-selector-container').then($element=>{
     cy.wrap($element[2]).click();
     cy.getElementByTestId('list-item').then($element=>{
             expect($element[3]).to.be.visible;
@@ -13,7 +13,7 @@ cy.getElementByTestId('language-selector-container').then($element=>{
     if(viewport !== Cypress.env('mobile')){
     cy.getElementByTestId('subannouncement-link').then($element=>{
             expect($element).to.be.visible;
-            expect($element).to.be.attr('href','https://asylumconnect.org/mobile-app/');
+            expect($element).to.be.attr('href','https://inreach.org/mobile-app/');
         });
     }
     });

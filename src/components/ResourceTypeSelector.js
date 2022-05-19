@@ -17,11 +17,17 @@ import withWidth from './withWidth';
 
 const styles = (theme) => ({
 	searchInput: Object.assign(searchInput(theme), {
-		borderLeft: '2px solid ' + theme.palette.common.lightGrey,
+		// borderLeft: '2px solid ' + theme.palette.common.lightGrey,
 		cursor: 'pointer',
 		position: 'relative',
-		boxShadow:
-			'-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		// boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		// width: '400px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		// boxShadow:
+		// 	'-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
 		[theme.breakpoints.down('md')]: {
 			boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
 			borderLeft: 'none'
@@ -29,31 +35,48 @@ const styles = (theme) => ({
 		[theme.breakpoints.down('xs')]: searchInputMobile(theme)
 	}),
 	uncheckLink: {
-		fontFamily: theme.typography.body2.fontFamily,
-		fontSize: theme.typography.body2.fontSize,
-		fontWeight: theme.typography.body2.fontWeight,
-		position: 'absolute',
-		right: theme.spacing(2),
-		top: theme.spacing(2),
-		textDecoration: 'none'
+		fontFamily: theme.typography.body1.fontFamily,
+		fontSize: '18px',
+		fontWeight: theme.typography.h3.fontWeight,
+		cursor: 'pointer'
+	},
+	uncheckLinkDisabled: {
+		fontFamily: theme.typography.body1.fontFamily,
+		fontSize: '18px',
+		fontWeight: theme.typography.h3.fontWeight,
+		color: theme.palette.common.darkGrey,
+		cursor: 'not-allowed'
 	},
 	filterLayout: {
+		backgroundColor: theme.palette.common.white,
 		[theme.breakpoints.up('sm')]: {
-			display: 'flex',
+			// display: 'flex',
 			width: '100%',
 			'& > div:first-child': {
 				overflowY: 'auto',
-				width: '50%',
-				position: 'absolute',
+				padding: '8px',
+				// backgroundColor: 'theme.palette.common.white',
+				// boxShadow: '0px 1px 0px 1px rgba(0, 0, 0, 0.12)',
+				textAlign: 'left'
+			},
+			'& > div:nth-child(2)': {
+				// overflowY: 'auto',
+				width: 'auto',
+				// height: 'fit-content',
 				top: theme.spacing(6),
 				bottom: '0',
 				left: '0',
-				marginBottom: theme.spacing(2)
+				marginBottom: theme.spacing(2),
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 6px 10px 0px rgba(0, 0, 0, 0.12)'
 			},
 			'& > div:last-child': {
-				width: '50%',
-				height: '420px',
-				marginLeft: '50%'
+				width: '290px',
+				height: 'auto',
+				marginTop: '-615px',
+				marginLeft: '100%',
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 1px 10px 1px rgba(0, 0, 0, 0.12)'
 			}
 		}
 	},
@@ -61,7 +84,7 @@ const styles = (theme) => ({
 		color: theme.palette.common.darkBlack
 	},
 	sectionTitle: {
-		fontWeight: '600',
+		// fontWeight: '600',
 		display: 'inline-block',
 		verticalAlign: 'middle'
 	},
@@ -97,10 +120,10 @@ const styles = (theme) => ({
 		}
 	},
 	subfilterSpacing: {
-		marginTop: theme.spacing(2),
+		// marginTop: theme.spacing(3),
 		[theme.breakpoints.up('sm')]: {
-			position: 'absolute',
-			left: '50%',
+			// position: 'absolute',
+			// left: '50%',
 			top: theme.spacing(2),
 			bottom: '0',
 			height: '100%',
@@ -112,11 +135,12 @@ const styles = (theme) => ({
 		}
 	},
 	resourceList: {
-		padding: theme.spacing(2),
+		// padding: theme.spacing(2),
 		right: '0',
 		[theme.breakpoints.up('md')]: {
-			maxHeight: '420px',
-			padding: theme.spacing(4)
+			maxHeight: '24px'
+			// padding: theme.spacing(4),
+			// position: 'unset !important'
 		}
 	}
 });
@@ -143,7 +167,7 @@ const FilterCollectionMobile = (props) => {
 	return (
 		<div>
 			<Typography
-				variant="body2"
+				variant="body1"
 				className={classes.sectionHeader}
 				onClick={onClick}
 			>
@@ -227,7 +251,7 @@ const FilterCollection = (props) => {
 			onClick={onClick}
 			style={{backgroundColor: backgroundColor}}
 		>
-			<Typography variant="body2" className={classes.sectionHeader}>
+			<Typography variant="body1" className={classes.sectionHeader}>
 				{typeof categoryValue !== 'undefined' ? (
 					<span className={classes.sectionTitle}>
 						<AsylumConnectCheckbox
@@ -356,6 +380,7 @@ class ResourceTypeSelector extends React.Component {
 			arrowIcon,
 			resourceList,
 			uncheckLink,
+			uncheckLinkDisabled,
 			filterLayout
 		} = this.props.classes;
 		const {
@@ -365,7 +390,7 @@ class ResourceTypeSelector extends React.Component {
 			moveSearchButton
 		} = this.props;
 		const isMobile = this.props.width < breakpoints['sm'];
-		const containerWidth = isMobile ? '100%' : this.props.containerWidth + 'px';
+		const containerWidth = isMobile ? '100%' : null;
 		const resourceTypes = ResourceTypes.getResourceTypesByGroup(
 			this.props.locale
 		);
@@ -379,9 +404,19 @@ class ResourceTypeSelector extends React.Component {
 				listContainerClass={resourceList}
 				moveSearchButton={moveSearchButton}
 			>
-				<span href="#" onClick={clearResourceTypes} className={uncheckLink}>
-					<FormattedMessage id="search.uncheck-all" />
-				</span>
+				{isMobile ? (
+					<div>
+						{selectedResourceTypes.length ? (
+							<span onClick={clearResourceTypes} className={uncheckLink}>
+								<FormattedMessage id="search.uncheck-all" />
+							</span>
+						) : (
+							<span className={uncheckLinkDisabled}>
+								<FormattedMessage id="search.uncheck-all" />
+							</span>
+						)}
+					</div>
+				) : null}
 				{isMobile ? (
 					resourceTypes.map((filter, i) => (
 						<FilterCollectionMobile
@@ -408,6 +443,17 @@ class ResourceTypeSelector extends React.Component {
 					))
 				) : (
 					<div className={filterLayout}>
+						<div>
+							{selectedResourceTypes.length ? (
+								<span onClick={clearResourceTypes} className={uncheckLink}>
+									<FormattedMessage id="search.uncheck-all" />
+								</span>
+							) : (
+								<span className={uncheckLinkDisabled}>
+									<FormattedMessage id="search.uncheck-all" />
+								</span>
+							)}
+						</div>
 						<div>
 							{resourceTypes.map((filter, i) => (
 								<FilterCollection

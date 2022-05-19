@@ -188,7 +188,7 @@ const NameEmailPswd = (props) => {
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-subtitle" />
+				<FormattedMessage id="app.welcome-main-3" />
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -307,7 +307,7 @@ const NameEmailPswd = (props) => {
 				<AsylumConnectButton
 					disabled={!isValid()}
 					testIdName="sign-up-form-submit-button"
-					variant="primary"
+					variant={SEEKER_TYPE ? 'signUp' : 'primary'}
 					className={classes.noBottomMargin}
 				>
 					<FormattedMessage id="account.sign-up" />

@@ -52,20 +52,18 @@ const styles = (theme) => ({
 	},
 	localeHeader: {
 		[theme.breakpoints.down('xs')]: {
-			backgroundColor: theme.palette.secondary[500]
+			// backgroundColor: theme.palette.secondary[500]
 		}
 	},
 	changeCountryButton: {
 		marginTop: theme.spacing(2),
-		marginLeft: theme.spacing(-1)
+		marginLeft: theme.spacing(-1),
+		color: theme.palette.secondary[400]
 	},
 	subAnnouncement: {
 		backgroundColor: '#e9e9e9',
 		paddingTop: '1rem',
-		paddingBottom: '1rem',
-		textAlign: 'center',
-		paddingLeft: '5%',
-		paddingRight: '5%'
+		paddingBottom: '1rem'
 	},
 	[`@media (max-width: ${breakpoints['md']}px)`]: {
 		section: {
@@ -100,7 +98,11 @@ const styles = (theme) => ({
 	logoFitHeight: {
 		maxWidth: '65px',
 		paddingLeft: '20px'
-		//height: '100%',
+	},
+	logoMobile: {
+		width: '120px',
+		height: '48px',
+		textAlign: 'center'
 	},
 	subheading: {
 		marginBottom: theme.spacing(4),
@@ -118,7 +120,7 @@ const styles = (theme) => ({
 			alignContent: 'flex-start',
 			paddingTop: theme.spacing(2),
 			paddingBottom: theme.spacing(2),
-			backgroundColor: theme.palette.secondary[500]
+			backgroundColor: theme.palette.primary[500]
 		})
 	}
 });
@@ -187,11 +189,17 @@ class Static extends React.Component {
 	}
 
 	render() {
-		const classes = this.props.classes;
+		const {classes, width} = this.props;
 		const lastSection = this.state.page ? this.state.page.length : 0;
 		const isMobile = this.props.width < breakpoints['sm'];
 		const localeLabel = <FormattedMessage id="app.select-country" />;
 
+		let leftPadding = '';
+		if (width > 1364) {
+			leftPadding = Math.abs(32 + (width - 1364) / 2);
+		} else {
+			leftPadding = Math.abs((width * 0.06) / 2);
+		}
 		return (
 			<>
 				{isMobile ? (
@@ -202,13 +210,13 @@ class Static extends React.Component {
 						spacing={0}
 						className={classes.localeHeader}
 					>
-						<Grid item xs={12}>
-							<a href="https://www.asylumconnect.org">
+						<Grid item xs={12} style={{textAlign: 'center'}}>
+							<a href="https://www.inreach.org">
 								<IconButton className={classes.iconButton}>
 									<img
-										alt="asylumconnect logo"
 										src={this.props.logo}
-										className={classes.logoFitHeight}
+										alt="inreach logo"
+										className={classes.logoMobile}
 									/>
 								</IconButton>
 							</a>
@@ -220,7 +228,10 @@ class Static extends React.Component {
 									className={classes.subheading}
 									data-test-id="static-page-header"
 								>
-									<FormattedMessage id="app.search-services" />
+									<FormattedMessage
+										id="app.welcome-main-2"
+										defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+									/>
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
@@ -244,10 +255,15 @@ class Static extends React.Component {
 				>
 					{!isMobile ? (
 						<>
-							<Grid item xs={12} className={classes.subAnnouncement}>
-								<SubAnnouncement />
+							<Grid item xs={12}>
+								<div
+									className={classes.subAnnouncement}
+									style={{paddingLeft: leftPadding + 'px'}}
+								>
+									<SubAnnouncement />
+								</div>
 							</Grid>
-							<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+							<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
 								<AsylumConnectBackButton
 									className={classes.changeCountryButton}
 									color="default"

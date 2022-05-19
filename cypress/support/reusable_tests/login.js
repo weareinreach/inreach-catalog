@@ -104,14 +104,14 @@ Cypress.Commands.add('testLoginFormComponents', (viewport) => {
     });
     cy.getElementByTestId('log-in-dialog-container-privacy').then($element => {
         expect($element).to.be.visible;
-        expect($element).to.have.attr('href', 'https://asylumconnect.org/privacy');
+        expect($element).to.have.attr('href', 'https://inreach.org/privacy');
         expect($element).contain("Privacy Policy");
         expect($element).to.have.attr('target', '_blank');
         expect($element).to.have.attr('rel', 'noopener noreferrer');
     });
     cy.getElementByTestId('log-in-dialog-container-terms-of-use').then($element => {
         expect($element).to.be.visible;
-        expect($element).to.have.attr('href', 'https://asylumconnect.org/terms-of-use');
+        expect($element).to.have.attr('href', 'https://inreach.org/terms-of-use');
         expect($element).contain("Terms of Use");
         expect($element).to.have.attr('target', '_blank');
         expect($element).to.have.attr('rel', 'noopener noreferrer');
