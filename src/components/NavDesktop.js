@@ -9,52 +9,95 @@ import AccountNav from './AccountNav';
 import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
 import Language from './Language';
+import {navLinks} from '../data/navLinks';
+import {
+	searchInput,
+	searchInputMobile,
+	breakpoints,
+	mobilePadding
+} from '../theme';
 
 const styles = (theme) => ({
 	root: {
-		position: 'sticky',
-		top: '0px',
-		zIndex: '1000',
-		width: '100%',
+		padding: '0 32px',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		margin: '0 auto',
-		backgroundColor: 'white',
-		'@media(min-width:1640px)': {
-			padding: '10px 15%'
+		'@media(min-width:1364px)': {
+			width: '1364px'
 		},
-		'@media(max-width:1639px)': {
-			padding: '10px 9%'
+		'@media(max-width:1364px) and @media(min-width: 1281px)': {
+			width: 'auto'
 		},
-		'@media(max-width:1550px)': {
-			padding: '10px 7%'
+		'@media(max-width:1280px) and @media(min-width: 1236px)': {
+			width: '1236px'
 		},
-		'@media(max-width:1440px)': {
-			padding: '10px 5%'
+		'@media(max-width:1235px) and @media(min-width: 962px)': {
+			width: 'auto',
+			fontSize: '14px'
 		},
-		'@media(max-width:1400px)': {
-			padding: '10px 2%'
-		},
-		'@media(max-width:1315px)': {
-			padding: '10px 0'
-		},
-		boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.3)'
+		'@media(max-width:961px)': {
+			width: 'auto'
+		}
 	},
 	displayInherit: {
 		display: 'inherit'
 	},
 	IconButton: {
 		display: 'inline',
-		height: '60px',
-		width: 'auto',
-		maxWidth: '65px'
+		height: '48px',
+		width: '127.91px',
+		maxWidth: '128px'
 	},
 	languageIconColor: {
 		fill: theme.palette.secondary[400],
-		color: theme.palette.secondary[400]
-	}
+		color: theme.palette.secondary[400],
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '12px'
+		}
+	},
+	headerLink: {
+		lineHeight: '20px',
+		color: 'rgba(29, 31, 35, 1)',
+		padding: '0 2.5px',
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '11px'
+		}
+	},
+	inputClass: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		width: '145px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		},
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '12px'
+		}
+	}),
+	inputClassLanguage: Object.assign(searchInput(theme), {
+		cursor: 'pointer',
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		// width: '145px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600],
+		'@media(max-width:750px)': {
+			width: 'unset'
+		},
+		'@media(max-width:1020px) and @media(min-width: 960px)': {
+			fontSize: '12px'
+		}
+	})
 });
 
 const NavDesktop = ({
@@ -65,6 +108,8 @@ const NavDesktop = ({
 	logo,
 	session
 }) => {
+	const {headerLink} = classes;
+
 	return (
 		<div className={classes.root}>
 			<Link to="/">
@@ -83,53 +128,72 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-about"
-				href="https://asylumconnect.org/mission/"
+				href={navLinks.about}
 			>
 				<FormattedMessage id="navigation.about">
-					{(about) => <Typography variant="h6">{about}</Typography>}
+					{(about) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{about}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-take-action"
-				href="https://asylumconnect.org/donate/"
+				href={navLinks.action}
 			>
 				<FormattedMessage id="navigation.take-action">
-					{(action) => <Typography variant="h6">{action}</Typography>}
+					{(action) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{action}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-get-help"
-				href="https://asylumconnect.org/faqs/"
+				href={navLinks.help}
 			>
 				<FormattedMessage id="navigation.get-help">
-					{(help) => <Typography variant="h6">{help}</Typography>}
+					{(help) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{help}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-contact"
-				href="https://asylumconnect.org/contact/"
+				href={navLinks.contact}
 			>
 				<FormattedMessage id="navigation.contact">
-					{(contact) => <Typography variant="h6">{contact}</Typography>}
+					{(contact) => (
+						<Typography variant="h6" classes={{h6: headerLink}}>
+							{contact}
+						</Typography>
+					)}
 				</FormattedMessage>
 			</a>
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
-				href="https://www.google.com/"
+				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">
 					{(safety) => (
-						<AsylumConnectButton variant="primary">
-							{safety}
-						</AsylumConnectButton>
+						<AsylumConnectButton variant="safety">{safety}</AsylumConnectButton>
 					)}
 				</FormattedMessage>
 			</a>
-			<Language colorClass={classes.languageIconColor} useIcon enableOverlay />
+			<Language
+				colorClass={classes.languageIconColor}
+				inputClass={classes.inputClassLanguage}
+				useIcon
+				enableOverlay
+			/>
 			{session && <FavoritesLink locale={locale} />}
 			<AccountNav
 				handleLogOut={handleLogOut}

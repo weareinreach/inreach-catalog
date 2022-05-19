@@ -55,6 +55,7 @@ const DesktopSearch = (props) => {
 			<AppBar position="static">
 				<TabList onChange={handleTabChange} aria-label="search panel tabs">
 					<Tab
+						data-test-id="desktop-search-address"
 						label={
 							<FormattedMessage
 								id="search.search-by-location-tab-heading"
@@ -66,6 +67,7 @@ const DesktopSearch = (props) => {
 						fullWidth
 					/>
 					<Tab
+						data-test-id="desktop-search-organization"
 						label={
 							<FormattedMessage
 								id="search.search-by-name-tab-heading"
@@ -83,11 +85,23 @@ const DesktopSearch = (props) => {
 					{...props}
 					classes={null}
 					moveSearchButton={onMoveSearchButton}
-					data-test-id="serchbar"
+					data-test-id="location-searchbar"
+					showResourceSelector={false}
 				>
 					<SearchByLocation {...props} />
 				</SearchBar>
-				<Grid container spacing={0} className={nationalOrgCheckboxContainer}>
+				<SearchBar
+					{...props}
+					classes={null}
+					moveSearchButton={onMoveSearchButton}
+					data-test-id="servicetype-searchbar"
+				/>
+				<Grid
+					container
+					spacing={0}
+					className={nationalOrgCheckboxContainer}
+					style={{paddingTop: '24px'}}
+				>
 					<Grid item>
 						<AsylumConnectCheckbox
 							label={
@@ -124,35 +138,6 @@ const DesktopSearch = (props) => {
 								<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
 							) : null}
 						</AsylumConnectButton>
-					</Grid>
-
-					<Grid item xs className="pull-right">
-						<Tooltip
-							className={tooltip}
-							classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-							title={<FormattedMessage id="action.print-results" />}
-							placement="top"
-						>
-							<IconButton
-								className={secondary}
-								style={{height: 'auto'}}
-								onClick={props.handlePrintClick}
-								disabled={props.printDisabled}
-							>
-								<Fa name="print" />
-							</IconButton>
-						</Tooltip>
-					</Grid>
-					<Grid item xs className={filterContainer + ' ' + toolbarClass}>
-						<SearchRefinementControls
-							clearSearchFilters={props.clearSearchFilters}
-							handleFilterSelect={props.handleFilterSelect}
-							handleSortSelect={props.handleSortSelect}
-							selectedFilters={props.selectedFilters.filter(
-								(item) => item !== 'time-walk-in'
-							)}
-							selectedSort={props.selectedSort}
-						/>
 					</Grid>
 				</Grid>
 			</TabPanel>

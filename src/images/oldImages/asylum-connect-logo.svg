@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="488" height="448" viewBox="0 0 488 448">
     <g fill="none" fill-rule="evenodd">
         <g font-size="55">
-            <text fill="#5073B3" font-family="OpenSans-Extrabold, Open Sans" font-weight="600" transform="translate(.12 372.18)">
+            <text fill="#5073B3" font-family="OpenSans-Extrabold, Inter" font-weight="600" transform="translate(.12 372.18)">
                 <tspan x="0" y="59">ASYLUM</tspan>
             </text>
-            <text fill="#1D1F23" font-family="OpenSans, Open Sans" transform="translate(.12 372.18)">
+            <text fill="#1D1F23" font-family="OpenSans, Inter" transform="translate(.12 372.18)">
                 <tspan x="230.36" y="59">CONNE</tspan>
             </text>
-            <text fill="#1D1F23" font-family="OpenSans, Open Sans" transform="translate(.12 372.18)">
+            <text fill="#1D1F23" font-family="OpenSans, Inter" transform="translate(.12 372.18)">
                 <tspan x="418.98" y="59">C</tspan>
             </text>
-            <text fill="#1D1F23" font-family="OpenSans, Open Sans" transform="translate(.12 372.18)">
+            <text fill="#1D1F23" font-family="OpenSans, Inter" transform="translate(.12 372.18)">
                 <tspan x="455.01" y="59">T</tspan>
             </text>
         </g>

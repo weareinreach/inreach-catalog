@@ -366,7 +366,7 @@ const SuggestEditsModal = ({
 					bottom: 'auto',
 					width: '450px',
 					padding: 0,
-					fontFamily: '"Open Sans", sans-serif',
+					fontFamily: '"Inter", sans-serif',
 					background: '#FFFFFF',
 					borderWidth: '5px',
 					borderStyle: 'solid none none none',

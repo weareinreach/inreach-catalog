@@ -36,7 +36,7 @@ const styles = (theme) => ({
 	settingsTypeFont: {
 		fontSize: 13,
 		fontWeight: 700,
-		fontFamily: '"Open Sans", sans-serif',
+		fontFamily: '"Inter", sans-serif',
 		letterSpacing: '-.02em',
 		color: theme.palette.secondary[500],
 		display: 'flex',
@@ -69,7 +69,7 @@ const styles = (theme) => ({
 				padding: 0,
 				fontSize: 13,
 				fontWeight: 700,
-				fontFamily: '"Open Sans", sans-serif',
+				fontFamily: '"Inter", sans-serif',
 				letterSpacing: '-.02em',
 				color: theme.palette.common.lightBlack,
 				'&>div': {

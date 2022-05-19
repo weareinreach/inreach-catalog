@@ -178,7 +178,7 @@ class SaveToFavoritesButton extends React.Component {
 								bottom: 'auto',
 								width: '40%',
 								padding: 0,
-								fontFamily: '"Open Sans", sans-serif',
+								fontFamily: '"Inter", sans-serif',
 								background: '#FFFFFF'
 							}
 						}}
@@ -217,7 +217,7 @@ class SaveToFavoritesButton extends React.Component {
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%'}}>
 							<p>
-								<FormattedMessage id="error.sign-in-to-share-resources" />
+								<FormattedMessage id="error.sign-in-to-save-resources" />
 							</p>
 							<p
 								style={{
@@ -248,7 +248,7 @@ class SaveToFavoritesButton extends React.Component {
 							<Button
 								style={{
 									display: 'inline-block',
-									background: '#CC4747',
+									background: '#4792DA',
 									borderRadius: '100px',
 									fontWeight: 'bold',
 									lineHeight: '22px',
@@ -302,7 +302,7 @@ class SaveToFavoritesButton extends React.Component {
 								top: '5%',
 								bottom: 'auto',
 								padding: 0,
-								fontFamily: '"Open Sans", sans-serif',
+								fontFamily: '"Inter", sans-serif',
 								background: '#FFFFFF'
 							}
 						}}
@@ -341,7 +341,7 @@ class SaveToFavoritesButton extends React.Component {
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%', fontSize: '14px'}}>
 							<p>
-								<FormattedMessage id="error.sign-in-to-share-resources" />
+								<FormattedMessage id="error.sign-in-to-save-resources" />
 							</p>
 							<p
 								style={{
@@ -372,7 +372,7 @@ class SaveToFavoritesButton extends React.Component {
 							<Button
 								style={{
 									display: 'inline-block',
-									background: '#CC4747',
+									background: '#4792DA',
 									borderRadius: '100px',
 									fontWeight: 'bold',
 									lineHeight: '22px',

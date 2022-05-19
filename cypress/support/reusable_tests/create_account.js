@@ -184,14 +184,14 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             cy.getElementByTestId('sign-up-form-privacy-link').then($element=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("Privacy Policy");
-                expect($element).to.have.attr('href','https://asylumconnect.org/privacy');
+                expect($element).to.have.attr('href','https://inreach.org/privacy');
                 expect($element).to.have.attr('target','_blank');
                 expect($element).to.have.attr('rel','noopener noreferrer');
             });
             cy.getElementByTestId('sign-up-form-terms-link').then($element=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("Terms of Use");
-                expect($element).to.have.attr('href','https://asylumconnect.org/terms-of-use');
+                expect($element).to.have.attr('href','https://inreach.org/terms-of-use');
                 expect($element).to.have.attr('target','_blank');
                 expect($element).to.have.attr('rel','noopener noreferrer');
             });
@@ -431,7 +431,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType,org)=>{
 
                 cy.getElementByTestId('dialog-container-subtitle').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element).contain('Find or add your organization in our Catalog');
+                    expect($element).contain('Find or add your organization in our App');
                 });
 
                 cy.getElementByTestId('sign-up-form-body-text').then($element=>{
@@ -454,7 +454,7 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType,org)=>{
                 //Confirmation
                 cy.getElementByTestId('dialog-container-title').should('contain', 'Connect Your Organization');
                 cy.getElementByTestId('sign-up-form-org-request-rcv').should('contain', "Thank you for requesting to join your organization!");
-                cy.getElementByTestId('sign-up-form-org-request-next').should('contain', "Please be on the lookout for an email from the AsylumConnect team shortly with next steps.");
+                cy.getElementByTestId('sign-up-form-org-request-next').should('contain', "Please be on the lookout for an email from the InReach team shortly with next steps.");
                 
                 //Click finish
                 cy.getElementByTestId('sign-up-form-finish-registration-button').then($element=>{
@@ -592,7 +592,7 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
 
                 cy.getElementByTestId('dialog-container-subtitle').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element).contain('Find or add your organization in our Catalog');
+                    expect($element).contain('Find or add your organization in our App');
                 });
 
                 cy.getElementByTestId('sign-up-form-body-text').then($element=>{
@@ -615,7 +615,7 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                 //Confirmation
                 cy.getElementByTestId('dialog-container-title').should('contain', 'Connect Your Organization');
                 cy.getElementByTestId('sign-up-form-org-request-rcv').should('contain', "Thank you for requesting to join your organization!");
-                cy.getElementByTestId('sign-up-form-org-request-next').should('contain', "Please be on the lookout for an email from the AsylumConnect team shortly with next steps.");
+                cy.getElementByTestId('sign-up-form-org-request-next').should('contain', "Please be on the lookout for an email from the InReach team shortly with next steps.");
                 
                 //Click finish
                 cy.getElementByTestId('sign-up-form-finish-registration-button').then($element=>{
@@ -767,7 +767,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
 
                 cy.getElementByTestId('dialog-container-subtitle').then($element=>{
                     expect($element).to.be.visible;
-                    expect($element).contain('Do you volunteer or work at an organization able to serve LGBTQ+ asylum seekers? Find or add your organization in our Catalog.');
+                    expect($element).contain('Do you volunteer or work at an organization able to serve LGBTQ+ asylum seekers? Find or add your organization in our App.');
                 });
 
                 cy.getElementByTestId('sign-up-form-body-text').then($element=>{
@@ -891,7 +891,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                 cy.getElementByTestId('about-you-organization-form').within(() => {
                   cy.get('input[name="orgName"]').should('have.attr', 'placeholder', 'Your firm or organization').type('a random org name');
                   cy.get('input[name="orgPositionTitle"]').should('have.attr', 'placeholder', 'Your position in the organization').type('a random org title');
-                  cy.get('input[name="reasonForJoining"]').should('have.attr', 'placeholder', 'I joined AsylumConnect because..').type('a random reason');
+                  cy.get('input[name="reasonForJoining"]').should('have.attr', 'placeholder', 'I joined InReach because..').type('a random reason');
                 });
                 cy.getElementByTestId('about-you-next-button').click();
 
@@ -987,7 +987,7 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                 cy.getElementByTestId('about-you-organization-form').within(() => {
                   cy.get('input[name="orgName"]').should('have.attr', 'placeholder', 'Your firm or organization').type('a random org name');
                   cy.get('input[name="orgPositionTitle"]').should('have.attr', 'placeholder', 'Your position in the organization').type('a random org title');
-                  cy.get('input[name="reasonForJoining"]').should('have.attr', 'placeholder', 'I joined AsylumConnect because..').type('a random reason');
+                  cy.get('input[name="reasonForJoining"]').should('have.attr', 'placeholder', 'I joined InReach because..').type('a random reason');
                 });
                 cy.getElementByTestId('about-you-next-button').click();
 

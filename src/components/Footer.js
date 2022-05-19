@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AppStoreBadge from '../images/app-store-badge.svg';
 import GooglePlayBadge from '../images/google-play-badge.png';
+import PropTypes from 'prop-types';
 
 const styles = (theme) => ({
 	bgDarkGrey: {backgroundColor: theme.palette.common.darkGrey},
@@ -16,19 +17,42 @@ const styles = (theme) => ({
 	paddingBelowLarge: {paddingBottom: '2rem'},
 	paddingVertical: {padding: '1.5rem 0'},
 	paddingVerticalIcons: {padding: '2.5rem 0 1rem 0'},
-	paddingVerticalText: {padding: '1rem 0 1.5rem 0'},
-	centerColumn: {
-		maxWidth: theme.maxColumnWidth,
-		margin: '0 auto'
+	paddingVerticalText: {
+		padding: '1rem 0 1.5rem 0',
+		margin: 'auto'
 	},
-	textBlue: {color: theme.palette.secondary},
+	textBlue: {
+		color: theme.palette.secondary
+	},
 	textCenter: {textAlign: 'center'},
 	footerLink: {
-		fontWeight: '700'
+		fontWeight: '600',
+		fontSize: '16px'
+	},
+	pointer: {
+		cursor: 'pointer',
+		display: 'inline-block',
+		position: 'relative'
+	},
+	pointerText: {
+		textShadow:
+			'2px 0 ' +
+			theme.palette.secondary[500] +
+			', -2px 0 ' +
+			theme.palette.secondary[500]
+	},
+	footerLinkContainerSize: {
+		width: 'max-content',
+		margin: 'auto'
+	},
+	footerLinkItemSize: {
+		'@media(max-width: 760px)': {
+			width: 'min-content'
+		}
 	}
 });
 
-const Footer = ({classes, locale}) => {
+const Footer = ({classes, locale, handleRequestOpen}) => {
 	const {
 		bgDarkGrey,
 		bgLightGrey,
@@ -37,8 +61,9 @@ const Footer = ({classes, locale}) => {
 		paddingVerticalText,
 		textBlue,
 		textCenter,
-		centerColumn,
-		footerLink
+		footerLink,
+		footerLinkContainerSize,
+		footerLinkItemSize
 	} = classes;
 
 	const ContactLink = ({link, icon, testIdName}) => (
@@ -64,97 +89,94 @@ const Footer = ({classes, locale}) => {
 				spacing={0}
 				alignItems="center"
 				justify="center"
-				className={classNames(centerColumn, paddingVerticalIcons)}
+				className={classNames(paddingVerticalIcons)}
 			>
-				<Grid item xs={12} md={6}>
+				<Grid item xs={12} md={6} lg={6}>
 					<Grid container spacing={2} justify="center">
 						<ContactLink
 							testIdName="footer-contact-facebook"
-							link="https://www.facebook.com/asylumconnect"
+							link="https://www.facebook.com/weareinreach"
 							icon="facebook-f"
 						/>
 						<ContactLink
 							testIdName="footer-contact-twitter"
-							link="https://twitter.com/AsylumConnect"
+							link="https://twitter.com/weareinreach"
 							icon="twitter"
 						/>
 						<ContactLink
 							testIdName="footer-contact-linkedin"
-							link="https://www.linkedin.com/company/asylumconnect"
+							link="http://linkedin.com/company/weareinreach"
 							icon="linkedin"
 						/>
 						<ContactLink
 							testIdName="footer-contact-email"
-							link="mailto:catalog@asylumconnect.org"
+							link="mailto:hello@inreach.org"
 							icon="envelope-o"
 						/>
 						<ContactLink
 							testIdName="footer-contact-instagram"
-							link="https://www.instagram.com/asylumconnect/"
+							link="https://www.instagram.com/weareinreach/"
 							icon="instagram"
 						/>
 						<ContactLink
 							testIdName="footer-contact-youtube"
-							link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
+							link="https://www.youtube.com/channel/weareinreach"
 							icon="youtube-play"
 						/>
-						<Grid
-							container
-							item
-							xs={6}
-							spacing={2}
-							align="center"
-							justify="center"
-						>
-							<Grid item>
-								<a
-									data-test-id="footer-apple-store-link"
-									href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<img
-										height="35"
-										src={AppStoreBadge}
-										alt={intl.formatMessage({
-											id: 'alt-text.download-on-app-store'
-										})}
-										data-test-id="footer-apple-store-image"
-									/>
-								</a>
-							</Grid>
-							<Grid item>
-								<a
-									data-test-id="footer-google-play-link"
-									href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<img
-										height="35"
-										src={GooglePlayBadge}
-										alt={intl.formatMessage({
-											id: 'alt-text.download-on-google-play'
-										})}
-										data-test-id="footer-google-play-image"
-									/>
-								</a>
-							</Grid>
+						<Grid item>
+							<a
+								data-test-id="footer-apple-store-link"
+								href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<img
+									height="35"
+									src={AppStoreBadge}
+									alt={intl.formatMessage({
+										id: 'alt-text.download-on-app-store'
+									})}
+									data-test-id="footer-apple-store-image"
+								/>
+							</a>
+						</Grid>
+						<Grid item>
+							<a
+								data-test-id="footer-google-play-link"
+								href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<img
+									height="35"
+									src={GooglePlayBadge}
+									alt={intl.formatMessage({
+										id: 'alt-text.download-on-google-play'
+									})}
+									data-test-id="footer-google-play-image"
+								/>
+							</a>
 						</Grid>
 					</Grid>
 				</Grid>
 			</Grid>
 
 			<Grid
+				data-test-id="footer-bottom-links"
 				container
 				spacing={0}
 				alignItems="center"
 				justify="center"
-				className={classNames(centerColumn, paddingVerticalText)}
+				className={classNames(paddingVerticalText)}
 			>
-				<Grid item xs={12} md={6}>
-					<Grid container spacing={0}>
-						<Grid item xs>
+				<Grid item xs={12} md={8} lg={8}>
+					<Grid
+						container
+						spacing={2}
+						justify="center"
+						className={classNames(footerLinkContainerSize)}
+					>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<Link
 								to={'/' + locale + '/suggestions/new'}
 								className={textBlue}
@@ -169,9 +191,9 @@ const Footer = ({classes, locale}) => {
 								</Typography>
 							</Link>
 						</Grid>
-						<Grid item xs>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
-								href="https://asylumconnect.org/newsletter/"
+								href="https://inreach.org/newsletter/"
 								className={textBlue}
 								data-test-id="footer-newsletter-subscribe"
 							>
@@ -184,9 +206,9 @@ const Footer = ({classes, locale}) => {
 								</Typography>
 							</a>
 						</Grid>
-						<Grid item xs>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
-								href="https://survey.az1.qualtrics.com/jfe/form/SV_4JylCyjAklvKGVL"
+								href="https://bit.ly/inreach-app-share-feedback"
 								className={textBlue}
 								data-test-id="footer-share-feedback"
 							>
@@ -198,6 +220,28 @@ const Footer = ({classes, locale}) => {
 									<FormattedMessage id="action.share-feedback" />
 								</Typography>
 							</a>
+						</Grid>
+						<Grid item className={classNames(footerLinkItemSize)}>
+							<Typography
+								variant="body1"
+								color="secondary"
+								classes={{body1: footerLink}}
+								className={classes.pointer}
+								onClick={() => handleRequestOpen('disclaimer')}
+							>
+								<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />
+							</Typography>
+						</Grid>
+						<Grid item className={classNames(footerLinkItemSize)}>
+							<Typography
+								variant="body1"
+								color="secondary"
+								classes={{body1: footerLink}}
+								className={classes.pointer}
+								onClick={() => handleRequestOpen('privacy')}
+							>
+								<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />
+							</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -211,6 +255,9 @@ const Footer = ({classes, locale}) => {
 			</div>
 		</footer>
 	);
+};
+Footer.propTypes = {
+	handleRequestOpen: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Footer);

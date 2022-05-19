@@ -124,7 +124,11 @@ const styles = (theme) => ({
 	languageIcon: {
 		width: '35px',
 		height: '30px',
-		paddingRight: '3px'
+		paddingRight: '3px',
+		'@media(max-width:972px)': {
+			width: '33px',
+			height: '27px'
+		}
 	}
 });
 
@@ -161,9 +165,8 @@ class Language extends React.Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
 		this.handleReload = this.handleReload.bind(this);
-		this.handleRequestCloseAfterSelect = this.handleRequestCloseAfterSelect.bind(
-			this
-		);
+		this.handleRequestCloseAfterSelect =
+			this.handleRequestCloseAfterSelect.bind(this);
 		this.generateLanguageItems = this.generateLanguageItems.bind(this);
 		this.generateLanguageList = this.generateLanguageList.bind(this);
 		this.generateLabelWithIcon = this.generateLabelWithIcon.bind(this);
@@ -336,8 +339,10 @@ class Language extends React.Component {
 			triggerReload,
 			colorClass,
 			useIcon,
+			useOnlyIcon,
 			listContainerClass,
-			enableOverlay
+			enableOverlay,
+			noArrow
 		} = this.props;
 		const {selectedLang} = this.state;
 		const selectorLabel = label || selectedLang;
@@ -354,7 +359,9 @@ class Language extends React.Component {
 				{!isMobile ? (
 					<AsylumConnectSelector
 						label={
-							useIcon
+							useOnlyIcon
+								? this.generateLabelWithIcon('', colorClass)
+								: useIcon
 								? this.generateLabelWithIcon(selectorLabel, colorClass)
 								: selectorLabel
 						}
@@ -368,6 +375,7 @@ class Language extends React.Component {
 						colorClass={colorClass}
 						containerWidth="250px"
 						enableOverlay={enableOverlay}
+						noArrow={noArrow}
 					>
 						{this.generateLanguageList()}
 					</AsylumConnectSelector>
@@ -402,6 +410,8 @@ Language.defaultProps = {
 	useMobile: true,
 	autoReload: true,
 	useIcon: false,
+	useOnlyIcon: false,
+	noArrow: false,
 	enableOverlay: false
 };
 

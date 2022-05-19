@@ -40,7 +40,7 @@ const SubAnnouncement = ({classes, handleRequestOpen, url}) => (
 	</Typography>
 );
 
-SubAnnouncement.defaultProps = {url: 'https://asylumconnect.org/mobile-app/'};
+SubAnnouncement.defaultProps = {url: 'https://inreach.org/mobile-app/'};
 
 SubAnnouncement.propTypes = {
 	classes: PropTypes.object.isRequired,

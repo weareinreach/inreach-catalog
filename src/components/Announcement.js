@@ -3,95 +3,58 @@ import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import {InformationIcon, InformationIcon24} from './icons';
 
 const styles = (theme) => ({
-	announcement: {
-		backgroundColor: theme.palette.secondary[500],
-		padding: '2rem 0',
-		textAlign: 'center'
-	},
-	pointer: {
-		cursor: 'pointer',
-		display: 'inline-block',
-		position: 'relative'
-	},
-	pointerText: {
-		textShadow:
-			'2px 0 ' +
-			theme.palette.secondary[500] +
-			', -2px 0 ' +
-			theme.palette.secondary[500]
-	},
-	underline: {
-		position: 'absolute',
+	root: {
+		backgroundColor: theme.palette.banner[500],
+		padding: '16px 0',
+		textAlign: 'center',
 		width: '100%',
-		display: 'block',
-		margin: '0',
-		border: 'none',
-		height: '1px',
-		background: 'white',
-		bottom: '.2em'
+		[theme.breakpoints.down('xs')]: {
+			borderRadius: '5px'
+		}
 	},
 	textContent: {
-		color: theme.palette.common.darkWhite,
+		color: theme.palette.common.black,
 		maxWidth: theme.maxColumnWidth,
-		margin: '0 auto'
+		margin: '0 16px',
+		fontSize: '24px',
+		textDecorationLine: 'underline'
 	}
 });
 
-const Announcement = ({classes, handleRequestOpen}) => (
-	<div className={classes.announcement + ' hide--on-print'}>
-		<Typography
-			variant="body1"
-			className={classes.textContent}
-			data-test-id="announcement-header"
-		>
-			<FormattedMessage id="legal.user-contact-provider-risk" />
-			<br />
-			<span>
-				<FormattedMessage id="legal.read-disclaimer-prompt-pt1" />{' '}
-			</span>
-			<strong
-				className={classes.pointer}
-				onClick={() => handleRequestOpen('disclaimer')}
+const Announcement = (props) => {
+	const {classes, useSmallIcon} = props;
+
+	return (
+		<div id="announcement-div" className={classes.root + ' hide--on-print'}>
+			<a href="https://bit.ly/inreach-press-release">
+				{useSmallIcon ? (
+					<InformationIcon fillColor={'#000000'} />
+				) : (
+					<InformationIcon24 fillColor={'#000000'} />
+				)}
+			</a>
+			<a
+				href="https://bit.ly/inreach-press-release"
+				data-test-id="announcement-header"
 			>
-				<i className={classes.underline} />
-				<span
-					className={classes.pointerText}
-					data-test-id="announcement-disclaimer-button"
+				<Typography
+					variant="caption"
+					color="primary"
+					className={classes.textContent}
 				>
-					{' '}
-					<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />{' '}
-				</span>
-			</strong>
-			<span>
-				{' '}
-				<FormattedMessage id="legal.and" />{' '}
-			</span>
-			<strong
-				className={classes.pointer}
-				onClick={() => handleRequestOpen('privacy')}
-			>
-				<i className={classes.underline} />
-				<span
-					className={classes.pointerText}
-					data-test-id="announcement-privacy-button"
-				>
-					{' '}
-					<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />{' '}
-				</span>
-			</strong>
-			<span>
-				{' '}
-				<FormattedMessage id="legal.read-disclaimer-prompt-pt4" />
-			</span>
-		</Typography>
-	</div>
-);
+					<FormattedMessage id="announcement-brand" />
+				</Typography>
+			</a>
+		</div>
+	);
+};
 
 Announcement.propTypes = {
 	classes: PropTypes.object.isRequired,
-	handleRequestOpen: PropTypes.func.isRequired
+	useSmallIcon: false
 };
 
 export default withStyles(styles)(Announcement);

@@ -14,7 +14,7 @@ const styles = (theme) => ({
 		minWidth: '503px',
 		minHeight: '561px',
 		overflowY: 'auto',
-		borderTop: 'solid 6px #5073B3',
+		borderTop: 'solid 6px #00D56C',
 		' & .OrganizationAutocomplete-container': {
 			zIndex: 'unset'
 		}

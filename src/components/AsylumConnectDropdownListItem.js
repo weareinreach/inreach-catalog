@@ -7,7 +7,10 @@ const styles = (theme) => ({
 	rootClass: {
 		'&:hover': {
 			color: theme.palette.common.white,
-			backgroundColor: theme.palette.secondary[900]
+			backgroundColor: theme.palette.secondary[100]
+		},
+		'&:hover .MuiTypography-h6': {
+			color: theme.palette.common.white
 		}
 	}
 });
