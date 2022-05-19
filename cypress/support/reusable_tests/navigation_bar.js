@@ -109,6 +109,7 @@ function testNavigationBarDesktop(viewport, user) {
 	});
     cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
+	cy.wait(2000);
     cy.getElementByTestId('nav-button-view-favorites').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('href', '/en_US/favorites');
@@ -125,9 +126,11 @@ function testNavigationBarDesktop(viewport, user) {
 function testNavigationBarTablet(viewport, user) {
 	cy.viewport(viewport);
 	cy.getElementByTestId('nav-button-logo').should('be.visible');
-
-	cy.getElementByTestId('drop-down-selector-container').should('be.visible').click();
-	cy.getElementByTestId('tablet-menu-item-about').then(($element) => {
+	cy.wait(1000)
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').then($element=>{
+		cy.wrap($element[0]).click();
+	});
+	cy.getElementByTestId('tablet-nav-menu-item-about').then(($element) => {
 		expect($element).to.have.attr(
 			'href',
 			'https://inreach.org/mission/'
@@ -140,10 +143,12 @@ function testNavigationBarTablet(viewport, user) {
 			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/mission/');
 		});*/
-		cy.goBackAndSwitchToViewport('ipad-2');
+		cy.visitAndViewport(Cypress.env('baseUrl'),Cypress.env('tablet'));
 	});
-	cy.getElementByTestId('drop-down-selector-container').should('be.visible').click();
-	cy.getElementByTestId('tablet-menu-item-take-action').then(
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').then($element=>{
+		cy.wrap($element[0]).click();
+	});
+	cy.getElementByTestId('tablet-nav-menu-item-take-action').then(
 		($element) => {
 			expect($element).to.have.attr(
 				'href',
@@ -157,10 +162,12 @@ function testNavigationBarTablet(viewport, user) {
 				expect(loc.hostname).to.be.eq('inreach.org');
 				expect(loc.pathname).to.be.eq('/donate/');
 			});*/
-			cy.goBackAndSwitchToViewport('ipad-2');
+			cy.visitAndViewport(Cypress.env('baseUrl'),Cypress.env('tablet'));
 		});
-	cy.getElementByTestId('drop-down-selector-container').should('be.visible').click();
-	cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
+		cy.getElementByTestId('drop-down-selector-container').should('be.visible').then($element=>{
+			cy.wrap($element[0]).click();
+		});
+		cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
 		expect($element).to.have.attr(
 			'href',
 			'https://inreach.org/faqs/'
@@ -172,11 +179,11 @@ function testNavigationBarTablet(viewport, user) {
 			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/faqs/');
 		});*/
-		cy.goBackAndSwitchToViewport('ipad-2');
+		cy.visitAndViewport(Cypress.env('baseUrl'),Cypress.env('tablet'));
 	});
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').then($element=>{
+		cy.wrap($element[0]).click();
+	});
 				cy.getElementByTestId('tablet-nav-menu-item-contact').then(
 					($element) => {
 						expect($element).to.have.attr(
@@ -190,15 +197,11 @@ function testNavigationBarTablet(viewport, user) {
 							expect(loc.hostname).to.be.eq('inreach.org');
 							expect(loc.pathname).to.be.eq('/contact/');
 						});*/
-						cy.goBackAndSwitchToViewport('ipad-2');
+						cy.visitAndViewport(Cypress.env('baseUrl'),Cypress.env('tablet'));
 					}
 				);
-			});
 
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-safety-exit').then(
+			cy.getElementByTestId('nav-button-safety-exit').then(
 					($element) => {
 						expect($element).to.have.attr('href', 'https://www.google.com/');
 						//click
@@ -207,11 +210,9 @@ function testNavigationBarTablet(viewport, user) {
 							expect(loc.href).to.be.eq('https://www.google.com/');
 							expect(loc.hostname).to.be.eq('www.google.com');
 						});
-						cy.goBackAndSwitchToViewport('ipad-2');
+						cy.visitAndViewport(Cypress.env('baseUrl'),Cypress.env('tablet'));
 					}
 				);
-			});
-	});
 	cy.getElementByTestId('nav-button-language').should('be.visible');
 	cy.getElementByTestId('nav-account-sign-in').then(($element) => {
 		expect($element).to.be.visible;
@@ -225,6 +226,9 @@ function testNavigationBarTablet(viewport, user) {
 
 	cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
+	cy.getElementByTestId('drop-down-selector-container').should('be.visible').then($element=>{
+		cy.wrap($element[2]).click();
+	});
     cy.getElementByTestId('nav-button-view-favorites').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('href', '/en_US/favorites');

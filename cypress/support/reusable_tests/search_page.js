@@ -1,18 +1,18 @@
 Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
-	cy.getElementByTestId('search-page-next-button').click();
+	
 	cy.waitFor(2000);
-    if(viewport!==Cypress.env('mobile')){
-        cy.getElementByTestId('search-form-body').then($element=>{
+	
+    cy.getElementByTestId('search-form-body').then($element=>{
+			cy.getElementByTestId('search-page-next-button').click();
             expect($element).to.be.visible;
-            expect($element).contain('Welcome to InReach United States!');
-        });
-    }
-
+            expect($element).contain('Welcome to InReach');
+    });
+		
 	cy.getElementByTestId('search-form-body-2').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).contain(
-			'InReach is for the entire diverse LGBTQ+ community'
+			"The world's first tech platform matching LGBTQ+ people with safe, verified resources."
 		);
 	});
 
@@ -36,14 +36,14 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 		});
     }
 
-	cy.getElementByTestId('search-form-download-link').then(($element) => {
-		expect($element).to.be.visible;
-		expect($element).to.have.attr('target', '_blank');
-		expect($element).to.have.attr('rel', 'noopener noreferrer');
-		expect($element).contain(
-			'Download Legal Guides on LGBTQ Asylum in the U.S.'
-		);
-	});
+	// cy.getElementByTestId('search-form-download-link').then(($element) => {
+	// 	expect($element).to.be.visible;
+	// 	expect($element).to.have.attr('target', '_blank');
+	// 	expect($element).to.have.attr('rel', 'noopener noreferrer');
+	// 	expect($element).contain(
+	// 		'Download Legal Guides on LGBTQ Asylum in the U.S.'
+	// 	);
+	// });
 });
 
 Cypress.Commands.add('testSearchAction', (viewport, org) => {

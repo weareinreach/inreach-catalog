@@ -1,8 +1,9 @@
 Cypress.Commands.add('testStaticResource',(viewport)=>{
     cy.viewport(viewport);
-
+cy.wait(1000)
 cy.getElementByTestId('drop-down-selector-container').then($element=>{
-    cy.wrap($element[2]).click();
+    let elementPosition = viewport == Cypress.env('tablet') ? 3 : 2;
+    cy.wrap($element[elementPosition]).click();
     cy.getElementByTestId('list-item').then($element=>{
             expect($element[3]).to.be.visible;
             expect($element[3]).contain("Other / Travel Support");

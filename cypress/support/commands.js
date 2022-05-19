@@ -28,9 +28,10 @@ Cypress.Commands.add('getElementByTestId',(id_name =>{
     return cy.get(`[data-test-id=${id_name}]`);
 }));
 
-Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
-    cy.go('back');
+Cypress.Commands.add('visitAndViewport',(visit,viewport) =>{
+    cy.visit(visit);
     cy.viewport(viewport);
+	cy.wait(1000);
 });
 
 Cypress.Commands.add('login',(user,viewport)=>{

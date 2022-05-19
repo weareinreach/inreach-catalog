@@ -168,6 +168,7 @@ const AccountTablet = (props) => {
 						>
 							<FormattedMessage
 								id="account.sign-in"
+								data-test-id="nav-account-tab-sign-in"
 								description="Account sign in text"
 								defaultMessage="Sign In"
 							/>
@@ -185,6 +186,7 @@ const AccountTablet = (props) => {
 						>
 							<FormattedMessage
 								id="account.sign-up"
+								data-test-id="nav-account-tab-sign-up"
 								description="Account sign up text"
 								defaultMessage="Sign Up"
 							/>
