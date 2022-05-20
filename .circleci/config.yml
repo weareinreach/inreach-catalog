@@ -84,7 +84,7 @@ jobs:
           name: "Seed Docker DB"
           command: cd catalog-api && yarn seed-docker-db
       - run:
-          name: Install Control Panel Packages
+          name: Install Catalog Packages
           command: cd catalog && yarn install
       - run:
           name: Instantiate API And Run E2E tests

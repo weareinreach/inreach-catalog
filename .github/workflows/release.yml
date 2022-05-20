@@ -1,7 +1,7 @@
 on: 
   push:
     branches:
-      - main
+      - main-rebrand
 
 jobs:
   release-on-push:
@@ -15,4 +15,4 @@ jobs:
           bump_version_scheme: minor
           tag_prefix: v
           use_github_release_notes: true
-          release_name: "Catalog API Release <RELEASE_VERSION>"
+          release_name: "Catalog Portal Release <RELEASE_VERSION>"

@@ -124,7 +124,6 @@ function testNavigationBarDesktop(viewport, user) {
 }
 
 function testNavigationBarTablet(viewport, user) {
-	cy.viewport(viewport);
 	cy.getElementByTestId('nav-button-logo').should('be.visible');
 	cy.wait(1000)
 	cy.getElementByTestId('drop-down-selector-container').should('be.visible').then($element=>{
