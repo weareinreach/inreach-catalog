@@ -271,6 +271,12 @@ const resourceTypes = [
 	{
 		category: 'Medical',
 		type: 'medical',
+		acTag: 'Abortion Services',
+		title: 'Abortion Services'
+	},
+	{
+		category: 'Medical',
+		type: 'medical',
 		acTag: 'COVID-19 services',
 		title: 'COVID-19 services'
 	},
@@ -417,6 +423,7 @@ const localeExclusions = {
 		'Refugee claim'
 	],
 	en_CA: [
+		'Abortion Services',
 		'Asylum application (Affirmative Asylum)',
 		'Asylum application in Mexico (Affirmative Asylum)',
 		'Asylum application in the US from Mexico (Affirmative Asylum)',
@@ -435,6 +442,7 @@ const localeExclusions = {
 		'Sponsors'
 	],
 	en_MX: [
+		'Abortion Services',
 		'Asylum application (Affirmative Asylum)',
 		'Career counselling',
 		'Cultural centres',
