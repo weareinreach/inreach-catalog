@@ -27,7 +27,7 @@ describe('Home Page Search Tests', () => {
 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
-            it.only('Testing Search Page elements',()=>{
+            it('Testing Search Page elements',()=>{
                 cy.testSearchPageElements(viewport);
             });
             it('Testing Search Page Actions',()=>{

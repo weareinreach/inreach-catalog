@@ -1,20 +1,19 @@
 Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
-	
 	cy.waitFor(2000);
-	
     cy.getElementByTestId('search-form-body').then($element=>{
-			cy.getElementByTestId('search-page-next-button').click();
             expect($element).to.be.visible;
             expect($element).contain('Welcome to InReach');
     });
 		
-	cy.getElementByTestId('search-form-body-2').then(($element) => {
+	cy.getElementByTestId('search-form-body-2').then($element=> {
 		expect($element).to.be.visible;
-		expect($element).contain(
-			"The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-		);
+		expect($element[0]).contain(
+			"Seek LGBTQ+ resources. Reach safety. Find belonging."
+		 );
 	});
+
+	cy.getElementByTestId("search-page-next-button").click({force:true});
 
 	cy.getElementByTestId('search-bar-input').then(($element) => {
 		expect($element).to.be.visible;
@@ -48,7 +47,7 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 
 Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	cy.viewport(viewport);
-	cy.getElementByTestId('search-page-next-button').click();
+	cy.getElementByTestId('search-page-next-button').click({force:true});
 	cy.waitFor(1000);
 	// //Check checkbox
 	// cy.getElementByTestId('search-page-checkbox').then($element=>{
@@ -72,9 +71,7 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('data-name', 'Layer 1');
 	});
-	cy.getElementByTestId('badge').then(($element) => {
-		expect($element).to.be.visible;
-	});
+
 	cy.getElementByTestId('favorites-list-item').then(($element) => {
 		expect($element).to.be.visible;
 		//click the org

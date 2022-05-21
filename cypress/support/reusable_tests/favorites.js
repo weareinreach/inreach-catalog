@@ -1,5 +1,3 @@
-import { element } from "prop-types";
-
 Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
     cy.viewport(viewport);
     if(viewport === Cypress.env('mobile')){
@@ -34,11 +32,22 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn',(viewport)=>{
 Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('mobile-nav-button-favorites').click();
-    }else{
-        cy.getElementByTestId('nav-button-view-favorites').click();
-    }
+    cy.wait(2000)
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-favorites').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-button-view-favorites').click();
+				cy.getElementByTestId('favorites-page-create-new-list-button').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+    		cy.getElementByTestId('favorites-page-create-new-list-button').click();
+	}
     //No favorites list
     cy.getElementByTestId('favorites-page-title-text').then($element=>{
         expect($element).to.be.visible;
@@ -54,7 +63,7 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
     });
     cy.getElementByTestId('favorites-page-create-new-list-button').then($element=>{
         expect($element).to.be.visible;
-        cy.wrap($element).click();
+        cy.wrap($element).click({force:true});
     });
     cy.wait(1000);
     cy.getElementByTestId('dialog-container-title').then($element=>{
@@ -89,12 +98,24 @@ Cypress.Commands.add('testFavoritesComponents',(viewport,user)=>{
 Cypress.Commands.add('testFavoritesCreateNewList',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('mobile-nav-button-favorites').click();
-    }else{
-        cy.getElementByTestId('nav-button-view-favorites').click();
-    }
-    cy.getElementByTestId('favorites-page-create-new-list-button').click();
+    cy.wait(2000)
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-favorites').click();
+            cy.getElementByTestId('favorites-page-create-new-list-button').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-button-view-favorites').click();
+				cy.getElementByTestId('favorites-page-create-new-list-button').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+    		cy.getElementByTestId('favorites-page-create-new-list-button').click();
+	}
+    //
     viewport === Cypress.env('mobile') ? 
         cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) 
         : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
@@ -115,6 +136,7 @@ Cypress.Commands.add('testFavoritesCreateNewList',(viewport,user,listName)=>{
 Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     //click on the item
     cy.getElementByTestId('favorites-page-list-item').click();
@@ -161,6 +183,7 @@ Cypress.Commands.add('testFavoritesListNoItems',(viewport,user,listName)=>{
 Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,searchName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     // eslint-disable-next-line default-case
@@ -204,6 +227,7 @@ Cypress.Commands.add('testFavoritesListWithItems',(viewport,user,listName,search
 Cypress.Commands.add('testRemovingItemsFromFavoritesList',(viewport,user,listName,searchName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
@@ -230,6 +254,7 @@ Cypress.Commands.add('testRemovingItemsFromFavoritesList',(viewport,user,listNam
 Cypress.Commands.add('testPrintingFavoritesList',(viewport,user,listName,shareEmail)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
@@ -252,6 +277,7 @@ Cypress.Commands.add('testPrintingFavoritesList',(viewport,user,listName,shareEm
 Cypress.Commands.add('testSharingFavoritesList',(viewport,user,listName,shareEmail)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
@@ -281,6 +307,7 @@ Cypress.Commands.add('testSharingFavoritesList',(viewport,user,listName,shareEma
 Cypress.Commands.add('testDeleteDialogBackButtonMobile',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -316,6 +343,7 @@ Cypress.Commands.add('testDeleteDialogBackButtonMobile',(viewport,user,listName)
 Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -346,6 +374,7 @@ Cypress.Commands.add('testCancelDeletingFavoritesListNotShared',(viewport,user,l
 Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,listName,shareEmail)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     
     //share the list
@@ -399,6 +428,7 @@ Cypress.Commands.add('testCancelDeletingFavoritesListShared',(viewport,user,list
 Cypress.Commands.add('testDeletingFavoritesListNotShared',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -434,6 +464,7 @@ Cypress.Commands.add('testDeletingFavoritesListNotShared',(viewport,user,listNam
 Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName,shareEmail)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     
     //share the list
@@ -493,6 +524,7 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName,s
 Cypress.Commands.add('testDeletingFavoritesListError401',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -528,6 +560,7 @@ Cypress.Commands.add('testDeletingFavoritesListError401',(viewport,user,listName
 Cypress.Commands.add('testDeletingFavoritesListError404',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -563,6 +596,7 @@ Cypress.Commands.add('testDeletingFavoritesListError404',(viewport,user,listName
 Cypress.Commands.add('testDeletingFavoritesListError500',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -598,6 +632,7 @@ Cypress.Commands.add('testDeletingFavoritesListError500',(viewport,user,listName
 Cypress.Commands.add('testDeletingFavoritesListErrorNot200',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000)
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -633,6 +668,7 @@ Cypress.Commands.add('testDeletingFavoritesListErrorNot200',(viewport,user,listN
 Cypress.Commands.add('testDeletingFavoritesListErrorSomethingElse',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(2000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
