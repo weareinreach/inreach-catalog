@@ -1,7 +1,20 @@
 Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    cy.wait(1000);
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}
     cy.getElementByTestId('account-page-tabs').then($element=>{
         expect($element).to.be.visible;
     });
@@ -81,8 +94,20 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
 Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
-    
+    cy.wait(1000)
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}    
     cy.getElementByTestId('account-page-name').click();
     cy.get('input[name="currentName"]').should('have.value', user.name);
     cy.getElementByTestId('account-settings-name-new').type(user_update.name);
@@ -109,8 +134,19 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
     //Verify Login
     cy.wait(1000);
 
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
-    cy.getElementByTestId('account-page-name').click();
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}    cy.getElementByTestId('account-page-name').click();
     cy.get('input[name="currentName"]').should('have.value', user_update.name);
 
     //check for empty values - error should appear
@@ -151,8 +187,20 @@ Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
 Cypress.Commands.add('testChangeUserEmail',(viewport,user,user_update)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
-    
+    cy.wait(1000)
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}    
     cy.getElementByTestId('account-page-email').click();
 
     //cy.getElementByTestId('account-settings-email-old-address').type(user.email);
@@ -175,26 +223,46 @@ Cypress.Commands.add('testChangeUserEmail',(viewport,user,user_update)=>{
     },viewport);
     //Verify Login
     cy.wait(1000);
-
-    if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('account-page-header').then($element=>{
-            expect($element).to.be.visible;
-            expect($element.children()).contain("Your Account"); 
-        });
-    }else{
-        cy.getElementByTestId('nav-account-account-settings').then($element => {
-            expect($element).to.be.visible;
-            expect($element).to.have.attr('href', '/en_US/account');
-            expect($element.children()).contain("Account Settings");
-        });
-    }
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('account-page-header').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Your Account"); 
+            });
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                expect($element[2]).to.be.visible;
+                expect($element[2]).contain("Account");
+			});
+			break;
+		default:
+            cy.getElementByTestId('nav-account-account-settings').then($element => {
+                expect($element).to.be.visible;
+                expect($element).to.have.attr('href', '/en_US/account');
+                expect($element.children()).contain("Account Settings");
+            });
+	}    
 });
 
 
 Cypress.Commands.add('testChangeUserPassword',(viewport,user,user_update)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    cy.wait(1000);
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}    
     
     cy.getElementByTestId('account-page-change-password').click();
     cy.getElementByTestId('account-settings-password-old-password').type(user.password);
@@ -216,24 +284,45 @@ Cypress.Commands.add('testChangeUserPassword',(viewport,user,user_update)=>{
     },viewport);
     cy.wait(1000);
     //Verify Login
-    if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('account-page-header').then($element=>{
-            expect($element).to.be.visible;
-            expect($element.children()).contain("Your Account"); 
-        });
-    }else{
-        cy.getElementByTestId('nav-account-account-settings').then($element => {
-            expect($element).to.be.visible;
-            expect($element).to.have.attr('href', '/en_US/account');
-            expect($element.children()).contain("Account Settings");
-        });
-    }
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('account-page-header').then($element=>{
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Your Account"); 
+            });
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                expect($element[2]).to.be.visible;
+                expect($element[2]).contain("Account");
+			});
+			break;
+		default:
+            cy.getElementByTestId('nav-account-account-settings').then($element => {
+                expect($element).to.be.visible;
+                expect($element).to.have.attr('href', '/en_US/account');
+                expect($element.children()).contain("Account Settings");
+            });
+        }
 });
 
 Cypress.Commands.add('testDeleteAccountNoPassword',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    cy.wait(1000);
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}  
     //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
     if(viewport !== Cypress.env('mobile')){
         cy.getElementByTestId('account-page-delete-account').click();
@@ -255,7 +344,20 @@ Cypress.Commands.add('testDeleteAccountNoPassword',(viewport,user)=>{
 Cypress.Commands.add('testDeleteAccountWrongPassword',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    cy.wait(1000);
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}  
     //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
     if(viewport !== Cypress.env('mobile')){
         cy.getElementByTestId('account-page-delete-account').click();
@@ -273,7 +375,20 @@ Cypress.Commands.add('testDeleteAccountWrongPassword',(viewport,user)=>{
 Cypress.Commands.add('testDeleteAccount',(viewport,user)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    cy.wait(1000);
+    switch (viewport){
+		case Cypress.env('mobile'):
+        	cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+    	case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-account-account-settings').click();
+			});
+			break;
+		default:
+			cy.getElementByTestId('nav-button-view-favorites').click();
+	}  
     //AUTOMATION BUG - Delete Account button does noting on Mobile(152)
     if(viewport !== Cypress.env('mobile')){
         cy.getElementByTestId('account-page-delete-account').click();

@@ -5,7 +5,7 @@
 //compound url
 
 //Test Suite
-describe('Home Page Navigation Bar Tests', () => {
+describe('Home Page Account Settings Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     
     beforeEach(() => {

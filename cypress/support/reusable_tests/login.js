@@ -17,7 +17,7 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
     cy.getElementByTestId('log-in-dialog-container-password-input').type(user.password);
     cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
    
-   cy.wait(2000);
+   cy.wait(1000);
     //Logeed In
     switch(viewport){
         case Cypress.env('mobile'):

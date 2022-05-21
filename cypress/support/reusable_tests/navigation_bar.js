@@ -109,7 +109,7 @@ function testNavigationBarDesktop(viewport, user) {
 	});
     cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
-	cy.wait(2000);
+	cy.wait(1000);
     cy.getElementByTestId('nav-button-view-favorites').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('href', '/en_US/favorites');

@@ -28,7 +28,7 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
     expect($element).to.be.visible;
     cy.wrap($element).type(org.name).then(()=>{
         //wait for to populate
-        cy.wait(2000);
+        cy.wait(1000);
         //select first
         cy.getElementByTestId('sign-up-form-searched-organization').then($elements=>{
             expect($elements).to.be.visible;

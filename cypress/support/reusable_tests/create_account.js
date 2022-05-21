@@ -184,14 +184,14 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             cy.getElementByTestId('sign-up-form-privacy-link').then($element=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("Privacy Policy");
-                expect($element).to.have.attr('href','https://inreach.org/privacy');
+                expect($element).to.have.attr('href','https://inreach.org/privacy/');
                 expect($element).to.have.attr('target','_blank');
                 expect($element).to.have.attr('rel','noopener noreferrer');
             });
             cy.getElementByTestId('sign-up-form-terms-link').then($element=>{
                 expect($element).to.be.visible;
                 expect($element).to.contain("Terms of Use");
-                expect($element).to.have.attr('href','https://inreach.org/terms-of-use');
+                expect($element).to.have.attr('href','https://inreach.org/terms-of-use/');
                 expect($element).to.have.attr('target','_blank');
                 expect($element).to.have.attr('rel','noopener noreferrer');
             });
@@ -356,15 +356,26 @@ Cypress.Commands.add('testCreateAccountSeeker',(viewport,userType)=>{
             };
             
             //logout
-            if(viewport === Cypress.env('mobile')){
-                //close thank you dialog
-                cy.getElementByTestId('thank-you-profile-button').click();
-                //then log out
-                cy.getElementByTestId('mobile-nav-button-account').click()
-                cy.getElementByTestId('account-page-logout').click();
-            }else{
-                cy.getElementByTestId('nav-account-sign-out').click({force:true});
-            }; 
+            switch (viewport){
+                case Cypress.env('mobile'):
+                     //close thank you dialog
+                    cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
+                    cy.getElementByTestId('mobile-nav-button-account').click()
+                    cy.getElementByTestId('account-page-logout').click();
+                break;
+                case Cypress.env('tablet'):
+                     //close thank you dialog
+                     cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
+                     cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                     cy.wrap($element[2]).click();
+                     cy.getElementByTestId('nav-account-sign-out').click();
+                    });
+                    break;
+                default:
+                    cy.getElementByTestId('nav-account-sign-out').click({force:true});
+            }
         });
     });
 });
@@ -504,15 +515,26 @@ Cypress.Commands.add('testCreateAccountLawyer',(viewport,userType,org)=>{
                 };
                 
                 //logout
-                if(viewport === Cypress.env('mobile')){
-                    //close thank you dialog
+            switch (viewport){
+                case Cypress.env('mobile'):
+                     //close thank you dialog
                     cy.getElementByTestId('thank-you-profile-button').click();
-                    //then log out
+                     //then log out
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
-                }else{
+                break;
+                case Cypress.env('tablet'):
+                     //close thank you dialog
+                     cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
+                     cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                     cy.wrap($element[2]).click();
+                     cy.getElementByTestId('nav-account-sign-out').click();
+                    });
+                    break;
+                default:
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
-                }; 
+            }
             });
         });
     }); 
@@ -666,16 +688,27 @@ Cypress.Commands.add('testCreateAccountProvider',(viewport,userType)=>{
                      });
                 };
                 
-                //logout
-                if(viewport === Cypress.env('mobile')){
-                    //close thank you dialog
+               //logout
+            switch (viewport){
+                case Cypress.env('mobile'):
+                     //close thank you dialog
                     cy.getElementByTestId('thank-you-profile-button').click();
-                    //then log out
+                     //then log out
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
-                }else{
+                break;
+                case Cypress.env('tablet'):
+                     //close thank you dialog
+                     cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
+                     cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                     cy.wrap($element[2]).click();
+                     cy.getElementByTestId('nav-account-sign-out').click();
+                    });
+                    break;
+                default:
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
-                }; 
+            }
             });
         });
     }); 
@@ -813,13 +846,26 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganization',(viewport,userTyp
                      });
                 }
                 //logout
-                if(viewport === Cypress.env('mobile')){
-                    cy.getElementByTestId('thank-you-resource-button').click();
+            switch (viewport){
+                case Cypress.env('mobile'):
+                     //close thank you dialog
+                    cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
-                }else{
+                break;
+                case Cypress.env('tablet'):
+                     //close thank you dialog
+                     cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
+                     cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                     cy.wrap($element[2]).click();
+                     cy.getElementByTestId('nav-account-sign-out').click();
+                    });
+                    break;
+                default:
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
-                } 
+            }
             });
         });
     }); 
@@ -907,15 +953,25 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationResource',(viewport
                     cy.getElementByTestId('thank-you-header').should('not.exist');
                     cy.getElementByTestId('search-form-body',{ timeout: 10000 }).should('exist');
                 };
-                
                 //logout
-                if(viewport === Cypress.env('mobile')){
+            switch (viewport){
+                case Cypress.env('mobile'):
+                     //close thank you dialog
                     cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
-                }else{
+                break;
+                case Cypress.env('tablet'):
+                     //then log out
+                     cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                     cy.wrap($element[2]).click();
+                     cy.getElementByTestId('nav-account-sign-out').click();
+                    });
+                    break;
+                default:
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
-                } 
+            }
             });
         });
     }); 
@@ -1004,14 +1060,25 @@ Cypress.Commands.add('testCreateAccountActionSkipOrganizationProfile',(viewport,
                     cy.getElementByTestId('account-page-logout',{ timeout: 10000 }).should('exist');
                 };
                 
-                //logout
-                if(viewport === Cypress.env('mobile')){
+               //logout
+            switch (viewport){
+                case Cypress.env('mobile'):
+                     //close thank you dialog
                     cy.getElementByTestId('thank-you-profile-button').click();
+                     //then log out
                     cy.getElementByTestId('mobile-nav-button-account').click()
                     cy.getElementByTestId('account-page-logout').click();
-                }else{
+                break;
+                case Cypress.env('tablet'):
+                     //then log out
+                     cy.getElementByTestId('drop-down-selector-item').then($element=>{
+                     cy.wrap($element[2]).click();
+                     cy.getElementByTestId('nav-account-sign-out').click();
+                    });
+                    break;
+                default:
                     cy.getElementByTestId('nav-account-sign-out').click({force:true});
-                } 
+            }
             });
 
 
