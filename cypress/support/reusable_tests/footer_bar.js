@@ -33,7 +33,7 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
     });
     cy.getElementByTestId('footer-contact-youtube').then($element=>{
         expect($element).to.be.visible;
-        expect($element).to.have.attr('href','https://www.youtube.com/channel/weareinreach');
+        expect($element).to.have.attr('href','https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA');
         expect($element).to.have.attr('target','_blank');
         expect($element).to.have.attr('rel','noopener noreferrer');
     });

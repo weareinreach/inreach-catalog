@@ -120,7 +120,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						/>
 						<ContactLink
 							testIdName="footer-contact-youtube"
-							link="https://www.youtube.com/channel/weareinreach"
+							link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
 							icon="youtube-play"
 						/>
 						<Grid item>
