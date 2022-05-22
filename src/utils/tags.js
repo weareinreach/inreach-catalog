@@ -423,7 +423,7 @@ const localeExclusions = {
 		'Refugee claim'
 	],
 	en_CA: [
-		'Abortion',
+		'Abortion services',
 		'Asylum application (Affirmative Asylum)',
 		'Asylum application in Mexico (Affirmative Asylum)',
 		'Asylum application in the US from Mexico (Affirmative Asylum)',
@@ -442,7 +442,7 @@ const localeExclusions = {
 		'Sponsors'
 	],
 	en_MX: [
-		'Abortion',
+		'Abortion services',
 		'Asylum application (Affirmative Asylum)',
 		'Career counselling',
 		'Cultural centres',
