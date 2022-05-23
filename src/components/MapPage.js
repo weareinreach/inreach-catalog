@@ -704,6 +704,9 @@ class MapPage extends React.Component {
 											handleSearchButtonClick={this.handleSearchButtonClick}
 											handleNationalCheckBox={this.handleNationalCheckBox}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
+											handleFilterSelect={this.handleFilterSelect}
+											handleSortSelect={this.handleSortSelect}
+											clearSearchFilters={this.clearSearchFilters}
 											infographic={infographic}
 											nearAddress={this.props.nearAddress}
 											searching={this.state.searching}
@@ -770,6 +773,7 @@ class MapPage extends React.Component {
 											userData={this.props.userData}
 											handleSearchByOrgName={this.handleSearchByOrgName}
 											handleOrgSelection={this.handleOrgSelection}
+											handleFilterSelect={this.handleFilterSelect}
 										/>
 									)}
 								/>

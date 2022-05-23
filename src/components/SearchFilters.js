@@ -116,7 +116,7 @@ class SearchFilters extends React.Component {
 
 		var selectedFilters = this.props.selectedFilters;
 
-		const handleFilterSelect = (event, checked) => {
+		/*		const handleFilterSelect = (event, checked) => {
 			var index;
 			const target = event.target;
 
@@ -126,7 +126,6 @@ class SearchFilters extends React.Component {
 				this.setState({
 					selectedFilters: selectedFilters
 				});
-				console.log(this.state);
 			} else if (
 				!checked &&
 				(index = selectedFilters.indexOf(target.value)) >= 0
@@ -136,11 +135,9 @@ class SearchFilters extends React.Component {
 					selectedFilters: selectedFilters
 				});
 			}
-			console.log(selectedFilters);
 		};
 
 		const clearResourceTypes = (ev) => {
-			console.log('called');
 			if (ev) {
 				ev.preventDefault();
 			}
@@ -148,7 +145,7 @@ class SearchFilters extends React.Component {
 			this.setState({
 				selectedFilters: []
 			});
-		};
+		};*/
 
 		return (
 			<div>
@@ -168,9 +165,7 @@ class SearchFilters extends React.Component {
 								<AsylumConnectCheckbox
 									label={filter.label}
 									value={filter.name}
-									onChange={
-										props.onChange ? props.onChange : handleFilterSelect
-									}
+									onChange={props.onChange}
 									checked={selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (
@@ -205,9 +200,7 @@ class SearchFilters extends React.Component {
 								<AsylumConnectCheckbox
 									label={filter.label}
 									value={filter.name}
-									onChange={
-										props.onChange ? props.onChange : handleFilterSelect
-									}
+									onChange={props.onChange}
 									checked={selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (
@@ -233,9 +226,7 @@ class SearchFilters extends React.Component {
 								<AsylumConnectCheckbox
 									label={filter.label}
 									value={filter.name}
-									onChange={
-										props.onChange ? props.onChange : handleFilterSelect
-									}
+									onChange={props.onChange}
 									checked={selectedFilters.indexOf(filter.name) >= 0}
 								/>
 							) : (

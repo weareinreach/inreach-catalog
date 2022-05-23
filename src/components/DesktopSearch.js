@@ -16,7 +16,6 @@ import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import SearchBar from './SearchBar';
 import SearchByLocation from './SearchByLocation';
 import SearchByOrgName from './SearchByOrgName';
-import SearchRefinementControls from './SearchRefinementControls';
 
 const DesktopSearch = (props) => {
 	const {
@@ -39,7 +38,8 @@ const DesktopSearch = (props) => {
 		locale,
 		handleTabChange,
 		tabValue,
-		moveButton
+		moveButton,
+		handleFilterSelect
 	} = props;
 	const variant = 'primary';
 	const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin;

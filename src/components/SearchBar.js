@@ -70,7 +70,12 @@ const SearchBar = (props) => {
 		t,
 		children,
 		showResourceSelector = true,
-		width
+		width,
+		handleFilterSelect,
+		clearSearchFilters,
+		handleSortSelect,
+		selectedFilters,
+		selectedSort
 	} = props;
 	const isMobile = width < breakpoints['sm'];
 	const isTablet = width <= breakpoints['md'];
@@ -118,13 +123,13 @@ const SearchBar = (props) => {
 							style={!isMobile && !isTablet ? {paddingLeft: '8px'} : null}
 						>
 							<SearchRefinementControls
-								clearSearchFilters={props.clearSearchFilters}
-								handleFilterSelect={props.handleFilterSelect}
-								handleSortSelect={props.handleSortSelect}
-								selectedFilters={props.selectedFilters.filter(
+								clearSearchFilters={clearSearchFilters}
+								handleFilterSelect={handleFilterSelect}
+								handleSortSelect={handleSortSelect}
+								selectedFilters={selectedFilters.filter(
 									(item) => item !== 'time-walk-in'
 								)}
-								selectedSort={props.selectedSort}
+								selectedSort={selectedSort}
 							/>
 						</Grid>
 					) : null}
