@@ -42,7 +42,10 @@ class SearchFilterSelector extends React.Component {
 				containerClass={selectInput}
 				listContainerClass={filterList}
 			>
-				<SearchFilters selectedFilters={selectedFilters} onChange={onChange} />
+				<SearchFilters
+					selectedFilters={selectedFilters}
+					onChange={this.props.onChange}
+				/>
 			</AsylumConnectSelector>
 		);
 	}
