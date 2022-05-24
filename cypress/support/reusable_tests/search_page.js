@@ -5,17 +5,17 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
     if(viewport!==Cypress.env('mobile')){
         cy.getElementByTestId('search-form-body').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('Welcome to InReach United States!');
+            expect($element).contain('Welcome to InReach');
+            expect($element).contain('United States');
         });
-    }
 
-	cy.getElementByTestId('search-form-body-2').then(($element) => {
-		expect($element).to.be.visible;
-		expect($element).contain(
-			'InReach is for the entire diverse LGBTQ+ community'
-		);
-	});
-
+		cy.getElementByTestId('search-form-body-2').then(($element) => {
+			expect($element).to.be.visible;
+			expect($element).contain(
+				"The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+			);
+		});
+	}
 	cy.getElementByTestId('search-bar-input').then(($element) => {
 		expect($element).to.be.visible;
 	});
@@ -35,15 +35,6 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 			expect($element).to.have.attr('type', 'submit');
 		});
     }
-
-	cy.getElementByTestId('search-form-download-link').then(($element) => {
-		expect($element).to.be.visible;
-		expect($element).to.have.attr('target', '_blank');
-		expect($element).to.have.attr('rel', 'noopener noreferrer');
-		expect($element).contain(
-			'Download Legal Guides on LGBTQ Asylum in the U.S.'
-		);
-	});
 });
 
 Cypress.Commands.add('testSearchAction', (viewport, org) => {
@@ -56,10 +47,10 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	// })
 	cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
 	cy.getElementByTestId('search-bar-input').type(org.locations[0].city + ", "+org.locations[0].state);
-	cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
-		cy.wrap($element[0]).click();
-	});
 	if (viewport !== Cypress.env('mobile')) {
+		cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
+			cy.wrap($element[0]).click();
+		});
 		cy.getElementByTestId('search-bar-search-button').click();
 	} else {
 		cy.getElementByTestId('search-bar-search-by-location-button').click();
