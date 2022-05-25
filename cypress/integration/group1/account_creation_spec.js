@@ -7,7 +7,7 @@
 
 //Test Suite
 describe('Home Page Create Account Form Tests', () => {
-
+    
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     let userTypes = [Cypress.env('createAccountUserTypeMyself'),Cypress.env('createAccountUserTypeLawyer'),Cypress.env('createAccountUserTypeServiceProvider')];
 
