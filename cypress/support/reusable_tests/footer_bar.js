@@ -74,6 +74,41 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
         expect($element).to.have.attr('href','https://bit.ly/inreach-app-share-feedback');
         expect($element.children()).contain('Share Feedback');
     });
+    cy.getElementByTestId('footer-disclaimer').then($element=>{
+        expect($element).to.be.visible;
+        cy.wrap($element).click();
+        cy.wait(500);
+        cy.getElementByTestId('dialog-container-title').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('InReach Disclaimer');
+        });
+        cy.getElementByTestId('disclaimer-text').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('The InReach team will do its best to confirm the eligibility and basic facts about service providers listed on this website. However, we cannot guarantee the viability or capabilities of any such providers. Consequently, InReach assumes no responsibility for the actions of providers listed on this website and asylum seekers who contact any such providers do so at their own risk.')
+        });
+        cy.getElementByTestId('dialog-button').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain('OK');
+            expect($element).to.have.attr('type','submit');
+            cy.wrap($element).click();
+        });
+    });
+    cy.getElementByTestId('footer-privacy').then($element=>{
+        expect($element).to.be.visible;
+        expect($element).contain('Privacy Statement');
+        cy.wrap($element).click();
+        cy.wait(500);
+        cy.getElementByTestId('dialog-container-title').then($element=>{
+            expect($element).to.be.visible;
+            expect($element).contain('InReach Privacy Statement');
+        });
+        cy.getElementByTestId('dialog-button').then($element=>{
+            expect($element).to.be.visible;
+            expect($element.children()).contain('OK');
+            expect($element).to.have.attr('type','submit');
+            cy.wrap($element).click();
+        });
+    });
     cy.getElementByTestId('footer-copy-rights').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain(`InReach, Inc. ${new Date().getFullYear()}. All rights reserved.`);

@@ -36,7 +36,7 @@ const Header = ({
 	messages
 }) => {
 	const isMobile = width < breakpoints['sm'];
-	const isTablet = width <= breakpoints['md'];
+	const isTablet = width >= breakpoints['sm'] && width <= breakpoints['md'];
 
 	if (isMobile) {
 		return (

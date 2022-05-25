@@ -223,6 +223,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<Typography
+								data-test-id="footer-disclaimer"
 								variant="body1"
 								color="secondary"
 								classes={{body1: footerLink}}
@@ -234,6 +235,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<Typography
+								data-test-id="footer-privacy"
 								variant="body1"
 								color="secondary"
 								classes={{body1: footerLink}}
