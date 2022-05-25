@@ -37,27 +37,10 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
         expect($element).to.have.attr('target','_blank');
         expect($element).to.have.attr('rel','noopener noreferrer');
     });
-    cy.getElementByTestId('footer-apple-store-link').then($element=>{
+    cy.getElementByTestId('download-mobile-app').then($element=>{
         expect($element).to.be.visible;
-        expect($element).to.have.attr('href','https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383');
-        expect($element).to.have.attr('target','_blank');
-        expect($element).to.have.attr('rel','noopener noreferrer');
-    });
-    cy.getElementByTestId('footer-apple-store-image').then($element=>{
-        expect($element).to.be.visible;
-        expect($element).to.have.attr('alt','Download on the App Store badge');
-        expect($element).to.have.attr('height','35');
-    });
-    cy.getElementByTestId('footer-google-play-link').then($element=>{
-        expect($element).to.be.visible;
-        expect($element).to.have.attr('href','https://play.google.com/store/apps/details?id=org.asylumconnect.app');
-        expect($element).to.have.attr('target','_blank');
-        expect($element).to.have.attr('rel','noopener noreferrer');
-    });
-    cy.getElementByTestId('footer-google-play-image').then($element=>{
-        expect($element).to.be.visible;
-        expect($element).to.have.attr('alt','Get it on Google Play badge');
-        expect($element).to.have.attr('height','35');
+        expect($element).to.have.attr('href','https://inreach.org/mobile-app');
+        expect($element.children()).contain('Download our App');
     });
     cy.getElementByTestId('footer-suggest-new').then($element=>{
         expect($element).to.be.visible;
@@ -67,7 +50,6 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
         expect($element).to.be.visible;
         expect($element).to.have.attr('href','https://inreach.org/newsletter/');
         expect($element.children()).contain('Subscribe to Newsletter');
-
     });
     cy.getElementByTestId('footer-share-feedback').then($element=>{
         expect($element).to.be.visible;
@@ -84,7 +66,7 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
         });
         cy.getElementByTestId('disclaimer-text').then($element=>{
             expect($element).to.be.visible;
-            expect($element).contain('The InReach team will do its best to confirm the eligibility and basic facts about service providers listed on this website. However, we cannot guarantee the viability or capabilities of any such providers. Consequently, InReach assumes no responsibility for the actions of providers listed on this website and asylum seekers who contact any such providers do so at their own risk.')
+            expect($element).contain('The InReach team will do its best to confirm the eligibility and basic facts about service providers listed on this website. However, we cannot guarantee the viability or capabilities of any such providers. Consequently, InReach assumes no responsibility for the actions of providers listed on this website and users who contact any such providers do so at their own risk.')
         });
         cy.getElementByTestId('dialog-button').then($element=>{
             expect($element).to.be.visible;
