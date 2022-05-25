@@ -55,7 +55,7 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	} else {
 		cy.getElementByTestId('search-bar-search-by-location-button').click();
 	}
-	cy.wait(500);
+	cy.wait(1000);
 	cy.getElementByTestId('favorites-list-item').then(($element) => {
 		expect($element).to.be.visible;
 	});
