@@ -1,5 +1,6 @@
 Cypress.Commands.add('testStaticResource',(viewport)=>{
     cy.viewport(viewport);
+    viewport === Cypress.env('mobile') ? cy.reload() : null;
 
 cy.getElementByTestId('drop-down-selector-container').then($element=>{
     cy.wrap($element[2]).click();
