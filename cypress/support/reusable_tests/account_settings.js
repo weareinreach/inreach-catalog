@@ -81,7 +81,31 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
 Cypress.Commands.add('testChangeUserName',(viewport,user,user_update)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    //mobile view
+    if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('mobile-nav-button-account').click()
+    }
+    //desktop view
+    if(viewport === Cypress.env('desktop')){
+        cy.getElementByTestId('nav-account-account-settings').click();
+    }
+    //tablet view
+    if(viewport === Cypress.env('tablet')){
+        cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
+            cy.wrap($element).click();
+            cy.getElementByTestId('nav-account-account-settings').then(($element) => {
+                expect($element).to.be.visible;
+                expect($element).to.have.attr('href', '/en_US/account');
+                expect($element.children()).contain('Account Settings');
+            cy.wrap($element).click();
+                cy.location((loc) => {
+                    expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/account');
+                    expect(loc.hostname).to.be.eq('localhost:3000');
+                    expect(loc.pathname).to.be.eq('/en_US/account');
+                });
+            });
+        });
+    }
     
     cy.getElementByTestId('account-page-name').click();
     cy.get('input[name="currentName"]').should('have.value', user.name);
@@ -194,7 +218,8 @@ Cypress.Commands.add('testChangeUserEmail',(viewport,user,user_update)=>{
 Cypress.Commands.add('testChangeUserPassword',(viewport,user,user_update)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() : cy.getElementByTestId('nav-account-account-settings').click();
+    viewport === Cypress.env('mobile') ? cy.getElementByTestId('mobile-nav-button-account').click() 
+        : cy.getElementByTestId('nav-account-account-settings').click();
     
     cy.getElementByTestId('account-page-change-password').click();
     cy.getElementByTestId('account-settings-password-old-password').type(user.password);
@@ -217,6 +242,7 @@ Cypress.Commands.add('testChangeUserPassword',(viewport,user,user_update)=>{
     cy.wait(1000);
     //Verify Login
     if(viewport === Cypress.env('mobile')){
+        cy.getElementByTestId('mobile-nav-button-account').click();
         cy.getElementByTestId('account-page-header').then($element=>{
             expect($element).to.be.visible;
             expect($element.children()).contain("Your Account"); 
