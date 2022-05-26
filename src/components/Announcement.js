@@ -29,17 +29,14 @@ const Announcement = (props) => {
 
 	return (
 		<div id="announcement-div" className={classes.root + ' hide--on-print'}>
-			<a href="https://bit.ly/inreach-press-release">
+			<a href="https://prn.to/3lMPU5Y">
 				{useSmallIcon ? (
 					<InformationIcon fillColor={'#000000'} />
 				) : (
 					<InformationIcon24 fillColor={'#000000'} />
 				)}
 			</a>
-			<a
-				href="https://bit.ly/inreach-press-release"
-				data-test-id="announcement-header"
-			>
+			<a href="https://prn.to/3lMPU5Y" data-test-id="announcement-header">
 				<Typography
 					variant="caption"
 					color="primary"
