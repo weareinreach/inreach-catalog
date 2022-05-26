@@ -9,7 +9,9 @@ describe('Organization Details Tests', () => {
     let viewports = [Cypress.env('desktop')]//,Cypress.env('tablet'),Cypress.env('mobile')];
     beforeEach(() => {
         cy.visit(Cypress.env('baseUrl'));
-        cy.fixture('organization_suggestion.json').as('organization');
+        cy.fixture('organization_suggestion.json').as('organization').then(organization =>{
+            cy.addOrg(organization);
+        });
         cy.fixture('user_new.json').as('user').then(user=>{
             //Add User
             cy.addUser(user);
