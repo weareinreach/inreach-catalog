@@ -169,7 +169,7 @@ class LocaleForm extends React.Component {
 			formContainer,
 			languageIconColor
 		} = this.props.classes;
-		const isMobile = this.props.width <= breakpoints['sm'];
+		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
 

@@ -120,41 +120,22 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						/>
 						<ContactLink
 							testIdName="footer-contact-youtube"
-							link="https://www.youtube.com/channel/weareinreach"
+							link="https://www.youtube.com/channel/UCJsVS5-0ymo40mRjCe4BIHA"
 							icon="youtube-play"
 						/>
-						<Grid item>
+						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
-								data-test-id="footer-apple-store-link"
-								href="https://apps.apple.com/us/app/asylumconnect-lgbtq-help/id1482908383"
-								target="_blank"
-								rel="noopener noreferrer"
+								href="https://inreach.org/mobile-app"
+								className={textBlue}
+								data-test-id="download-mobile-app"
 							>
-								<img
-									height="35"
-									src={AppStoreBadge}
-									alt={intl.formatMessage({
-										id: 'alt-text.download-on-app-store'
-									})}
-									data-test-id="footer-apple-store-image"
-								/>
-							</a>
-						</Grid>
-						<Grid item>
-							<a
-								data-test-id="footer-google-play-link"
-								href="https://play.google.com/store/apps/details?id=org.asylumconnect.app"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<img
-									height="35"
-									src={GooglePlayBadge}
-									alt={intl.formatMessage({
-										id: 'alt-text.download-on-google-play'
-									})}
-									data-test-id="footer-google-play-image"
-								/>
+								<Typography
+									variant="body1"
+									color="secondary"
+									classes={{body1: footerLink}}
+								>
+									<FormattedMessage id="app.download-mobile-app-footer" />
+								</Typography>
 							</a>
 						</Grid>
 					</Grid>
@@ -223,6 +204,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<Typography
+								data-test-id="footer-disclaimer"
 								variant="body1"
 								color="secondary"
 								classes={{body1: footerLink}}
@@ -234,6 +216,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<Typography
+								data-test-id="footer-privacy"
 								variant="body1"
 								color="secondary"
 								classes={{body1: footerLink}}

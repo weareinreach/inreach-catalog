@@ -151,7 +151,6 @@ class WhoServeSelector extends React.Component {
 		const rootClass =
 			(this.props.rootClass ? this.props.rootClass + ' ' : '') + relative;
 
-		console.log(this.props);
 		return (
 			<div className={rootClass} data-test-id="drop-down-selector-container">
 				<div
