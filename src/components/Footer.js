@@ -66,7 +66,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 		footerLinkItemSize
 	} = classes;
 
-	const ContactLink = ({link, icon, testIdName, label}) => (
+	const ContactLink = ({link, icon, testIdName}) => (
 		<Grid item>
 			<a
 				href={link}
@@ -76,7 +76,6 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 				data-test-id={testIdName}
 			>
 				<FontAwesome name={icon} size="lg" />
-				{label}
 			</a>
 		</Grid>
 	);
