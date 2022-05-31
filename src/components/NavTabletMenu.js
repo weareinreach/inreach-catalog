@@ -77,7 +77,11 @@ const NavTabletMenu = (props) => {
 			noArrow={useSmall}
 		>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-about">
-				<a data-test-id="tablet-nav-menu-item-about" href={navLinks.about}>
+				<a
+					data-test-id="tablet-nav-menu-item-about"
+					target="_blank"
+					href={navLinks.about}
+				>
 					<FormattedMessage id="navigation.about">
 						{(about) => <Typography variant="h6">{about}</Typography>}
 					</FormattedMessage>
@@ -86,6 +90,7 @@ const NavTabletMenu = (props) => {
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-action">
 				<a
 					data-test-id="tablet-nav-menu-item-take-action"
+					target="_blank"
 					href={navLinks.action}
 				>
 					<FormattedMessage id="navigation.take-action">
@@ -94,14 +99,22 @@ const NavTabletMenu = (props) => {
 				</a>
 			</AsylumConnectDropdownListItem>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-faq">
-				<a data-test-id="tablet-nav-menu-item-faqs" href={navLinks.help}>
+				<a
+					data-test-id="tablet-nav-menu-item-faqs"
+					target="_blank"
+					href={navLinks.help}
+				>
 					<FormattedMessage id="navigation.get-help">
 						{(help) => <Typography variant="h6">{help}</Typography>}
 					</FormattedMessage>
 				</a>
 			</AsylumConnectDropdownListItem>
 			<AsylumConnectDropdownListItem data-test-id="tablet-menu-item-contact">
-				<a data-test-id="tablet-nav-menu-item-contact" href={navLinks.contact}>
+				<a
+					data-test-id="tablet-nav-menu-item-contact"
+					target="_blank"
+					href={navLinks.contact}
+				>
 					<FormattedMessage id="navigation.contact">
 						{(contact) => <Typography variant="h6">{contact}</Typography>}
 					</FormattedMessage>
