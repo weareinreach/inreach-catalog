@@ -128,6 +128,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-about"
+				target="_blank"
 				href={navLinks.about}
 			>
 				<FormattedMessage id="navigation.about">
@@ -141,6 +142,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-take-action"
+				target="_blank"
 				href={navLinks.action}
 			>
 				<FormattedMessage id="navigation.take-action">
@@ -154,6 +156,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-get-help"
+				target="_blank"
 				href={navLinks.help}
 			>
 				<FormattedMessage id="navigation.get-help">
@@ -167,6 +170,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-contact"
+				target="_blank"
 				href={navLinks.contact}
 			>
 				<FormattedMessage id="navigation.contact">
@@ -180,6 +184,7 @@ const NavDesktop = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
+				target="_blank"
 				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">
