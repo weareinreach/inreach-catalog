@@ -32,13 +32,13 @@ const styles = (theme) => ({
 		}
 	},
 	secondary: {
-		color: theme.palette.secondary[500],
+		color: theme.palette.primary[500],
 		backgroundColor: theme.palette.common.white,
-		borderColor: theme.palette.secondary[500],
+		borderColor: theme.palette.primary[500],
 		'&:hover': {
 			color: theme.palette.common.white,
-			backgroundColor: theme.palette.secondary[900],
-			borderColor: theme.palette.secondary[900]
+			backgroundColor: theme.palette.primary[900],
+			borderColor: theme.palette.primary[900]
 		}
 	},
 	disabledPrimary: {
@@ -74,6 +74,57 @@ const styles = (theme) => ({
 		'&:disabled': {
 			color: theme.palette.common.white
 		}
+	},
+	signUp: {
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.signUp[500],
+		borderColor: theme.palette.signUp[500],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.signUp[900],
+			borderColor: theme.palette.signUp[900]
+		}
+	},
+	disabledSignUp: {
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.signUp[100],
+		borderColor: theme.palette.signUp[100],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.signUp[100],
+			borderColor: theme.palette.signUp[100]
+		},
+		'&:disabled': {
+			color: theme.palette.common.white
+		}
+	},
+	safety: {
+		marginBottom: 'unset',
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.safety[500],
+		borderColor: theme.palette.safety[500],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.safety[900],
+			borderColor: theme.palette.safety[900]
+		},
+		'@media(max-width:1080px)': {
+			padding: '0px 20px'
+		}
+	},
+	disabledSafety: {
+		marginBottom: 'unset',
+		color: theme.palette.common.white,
+		backgroundColor: theme.palette.safety[100],
+		borderColor: theme.palette.safety[100],
+		'&:hover': {
+			color: theme.palette.common.white,
+			backgroundColor: theme.palette.safety[100],
+			borderColor: theme.palette.safety[100]
+		},
+		'&:disabled': {
+			color: theme.palette.common.white
+		}
 	}
 });
 
@@ -96,7 +147,9 @@ function AsylumConnectButton(props) {
 				classes.button,
 				{
 					[classes.primary]: variant === 'primary',
-					[classes.secondary]: variant === 'secondary'
+					[classes.secondary]: variant === 'secondary',
+					[classes.signUp]: variant === 'signUp',
+					[classes.safety]: variant === 'safety'
 				},
 				'hide--on-print',
 				className
@@ -108,6 +161,10 @@ function AsylumConnectButton(props) {
 				disabled:
 					variant === 'secondary'
 						? classes.disabledSecondary
+						: variant === 'signUp'
+						? classes.disabledSignUp
+						: variant === 'safety'
+						? classes.disabledSafety
 						: classes.disabledPrimary
 			}}
 		>
@@ -122,7 +179,7 @@ AsylumConnectButton.propTypes = {
 	classes: PropTypes.object.isRequired,
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
-	variant: PropTypes.oneOf(['primary', 'secondary'])
+	variant: PropTypes.oneOf(['primary', 'secondary', 'signUp', 'safety'])
 };
 
 // Inject style to Custom Button component

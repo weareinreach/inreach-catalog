@@ -6,16 +6,17 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
         cy.getElementByTestId('mobile-nav-button-account').then($element =>{
             cy.wrap($element).click();
         });
-        
-    }else{
+    }
+    if(viewport !== Cypress.env('mobile')){
         cy.getElementByTestId('nav-account-sign-in').then($element => {
             cy.wrap($element).click({force:true});
         });
     }
+
     //Enter Creds
     cy.getElementByTestId('log-in-dialog-container-email-input').type(user.email);
     cy.getElementByTestId('log-in-dialog-container-password-input').type(user.password);
-    cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
+    cy.getElementByTestId('log-in-dialog-container-sign-in-button').click({force:true});
    
    
     //Logeed In
@@ -41,18 +42,17 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
             expect($element).to.be.visible;
             expect($element.children()).contain("Delete Account");
         });
-    }else{
-    cy.getElementByTestId('nav-account-account-settings').then($element => {
-        expect($element).to.be.visible;
-        expect($element).to.have.attr('href', '/en_US/account');
-        expect($element.children()).contain("Account Settings");
-    });
-    cy.getElementByTestId('nav-account-sign-out').then($element => {
-        expect($element).to.be.visible;
-        expect($element).to.have.attr('href', '/');
-        expect($element.children()).contain("Sign Out");
-    });
-}
+    }
+    if(viewport === Cypress.env('desktop')){
+        cy.getElementByTestId('nav-account-account-settings').then($element => {
+            expect($element).to.have.attr('href', '/en_US/account');
+            expect($element.children()).contain("Account Settings");
+        });
+        cy.getElementByTestId('nav-account-sign-out').then($element => {
+            expect($element).to.have.attr('href', '/');
+            expect($element.children()).contain("Sign Out");
+        });
+    }
 
     if(viewport === Cypress.env('mobile')){
         cy.getElementByTestId('account-page-logout').then($element=>{
@@ -61,15 +61,17 @@ Cypress.Commands.add('testLogInAndLogOutAction', (viewport,user) => {
             cy.wrap($element).click();
         });
     }else{
-        cy.getElementByTestId('nav-account-sign-out').click();
-        cy.getElementByTestId('nav-account-sign-in').then($element => {
-            expect($element).to.be.visible;
-            expect($element.children()).contain("Sign In");
-        });
-        cy.getElementByTestId('nav-account-sign-up').then($element => {
-            expect($element).to.be.visible;
-            expect($element.children()).contain("Sign Up");
-        });
+          if(viewport === Cypress.env('desktop')){
+            cy.getElementByTestId('nav-account-sign-out').click();
+            cy.getElementByTestId('nav-account-sign-in').then($element => {
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Sign In");
+            });
+            cy.getElementByTestId('nav-account-sign-up').then($element => {
+                expect($element).to.be.visible;
+                expect($element.children()).contain("Sign Up");
+            });
+        }
     }
 });
 
@@ -104,14 +106,14 @@ Cypress.Commands.add('testLoginFormComponents', (viewport) => {
     });
     cy.getElementByTestId('log-in-dialog-container-privacy').then($element => {
         expect($element).to.be.visible;
-        expect($element).to.have.attr('href', 'https://asylumconnect.org/privacy');
+        expect($element).to.have.attr('href', 'https://inreach.org/privacy/');
         expect($element).contain("Privacy Policy");
         expect($element).to.have.attr('target', '_blank');
         expect($element).to.have.attr('rel', 'noopener noreferrer');
     });
     cy.getElementByTestId('log-in-dialog-container-terms-of-use').then($element => {
         expect($element).to.be.visible;
-        expect($element).to.have.attr('href', 'https://asylumconnect.org/terms-of-use');
+        expect($element).to.have.attr('href', 'https://inreach.org/terms-of-use/');
         expect($element).contain("Terms of Use");
         expect($element).to.have.attr('target', '_blank');
         expect($element).to.have.attr('rel', 'noopener noreferrer');

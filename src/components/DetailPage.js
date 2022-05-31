@@ -741,7 +741,7 @@ class Detail extends React.Component {
 														position: 'absolute',
 														bottom: 'auto',
 														padding: 0,
-														fontFamily: '"Open Sans", sans-serif',
+														fontFamily: '"Inter", sans-serif',
 														background: '#FFFFFF'
 													}
 												}}

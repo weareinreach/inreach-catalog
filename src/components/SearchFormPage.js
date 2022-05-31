@@ -4,14 +4,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
-
+import AsylumConnectSelector from './AsylumConnectSelector';
+import WhoServeSelector from './WhoServeSelector';
+import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
 import Disclaimer from './Disclaimer';
 import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
+import Announcement from './Announcement';
 import withWidth from './withWidth';
-import {getLocale, isLocaleSet} from '../utils/locale';
+import {getLocale, isLocaleSet, fetchLocaleName} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
 
 const styles = (theme) => ({
@@ -37,8 +40,6 @@ const styles = (theme) => ({
 	},
 	subAnnouncement: {
 		backgroundColor: '#e9e9e9',
-		marginLeft: '-34px',
-		paddingLeft: '34px',
 		paddingTop: '1rem',
 		paddingBottom: '1rem',
 		position: 'absolute',
@@ -50,6 +51,36 @@ const styles = (theme) => ({
 			paddingTop: '80px',
 			marginLeft: '0'
 		})
+	},
+	mobileSubContainer: {
+		'& > div:nth-child(2)': {
+			padding: '0 5% 16px'
+		},
+		'& > div:nth-child(3)': {
+			padding: '0 5% 24px',
+			'& > div:nth-child(1) > :nth-child(2) :nth-child(1)': {
+				fontSize: '14px'
+			}
+		},
+		'& > div:nth-child(4)': {
+			// padding: '0 5% 8px',
+			'& > p:nth-child(1)': {
+				fontSize: '24px',
+				fontWeight: 700,
+				lineHeight: '29px'
+			}
+		},
+		'& > div:nth-child(5)': {
+			padding: '16px 5% 24px',
+			'& > p:nth-child(1)': {
+				fontSize: '14px',
+				fontWeight: 400,
+				lineHeight: '17px'
+			}
+		},
+		'& > div:nth-child(6)': {
+			// padding: '0 0 24px'
+		}
 	},
 	containerSearchForm: {
 		paddingTop: theme.spacing(8)
@@ -77,7 +108,7 @@ const styles = (theme) => ({
 		}
 	},
 	changeCountryButton: {
-		marginLeft: theme.spacing(-1)
+		color: theme.palette.secondary[400]
 	},
 	backButton: {
 		position: 'fixed',
@@ -108,6 +139,21 @@ const styles = (theme) => ({
 		maxWidth: '65px',
 		paddingLeft: '20px'
 		//height: '100%',
+	},
+	logoMobile: {
+		width: '120px',
+		height: '48px'
+	},
+	mobileGridItem: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 'unset !important'
+	},
+	subheadingMobile: {
+		fontSize: '14px',
+		lineHeight: '14.97px',
+		textAlign: 'center'
 	}
 });
 
@@ -169,114 +215,118 @@ class SearchFormContainer extends React.Component {
 			container,
 			iconButton,
 			logoFitHeight,
+			logoMobile,
 			title,
 			subheading,
 			changeCountryButton,
 			containerSearchForm,
-			subAnnouncement
+			subAnnouncement,
+			mobileGridItem,
+			subheadingMobile,
+			mobileSubContainer
 		} = classes;
 		const isMobile = width < breakpoints['sm'];
 
-		return (
-			<div style={{position: 'relative'}}>
-				{!isMobile ? (
-					<div
-						className={subAnnouncement}
-						style={{
-							marginLeft: '-' + (width - 1300) / 2 + 'px',
-							paddingLeft: (width - 1300) / 2 + 'px'
-						}}
-					>
-						<Grid
-							container
-							alignItems="center"
-							justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
-							spacing={0}
-						>
-							<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-								<SubAnnouncement />
-							</Grid>
-						</Grid>
-					</div>
-				) : null}
-				<Grid
-					container
-					alignItems="flex-start"
-					justify={width >= breakpoints['xl'] ? 'flex-start' : 'center'}
-					spacing={0}
-					className={container}
-				>
-					<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
-						{!isMobile && locale ? (
-							<Grid item xs={12}>
-								<AsylumConnectBackButton
-									className={changeCountryButton}
-									color="default"
-									text={<FormattedMessage id="app.choose-different-country" />}
-									onClick={this.handleLocaleReset}
-								/>
-							</Grid>
-						) : null}
-						{isMobile ? (
-							<Grid item xs={12}>
+		let leftPadding = '';
+		if (width > 1364) {
+			leftPadding = Math.abs(32 + (width - 1364) / 2);
+		} else {
+			leftPadding = Math.abs((width * 0.06) / 2);
+		}
+
+		if (isMobile) {
+			return (
+				<div style={{position: 'relative'}}>
+					<Grid container className={container}>
+						<Grid item class={mobileSubContainer}>
+							<Grid item xs={12} sm={12} className={mobileGridItem}>
 								<a
 									href="https://www.asylumconnect.org"
 									data-test-id="search-form-logo"
 								>
 									<IconButton className={iconButton}>
-										<img
-											src={logo}
-											alt="asylumconnect logo"
-											className={logoFitHeight}
-										/>
+										<img src={logo} alt="inreach logo" className={logoMobile} />
 									</IconButton>
 								</a>
 							</Grid>
-						) : null}
-						<Grid container spacing={0} className={containerSearchForm}>
-							{locale && locale !== 'en_US' && (
-								<Disclaimer dataTestId="search-form-header">
+							<Grid item xs={12} sm={12}>
+								<Typography
+									variant="body1"
+									className={[subheadingMobile, mobileGridItem].join(',')}
+									data-test-id="search-form-body-2"
+									style={{textAlign: 'center'}}
+								>
 									<FormattedMessage
-										id="announcement.border-closure-full"
-										defaultMessage="Canada opens border to fully vaccinated U.S. citizens on Aug 9, 2021. Restrictions remain in place for Canadian citizens entering U.S."
+										id="app.welcome-main-2"
+										defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
 									/>
-								</Disclaimer>
-							)}
-							{locale && locale !== 'en_CA' && (
-								<Disclaimer>
-									<FormattedMessage
-										id="announcement.localisation"
-										defaultMessage="The Mexico and United States Catalogs will be available in native English and Spanish in 2022, with all other languages available via Google Translate."
-									/>
-								</Disclaimer>
-							)}
-							{!isMobile ? (
-								<Grid item xs={12}>
+								</Typography>
+							</Grid>
+							<Grid item xs={12} sm={12}>
+								<Announcement useSmallIcon />
+							</Grid>
+							{!locale ? (
+								<Grid item xs={12} sm={12}>
 									<Typography
-										variant="h2"
-										className={title}
-										data-test-id="search-form-body"
+										variant="body1"
+										className={[subheadingMobile, mobileGridItem].join(',')}
+										data-test-id="search-form-body-2"
+										style={{textAlign: 'center'}}
 									>
 										<FormattedMessage
-											id="app.welcome"
-											defaultMessage="Welcome to the United States AsylumConnect Catalog!"
+											id="app.welcome-main-1"
+											defaultMessage="Welcome to InReach"
 										/>
 									</Typography>
 								</Grid>
 							) : null}
-							<Grid item xs={12}>
-								<Typography
-									variant="subtitle2"
-									className={subheading}
-									data-test-id="search-form-body-2"
+							{!locale ? (
+								<Grid item xs={12} sm={12}>
+									<Typography
+										variant="body1"
+										className={[subheadingMobile, mobileGridItem].join(',')}
+										data-test-id="search-form-body-2"
+										style={{textAlign: 'center'}}
+									>
+										<FormattedMessage
+											id="app.welcome-main-3"
+											defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+										/>
+									</Typography>
+								</Grid>
+							) : null}
+							<Grid item xs={12} sm={12}>
+								<WhoServeSelector
+									label={<FormattedMessage id="app.banner" />}
+									data-test-id="who-serve-question"
 								>
-									<FormattedMessage
-										id="app.search-services"
-										defaultMessage="Find verified LGBTQ+ and immigrant-friendly services"
-									/>
-								</Typography>
+									<AsylumConnectDropdownListItem data-test-id="who-serve-answer">
+										<Typography
+											variant="body1"
+											data-test-id="banner-text-1"
+											className={[subheadingMobile, mobileGridItem].join(',')}
+										>
+											<FormattedMessage
+												id="app.banner-1-green"
+												defaultMessage="InReach is for the entire diverse LGBTQ+ community"
+												values={{
+													greenTag: (
+														<span style={{color: '#00D56C'}}>
+															<FormattedMessage id="app.banner-1" />
+														</span>
+													)
+												}}
+											/>
+											{' - '}
+											<FormattedMessage
+												id="app.banner-2"
+												defaultMessage="including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
+											/>
+										</Typography>
+									</AsylumConnectDropdownListItem>
+								</WhoServeSelector>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item className={mobileGridItem}>
 								{locale ? (
 									<SearchForm
 										{...this.props}
@@ -295,9 +345,107 @@ class SearchFormContainer extends React.Component {
 							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-			</div>
-		);
+				</div>
+			);
+		} else {
+			//not mobile, so use desktop and tablet components
+			return (
+				<div style={{position: 'relative'}}>
+					<div
+						className={subAnnouncement}
+						style={{paddingLeft: leftPadding + 'px'}}
+					>
+						<SubAnnouncement />
+					</div>
+					<Grid
+						container
+						alignItems="flex-start"
+						spacing={0}
+						className={container}
+						style={{paddingLeft: leftPadding + 'px'}}
+					>
+						<Grid item xs={12} sm={11} md={11} lg={11} xl={11}>
+							{locale ? (
+								<Grid item xs={12}>
+									<AsylumConnectBackButton
+										className={changeCountryButton}
+										color="default"
+										text={
+											<FormattedMessage id="app.choose-different-country" />
+										}
+										onClick={this.handleLocaleReset}
+									/>
+								</Grid>
+							) : null}
+							<Grid container spacing={0} className={containerSearchForm}>
+								<Grid item xs={12}>
+									<Typography
+										variant="h1"
+										className={title}
+										data-test-id="search-form-body"
+									>
+										{this.state.locale ? (
+											<FormattedMessage
+												id="app.welcome"
+												defaultMessage="Welcome to InReach"
+												values={{
+													country: fetchLocaleName(locale)
+												}}
+											/>
+										) : (
+											<>
+												<FormattedMessage
+													id="app.welcome-main-1"
+													defaultMessage="Welcome to InReach"
+												/>
+											</>
+										)}
+									</Typography>
+								</Grid>
+								<Grid item xs={12}>
+									<Typography
+										variant="h2"
+										className={subheading}
+										data-test-id="search-form-body-2"
+									>
+										{this.state.locale ? (
+											<>
+												<FormattedMessage
+													id="app.welcome-main-3"
+													defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+												/>
+											</>
+										) : (
+											<FormattedMessage
+												id="app.welcome-main-2"
+												defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+											/>
+										)}
+									</Typography>
+								</Grid>
+								<Grid item xs={12}>
+									{locale ? (
+										<SearchForm
+											{...this.props}
+											classes={null}
+											onLocaleReset={this.handleLocaleReset}
+											onLocaleSelect={this.handleLocaleSelect}
+											locale={locale}
+										/>
+									) : (
+										<LocaleForm
+											{...this.props}
+											classes={null}
+											onLocaleSelect={this.handleLocaleSelect}
+										/>
+									)}
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+				</div>
+			);
+		}
 	}
 }
 

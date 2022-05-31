@@ -51,8 +51,12 @@ class PrivacyNotice extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			display: this.shouldBeDisplayed(),
-			hiding: false
+			// uncomment this section and comment below section to turn pop-up on
+			/*display: this.shouldBeDisplayed(),
+			hiding: false,*/
+
+			display: false,
+			hiding: true
 		};
 
 		this.shouldBeDisplayed = this.shouldBeDisplayed.bind(this);

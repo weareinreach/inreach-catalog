@@ -47,6 +47,7 @@ export {default as FlagIcon} from './FlagIcon';
 export {default as FoodIcon} from './FoodIcon';
 export {default as HousingIcon} from './HousingIcon';
 export {default as InformationIcon} from './InformationIcon';
+export {default as InformationIcon24} from './InformationIcon24';
 export {default as InstagramIcon} from './InstagramIcon';
 export {default as LanguageIcon} from './LanguageIcon';
 export {default as LegalIcon} from './LegalIcon';

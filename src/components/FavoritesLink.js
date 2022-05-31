@@ -11,11 +11,17 @@ const styles = (theme) => ({
 		'&:hover': {
 			color: theme.palette.secondary[900]
 		},
+		fontSize: '14px',
 		fontWeight: theme.typography.fontWeightMedium,
-		display: 'flex',
+		lineHeight: '20px',
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		width: '82px',
+		// height: '48px',
+		'@media(max-width:972px)': {
+			fontSize: '12px'
+		}
 	}
 });
 
@@ -30,7 +36,7 @@ const FavoritesLink = ({classes, locale}) => (
 			defaultMessage="View Your Favorites"
 		>
 			{(favorites) => (
-				<Typography type="h4" className={classes.viewYourFavoritesText}>
+				<Typography variant="h4" className={classes.viewYourFavoritesText}>
 					{favorites}
 				</Typography>
 			)}
