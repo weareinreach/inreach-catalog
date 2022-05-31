@@ -103,6 +103,7 @@ const NavTablet = ({
 			<a
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
+				target="_blank"
 				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">

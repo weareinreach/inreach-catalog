@@ -125,6 +125,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						/>
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
+								target="_blank"
 								href="https://inreach.org/mobile-app"
 								className={textBlue}
 								data-test-id="download-mobile-app"
@@ -174,6 +175,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						</Grid>
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
+								target="_blank"
 								href="https://inreach.org/newsletter/"
 								className={textBlue}
 								data-test-id="footer-newsletter-subscribe"
