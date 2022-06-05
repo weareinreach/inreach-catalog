@@ -1,6 +1,6 @@
 // Dev/Staging config is the base
 const base = {
-	apiDomain: 'https://asylum-connect-api-staging.herokuapp.com',
+	apiDomain: 'https://inreach-api-staging.herokuapp.com/',
 	apiBasePath: '/v1',
 	googleAnalyticsKey: 'UA-76058112-1'
 };
@@ -11,7 +11,7 @@ const local = {
 };
 
 const prod = {
-	apiDomain: 'https://asylum-connect-api.herokuapp.com'
+	apiDomain: 'https://inreach-api.herokuapp.com'
 };
 
 const env = process.env.REACT_APP_APP_ENV;
