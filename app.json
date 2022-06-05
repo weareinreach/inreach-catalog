@@ -1,7 +1,7 @@
 {
   "name": "InReach Catalog",
   "description": "The updated InReach Catalog",
-  "repository": "https://github.com/asylum-connect/asylumconnect-catalog",
+  "repository": "https://github.com/asylum-connect/inreach-catalog",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
   "keywords": ["node", "react", "heroku"],
   "image": "heroku/nodejs"
