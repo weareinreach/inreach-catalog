@@ -258,7 +258,7 @@ const DetailAccessInstructions = (props) => {
 											<strong className={classes.boldFont}>
 												{item.access_value}:{' '}
 											</strong>{' '}
-											item.instructions
+											{item.instructions}
 										</Typography>
 									);
 							}
