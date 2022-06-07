@@ -22,62 +22,66 @@ function testNavigationBarDesktop(viewport, user) {
 	});
 	cy.getElementByTestId('nav-button-about').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/mission/');
+		expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 		expect($element.children()).contain('About Us');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/mission/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/mission/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/mission/');
-		});
+		});*/
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-take-action').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/donate/');
+		expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 		expect($element.children()).contain('Take Action');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/donate/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/donate/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/donate/');
-		});
+		});*/
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-get-help').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/faqs/');
-		expect($element.children()).contain('Get Help');
+		expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
+		expect($element.children()).contain('Questions?');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/faqs/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/faqs/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/faqs/');
-		});
+		})*/;
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-contact').then(($element) => {
 		expect($element).to.be.visible;
-		expect($element).to.have.attr('href', 'https://asylumconnect.org/contact/');
+		expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 		expect($element.children()).contain('Contact Us');
 		//click
-		cy.wrap($element).click();
+		//uncomment once inreach is live
+		/*cy.wrap($element).click();
 		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://asylumconnect.org/contact/');
-			expect(loc.hostname).to.be.eq('asylumconnect.org');
+			expect(loc.href).to.be.eq('https://inreach.org/contact/');
+			expect(loc.hostname).to.be.eq('inreach.org');
 			expect(loc.pathname).to.be.eq('/contact/');
-		});
+		});*/
 		//go back
-		cy.go('back');
+		// cy.go('back');
 	});
 
 	cy.getElementByTestId('nav-button-safety-exit').then(($element) => {
@@ -105,8 +109,8 @@ function testNavigationBarDesktop(viewport, user) {
 	});
     cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
-    cy.getElementByTestId('nav-button-view-favorites').then(($element) => {
-		expect($element).to.be.visible;
+    cy.getElementByTestId('nav-button-view-favorites').should('exist').then(($element) => {
+		expect($element).to.have.attr('class', 'hide--on-print');
 		expect($element).to.have.attr('href', '/en_US/favorites');
 		expect($element.children()).contain('View Your Favorites');
 		cy.wrap($element).click();
@@ -117,137 +121,26 @@ function testNavigationBarDesktop(viewport, user) {
 		});
 	});
 }
-
+//using special viewport size until app breakpoints are cleaned up 
+//and more unit tests are created to account for the new breakpoints
 function testNavigationBarTablet(viewport, user) {
-	cy.viewport(viewport);
-	cy.getElementByTestId('tablet-nav-button-icon-image').should('be.visible');
+	cy.viewport(960, 1024);
+	cy.getElementByTestId('nav-button-logo').should('be.visible');
 
-	cy.getElementByTestId('tablet-nav-button-icon').then(($element) => {
-		expect($element).to.be.visible;
-		expect($element).to.have.attr('aria-haspopup', 'true');
-		cy.wrap($element)
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-button').then(($element) => {
-					expect($element).to.be.visible;
-					expect($element).to.have.attr('id', 'simple-menu');
-				});
-				cy.reload();
+	cy.getElementByTestId('nav-button-safety-exit').then(
+		($element) => {
+			expect($element).to.have.attr('href', 'https://www.google.com/');
+			//click
+			cy.wrap($element).click();
+			cy.location().should((loc) => {
+				expect(loc.href).to.be.eq('https://www.google.com/');
+				expect(loc.hostname).to.be.eq('www.google.com');
 			});
-		//Menu Items
+			cy.go('back');
+    		cy.viewport(960, 1024);
+		}
+	);
 
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-home').then(($element) => {
-					expect($element).to.have.attr('href', 'https://asylumconnect.org');
-					//click
-					cy.wrap($element).click();
-					cy.location().should((loc) => {
-						expect(loc.href).to.be.eq('https://asylumconnect.org/');
-						expect(loc.hostname).to.be.eq('asylumconnect.org');
-					});
-					cy.goBackAndSwitchToViewport('ipad-2');
-				});
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-about').then(($element) => {
-					expect($element).to.have.attr(
-						'href',
-						'https://asylumconnect.org/mission/'
-					);
-					//click
-					cy.wrap($element).click();
-					cy.location().should((loc) => {
-						expect(loc.href).to.be.eq('https://asylumconnect.org/mission/');
-						expect(loc.hostname).to.be.eq('asylumconnect.org');
-						expect(loc.pathname).to.be.eq('/mission/');
-					});
-					cy.goBackAndSwitchToViewport('ipad-2');
-				});
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-take-action').then(
-					($element) => {
-						expect($element).to.have.attr(
-							'href',
-							'https://asylumconnect.org/donate/'
-						);
-						//click
-						cy.wrap($element).click();
-						cy.location().should((loc) => {
-							expect(loc.href).to.be.eq('https://asylumconnect.org/donate/');
-							expect(loc.hostname).to.be.eq('asylumconnect.org');
-							expect(loc.pathname).to.be.eq('/donate/');
-						});
-						cy.goBackAndSwitchToViewport('ipad-2');
-					}
-				);
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
-					expect($element).to.have.attr(
-						'href',
-						'https://asylumconnect.org/faqs/'
-					);
-					//click
-					cy.wrap($element).click();
-					cy.location().should((loc) => {
-						expect(loc.href).to.be.eq('https://asylumconnect.org/faqs/');
-						expect(loc.hostname).to.be.eq('asylumconnect.org');
-						expect(loc.pathname).to.be.eq('/faqs/');
-					});
-					cy.goBackAndSwitchToViewport('ipad-2');
-				});
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-contact').then(
-					($element) => {
-						expect($element).to.have.attr(
-							'href',
-							'https://asylumconnect.org/contact/'
-						);
-						//click
-						cy.wrap($element).click();
-						cy.location().should((loc) => {
-							expect(loc.href).to.be.eq('https://asylumconnect.org/contact/');
-							expect(loc.hostname).to.be.eq('asylumconnect.org');
-							expect(loc.pathname).to.be.eq('/contact/');
-						});
-						cy.goBackAndSwitchToViewport('ipad-2');
-					}
-				);
-			});
-
-		cy.getElementByTestId('tablet-nav-button-icon')
-			.click()
-			.then(() => {
-				cy.getElementByTestId('tablet-nav-menu-item-safety-exit').then(
-					($element) => {
-						expect($element).to.have.attr('href', 'https://www.google.com/');
-						//click
-						cy.wrap($element).click();
-						cy.location().should((loc) => {
-							expect(loc.href).to.be.eq('https://www.google.com/');
-							expect(loc.hostname).to.be.eq('www.google.com');
-						});
-						cy.goBackAndSwitchToViewport('ipad-2');
-					}
-				);
-			});
-	});
 	cy.getElementByTestId('nav-button-language').should('be.visible');
 	cy.getElementByTestId('nav-account-sign-in').then(($element) => {
 		expect($element).to.be.visible;
@@ -261,15 +154,122 @@ function testNavigationBarTablet(viewport, user) {
 
 	cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
-    cy.getElementByTestId('nav-button-view-favorites').then(($element) => {
+
+    //account menu drop down when logged in - favorites
+	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
+		cy.wrap($element).click();
+		cy.getElementByTestId('nav-button-view-favorites').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('href', '/en_US/favorites');
 		expect($element.children()).contain('View Your Favorites');
 		cy.wrap($element).click();
-		cy.location((loc) => {
-			expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/favorites');
-			expect(loc.hostname).to.be.eq('localhost:3000');
-			expect(loc.pathname).to.be.eq('/en_US/favorites');
+			cy.location((loc) => {
+				expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/favorites');
+				expect(loc.hostname).to.be.eq('localhost:3000');
+				expect(loc.pathname).to.be.eq('/en_US/favorites');
+			});
+		});
+	});
+   
+   //account menu drop down when logged in - account settings
+	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
+		cy.wrap($element).click();
+		cy.getElementByTestId('nav-account-account-settings').then(($element) => {
+		expect($element).to.be.visible;
+		expect($element).to.have.attr('href', '/en_US/account');
+		expect($element.children()).contain('Account Settings');
+		cy.wrap($element).click();
+			cy.location((loc) => {
+				expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/account');
+				expect(loc.hostname).to.be.eq('localhost:3000');
+				expect(loc.pathname).to.be.eq('/en_US/account');
+			});
+		});
+	});
+
+	//account menu drop down when logged in - sign out
+	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
+		cy.wrap($element).click();
+		cy.getElementByTestId('nav-account-sign-out').then(($element) => {
+		expect($element).to.be.visible;
+		expect($element).to.have.attr('href', '/');
+		expect($element.children()).contain('Sign Out');
+		cy.wrap($element).click();
+			cy.location((loc) => {
+				expect(loc.href).to.be.eq(cypress.env('baseUrl'));
+				expect(loc.hostname).to.be.eq('localhost:3000');
+				expect(loc.pathname).to.be.eq('');
+			});
+		});
+	});
+
+	//tablet menu dropdown
+	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
+		cy.wrap($element[0]).click();
+		//look for the drop down options
+		cy.getElementByTestId('tablet-nav-menu-item-about').then(($element) => {
+			expect($element).to.be.visible;
+			expect($element).to.have.attr('href', 'https://inreach.org/mission/');
+			expect($element.children()).contain('About Us');
+			cy.wrap($element).click();
+				cy.location().should((loc) => {
+					expect(loc.href).to.be.eq('https://inreach.org/mission/');
+					expect(loc.hostname).to.be.eq('inreach.org');
+					expect(loc.pathname).to.be.eq('/mission/');
+				});
+				cy.go('back');
+	    		cy.viewport(960, 1024);
+		});
+	});
+	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
+		cy.wrap($element[0]).click();
+		//look for the drop down options
+		cy.getElementByTestId('tablet-nav-menu-item-take-action').then(($element) => {
+			expect($element).to.be.visible;
+			expect($element).to.have.attr('href', 'https://inreach.org/donate/');
+			expect($element.children()).contain('Take Action');
+			cy.wrap($element).click();
+				cy.location().should((loc) => {
+					expect(loc.href).to.be.eq('https://inreach.org/donate/');
+					expect(loc.hostname).to.be.eq('inreach.org');
+					expect(loc.pathname).to.be.eq('/donate/');
+				});
+				cy.go('back');
+	    		cy.viewport(960, 1024);
+		});
+	});
+	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
+		cy.wrap($element[0]).click();
+		//look for the drop down options
+		cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
+			expect($element).to.be.visible;
+			expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
+			expect($element.children()).contain('Questions?');
+			cy.wrap($element).click();
+				cy.location().should((loc) => {
+					expect(loc.href).to.be.eq('https://inreach.org/faqs/');
+					expect(loc.hostname).to.be.eq('inreach.org');
+					expect(loc.pathname).to.be.eq('/faqs/');
+				});
+				cy.go('back');
+	    		cy.viewport(960, 1024);
+		});
+	});
+	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
+		cy.wrap($element[0]).click();
+		//look for the drop down options
+		cy.getElementByTestId('tablet-nav-menu-item-contact').then(($element) => {
+			expect($element).to.be.visible;
+			expect($element).to.have.attr('href', 'https://inreach.org/contact/');
+			expect($element.children()).contain('Contact Us');
+			cy.wrap($element).click();
+				cy.location().should((loc) => {
+					expect(loc.href).to.be.eq('https://inreach.org/contact/');
+					expect(loc.hostname).to.be.eq('inreach.org');
+					expect(loc.pathname).to.be.eq('/contact/');
+				});
+				cy.go('back');
+	    		cy.viewport(960, 1024);
 		});
 	});
 }
@@ -286,6 +286,7 @@ function testNavigationBarMobile() {
 			expect(loc.hostname).to.be.eq('localhost:3000');
 		});
 	});
+
     cy.getElementByTestId('mobile-nav-button-favorites').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('type', 'button');

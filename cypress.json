@@ -9,11 +9,8 @@
 		"html": true,
 		"json": true
 	},
-	"retries":{
-        "runMode":2,
-        "openMode":1
-    },
+	"retries":1,
     "defaultCommandTimeout":4000,
-    "waitForAnimations":false,
+    "waitForAnimations":true,
 	"projectId":"xq2qjw"
 }

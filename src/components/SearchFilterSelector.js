@@ -10,7 +10,13 @@ import {selectInput} from '../theme';
 const styles = (theme) => ({
 	selectInput: Object.assign(selectInput(theme), {
 		cursor: 'pointer',
-		position: 'relative'
+		position: 'relative',
+		boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+		marginBottom: '0',
+		// width: '110px',
+		height: '48px',
+		padding: '13px',
+		color: theme.palette.signUp[600]
 	}),
 	filterList: {
 		padding: '2rem',
@@ -36,7 +42,10 @@ class SearchFilterSelector extends React.Component {
 				containerClass={selectInput}
 				listContainerClass={filterList}
 			>
-				<SearchFilters selectedFilters={selectedFilters} onChange={onChange} />
+				<SearchFilters
+					selectedFilters={selectedFilters}
+					onChange={this.props.onChange}
+				/>
 			</AsylumConnectSelector>
 		);
 	}

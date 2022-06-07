@@ -8,6 +8,7 @@ import {IntlProvider, FormattedMessage, FormattedNumber} from 'react-intl';
 import './App.scss';
 import AccountMobile from './components/AccountMobile';
 import Announcement from './components/Announcement';
+import BottomBanner from './components/BottomBanner';
 import AsylumConnectDialog from './components/AsylumConnectDialog';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -26,11 +27,11 @@ import DeleteListMobile from './components/DeleteListMobile';
 import ThankYouMobile from './components/ThankYouMobile';
 
 import withWidth from './components/withWidth';
-import LogoImg from './images/logo@2x.png';
-import LogoImgMobile from './images/logo-mobile@3x.png';
-import LogoImgCA from './images/logo-ca@2x.png';
-import LogoImgMXMobile from './images/logo-mx@2x.png';
-import LogoImgMX from './images/logo-mx.png';
+import LogoImg from './images/logoInReach.png';
+import LogoImgMobile from './images/logo3x.png';
+import LogoImgCA from './images/logoInReach.png';
+import LogoImgMXMobile from './images/logo2x.png';
+import LogoImgMX from './images/logoInReach.png';
 import {breakpoints} from './theme';
 import {fetchUser} from './utils/api';
 import {
@@ -266,12 +267,360 @@ class AppConnectCatalog extends React.Component {
 
 	render() {
 		return (
-			<Route
-				from="/*"
-				component={() => {
-					window.location.href = 'https://app.inreach.org';
-				}}
-			/>
+			<IntlProvider
+				messages={LanguageMap[locale]}
+				locale={
+					locale !== 'intl'
+						? `${locale.split('_')[0]}-${locale.split('_')[1]}`
+						: 'en'
+				}
+				defaultLocale="en-US"
+			>
+				<div className={classes.container}>
+					<Header
+						handleLogOut={this.handleLogOut}
+						handleRequestOpen={this.handleRequestOpen}
+						session={session}
+						location={location}
+						history={history}
+						match={match}
+						locale={locale}
+						logo={logo}
+					/>
+					{isMobile ? (
+						dialog ? (
+							<div
+								className={classNames(classes.overflowY, classes.mobileScroll)}
+							>
+								{isDialogDisclaimerOrPrivacy && (
+									<PrivacyMobile
+										tab={dialog === 'privacy' ? 0 : 1}
+										handleRequestOpen={this.handleRequestOpen}
+									/>
+								)}
+								{isDialogMore && (
+									<MoreMobile
+										dialog={dialog}
+										handleRequestOpen={this.handleRequestOpen}
+										handleRequestClose={this.handleRequestClose}
+										history={history}
+									/>
+								)}
+								{isDialogForgotLoginSignUp && (
+									<AccountMobile
+										dialog={dialog}
+										tab={dialog === 'signup' ? 1 : 0}
+										handleLogIn={this.handleLogIn}
+										handleMessageNew={this.handleMessageNew}
+										handleRequestClose={this.handleRequestClose}
+										handleRequestOpen={this.handleRequestOpen}
+										session={session}
+										userData={userData}
+									/>
+								)}
+								{isDialogPassword && (
+									<PasswordMobile
+										dialog={dialog}
+										handleLogIn={this.handleLogIn}
+										handleMessageNew={this.handleMessageNew}
+										handleRequestClose={this.handleRequestClose}
+										handleRequestOpen={this.handleRequestOpen}
+										handleConfirmSession={this.handleConfirmSession}
+										session={session}
+									/>
+								)}
+								{isDialogThankYou && (
+									<ThankYouMobile
+										history={history}
+										locale={locale}
+										handleRequestClose={this.handleRequestClose}
+									/>
+								)}
+								{dialogHasShare && (
+									<ShareMobile
+										dialog={dialog}
+										handleLogIn={this.handleLogIn}
+										handleMessageNew={this.handleMessageNew}
+										handleRequestClose={this.handleRequestClose}
+										handleRequestOpen={this.handleRequestOpen}
+										session={session}
+										user={user}
+									/>
+								)}
+								{dialogHasDeleteList && (
+									<DeleteListMobile
+										dialog={dialog}
+										handleLogIn={this.handleLogIn}
+										handleFetchUser={this.handleFetchUser}
+										handleMessageNew={this.handleMessageNew}
+										handleRequestClose={this.handleRequestClose}
+										handleRequestOpen={this.handleRequestOpen}
+										session={session}
+										user={user}
+										history={history}
+										locale={locale}
+										listId={dialog.split('/')[1]}
+										listTitle={dialog.split('/')[2]}
+										listVisibility={dialog.split('/')[3]}
+									/>
+								)}
+								{dialogHasListNew && (
+									<ListNewMobile
+										dialog={dialog}
+										handleListNew={this.handleListNew}
+										handleLogIn={this.handleLogIn}
+										handleMessageNew={this.handleMessageNew}
+										handleRequestClose={this.handleRequestClose}
+										handleRequestOpen={this.handleRequestOpen}
+										locale={locale}
+										session={session}
+										user={user}
+										userData={userData}
+									/>
+								)}
+								{isDialogLanguage && (
+									<Language
+										handleRequestOpen={this.handleRequestOpen}
+										history={history}
+									/>
+								)}
+							</div>
+						) : null
+					) : (
+						<>
+							<Announcement handleRequestOpen={this.handleRequestOpen} />
+							<AsylumConnectDialog
+								locale={locale}
+								dialog={dialog}
+								handleConfirmSession={this.handleConfirmSession}
+								handleListNew={this.handleListNew}
+								handleFetchUser={this.handleFetchUser}
+								handleLogIn={this.handleLogIn}
+								handleLogOut={this.handleLogOut}
+								handleMessageNew={this.handleMessageNew}
+								handleRequestClose={this.handleRequestClose}
+								handleRequestOpen={this.handleRequestOpen}
+								history={history}
+								session={session}
+								user={user}
+								userData={userData}
+							/>
+						</>
+					)}
+					{onMobieShowPage || !isMobile ? (
+						<div
+							id="container--main"
+							className={classNames('content', classes.navPadding)}
+						>
+							<Switch>
+								<Route
+									path="/:locale/search/name/:name/:sort"
+									render={(props) => (
+										<MapPage
+											{...props}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<Route
+									path="/:locale/search/name"
+									render={(props) => (
+										<MapPage
+											{...props}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<Route
+									path="/:locale/resource/:id/service/:serviceId"
+									render={(props) => (
+										<MapPage
+											{...props}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<Route
+									path="/:locale/resource/:id"
+									render={(props) => (
+										<MapPage
+											{...props}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<Route
+									exact
+									path="/"
+									render={(props) => (
+										<MapPage
+											{...props}
+											changeLocale={changeLocale}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											logo={logo}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<Route
+									path="/:locale/search/:in/:place/:near/:national/:for/:filter/:sort"
+									render={(props) => (
+										<MapPage
+											{...props}
+											country={country}
+											handleAddressChange={this.handleAddressChange}
+											handleFavoriteUpdate={this.handleFavoriteUpdate}
+											handleListRemoveFavorite={this.handleListRemoveFavorite}
+											handleListNew={this.handleListNew}
+											handleFetchUser={this.handleFetchUser}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											lists={lists}
+											locale={locale}
+											logo={logo}
+											nearAddress={nearAddress}
+											session={session}
+											t={t}
+											user={user}
+											userData={userData}
+										/>
+									)}
+								/>
+								<RedirectWithParams
+									from={
+										'/:locale/search/:in/:place/:near/:national/:for/:filter'
+									}
+									to={'/search/:in/:place/:near/:national/:for/:filter/default'}
+								/>
+								<RedirectWithParams
+									from={'/:locale/search/:in/:place/:near/:national/:for'}
+									to={'/search/:in/:place/:near/:national/:for/all/default'}
+								/>
+								<RedirectWithParams
+									from={'/:locale/search/:in/:place/:near/:national/'}
+									to={'/search/:in/:place/:near/:national/any/all/default'}
+								/>
+								<RedirectWithParams
+									from={'/:locale/search/:in/:place/:near/:national/'}
+									to={'/search/:in/:place/:near/:national/any/all/default'}
+								/>
+								<Redirect from="/:locale/search" to="/" />
+								<Redirect from="/:locale/resource" to="/" />
+								<Redirect from="/:locale/resource/:id/service" to="/" />
+								<Route
+									render={(props) => (
+										<PageContainer
+											{...this.state}
+											{...this.props}
+											{...props}
+											session={session}
+											sessionConfirmed={sessionConfirmed}
+											handleLogOut={this.handleLogOut}
+											handleMessageNew={this.handleMessageNew}
+											handleRequestOpen={this.handleRequestOpen}
+											handleUnconfirmSession={this.handleUnconfirmSession}
+											logo={logo}
+											t={t}
+										/>
+									)}
+								/>
+							</Switch>
+						</div>
+					) : null}
+					{isMobile ? (
+						<PrivacyNotice
+							locale={locale}
+							handleRequestOpen={this.handleRequestOpen}
+						/>
+					) : (
+						<div>
+							<BottomBanner />
+							<Footer
+								locale={locale}
+								handleRequestOpen={this.handleRequestOpen}
+							/>
+						</div>
+					)}
+					<Message
+						handleMessageClose={this.handleMessageClose}
+						message={message}
+						open={messageOpen}
+					/>
+				</div>
+			</IntlProvider>
 		);
 	}
 }

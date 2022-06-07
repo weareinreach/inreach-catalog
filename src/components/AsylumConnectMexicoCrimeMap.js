@@ -21,11 +21,11 @@ const AsylumConnectMexicoCrimeMap = ({classes}) => {
 	const strokeColor = '#F2D0D0';
 	const getColor = (value) => {
 		if (value <= 15) {
-			return '#F2D0D0';
+			return '#F4C0C6';
 		} else if (value >= 16 && value < 31) {
-			return '#CC4747';
+			return '#DB2C40';
 		} else {
-			return '#991F1F';
+			return '#831A26';
 		}
 	};
 	return generalizedCrime.map(({name, data, lat, lng, coordinates}) => {

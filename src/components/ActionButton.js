@@ -17,7 +17,7 @@ const styles = (theme) => ({
 	},
 	primary: {
 		fontSize: '3rem',
-		color: '#5073B3',
+		color: '#00D56C',
 		fontWeight: 'unset',
 		top: 'unset',
 		right: '27px'

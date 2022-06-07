@@ -7,26 +7,34 @@ import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
 	accountNav: {
-		display: 'flex',
-		flex: '0 0 200px'
+		width: 'auto'
 	},
 	root: {
-		display: 'flex',
-		padding: '0 5px 0'
-	},
-	accountLinks: {
-		padding: '5px 10px'
-	},
-	divider: {
-		borderRight: '1px solid',
-		borderColor: theme.palette.text.divider
+		display: 'flex'
 	},
 	lowercaseText: {
 		textTransform: 'capitalize',
-		cursor: 'pointer'
+		cursor: 'pointer',
+		width: '66px',
+		fontWeight: theme.typography.fontWeightMedium,
+		fontSize: '16px',
+		lineHeight: '24px',
+		'@media(max-width:972px)': {
+			fontSize: '12px'
+		}
 	},
 	cursor: {
 		cursor: 'pointer'
+	},
+	line: {
+		border: '0.5px solid #1D1F23',
+		margin: '0 16px'
+	},
+	signInUp: {
+		width: 'fit-content'
+	},
+	signOut: {
+		width: '35px'
 	}
 });
 
@@ -41,7 +49,6 @@ const AccountNav = ({
 		{session && (
 			<div className={classes.root}>
 				<Link
-					className={[classes.divider, classes.accountLinks].join(' ')}
 					to={'/' + locale + '/account'}
 					data-test-id="nav-account-account-settings"
 				>
@@ -53,13 +60,12 @@ const AccountNav = ({
 						/>
 					</Typography>
 				</Link>
-				<Link
-					to="/"
-					className={classes.accountLinks}
-					onClick={handleLogOut}
-					data-test-id="nav-account-sign-out"
-				>
-					<Typography type="body1" className={classes.lowercaseText}>
+				<div className={classes.line} />
+				<Link to="/" onClick={handleLogOut} data-test-id="nav-account-sign-out">
+					<Typography
+						type="body1"
+						className={[classes.lowercaseText, classes.signOut].join(' ')}
+					>
 						<FormattedMessage
 							id="account.sign-out"
 							description="Account sign out text"
@@ -69,19 +75,17 @@ const AccountNav = ({
 				</Link>
 			</div>
 		)}
-
 		{!session && (
 			<div className={classes.root}>
 				<a
-					className={[
-						classes.divider,
-						classes.accountLinks,
-						classes.cursor
-					].join(' ')}
+					className={classes.cursor}
 					data-test-id="nav-account-sign-in"
 					onClick={() => handleRequestOpen('login')}
 				>
-					<Typography type="body1" className={classes.lowercaseText}>
+					<Typography
+						type="body1"
+						className={[classes.lowercaseText, classes.signInUp].join(' ')}
+					>
 						<FormattedMessage
 							id="account.sign-in"
 							description="Account sign in text"
@@ -89,12 +93,16 @@ const AccountNav = ({
 						/>
 					</Typography>
 				</a>
+				<div className={classes.line} />
 				<a
-					className={[classes.accountLinks, classes.cursor].join(' ')}
+					className={classes.cursor}
 					onClick={() => handleRequestOpen('signup')}
 					data-test-id="nav-account-sign-up"
 				>
-					<Typography type="body1" className={classes.lowercaseText}>
+					<Typography
+						type="body1"
+						className={[classes.lowercaseText, classes.signInUp].join(' ')}
+					>
 						<FormattedMessage
 							id="account.sign-up"
 							description="Account sign up text"

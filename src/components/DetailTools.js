@@ -145,7 +145,7 @@ const Tools = (props) => {
 							bottom: 'auto',
 							width: '40%',
 							padding: 0,
-							fontFamily: '"Open Sans", sans-serif',
+							fontFamily: '"Inter", sans-serif',
 							background: '#FFFFFF'
 						}
 					}}

@@ -32,7 +32,7 @@ const styles = (theme) => ({
 		lineHeight: '1.6',
 		fontSize: 13,
 		fontWeight: 700,
-		fontFamily: '"Open Sans", sans-serif',
+		fontFamily: '"Inter", sans-serif',
 		color: theme.palette.common.lightBlack,
 		display: 'flex',
 		flexDirection: 'row',

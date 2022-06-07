@@ -294,6 +294,14 @@ class SearchResultsContainer extends React.Component {
 			? halfBottomMargin
 			: fullBottomMargin;
 		const isMobile = this.props.width < breakpoints['sm'];
+
+		let leftPadding = '';
+		if (this.props.width > 1364) {
+			leftPadding = Math.abs(32 + (this.props.width - 1364) / 2);
+		} else {
+			leftPadding = Math.abs((this.props.width * 0.06) / 2);
+		}
+
 		return (
 			<Grid
 				container
@@ -305,12 +313,20 @@ class SearchResultsContainer extends React.Component {
 				className={container}
 				id="container--search"
 			>
-				<Grid item xs={12} sm={11} md={10} lg={10} xl={11}>
+				<Grid
+					item
+					xs={12}
+					sm={11}
+					md={10}
+					lg={10}
+					xl={11}
+					style={!isMobile ? {paddingLeft: leftPadding + 'px'} : null}
+				>
 					<div className={containerSearchForm + ' no-background'}>
 						{isMobile ? (
 							<div className={backButton}>
 								<AsylumConnectBackButton
-									color="secondary"
+									color="primary"
 									onClick={() => {
 										this.props.history.push('/');
 									}}

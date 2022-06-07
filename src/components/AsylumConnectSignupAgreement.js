@@ -45,7 +45,7 @@ const AsylumConnectSignupAgreement = (props) => {
 			<FormattedMessage id="legal.privacy-policy">
 				{(privacy) => (
 					<a
-						href="https://asylumconnect.org/privacy"
+						href="https://inreach.org/privacy/"
 						rel="noopener noreferrer"
 						target="_blank"
 						data-test-id="sign-up-form-privacy-link"
@@ -58,7 +58,7 @@ const AsylumConnectSignupAgreement = (props) => {
 			<FormattedMessage id="legal.terms-of-use">
 				{(terms) => (
 					<a
-						href="https://asylumconnect.org/terms-of-use"
+						href="https://inreach.org/terms-of-use/"
 						rel="noopener noreferrer"
 						target="_blank"
 						data-test-id="sign-up-form-terms-link"

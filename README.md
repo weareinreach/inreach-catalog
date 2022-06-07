@@ -1,4 +1,4 @@
-# Asylum Connect Catalog
+# InReach Catalog
 
 [![Build Status](https://travis-ci.org/asylum-connect/asylumconnect-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/asylumconnect-catalog)
 

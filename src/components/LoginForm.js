@@ -80,7 +80,7 @@ const LoginForm = ({
 			<FormattedMessage id="legal.privacy-policy">
 				{(privacy) => (
 					<a
-						href="https://asylumconnect.org/privacy"
+						href="https://inreach.org/privacy/"
 						rel="noopener noreferrer"
 						target="_blank"
 						data-test-id="log-in-dialog-container-privacy"
@@ -93,7 +93,7 @@ const LoginForm = ({
 			<FormattedMessage id="legal.terms-of-use">
 				{(terms) => (
 					<a
-						href="https://asylumconnect.org/terms-of-use"
+						href="https://inreach.org/terms-of-use/"
 						rel="noopener noreferrer"
 						target="_blank"
 						data-test-id="log-in-dialog-container-terms-of-use"
@@ -106,7 +106,7 @@ const LoginForm = ({
 		<FormattedMessage id="account.sign-in">
 			{(signIn) => (
 				<AsylumConnectButton
-					variant="primary"
+					variant="signUp"
 					testIdName="log-in-dialog-container-sign-in-button"
 				>
 					{signIn}

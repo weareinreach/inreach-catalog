@@ -51,9 +51,9 @@ const styles = (theme) => ({
 		marginLeft: '10%',
 		marginRight: '10%'
 	},
-	blueBar: {
+	greenBar: {
 		height: '7px',
-		backgroundColor: '#5073B3',
+		backgroundColor: '#00D56C',
 		marginBottom: `${theme.spacing(3)}px`
 	}
 });
@@ -86,7 +86,7 @@ const ThankYouMobile = (props) => {
 					}
 				}}
 			>
-				<div className={classes.blueBar} />
+				<div className={classes.greenBar} />
 				<DialogTitle data-test-id="thank-you-header">
 					<FormattedMessage id="app.thank-you-heading" />
 				</DialogTitle>

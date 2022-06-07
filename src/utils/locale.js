@@ -9,8 +9,8 @@ const enCA = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States AsylumConnect Catalog!':
-		'Welcome to the Canada AsylumConnect Catalog!',
+	'Welcome to the United States InReach App!':
+		'Welcome to the Canada InReach App!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in the Canada',
 	'Physical evaluations for asylum claim':
@@ -33,8 +33,8 @@ const enMX = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States AsylumConnect Catalog!':
-		'Welcome to the Mexico AsylumConnect Catalog!',
+	'Welcome to the United States InReach App!':
+		'Welcome to the Mexico InReach App!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in Mexico',
 	'Physical evaluations for asylum claim':
@@ -58,8 +58,8 @@ const enMX = {
 	'LGBTQ centers': 'LGBTQ centres',
 	'Cultural centers': 'Cultural centres',
 	'Drop-in centers for LGBTQ youth': 'Drop-in centres for LGBTQ youth',
-	'Welcome to the United States AsylumConnect Catalog!':
-		'Welcome to the Mexico AsylumConnect Catalog!',
+	'Welcome to the United States InReach App!':
+		'Welcome to the Mexico InReach App!',
 	'Show me national organizations who can help anyone located in the United States':
 		'Show me national organizations who can help anyone located in Mexico',
 	'Physical evaluations for asylum claim':
@@ -111,4 +111,19 @@ export const localeTagMap = {
 	en_MX: 'mexico',
 	en_US: 'united_states',
 	es_MX: 'mexico'
+};
+
+const supportedLocales = [
+	{name: '🇨🇦 Canada', code: 'en_CA'},
+	{name: '🇲🇽 Mexico', code: 'en_MX'},
+	{name: '🇺🇸 United States', code: 'en_US'},
+	{name: '🌎 Other / Travel Support', code: 'intl'}
+];
+
+export const fetchLocaleName = (locale) => {
+	for (var locale1 of supportedLocales) {
+		if (locale1['code'] === locale) {
+			return locale1['name'];
+		}
+	}
 };
