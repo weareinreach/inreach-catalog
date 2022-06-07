@@ -266,74 +266,6 @@ class AppConnectCatalog extends React.Component {
 	}
 
 	render() {
-		const {classes, history, location, match, width} = this.props;
-		const {
-			country,
-			dialog,
-			lists,
-			locale,
-			message,
-			messageOpen,
-			nearAddress,
-			session,
-			sessionConfirmed,
-			user,
-			userData
-		} = this.state;
-		const t = this.translate;
-		const changeLocale = this.changeLocale;
-		const isMobile = width < breakpoints['sm'];
-		let logo;
-		let messages;
-
-		switch (locale) {
-			case 'en_MX':
-				logo = isMobile ? LogoImgMXMobile : LogoImgMX;
-				break;
-			case 'en_CA':
-				logo = isMobile ? LogoImgMobile : LogoImgCA;
-				break;
-			default:
-				logo = isMobile ? LogoImgMobile : LogoImg;
-				break;
-		}
-
-		const isDialogDisclaimerOrPrivacy = ['disclaimer', 'privacy'].includes(
-			dialog
-		);
-		const isDialogForgotLoginSignUp = ['forgot', 'login', 'signup'].includes(
-			dialog
-		);
-		const isDialogThankYou = ['thankyou'].includes(dialog);
-		const isDialogLanguage = ['language'].includes(dialog);
-		const isDialogMore = ['more'].includes(dialog);
-		const isDialogPassword = ['password'].includes(dialog);
-		const dialogHasShare =
-			dialog &&
-			dialog.indexOf('share') >= 0 &&
-			dialog.indexOf('deleteList') < 0;
-		const dialogHasDeleteList = dialog && dialog.indexOf('deleteList') >= 0;
-		const dialogHasListNew = dialog && dialog.indexOf('listNew') >= 0;
-		const onMobieShowPage =
-			isMobile &&
-			![
-				'disclaimer',
-				'privacy',
-				'forgot',
-				'login',
-				'signup',
-				'language',
-				'password',
-				'more'
-			].includes(dialog) &&
-			(!dialog ||
-				(dialog.indexOf('share') === -1 &&
-					dialog.indexOf('listNew') === -1 &&
-					dialog.indexOf('deleteList') === -1));
-		if (session && !user) {
-			this.handleFetchUser(session);
-		}
-
 		return (
 			<IntlProvider
 				messages={LanguageMap[locale]}
@@ -692,7 +624,6 @@ class AppConnectCatalog extends React.Component {
 		);
 	}
 }
-
 AppConnectCatalog.propTypes = {
 	user: PropTypes.string,
 	width: PropTypes.number.isRequired
