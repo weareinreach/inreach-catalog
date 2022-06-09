@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - feature/1202038362671379/catalogRrebranding
+      - main
 
 jobs:
   build:
@@ -13,5 +13,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "asylum-connect-catalog-rebrand" #Must be unique in Heroku
+          heroku_app_name: "inreach-catalog" #Must be unique in Heroku
           heroku_email: "workdev.moreira@gmail.com"
