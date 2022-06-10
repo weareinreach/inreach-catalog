@@ -394,8 +394,6 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
         expect($element).to.be.disabled;
     });
 
-
-
     cy.getElementByTestId('suggest-page-name').children().then($element=>{
         cy.wrap($element[1]).type(org.name)
     });
