@@ -25,6 +25,8 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('About Us');
+		//click
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-take-action').then(($element) => {
@@ -32,6 +34,9 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Take Action');
+		//click
+		//uncomment once inreach is live
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-get-help').then(($element) => {
@@ -39,6 +44,9 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Questions?');
+		//click
+		//uncomment once inreach is live
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-contact').then(($element) => {
@@ -46,6 +54,9 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Contact Us');
+		//click
+		//uncomment once inreach is live
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-safety-exit').then(($element) => {
@@ -53,6 +64,8 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://www.google.com/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Safety Exit');
+		//click
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-language').should('be.visible');
@@ -89,6 +102,8 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://www.google.com/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Safety Exit');
+			//click
+			cy.wrap($element).click();
 		}
 	);
 
@@ -163,6 +178,7 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('About Us');
+			cy.wrap($element).click();
 		});
 		cy.wrap($element[0]).click();
 	});
@@ -174,6 +190,7 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Take Action');
+			cy.wrap($element).click();
 		});
 		cy.wrap($element[0]).click();
 	});
@@ -185,6 +202,7 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Questions?');
+			cy.wrap($element).click();
 		});
 		cy.wrap($element[0]).click();
 	});
@@ -196,6 +214,7 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Contact Us');
+			cy.wrap($element).click();
 		});
 		cy.wrap($element[0]).click();
 	});

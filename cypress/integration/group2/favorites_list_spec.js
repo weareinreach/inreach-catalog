@@ -38,14 +38,12 @@ describe('Favorites List Tests', () => {
                 it(`Favorites Components logged in`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesComponents(viewport,user);
-                    });
-                    
+                    });  
                 });
                 it(`Favorites List Components logged in`,()=>{
                     cy.get('@user').then(user=>{
                         cy.testFavoritesCreateNewList(viewport,user,"Automation List");
-                    });
-                    
+                    });  
                 });
                 it(`Favorites List Components logged in with no items`,()=>{
                     cy.get('@user').then(user=>{
