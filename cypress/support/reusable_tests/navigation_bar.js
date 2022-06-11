@@ -64,8 +64,6 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://www.google.com/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Safety Exit');
-		//click
-		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-language').should('be.visible');
@@ -102,8 +100,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://www.google.com/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Safety Exit');
-			//click
-			cy.wrap($element).click();
 		}
 	);
 
