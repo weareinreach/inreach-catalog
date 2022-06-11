@@ -2,7 +2,7 @@ Cypress.Commands.add('testSearchDetailPageAbout',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
     if(viewport === Cypress.env('mobile')){ 
-        cy.getElementByTestId('mobile-nav-button-search').click() 
+        cy.getElementByTestId('mobile-nav-button-search').click();
     }
     cy.getElementByTestId('search-page-next-button').click();
     cy.getElementByTestId('search-page-checkbox').click();
@@ -47,8 +47,6 @@ Cypress.Commands.add('testSearchDetailPageAbout',(viewport,user,org)=>{
 
 });
 
-// THIS IS WHERE I STAYED, WILL Add more info to this org details so i can test everything. create a separate org just for this
-
 Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
@@ -69,10 +67,10 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
     }
     cy.wait(500);
     
-    cy.getElementByTestId('favorites-list-item').scrollIntoView().then($element=>{
+    cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
         //click the org
-        cy.wrap($element).click();
+        cy.wrap($element[0]).click();
     cy.getElementByTestId('resource-details-services');
         cy.getElementByTestId('details-service-item').then($element=>{
             expect($element[0]).to.be.visible;
@@ -118,11 +116,11 @@ Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
     cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
         //click the org
-        cy.wrap($element).click();
+        cy.wrap($element[0]).click();
         cy.wait(200);
     cy.getElementByTestId('tabs-value-reviews').click();
 
-        cy.getElementByTestId('details-review-form-header').scrollIntoView().then($element=>{
+        cy.getElementByTestId('details-review-form-header').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('Rate this resource');
         });
@@ -167,7 +165,7 @@ Cypress.Commands.add('testSearchDetailsPageReviewsAction',(viewport,user,org)=>{
     cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
         //click the org
-        cy.wrap($element).click();
+        cy.wrap($element[0]).click();
         cy.wait(200);
     cy.getElementByTestId('tabs-value-reviews').click();
     cy.getElementByTestId('details-review-form-input').type('This a great resource! I recommend it');

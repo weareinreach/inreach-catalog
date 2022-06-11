@@ -25,15 +25,7 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 		expect($element.children()).contain('About Us');
 		//click
-		//uncomment once inreach is live
-		/*cy.wrap($element).click();
-		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://inreach.org/mission/');
-			expect(loc.hostname).to.be.eq('inreach.org');
-			expect(loc.pathname).to.be.eq('/mission/');
-		});*/
-		//go back
-		// cy.go('back');
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-take-action').then(($element) => {
@@ -42,14 +34,7 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element.children()).contain('Take Action');
 		//click
 		//uncomment once inreach is live
-		/*cy.wrap($element).click();
-		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://inreach.org/donate/');
-			expect(loc.hostname).to.be.eq('inreach.org');
-			expect(loc.pathname).to.be.eq('/donate/');
-		});*/
-		//go back
-		// cy.go('back');
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-get-help').then(($element) => {
@@ -58,14 +43,7 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element.children()).contain('Questions?');
 		//click
 		//uncomment once inreach is live
-		/*cy.wrap($element).click();
-		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://inreach.org/faqs/');
-			expect(loc.hostname).to.be.eq('inreach.org');
-			expect(loc.pathname).to.be.eq('/faqs/');
-		})*/;
-		//go back
-		// cy.go('back');
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-contact').then(($element) => {
@@ -74,14 +52,7 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element.children()).contain('Contact Us');
 		//click
 		//uncomment once inreach is live
-		/*cy.wrap($element).click();
-		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://inreach.org/contact/');
-			expect(loc.hostname).to.be.eq('inreach.org');
-			expect(loc.pathname).to.be.eq('/contact/');
-		});*/
-		//go back
-		// cy.go('back');
+		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-safety-exit').then(($element) => {
@@ -90,13 +61,8 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element.children()).contain('Safety Exit');
 		//click
 		cy.wrap($element).click();
-		cy.location().should((loc) => {
-			expect(loc.href).to.be.eq('https://www.google.com/');
-			expect(loc.hostname).to.be.eq('www.google.com');
-		});
-		//go back
-		cy.go('back');
 	});
+
 	cy.getElementByTestId('nav-button-language').should('be.visible');
 	cy.getElementByTestId('nav-account-sign-in').then(($element) => {
 		expect($element).to.be.visible;
@@ -132,12 +98,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://www.google.com/');
 			//click
 			cy.wrap($element).click();
-			cy.location().should((loc) => {
-				expect(loc.href).to.be.eq('https://www.google.com/');
-				expect(loc.hostname).to.be.eq('www.google.com');
-			});
-			cy.go('back');
-    		cy.viewport(960, 1024);
 		}
 	);
 
@@ -212,13 +172,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 			expect($element.children()).contain('About Us');
 			cy.wrap($element).click();
-				cy.location().should((loc) => {
-					expect(loc.href).to.be.eq('https://inreach.org/mission/');
-					expect(loc.hostname).to.be.eq('inreach.org');
-					expect(loc.pathname).to.be.eq('/mission/');
-				});
-				cy.go('back');
-	    		cy.viewport(960, 1024);
 		});
 	});
 	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
@@ -229,13 +182,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 			expect($element.children()).contain('Take Action');
 			cy.wrap($element).click();
-				cy.location().should((loc) => {
-					expect(loc.href).to.be.eq('https://inreach.org/donate/');
-					expect(loc.hostname).to.be.eq('inreach.org');
-					expect(loc.pathname).to.be.eq('/donate/');
-				});
-				cy.go('back');
-	    		cy.viewport(960, 1024);
 		});
 	});
 	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
@@ -246,13 +192,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
 			expect($element.children()).contain('Questions?');
 			cy.wrap($element).click();
-				cy.location().should((loc) => {
-					expect(loc.href).to.be.eq('https://inreach.org/faqs/');
-					expect(loc.hostname).to.be.eq('inreach.org');
-					expect(loc.pathname).to.be.eq('/faqs/');
-				});
-				cy.go('back');
-	    		cy.viewport(960, 1024);
 		});
 	});
 	cy.getElementByTestId('drop-down-selector-container').then(($element) => {
@@ -263,13 +202,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 			expect($element.children()).contain('Contact Us');
 			cy.wrap($element).click();
-				cy.location().should((loc) => {
-					expect(loc.href).to.be.eq('https://inreach.org/contact/');
-					expect(loc.hostname).to.be.eq('inreach.org');
-					expect(loc.pathname).to.be.eq('/contact/');
-				});
-				cy.go('back');
-	    		cy.viewport(960, 1024);
 		});
 	});
 }
