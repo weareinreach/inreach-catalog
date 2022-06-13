@@ -15,7 +15,13 @@ import AsylumConnectBackButton from './AsylumConnectBackButton';
 import {StandaloneIcon} from './icons';
 import withWidth from './withWidth';
 import {getStaticPage} from '../utils/api';
-import {getLocale, isLocaleSet, setLocale, clearLocale, removeLocale} from '../utils/locale';
+import {
+	getLocale,
+	isLocaleSet,
+	setLocale,
+	clearLocale,
+	removeLocale
+} from '../utils/locale';
 import {
 	getLanguage,
 	isLanguageSet,
@@ -196,7 +202,6 @@ class Static extends React.Component {
 		removeLocale();
 		clearLocale();
 		clearLanguage();
-
 		this.handleLocaleSelect();
 	}
 

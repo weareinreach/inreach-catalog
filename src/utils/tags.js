@@ -447,6 +447,7 @@ const localeExclusions = {
 		'services.refugee-claim'
 	],
 	en_CA: [
+		'services.abortion-services',
 		'services.asylum-application',
 		'services.asylum-application-in-mexico',
 		'services.asylum-application-in-united-states-from-mexico',
@@ -465,6 +466,7 @@ const localeExclusions = {
 		'services.sponsors'
 	],
 	en_MX: [
+		'services.abortion-services',
 		'services.asylum-application',
 		'services.career-counselling',
 		'services.cultural-centres',
@@ -486,6 +488,7 @@ const localeExclusions = {
 		'services.sponsors'
 	],
 	es_MX: [
+		'services.abortion-services',
 		'services.asylum-application',
 		'services.career-counselling',
 		'services.cultural-centres',
