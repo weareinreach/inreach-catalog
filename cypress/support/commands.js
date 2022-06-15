@@ -52,11 +52,25 @@ Cypress.Commands.add('login',(user,viewport)=>{
 });
 
 Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
-	if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('mobile-nav-button-favorites').click();
-    }else{
-        cy.getElementByTestId('nav-button-view-favorites').click();
-    }
+	// eslint-disable-next-line default-case
+	switch(viewport){
+		case Cypress.env('mobile'):
+			cy.getElementByTestId('mobile-nav-button-favorites').click();
+			break;
+		// eslint-disable-next-line no-fallthrough
+		case Cypress.env('tablet'):
+			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.log($element);
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-button-view-favorites').click();
+			});
+			break;
+		// eslint-disable-next-line no-fallthrough
+		case Cypress.env('desktop'):
+			cy.getElementByTestId('nav-button-view-favorites').click();
+			break;
+			
+	}
     cy.getElementByTestId('favorites-page-create-new-list-button').click();
     viewport === Cypress.env('mobile') ? cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
     cy.getElementByTestId('favorites-create-new-button').click();
@@ -94,7 +108,10 @@ Cypress.Commands.add('selectFavoritesList',(viewport)=>{
             break;
         case Cypress.env('tablet'):
             cy.scrollTo('top');
-            cy.getElementByTestId('nav-button-view-favorites').click();
+            cy.getElementByTestId('drop-down-selector-item').then($element=>{
+				cy.wrap($element[2]).click();
+				cy.getElementByTestId('nav-button-view-favorites').click();
+			});
             break;
         case Cypress.env('desktop'):
             cy.getElementByTestId('nav-button-view-favorites').click();

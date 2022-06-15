@@ -523,6 +523,7 @@ Cypress.Commands.add('testDeletingFavoritesListShared',(viewport,user,listName,s
 Cypress.Commands.add('testDeletingFavoritesListError401',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(1000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -533,17 +534,16 @@ Cypress.Commands.add('testDeletingFavoritesListError401',(viewport,user,listName
     cy.getElementByTestId('dialog-container-title').then($element=>{
         expect($element).contain(listName);
     });
-    
-    //delete dialog delete button
-    cy.intercept('DELETE', '/v1/users',{
+    cy.intercept('DELETE', '/v1/users/**',{
         error: true,
         status:{
             status: 401
         }
     });
+
+    //delete dialog delete button
     cy.getElementByTestId('delete-list-delete-button').should('be.visible');
     cy.getElementByTestId('delete-list-delete-button').click();
-
 
     //look for error message
     cy.getElementByTestId('snackbar-message').should('be.visible').then($element=>{
@@ -558,6 +558,7 @@ Cypress.Commands.add('testDeletingFavoritesListError401',(viewport,user,listName
 Cypress.Commands.add('testDeletingFavoritesListError404',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(1000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -570,7 +571,7 @@ Cypress.Commands.add('testDeletingFavoritesListError404',(viewport,user,listName
     });
     
     //delete dialog delete button
-    cy.intercept('DELETE', '/v1/users',{
+    cy.intercept('DELETE', '/v1/users/**',{
         error: true,
         status:{
             status: 404
@@ -593,6 +594,7 @@ Cypress.Commands.add('testDeletingFavoritesListError404',(viewport,user,listName
 Cypress.Commands.add('testDeletingFavoritesListError500',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(1000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -605,7 +607,7 @@ Cypress.Commands.add('testDeletingFavoritesListError500',(viewport,user,listName
     });
     
     //delete dialog delete button
-    cy.intercept('DELETE', '/v1/users',{
+    cy.intercept('DELETE', '/v1/users/**',{
         error: true,
         status:{
             status: 500
@@ -628,6 +630,7 @@ Cypress.Commands.add('testDeletingFavoritesListError500',(viewport,user,listName
 Cypress.Commands.add('testDeletingFavoritesListErrorNot200',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(1000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -640,7 +643,7 @@ Cypress.Commands.add('testDeletingFavoritesListErrorNot200',(viewport,user,listN
     });
     
     //delete dialog delete button
-    cy.intercept('DELETE', '/v1/users',{
+    cy.intercept('DELETE', '/v1/users/**',{
         deleted: false,
         status: {
             status: 999
@@ -663,6 +666,7 @@ Cypress.Commands.add('testDeletingFavoritesListErrorNot200',(viewport,user,listN
 Cypress.Commands.add('testDeletingFavoritesListErrorSomethingElse',(viewport,user,listName)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
+    cy.wait(1000);
     cy.createFavoriteList(viewport,listName);
     
     //Back to Home Page
@@ -675,7 +679,7 @@ Cypress.Commands.add('testDeletingFavoritesListErrorSomethingElse',(viewport,use
     });
     
     //delete dialog delete button
-    cy.intercept('DELETE', '/v1/users',{
+    cy.intercept('DELETE', '/v1/users/**',{
         forceNetworkError: true 
     });
     cy.getElementByTestId('delete-list-delete-button').should('be.visible');
