@@ -227,6 +227,7 @@ class LocaleForm extends React.Component {
 							listContainerClass={listContainerClass}
 							onSelect={this.handleSelectLanguage}
 							triggerReload={this.state.reload}
+							selectedLanguage={this.state.selectedLanguageName}
 						/>
 					</Grid>
 					<Grid item xs={12} md={6}>
