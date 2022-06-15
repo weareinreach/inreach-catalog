@@ -91,8 +91,8 @@ class LocaleForm extends React.Component {
 			reload: false,
 			selectedLanguage: false,
 			selectedLanguageName: false,
-			/*selectedLocale: false,
-      selectedLocaleName: false,*/
+			selectedLocale: false,
+			selectedLocaleName: false,
 			startingLang: this.getStartingLanguage()
 		};
 
@@ -119,12 +119,30 @@ class LocaleForm extends React.Component {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
 
-			//will need this once catalog is fully translasted to spanish
-			/* if(this.state.selectedLocale === 'en_MX' && this.state.selectedLanguage === 'es'){
+			//show app code in spanish if langCode is 'es' and locale is MX or US
+			if (
+				this.state.selectedLocale === 'en_MX' &&
+				this.state.selectedLanguage === 'es'
+			) {
 				this.props.changeLocale('es_MX');
-			}else {
+			} else if (
+				this.state.selectedLocale === 'en_US' &&
+				this.state.selectedLanguage === 'es'
+			) {
+				this.props.changeLocale('es_US');
+			} else if (
+				this.state.selectedLocale === 'es_US' &&
+				this.state.selectedLanguage === 'en'
+			) {
+				this.props.changeLocale('en_US');
+			} else if (
+				this.state.selectedLocale === 'es_MX' &&
+				this.state.selectedLanguage === 'en'
+			) {
+				this.props.changeLocale('en_MX');
+			} else {
 				this.props.changeLocale(this.state.selectedLocale);
-			} */
+			}
 		}
 
 		if (typeof this.props.onLocaleSelect === 'function') {
