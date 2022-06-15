@@ -328,13 +328,15 @@ class Language extends React.Component {
 			langsList: filteredList,
 			langsNativeList: filteredNativeList
 		});
+		this.setState({
+			langsNativeList: filteredNativeList
+		});
 	}
 	handleOnFilterBarClick(e) {
 		e.stopPropagation();
 	}
 
 	handleRequestCloseAfterSelect(langCode, langName, provider) {
-		console.log(getLocale());
 		this.setState({open: false, selectedLang: langName, provider: provider});
 		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
 			//clear location.hash
@@ -434,13 +436,14 @@ class Language extends React.Component {
 			enableOverlay,
 			noArrow
 		} = this.props;
+
 		const {selectedLang} = this.state;
-		const selectorLabel = label || selectedLang;
+		const selectorLabel = label || this.props.selectedLanguage;
+		// const selectorLabel = selectedLang;
 		const isMobile = this.props.width < breakpoints['sm'] && useMobile;
 		if (triggerReload === true) {
 			this.handleReload();
 		}
-
 		return (
 			<div
 				className={classes.root + ' hide--on-print'}
