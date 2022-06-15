@@ -3,6 +3,7 @@ import langs from 'langs/data';
 var validLangs = [
 	{name: 'Arabic'},
 	{name: 'French'},
+	{name: 'Spanish'},
 	{name: 'Hindi'},
 	{name: 'Russian'},
 	{name: 'Somali'},

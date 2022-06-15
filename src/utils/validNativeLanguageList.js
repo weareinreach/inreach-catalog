@@ -6,7 +6,8 @@ var ValidNativeLanguageList = {
 	all: getValidNativeLanguagueList,
 	byCode: getValidNativeLanguageByCode,
 	codeByName: getValidNativeLanguageCodeByName,
-	filteredLanguageList: getFilteredNativeLanguageList
+	filteredLanguageList: getFilteredNativeLanguageList,
+	provider: 'inreach'
 };
 
 function getValidNativeLanguagueList() {
