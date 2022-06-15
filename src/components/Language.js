@@ -148,7 +148,11 @@ class LangMenuItem extends React.Component {
 	}
 
 	handleSelectLang() {
-		this.props.handleSelectLang(this.props.langCode, this.props.langName);
+		this.props.handleSelectLang(
+			this.props.langCode,
+			this.props.langName,
+			this.props.provider
+		);
 	}
 	render() {
 		return (
@@ -156,6 +160,7 @@ class LangMenuItem extends React.Component {
 				data-test-id="nav-button-language-item"
 				button
 				onClick={this.handleSelectLang}
+				provider={this.props.provider}
 			>
 				{this.props.langName}
 			</AsylumConnectDropdownListItem>
@@ -170,7 +175,8 @@ class Language extends React.Component {
 			open: false,
 			selectedLang: 'English',
 			langsList: ValidLanguageList.all(),
-			langsNativeList: ValidNativeLanguageList.all()
+			langsNativeList: ValidNativeLanguageList.all(),
+			provider: ''
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
@@ -195,6 +201,7 @@ class Language extends React.Component {
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
+						provider={ValidNativeLanguageList.provider}
 					/>
 				))}
 			</Fragment>
@@ -300,9 +307,9 @@ class Language extends React.Component {
 		);
 	}
 
-	handleSelect(langCode, langName) {
+	handleSelect(langCode, langName, provider) {
 		if (typeof this.props.onSelect === 'function') {
-			this.props.onSelect(langCode, langName);
+			this.props.onSelect(langCode, langName, provider);
 		}
 	}
 
@@ -322,10 +329,10 @@ class Language extends React.Component {
 		e.stopPropagation();
 	}
 
-	handleRequestCloseAfterSelect(langCode, langName) {
-		console.log(langCode + ' ' + langName);
-		this.setState({open: false, selectedLang: langName});
-		if (langCode === 'en' || langCode === 'es') {
+	handleRequestCloseAfterSelect(langCode, langName, provider) {
+		console.log(langCode + ' ' + langName + ' ' + provider);
+		this.setState({open: false, selectedLang: langName, provider: provider});
+		if ((langCode === 'en' || langCode === 'es') && provider) {
 			//clear location.hash
 			var uri = window.location.toString();
 			if (uri.indexOf('#') > 0) {
@@ -340,6 +347,9 @@ class Language extends React.Component {
 		}
 		language.setLanguage(langName);
 		language.setLanguageCode(langCode);
+		provider
+			? language.setLanguageProvider(provider)
+			: language.removeLanguageProvider();
 		this.handleSelect(langCode, langName);
 		if (this.props.autoReload) {
 			window.location.reload();

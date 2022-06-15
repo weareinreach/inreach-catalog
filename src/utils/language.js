@@ -16,5 +16,14 @@ export default {
 	},
 	getLanguageCode: () => {
 		return window.localStorage.getItem('langCode') || 'en';
+	},
+	getLanguageProvider: () => {
+		return window.localStorage.getItem('langProvider');
+	},
+	setLanguageProvider: (provider) => {
+		window.localStorage.setItem('langProvider', provider);
+	},
+	removeLanguageProvider: () => {
+		window.localStorage.removeItem('langProvider');
 	}
 };
