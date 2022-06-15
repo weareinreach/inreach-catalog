@@ -3,6 +3,7 @@ import List from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
 
 import {getLocale} from '../utils/locale';
+import language from '../utils/language';
 
 import AsylumConnectSelector from './AsylumConnectSelector';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
@@ -24,10 +25,10 @@ const styles = (theme) => ({
 });
 
 const supportedLocales = [
-	{name: '🇨🇦 Canada', code: 'en_CA'},
-	{name: '🇲🇽 Mexico', code: 'en_MX'},
-	{name: '🇺🇸 United States', code: 'en_US'},
-	{name: '🌎 Other / Travel Support', code: 'intl'}
+	{name: '🇨🇦 Canada', code: ['en_CA']},
+	{name: '🇲🇽 Mexico', code: ['en_MX', 'es_MX']},
+	{name: '🇺🇸 United States', code: ['en_US', 'es_US']},
+	{name: '🌎 Other / Travel Support', code: ['intl']}
 ];
 
 class LocaleSelector extends React.Component {
@@ -61,7 +62,9 @@ class LocaleSelector extends React.Component {
 	}
 
 	getLocaleNameFromCode(code) {
-		let selectedLocale = supportedLocales.filter((item) => item.code === code);
+		let selectedLocale = supportedLocales.filter((item) =>
+			item.code.includes(code)
+		);
 		if (selectedLocale.length) {
 			return selectedLocale[0].name;
 		} else {
@@ -81,6 +84,17 @@ class LocaleSelector extends React.Component {
 	render() {
 		const {localeLabel} = this.props;
 		const {inputClass} = this.props.classes;
+		const provider = language.getLanguageProvider();
+		const langCode = language.getLanguageCode();
+		function isDisabled(itemCode) {
+			if (
+				provider === 'inreach' &&
+				langCode === 'es' &&
+				(itemCode.includes('en_CA') || itemCode.includes('intl'))
+			) {
+				return true;
+			}
+		}
 
 		return (
 			<AsylumConnectSelector
@@ -96,6 +110,7 @@ class LocaleSelector extends React.Component {
 				<List>
 					{supportedLocales.map((item, index) => (
 						<AsylumConnectDropdownListItem
+							disabled={isDisabled(item.code)}
 							button
 							key={index}
 							selected={this.state.selectedLocale === item.name}

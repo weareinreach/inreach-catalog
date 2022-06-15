@@ -1,5 +1,7 @@
 const enUS = {};
 
+const esUS = {};
+
 const enCA = {
 	'Start typing county, city or state in the US…':
 		'Start typing city, province or territory in Canada…',
@@ -49,7 +51,7 @@ const enMX = {
 };
 
 //will need this once the catalog is fully translated to Spanish (also need to translate this section)
-/*const esMX = {
+const esMX = {
 	'Start typing county, city or state in the US…':
 		'Start typing city or state in Mexico…',
 	'Download Legal Guides on LGBTQ Asylum in the U.S.':
@@ -71,7 +73,7 @@ const enMX = {
 	'Private therapy and counseling': 'Private therapy and counselling',
 	39.8333333: '23.634501',
 	'-98.585522': '-102.552784'
-}*/
+};
 
 export const fetchLocale = (locale) => {
 	switch (locale) {
@@ -79,16 +81,17 @@ export const fetchLocale = (locale) => {
 			return enCA;
 		case 'en_MX':
 			return enMX;
-		//will need this once the catalog is fully translated to Spanish
-		/* case 'es_MX':
-			return esMX; */
+		case 'es_MX':
+			return esMX;
+		case 'es_US':
+			return esUS;
 		case 'en_US':
 		default:
 			return enUS;
 	}
 };
 
-export const validLocales = ['en_US', 'en_CA', 'en_MX', 'es_MX'];
+export const validLocales = ['en_US', 'es_US', 'en_CA', 'en_MX', 'es_MX'];
 
 export const resetLocale = () => {
 	window.localStorage.setItem('locale', 'en_US');
@@ -106,10 +109,15 @@ export const setLocale = (locale) => {
 	window.localStorage.setItem('locale', locale);
 };
 
+export const removeLocale = () => {
+	window.localStorage.removeItem('locale');
+};
+
 export const localeTagMap = {
 	en_CA: 'canada',
 	en_MX: 'mexico',
 	en_US: 'united_states',
+	es_US: 'united_states',
 	es_MX: 'mexico'
 };
 
@@ -117,6 +125,8 @@ const supportedLocales = [
 	{name: '🇨🇦 Canada', code: 'en_CA'},
 	{name: '🇲🇽 Mexico', code: 'en_MX'},
 	{name: '🇺🇸 United States', code: 'en_US'},
+	{name: '🇲🇽 México', code: 'es_MX'},
+	{name: '🇺🇸 Estados Unidos', code: 'es_US'},
 	{name: '🌎 Other / Travel Support', code: 'intl'}
 ];
 
