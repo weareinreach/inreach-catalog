@@ -376,6 +376,24 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
         cy.getElementByTestId('footer-suggest-new').click();
     }
 
+    //links to other forms
+    cy.getElementByTestId('other-link-1').then($element => {
+        expect($element).to.be.visible;
+        expect($element).contain('click here for the Canada form');
+        expect($element).to.have.attr('href', '/en_CA/suggestions/new');
+    });
+    cy.getElementByTestId('other-link-2').then($element => {
+        expect($element).to.be.visible;
+        expect($element).contain('click here for the Mexico form');
+        expect($element).to.have.attr('href', '/en_MX/suggestions/new');
+    }); 
+
+    //button is disabled
+    cy.getElementByTestId('suggest-page-suggest-button').then($element => {
+        expect($element).to.be.visible;
+        expect($element).to.be.disabled;
+    });
+
     cy.getElementByTestId('suggest-page-name').children().then($element=>{
         cy.wrap($element[1]).type(org.name)
     });
@@ -458,5 +476,7 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
     });
 
     cy.getElementByTestId('suggest-page-suggest-button').click();
+
+
 
 });

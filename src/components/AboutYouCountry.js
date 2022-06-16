@@ -159,10 +159,6 @@ const AboutYouCountry = (props) => {
 
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 
-	const handleTouchCountry = () => {
-		setTouchedCountry(true);
-	};
-
 	return (
 		<>
 			<DialogTitle>

@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 
 import Fa from 'react-fontawesome';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';

@@ -1,5 +1,8 @@
 Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
+	if(viewport === Cypress.env('mobile')){
+		cy.reload();
+	}
 	cy.getElementByTestId('search-page-next-button').click();
 	cy.waitFor(2000);
     if(viewport!==Cypress.env('mobile')){
@@ -39,6 +42,9 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 
 Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	cy.viewport(viewport);
+	if(viewport === Cypress.env('mobile')){
+		cy.reload();
+	}
 	cy.getElementByTestId('search-page-next-button').click();
 	cy.waitFor(1000);
 	// //Check checkbox

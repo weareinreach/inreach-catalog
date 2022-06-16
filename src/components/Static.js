@@ -211,7 +211,11 @@ class Static extends React.Component {
 						className={classes.localeHeader}
 					>
 						<Grid item xs={12} style={{textAlign: 'center'}}>
-							<a target="_blank" href="https://www.inreach.org">
+							<a
+								target="_blank"
+								href="https://www.inreach.org"
+								rel="noopener noreferrer"
+							>
 								<IconButton className={classes.iconButton}>
 									<img
 										src={this.props.logo}

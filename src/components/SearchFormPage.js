@@ -4,11 +4,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
-import AsylumConnectSelector from './AsylumConnectSelector';
 import WhoServeSelector from './WhoServeSelector';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
-import Disclaimer from './Disclaimer';
 import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
@@ -214,7 +212,6 @@ class SearchFormContainer extends React.Component {
 		const {
 			container,
 			iconButton,
-			logoFitHeight,
 			logoMobile,
 			title,
 			subheading,

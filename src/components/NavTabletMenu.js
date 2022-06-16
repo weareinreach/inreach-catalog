@@ -1,26 +1,11 @@
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 
-import classNames from 'classnames';
-import Filter from './Filter';
-import withWidth from './withWidth';
-import {
-	breakpoints,
-	mobilePadding,
-	searchInput,
-	searchInputMobile
-} from '../theme';
+import {searchInput} from '../theme';
 
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
@@ -80,6 +65,7 @@ const NavTabletMenu = (props) => {
 				<a
 					data-test-id="tablet-nav-menu-item-about"
 					target="_blank"
+					rel="noopener noreferrer"
 					href={navLinks.about}
 				>
 					<FormattedMessage id="navigation.about">
@@ -91,6 +77,7 @@ const NavTabletMenu = (props) => {
 				<a
 					data-test-id="tablet-nav-menu-item-take-action"
 					target="_blank"
+					rel="noopener noreferrer"
 					href={navLinks.action}
 				>
 					<FormattedMessage id="navigation.take-action">
@@ -102,6 +89,7 @@ const NavTabletMenu = (props) => {
 				<a
 					data-test-id="tablet-nav-menu-item-faqs"
 					target="_blank"
+					rel="noopener noreferrer"
 					href={navLinks.help}
 				>
 					<FormattedMessage id="navigation.get-help">
@@ -113,6 +101,7 @@ const NavTabletMenu = (props) => {
 				<a
 					data-test-id="tablet-nav-menu-item-contact"
 					target="_blank"
+					rel="noopener noreferrer"
 					href={navLinks.contact}
 				>
 					<FormattedMessage id="navigation.contact">
