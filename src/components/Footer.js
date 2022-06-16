@@ -88,11 +88,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 				container
 				spacing={0}
 				alignItems="center"
-				justify="center"
+				justifyContent="center"
 				className={classNames(paddingVerticalIcons)}
 			>
 				<Grid item xs={12} md={6} lg={6}>
-					<Grid container spacing={2} justify="center">
+					<Grid container spacing={2} justifyContent="center">
 						<ContactLink
 							testIdName="footer-contact-facebook"
 							link="https://www.facebook.com/weareinreach"
@@ -148,14 +148,14 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 				container
 				spacing={0}
 				alignItems="center"
-				justify="center"
+				justifyContent="center"
 				className={classNames(paddingVerticalText)}
 			>
 				<Grid item xs={12} md={8} lg={8}>
 					<Grid
 						container
 						spacing={2}
-						justify="center"
+						justifyContent="center"
 						className={classNames(footerLinkContainerSize)}
 					>
 						<Grid item className={classNames(footerLinkItemSize)}>

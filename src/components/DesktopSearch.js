@@ -39,7 +39,8 @@ const DesktopSearch = (props) => {
 		handleTabChange,
 		tabValue,
 		moveButton,
-		handleFilterSelect
+		handleFilterSelect,
+		...other
 	} = props;
 	const variant = 'primary';
 	const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin;
@@ -73,6 +74,7 @@ const DesktopSearch = (props) => {
 						{...a11yProps(0)}
 						className={tabs}
 						fullWidth
+						value="0"
 					/>
 					<Tab
 						data-test-id="desktop-search-organization"
@@ -85,10 +87,11 @@ const DesktopSearch = (props) => {
 						{...a11yProps(1)}
 						className={tabs}
 						fullWidth
+						value="1"
 					/>
 				</TabList>
 			</AppBar>
-			<TabPanel value={'0'} index={0}>
+			<TabPanel value="0" index={0}>
 				<SearchBar
 					{...props}
 					classes={null}
@@ -96,7 +99,7 @@ const DesktopSearch = (props) => {
 					data-test-id="location-searchbar"
 					showResourceSelector={false}
 				>
-					<SearchByLocation {...props} />
+					<SearchByLocation {...other} />
 				</SearchBar>
 				<SearchBar
 					{...props}
@@ -144,7 +147,7 @@ const DesktopSearch = (props) => {
 					</Grid>
 				</Grid>
 			</TabPanel>
-			<TabPanel value={'1'} index={1}>
+			<TabPanel value="1" index={1}>
 				<SearchBar
 					{...props}
 					classes={null}
