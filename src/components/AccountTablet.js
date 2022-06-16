@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {FormattedMessage, useIntl} from 'react-intl';
@@ -8,15 +7,9 @@ import Typography from '@material-ui/core/Typography';
 
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
-import FavoritesLink from './FavoritesLink';
 import {AccountIcon} from './icons';
 
-import {
-	breakpoints,
-	mobilePadding,
-	searchInput,
-	searchInputMobile
-} from '../theme';
+import {mobilePadding, searchInput, searchInputMobile} from '../theme';
 
 import withWidth from './withWidth';
 
