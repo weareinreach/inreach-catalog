@@ -114,6 +114,7 @@ function testNavigationBarTablet(viewport, user) {
 
 	cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
+	cy.wait(1000);
 
     //account menu drop down when logged in - favorites
 	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
