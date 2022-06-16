@@ -9,7 +9,7 @@
 		"html": true,
 		"json": true
 	},
-	"retries":1,
+	"retries":3,
     "defaultCommandTimeout":4000,
     "waitForAnimations":true,
 	"projectId":"xq2qjw"
