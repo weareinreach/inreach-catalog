@@ -8,10 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectSelector from './AsylumConnectSelector';
 import {AccountIcon} from './icons';
-
-import {mobilePadding, searchInput, searchInputMobile} from '../theme';
-
-import withWidth from './withWidth';
+import {searchInput} from '../theme';
 
 const styles = (theme) => ({
 	root: {
@@ -55,16 +52,8 @@ const styles = (theme) => ({
 });
 
 const AccountTablet = (props) => {
-	const {
-		classes,
-		locale,
-		session,
-		handleLogOut,
-		handleRequestOpen,
-		width,
-		colorClass,
-		noArrow
-	} = props;
+	const {classes, locale, session, handleLogOut, handleRequestOpen, noArrow} =
+		props;
 
 	const intl = useIntl();
 
@@ -150,7 +139,7 @@ const AccountTablet = (props) => {
 			)}
 			{!session && (
 				<div className={classes.root}>
-					<a
+					<p
 						className={classes.cursor}
 						data-test-id="nav-account-sign-in"
 						onClick={() => handleRequestOpen('login')}
@@ -165,9 +154,9 @@ const AccountTablet = (props) => {
 								defaultMessage="Sign In"
 							/>
 						</Typography>
-					</a>
+					</p>
 					<div className={classes.line} />
-					<a
+					<p
 						className={classes.cursor}
 						onClick={() => handleRequestOpen('signup')}
 						data-test-id="nav-account-sign-up"
@@ -182,7 +171,7 @@ const AccountTablet = (props) => {
 								defaultMessage="Sign Up"
 							/>
 						</Typography>
-					</a>
+					</p>
 				</div>
 			)}
 		</div>
