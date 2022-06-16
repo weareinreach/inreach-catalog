@@ -2,7 +2,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
 
-import {getLocale} from '../utils/locale';
+import {getLocale, setLocale} from '../utils/locale';
 import language from '../utils/language';
 
 import AsylumConnectSelector from './AsylumConnectSelector';
@@ -59,6 +59,7 @@ class LocaleSelector extends React.Component {
 		if (typeof this.props.handleSelectLocale === 'function') {
 			this.props.handleSelectLocale(localeCode, localeName);
 		}
+		setLocale(localeCode);
 	}
 
 	getLocaleNameFromCode(code) {
@@ -96,13 +97,40 @@ class LocaleSelector extends React.Component {
 			}
 		}
 
+		function getCodeFromArray(itemCode) {
+			if (provider === 'inreach' && langCode === 'es') {
+				return itemCode[1];
+			} else {
+				return itemCode[0];
+			}
+		}
+
+		function getLabelName(label) {
+			//is language is spanish, provider is inreach, and label is not MX or US, set label to US
+			if (label === '🇨🇦 Canada' || label === '🌎 Other / Travel Support') {
+				if (provider === 'inreach' && langCode === 'es') {
+					setLocale('es_US');
+					return '🇺🇸 United States';
+				} else {
+					return label;
+				}
+			} else {
+				return label;
+			}
+		}
+
 		return (
 			<AsylumConnectSelector
-				label={
+				// label={
+				// 	this.state.selectedLocaleName
+				// 		? this.state.selectedLocaleName
+				// 		: localeLabel
+				// }
+				label={getLabelName(
 					this.state.selectedLocaleName
 						? this.state.selectedLocaleName
 						: localeLabel
-				}
+				)}
 				selected={[]}
 				containerClass={inputClass}
 				closeOnClick={true}
@@ -115,7 +143,7 @@ class LocaleSelector extends React.Component {
 							key={index}
 							selected={this.state.selectedLocale === item.name}
 							onClick={(event) => {
-								this.handleSelectLocale(item.code, item.name);
+								this.handleSelectLocale(getCodeFromArray(item.code), item.name);
 							}}
 						>
 							{item.name}
