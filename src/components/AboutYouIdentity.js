@@ -6,9 +6,6 @@ import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -198,7 +195,7 @@ const AboutYouIdentity = (props) => {
 							<FormControlLabel
 								disabled={
 									sogIdentity.includes('prefer-not-to-say') &&
-									type.dbValue != 'prefer-not-to-say'
+									type.dbValue !== 'prefer-not-to-say'
 								}
 								value={type.dbValue}
 								control={<Checkbox />}
