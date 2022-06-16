@@ -69,9 +69,7 @@ const DeleteListMobile = (props) => {
 		handleMessageNew,
 		handleFetchUser,
 		handleRequestClose,
-		handleRequestOpen,
-		history,
-		handleLogOut
+		history
 	} = props;
 
 	let isShared = true;

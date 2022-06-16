@@ -9,12 +9,7 @@ import Language from './Language';
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
-import {
-	searchInput,
-	searchInputMobile,
-	breakpoints,
-	mobilePadding
-} from '../theme';
+import {searchInput, searchInputMobile, breakpoints} from '../theme';
 
 const styles = (theme) => ({
 	inputClass: Object.assign(searchInput(theme), {

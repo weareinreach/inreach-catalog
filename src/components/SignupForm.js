@@ -1,27 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import Checkbox from '@material-ui/core/Checkbox';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {breakpoints} from '../theme';
-
-import {
-	organizationTypesLawyer,
-	organizationTypesProvider
-} from '../data/organizationTypeFormOptions';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
@@ -39,7 +25,6 @@ import AboutYouAge from './AboutYouAge';
 import AboutYouOrganization from './AboutYouOrganization';
 
 const LAWYER_TYPE = 'lawyer';
-const PROVIDER_TYPE = 'provider';
 const SEEKER_TYPE = 'seeker';
 
 const styles = (theme) => ({
@@ -170,8 +155,6 @@ const SignupForm = (props) => {
 		activeStep,
 		classes,
 		handleBlurOrganizations,
-		handleChange,
-		handleChangeArray,
 		handleCreateAffiliation,
 		handleMessageNew,
 		handleOrganizationSearchChange,
@@ -179,13 +162,9 @@ const SignupForm = (props) => {
 		handleOrganizationsFetchRequested,
 		handleOrganizationsClearRequested,
 		handleRequestClose,
-		handleRequestOpen,
-		handleSelect,
-		handleSignUp,
 		handleStepNext,
 		handleStepBack,
 		handleSkip,
-		handleUpdateUser,
 		isLoadingOrganizations,
 		locale,
 		organizations,
@@ -193,8 +172,6 @@ const SignupForm = (props) => {
 		organizationSelection,
 		selection
 	} = props;
-
-	const intl = useIntl();
 
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];

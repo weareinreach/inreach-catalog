@@ -1,4 +1,4 @@
-import {createMuiTheme} from '@material-ui/core/styles';
+import {createTheme} from '@material-ui/core/styles';
 
 export const breakpoints = {
 	xs: 360,
@@ -75,7 +75,7 @@ export const dividerSpacing = (theme) => ({
  *  have all theme variables needed for every component. Variables not defined
  *  in a custom theme will default to these values.
  */
-const catalogTheme = createMuiTheme({
+const catalogTheme = createTheme({
 	maxColumnWidth: '1300px',
 	margin: '0 32px',
 	direction: 'ltr',

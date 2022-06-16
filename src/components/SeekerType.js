@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 

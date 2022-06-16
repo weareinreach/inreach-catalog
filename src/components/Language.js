@@ -421,6 +421,11 @@ Language.propTypes = {
 	autoReload: PropTypes.bool
 };
 
+LangMenuItem.defaultProps = {
+	langName: 'English',
+	langCode: 'en'
+};
+
 LangMenuItem.propTypes = {
 	langName: PropTypes.string.isRequired,
 	langCode: PropTypes.string.isRequired
