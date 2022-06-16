@@ -188,7 +188,7 @@ const FilterCollectionMobile = (props) => {
 				<span className={classes.sectionTitle}>{category}</span>
 				{hasChildren ? <ExpandMoreIcon className={classes.arrowIcon} /> : null}
 			</Typography>
-			{hasChildren && clickedCategory == index ? (
+			{hasChildren && clickedCategory === index ? (
 				<Grid container spacing={0} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;
@@ -239,9 +239,9 @@ const FilterCollection = (props) => {
 		: props.value;
 
 	var backgroundColor = '#FFFFFF';
-	if (clickedCategory == index) {
+	if (clickedCategory === index) {
 		backgroundColor = '#E9E9E9';
-	} else if (hoveredCategory == index) {
+	} else if (hoveredCategory === index) {
 		backgroundColor = '#D3DCEC';
 	}
 
@@ -301,7 +301,8 @@ const FilterSubCollection = (props) => {
 
 	return (
 		<div>
-			{hasChildren && (clickedCategory == index || hoveredCategory == index) ? (
+			{hasChildren &&
+			(clickedCategory === index || hoveredCategory === index) ? (
 				<Grid container spacing={1} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;

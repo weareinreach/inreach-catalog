@@ -31,10 +31,7 @@ const ShareMobile = (props) => {
 		handleMessageNew,
 		handleRequestClose,
 		handleRequestOpen,
-		listId,
-		listTitle,
 		session,
-		shareType,
 		user
 	} = props;
 

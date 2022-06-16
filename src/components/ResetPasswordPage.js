@@ -127,7 +127,7 @@ class ResetPasswordPage extends React.Component {
 		}
 
 		function errorConfirmMatch(value1, value2) {
-			return value1.length > 0 && value1 != value2;
+			return value1.length > 0 && value1 !== value2;
 		}
 
 		return (
