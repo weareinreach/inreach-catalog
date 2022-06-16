@@ -141,8 +141,6 @@ class LocaleForm extends React.Component {
 				this.state.selectedLanguage === 'en'
 			) {
 				this.props.changeLocale('en_MX');
-			} else {
-				this.props.changeLocale(this.state.selectedLocale);
 			}
 		}
 

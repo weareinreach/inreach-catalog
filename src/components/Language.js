@@ -328,9 +328,6 @@ class Language extends React.Component {
 			langsList: filteredList,
 			langsNativeList: filteredNativeList
 		});
-		this.setState({
-			langsNativeList: filteredNativeList
-		});
 	}
 	handleOnFilterBarClick(e) {
 		e.stopPropagation();
@@ -437,14 +434,13 @@ class Language extends React.Component {
 			enableOverlay,
 			noArrow
 		} = this.props;
-
 		const {selectedLang} = this.state;
-		const selectorLabel = label || this.props.selectedLanguage;
-		// const selectorLabel = selectedLang;
+		const selectorLabel = label || selectedLang;
 		const isMobile = this.props.width < breakpoints['sm'] && useMobile;
 		if (triggerReload === true) {
 			this.handleReload();
 		}
+
 		return (
 			<div
 				className={classes.root + ' hide--on-print'}
