@@ -39,8 +39,7 @@ const DesktopSearch = (props) => {
 		handleTabChange,
 		tabValue,
 		moveButton,
-		handleFilterSelect,
-		...other
+		handleFilterSelect
 	} = props;
 	const variant = 'primary';
 	const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin;
@@ -99,7 +98,7 @@ const DesktopSearch = (props) => {
 					data-test-id="location-searchbar"
 					showResourceSelector={false}
 				>
-					<SearchByLocation {...other} />
+					<SearchByLocation {...props} />
 				</SearchBar>
 				<SearchBar
 					{...props}
