@@ -21,15 +21,12 @@ const DesktopSearch = (props) => {
 		searchButton,
 		searchButtonContainer,
 		lowerButton,
-		tabs,
-		fullBottomMargin,
-		halfBottomMargin
+		tabs
 	} = props.classes;
 	const {
 		handleOrgSelection,
 		handleSearchByOrgName,
 		onMoveSearchButton,
-		showWalkinCheckbox,
 		locale,
 		handleTabChange,
 		tabValue,
