@@ -154,6 +154,7 @@ class LangMenuItem extends React.Component {
 			this.props.provider
 		);
 	}
+
 	render() {
 		return (
 			<AsylumConnectDropdownListItem
@@ -217,6 +218,7 @@ class Language extends React.Component {
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
+						provider="gt"
 					/>
 				))}
 			</Fragment>
@@ -310,6 +312,9 @@ class Language extends React.Component {
 	handleSelect(langCode, langName, provider) {
 		if (typeof this.props.onSelect === 'function') {
 			this.props.onSelect(langCode, langName, provider);
+			this.setState({
+				selectedLanguage: langName
+			});
 		}
 	}
 
@@ -319,9 +324,7 @@ class Language extends React.Component {
 			e.target.value
 		);
 		this.setState({
-			langsList: filteredList
-		});
-		this.setState({
+			langsList: filteredList,
 			langsNativeList: filteredNativeList
 		});
 	}
@@ -330,9 +333,8 @@ class Language extends React.Component {
 	}
 
 	handleRequestCloseAfterSelect(langCode, langName, provider) {
-		console.log(langCode + ' ' + langName + ' ' + provider);
 		this.setState({open: false, selectedLang: langName, provider: provider});
-		if ((langCode === 'en' || langCode === 'es') && provider) {
+		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
 			//clear location.hash
 			var uri = window.location.toString();
 			if (uri.indexOf('#') > 0) {
@@ -415,14 +417,13 @@ class Language extends React.Component {
 			enableOverlay,
 			noArrow
 		} = this.props;
-
 		const {selectedLang} = this.state;
-		const selectorLabel = label || this.props.selectedLanguage;
-		// const selectorLabel = selectedLang;
+		const selectorLabel = label || selectedLang;
 		const isMobile = this.props.width < breakpoints['sm'] && useMobile;
 		if (triggerReload === true) {
 			this.handleReload();
 		}
+
 		return (
 			<div
 				className={classes.root + ' hide--on-print'}

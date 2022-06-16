@@ -6,6 +6,8 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
+import language from '../utils/language';
+
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
@@ -118,7 +120,6 @@ class LocaleForm extends React.Component {
 	handleNextClick(ev) {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
-
 			//show app code in spanish if langCode is 'es' and locale is MX or US
 			if (
 				this.state.selectedLocale === 'en_MX' &&
@@ -140,8 +141,6 @@ class LocaleForm extends React.Component {
 				this.state.selectedLanguage === 'en'
 			) {
 				this.props.changeLocale('en_MX');
-			} else {
-				this.props.changeLocale(this.state.selectedLocale);
 			}
 		}
 
