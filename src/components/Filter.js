@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {useIntl} from 'react-intl';
 
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';

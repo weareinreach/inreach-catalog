@@ -1,13 +1,11 @@
 import React from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import classNames from 'classnames';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import AppStoreBadge from '../images/app-store-badge.svg';
-import GooglePlayBadge from '../images/google-play-badge.png';
 import PropTypes from 'prop-types';
 
 const styles = (theme) => ({
@@ -80,8 +78,6 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 		</Grid>
 	);
 
-	const intl = useIntl();
-
 	return (
 		<footer className={classNames(textCenter, bgDarkGrey)}>
 			<Grid
@@ -126,6 +122,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
 								target="_blank"
+								rel="noopener noreferrer"
 								href="https://inreach.org/mobile-app"
 								className={textBlue}
 								data-test-id="download-mobile-app"
@@ -176,6 +173,7 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 						<Grid item className={classNames(footerLinkItemSize)}>
 							<a
 								target="_blank"
+								rel="noopener noreferrer"
 								href="https://inreach.org/newsletter/"
 								className={textBlue}
 								data-test-id="footer-newsletter-subscribe"
