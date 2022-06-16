@@ -4,12 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import {FormattedMessage, useIntl} from 'react-intl';
 
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
 import TabContext from '@material-ui/lab/TabContext';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '@material-ui/lab/TabPanel';
 import TabList from '@material-ui/lab/TabList';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -24,9 +22,6 @@ const DesktopSearch = (props) => {
 		searchButtonContainer,
 		lowerButton,
 		tabs,
-		secondary,
-		tooltip,
-		filterContainer,
 		fullBottomMargin,
 		halfBottomMargin
 	} = props.classes;
@@ -38,11 +33,9 @@ const DesktopSearch = (props) => {
 		locale,
 		handleTabChange,
 		tabValue,
-		moveButton,
-		handleFilterSelect
+		moveButton
 	} = props;
 	const variant = 'primary';
-	const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin;
 	const intl = useIntl();
 	const checkboxLabel = intl
 		.formatMessage({
