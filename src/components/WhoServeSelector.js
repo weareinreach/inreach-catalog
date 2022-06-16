@@ -8,7 +8,6 @@ import classNames from 'classnames';
 
 import AsylumConnectIndicator from './AsylumConnectIndicator';
 import withWidth from './withWidth';
-import {dropShadow} from '../theme';
 
 const styles = (theme) => ({
 	toggledSelect: {
