@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ValidLanguageList from '../utils/validLanguageList';
 import ValidNativeLanguageList from '../utils/validNativeLanguageList';
 import language from '../utils/language';
+import {getLocale, setLocale} from '../utils/locale';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
@@ -333,6 +334,7 @@ class Language extends React.Component {
 	}
 
 	handleRequestCloseAfterSelect(langCode, langName, provider) {
+		console.log(getLocale());
 		this.setState({open: false, selectedLang: langName, provider: provider});
 		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
 			//clear location.hash
@@ -353,6 +355,21 @@ class Language extends React.Component {
 			? language.setLanguageProvider(provider)
 			: language.removeLanguageProvider();
 		this.handleSelect(langCode, langName);
+
+		if (langCode === 'es' && getLocale() === 'en_MX') {
+			setLocale('es_MX');
+		}
+		if (langCode === 'es' && getLocale() === 'en_US') {
+			setLocale('es_US');
+		}
+
+		if (langCode === 'en' && getLocale() === 'es_MX') {
+			setLocale('en_MX');
+		}
+		if (langCode === 'en' && getLocale() === 'es_US') {
+			setLocale('en_US');
+		}
+
 		if (this.props.autoReload) {
 			window.location.reload();
 		}
