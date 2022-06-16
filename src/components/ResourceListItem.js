@@ -108,7 +108,8 @@ class ResourceListItem extends React.Component {
 			user,
 			userData,
 			width,
-			isOwner
+			isOwner,
+			intl
 		} = this.props;
 		const {
 			ratingSpacing,
@@ -330,7 +331,7 @@ class ResourceListItem extends React.Component {
 							).length ? (
 								<Grid item xs={12}>
 									<Typography variant="body1" className={nationalOrg}>
-										<Fa name="info-circle" className={moreInfo} />
+										<Fa name="info-circle" className={moreInfo} />{' '}
 										<FormattedMessage id="resource.is-national-organization" />
 									</Typography>
 								</Grid>
@@ -452,7 +453,11 @@ class ResourceListItem extends React.Component {
 																		component="span"
 																		className={badge}
 																	>
-																		{resourceIndex[tag].category.split(' ')[0]}
+																		{intl.formatMessage({
+																			id: resourceIndex[tag].category.split(
+																				' '
+																			)[0]
+																		})}
 																	</Typography>
 																</Grid>
 															);

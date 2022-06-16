@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const styles = (theme) => ({
@@ -94,12 +94,12 @@ class AsylumConnectCollapsibleSection extends React.Component {
 
 		return (
 			<div className={containerClasses}>
-				<ExpansionPanel
+				<Accordion
 					className={rootClass}
 					expanded={expanded}
 					onChange={this.handleToggle}
 				>
-					<ExpansionPanelSummary
+					<AccordionSummary
 						classes={{
 							root: summaryRootClass,
 							content: summaryContentClass,
@@ -114,15 +114,15 @@ class AsylumConnectCollapsibleSection extends React.Component {
 						>
 							{title}
 						</Typography>
-					</ExpansionPanelSummary>
-					<ExpansionPanelDetails
+					</AccordionSummary>
+					<AccordionDetails
 						classes={{
 							root: detailsRootClass
 						}}
 					>
 						{content}
-					</ExpansionPanelDetails>
-				</ExpansionPanel>
+					</AccordionDetails>
+				</Accordion>
 			</div>
 		);
 	}

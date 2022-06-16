@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -163,6 +163,7 @@ const FilterCollectionMobile = (props) => {
 	const categoryValue = hasChildren
 		? children?.map((item) => `${props.value}.${item.value}`).join(',')
 		: props.value;
+	const intl = useIntl();
 
 	return (
 		<div>
@@ -185,7 +186,9 @@ const FilterCollectionMobile = (props) => {
 					</span>
 				) : null}
 				<ACBadge type={type} width="45px" height="45px" useIcon={true} />
-				<span className={classes.sectionTitle}>{category}</span>
+				<span className={classes.sectionTitle}>
+					{intl.formatMessage({id: category})}
+				</span>
 				{hasChildren ? <ExpandMoreIcon className={classes.arrowIcon} /> : null}
 			</Typography>
 			{hasChildren && clickedCategory === index ? (
@@ -196,7 +199,7 @@ const FilterCollectionMobile = (props) => {
 						return (
 							<Grid item key={i} xs={12} sm={6} md={4}>
 								<AsylumConnectCheckbox
-									label={filter.title}
+									label={intl.formatMessage({id: filter.title})}
 									value={itemValue}
 									onChange={onChange}
 									disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}
@@ -244,6 +247,7 @@ const FilterCollection = (props) => {
 	} else if (hoveredCategory === index) {
 		backgroundColor = '#D3DCEC';
 	}
+	const intl = useIntl();
 
 	return (
 		<div
@@ -266,7 +270,9 @@ const FilterCollection = (props) => {
 					</span>
 				) : null}
 				<ACBadge type={type} width="45px" height="45px" useIcon={true} />
-				<span className={classes.sectionTitle}>{category}</span>
+				<span className={classes.sectionTitle}>
+					{intl.formatMessage({id: category})}
+				</span>
 				{hasChildren ? (
 					<ArrowForwardIosIcon className={classes.arrowIcon} />
 				) : null}
@@ -298,6 +304,7 @@ const FilterSubCollection = (props) => {
 	const categoryValue = hasChildren
 		? children?.map((item) => `${props.value}.${item.title}`).join(',')
 		: props.value;
+	const intl = useIntl();
 
 	return (
 		<div>
@@ -310,7 +317,7 @@ const FilterSubCollection = (props) => {
 						return (
 							<Grid item key={i} xs={12}>
 								<AsylumConnectCheckbox
-									label={filter.title}
+									label={intl.formatMessage({id: filter.title})}
 									value={itemValue}
 									classes={{
 										checkboxDefault: classes.subFilterCheckBox,
