@@ -232,7 +232,8 @@ class AsylumConnectMap extends React.Component {
 								});
 						  })
 						: null}
-					{!(resources && resources.length) && this.props.locale === 'en_MX' ? (
+					{!(resources && resources.length) &&
+					(this.props.locale === 'en_MX' || this.props.locale === 'es_MX') ? (
 						<AsylumConnectMexicoMapContainer />
 					) : null}
 				</GoogleMap>
