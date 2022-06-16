@@ -121,11 +121,6 @@ class LocaleSelector extends React.Component {
 
 		return (
 			<AsylumConnectSelector
-				// label={
-				// 	this.state.selectedLocaleName
-				// 		? this.state.selectedLocaleName
-				// 		: localeLabel
-				// }
 				label={getLabelName(
 					this.state.selectedLocaleName
 						? this.state.selectedLocaleName
