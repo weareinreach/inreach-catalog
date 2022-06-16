@@ -10,12 +10,7 @@ import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
 import Language from './Language';
 import {navLinks} from '../data/navLinks';
-import {
-	searchInput,
-	searchInputMobile,
-	breakpoints,
-	mobilePadding
-} from '../theme';
+import {searchInput} from '../theme';
 
 const styles = (theme) => ({
 	root: {
@@ -129,6 +124,7 @@ const NavDesktop = ({
 				className="hide--on-print"
 				data-test-id="nav-button-about"
 				target="_blank"
+				rel="noopener noreferrer"
 				href={navLinks.about}
 			>
 				<FormattedMessage id="navigation.about">
@@ -143,6 +139,7 @@ const NavDesktop = ({
 				className="hide--on-print"
 				data-test-id="nav-button-take-action"
 				target="_blank"
+				rel="noopener noreferrer"
 				href={navLinks.action}
 			>
 				<FormattedMessage id="navigation.take-action">
@@ -157,6 +154,7 @@ const NavDesktop = ({
 				className="hide--on-print"
 				data-test-id="nav-button-get-help"
 				target="_blank"
+				rel="noopener noreferrer"
 				href={navLinks.help}
 			>
 				<FormattedMessage id="navigation.get-help">
@@ -171,6 +169,7 @@ const NavDesktop = ({
 				className="hide--on-print"
 				data-test-id="nav-button-contact"
 				target="_blank"
+				rel="noopener noreferrer"
 				href={navLinks.contact}
 			>
 				<FormattedMessage id="navigation.contact">
@@ -185,6 +184,7 @@ const NavDesktop = ({
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
 				target="_blank"
+				rel="noopener noreferrer"
 				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">

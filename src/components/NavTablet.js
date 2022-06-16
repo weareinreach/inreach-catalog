@@ -7,18 +7,11 @@ import AsylumConnectButton from './AsylumConnectButton';
 import NavTabletMenu from './NavTabletMenu';
 import Language from './Language';
 import AccountTablet from './AccountTablet';
-import FavoritesLink from './FavoritesLink';
 import {navLinks} from '../data/navLinks';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import {
-	searchInput,
-	searchInputMobile,
-	breakpoints,
-	mobilePadding
-} from '../theme';
+import {searchInput} from '../theme';
 
 const styles = (theme) => ({
 	root: {
@@ -104,6 +97,7 @@ const NavTablet = ({
 				className="hide--on-print"
 				data-test-id="nav-button-safety-exit"
 				target="_blank"
+				rel="noopener noreferrer"
 				href={navLinks.safety}
 			>
 				<FormattedMessage id="navigation.safety-exit">
