@@ -51,7 +51,7 @@ const DesktopSearch = (props) => {
 		};
 	};
 	return (
-		<TabContext value={tabValue}>
+		<TabContext value={tabValue.toString()}>
 			<AppBar position="static">
 				<TabList onChange={handleTabChange} aria-label="search panel tabs">
 					<Tab
@@ -80,7 +80,7 @@ const DesktopSearch = (props) => {
 					/>
 				</TabList>
 			</AppBar>
-			<TabPanel value={0} index={0}>
+			<TabPanel value={'0'} index={0}>
 				<SearchBar
 					{...props}
 					classes={null}
@@ -141,7 +141,7 @@ const DesktopSearch = (props) => {
 					</Grid>
 				</Grid>
 			</TabPanel>
-			<TabPanel value={1} index={1}>
+			<TabPanel value={'1'} index={1}>
 				<SearchBar
 					{...props}
 					classes={null}
