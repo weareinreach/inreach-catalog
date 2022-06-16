@@ -93,13 +93,14 @@ function testNavigationBarDesktop(viewport, user) {
 //using special viewport size until app breakpoints are cleaned up 
 //and more unit tests are created to account for the new breakpoints
 function testNavigationBarTablet(viewport, user) {
-	cy.viewport(960, 1024);
 	cy.getElementByTestId('nav-button-logo').should('be.visible');
 	cy.getElementByTestId('nav-button-safety-exit').then(
 		($element) => {
 			expect($element).to.have.attr('href', 'https://www.google.com/');
-			expect($element).to.have.attr('target', '_blank');
+      expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Safety Exit');
+			//click
+			cy.wrap($element).click({force:true});
 		}
 	);
 
@@ -116,6 +117,7 @@ function testNavigationBarTablet(viewport, user) {
 
 	cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
+	cy.wait(1000);
 
     //account menu drop down when logged in - favorites
 	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
