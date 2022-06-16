@@ -50,7 +50,7 @@ const BottomBanner = ({classes}) => {
 					className={classes.banner1}
 				>
 					<FormattedMessage id="app.banner-1" />{' '}
-					<span class={classes.line}></span>
+					<span className={classes.line}></span>
 				</Typography>
 				<Typography variant="subtitle1" data-test-id="banner-text-2">
 					<FormattedMessage id="app.banner-2" />
