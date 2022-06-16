@@ -1,7 +1,7 @@
 import React from 'react';
 import Fa from 'react-fontawesome';
 import Grid from '@material-ui/core/Grid';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -43,6 +43,14 @@ const DesktopSearch = (props) => {
 	} = props;
 	const variant = 'primary';
 	const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin;
+	const intl = useIntl();
+	const checkboxLabel = intl
+		.formatMessage({
+			id: 'search.show-national-organizations-country',
+			defaultMessage:
+				'Show me national organizations who can help anyone located in the country'
+		})
+		.toString();
 
 	const a11yProps = (index) => {
 		return {
@@ -104,12 +112,7 @@ const DesktopSearch = (props) => {
 				>
 					<Grid item>
 						<AsylumConnectCheckbox
-							label={
-								<FormattedMessage
-									id="search.show-national-organizations-country"
-									defaultMessage="Show me national organizations who can help anyone located in the country"
-								/>
-							}
+							label={checkboxLabel}
 							checked={props.isNational}
 							onChange={props.handleNationalCheckBox}
 							testIdName="search-page-checkbox"
