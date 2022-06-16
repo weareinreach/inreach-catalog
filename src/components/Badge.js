@@ -127,11 +127,9 @@ const Badge = ({
 	if (isMobile && (typeof useIcon === 'undefined' || useIcon === false)) {
 		return (
 			<div className={classes.flair} data-test-id="badge">
-				{mobileLabel ? (
-					mobileLabel
-				) : (
-					<FormattedMessage id={typeMapping[type].label} />
-				)}
+				{mobileLabel
+					? mobileLabel
+					: intl.formatMessage({id: typeMapping[type].label})}
 			</div>
 		);
 	} else {
