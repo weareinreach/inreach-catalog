@@ -18,6 +18,9 @@ import Disclaimer from './Disclaimer';
 import withWidth from './withWidth';
 import {boldFont, breakpoints, mobilePadding} from '../theme';
 import SearchForm from './SearchForm';
+import language from '../utils/language';
+import {getLocale} from '../utils/locale';
+import {returnNativeLanguageData} from '../utils/utils';
 
 const styles = (theme) => ({
 	tooltip: {fontFamily: 'sans-serif'},
@@ -117,6 +120,9 @@ const styles = (theme) => ({
 	}
 });
 
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
 const ResultsContainer = (props) => {
 	const {
 		containerSearchResults,
@@ -127,6 +133,7 @@ const ResultsContainer = (props) => {
 		loadingColor,
 		userData
 	} = props;
+
 	const disclaimerProps = {};
 	disclaimerProps.children = (
 		<FormattedMessage id="search.covid-disclaimer-default" />
@@ -272,7 +279,10 @@ class SearchResultsContainer extends React.Component {
 			locale: this.props.locale,
 			noResults: noResults,
 			session: this.props.session,
-			searchResults: this.props.searchResults,
+			searchResults:
+				langCode !== 'en' && provider === 'inreach'
+					? returnNativeLanguageData(this.props.searchResults, langCode)
+					: this.props.searchResults,
 			searching: this.props.searching,
 			user: this.props.user,
 			userData: this.props.userData
