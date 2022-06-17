@@ -39,3 +39,27 @@ const sharedWithUser = (email, list) => {
 		? true
 		: false;
 };
+
+export const returnNativeLanguageData = (results, langCode) => {
+	//determine language field from langCode
+	var langField = '_' + langCode.toUpperCase();
+
+	//return the specified language field value if one exsits, else return the original
+	//hardcoded to _ES for now
+	var tempResults = [];
+	for (var result of results) {
+		var tempResult = '';
+		tempResult = {
+			...result,
+			description: result?.description_ES || result.description,
+			website: result?.website_ES || result.website,
+			alert_message: result?.alert_message_ES || result.alert_message,
+			name: result?.name_ES || result.name,
+			slug: result?.slug_ES || result.slug
+		};
+
+		tempResults.push(tempResult);
+	}
+	console.log(tempResults);
+	return tempResults;
+};
