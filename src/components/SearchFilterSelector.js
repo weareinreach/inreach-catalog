@@ -32,7 +32,7 @@ const styles = (theme) => ({
 class SearchFilterSelector extends React.Component {
 	render() {
 		const {selectInput, filterList, rootClass} = this.props.classes;
-		const {onChange, selectedFilters} = this.props;
+		const {selectedFilters} = this.props;
 
 		return (
 			<AsylumConnectSelector

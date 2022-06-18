@@ -45,7 +45,7 @@ const Tools = (props) => {
 		handleRequestOpen(type);
 	};
 	const isVerified = _.some(resource?.owners, (owner) => {
-		return owner.userId == user;
+		return owner.userId === user;
 	});
 
 	return (

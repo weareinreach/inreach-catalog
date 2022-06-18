@@ -77,7 +77,7 @@ const AccountNav = ({
 		)}
 		{!session && (
 			<div className={classes.root}>
-				<a
+				<p
 					className={classes.cursor}
 					data-test-id="nav-account-sign-in"
 					onClick={() => handleRequestOpen('login')}
@@ -92,9 +92,9 @@ const AccountNav = ({
 							defaultMessage="Sign In"
 						/>
 					</Typography>
-				</a>
+				</p>
 				<div className={classes.line} />
-				<a
+				<p
 					className={classes.cursor}
 					onClick={() => handleRequestOpen('signup')}
 					data-test-id="nav-account-sign-up"
@@ -109,7 +109,7 @@ const AccountNav = ({
 							defaultMessage="Sign Up"
 						/>
 					</Typography>
-				</a>
+				</p>
 			</div>
 		)}
 	</div>

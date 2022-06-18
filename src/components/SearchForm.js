@@ -3,7 +3,6 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
 import LocaleSelector from './LocaleSelector';
-import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 import withWidth from './withWidth';
 import {breakpoints, boldFont} from '../theme';
 import DesktopSearch from './DesktopSearch';

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {FormattedMessage} from 'react-intl';
 import {withStyles} from '@material-ui/core/styles';
@@ -61,9 +60,7 @@ const DeleteListDialog = (props) => {
 		handleMessageNew,
 		handleFetchUser,
 		handleRequestClose,
-		handleRequestOpen,
-		history,
-		handleLogOut
+		history
 	} = props;
 
 	let isShared = true;

@@ -1,15 +1,13 @@
 import React from 'react';
 import Fa from 'react-fontawesome';
 import Grid from '@material-ui/core/Grid';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
 import TabContext from '@material-ui/lab/TabContext';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '@material-ui/lab/TabPanel';
 import TabList from '@material-ui/lab/TabList';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -23,26 +21,26 @@ const DesktopSearch = (props) => {
 		searchButton,
 		searchButtonContainer,
 		lowerButton,
-		tabs,
-		secondary,
-		tooltip,
-		filterContainer,
-		fullBottomMargin,
-		halfBottomMargin
+		tabs
 	} = props.classes;
 	const {
 		handleOrgSelection,
 		handleSearchByOrgName,
 		onMoveSearchButton,
-		showWalkinCheckbox,
 		locale,
 		handleTabChange,
 		tabValue,
-		moveButton,
-		handleFilterSelect
+		moveButton
 	} = props;
 	const variant = 'primary';
-	const toolbarClass = showWalkinCheckbox ? halfBottomMargin : fullBottomMargin;
+	const intl = useIntl();
+	const checkboxLabel = intl
+		.formatMessage({
+			id: 'search.show-national-organizations-country',
+			defaultMessage:
+				'Show me national organizations who can help anyone located in the country'
+		})
+		.toString();
 
 	const a11yProps = (index) => {
 		return {
@@ -51,7 +49,7 @@ const DesktopSearch = (props) => {
 		};
 	};
 	return (
-		<TabContext value={tabValue}>
+		<TabContext value={tabValue.toString()}>
 			<AppBar position="static">
 				<TabList onChange={handleTabChange} aria-label="search panel tabs">
 					<Tab
@@ -65,6 +63,7 @@ const DesktopSearch = (props) => {
 						{...a11yProps(0)}
 						className={tabs}
 						fullWidth
+						value="0"
 					/>
 					<Tab
 						data-test-id="desktop-search-organization"
@@ -77,10 +76,11 @@ const DesktopSearch = (props) => {
 						{...a11yProps(1)}
 						className={tabs}
 						fullWidth
+						value="1"
 					/>
 				</TabList>
 			</AppBar>
-			<TabPanel value={0} index={0}>
+			<TabPanel value="0" index={0}>
 				<SearchBar
 					{...props}
 					classes={null}
@@ -104,12 +104,7 @@ const DesktopSearch = (props) => {
 				>
 					<Grid item>
 						<AsylumConnectCheckbox
-							label={
-								<FormattedMessage
-									id="search.show-national-organizations-country"
-									defaultMessage="Show me national organizations who can help anyone located in the country"
-								/>
-							}
+							label={checkboxLabel}
 							checked={props.isNational}
 							onChange={props.handleNationalCheckBox}
 							testIdName="search-page-checkbox"
@@ -141,7 +136,7 @@ const DesktopSearch = (props) => {
 					</Grid>
 				</Grid>
 			</TabPanel>
-			<TabPanel value={1} index={1}>
+			<TabPanel value="1" index={1}>
 				<SearchBar
 					{...props}
 					classes={null}

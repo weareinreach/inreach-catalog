@@ -133,11 +133,9 @@ const AboutYouOrganization = (props) => {
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
-	const [touchedOrgName, setTouchedOrgName] = useState(false);
-	const [touchedPosition, setTouchedPosition] = useState(false);
-	const [touchedReason, setTouchedReason] = useState(false);
-
-	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
+	const [setTouchedOrgName] = useState(false);
+	const [setTouchedPosition] = useState(false);
+	const [setTouchedReason] = useState(false);
 
 	return (
 		<>

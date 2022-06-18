@@ -49,9 +49,13 @@ const Announcement = (props) => {
 	);
 };
 
+Announcement.defaultProps = {
+	useSmallIcon: false
+};
+
 Announcement.propTypes = {
 	classes: PropTypes.object.isRequired,
-	useSmallIcon: false
+	useSmallIcon: PropTypes.bool
 };
 
 export default withStyles(styles)(Announcement);

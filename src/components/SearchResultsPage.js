@@ -1,24 +1,18 @@
 import React from 'react';
-import Fa from 'react-fontawesome';
 import SwipeableViews from 'react-swipeable-views';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import IconButton from '@material-ui/core/IconButton';
 import {FormattedMessage} from 'react-intl';
 
 import AsylumConnectBackButton from './AsylumConnectBackButton';
-import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 import AsylumConnectMap from './AsylumConnectMap';
 import Loading from './Loading';
 import ResourceListItem from './ResourceListItem';
-import SearchBar from './SearchBar';
-import SearchByLocation from './SearchByLocation';
 import SearchRefinementControls from './SearchRefinementControls';
 import Disclaimer from './Disclaimer';
 import withWidth from './withWidth';
@@ -255,18 +249,13 @@ class SearchResultsContainer extends React.Component {
 			container,
 			containerSearchForm,
 			containerSearchResults,
-			filterContainer,
 			fullBottomMargin,
 			halfBottomMargin,
 			indicatorColor,
 			loadingColor,
-			lowerButton,
 			noResults,
-			secondary,
 			shrinkTab,
-			tabContainer,
-			tooltip,
-			nationalOrgCheckboxContainer
+			tabContainer
 		} = this.props.classes;
 		const searchResultsProps = {
 			containerSearchResults:
