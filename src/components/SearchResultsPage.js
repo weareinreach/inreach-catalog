@@ -283,6 +283,7 @@ class SearchResultsContainer extends React.Component {
 				langCode !== 'en' && provider === 'inreach'
 					? returnNativeLanguageData(this.props.searchResults, langCode)
 					: this.props.searchResults,
+			// this.props.searchResults,
 			searching: this.props.searching,
 			user: this.props.user,
 			userData: this.props.userData
