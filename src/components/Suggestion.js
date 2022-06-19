@@ -701,10 +701,10 @@ class Suggestion extends React.Component {
 									<span>
 										<FormattedMessage id="resource.change-request-received" />{' '}
 										<a
-											href="mailto:catalog@asylumconnect.org"
+											href="mailto:app@inreach.org"
 											className={classes.boldFont}
 										>
-											catalog@asylumconnect.org
+											app@inreach.org
 										</a>
 										.
 									</span>
