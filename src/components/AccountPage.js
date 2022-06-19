@@ -14,6 +14,15 @@ import withWidth from './withWidth';
 import {breakpoints} from '../theme';
 import {fetchOrganizations, fetchUser} from '../utils/api';
 
+import {returnOrgNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const styles = (theme) => ({
 	root: {
 		padding: '5% 0 5% 0',
@@ -79,6 +88,10 @@ class AccountPage extends React.Component {
 			.then((user) => {
 				fetchOrganizations({owner: user.email})
 					.then(({organizations}) => {
+						organizations = doNativeTranslation
+							? returnOrgNativeLanguageData(organizations, langCode)
+							: organizations;
+
 						const affiliation = organizations?.[0] || null;
 						const isApproved =
 							affiliation?.owners?.some(
