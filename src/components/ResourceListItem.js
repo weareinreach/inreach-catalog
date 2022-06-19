@@ -21,12 +21,6 @@ import propertyMap, {combineProperties} from '../utils/propertyMap';
 import resourceTypes, {getTags, getOrgTags} from '../utils/tags';
 import {boldFont, breakpoints} from '../theme';
 
-import language from '../utils/language';
-import {returnNativeLanguageData} from '../utils/utils';
-
-const langCode = language.getLanguageCode();
-const provider = language.getLanguageProvider();
-
 const styles = (theme) => ({
 	boldFont: boldFont(theme),
 	contentSpacing: {
@@ -134,11 +128,6 @@ class ResourceListItem extends React.Component {
 			badge,
 			badgeItem
 		} = classes;
-
-		// const doTranslation = langCode !== 'en' && provider === 'inreach' ? true : false;
-
-		// let translatedResource = doTranslation ? returnNativeLanguageData(resource, langCode) : null;
-		// console.log(translatedResource);
 
 		const isMobile = width < breakpoints['sm'];
 		const displayData = [

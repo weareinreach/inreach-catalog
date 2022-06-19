@@ -16,6 +16,14 @@ import {breakpoints} from '../theme';
 import {fetchOrganizations} from '../utils/api';
 import infograph from '../utils/infographics';
 import ResourceTypes from '../utils/tags';
+import {returnNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
 
 const styles = (theme) => ({
 	searchArea: {
@@ -517,10 +525,14 @@ class MapPage extends React.Component {
 	}
 
 	processSearchResults(data, nextPage) {
-		const newOrgs = (data?.organizations || []).map((org) => ({
+		var newOrgs = (data?.organizations || []).map((org) => ({
 			...org,
 			resource_type: 'Organization'
 		}));
+
+		newOrgs = doNativeTranslation
+			? returnNativeLanguageData(newOrgs, langCode)
+			: newOrgs;
 
 		this.setState((prevState) => ({
 			endOfList: newOrgs.length === 0,

@@ -48,44 +48,50 @@ export const returnNativeLanguageData = (results, langCode) => {
 		);
 	};
 
+	/* Helper functions below */
 	//determine language field from langCode
 	var langField = '_' + langCode.toUpperCase();
 
 	//email function
-
-	//phone function
-
-	//locations function
-
-	//service function
-
-	//access function
-
-	//return the specified language field value if one exsits, else return the original
-	//hardcoded to _ES for now
-	var tempResults = [];
-
-	for (var result of results) {
-		var tempResult = '';
+	function updateEmails(emailsArr) {
 		var tempEmails = [];
-		var tempLocations = [];
-		var tempPhones = [];
-		var tempServices = [];
 
-		//update emails array
-		if (Array.isArray(result?.emails)) {
+		if (Array.isArray(emailsArr)) {
 			var tempEmail = '';
-			for (var email of result.emails) {
+			for (var email of emailsArr) {
 				tempEmail = {...email, title: email?.title_ES || email?.title};
 				rmUnKeys(tempEmail);
 				tempEmails.push(tempEmail);
 			}
 		}
+		return tempEmails;
+	}
 
-		//update locations array
-		if (Array.isArray(result?.locations)) {
+	//phone function
+	function updatePhones(phonessArr) {
+		var tempPhones = [];
+
+		if (Array.isArray(phonessArr)) {
+			var tempPhone = '';
+			for (var phone of phonessArr) {
+				tempPhone = {
+					...phone,
+					phone_type: phone?.phone_type_ES || phone?.phone_type
+				};
+				rmUnKeys(tempPhone);
+				tempPhones.push(tempPhone);
+			}
+		}
+		return tempPhones;
+	}
+
+	//update locations array
+	function updateLocations(locationsArr) {
+		var tempLocations = [];
+
+		if (Array.isArray(locationsArr)) {
 			var tempLocation = '';
-			for (var location of result.locations) {
+			for (var location of locationsArr) {
 				tempLocation = {
 					...location,
 					country: location?.country_ES || location?.country,
@@ -96,73 +102,103 @@ export const returnNativeLanguageData = (results, langCode) => {
 				tempLocations.push(tempLocation);
 			}
 		}
+		return tempLocations;
+	}
 
-		//update phones array
-		if (Array.isArray(result?.phones)) {
-			var tempPhone = '';
-			for (var phone of result.phones) {
-				tempPhone = {
-					...phone,
-					phone_type: phone?.phone_type_ES || phone?.phone_type
-				};
-				rmUnKeys(tempPhone);
-				tempPhones.push(tempPhone);
-			}
-		}
+	//update services array
+	function updateServices(servicesArr) {
+		var tempServices = [];
 
-		//update services array
-		if (Array.isArray(result?.services)) {
+		if (Array.isArray(servicesArr)) {
 			var tempService = '';
-			for (var service of result.services) {
+			for (var service of servicesArr) {
 				//update access instructions
-				var tempAccessInstructions = [];
-				if (Array.isArray(service?.access_instructions)) {
-					var tempAccessInstruction = '';
-					for (var access_instruction of service.access_instructions) {
-						tempAccessInstruction = {
-							...access_instruction,
-							access_value:
-								access_instruction?.access_value_ES ||
-								access_instruction.access_value,
-							instructions:
-								access_instruction?.instruction_ES ||
-								access_instruction.instructions
-						};
-						rmUnKeys(tempAccessInstruction);
-						tempAccessInstructions.push(tempAccessInstruction);
-					}
-				}
 
 				tempService = {
 					...service,
 					description: service?.description_ES || service?.description,
 					name: service?.name_ES || service?.name,
 					slug: service?.slug_ES || service?.slug,
-					access_instructions: tempAccessInstructions
+					access_instructions: updateAccessInstructions(
+						service?.access_instructions
+					)
 				};
 				rmUnKeys(tempService);
 				tempServices.push(tempService);
 			}
 		}
-
-		//create temporary result object
-		tempResult = {
-			...result,
-			description: result?.description_ES || result.description,
-			website: result?.website_ES || result.website,
-			alert_message: result?.alert_message_ES || result.alert_message,
-			name: result?.name_ES || result.name,
-			slug: result?.slug_ES || result.slug,
-			emails: tempEmails,
-			locations: tempLocations,
-			phones: tempPhones,
-			services: tempServices
-		};
-
-		//add tempResult Object to tempResults array
-		tempResults.push(tempResult);
+		return tempServices;
 	}
-	//return the array
-	console.log(tempResults);
-	return tempResults;
+
+	//access function
+	function updateAccessInstructions(accessArr) {
+		var tempAccessInstructions = [];
+		if (Array.isArray(accessArr)) {
+			var tempAccessInstruction = '';
+			for (var access_instruction of accessArr) {
+				tempAccessInstruction = {
+					...access_instruction,
+					access_value:
+						access_instruction?.access_value_ES ||
+						access_instruction.access_value,
+					instructions:
+						access_instruction?.instruction_ES ||
+						access_instruction.instructions
+				};
+				rmUnKeys(tempAccessInstruction);
+				tempAccessInstructions.push(tempAccessInstruction);
+			}
+		}
+		return tempAccessInstructions;
+	}
+
+	//return the specified language field value if one exsits, else return the original
+	//hardcoded to _ES for now
+	function updateResults(results) {
+		var tempResults = [];
+		var tempResult = '';
+
+		if (Array.isArray(results)) {
+			for (var result of results) {
+				tempResult = '';
+
+				//create temporary result object
+				tempResult = {
+					...result,
+					description: result?.description_ES || result.description,
+					website: result?.website_ES || result.website,
+					alert_message: result?.alert_message_ES || result.alert_message,
+					name: result?.name_ES || result.name,
+					slug: result?.slug_ES || result.slug,
+					emails: updateEmails(result?.emails),
+					locations: updateLocations(result?.locations),
+					phones: updatePhones(result?.phones),
+					services: updateServices(result?.services)
+				};
+
+				//add tempResult Object to tempResults array
+				tempResults.push(tempResult);
+			}
+			//return the array
+			return tempResults;
+		} else {
+			//create temporary result object
+			tempResult = {
+				...results,
+				description: results?.description_ES || results.description,
+				website: results?.website_ES || results.website,
+				alert_message: results?.alert_message_ES || results.alert_message,
+				name: results?.name_ES || results.name,
+				slug: results?.slug_ES || results.slug,
+				emails: updateEmails(results?.emails),
+				locations: updateLocations(results?.locations),
+				phones: updatePhones(results?.phones),
+				services: updateServices(results?.services)
+			};
+			return tempResult;
+		}
+	}
+
+	//now run everything
+	return updateResults(results);
 };
