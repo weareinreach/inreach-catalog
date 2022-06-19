@@ -2,39 +2,13 @@
 
 [![Build Status](https://travis-ci.org/asylum-connect/asylumconnect-catalog.svg?branch=master)](https://travis-ci.org/asylum-connect/asylumconnect-catalog)
 
-```
-$ cd to asylumconnect-catalog
-```
-
-## install yarn: make sure you have yarn installed
-
-```
-$ npm install –global yarn
-```
-
-## If you get error messages, make sure to do:
-
-```
-$ sudo chown -R $USER /usr/local/lib/node_modules
-```
-
-## Now try installing yarn again
-
-## To check if you have yarn installed
-
-```
-$ yarn –version
-```
-
 ## Development
 
 ```
+$ cd to asylumconnect-catalog
+
 $ yarn install
-```
 
-## If you have an error, about your node version, you either don’t # already have node js installed(in this case just go to the node js site & install) or you need to update node js
-
-```
 $ yarn dev
 ```
 
