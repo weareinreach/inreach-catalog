@@ -124,7 +124,8 @@ const updateServices = (servicesArr) => {
 				// slug: service?.slug_ES || service?.slug,
 				access_instructions: updateAccessInstructions(
 					service?.access_instructions
-				)
+				),
+				properties: updateProperties(service?.properties)
 			};
 			rmUnKeys(tempService);
 			tempServices.push(tempService);
@@ -133,7 +134,7 @@ const updateServices = (servicesArr) => {
 	return tempServices;
 };
 
-//function to translate access_instruction fields
+//function to translate access_instruction fields (part of service object)
 const updateAccessInstructions = (accessArr) => {
 	var tempAccessInstructions = [];
 	if (Array.isArray(accessArr)) {
@@ -152,6 +153,25 @@ const updateAccessInstructions = (accessArr) => {
 		}
 	}
 	return tempAccessInstructions;
+};
+
+//function to translate property fields (part of service object)
+const updateProperties = (properties) => {
+	var tempProperties = '';
+	tempProperties = {
+		...properties,
+		'cost-fees': properties?.['cost-fees_ES'] || properties?.['cost-fees'],
+		'elig-description':
+			properties?.['elig-description_ES'] || properties?.['elig-description'],
+		'geo-public-transit-description':
+			properties?.['geo-public-transit-description_ES'] ||
+			properties?.['geo-public-transit-description'],
+		'lang-all-languages-by-interpreter':
+			properties?.['lang-all-languages-by-interpreter_ES'] ||
+			properties?.['lang-all-languages-by-interpreter']
+	};
+	rmUnKeys(tempProperties);
+	return tempProperties;
 };
 
 //use the createLangField function to return the specified language field value if one exsits,
@@ -202,14 +222,30 @@ const updateOrgResults = (results) => {
 	}
 };
 
+const updateServiceObject = (service) => {
+	var tempService = '';
+	tempService = {
+		...service,
+		description: service?.description_ES || service?.description,
+		name: service?.name_ES || service?.name,
+		slug: service?.slug, //use the english slug for services until the API is updated
+		// slug: service?.slug_ES || service?.slug,
+		access_instructions: updateAccessInstructions(service?.access_instructions),
+		organization: service?.organization,
+		properties: updateProperties(service?.properties)
+	};
+	rmUnKeys(tempService);
+	return tempService;
+};
+
 //use this to update organizations
 export const returnOrgNativeLanguageData = (results, langCode) => {
 	//now run everything
 	return updateOrgResults(results, langCode);
 };
 
-//use this to update services
+//use this to update service object
 export const returnServiceNativeLanguageData = (results, langCode) => {
 	//now run everything
-	return updateOrgResults(results, langCode);
+	return updateServiceObject(results, langCode);
 };

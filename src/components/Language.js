@@ -334,7 +334,6 @@ class Language extends React.Component {
 	}
 
 	handleRequestCloseAfterSelect(langCode, langName, provider) {
-		console.log(getLocale());
 		this.setState({open: false, selectedLang: langName, provider: provider});
 		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
 		this.setState({open: false, selectedLang: langName, provider: provider});
