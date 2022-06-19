@@ -262,6 +262,7 @@
 	"favorites.name-list-help": "Name your list by category, day of the week, or the name of whomever this list is for.",
 	"favorites.no-lists": "You haven't created any lists yet.",
 	"favorites.privacy-disclaimer": "Your Favourites lists are only visible to you and anyone you share them with.",
+	"favorites.resource-added": "Resource successfully added to favorites list.",
 	"favorites.share-list-success-message": "List shared successfully.",
 	"favorites.share-resource-success-message": "Resource shared successfully.",
 	"favorites.sign-in-help": "Once signed in, you’ll be able to quickly find the organizations and resources you have favourited.",
