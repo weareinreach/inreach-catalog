@@ -54,7 +54,7 @@ import {
 } from '../theme';
 import {getSocialMediaLinks} from './ResourceSocialMedia';
 
-import {returnNativeLanguageData} from '../utils/utils';
+import {returnOrgNativeLanguageData} from '../utils/utils';
 import language from '../utils/language';
 const langCode = language.getLanguageCode();
 const provider = language.getLanguageProvider();
@@ -428,7 +428,7 @@ class Detail extends React.Component {
 			var formattedOrg = formatOrganization(organization);
 
 			formattedOrg = doNativeTranslation
-				? returnNativeLanguageData(formattedOrg, langCode)
+				? returnOrgNativeLanguageData(formattedOrg, langCode)
 				: formattedOrg;
 
 			this.setState({
@@ -447,7 +447,7 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getServiceBySlug(orgSlug, serviceSlug).then((service) => {
-			const formattedService = formatService(service);
+			var formattedService = formatService(service);
 
 			this.setState({
 				loading: false,
