@@ -54,6 +54,13 @@ import {
 } from '../theme';
 import {getSocialMediaLinks} from './ResourceSocialMedia';
 
+import {returnNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const formatOrganization = (organization) => {
 	return {
 		...organization,
@@ -418,7 +425,11 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getOrganizationBySlug(orgSlug).then((organization) => {
-			const formattedOrg = formatOrganization(organization);
+			var formattedOrg = formatOrganization(organization);
+
+			formattedOrg = doNativeTranslation
+				? returnNativeLanguageData(formattedOrg, langCode)
+				: formattedOrg;
 
 			this.setState({
 				loading: false,
