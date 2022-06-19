@@ -223,7 +223,12 @@ class AppConnectCatalog extends React.Component {
 				})
 			}));
 		}
-		this.handleMessageNew('Resource successfully added to favorites list.');
+		this.handleMessageNew(
+			<FormattedMessage
+				id="favorites.resource-added"
+				description="Resource successfully added to favorites list."
+			/>
+		);
 	};
 
 	handleLogIn(jwt) {

@@ -262,6 +262,7 @@
 	"favorites.name-list-help": "Nombra tu lista por categoría, día de la semana, o nombre de la persona para quien creaste la lista.",
 	"favorites.no-lists": "Todavía no has creado ninguna lista.",
 	"favorites.privacy-disclaimer": "TTus listas de recursos favoritos solamente son visibles para ti y cualquier persona con quien las compartas.",
+	"favorites.resource-added": "El recurso fue agregado exitosamente a la lista de favoritos.",
 	"favorites.share-list-success-message": "Lista compartida con éxito.",
 	"favorites.share-resource-success-message": "Recurso compartido con éxito.",
 	"favorites.sign-in-help": "Despues de inicar una sesión, podrás ver las organizaciones y los recursos que guardaste como tus favoritos rápidamente.",
