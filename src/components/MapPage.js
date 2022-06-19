@@ -16,7 +16,7 @@ import {breakpoints} from '../theme';
 import {fetchOrganizations} from '../utils/api';
 import infograph from '../utils/infographics';
 import ResourceTypes from '../utils/tags';
-import {returnNativeLanguageData} from '../utils/utils';
+import {returnOrgNativeLanguageData} from '../utils/utils';
 import language from '../utils/language';
 
 const langCode = language.getLanguageCode();
@@ -531,7 +531,7 @@ class MapPage extends React.Component {
 		}));
 
 		newOrgs = doNativeTranslation
-			? returnNativeLanguageData(newOrgs, langCode)
+			? returnOrgNativeLanguageData(newOrgs, langCode)
 			: newOrgs;
 
 		this.setState((prevState) => ({
