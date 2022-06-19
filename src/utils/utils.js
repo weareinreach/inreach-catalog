@@ -41,6 +41,17 @@ const sharedWithUser = (email, list) => {
 };
 
 /**** Helper functions to return Native Language Data ***/
+//currently these are all hardcode to look for _ES data fields
+//when there is the need to support other ntaive languages,
+//use the createLangField function to dynamically change the data field
+
+//How it works
+//TLDR - if there is an _ES data field and it is not null,
+//copy this data to the non_ES data field
+//once the object is created, run it thru a cleaner function (rmUnKeys)
+//to remove any undefined key/value pairs
+//return the cleaned object
+
 //remove undefined key helper function
 const rmUnKeys = (tmpObj) => {
 	return Object.keys(tmpObj).forEach(
@@ -107,33 +118,6 @@ const updateLocations = (locationsArr) => {
 	return tempLocations;
 };
 
-//function to translate service fields
-const updateServices = (servicesArr) => {
-	var tempServices = [];
-
-	if (Array.isArray(servicesArr)) {
-		var tempService = '';
-		for (var service of servicesArr) {
-			//update access instructions
-
-			tempService = {
-				...service,
-				description: service?.description_ES || service?.description,
-				name: service?.name_ES || service?.name,
-				slug: service?.slug, //use the english slug for services until the API is updated
-				// slug: service?.slug_ES || service?.slug,
-				access_instructions: updateAccessInstructions(
-					service?.access_instructions
-				),
-				properties: updateProperties(service?.properties)
-			};
-			rmUnKeys(tempService);
-			tempServices.push(tempService);
-		}
-	}
-	return tempServices;
-};
-
 //function to translate access_instruction fields (part of service object)
 const updateAccessInstructions = (accessArr) => {
 	var tempAccessInstructions = [];
@@ -174,9 +158,7 @@ const updateProperties = (properties) => {
 	return tempProperties;
 };
 
-//use the createLangField function to return the specified language field value if one exsits,
-//else return the original
-//hardcoded to _ES for now
+//function to translate services fields
 const updateOrgResults = (results) => {
 	var tempResults = [];
 	var tempResult = '';
@@ -196,7 +178,7 @@ const updateOrgResults = (results) => {
 				emails: updateEmails(result?.emails),
 				locations: updateLocations(result?.locations),
 				phones: updatePhones(result?.phones),
-				services: updateServices(result?.services)
+				services: updateServicesResults(result?.services)
 			};
 
 			//add tempResult Object to tempResults array
@@ -216,36 +198,68 @@ const updateOrgResults = (results) => {
 			emails: updateEmails(results?.emails),
 			locations: updateLocations(results?.locations),
 			phones: updatePhones(results?.phones),
-			services: updateServices(results?.services)
+			services: updateServicesResults(results?.services)
 		};
 		return tempResult;
 	}
 };
 
-const updateServiceObject = (service) => {
+//function to translate services fields
+const updateServicesResults = (services) => {
+	var tempServices = [];
 	var tempService = '';
-	tempService = {
-		...service,
-		description: service?.description_ES || service?.description,
-		name: service?.name_ES || service?.name,
-		slug: service?.slug, //use the english slug for services until the API is updated
-		// slug: service?.slug_ES || service?.slug,
-		access_instructions: updateAccessInstructions(service?.access_instructions),
-		organization: service?.organization,
-		properties: updateProperties(service?.properties)
-	};
-	rmUnKeys(tempService);
-	return tempService;
+
+	if (Array.isArray(services)) {
+		tempService = '';
+		for (var service of services) {
+			//update access instructions
+
+			tempService = {
+				...service,
+				description: service?.description_ES || service?.description,
+				name: service?.name_ES || service?.name,
+				slug: service?.slug, //use the english slug for services until the API is updated
+				// slug: service?.slug_ES || service?.slug,
+				access_instructions: updateAccessInstructions(
+					service?.access_instructions
+				),
+				properties: updateProperties(service?.properties)
+			};
+			rmUnKeys(tempService);
+			tempServices.push(tempService);
+		}
+		//return the service array
+		return tempServices;
+	} else {
+		tempService = {
+			...services,
+			description: services?.description_ES || services?.description,
+			name: services?.name_ES || services?.name,
+			slug: services?.slug, //use the english slug for services until the API is updated
+			// slug: service?.slug_ES || service?.slug,
+			access_instructions: updateAccessInstructions(
+				services?.access_instructions
+			),
+			organization: services?.organization, //this is special for stand-alone services
+			properties: updateProperties(services?.properties)
+		};
+		rmUnKeys(tempService);
+
+		//return the service object
+		return tempService;
+	}
 };
 
 //use this to update organizations
 export const returnOrgNativeLanguageData = (results, langCode) => {
 	//now run everything
-	return updateOrgResults(results, langCode);
+	return updateOrgResults(results);
 };
 
 //use this to update service object
 export const returnServiceNativeLanguageData = (results, langCode) => {
 	//now run everything
-	return updateServiceObject(results, langCode);
+	return updateServicesResults(results);
 };
+
+/**** End of Helper functions to return Native Language Data ***/
