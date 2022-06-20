@@ -217,9 +217,29 @@ const DetailHeader = ({
 							<Tooltip
 								classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
 								title={
-									intl.formatMessage({id: 'resource.last-updated'}) +
-									` ${verified.toDateString()}. ` +
-									intl.formatMessage({id: 'resource.accuracy-disclaimer'})
+									<a style={{color: '#e9e9e9'}}>
+										<FormattedMessage id="resource.last-updated" />{' '}
+										{verified.toDateString()}.{' '}
+										<FormattedMessage
+											id="resource.accuracy-disclaimer"
+											values={{
+												b: (chunks) => (
+													<strong style={{color: 'black'}}>{chunks}</strong>
+												),
+												clickHere: (
+													<a
+														href="https://inreach.org/vetting-process/"
+														target="_blank"
+														rel="noopener noreferrer"
+														className="hide--on-print"
+														style={{color: 'black'}}
+													>
+														<FormattedMessage id="resource.click-here" />
+													</a>
+												)
+											}}
+										/>
+									</a>
 								}
 								arrow
 								placement="bottom"
