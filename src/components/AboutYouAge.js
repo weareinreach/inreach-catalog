@@ -185,7 +185,11 @@ const AboutYouAge = (props) => {
 								<FormControlLabel
 									value={type.dbValue}
 									control={<Radio />}
-									label={intl.formatMessage({id: type.formatMessageId})}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
 									checked={age === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
