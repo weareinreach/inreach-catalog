@@ -222,7 +222,11 @@ class AsylumConnectMap extends React.Component {
 																ev.stopPropagation();
 															}}
 														>
-															<FormattedMessage id="app.map-directions" />
+															<FormattedMessage
+																id="app.map-directions"
+																defaultMessage="Directions to here"
+																description="map directions action link"
+															/>
 														</a>
 													) : null}
 												</Typography>
