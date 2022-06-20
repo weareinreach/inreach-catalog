@@ -201,7 +201,11 @@ const AboutYouCountry = (props) => {
 								<FormControlLabel
 									value={type.dbValue}
 									control={<Radio />}
-									label={intl.formatMessage({id: type.formatMessageId})}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
 									checked={countryOfOrigin === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
@@ -231,7 +235,7 @@ const AboutYouCountry = (props) => {
 									<FormattedMessage
 										id="error.text-field-country"
 										defaultMessage="Country not specified"
-										description="error if no country is specified"
+										description="error if no Country is specified"
 									/>
 								) : touchedCountry && textFieldTest.test(specifiedCountry) ? (
 									<FormattedMessage
