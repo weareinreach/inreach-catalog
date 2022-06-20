@@ -275,7 +275,11 @@ const AboutYouCountry = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="navigation.next" />
+					<FormattedMessage
+						id="navigation.next"
+						defaultMessage="Next"
+						description="Next button"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>
