@@ -65,6 +65,9 @@ const doNativeTranslation =
 	langCode !== 'en' && provider === 'inreach' ? true : false;
 
 const formatOrganization = (organization) => {
+	organization = doNativeTranslation
+		? returnOrgNativeLanguageData(organization, langCode)
+		: organization;
 	return {
 		...organization,
 		alertMessage: organization?.alert_message
@@ -72,7 +75,12 @@ const formatOrganization = (organization) => {
 };
 
 const formatService = (service) => {
-	const organization = service?.organization;
+	service = doNativeTranslation
+		? returnServiceNativeLanguageData(service, langCode)
+		: service;
+	var organization = doNativeTranslation
+		? returnOrgNativeLanguageData(service?.organization, langCode)
+		: service?.organization;
 
 	return {
 		...service,
