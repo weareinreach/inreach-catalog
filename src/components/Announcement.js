@@ -42,7 +42,11 @@ const Announcement = (props) => {
 					color="primary"
 					className={classes.textContent}
 				>
-					<FormattedMessage id="announcement-brand" />
+					<FormattedMessage
+						id="announcement-brand"
+						defaultMessage="AsylumConnect is now InReach"
+						description="update app users of name change"
+					/>
 				</Typography>
 			</a>
 		</div>

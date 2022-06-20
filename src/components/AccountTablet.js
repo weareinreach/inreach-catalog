@@ -97,6 +97,7 @@ const AccountTablet = (props) => {
 							<FormattedMessage
 								id="favorites.view-favorites"
 								defaultMessage="View Your Favorites"
+								description="title of favorites page"
 							>
 								{(favorites) => (
 									<Typography variant="h6">{favorites}</Typography>

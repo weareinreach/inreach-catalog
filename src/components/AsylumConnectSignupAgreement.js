@@ -40,9 +40,17 @@ const AsylumConnectSignupAgreement = (props) => {
 			className={isMobile ? classes.containerMobile : classes.container}
 			data-test-id="sign-up-form-agreement-statement"
 		>
-			<FormattedMessage id="legal.sign-up-agree-to-terms" />
+			<FormattedMessage
+				id="legal.sign-up-agree-to-terms"
+				defaultMessage="By clicking Sign Up you agree to InReach's"
+				description="legal agree to terms text"
+			/>
 			{` `}
-			<FormattedMessage id="legal.privacy-policy">
+			<FormattedMessage
+				id="legal.privacy-policy"
+				defaultMessage="Privacy Policy"
+				description="link to privacy policy"
+			>
 				{(privacy) => (
 					<a
 						href="https://inreach.org/privacy/"
@@ -55,7 +63,11 @@ const AsylumConnectSignupAgreement = (props) => {
 				)}
 			</FormattedMessage>{' '}
 			<FormattedMessage id="legal.and" />{' '}
-			<FormattedMessage id="legal.terms-of-use">
+			<FormattedMessage
+				id="legal.terms-of-use"
+				defaultMessage="Terms of Use"
+				description="link to terms of use"
+			>
 				{(terms) => (
 					<a
 						href="https://inreach.org/terms-of-use/"

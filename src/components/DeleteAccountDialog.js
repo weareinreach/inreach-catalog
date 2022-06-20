@@ -45,7 +45,13 @@ class DeleteAccountDialog extends React.Component {
 
 		//confirm user enters password, then confirm the password, then delete account
 		if (!this.state.password) {
-			handleMessageNew(<FormattedMessage id="error.required-field-empty" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.required-field-empty"
+					defaultMessage="field data is required"
+					description="an error message indicating missing data"
+				/>
+			);
 		} else {
 			//verify entered password
 			catalogPost('/auth', {email, password})
@@ -58,22 +64,42 @@ class DeleteAccountDialog extends React.Component {
 								this.setState({password: ''});
 								handleLogOut();
 								handleMessageNew(
-									<FormattedMessage id="action.account-deleted-successfully" />
+									<FormattedMessage
+										id="action.account-deleted-successfully"
+										defaultMessage="account was deleted"
+										description="message indicating the account was deleted"
+									/>
 								);
 							})
 							.catch(() => {
-								handleMessageNew(<FormattedMessage id="error.unspecified" />);
+								handleMessageNew(
+									<FormattedMessage
+										id="error.unspecified"
+										defaultMessage="Oops! Something went wrong."
+										description="an error message"
+									/>
+								);
 							});
 					} else {
 						this.setState({password: ''});
 						handleMessageNew(
-							<FormattedMessage id="error.incorrect-password"></FormattedMessage>
+							<FormattedMessage
+								id="error.incorrect-password"
+								defaultMessage="incorrect passoword"
+								description="incorrect passowrd error message"
+							></FormattedMessage>
 						);
 					}
 				})
 				.catch((error) => {
 					this.setState({password: ''});
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="an error message"
+						/>
+					);
 				});
 		}
 	}
@@ -84,18 +110,36 @@ class DeleteAccountDialog extends React.Component {
 		return (
 			<div className={classes.container}>
 				<DialogTitle data-test-id="delete-account-title">
-					<FormattedMessage id="action.delete-account" />
+					<FormattedMessage
+						id="action.delete-account"
+						defaultMessage="Delete account"
+						description="text to delete the account"
+					/>
 				</DialogTitle>
 				<Typography type="body1" data-test-id="delete-account-body-1">
-					<FormattedMessage id="action.confirm-account-deletion" />
+					<FormattedMessage
+						id="action.confirm-account-deletion"
+						defaultMessage="Confirm account deletion"
+						description="text to cofirm you want to delete the account"
+					/>
 				</Typography>
 				<form className={classes.container}>
 					<Typography variant="body1" data-test-id="delete-account-body-2">
-						<FormattedMessage id="form.re-enter-password" />
+						<FormattedMessage
+							id="form.re-enter-password"
+							defaultMessage="please re-enter your password"
+							description="field to re-enter password"
+						/>
 					</Typography>
 					<TextField
 						data-test-id="delete-account-password"
-						label={<FormattedMessage id="form.password" />}
+						label={
+							<FormattedMessage
+								id="form.password"
+								defaultMessage="password"
+								description="password field label"
+							/>
+						}
 						margin="normal"
 						name="password"
 						onChange={this.handleChange}
@@ -110,7 +154,11 @@ class DeleteAccountDialog extends React.Component {
 						className={classes.marginTop}
 						testIdName="delete-account-delete-button"
 					>
-						<FormattedMessage id="action.delete-account" />
+						<FormattedMessage
+							id="action.delete-account"
+							defaultMessage="Delete"
+							description="button to delete account"
+						/>
 					</AsylumConnectButton>
 				</form>
 
@@ -119,7 +167,11 @@ class DeleteAccountDialog extends React.Component {
 					testIdName="delete-account-cancel-button"
 					onClick={handleRequestClose}
 				>
-					<FormattedMessage id="action.cancel" />
+					<FormattedMessage
+						id="action.cancel"
+						defaultMessage="Cancel"
+						description="button to cancel deleting the account"
+					/>
 				</AsylumConnectButton>
 			</div>
 		);
