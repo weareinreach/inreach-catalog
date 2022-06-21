@@ -83,7 +83,11 @@ const FavoritesListMobile = ({
 					variant="body1"
 					data-test-id="favorites-page-header-text"
 				>
-					<FormattedMessage id="favorites.sign-in-help" />
+					<FormattedMessage
+						id="favorites.sign-in-help"
+						defaultMessage="Once signed in, you’ll be able to quickly find the organizations and resources you have favorited."
+						description="Message to sign in to see favorites"
+					/>
 					<br />
 					<br />
 					<AsylumConnectButton
@@ -94,7 +98,11 @@ const FavoritesListMobile = ({
 						}}
 						testIdName="favorites-page-login-button"
 					>
-						<FormattedMessage id="account.sign-in" />
+						<FormattedMessage
+							id="account.sign-in"
+							defaultMessage="Sign In"
+							description="Button to sign in to your account"
+						/>
 					</AsylumConnectButton>
 					<AsylumConnectButton
 						variant="secondary"
@@ -104,7 +112,11 @@ const FavoritesListMobile = ({
 						}}
 						testIdName="favorites-page-signup-button"
 					>
-						<FormattedMessage id="account.sign-up" />
+						<FormattedMessage
+							id="account.sign-up"
+							defaultMessage="Sign Up"
+							description="Button to sign up for an account"
+						/>
 					</AsylumConnectButton>
 				</Typography>
 			</Grid>
@@ -125,7 +137,11 @@ const FavoritesListMobile = ({
 						variant="body1"
 						align="center"
 					>
-						<FormattedMessage id="favorites.mobile-no-access" />
+						<FormattedMessage
+							id="favorites.mobile-no-access"
+							defaultMessage="Sorry! It seems you don't have access to this list!"
+							description="Message that you do not have access to the favorites list"
+						/>
 					</Typography>
 				</Grid>
 			</Grid>
@@ -149,7 +165,15 @@ const FavoritesListMobile = ({
 				variant="h3"
 				data-test-id="favorites-page-title-text"
 			>
-				{publicList ? publicList : <FormattedMessage id="favorites.title" />}
+				{publicList ? (
+					publicList
+				) : (
+					<FormattedMessage
+						id="favorites.title"
+						defaultMessage="Favorites"
+						description="Favorites page title"
+					/>
+				)}
 			</Typography>
 			{!publicList && isOwner && (
 				<Typography
@@ -158,7 +182,11 @@ const FavoritesListMobile = ({
 					align="center"
 					data-test-id="favorites-page-header-text"
 				>
-					<FormattedMessage id="favorites.privacy-disclaimer" />
+					<FormattedMessage
+						id="favorites.privacy-disclaimer"
+						defaultMessage="Your favorites lists are only visible to you and anyone you share them with."
+						description="Favorites privacy disclaimer message"
+					/>
 				</Typography>
 			)}
 			{!publicList && !isOwner && (
@@ -168,7 +196,11 @@ const FavoritesListMobile = ({
 					align="center"
 					data-test-id="favorites-page-header-text"
 				>
-					<FormattedMessage id="favorites.list-shared" />
+					<FormattedMessage
+						id="favorites.list-shared"
+						defaultMessage="This list was shared with you."
+						description="Message that a favorites list was shared with you"
+					/>
 				</Typography>
 			)}
 			<Grid item xs={12}>
@@ -178,13 +210,21 @@ const FavoritesListMobile = ({
 						variant="body1"
 						align="center"
 					>
-						<FormattedMessage id="favorites.action-help-part-1" />
+						<FormattedMessage
+							id="favorites.action-help-part-1"
+							defaultMessage="Select one of your favorites lists or "
+							description="Message to select a favorites list"
+						/>
 						<span
 							className={classes.bodyLink}
 							onClick={() => handleRequestOpen('listNew/favoritesList')}
 							data-test-id="favorites-page-create-new-list-button"
 						>
-							<FormattedMessage id="favorites.action-help-part-2" />
+							<FormattedMessage
+								id="favorites.action-help-part-2"
+								defaultMessage="create a new list."
+								description="Message to create a new favorites list"
+							/>
 						</span>
 					</Typography>
 				)}
@@ -196,12 +236,20 @@ const FavoritesListMobile = ({
 							session
 								? handleRequestOpen(`share/collection/${list._id}/${list.name}`)
 								: handleMessageNew(
-										<FormattedMessage id="error.sign-in-to-share-resources" />
+										<FormattedMessage
+											id="error.sign-in-to-share-resources"
+											defaultMessage="Oops! You need to be signed in to share resources."
+											description="Message that you must be signed in to share content"
+										/>
 								  )
 						}
 						testIdName="favorites-page-share-button"
 					>
-						<FormattedMessage id="action.share" />
+						<FormattedMessage
+							id="action.share"
+							defaultMessage="Share"
+							description="Share favorites button"
+						/>
 					</AsylumConnectButton>
 				)}
 				{list && isOwner && (
@@ -214,12 +262,20 @@ const FavoritesListMobile = ({
 										`deleteList/${list._id}/${list.name}/${list.visibility}`
 								  )
 								: handleMessageNew(
-										<FormattedMessage id="favorites.logged-in.delete.message" />
+										<FormattedMessage
+											id="favorites.logged-in.delete.message"
+											defaultMessage=""
+											description=""
+										/>
 								  )
 						}
 						testIdName="favorites-page-delete-button"
 					>
-						<FormattedMessage id="action.delete" />
+						<FormattedMessage
+							id="action.delete"
+							defaultMessage="Delete"
+							description="Button to delete favorites"
+						/>
 					</AsylumConnectButton>
 				)}
 			</Grid>
@@ -251,7 +307,11 @@ const FavoritesListMobile = ({
 							align="center"
 							data-test-id="favorites-page-body-text"
 						>
-							<FormattedMessage id="favorites.no-lists" />
+							<FormattedMessage
+								id="favorites.no-lists"
+								defaultMessage="You haven't created any lists yet."
+								description="Message that there are no favorites lists"
+							/>
 						</Typography>
 					)}
 				</Grid>
@@ -286,7 +346,11 @@ const FavoritesListMobile = ({
 					)}
 					{!loadingResources && list && resources.length === 0 && (
 						<Typography variant="body1" data-test-id="favorites-page-body-text">
-							<FormattedMessage id="favorites.empty-list" />
+							<FormattedMessage
+								id="favorites.empty-list"
+								defaultMessage="You haven't added any resources to this list yet."
+								description="Message that there are no favorites in the list"
+							/>
 						</Typography>
 					)}
 				</Grid>

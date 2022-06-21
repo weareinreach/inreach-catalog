@@ -132,7 +132,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									<FormattedMessage id="app.download-mobile-app-footer" />
+									<FormattedMessage
+										id="app.download-mobile-app-footer"
+										defaultMessage="Download our App"
+										description="Link to app download page"
+									/>
 								</Typography>
 							</a>
 						</Grid>
@@ -166,7 +170,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									<FormattedMessage id="suggestion.suggest-resource" />
+									<FormattedMessage
+										id="suggestion.suggest-resource"
+										defaultMessage="Suggest New Resource"
+										description="Link to the resource suggestion page"
+									/>
 								</Typography>
 							</Link>
 						</Grid>
@@ -183,7 +191,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									<FormattedMessage id="action.subscribe-to-newsletter" />
+									<FormattedMessage
+										id="action.subscribe-to-newsletter"
+										defaultMessage="Subscribe to Newsletter"
+										description="Link to the newsletter page"
+									/>
 								</Typography>
 							</a>
 						</Grid>
@@ -198,7 +210,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 									color="secondary"
 									classes={{body1: footerLink}}
 								>
-									<FormattedMessage id="action.share-feedback" />
+									<FormattedMessage
+										id="action.share-feedback"
+										defaultMessage="Share Feedback"
+										description="Link to the share feedback page"
+									/>
 								</Typography>
 							</a>
 						</Grid>
@@ -211,7 +227,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 								className={classes.pointer}
 								onClick={() => handleRequestOpen('disclaimer')}
 							>
-								<FormattedMessage id="legal.read-disclaimer-prompt-pt2" />
+								<FormattedMessage
+									id="legal.read-disclaimer-prompt-pt2"
+									defaultMessage="Disclaimer"
+									description="Link to the disclaimer page"
+								/>
 							</Typography>
 						</Grid>
 						<Grid item className={classNames(footerLinkItemSize)}>
@@ -223,7 +243,11 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 								className={classes.pointer}
 								onClick={() => handleRequestOpen('privacy')}
 							>
-								<FormattedMessage id="legal.read-disclaimer-prompt-pt3" />
+								<FormattedMessage
+									id="legal.read-disclaimer-prompt-pt3"
+									defaultMessage="Privacy Statement"
+									description="Link to the privacy statement page"
+								/>
 							</Typography>
 						</Grid>
 					</Grid>
@@ -232,8 +256,18 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 
 			<div className={classNames(bgLightGrey, paddingVertical)}>
 				<Typography variant="caption" data-test-id="footer-copy-rights">
-					<FormattedMessage id="app.company-name" /> {new Date().getFullYear()}.{' '}
-					<FormattedMessage id="app.copyright" />.
+					<FormattedMessage
+						id="app.company-name"
+						defaultMessage="InReach, Inc."
+						description="Company name (InReach)"
+					/>{' '}
+					{new Date().getFullYear()}.{' '}
+					<FormattedMessage
+						id="app.copyright"
+						defaultMessage="All rights reserved"
+						description="Copyright message"
+					/>
+					.
 				</Typography>
 			</div>
 		</footer>
