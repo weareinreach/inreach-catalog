@@ -232,7 +232,9 @@ export const seperatePropsByType = (properties) => {
 					key: propKey,
 					slug: propKey,
 					text: propertyMap[mapKey][propKey],
-					value: propValue
+					value: propValue,
+					defaultMessage: propKey.split('community-')[1],
+					description: propKey.split('community-')[1] + ' community'
 				});
 			}
 		});
