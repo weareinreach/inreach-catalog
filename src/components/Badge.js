@@ -54,6 +54,8 @@ const Badge = ({
 	const typeMapping = {
 		communitySupport: {
 			label: 'service-type.community-support',
+			defaultMessage: 'Community Support',
+			description: 'label for Community Support icon',
 			icon: <CommunitySupportIcon />
 		},
 		computers: {
@@ -129,7 +131,11 @@ const Badge = ({
 			<div className={classes.flair} data-test-id="badge">
 				{mobileLabel
 					? mobileLabel
-					: intl.formatMessage({id: typeMapping[type].label})}
+					: intl.formatMessage({
+							id: typeMapping[type].label,
+							defaultMessage: typeMapping[type].defaultMessage,
+							description: typeMapping[type].description
+					  })}
 			</div>
 		);
 	} else {
@@ -138,7 +144,11 @@ const Badge = ({
 				data-test-id="badge-tooltip"
 				className={classes.tooltip}
 				classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-				title={intl.formatMessage({id: typeMapping[type].label})}
+				title={intl.formatMessage({
+					id: typeMapping[type].label,
+					defaultMessage: typeMapping[type].defaultMessage,
+					description: typeMapping[type].description
+				})}
 				placement="top"
 			>
 				<div
