@@ -72,21 +72,31 @@ const ThankYouDialog = (props) => {
 				data-test-id="thank-you-header"
 				variant="primary"
 			>
-				<FormattedMessage id="app.thank-you-heading" />
+				<FormattedMessage
+					id="app.thank-you-heading"
+					defaultMessage="Thank you!"
+					description="thank you dialog title"
+				/>
 			</DialogTitle>
 			<Typography
 				variant="body1"
 				className={classes.body}
 				data-test-id="thank-you-text"
 			>
-				<FormattedMessage id="app.thank-you-text" />
+				<FormattedMessage
+					id="app.thank-you-text"
+					defaultMessage="You are all set."
+					description="thank you message"
+				/>
 			</Typography>
 			<img
 				data-test-id="thank-you-image"
 				className={classes.img}
 				src={ThankYou}
 				alt={intl.formatMessage({
-					id: 'alt-text.resource-suggest-edits-thank-you'
+					id: 'alt-text.resource-suggest-edits-thank-you',
+					defaultMessage: 'super thank you',
+					description: 'thank you dialog text'
 				})}
 			/>
 			<AsylumConnectButton
@@ -95,7 +105,11 @@ const ThankYouDialog = (props) => {
 				className={classes.moreMargin}
 				onClick={goToResources}
 			>
-				<FormattedMessage id="navigation.find-resources" />
+				<FormattedMessage
+					id="navigation.find-resources"
+					defaultMessage="Find Resources"
+					description="link to find organizations page"
+				/>
 			</AsylumConnectButton>
 			<AsylumConnectButton
 				variant="primary"
@@ -103,7 +117,11 @@ const ThankYouDialog = (props) => {
 				className={classes.moreMargin}
 				onClick={goToAccount}
 			>
-				<FormattedMessage id="app.go-to-profile" />
+				<FormattedMessage
+					id="app.go-to-profile"
+					defaultMessage="My profile"
+					description="link to account settings page"
+				/>
 			</AsylumConnectButton>
 		</div>
 	);
