@@ -60,54 +60,80 @@ const Badge = ({
 		},
 		computers: {
 			label: 'service-type.computers-internet',
+			defaultMessage: 'Computers and Internet',
+			description: 'label for Computers and Internet icon',
 			icon: <ComputersIcon />
 		},
 		educationEmployment: {
 			label: 'service-type.education-employment',
+			defaultMessage: 'Computers and Internet',
+			description: 'label for Computers and Internet icon',
 			icon: <EducationEmploymentIcon />
 		},
 		food: {
 			label: 'service-type.food',
+			defaultMessage: 'Computers and Internet',
+			description: 'label for Computers and Internet icon',
 			icon: <FoodIcon />
 		},
 		housing: {
 			label: 'service-type.housing',
+			defaultMessage: 'Computers and Internet',
+			description: 'label for Computers and Internet icon',
 			icon: <HousingIcon />
 		},
 		hygiene: {
 			label: 'service-type.hygiene-clothing',
+			defaultMessage: 'Hygiene and Clothing',
+			description: 'label for Hygiene and Clothing icon',
 			icon: <ClothingIcon />
 		},
 		legal: {
 			label: 'service-type.legal',
+			defaultMessage: 'Legal',
+			description: 'label for Legal icon',
 			icon: <LegalIcon />
 		},
 		mail: {
 			label: 'service-type.mail',
+			defaultMessage: 'Mail Services',
+			description: 'label for Mail Services icon',
 			icon: <MailIcon />
 		},
 		medical: {
 			label: 'service-type.medical',
+			defaultMessage: 'Medical',
+			description: 'label for Medical icon',
 			icon: <MedicalIcon />
 		},
 		mentalHealth: {
 			label: 'service-type.mental-health',
+			defaultMessage: 'Mental Health',
+			description: 'label for Mental Health icon',
 			icon: <MentalHealthIcon />
 		},
 		misc: {
 			label: 'service-type.other-services',
+			defaultMessage: 'Other Services',
+			description: 'label for Other Services icon',
 			icon: <MiscIcon />
 		},
 		speechBubble: {
 			label: 'service-type.translation-interpretation',
+			defaultMessage: 'Translation and interpretation',
+			description: 'label for Translation and interpretation icon',
 			icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />
 		},
 		sportsEntertainment: {
 			label: 'service-type.sports-entertainment',
+			defaultMessage: 'Sports and Entertainment',
+			description: 'label for Sports and Entertainment icon',
 			icon: <SportsEntertainmentIcon />
 		},
 		transportation: {
 			label: 'service-type.transportation',
+			defaultMessage: 'Transportation',
+			description: 'label for Transportation icon',
 			icon: <TransportationIcon />
 		}
 	};
