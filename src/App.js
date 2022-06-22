@@ -226,7 +226,8 @@ class AppConnectCatalog extends React.Component {
 		this.handleMessageNew(
 			<FormattedMessage
 				id="favorites.resource-added"
-				description="Resource successfully added to favorites list."
+				defaultMessage="Resource successfully added to favorites list"
+				description="message that resource was added"
 			/>
 		);
 	};
