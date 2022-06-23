@@ -116,7 +116,11 @@ const NavDesktop = ({
 				/>
 			</Link>
 			<a className="hide--on-screen" href="/#">
-				<FormattedMessage id="app.asylum-connect-catalog">
+				<FormattedMessage
+					id="app.asylum-connect-catalog"
+					defaultMessage=""
+					description=""
+				>
 					{(catalog) => <Typography variant="h1">{catalog}</Typography>}
 				</FormattedMessage>
 			</a>
@@ -127,7 +131,11 @@ const NavDesktop = ({
 				rel="noopener noreferrer"
 				href={navLinks.about}
 			>
-				<FormattedMessage id="navigation.about">
+				<FormattedMessage
+					id="navigation.about"
+					defaultMessage=""
+					description=""
+				>
 					{(about) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
 							{about}
@@ -142,7 +150,11 @@ const NavDesktop = ({
 				rel="noopener noreferrer"
 				href={navLinks.action}
 			>
-				<FormattedMessage id="navigation.take-action">
+				<FormattedMessage
+					id="navigation.take-action"
+					defaultMessage=""
+					description=""
+				>
 					{(action) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
 							{action}
@@ -157,7 +169,11 @@ const NavDesktop = ({
 				rel="noopener noreferrer"
 				href={navLinks.help}
 			>
-				<FormattedMessage id="navigation.get-help">
+				<FormattedMessage
+					id="navigation.get-help"
+					defaultMessage=""
+					description=""
+				>
 					{(help) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
 							{help}
@@ -172,7 +188,11 @@ const NavDesktop = ({
 				rel="noopener noreferrer"
 				href={navLinks.contact}
 			>
-				<FormattedMessage id="navigation.contact">
+				<FormattedMessage
+					id="navigation.contact"
+					defaultMessage=""
+					description=""
+				>
 					{(contact) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
 							{contact}
@@ -187,7 +207,11 @@ const NavDesktop = ({
 				rel="noopener noreferrer"
 				href={navLinks.safety}
 			>
-				<FormattedMessage id="navigation.safety-exit">
+				<FormattedMessage
+					id="navigation.safety-exit"
+					defaultMessage=""
+					description=""
+				>
 					{(safety) => (
 						<AsylumConnectButton variant="safety">{safety}</AsylumConnectButton>
 					)}
