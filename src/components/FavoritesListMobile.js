@@ -263,9 +263,9 @@ const FavoritesListMobile = ({
 								  )
 								: handleMessageNew(
 										<FormattedMessage
-											id="favorites.logged-in.delete.message"
-											defaultMessage=""
-											description=""
+											id="error.sign-in-to-delete-resources"
+											defaultMessage="Oops! You need to be signed in to delete resources."
+											description="Message saying you need to be signed in to delete content"
 										/>
 								  )
 						}
