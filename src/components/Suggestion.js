@@ -701,7 +701,11 @@ class Suggestion extends React.Component {
 							) : (
 								<div className={classes.settingsTypeFont}>
 									<span>
-										<FormattedMessage id="resource.change-request-received" />{' '}
+										<FormattedMessage
+											id="resource.change-request-received"
+											defaultMessage="Thank you for your request! All changes will be reviewed by the InReach team and verification permitting, published as soon as possible. Question? Please email"
+											description="Change Request Received Prompt"
+										/>{' '}
 										<a
 											href="mailto:app@inreach.org"
 											className={classes.boldFont}
