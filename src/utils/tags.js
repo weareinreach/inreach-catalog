@@ -217,6 +217,12 @@ const resourceTypes = [
 	{
 		category: 'service-type.legal',
 		type: 'legal',
+		acTag: 'Citizenship',
+		title: 'Citizenship'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
 		acTag: 'Crime and discrimination',
 		title: 'services.crime-discrimination'
 	},
@@ -231,6 +237,18 @@ const resourceTypes = [
 		type: 'legal',
 		acTag: 'Deportation or removal',
 		title: 'services.deportation-or-removal'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'Employment Authorization',
+		title: 'Employment Authorization'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'Family Petitions',
+		title: 'Family Petitions'
 	},
 	{
 		category: 'service-type.legal',
@@ -259,8 +277,26 @@ const resourceTypes = [
 	{
 		category: 'service-type.legal',
 		type: 'legal',
+		acTag: 'Residency',
+		title: 'services.residency'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
 		acTag: 'Special Immigrant Juvenile Status (SIJS)',
 		title: 'services.special-immigrant-juvenile-status'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'T Visa',
+		title: 'services.t-visa'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'U Visa',
+		title: 'services.u-visa'
 	},
 
 	/* AC Mail services Category */
@@ -463,7 +499,9 @@ const localeExclusions = {
 		'services.private-therapy-counseling',
 		'services.psychological-evaluation-for-asylum',
 		'services.special-immigrant-juvenile-status',
-		'services.sponsors'
+		'services.sponsors',
+    'services.t-visa',
+		'services.u-visa'
 	],
 	en_MX: [
 		'services.abortion-services',
@@ -485,7 +523,9 @@ const localeExclusions = {
 		'services.refugee-claim',
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
-		'services.sponsors'
+		'services.sponsors',
+    'services.t-visa',
+		'services.u-visa'
 	],
 	es_MX: [
 		'services.abortion-services',
@@ -507,7 +547,9 @@ const localeExclusions = {
 		'services.refugee-claim',
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
-		'services.sponsors'
+		'services.sponsors',
+		'services.t-visa',
+		'services.u-visa'
 	]
 };
 const filterResourceType = function (item, locale) {
