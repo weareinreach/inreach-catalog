@@ -135,20 +135,20 @@ const NameEmailPswd = (props) => {
 		selection === SEEKER_TYPE ? (
 			<FormattedMessage
 				id="form.email"
-				defaultMessage="User Email"
-				description="Label for User Email"
+				defaultMessage="Email"
+				description="Label for Email"
 			/>
 		) : selection === LAWYER_TYPE ? (
 			<FormattedMessage
 				id="form.lawyer-email"
-				defaultMessage="Lawyer Email"
-				description="Label for Lawyer Email"
+				defaultMessage="Organization Email"
+				description="Label for Organization Email"
 			/>
 		) : (
 			<FormattedMessage
 				id="form.organization-email"
-				defaultMessage="Organization Email"
-				description="Label for Organization Email"
+				defaultMessage="Organization or personal Email"
+				description="Label for Organization or personal Email"
 			/>
 		);
 
@@ -156,14 +156,14 @@ const NameEmailPswd = (props) => {
 		selection === SEEKER_TYPE ? (
 			<FormattedMessage
 				id="form.name"
-				defaultMessage="User Name"
-				description="Label for User Name"
+				defaultMessage="Name (or Alias)"
+				description="Label for Name (or Alias)"
 			/>
 		) : (
 			<FormattedMessage
 				id="form.lawyer-organization-name"
-				defaultMessage="Lawyer or Organization Name"
-				description="Label for Lawyer or Organization Name"
+				defaultMessage="First and Last Name"
+				description="Label for First and Last Name"
 			/>
 		);
 
@@ -198,16 +198,16 @@ const NameEmailPswd = (props) => {
 				<DialogTitle>
 					<FormattedMessage
 						id="account.sign-up"
-						defaultMessage="Sign Up for Account"
-						description="Label to Sign Up for Account"
+						defaultMessage="Sign Up"
+						description="Label to Sign Up"
 					/>
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
 					id="app.welcome-main-3"
-					defaultMessage="Welcome to Sign Up"
-					description="Label for Welcome to Sign Up"
+					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+					description="Label for The world's first tech platform matching LGBTQ+ people with safe, verified resources."
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -235,14 +235,14 @@ const NameEmailPswd = (props) => {
 								touchedName && !textFieldTest.test(name) ? (
 									<FormattedMessage
 										id="error.text-field-name"
-										defaultMessage="Text Field for Name"
-										description="Label Text Field for Name"
+										defaultMessage="'Name' field must contain at least 2 characters"
+										description="Label for 'Name' field must contain at least 2 characters"
 									/>
 								) : touchedName && textFieldTest.test(name) ? (
 									<FormattedMessage
 										id="form.field-valid-name"
-										defaultMessage="Field for Valid Name"
-										description="Label Field for Valid Name"
+										defaultMessage="'Name' field is valid"
+										description="Label for 'Name' field is valid"
 									/>
 								) : null
 							}
@@ -277,14 +277,14 @@ const NameEmailPswd = (props) => {
 						touchedEmail && !emailTest.test(email) ? (
 							<FormattedMessage
 								id="error.email-format"
-								defaultMessage="Error in Email Format"
-								description="Label for Error in Email Format"
+								defaultMessage="Your email should have a format similar to 'john@gmail.com'"
+								description="Label for Your email should have a format similar to 'john@gmail.com'"
 							/>
 						) : touchedEmail && emailTest.test(email) ? (
 							<FormattedMessage
 								id="form.field-valid-email"
-								defaultMessage="Field for Valid Email"
-								description="Label for Field for Valid Email"
+								defaultMessage="'Email' field is valid"
+								description="Label for 'Email' field is valid"
 							/>
 						) : null
 					}
@@ -310,8 +310,8 @@ const NameEmailPswd = (props) => {
 				<FormLabel required className={classes.labels} margin="none">
 					<FormattedMessage
 						id="form.password"
-						defaultMessage="Password Entry"
-						description="Label for Password Entry"
+						defaultMessage="Password"
+						description="Label for Password"
 					/>
 				</FormLabel>
 				<TextField
@@ -321,14 +321,14 @@ const NameEmailPswd = (props) => {
 						touchedPassword && !pswdTest.test(password) ? (
 							<FormattedMessage
 								id="error.password-format"
-								defaultMessage="Password Format"
-								description="Label for Password Format"
+								defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
+								description="Label for Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
 							/>
 						) : touchedPassword && pswdTest.test(password) ? (
 							<FormattedMessage
 								id="form.field-valid-password"
-								defaultMessage="Field for Valid Password"
-								description="Label for Field for Valid Password"
+								defaultMessage="'Password' field is valid"
+								description="Label for 'Password' field is valid"
 							/>
 						) : null
 					}
@@ -360,8 +360,8 @@ const NameEmailPswd = (props) => {
 				>
 					<FormattedMessage
 						id="account.sign-up"
-						defaultMessage="Sign Up for Account"
-						description="Label for Account Sign Up"
+						defaultMessage="Sign Up"
+						description="Label for Sign Up"
 					/>
 				</AsylumConnectButton>
 			</form>

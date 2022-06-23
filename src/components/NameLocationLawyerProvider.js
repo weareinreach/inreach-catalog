@@ -172,9 +172,17 @@ const NameLocationLawyerProvider = (props) => {
 
 	const orgTypeQuestion =
 		selection === LAWYER_TYPE ? (
-			<FormattedMessage id="account.signup-organization-orgType-lawyer" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-lawyer"
+				defaultMessage="Lawyer Organization Signup"
+				description="Label for Lawyer Organization Signup"
+			/>
 		) : (
-			<FormattedMessage id="account.signup-organization-orgType-provider" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-provider"
+				defaultMessage="Provider Organization Signup"
+				description="Label for Provider Organization Signup"
+			/>
 		);
 	const orgTypeOptions =
 		selection === LAWYER_TYPE
@@ -182,7 +190,10 @@ const NameLocationLawyerProvider = (props) => {
 			: organizationTypesProvider;
 	const orgTypeOther =
 		selection === LAWYER_TYPE ? (
-			<FormattedMessage id="account.signup-organization-orgType-lawyer-other" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-lawyer-other"
+				defaultMessage=""
+			/>
 		) : (
 			<FormattedMessage id="account.signup-organization-orgType-provider-other" />
 		);
