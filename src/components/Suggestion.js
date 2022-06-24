@@ -231,7 +231,11 @@ class Suggestion extends React.Component {
 			})
 			.catch((error) => {
 				this.props.handleMessageNew(
-					<FormattedMessage id="error.no-location-entered" />
+					<FormattedMessage
+						id="error.no-location-entered"
+						defaultMessage="Please enter a city or state in the location search box above."
+						description="unspecififed location error message"
+					/>
 				);
 			});
 		this.setState({location: updatedLocation});
@@ -381,7 +385,13 @@ class Suggestion extends React.Component {
 		const {handleMessageNew, handleRequestOpen, session} = this.props;
 		if (!session) {
 			handleRequestOpen('login');
-			handleMessageNew(<FormattedMessage id="account.user-sign-in-prompt" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="account.user-sign-in-prompt"
+					defaultMessage="You need to sign in to view your account."
+					description="user sign in prompt"
+				/>
+			);
 		} else {
 			// Organize resourceData ready for submiting request (154)
 			this.organizeData();
@@ -472,20 +482,32 @@ class Suggestion extends React.Component {
 				if (response.status === 200) {
 					this.setState({isSent: true});
 					this.props.handleMessageNew(
-						<FormattedMessage id="action.suggestion-received" />
+						<FormattedMessage
+							id="action.suggestion-received"
+							defaultMessage="Thank You! The information has been submitted to be reviewed."
+							description="information received message"
+						/>
 					);
 				} else if (
 					(response.error && response.status.status === 401) ||
 					response.status.status === 500
 				) {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.no-location-entered" />
+						<FormattedMessage
+							id="error.no-location-entered"
+							defaultMessage="Please enter a city or state in the location search box above."
+							description="unspecififed location error message"
+						/>
 					);
 				}
 			})
 			.catch(() => {
 				this.props.handleMessageNew(
-					<FormattedMessage id="error.unspecified" />
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+						description="something went wrong text"
+					/>
 				);
 			});
 	}
@@ -515,15 +537,25 @@ class Suggestion extends React.Component {
 						className={classes.formType}
 						data-test-id="suggest-page-title"
 					>
-						<FormattedMessage id="suggestion.suggest-resource" />
+						<FormattedMessage
+							id="suggestion.suggest-resource"
+							defaultMessage="Suggest a Resource"
+							description="resource suggestion prompt"
+						/>
 					</Typography>
 					<Typography type="body1" data-test-id="suggest-page-body">
-						<FormattedMessage id="suggestion.thank-you-for-contributing" />{' '}
+						<FormattedMessage
+							id="suggestion.thank-you-for-contributing"
+							defaultMessage="Thank you for your interest in contributing to the InReach resource app! Use this form to suggest a resource you think should be included. It's ok if you do not have all of the information the form asks for - just fill in what you know, and we'll do the rest! We appreciate your submission and thank you for helping to connect asylum seekers to helpful services. All suggested resources are subject to review by InReach staff before being published."
+							description="Thank You for Contributing message"
+						/>{' '}
 					</Typography>
 					<Typography type="body1" data-test-id="suggest-page-body">
 						{locale === 'en_US' && (
 							<FormattedMessage
 								id="suggestion.country-disclaimer-united-states"
+								defaultMessage="<b>Note:</b> This form is to suggest resources in the <b>United States</b>. If you would like to suggest a new resource in either <b>Canada</b> or <b>Mexico</b> please {otherLocale1Link} or {otherLocale2Link}"
+								description="United States country disclaimer"
 								values={{
 									b: (chunks) => (
 										<strong style={{color: 'black'}}>{chunks}</strong>
@@ -536,8 +568,16 @@ class Suggestion extends React.Component {
 										>
 											<FormattedMessage
 												id="suggeston.click-here"
+												defaultMessage="click here for the {other} form"
+												description="Click Here Prompt"
 												values={{
-													other: <FormattedMessage id="app.country-canada" />
+													other: (
+														<FormattedMessage
+															id="app.country-canada"
+															defaultMessage="Canada"
+															description="Canada Prompt"
+														/>
+													)
 												}}
 											/>
 										</Link>
@@ -550,8 +590,16 @@ class Suggestion extends React.Component {
 										>
 											<FormattedMessage
 												id="suggeston.click-here"
+												defaultMessage="click here for the {other} form"
+												description="Click Here Prompt"
 												values={{
-													other: <FormattedMessage id="app.country-mexico" />
+													other: (
+														<FormattedMessage
+															id="app.country-mexico"
+															defaultMessage="Mexico"
+															description="Mexico Prompt"
+														/>
+													)
 												}}
 											/>
 										</Link>
@@ -562,6 +610,8 @@ class Suggestion extends React.Component {
 						{locale === 'en_CA' && (
 							<FormattedMessage
 								id="suggestion.country-disclaimer-canada"
+								defaultMessage="<b>Note:</b> This form is to suggest resources in <b>Canada</b>. If you would like to suggest a new resource in either the <b>United States</b> or <b>Mexico</b>, please {otherLocale1Link} or {otherLocale2Link}"
+								description="Canada country disclaimer"
 								values={{
 									b: (chunks) => (
 										<strong style={{color: 'black'}}>{chunks}</strong>
@@ -573,9 +623,15 @@ class Suggestion extends React.Component {
 										>
 											<FormattedMessage
 												id="suggeston.click-here"
+												defaultMessage="click here for the {other} form"
+												description="Click Here Prompt"
 												values={{
 													other: (
-														<FormattedMessage id="app.country-united-states" />
+														<FormattedMessage
+															id="app.country-united-states"
+															defaultMessage="United States"
+															description="United States Prompt"
+														/>
 													)
 												}}
 											/>
@@ -588,8 +644,16 @@ class Suggestion extends React.Component {
 										>
 											<FormattedMessage
 												id="suggeston.click-here"
+												defaultMessage="click here for the {other} form"
+												description="Click Here Prompt"
 												values={{
-													other: <FormattedMessage id="app.country-mexico" />
+													other: (
+														<FormattedMessage
+															id="app.country-mexico"
+															defaultMessage="Mexico"
+															description="Mexico Prompt"
+														/>
+													)
 												}}
 											/>
 										</Link>
@@ -600,6 +664,8 @@ class Suggestion extends React.Component {
 						{locale === 'en_MX' && (
 							<FormattedMessage
 								id="suggestion.country-disclaimer-mexico"
+								defaultMessage="<b>Note:</b> This form is to suggest resources in <b>Mexico</b>. If you would like to suggest a new resource in either the <b>United States</b> or <b>Canada</b>, please {otherLocale1Link} or {otherLocale2Link}"
+								description="Mexico country disclaimer"
 								values={{
 									b: (chunks) => (
 										<strong style={{color: 'black'}}>{chunks}</strong>
@@ -611,9 +677,15 @@ class Suggestion extends React.Component {
 										>
 											<FormattedMessage
 												id="suggeston.click-here"
+												defaultMessage="click here for the {other} form"
+												description="Click Here Prompt"
 												values={{
 													other: (
-														<FormattedMessage id="app.country-united-states" />
+														<FormattedMessage
+															id="app.country-united-states"
+															defaultMessage="United States"
+															description="United States Prompt"
+														/>
 													)
 												}}
 											/>
@@ -626,8 +698,16 @@ class Suggestion extends React.Component {
 										>
 											<FormattedMessage
 												id="suggeston.click-here"
+												defaultMessage="click here for the {other} form"
+												description="Click Here Prompt"
 												values={{
-													other: <FormattedMessage id="app.country-canada" />
+													other: (
+														<FormattedMessage
+															id="app.country-canada"
+															defaultMessage="Canada"
+															description="Canada Prompt"
+														/>
+													)
 												}}
 											/>
 										</Link>
@@ -688,14 +768,22 @@ class Suggestion extends React.Component {
 											!this.state.address
 										}
 									>
-										<FormattedMessage id="suggestion.suggest-resource-new" />
+										<FormattedMessage
+											id="suggestion.suggest-resource-new"
+											defaultMessage="Suggest New Resource"
+											description="New resource suggestion prompt"
+										/>
 									</AsylumConnectButton>
 									<Typography
 										type="body1"
 										className={classes.extraMargin}
 										data-test-id="suggest-page-footer"
 									>
-										<FormattedMessage id="resource.changes-subject-to-review" />
+										<FormattedMessage
+											id="resource.changes-subject-to-review"
+											defaultMessage="All organization changes are subject to review by InReach before publication."
+											description="Changes subject to review message"
+										/>
 									</Typography>
 								</div>
 							) : (
