@@ -91,7 +91,11 @@ class SuggestHour extends React.Component {
 					className={classes.settingsTypeFont}
 				>
 					<span>
-						<FormattedMessage id="form.schedule" />
+						<FormattedMessage
+							id="form.schedule"
+							defaultMessage="Schedule"
+							description="Schedule message"
+						/>
 					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
