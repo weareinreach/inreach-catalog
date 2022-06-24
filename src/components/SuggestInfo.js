@@ -251,6 +251,8 @@ class SuggestInfo extends React.Component {
 						<p style={{lineHeight: '25px'}} data-test-id="suggest-page-body-2">
 							<FormattedMessage
 								id="suggestion.organization-already-exists"
+								defaultMessage="Thank you for your interest in contributing to the InReach resource app! It seems we already have {existingOrgLink} on the app. You can join this organization by signing up for a provider account {orgSignup}"
+								description="Thank you message for attmpt to add an already exsiting organization"
 								values={{
 									existingOrgLink: (
 										<Link
@@ -266,7 +268,11 @@ class SuggestInfo extends React.Component {
 											to={`/${locale}/resource/${organizationSelection.slug}`}
 										>
 											{' '}
-											<FormattedMessage id="legal.privacy-here" />
+											<FormattedMessage
+												id="legal.privacy-here"
+												defaultMessage="here."
+												description="Click here prompt for legal privacy"
+											/>
 										</Link>
 									)
 								}}
@@ -337,7 +343,11 @@ class SuggestInfo extends React.Component {
 											<div className={classes.placesContainer}>
 												{loading && (
 													<div>
-														<FormattedMessage id="form.resource-email-address-placeholder" />
+														<FormattedMessage
+															id="form.resource-email-address-placeholder"
+															defaultMessage="Resource email addresses"
+															description="placeholder for resource email address"
+														/>
 													</div>
 												)}
 												{suggestions.map((suggestion, index) => {
