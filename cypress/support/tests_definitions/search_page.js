@@ -1,23 +1,29 @@
+const {
+	view
+} = require("ramda");
+
 Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
-	if(viewport === Cypress.env('mobile')){
-		cy.reload();
-	}
-	cy.getElementByTestId('search-page-next-button').click();
-	cy.waitFor(2000);
-    if(viewport!==Cypress.env('mobile')){
-        cy.getElementByTestId('search-form-body').then($element=>{
-            expect($element).to.be.visible;
-            expect($element).contain('Welcome to InReach');
-            expect($element).contain('United States');
-        });
+	switch (viewport) {
+		case Cypress.env('mobile'):
+			cy.reload();
+			cy.getElementByTestId('search-page-next-button').click();
+			break;
+		default:
+			cy.getElementByTestId('search-page-next-button').click();
+			cy.getElementByTestId('search-form-body').then($element => {
+				expect($element).to.be.visible;
+				expect($element).contain('Welcome to InReach');
+				expect($element).contain('United States');
+			});
 
-		cy.getElementByTestId('search-form-body-2').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).contain(
-				"The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-			);
-		});
+			cy.getElementByTestId('search-form-body-2').then(($element) => {
+				expect($element).to.be.visible;
+				expect($element).contain(
+					"The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+				);
+			});
+			break;
 	}
 	cy.getElementByTestId('search-bar-input').then(($element) => {
 		expect($element).to.be.visible;
@@ -27,66 +33,69 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 		expect($element).to.be.visible;
 	});
 
-	if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).to.have.attr('type', 'submit');
-		});
-	} else {
-        cy.getElementByTestId('search-bar-search-by-location-button').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).to.have.attr('type', 'submit');
-		});
-    }
+	switch (viewport) {
+		case Cypress.env('mobile'):
+			cy.getElementByTestId('search-bar-search-by-location-button').then(($element) => {
+				expect($element).to.be.visible;
+				expect($element).to.have.attr('type', 'submit');
+			});
+			break;
+		default:
+			cy.getElementByTestId('search-bar-search-button').then(($element) => {
+				expect($element).to.be.visible;
+				expect($element).to.have.attr('type', 'submit');
+			});
+			break;
+	}
 });
 
 Cypress.Commands.add('testSearchAction', (viewport, org) => {
 	cy.viewport(viewport);
-	if(viewport === Cypress.env('mobile')){
-		cy.reload();
+	switch (viewport) {
+		case Cypress.env('mobile'):
+			cy.reload();
+			cy.getElementByTestId('search-page-next-button').click();
+			break;
+		default:
+			cy.getElementByTestId('search-page-next-button').click();
+			break;
 	}
-	cy.getElementByTestId('search-page-next-button').click();
-	cy.waitFor(1000);
-	// //Check checkbox
-	// cy.getElementByTestId('search-page-checkbox').then($element=>{
-	// 	expect($element.children()[0].children()).to.be.checked;
-	// })
 	cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
-	cy.getElementByTestId('search-bar-input').type(org.locations[0].city + ", "+org.locations[0].state);
-	if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
-			cy.wrap($element[0]).click();
-		});
-		cy.getElementByTestId('search-bar-search-button').click();
-	} else {
-		cy.getElementByTestId('search-bar-search-by-location-button').click();
+	cy.getElementByTestId('search-bar-input').type(org.locations[0].city + ", " + org.locations[0].state);
+
+	switch (viewport) {
+		case Cypress.env('mobile'):
+			cy.getElementByTestId('search-bar-search-by-location-button').click({force:true});
+			break;
+		default:
+			cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
+				cy.wrap($element[0]).click();
+			});
+			cy.getElementByTestId('search-bar-search-button').click();
+			break;
 	}
-	cy.wait(1000);
-	cy.getElementByTestId('favorites-list-item').then(($element) => {
-		expect($element).to.be.visible;
-	});
+	cy.getElementByTestId('favorites-list-item').should('be.visible');
 	cy.getElementByTestId('search-result-favorite-button').then(($element) => {
 		expect($element).to.be.visible;
 		expect($element).to.have.attr('data-name', 'Layer 1');
 	});
-	cy.getElementByTestId('badge').then(($element) => {
-		expect($element).to.be.visible;
-	});
 	cy.getElementByTestId('favorites-list-item').then(($element) => {
 		expect($element).to.be.visible;
-		//click the org
 		cy.wrap($element[0]).click();
 
-		cy.wait('@clickedOrg').then(responseObject =>{
-			cy.log(responseObject.response);
-		});
-		
-		cy.getElementByTestId('back-button').then(($element) => {
-			expect($element).to.be.visible;
-			if (viewport !== Cypress.env('mobile')) {
-				expect($element.children()).contain('Back to Search Results');
-			}
-		});
+		switch (viewport) {
+			case Cypress.env('mobile'):
+				cy.getElementByTestId('back-button').should('be.visible');
+				cy.getElementByTestId('badge').should('be.visible');
+				break;
+			default:
+				cy.getElementByTestId('back-button').then(($element) => {
+					expect($element).to.be.visible;
+					expect($element.children()).contain('Back to Search Results');
+				});
+				break;
+		}
+
 		cy.getElementByTestId('tabs-value-about').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('type', 'button');
@@ -95,9 +104,6 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 		cy.getElementByTestId('tabs-value-visit').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('type', 'button');
-			viewport === Cypress.env('mobile')
-				? expect($element.children()).contain('Visit (Map)')
-				: expect($element.children()).contain('Visit');
 		});
 
 		cy.getElementByTestId('tabs-value-reviews').then(($element) => {
@@ -106,60 +112,47 @@ Cypress.Commands.add('testSearchAction', (viewport, org) => {
 			expect($element.children()).contain('Reviews');
 		});
 
-		cy.getElementByTestId('search-result-favorite-button').then(($element) => {
-			expect($element).to.be.visible;
-			//click and test pop up
-			// cy.wrap($element).click();
-			// cy.getElementByTestId('resource-detail-dialog-close-button').click();
-		});
+		cy.getElementByTestId('search-result-favorite-button').should('be.visible');
 		cy.scrollTo('top');
 		cy.getElementByTestId('resource-details-share').then(($element) => {
 			expect($element).to.be.visible;
 		});
-		if (viewport === Cypress.env('desktop')) {
-			cy.getElementByTestId('resource-star-rating').then(($element) => {
-				expect($element).to.be.visible;
-			});
+		switch (viewport) {
+			case Cypress.env('mobile'):
+				//do Nothing
+				break;
+			case Cypress.env('tablet'):
+				cy.getElementByTestId('resource-details-reviews').then(($element) => {
+					expect($element).to.be.visible;
+					expect($element).contain('Reviews');
+				});
+				break;
+			default:
+				cy.getElementByTestId('resource-star-rating').should('be.visible');
+				cy.getElementByTestId('resource-details-reviews').then(($element) => {
+					expect($element).to.be.visible;
+					expect($element).contain('Reviews');
+				});
+				break;
 		}
+		cy.getElementByTestId('details-about').should('to.be.visible');
+	});
 
-		cy.getElementByTestId('details-about').then(($element) => {
-			expect($element).to.be.visible;
-		});
+	cy.getElementByTestId('resource-details-services').then(($element) => {
+		expect($element).to.be.visible;
+		expect($element).contain('Services');
+	});
 
-		cy.getElementByTestId('resource-details-services').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).contain('Services');
-		});
+	cy.getElementByTestId('resource-details-services').then(($element) => {
+		expect($element).to.be.visible;
+		expect($element).contain('Services');
+	});
+	cy.getElementByTestId('resource-details-visit').then(($element) => {
+		expect($element).to.be.visible;
+		expect($element).contain('Visit');
+	});
 
-		// cy.getElementByTestId('resource-details-communities').then(($element) => {
-		// 	expect($element).to.be.visible;
-		// 	expect($element).contain('Who this resource serves');
-		// });
-
-		cy.getElementByTestId('resource-details-services').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).contain('Services');
-		});
-		// cy.getElementByTestId('resource-details-language-services').then(
-		// 	($element) => {
-		// 		expect($element).to.be.visible;
-		// 		expect($element).contain('Language Services');
-		// 	}
-		// );
-		cy.getElementByTestId('resource-details-visit').then(($element) => {
-			expect($element).to.be.visible;
-			expect($element).contain('Visit');
-		});
-		//Non-Mobile only
-		if (viewport !== Cypress.env('mobile')) {
-			cy.getElementByTestId('resource-details-reviews').then(($element) => {
-				expect($element).to.be.visible;
-				expect($element).contain('Reviews');
-			});
-		}
-
-		cy.getElementByTestId('badge').then(($element) => {
-			expect($element).to.be.visible;
-		});
+	cy.getElementByTestId('badge').then(($element) => {
+		expect($element).to.be.visible;
 	});
 });

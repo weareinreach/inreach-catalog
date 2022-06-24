@@ -37,7 +37,7 @@ describe('Forgot Password Tests', () => {
                     });
                 });
             });
-            it.only('Bad Request Error test', ()=>{
+            it('Bad Request Error test', ()=>{
                 cy.testBadRequestError(viewport, "anything@gmail.com");
             });
         });
