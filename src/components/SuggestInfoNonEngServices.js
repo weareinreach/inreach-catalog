@@ -191,7 +191,11 @@ class IntegrationAutosuggest extends React.Component {
 		const {value, suggestions} = this.state;
 
 		const placeholderLangugeServiceString = intl
-			.formatMessage({id: 'resource.language-services-placeholder'})
+			.formatMessage({
+				id: 'resource.language-services-placeholder',
+				defaultMessage: 'List any language services offered',
+				description: 'Placeholder for language services offered'
+			})
 			.toString();
 
 		return (

@@ -110,7 +110,9 @@ const ThankYouMobile = (props) => {
 					className={classes.img}
 					src={ThankYou}
 					alt={intl.formatMessage({
-						id: 'alt-text.resource-suggest-edits-thank-you'
+						id: 'alt-text.resource-suggest-edits-thank-you',
+						defaultMessage: 'super thank you',
+						description: 'Super thank you message'
 					})}
 				/>
 				<div className={classes.dialogBody1}>
