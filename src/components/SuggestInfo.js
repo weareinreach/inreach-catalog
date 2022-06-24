@@ -222,10 +222,18 @@ class SuggestInfo extends React.Component {
 		};
 
 		const placeholderAddressString = intl
-			.formatMessage({id: 'search.search-field-placeholder'})
+			.formatMessage({
+				id: 'search.search-field-placeholder',
+				defaultMessage: 'Start typing city, county or state in the US…',
+				description: 'Placeholder for the location search bar'
+			})
 			.toString();
 		const placeholderEmailString = intl
-			.formatMessage({id: 'form.resource-email-address-placeholder'})
+			.formatMessage({
+				id: 'form.resource-email-address-placeholder',
+				defaultMessage: 'Resource email addresses',
+				description: 'Placeholder for email address'
+			})
 			.toString();
 
 		return (
@@ -284,7 +292,13 @@ class SuggestInfo extends React.Component {
 							<TextField
 								data-test-id="suggest-page-name"
 								className={classes.inputLabel}
-								label={intl.formatMessage({id: 'suggestion.name'}) + ':'}
+								label={
+									intl.formatMessage({
+										id: 'suggestion.name',
+										defaultMessage: 'Name',
+										description: 'Suggestion name placeholder'
+									}) + ':'
+								}
 								id="name"
 								name="name"
 								value={
@@ -295,7 +309,9 @@ class SuggestInfo extends React.Component {
 									shrink: true
 								}}
 								placeholder={intl.formatMessage({
-									id: 'suggestion.name'
+									id: 'suggestion.name',
+									defaultMessage: 'Name',
+									description: 'Suggestion name placeholder'
 								})}
 								onChange={this.handleChange}
 								type="text"
@@ -303,7 +319,11 @@ class SuggestInfo extends React.Component {
 							<FormControl className={classes.inputAddressLabel}>
 								<InputLabel
 									children={
-										intl.formatMessage({id: 'suggestion.address'}) + ':'
+										intl.formatMessage({
+											id: 'suggestion.address',
+											defaultMessage: 'Address',
+											description: 'Suggestion addresss placeholder'
+										}) + ':'
 									}
 									shrink
 									data-test-id="suggest-page-address"
@@ -382,7 +402,13 @@ class SuggestInfo extends React.Component {
 							<TextField
 								data-test-id="suggest-page-about"
 								className={classes.inputLabel}
-								label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
+								label={
+									intl.formatMessage({
+										id: 'resource.about-header',
+										defaultMessage: 'About',
+										description: 'About header for resource'
+									}) + ':'
+								}
 								name="description"
 								value={
 									organizationSelection
@@ -394,7 +420,9 @@ class SuggestInfo extends React.Component {
 									shrink: true
 								}}
 								placeholder={intl.formatMessage({
-									id: 'form.resource-description-placeholder'
+									id: 'form.resource-description-placeholder',
+									defaultMessage: 'Short description of resource',
+									description: 'Prompt for a short description of the resource'
 								})}
 								onChange={this.handleChange}
 								type="email"
@@ -402,7 +430,11 @@ class SuggestInfo extends React.Component {
 							<FormControl className={classes.inputAddressLabel}>
 								<InputLabel
 									children={
-										intl.formatMessage({id: 'resource.language-services'}) + ':'
+										intl.formatMessage({
+											id: 'resource.language-services',
+											defaultMessage: 'Language Services',
+											description: 'Resource language services message'
+										}) + ':'
 									}
 									shrink
 								/>
@@ -415,7 +447,13 @@ class SuggestInfo extends React.Component {
 							<TextField
 								data-test-id="suggest-page-website"
 								className={classes.inputLabel}
-								label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
+								label={
+									intl.formatMessage({
+										id: 'resource.website-label',
+										defaultMessage: 'Website',
+										description: 'label for website of resource'
+									}) + ':'
+								}
 								id="website"
 								name="website"
 								value={
@@ -425,14 +463,20 @@ class SuggestInfo extends React.Component {
 									shrink: true
 								}}
 								placeholder={intl.formatMessage({
-									id: 'form.website-placeholder'
+									id: 'form.website-placeholder',
+									defaultMessage: 'URL',
+									description: 'Website URL placeholder'
 								})}
 								onChange={this.handleChange}
 							/>
 							<FormControl className={classes.inputLabel}>
 								<InputLabel
 									children={
-										intl.formatMessage({id: 'resource.phone-numbers'}) + ':'
+										intl.formatMessage({
+											id: 'resource.phone-numbers',
+											defaultMessage: 'Phone number(s)',
+											description: 'prompt fot resource phone number'
+										}) + ':'
 									}
 									shrink
 								/>
@@ -447,7 +491,13 @@ class SuggestInfo extends React.Component {
 							<TextField
 								data-test-id="suggest-page-email"
 								className={classes.inputLabel}
-								label={intl.formatMessage({id: 'resource.email-label'}) + ':'}
+								label={
+									intl.formatMessage({
+										id: 'resource.email-label',
+										defaultMessage: 'Email',
+										description: 'Resource email label'
+									}) + ':'
+								}
 								name="email"
 								type="text"
 								// value={organizationSelection ? organizationSelection.emails.join(', ') : null}
