@@ -111,16 +111,19 @@ Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName, viewport)=>
     //Click first option 
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
-    })
+    });
+	cy.intercept('GET','/v1/organizations*').as('orgSearch');
 	switch(viewport){
 		case Cypress.env(MOBILE):
-			cy.getElementByTestId('search-bar-search-button').click();			break;
-		default:
 			cy.getElementByTestId('search-bar-search-by-location-button').click();
+			
+	    break;
+		default:
+			cy.getElementByTestId('search-bar-search-button').click();
 		break;
 	}
     //Let it load 
-    cy.wait(1000);
+    cy.wait('@orgSearch');
     cy.getElementByTestId('search-result-favorite-button').then($element=>{
         cy.wrap($element[0]).click();
     });
