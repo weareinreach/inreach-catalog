@@ -197,6 +197,7 @@ const NameEmailPswd = (props) => {
 							className={classes.labels}
 							classes={classes.fontWeightMedium}
 							margin="none"
+							data-test-id="sign-up-form-name-label"
 						>
 							{nameLabel}
 						</FormLabel>
@@ -231,7 +232,12 @@ const NameEmailPswd = (props) => {
 						/>
 					</>
 				) : null}
-				<FormLabel required className={classes.labels} margin="none">
+				<FormLabel
+					required
+					className={classes.labels}
+					margin="none"
+					data-test-id="sign-up-form-email-label"
+				>
 					{emailLabel}
 				</FormLabel>
 				<TextField
@@ -263,7 +269,12 @@ const NameEmailPswd = (props) => {
 						}
 					}}
 				/>
-				<FormLabel required className={classes.labels} margin="none">
+				<FormLabel
+					required
+					className={classes.labels}
+					margin="none"
+					data-test-id="sign-up-form-password-label"
+				>
 					<FormattedMessage id="form.password" />
 				</FormLabel>
 				<TextField

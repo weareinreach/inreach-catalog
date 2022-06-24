@@ -9,14 +9,12 @@ describe('Home Page Navigation Bar Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     
     beforeEach(() => {
-        cy.visit(Cypress.env('baseUrl'));
         cy.fixture('user_new_update.json').as('user_update');
         cy.fixture('user_new.json').as('user').then(user=>{
-            //Delete user if exists
             cy.deleteUsersIfExist();
-            //Add new User
             cy.addUser(user);
         });
+        cy.visit(Cypress.env('baseUrl'));
     });
 
     afterEach(() => {

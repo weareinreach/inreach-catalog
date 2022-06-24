@@ -9,8 +9,8 @@ describe('Forgot Password Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     
     beforeEach(() => {
-        cy.visit(Cypress.env('baseUrl'));
         cy.fixture('user_new.json').as('new_user');
+        cy.visit(Cypress.env('baseUrl'));
     });
     afterEach(() => {
         //Do the clean up
@@ -37,7 +37,7 @@ describe('Forgot Password Tests', () => {
                     });
                 });
             });
-            it('Bad Request Error test', ()=>{
+            it.only('Bad Request Error test', ()=>{
                 cy.testBadRequestError(viewport, "anything@gmail.com");
             });
         });

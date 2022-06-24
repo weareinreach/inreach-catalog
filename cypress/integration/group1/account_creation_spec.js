@@ -8,14 +8,21 @@
 //Test Suite
 describe('Home Page Create Account Form Tests', () => {
     
-    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
+    let viewports = [
+        Cypress.env('desktop'),
+        Cypress.env('tablet'),
+        Cypress.env('mobile')];
     let userTypes = [Cypress.env('createAccountUserTypeMyself'),Cypress.env('createAccountUserTypeLawyer'),Cypress.env('createAccountUserTypeServiceProvider')];
 
     beforeEach(() => {
-        cy.visit(Cypress.env('baseUrl'));
         cy.fixture('organization.json').as('organization');
-
+        cy.fixture('sign_up_user_regular.json').as('regular_user');
+        cy.fixture('sign_up_user_attorney.json').as('attorney');
+        cy.fixture('sign_up_user_service_provider.json').as('provider');
+        cy.fixture('user_types.json').as('user_types');
+        cy.visit(Cypress.env('baseUrl'));
     });
+
     afterEach(() => {
         //Do the clean up
         cy.deleteUsersIfExist();
@@ -38,60 +45,72 @@ describe('Home Page Create Account Form Tests', () => {
                     cy.testCreateAccountAlreadyHaveOne(viewport,userType);
                 });
                 it(`Create account ${userType} - back button`,()=>{
-                        cy.testCreateAccountBackButton(viewport,userType);
+                    cy.testCreateAccountBackButton(viewport,userType);
                 });
-                if(userType === 'myself'){
+            // eslint-disable-next-line default-case
+            switch(userType){
+                case Cypress.env('createAccountUserTypeMyself'):
                     it(`Create account ${userType} - Seeker`,()=>{
-                        cy.testCreateAccountSeeker(viewport,userType);
+                        cy.get('@user_types').then(userTypesObject=>{
+                            cy.testCreateAccountSeeker(viewport,userType,userTypesObject[userType]);
+                        });
                     });
                     it(`Create account ${userType} - password tests`,()=>{
-                        cy.testCreateAccountPasswordTests(viewport,userType);
+                        cy.get('@user_types').then(userTypesObject=>{
+                            cy.testCreateAccountPasswordTests(viewport,userType,userTypesObject[userType]);
+                        });
                     });
-                };
-                if(userType === 'lawyer'){
+                break;
+                case Cypress.env('createAccountUserTypeLawyer'):
                     it(`Create account ${userType} - Lawyer`,()=>{
                         cy.get('@organization').then(org=>{
-                            //Add Org
                             cy.addOrg(org).then(()=>{
-                                cy.testCreateAccountLawyer(viewport,userType,org);
+                                cy.get('@user_types').then(userTypesObject=>{
+                                    cy.testCreateAccountLawyer(viewport,userType,org,userTypesObject[userType]);
+                                });
                             });
                         });
                     });
                     it(`Creating account for ${userType} - click resource`,()=>{
                         cy.get('@organization').then(org=>{
-                            //Add Org
                             cy.addOrg(org).then(()=>{
-                                cy.testCreateAccountActionSkipOrganizationResource(viewport,userType);
+                                cy.get('@user_types').then(userTypesObject=>{
+                                    cy.testCreateAccountActionSkipOrganizationResource(viewport,userType,userTypesObject[userType]);
+                                });
                             }); 
                         });
                     });
                     it(`Creating account for ${userType} - click profile`,()=>{
                         cy.get('@organization').then(org=>{
-                            //Add Org
                             cy.addOrg(org).then(()=>{
-                                cy.testCreateAccountActionSkipOrganizationProfile(viewport,userType);
+                                cy.get('@user_types').then(userTypesObject=>{
+                                    cy.testCreateAccountActionSkipOrganizationProfile(viewport,userType,userTypesObject[userType]);
+                                });
                             }); 
                         });
                     });
-                };
-                if(userType === 'service_provider'){
+                break;
+                case Cypress.env('createAccountUserTypeServiceProvider'):
                     it(`Create account ${userType} - Provider`,()=>{
                         cy.get('@organization').then(org=>{
-                            //Add Org
                             cy.addOrg(org).then(()=>{
-                        cy.testCreateAccountProvider(viewport,userType);
+                                cy.get('@user_types').then(userTypesObject=>{  
+                                    cy.testCreateAccountProvider(viewport,userType,userTypesObject[userType]);
+                                });
                             });
                         });
                     });
                     it(`Creating account for ${userType} -Provider skip org`,()=>{
                         cy.get('@organization').then(org=>{
-                            //Add Org
                             cy.addOrg(org).then(()=>{
-                                cy.testCreateAccountActionSkipOrganization(viewport,userType);
+                                cy.get('@user_types').then(userTypesObject=>{  
+                                    cy.testCreateAccountActionSkipOrganization(viewport,userType,userTypesObject[userType]);
+                                });
                             }); 
                         });
                     });
-                };
+                break;
+            }
             });
         });
     });
