@@ -1229,7 +1229,11 @@ class Detail extends React.Component {
 													testIdName="leave-review"
 													borderTop={false}
 													title={
-														<FormattedMessage id="resource.leave-review" />
+														<FormattedMessage
+															id="resource.leave-review"
+															defaultMessage="Leave Review"
+															description="review box title"
+														/>
 													}
 													content={
 														<ReviewForm
@@ -1246,7 +1250,11 @@ class Detail extends React.Component {
 												testIdName="review"
 												borderTop={showReviewForm}
 												title={
-													<FormattedMessage id="resource.reviews-heading" />
+													<FormattedMessage
+														id="resource.reviews-heading"
+														defaultMessage="Reviews"
+														description="Title for reviews section"
+													/>
 												}
 												content={<Reviews reviews={comments} />}
 											/>

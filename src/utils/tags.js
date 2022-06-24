@@ -217,6 +217,12 @@ const resourceTypes = [
 	{
 		category: 'service-type.legal',
 		type: 'legal',
+		acTag: 'Citizenship',
+		title: 'services.citizenship'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
 		acTag: 'Crime and discrimination',
 		title: 'services.crime-discrimination'
 	},
@@ -231,6 +237,18 @@ const resourceTypes = [
 		type: 'legal',
 		acTag: 'Deportation or removal',
 		title: 'services.deportation-or-removal'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'Employment Authorization',
+		title: 'services.employment-authorization'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'Family Petitions',
+		title: 'services.family-petitions'
 	},
 	{
 		category: 'service-type.legal',
@@ -259,8 +277,26 @@ const resourceTypes = [
 	{
 		category: 'service-type.legal',
 		type: 'legal',
+		acTag: 'Residency',
+		title: 'services.residency'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
 		acTag: 'Special Immigrant Juvenile Status (SIJS)',
 		title: 'services.special-immigrant-juvenile-status'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'T Visa',
+		title: 'services.t-visa'
+	},
+	{
+		category: 'service-type.legal',
+		type: 'legal',
+		acTag: 'U Visa',
+		title: 'services.u-visa'
 	},
 
 	/* AC Mail services Category */
@@ -452,27 +488,36 @@ const localeExclusions = {
 		'services.asylum-application-in-mexico',
 		'services.asylum-application-in-united-states-from-mexico',
 		'services.career-counseling',
+		'services.citizenship',
 		'services.cultural-centers',
 		'services.deferred-action-childhood-arrivals',
 		'services.drop-in-centers-lgbtq-youth',
+		'services.employment-authorization',
 		'services.english-classes',
+		'services.family-petition',
 		'services.gender-neutral-bathrooms',
 		'services.gender-neutral-restrooms',
 		'services.lgbtq-centers',
 		'services.physical-evaluations-for-asylum',
 		'services.private-therapy-counseling',
 		'services.psychological-evaluation-for-asylum',
+		'services.residency',
 		'services.special-immigrant-juvenile-status',
-		'services.sponsors'
+		'services.sponsors',
+		'services.t-visa',
+		'services.u-visa'
 	],
 	en_MX: [
 		'services.abortion-services',
 		'services.asylum-application',
 		'services.career-counselling',
+		'services.citizenship',
 		'services.cultural-centres',
 		'services.deferred-action-childhood-arrivals',
 		'services.drop-in-centres-lgbtq-youth',
+		'services.employment-authorization',
 		'services.english-classes',
+		'services.family-petition',
 		'services.gender-neutral-restrooms',
 		'services.gender-neutral-washrooms',
 		'services.legal-hotlines',
@@ -483,18 +528,24 @@ const localeExclusions = {
 		'services.psychological-evaluation-for-refugee',
 		'services.reception-services',
 		'services.refugee-claim',
+		'services.residency',
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
-		'services.sponsors'
+		'services.sponsors',
+		'services.t-visa',
+		'services.u-visa'
 	],
 	es_MX: [
 		'services.abortion-services',
 		'services.asylum-application',
 		'services.career-counselling',
+		'services.citizenship',
 		'services.cultural-centres',
 		'services.deferred-action-childhood-arrivals',
 		'services.drop-in-centres-lgbtq-youth',
+		'services.employment-authorization',
 		'services.english-classes',
+		'services.family-petition',
 		'services.gender-neutral-restrooms',
 		'services.gender-neutral-washrooms',
 		'services.legal-hotlines',
@@ -505,9 +556,12 @@ const localeExclusions = {
 		'services.psychological-evaluation-for-refugee',
 		'services.reception-services',
 		'services.refugee-claim',
+		'services.residency',
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
-		'services.sponsors'
+		'services.sponsors',
+		'services.t-visa',
+		'services.u-visa'
 	]
 };
 const filterResourceType = function (item, locale) {

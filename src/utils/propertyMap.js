@@ -125,7 +125,7 @@ const propertyMap = {
 		'lang-malagasy': {code: 'mg'},
 		'lang-malinke': {name: 'Malinke'},
 		'lang-mam': {name: 'Mayan (Mam)'},
-		'lang-mandarin': {code: 'zh'},
+		'lang-mandarin': {name: 'Mandarin'},
 		'lang-mandingo': {name: 'Mandingo'},
 		'lang-marathi': {code: 'mr'},
 		'lang-maya': {name: 'Maya'},
