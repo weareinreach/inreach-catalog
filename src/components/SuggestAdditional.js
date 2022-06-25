@@ -115,7 +115,11 @@ class SuggestAdditional extends React.Component {
 							data-test-id="suggest-page-feature"
 						>
 							<span>
-								<FormattedMessage id="resource.features-heading" />{' '}
+								<FormattedMessage
+									id="resource.features-heading"
+									defaultMessage="Features"
+									description="features heading"
+								/>{' '}
 							</span>
 							{this.state.openFeature ? <ExpandLess /> : <ExpandMore />}
 						</div>
@@ -147,7 +151,11 @@ class SuggestAdditional extends React.Component {
 							data-test-id="suggest-page-requirement"
 						>
 							<span>
-								<FormattedMessage id="resource.requirements-heading" />
+								<FormattedMessage
+									id="resource.requirements-heading"
+									defaultMessage="Requirements"
+									description="requirements heading"
+								/>
 							</span>
 							{this.state.openRequirement ? <ExpandLess /> : <ExpandMore />}
 						</div>
