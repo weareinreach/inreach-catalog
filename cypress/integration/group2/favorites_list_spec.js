@@ -101,11 +101,6 @@ describe('Favorites List Tests', () => {
                     cy.testDeletingFavoritesListErrorErrorCode(viewport, user, "Automation List 4", 404, "Resource not found");
                 });
             });
-            it(`Favorites List Delete List - Error - 401`, () => {
-                cy.get('@user').then(user => {
-                    cy.testDeletingFavoritesListErrorErrorCode(viewport, user, "Automation List 4", 401, "Oops! You need to be signed in to delete resources.");
-                });
-            });
             it(`Favorites List Delete List - Error - 500`, () => {
                 cy.get('@user').then(user => {
                     cy.testDeletingFavoritesListErrorErrorCode(viewport, user, "Automation List 4", 500, "Oops! You need to be signed in to delete resources.");

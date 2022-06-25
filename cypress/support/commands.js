@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+const { view } = require("ramda");
+
 const MOBILE = 'mobile';
 const TABLET = 'tablet';
 
@@ -150,5 +152,44 @@ Cypress.Commands.add('selectFavoritesList',(viewport)=>{
     }
 });
 
+Cypress.Commands.add('searchOrganizationsByCityName',(viewport,cityName)=>{
+	switch(viewport){
+        case Cypress.env(MOBILE):
+            cy.getElementByTestId('mobile-nav-button-search').click();
+        break;
+        default:
+            //do nothing
+        break; 
+    }
+       
+    cy.getElementByTestId('search-page-next-button').click();
+    cy.getElementByTestId('search-page-checkbox').click();
+    cy.getElementByTestId('search-bar-input').type(cityName);
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.intercept('/v1/organizations*').as('search');
+    switch(viewport){
+        case Cypress.env(MOBILE):
+            cy.getElementByTestId('search-bar-search-by-location-button').click();
+        break;
+        default:
+            cy.getElementByTestId('search-bar-search-button').click();
+        break; 
+    }
+    cy.wait('@search');
+});
 
-
+Cypress.Commands.add('navigateToSuggestion',(viewport)=>{
+	switch(viewport){
+		case Cypress.env(MOBILE):
+		cy.getElementByTestId('mobile-nav-button-more').click();
+		cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
+		cy.getElementByTestId('more-suggest-a-resource-us').click();
+	    break;
+		default:
+		cy.scrollTo('bottom');
+		cy.getElementByTestId('footer-suggest-new').click();
+		break;
+	}
+});
