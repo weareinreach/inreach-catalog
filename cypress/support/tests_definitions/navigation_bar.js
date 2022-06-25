@@ -1,17 +1,16 @@
 Cypress.Commands.add('testNavigationBar', (viewport, user) => {
-	//set viewport
 	cy.viewport(viewport);
-	// eslint-disable-next-line default-case
 	switch (viewport) {
-		case Cypress.env('desktop'):
-			testNavigationBarDesktop(viewport, user);
+		case Cypress.env('mobile'):
+			testNavigationBarMobile(viewport, user);
 			break;
 		case Cypress.env('tablet'):
 			testNavigationBarTablet(viewport, user);
 			break;
-		case Cypress.env('mobile'):
-			testNavigationBarMobile(viewport, user);
+		default:
+			testNavigationBarDesktop(viewport, user);
 			break;
+		
 	}
 });
 
@@ -25,8 +24,6 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('About Us');
-		//click
-		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-take-action').then(($element) => {
@@ -34,9 +31,6 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Take Action');
-		//click
-		//uncomment once inreach is live
-		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-get-help').then(($element) => {
@@ -44,9 +38,6 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Questions?');
-		//click
-		//uncomment once inreach is live
-		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-contact').then(($element) => {
@@ -54,9 +45,6 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 		expect($element).to.have.attr('target', '_blank');
 		expect($element.children()).contain('Contact Us');
-		//click
-		//uncomment once inreach is live
-		cy.wrap($element).click();
 	});
 
 	cy.getElementByTestId('nav-button-safety-exit').then(($element) => {
@@ -90,8 +78,7 @@ function testNavigationBarDesktop(viewport, user) {
 		});
 	});
 }
-//using special viewport size until app breakpoints are cleaned up 
-//and more unit tests are created to account for the new breakpoints
+
 function testNavigationBarTablet(viewport, user) {
 	cy.getElementByTestId('nav-button-logo').should('be.visible');
 	cy.getElementByTestId('nav-button-safety-exit').then(
@@ -99,8 +86,6 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://www.google.com/');
       expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Safety Exit');
-			//click
-			cy.wrap($element).click({force:true});
 		}
 	);
 
@@ -117,8 +102,7 @@ function testNavigationBarTablet(viewport, user) {
 
 	cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
-	cy.wait(1000);
-
+    cy.wait(1000);
     //account menu drop down when logged in - favorites
 	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
 		cy.wrap($element).click();
@@ -176,31 +160,24 @@ function testNavigationBarTablet(viewport, user) {
 			expect($element).to.have.attr('href', 'https://inreach.org/mission/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('About Us');
-			cy.wrap($element).click();
 		});
-		cy.wrap($element[0]).click();
 		cy.getElementByTestId('tablet-nav-menu-item-take-action').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('href', 'https://inreach.org/donate/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Take Action');
-			cy.wrap($element).click();
 		});
-		cy.wrap($element[0]).click();
 		cy.getElementByTestId('tablet-nav-menu-item-faqs').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('href', 'https://inreach.org/faqs/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Questions?');
-			cy.wrap($element).click();
 		});
-		cy.wrap($element[0]).click();
 		cy.getElementByTestId('tablet-nav-menu-item-contact').then(($element) => {
 			expect($element).to.be.visible;
 			expect($element).to.have.attr('href', 'https://inreach.org/contact/');
 			expect($element).to.have.attr('target', '_blank');
 			expect($element.children()).contain('Contact Us');
-			cy.wrap($element).click();
 		});
 	});
 }
@@ -287,17 +264,12 @@ function testNavigationBarMobile(viewport, user) {
 		//Click
 		cy.wrap($element).click();
     	cy.login(user, viewport);
-		cy.getElementByTestId('account-page-tab-your-account').then(($element) => {
-			expect($element).to.be.visible;
-		});
+		cy.getElementByTestId('account-page-tab-your-account').should('be.visible');
 	});
 	cy.getElementByTestId('mobile-nav-button-favorites').then(($element) => {
 		//Click
 		cy.wrap($element).click();
-		cy.getElementByTestId('favorites-page-title-text').then(($element) => {
-			expect($element).to.be.visible;
+		cy.getElementByTestId('favorites-page-title-text').should('be.visible');
 		});
-	});
+};
 
-
-}
