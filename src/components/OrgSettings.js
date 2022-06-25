@@ -237,11 +237,8 @@ class OrgSettings extends React.Component {
 							<div className={classes.settingsTypeFont}>
 								<span>
 									<FormattedMessage id="resource.change-request-received" />{' '}
-									<a
-										href="mailto:catalog@asylumconnect.org"
-										className={classes.boldFont}
-									>
-										catalog@asylumconnect.org
+									<a href="mailto:app@inreach.org" className={classes.boldFont}>
+										app@inreach.org
 									</a>
 									.
 								</span>

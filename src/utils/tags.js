@@ -217,6 +217,12 @@ const resourceTypes = [
 	{
 		category: 'Legal',
 		type: 'legal',
+		acTag: 'Citizenship',
+		title: 'Citizenship'
+	},
+	{
+		category: 'Legal',
+		type: 'legal',
 		acTag: 'Crime and discrimination',
 		title: 'Crime and discrimination'
 	},
@@ -231,6 +237,18 @@ const resourceTypes = [
 		type: 'legal',
 		acTag: 'Deportation or removal',
 		title: 'Deportation or removal (Defensive Asylum)'
+	},
+	{
+		category: 'Legal',
+		type: 'legal',
+		acTag: 'Employment Authorization',
+		title: 'Employment Authorization'
+	},
+	{
+		category: 'Legal',
+		type: 'legal',
+		acTag: 'Family Petitions',
+		title: 'Family Petitions'
 	},
 	{
 		category: 'Legal',
@@ -259,8 +277,26 @@ const resourceTypes = [
 	{
 		category: 'Legal',
 		type: 'legal',
+		acTag: 'Residency',
+		title: 'Residency'
+	},
+	{
+		category: 'Legal',
+		type: 'legal',
 		acTag: 'Special Immigrant Juvenile Status (SIJS)',
 		title: 'Special Immigrant Juvenile Status (SIJS)'
+	},
+	{
+		category: 'Legal',
+		type: 'legal',
+		acTag: 'T Visa',
+		title: 'T Visa'
+	},
+	{
+		category: 'Legal',
+		type: 'legal',
+		acTag: 'U Visa',
+		title: 'U Visa'
 	},
 
 	/* AC Mail services Category */
@@ -428,27 +464,36 @@ const localeExclusions = {
 		'Asylum application in Mexico (Affirmative Asylum)',
 		'Asylum application in the US from Mexico (Affirmative Asylum)',
 		'Career counseling',
+		'Citizenship',
 		'Cultural centers',
 		'Deferred Action for Childhood Arrivals (DACA)',
 		'Drop-in centers for LGBTQ youth',
+		'Employment Authorization',
 		'English classes',
+		'Family Petitions',
 		'Gender-neutral bathrooms',
 		'Gender-neutral restrooms',
 		'LGBTQ centers',
 		'Physical evaluations for asylum claim',
 		'Private therapy and counseling',
 		'Psychological evaluations for asylum claim',
+		'Residency',
 		'Special Immigrant Juvenile Status (SIJS)',
-		'Sponsors'
+		'Sponsors',
+		'T Visa',
+		'U Visa'
 	],
 	en_MX: [
 		'Abortion services',
 		'Asylum application (Affirmative Asylum)',
 		'Career counselling',
+		'Citizenship',
 		'Cultural centres',
 		'Deferred Action for Childhood Arrivals (DACA)',
 		'Drop-in centres for LGBTQ youth',
+		'Employment Authorization',
 		'English classes',
+		'Family Petitions',
 		'Gender-neutral restrooms',
 		'Gender-neutral washrooms',
 		'Legal hotlines',
@@ -459,9 +504,12 @@ const localeExclusions = {
 		'Psychological evaluations for refugee claim',
 		'Reception services',
 		'Refugee claim',
+		'Residency',
 		'Short-term housing',
 		'Special Immigrant Juvenile Status (SIJS)',
-		'Sponsors'
+		'Sponsors',
+		'T Visa',
+		'U Visa'
 	]
 };
 const filterResourceType = function (item, locale) {
