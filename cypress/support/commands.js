@@ -24,12 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-const { view } = require("ramda");
-
 const MOBILE = 'mobile';
 const TABLET = 'tablet';
-
-
 Cypress.Commands.add('getElementByTestId',(id_name) =>{
     return cy.get(`[data-test-id=${id_name}]`);
 });

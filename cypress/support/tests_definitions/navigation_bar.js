@@ -72,7 +72,7 @@ function testNavigationBarDesktop(viewport, user) {
 		expect($element.children()).contain('View Your Favorites');
 		cy.wrap($element).click();
 		cy.location((loc) => {
-			expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/favorites');
+			expect(loc.href).to.be.eq(Cypress.env('baseUrl') + '/en_US/favorites');
 			expect(loc.hostname).to.be.eq('localhost:3000');
 			expect(loc.pathname).to.be.eq('/en_US/favorites');
 		});
@@ -102,7 +102,6 @@ function testNavigationBarTablet(viewport, user) {
 
 	cy.getElementByTestId('nav-button-view-favorites').should('not.to.exist');
     cy.login(user, viewport);
-    cy.wait(1000);
     //account menu drop down when logged in - favorites
 	cy.getElementByTestId('nav-button-account').should('exist').then(($element) => {
 		cy.wrap($element).click();
@@ -112,7 +111,7 @@ function testNavigationBarTablet(viewport, user) {
 		expect($element.children()).contain('View Your Favorites');
 		cy.wrap($element).click();
 			cy.location((loc) => {
-				expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/favorites');
+				expect(loc.href).to.be.eq(Cypress.env('baseUrl') + '/en_US/favorites');
 				expect(loc.hostname).to.be.eq('localhost:3000');
 				expect(loc.pathname).to.be.eq('/en_US/favorites');
 			});
@@ -128,7 +127,7 @@ function testNavigationBarTablet(viewport, user) {
 		expect($element.children()).contain('Account Settings');
 		cy.wrap($element).click();
 			cy.location((loc) => {
-				expect(loc.href).to.be.eq(cypress.env('baseUrl') + '/en_US/account');
+				expect(loc.href).to.be.eq(Cypress.env('baseUrl') + '/en_US/account');
 				expect(loc.hostname).to.be.eq('localhost:3000');
 				expect(loc.pathname).to.be.eq('/en_US/account');
 			});
@@ -144,7 +143,7 @@ function testNavigationBarTablet(viewport, user) {
 		expect($element.children()).contain('Sign Out');
 		cy.wrap($element).click();
 			cy.location((loc) => {
-				expect(loc.href).to.be.eq(cypress.env('baseUrl'));
+				expect(loc.href).to.be.eq(Cypress.env('baseUrl'));
 				expect(loc.hostname).to.be.eq('localhost:3000');
 				expect(loc.pathname).to.be.eq('');
 			});
@@ -190,7 +189,7 @@ function testNavigationBarMobile(viewport, user) {
 		//Click
 		cy.wrap($element).click();
 		cy.location((loc) => {
-			expect(loc.href).to.be.eq(cypress.env('baseUrl'));
+			expect(loc.href).to.be.eq(Cypress.env('baseUrl'));
 			expect(loc.hostname).to.be.eq('localhost:3000');
 		});
 	});

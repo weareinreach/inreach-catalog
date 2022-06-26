@@ -4,7 +4,7 @@ Here are located the functions that related to the API. These are mostly used to
 */
 //----------------- API HELPING FUNCTIONS -------------------------
 let compoundURL;
-let backendUrl = Cypress.env('environment') == "TEST" ? Cypress.env('localUrl') : Cypress.env('stagingAPIUrl')
+let backendUrl = Cypress.env('environment') === "TEST" ? Cypress.env('localUrl') : Cypress.env('stagingAPIUrl')
 ;
 
 //Add User

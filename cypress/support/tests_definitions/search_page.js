@@ -1,7 +1,3 @@
-const {
-	view
-} = require("ramda");
-
 Cypress.Commands.add('testSearchPageElements', (viewport) => {
 	cy.viewport(viewport);
 	switch (viewport) {

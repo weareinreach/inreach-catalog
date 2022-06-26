@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-const { view } = require("ramda");
-
 //Create Account Option Types
 Cypress.Commands.add('testCreateAccountOptionTypes', (viewport) => {
     //Set View Port

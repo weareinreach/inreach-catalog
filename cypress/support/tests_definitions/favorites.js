@@ -23,7 +23,6 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn', (viewport) => {
             cy.getElementByTestId('mobile-nav-button-favorites').click();
             //revert back to viewport
             cy.viewport(viewport);
-            cy.wait(1000);
             cy.getElementByTestId('favorites-page-header-text').then($element => {
                 expect($element).to.be.visible;
                 expect($element).contain("You must be signed in to view Favorites.");
@@ -240,7 +239,6 @@ Cypress.Commands.add('testRemovingItemsFromFavoritesList', (viewport, user, list
 Cypress.Commands.add('testPrintingFavoritesList', (viewport, user, listName, shareEmail) => {
     cy.viewport(viewport);
     cy.login(user, viewport);
-    cy.wait(1000)
     cy.createFavoriteList(viewport, listName);
     //Back to Home Page
     cy.visit(Cypress.env('baseUrl'));
