@@ -10,7 +10,7 @@
     "test": "react-app-rewired test --passWithNoTests",
     "serve": "node src/server",
     "cypress:open": "CYPRESS_environment=TEST cypress open --config-file cypress.config.js",
-    "cypress:run": "CYPRESS_environment=TEST cypress run --retries 2 --config-file cypress.config.js",
+    "cypress:run": "CYPRESS_environment=TEST cypress run --config retries=2 --config-file cypress.config.js",
     "cypress:open:local": "CYPRESS_enviroment=TEST cypress open --config-file ./cypress.json",
     "combine-reports": "mkdir ./reports && mochawesome-merge mochawesome-report/*.json > ./reports/reporte2e.json",
     "generate-report": "marge ./reports/reporte2e.json -f e2e-report -o ./reports",
