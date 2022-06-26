@@ -12,7 +12,10 @@ module.exports = defineConfig({
 		html: true,
 		json: true
 	},
-	retries:1,
+	retries: {
+		runMode : 2,
+		openMode : 1
+	},
     defaultCommandTimeout:4000,
     waitForAnimations:true,
 	projectId:"xq2qjw"
