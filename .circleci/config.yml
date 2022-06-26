@@ -28,10 +28,10 @@ jobs:
          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: EsLint Source Code 
-          command: npx eslint 
+          command: npx eslint src
       - run:
           name: EsLint Cypress 
-          command: npx eslint
+          command: npx eslint cypress
 
   build:
     docker:
