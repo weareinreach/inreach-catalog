@@ -133,22 +133,18 @@ const NameEmailPswd = (props) => {
 
 	const emailLabel =
 		selection === SEEKER_TYPE ? (
-			<FormattedMessage
-				id="form.email"
-				defaultMessage="Email"
-				description="Seeker Email for Form"
-			/>
+			<FormattedMessage id="form.email" defaultMessage="Email" description="" />
 		) : selection === LAWYER_TYPE ? (
 			<FormattedMessage
 				id="form.lawyer-email"
 				defaultMessage="Organization Email"
-				description="Lawyer Email for Form"
+				description=""
 			/>
 		) : (
 			<FormattedMessage
 				id="form.organization-email"
 				defaultMessage="Organization or personal Email"
-				description="Organization Email for Form"
+				description=""
 			/>
 		);
 
@@ -157,13 +153,13 @@ const NameEmailPswd = (props) => {
 			<FormattedMessage
 				id="form.name"
 				defaultMessage="Name (or Alias)"
-				description="Seeker Name"
+				description=""
 			/>
 		) : (
 			<FormattedMessage
 				id="form.lawyer-organization-name"
 				defaultMessage="First and Last Name"
-				description="Lawyer Name"
+				description=""
 			/>
 		);
 
@@ -199,7 +195,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage
 						id="account.sign-up"
 						defaultMessage="Sign Up"
-						description="Sign Up for Account"
+						description=""
 					/>
 				</DialogTitle>
 			)}
@@ -207,7 +203,7 @@ const NameEmailPswd = (props) => {
 				<FormattedMessage
 					id="app.welcome-main-3"
 					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-					description="Platform Welcome Message"
+					description=""
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -236,13 +232,13 @@ const NameEmailPswd = (props) => {
 									<FormattedMessage
 										id="error.text-field-name"
 										defaultMessage="'Name' field must contain at least 2 characters"
-										description="Error Message when Name Field isn't Correct"
+										description=""
 									/>
 								) : touchedName && textFieldTest.test(name) ? (
 									<FormattedMessage
 										id="form.field-valid-name"
 										defaultMessage="'Name' field is valid"
-										description="Success Message when Name Field is Correct"
+										description=""
 									/>
 								) : null
 							}
@@ -278,13 +274,13 @@ const NameEmailPswd = (props) => {
 							<FormattedMessage
 								id="error.email-format"
 								defaultMessage="Your email should have a format similar to 'john@gmail.com'"
-								description="Error Message when Email Format is Incorrect"
+								description=""
 							/>
 						) : touchedEmail && emailTest.test(email) ? (
 							<FormattedMessage
 								id="form.field-valid-email"
 								defaultMessage="'Email' field is valid"
-								description="Success Message when Email Format is Correct"
+								description=""
 							/>
 						) : null
 					}
@@ -311,7 +307,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage
 						id="form.password"
 						defaultMessage="Password"
-						description="Password for Account"
+						description=""
 					/>
 				</FormLabel>
 				<TextField
@@ -322,13 +318,13 @@ const NameEmailPswd = (props) => {
 							<FormattedMessage
 								id="error.password-format"
 								defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
-								description="Error Message when Password Format is Incorrect"
+								description=""
 							/>
 						) : touchedPassword && pswdTest.test(password) ? (
 							<FormattedMessage
 								id="form.field-valid-password"
 								defaultMessage="'Password' field is valid"
-								description="Success Message when Password Format is Correct"
+								description=""
 							/>
 						) : null
 					}
@@ -361,7 +357,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage
 						id="account.sign-up"
 						defaultMessage="Sign Up"
-						description="Sign Up for Account"
+						description=""
 					/>
 				</AsylumConnectButton>
 			</form>
