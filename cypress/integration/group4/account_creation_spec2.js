@@ -37,6 +37,7 @@ describe('Home Page Create Account Form Tests', () => {
     //Create Account Elements 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
+            userTypes.forEach(userType=>{
             // eslint-disable-next-line default-case
             switch(userType){
                 case Cypress.env('createAccountUserTypeLawyer'):
@@ -89,6 +90,7 @@ describe('Home Page Create Account Form Tests', () => {
                     });
                 break;
             }
+        });
         });
     });
 });
