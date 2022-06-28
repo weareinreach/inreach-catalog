@@ -23,6 +23,10 @@ Cypress.Commands.add('testFavoritesComponentsNotLoggedIn', (viewport) => {
             cy.getElementByTestId('mobile-nav-button-favorites').click();
             //revert back to viewport
             cy.viewport(viewport);
+            //Releoad page and intercept
+            cy.intercept('GET','/en_US/favorites').as('favorites');
+            cy.reload();
+            cy.wait('@favorites');
             cy.getElementByTestId('favorites-page-header-text').then($element => {
                 expect($element).to.be.visible;
                 expect($element).contain("You must be signed in to view Favorites.");

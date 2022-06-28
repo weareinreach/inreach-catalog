@@ -19,7 +19,7 @@ Cypress.Commands.add('testCreateAccountOptionTypes', (viewport) => {
             });
             break;
     }
-    cy.getElementByTestId('dialog-container-sign-up-form').should('be.visible');
+    //cy.getElementByTestId('dialog-container-sign-up-form').should('be.visible');
     cy.getElementByTestId('dialog-container-sign-up-question').then($element => {
         expect($element).to.be.visible;
         expect($element.children()).contain('Which are you?');
