@@ -61,55 +61,6 @@ describe('Home Page Create Account Form Tests', () => {
                         });
                     });
                 break;
-                case Cypress.env('createAccountUserTypeLawyer'):
-                    it(`Create account ${userType} - Lawyer`,()=>{
-                        cy.get('@organization').then(org=>{
-                            cy.addOrg(org).then(()=>{
-                                cy.get('@user_types').then(userTypesObject=>{
-                                    cy.testCreateAccountLawyer(viewport,userType,org,userTypesObject[userType]);
-                                });
-                            });
-                        });
-                    });
-                    it(`Creating account for ${userType} - click resource`,()=>{
-                        cy.get('@organization').then(org=>{
-                            cy.addOrg(org).then(()=>{
-                                cy.get('@user_types').then(userTypesObject=>{
-                                    cy.testCreateAccountActionSkipOrganizationResource(viewport,userType,userTypesObject[userType]);
-                                });
-                            }); 
-                        });
-                    });
-                    it(`Creating account for ${userType} - click profile`,()=>{
-                        cy.get('@organization').then(org=>{
-                            cy.addOrg(org).then(()=>{
-                                cy.get('@user_types').then(userTypesObject=>{
-                                    cy.testCreateAccountActionSkipOrganizationProfile(viewport,userType,userTypesObject[userType]);
-                                });
-                            }); 
-                        });
-                    });
-                break;
-                case Cypress.env('createAccountUserTypeServiceProvider'):
-                    it(`Create account ${userType} - Provider`,()=>{
-                        cy.get('@organization').then(org=>{
-                            cy.addOrg(org).then(()=>{
-                                cy.get('@user_types').then(userTypesObject=>{  
-                                    cy.testCreateAccountProvider(viewport,userType,userTypesObject[userType]);
-                                });
-                            });
-                        });
-                    });
-                    it(`Creating account for ${userType} -Provider skip org`,()=>{
-                        cy.get('@organization').then(org=>{
-                            cy.addOrg(org).then(()=>{
-                                cy.get('@user_types').then(userTypesObject=>{  
-                                    cy.testCreateAccountActionSkipOrganization(viewport,userType,userTypesObject[userType]);
-                                });
-                            }); 
-                        });
-                    });
-                break;
             }
             });
         });
