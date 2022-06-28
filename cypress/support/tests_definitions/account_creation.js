@@ -19,7 +19,9 @@ Cypress.Commands.add('testCreateAccountOptionTypes', (viewport) => {
             });
             break;
     }
-    //cy.getElementByTestId('dialog-container-sign-up-form').should('be.visible');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
+    cy.getElementByTestId('dialog-container-sign-up-form').should('be.visible');
     cy.getElementByTestId('dialog-container-sign-up-question').then($element => {
         expect($element).to.be.visible;
         expect($element.children()).contain('Which are you?');
@@ -98,7 +100,8 @@ Cypress.Commands.add('testCreateAccountBackButton', (viewport) => {
             });
             break;
     }
-
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.getElementByTestId('dialog-container-sign-up-form').should('be.visible');
     cy.getElementByTestId('dialog-container-sign-up-question').then($element => {
         expect($element).to.be.visible;
