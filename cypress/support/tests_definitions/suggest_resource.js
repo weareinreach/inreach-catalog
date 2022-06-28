@@ -4,16 +4,7 @@
 
 Cypress.Commands.add('testSuggestionAlreadyExists',(viewport,org)=>{
     cy.viewport(viewport);
-
-//Navigate to suggestion
-if(viewport === Cypress.env('mobile')){
-    cy.getElementByTestId('mobile-nav-button-more').click();
-    cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
-    cy.getElementByTestId('more-suggest-a-resource-us').click();
-}else{
-    cy.scrollTo('bottom');
-    cy.getElementByTestId('footer-suggest-new').click();
-}
+    cy.navigateToSuggestion(viewport);
 
 cy.getElementByTestId('suggest-page-title').then($element=>{
     expect($element).to.be.visible;
@@ -26,9 +17,10 @@ cy.getElementByTestId('suggest-page-body').then($element=>{
 
 cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
     expect($element).to.be.visible;
+    cy.intercept('/v1/organizations/name/*').as('search');
     cy.wrap($element).type(org.name).then(()=>{
         //wait for to populate
-        cy.wait(2000);
+        cy.wait('@search');
         //select first
         cy.getElementByTestId('sign-up-form-searched-organization').then($elements=>{
             expect($elements).to.be.visible;
@@ -48,18 +40,10 @@ cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
 
 
 
-Cypress.Commands.add('testSuggestionElements',(viewport,org)=>{
+Cypress.Commands.add('testSuggestionElements',(viewport)=>{
 cy.viewport(viewport);
 
-//Navigate to suggestion
-if(viewport === Cypress.env('mobile')){
-    cy.getElementByTestId('mobile-nav-button-more').click();
-    cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
-    cy.getElementByTestId('more-suggest-a-resource-us').click();
-}else{
-    cy.scrollTo('bottom');
-    cy.getElementByTestId('footer-suggest-new').click();
-}
+cy.navigateToSuggestion(viewport);
 
 cy.getElementByTestId('suggest-page-title').then($element=>{
     expect($element).to.be.visible;
@@ -73,7 +57,6 @@ cy.getElementByTestId('suggest-page-body').then($element=>{
 cy.getElementByTestId('sign-up-form-find-organization').then($element=>{
     expect($element).to.be.visible;
 });
-
 
 cy.getElementByTestId('suggest-page-address').then($element=>{
     expect($element).to.be.visible;
@@ -358,23 +341,13 @@ cy.getElementByTestId('suggest-page-feature-checkbox-options').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain('All organization changes are subject to review by InReach before publication.');
     });
-
 });
 
 
 Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
     cy.login(user);
     cy.viewport(viewport);
-    cy.wait(1000);
-    //Navigate to suggestion
-    if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('mobile-nav-button-more').click();
-        cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
-        cy.getElementByTestId('more-suggest-a-resource-us').click();
-    }else{
-        cy.scrollTo('bottom');
-        cy.getElementByTestId('footer-suggest-new').click();
-    }
+    cy.navigateToSuggestion(viewport);
 
     //links to other forms
     cy.getElementByTestId('other-link-1').then($element => {
@@ -419,7 +392,7 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
 
     //hours
     cy.getElementByTestId('suggest-page-hour').click();
-    cy.wait(500);
+    //cy.wait(500);
 
     cy.getElementByTestId('suggest-page-hour-monday').scrollIntoView().click();
     cy.getElementByTestId('suggest-page-hour-monday-start').type('08:00');
@@ -476,7 +449,4 @@ Cypress.Commands.add('testSuggestionAction',(viewport,user,org)=>{
     });
 
     cy.getElementByTestId('suggest-page-suggest-button').click();
-
-
-
 });

@@ -25,6 +25,4 @@ describe('Home Suggest New Resource Tests', () => {
                     }); 
                 });
             });
-
-
 });

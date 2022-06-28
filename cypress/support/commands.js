@@ -24,9 +24,11 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('getElementByTestId',(id_name =>{
+const MOBILE = 'mobile';
+const TABLET = 'tablet';
+Cypress.Commands.add('getElementByTestId',(id_name) =>{
     return cy.get(`[data-test-id=${id_name}]`);
-}));
+});
 
 Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
     cy.go('back');
@@ -34,64 +36,92 @@ Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
 });
 
 Cypress.Commands.add('login',(user,viewport)=>{
-	if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('mobile-nav-button-account').then($element =>{
-            cy.wrap($element).click();
-        });
-        
-    }else{
-        cy.getElementByTestId('nav-account-sign-in').then($element => {
-            cy.wrap($element).click({force:true});
-        });
-    }
-
+	cy.intercept('/v1/auth').as('login');
+	switch(viewport){
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('mobile-nav-button-account').click();
+		break;
+		default:
+			cy.getElementByTestId('nav-account-sign-in').click({force:true});
+		break;
+	}
 	 //Enter Creds
 	 cy.getElementByTestId('log-in-dialog-container-email-input').type(user.email);
 	 cy.getElementByTestId('log-in-dialog-container-password-input').type(user.password);
 	 cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
+	 cy.wait('@login');
+});
+
+Cypress.Commands.add('logout',(viewport)=>{
+	switch(viewport){
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('mobile-nav-button-account').click()
+            cy.getElementByTestId('account-page-logout').click({
+                force: true
+            });
+		break;
+		case Cypress.env(TABLET):
+			cy.getElementByTestId('nav-button-account').click();
+            cy.getElementByTestId('nav-account-sign-out').click({
+                force: true
+            });
+		break;
+		default:
+			cy.getElementByTestId('nav-account-sign-out').click({
+                force: true
+            });
+		break;
+	}
 });
 
 Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
-	// eslint-disable-next-line default-case
 	switch(viewport){
-		case Cypress.env('mobile'):
+		case Cypress.env(MOBILE):
 			cy.getElementByTestId('mobile-nav-button-favorites').click();
 			break;
-		// eslint-disable-next-line no-fallthrough
-		case Cypress.env('tablet'):
+		case Cypress.env(TABLET):
 			cy.getElementByTestId('drop-down-selector-item').then($element=>{
-				cy.log($element);
 				cy.wrap($element[2]).click();
 				cy.getElementByTestId('nav-button-view-favorites').click();
 			});
 			break;
-		// eslint-disable-next-line no-fallthrough
-		case Cypress.env('desktop'):
+		default:
 			cy.getElementByTestId('nav-button-view-favorites').click();
 			break;
-			
 	}
     cy.getElementByTestId('favorites-page-create-new-list-button').click();
-    viewport === Cypress.env('mobile') ? cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName) : cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
+
+	switch(viewport){
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName);
+			break;
+		default:
+			cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
+			break;
+	}
     cy.getElementByTestId('favorites-create-new-button').click();
 });
 
 Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName, viewport)=>{
-	cy.viewport(viewport);
 	//Search
     cy.getElementByTestId('search-page-next-button').click({multiple:true});
     cy.getElementByTestId('search-bar-input').type(searchName);
     //Click first option 
     cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
         cy.wrap($element[0]).click();
-    })
-    if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').click();
-	} else {
-        cy.getElementByTestId('search-bar-search-by-location-button').click();
-    }
+    });
+	cy.intercept('GET','/v1/organizations*').as('orgSearch');
+	switch(viewport){
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('search-bar-search-by-location-button').click();
+			
+	    break;
+		default:
+			cy.getElementByTestId('search-bar-search-button').click();
+		break;
+	}
     //Let it load 
-    cy.wait(1000);
+    cy.wait('@orgSearch');
     cy.getElementByTestId('search-result-favorite-button').then($element=>{
         cy.wrap($element[0]).click();
     });
@@ -101,267 +131,61 @@ Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName, viewport)=>
 });
 
 Cypress.Commands.add('selectFavoritesList',(viewport)=>{
-	// eslint-disable-next-line default-case
 	switch(viewport){
-        case Cypress.env('mobile'):
-            cy.getElementByTestId('mobile-nav-button-favorites').click({force:true}) 
+        case Cypress.env(MOBILE):
+            cy.getElementByTestId('mobile-nav-button-favorites').click({force:true});
             break;
-        case Cypress.env('tablet'):
+        case Cypress.env(TABLET):
             cy.scrollTo('top');
             cy.getElementByTestId('drop-down-selector-item').then($element=>{
 				cy.wrap($element[2]).click();
 				cy.getElementByTestId('nav-button-view-favorites').click();
 			});
             break;
-        case Cypress.env('desktop'):
+        default:
             cy.getElementByTestId('nav-button-view-favorites').click();
             break;
     }
-})
-
-
-
-
-
-//----------------- API HELPING FUNCTIONS -------------------------
-let compoundURL;
-let backendUrl = Cypress.env('environment') == "TEST" ? Cypress.env('localUrl') : Cypress.env('stagingAPIUrl')
-;
-
-//Add User
-Cypress.Commands.add('addUser', (user_data) => {
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_users')
-	);
-	cy.request({
-		method: 'POST',
-		url: compoundURL,
-		body: user_data
-	});
 });
 
-//Delete User
-Cypress.Commands.add('deleteUser', (user_id) => {
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_users'),
-		`/${user_id}`
-	);
-	cy.request({
-		method: 'DELETE',
-		url: compoundURL
-	});
+Cypress.Commands.add('searchOrganizationsByCityName',(viewport,cityName)=>{
+	switch(viewport){
+        case Cypress.env(MOBILE):
+            cy.getElementByTestId('mobile-nav-button-search').click();
+        break;
+        default:
+            //do nothing
+        break; 
+    }
+       
+    cy.getElementByTestId('search-page-next-button').click();
+    cy.getElementByTestId('search-page-checkbox').click();
+    cy.getElementByTestId('search-bar-input').type(cityName);
+    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
+        cy.wrap($element[0]).click();
+    });
+    cy.intercept('/v1/organizations*').as('search');
+    switch(viewport){
+        case Cypress.env(MOBILE):
+            cy.getElementByTestId('search-bar-search-by-location-button').click();
+        break;
+        default:
+            cy.getElementByTestId('search-bar-search-button').click();
+        break; 
+    }
+    cy.wait('@search');
 });
 
-//Users
-Cypress.Commands.add('deleteUsersIfExist', () => {
-	cy.log('Cleaning Users...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_users')
-	);
-	cy.request({
-		method: 'GET',
-		url: compoundURL
-	}).then((response) => {
-		let usersArray = response.body.users;
-		usersArray.forEach((user) => {
-			//Regular User
-			if (
-				user.email === 'automation@gmail.com' ||
-				user.email === 'automation-update@gmail.com' ||
-				user.email === 'automation-updated@gmail.com' ||
-				user.email === 'automation-attorney@gmail.com' ||
-				user.email === 'automation-regular@gmail.com' ||
-				user.email === 'automation-service-provider@gmail.com'
-			) {
-				cy.deleteUser(user._id);
-			}
-		});
-	});
-});
-
-//Organizations
-//Add Org
-Cypress.Commands.add('addOrg', (org) => {
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_organizations')
-	);
-	cy.request({
-		method: 'POST',
-		url: compoundURL,
-		body: org
-	});
-});
-//Delete Org
-Cypress.Commands.add('deleteOrgsIfExist', () => {
-	cy.log('Cleaning Orgs...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
-		'/surprisingly-unique-organizations-slug'
-	);
-	cy.request({
-		method: 'GET',
-		url: compoundURL,
-		failOnStatusCode: false
-	}).then((response) => {
-		if (!response.body.notFound) {
-			cy.deleteOrgById(response.body._id);
-		}
-	});
-});
-
-//Delete Org by ID
-Cypress.Commands.add('deleteOrgById', (id) => {
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_organizations'),
-		`/${id}`
-	);
-	cy.request({
-		method: 'DELETE',
-		url: compoundURL
-	});
-});
-
-
-//Suggestions
-Cypress.Commands.add('deleteAutomationSuggestions', () => {
-	cy.log('Cleaning Suggestions...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_suggestions'),
-		'/automation@gmail.com'
-	);
-	cy.request({
-		method: 'GET',
-		url: compoundURL
-	}).then((response) => {
-		let suggestionArray = response.body;
-		suggestionArray.forEach((suggestion) => {
-			cy.deleteSuggestionById(suggestion._id);
-		});
-	});
-});
-
-//Delete Suggestion by Id
-Cypress.Commands.add('deleteSuggestionById', (id) => {
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_suggestions'),
-		`/${id}`
-	);
-	cy.request({
-		method: 'DELETE',
-		url: compoundURL
-	});
-});
-
-
-//Delete Comments for Org
-Cypress.Commands.add('deleteCommentsOrgsIfExist',(orgSlug) => {
-	cy.log('Cleaning Orgs...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
-		`/${orgSlug}`
-	);
-	cy.request({
-		method: 'GET',
-		url: compoundURL,
-		failOnStatusCode: false
-	}).then((response) => {
-		if (!response.body.notFound) {
-			cy.deleteCommentsIfExist(response.body._id);
-		}
-	});
-});
-
-
-Cypress.Commands.add('deleteCommentsIfExist',(orgId)=>{
-	cy.log('Cleaning Comments...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_organizations'),
-		`/${orgId}`,
-		Cypress.env('route_comments')
-	);
-	cy.request({
-		method:'GET',
-		url:compoundURL
-	}).then(response=>{
-		cy.log(response.body);
-		response.body.comments.forEach(comment =>{
-			cy.deleteCommentById(orgId,comment._id);
-		});
-	});
-});
-
-Cypress.Commands.add('deleteCommentById',(orgId,commentId)=>{
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_organizations'),
-		`/${orgId}`,
-		Cypress.env('route_comments'),
-		`/${commentId}`
-	);
-	cy.request({
-		method:'DELETE',
-		url:compoundURL
-	});
-});
-
-//Delete Ratings for Org
-Cypress.Commands.add('deleteRatingsOrgsIfExist',(orgSlug) => {
-	cy.log('Cleaning Orgs...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_slug_organizations'),
-		`/${orgSlug}`
-	);
-	cy.request({
-		method: 'GET',
-		url: compoundURL,
-		failOnStatusCode: false
-	}).then((response) => {
-		if (!response.body.notFound) {
-			cy.deleteRatingsIfExist(response.body._id);
-		}
-	});
-});
-
-
-Cypress.Commands.add('deleteRatingsIfExist',(orgId)=>{
-	cy.log('Cleaning Ratings...');
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_organizations'),
-		`/${orgId}`,
-		Cypress.env('route_ratings')
-	);
-	cy.request({
-		method:'GET',
-		url:compoundURL
-	}).then(response=>{
-		response.body.comments.forEach(comment =>{
-			cy.deleteRatingById(orgId,comment._id);
-		});
-	});
-});
-
-Cypress.Commands.add('deleteRatingById',(orgId,ratingId)=>{
-	compoundURL = backendUrl.concat(
-		Cypress.env('version'),
-		Cypress.env('route_organizations'),
-		`${orgId}`,
-		Cypress.env('route_ratings'),
-		`/${ratingId}`
-	);
-	cy.request({
-		method:'DELETE',
-		url:compoundURL
-	});
+Cypress.Commands.add('navigateToSuggestion',(viewport)=>{
+	switch(viewport){
+		case Cypress.env(MOBILE):
+		cy.getElementByTestId('mobile-nav-button-more').click();
+		cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
+		cy.getElementByTestId('more-suggest-a-resource-us').click();
+	    break;
+		default:
+		cy.scrollTo('bottom');
+		cy.getElementByTestId('footer-suggest-new').click();
+		break;
+	}
 });

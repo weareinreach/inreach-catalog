@@ -8,6 +8,31 @@ orbs:
   jq: circleci/jq@2.2.0
   sonarcloud: sonarsource/sonarcloud@1.0.3
 jobs:
+  linting:
+    docker:
+      - image: cimg/node:16.12.0
+    working_directory: ~/catalog
+    steps:
+      - checkout
+      - run: 
+          name: Check Node Version
+          command: node --version
+      - run:
+          name: Install Packages
+          command: yarn install
+      #save cache for use next tests
+      - save_cache:
+         paths:
+          - node_modules
+          - "~./cache/Cypress"
+         key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: EsLint Source Code 
+          command: npx eslint src
+      - run:
+          name: EsLint Cypress 
+          command: npx eslint cypress
+
   build:
     docker:
       - image: cimg/node:16.12.0
@@ -128,6 +153,10 @@ workflows:
   version: 2
   development:
     jobs:
+      - linting:
+          filters:
+            branches:
+              only: dev
       - build:
           filters:
             branches:
@@ -173,6 +202,10 @@ workflows:
 
   pull_request:
     jobs: 
+      - linting:
+          filters:
+            branches:
+              ignore: [main,dev]
       - build:
           filters:
             branches:

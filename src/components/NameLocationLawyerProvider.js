@@ -224,7 +224,10 @@ const NameLocationLawyerProvider = (props) => {
 				data-test-id="name-location-form"
 			>
 				<FormLabel required className={classes.labels} margin="none">
-					<FormattedMessage id="form.lawyer-organization-name" />
+					<FormattedMessage
+						id="form.lawyer-organization-name"
+						data-test-id="test"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedName}

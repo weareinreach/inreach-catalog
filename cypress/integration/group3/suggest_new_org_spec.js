@@ -9,9 +9,10 @@ describe('Home Suggest New Resource Tests', () => {
     let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     
     beforeEach(() => {
-        cy.visit(Cypress.env('baseUrl'));
         cy.fixture('organization.json').as('organization');
         cy.fixture('user_new.json').as('user');
+        cy.visit(Cypress.env('baseUrl'));
+
     });
 
     afterEach(() => {
@@ -29,9 +30,7 @@ describe('Home Suggest New Resource Tests', () => {
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
                 it(`Suggest New Organization Elements`,()=>{
-                    cy.get('@organization').then(org=>{
-                        cy.testSuggestionElements(viewport,org);
-                    });
+                        cy.testSuggestionElements(viewport);
                 });
                 it(`Suggest New Organization Action Already Exists`,()=>{
                     cy.get('@user').then(user=>{
