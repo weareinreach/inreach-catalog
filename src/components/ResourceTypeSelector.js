@@ -314,21 +314,16 @@ const FilterSubCollection = (props) => {
 								<AsylumConnectCheckbox
 									label={
 										filter.info ? (
-											<Tooltip
-												data-test-id="badge-tooltip"
-												// className={classes.tooltip}
-												classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-												title={filter.info}
-												placement="top"
-											>
-												<div
-													data-test-id="badge"
-													// className={iconClassList.join(' ')}
-													// style={{width: iconWidth, height: iconHeight}}
+											<InformationIcon>
+												<Tooltip
+													data-test-id="filter-info-tooltip"
+													classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+													title={filter.info}
+													placement="top"
 												>
-													{filter.title}
-												</div>
-											</Tooltip>
+													<div data-test-id="filter-title">{filter.title}</div>
+												</Tooltip>
+											</InformationIcon>
 										) : (
 											filter.title
 										)
