@@ -75,6 +75,39 @@ const styles = (theme) => ({
 			'& > div:last-child': {
 				width: '290px',
 				height: 'auto',
+				marginTop: '-660px',
+				marginLeft: '100%',
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 1px 10px 1px rgba(0, 0, 0, 0.12)'
+			}
+		}
+	},
+	filterLayoutMX: {
+		backgroundColor: theme.palette.common.white,
+		[theme.breakpoints.up('sm')]: {
+			// display: 'flex',
+			width: '100%',
+			'& > div:first-child': {
+				overflowY: 'auto',
+				padding: '8px',
+				// backgroundColor: 'theme.palette.common.white',
+				// boxShadow: '0px 1px 0px 1px rgba(0, 0, 0, 0.12)',
+				textAlign: 'left'
+			},
+			'& > div:nth-child(2)': {
+				// overflowY: 'auto',
+				width: 'auto',
+				// height: 'fit-content',
+				top: theme.spacing(6),
+				bottom: '0',
+				left: '0',
+				marginBottom: theme.spacing(2),
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 6px 10px 0px rgba(0, 0, 0, 0.12)'
+			},
+			'& > div:last-child': {
+				width: '290px',
+				height: 'auto',
 				marginTop: '-615px',
 				marginLeft: '100%',
 				backgroundColor: theme.palette.common.white,
@@ -400,7 +433,8 @@ class ResourceTypeSelector extends React.Component {
 			resourceList,
 			uncheckLink,
 			uncheckLinkDisabled,
-			filterLayout
+			filterLayout,
+			filterLayoutMX
 		} = this.props.classes;
 		const {
 			onChange,
@@ -461,7 +495,13 @@ class ResourceTypeSelector extends React.Component {
 						/>
 					))
 				) : (
-					<div className={filterLayout}>
+					<div
+						className={
+							this.props.locale !== 'en_MX' || this.props.locale !== 'es_MX'
+								? filterLayout
+								: filterLayoutMX
+						}
+					>
 						<div>
 							{selectedResourceTypes.length ? (
 								<span onClick={clearResourceTypes} className={uncheckLink}>
