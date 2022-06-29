@@ -243,6 +243,8 @@ const DetailHeader = ({
 								}
 								arrow
 								placement="bottom"
+								enterTouchDelay={0}
+								interactive
 							>
 								<Typography
 									color="secondary"
