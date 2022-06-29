@@ -353,13 +353,38 @@ const FilterSubCollection = (props) => {
 							<Grid item key={i} xs={12}>
 								<AsylumConnectCheckbox
 									label={
-										filter.info ? (
+										filter.info && filter.link ? (
 											<>
 												<Tooltip
 													data-test-id="filter-info-tooltip"
 													classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
-													title={intl.formatMessage({id: filter.info})}
+													title={
+														<a style={{color: '#e9e9e9'}}>
+															<FormattedMessage
+																id={filter.info}
+																values={{
+																	b: (chunks) => (
+																		<strong style={{color: 'black'}}>
+																			{chunks}
+																		</strong>
+																	),
+																	clickHere: (
+																		<a
+																			href={filter.link}
+																			target="_blank"
+																			rel="noopener noreferrer"
+																			className="hide--on-print"
+																			style={{color: 'black'}}
+																		>
+																			<FormattedMessage id="resource.click-here" />
+																		</a>
+																	)
+																}}
+															/>
+														</a>
+													}
 													placement="top"
+													interactive
 												>
 													<div data-test-id="filter-title">
 														{intl.formatMessage({id: filter.title})}{' '}

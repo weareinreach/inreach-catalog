@@ -512,7 +512,7 @@
 	"service-type.transportation": "Transporte",
 	"services.abortion-care-providers": "Proveedores de aborto",
 	"services.abortion-care-mail-order": "Aborto con medicamentos por correo",
-	"services.abortion-care-mail-order-msg": "Haz clic aquí para aprender más sobre el aborto con medicamentos, el aborto médico.",
+	"services.abortion-care-mail-order-msg": "<b>{clickHere}</b> para aprender más sobre el aborto con medicamentos, el aborto médico.",
 	"services.abortion-care-lodging": "Ayuda para hospedaje",
 	"services.abortion-care-travel": "Ayuda para transporte",
 	"services.abortion-care-financial": "Asistencia financiera",

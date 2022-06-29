@@ -513,7 +513,7 @@
 	"service-type.transportation": "Transportation",
 	"services.abortion-care-providers": "Abortion Providers",
 	"services.abortion-care-mail-order": "Mail Order Services",
-	"services.abortion-care-mail-order-msg": "Click here to learn more about abortion pills, medical abortion.",
+	"services.abortion-care-mail-order-msg": "<b>{clickHere}</b> to learn more about abortion pills, medical abortion.",
 	"services.abortion-care-lodging": "Lodging Assistance",
 	"services.abortion-care-travel": "Travel Assistance",
 	"services.abortion-care-financial": "Financial Assistance",
