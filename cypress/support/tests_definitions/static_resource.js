@@ -1,6 +1,13 @@
 Cypress.Commands.add('testStaticResource',(viewport)=>{
-    cy.viewport(viewport);
-    viewport === Cypress.env('mobile') ? cy.reload() : null;
+    switch(viewport){
+        case Cypress.env('mobile'):
+            cy.reload();
+        break;
+        default:
+            //Do Nothing
+        break;
+    }
+   
 
 cy.getElementByTestId('drop-down-selector-container').then($element=>{
     cy.wrap($element[2]).click();
@@ -11,13 +18,17 @@ cy.getElementByTestId('drop-down-selector-container').then($element=>{
             cy.getElementByTestId('search-page-next-button').click();
         });
     //Test Static Page
-    if(viewport !== Cypress.env('mobile')){
-        cy.getElementByTestId('subannouncement-link').then($element=>{
+    switch(viewport){
+        case Cypress.env('mobile'):
+        break;
+        default:
+            cy.getElementByTestId('subannouncement-link').then($element=>{
                 expect($element).to.be.visible;
                 expect($element).to.be.attr('href','https://inreach.org/mobile-app/');
             });
-        }
-    });
+        break;
+    }
+
     cy.getElementByTestId('static-page-title').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain('Information for LGBTQ+ People Who Are Still In Their Home Country Or A Transit Country ');
@@ -68,13 +79,10 @@ cy.getElementByTestId('drop-down-selector-container').then($element=>{
         expect($element).to.have.length(7);
         expect($element).contain('Who this resource serves:');
     });
-    // cy.getElementByTestId('static-resource-header-2').scrollIntoView().then($element=>{
-    //     expect($element).to.be.visible;
-    //     expect($element).contain('How to use this resource:');
-    // });
     cy.getElementByTestId('static-resource-header-3').then($element=>{
         expect($element).to.be.visible;
         expect($element).to.have.length(7);
         expect($element).contain('How to visit this resource:');
     });
+});
 });

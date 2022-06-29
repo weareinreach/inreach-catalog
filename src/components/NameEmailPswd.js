@@ -203,7 +203,7 @@ const NameEmailPswd = (props) => {
 				<FormattedMessage
 					id="app.welcome-main-3"
 					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-					description=""
+					description="sign up dialog header message"
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -221,6 +221,7 @@ const NameEmailPswd = (props) => {
 							className={classes.labels}
 							classes={classes.fontWeightMedium}
 							margin="none"
+							data-test-id="sign-up-form-name-label"
 						>
 							{nameLabel}
 						</FormLabel>
@@ -232,13 +233,13 @@ const NameEmailPswd = (props) => {
 									<FormattedMessage
 										id="error.text-field-name"
 										defaultMessage="'Name' field must contain at least 2 characters"
-										description=""
+										description="error message if name value does not meet requirements"
 									/>
 								) : touchedName && textFieldTest.test(name) ? (
 									<FormattedMessage
 										id="form.field-valid-name"
 										defaultMessage="'Name' field is valid"
-										description=""
+										description="success message when name value meets requirements"
 									/>
 								) : null
 							}
@@ -263,7 +264,12 @@ const NameEmailPswd = (props) => {
 						/>
 					</>
 				) : null}
-				<FormLabel required className={classes.labels} margin="none">
+				<FormLabel
+					required
+					className={classes.labels}
+					margin="none"
+					data-test-id="sign-up-form-email-label"
+				>
 					{emailLabel}
 				</FormLabel>
 				<TextField
@@ -274,13 +280,13 @@ const NameEmailPswd = (props) => {
 							<FormattedMessage
 								id="error.email-format"
 								defaultMessage="Your email should have a format similar to 'john@gmail.com'"
-								description=""
+								description="error message when email is not formatted properly"
 							/>
 						) : touchedEmail && emailTest.test(email) ? (
 							<FormattedMessage
 								id="form.field-valid-email"
 								defaultMessage="'Email' field is valid"
-								description=""
+								description="success message when email is formatted properly"
 							/>
 						) : null
 					}
@@ -307,7 +313,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage
 						id="form.password"
 						defaultMessage="Password"
-						description=""
+						description="Text field to enter a password"
 					/>
 				</FormLabel>
 				<TextField
@@ -318,7 +324,7 @@ const NameEmailPswd = (props) => {
 							<FormattedMessage
 								id="error.password-format"
 								defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
-								description=""
+								description="error message when passowrd does not meet requirements"
 							/>
 						) : touchedPassword && pswdTest.test(password) ? (
 							<FormattedMessage

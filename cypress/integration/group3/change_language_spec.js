@@ -21,7 +21,7 @@ describe('Home Page Create Account Form Tests', () => {
 
     viewports.forEach(viewport=>{
         context(`Testing the ${viewport} Version of the application`,()=>{
-                it.only(`Change Language Testing`,()=>{
+                it(`Change Language Testing`,()=>{
                         cy.testLanguageAction(viewport);
                     }); 
                 });
