@@ -96,7 +96,7 @@ const catalogTheme = createTheme({
 			lightWhite: 'rgba(255, 255, 255, 0.54)',
 			darkGrey: '#e9e9e9',
 			lightGrey: '#f7f7f7',
-			separator: '#d3dcec',
+			separator: '#edf4fb',
 			gold: '#ffd04a',
 			orange: '#F36D52',
 			yellow: '#FFD048',

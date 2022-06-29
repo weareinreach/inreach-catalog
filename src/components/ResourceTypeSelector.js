@@ -17,7 +17,7 @@ import withWidth from './withWidth';
 
 const styles = (theme) => ({
 	searchInput: Object.assign(searchInput(theme), {
-		// borderLeft: '2px solid ' + theme.palette.common.lightGrey,
+		// backgroundColor: theme.palette.common.white,
 		cursor: 'pointer',
 		position: 'relative',
 		// boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
