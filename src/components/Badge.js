@@ -52,6 +52,10 @@ const Badge = ({
 	mobileLabel
 }) => {
 	const typeMapping = {
+		abortionCare: {
+			label: 'service-type.abortion-care',
+			icon: <MedicalIcon />
+		},
 		communitySupport: {
 			label: 'service-type.community-support',
 			icon: <CommunitySupportIcon />
