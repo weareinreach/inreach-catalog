@@ -11,7 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import AsylumConnectButton from './AsylumConnectButton';
-import DialogTitle from './DialogTitlgit e';
+import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 import {breakpoints} from '../theme';
 
