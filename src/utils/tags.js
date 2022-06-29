@@ -6,6 +6,49 @@ import {localeTagMap} from '../utils/locale';
 
 // Master list of all tags in all locales
 const resourceTypes = [
+	/* AC Abortion Care Category */
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Abortion Care'
+	},
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Abortion Providers',
+		title: 'Abortion Providers'
+	},
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Financial Assistance',
+		title: 'Financial Assistance'
+	},
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Lodging Assistance',
+		title: 'Lodging Assistance'
+	},
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Mail Order Services',
+		title: 'Mail Order Services'
+	},
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Mental Health Support',
+		title: 'Mental Health Support'
+	},
+	{
+		category: 'Abortion Care',
+		type: 'abortionCare',
+		acTag: 'Travel Assistance',
+		title: 'Travel Assistance'
+	},
+
 	/* AC Community support Category */
 	{
 		category: 'Community Support',
@@ -307,12 +350,6 @@ const resourceTypes = [
 	{
 		category: 'Medical',
 		type: 'medical',
-		acTag: 'Abortion services',
-		title: 'Abortion services'
-	},
-	{
-		category: 'Medical',
-		type: 'medical',
 		acTag: 'COVID-19 services',
 		title: 'COVID-19 services'
 	},
@@ -459,7 +496,6 @@ const localeExclusions = {
 		'Refugee claim'
 	],
 	en_CA: [
-		'Abortion services',
 		'Asylum application (Affirmative Asylum)',
 		'Asylum application in Mexico (Affirmative Asylum)',
 		'Asylum application in the US from Mexico (Affirmative Asylum)',
@@ -484,7 +520,6 @@ const localeExclusions = {
 		'U Visa'
 	],
 	en_MX: [
-		'Abortion services',
 		'Asylum application (Affirmative Asylum)',
 		'Career counselling',
 		'Citizenship',
