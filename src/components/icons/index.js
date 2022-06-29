@@ -1,4 +1,5 @@
 import React from 'react';
+import AbortionCareIcon from './AbortionCareIcon';
 import AccountIcon from './AccountIcon';
 import AirplaneIcon from './AirplaneIcon';
 import CollapseIcon from './CollapseIcon';
@@ -30,6 +31,7 @@ import TransportationIcon from './TransportationIcon';
 import TravelIcon from './TravelIcon';
 import TwitterIcon from './TwitterIcon';
 
+export {default as AbortionCareIcon} from './AbortionCareIcon';
 export {default as AccountIcon} from './AccountIcon';
 export {default as AirplaneIcon} from './AirplaneIcon';
 export {default as BackIcon} from './BackIcon';
@@ -69,6 +71,7 @@ export {default as TravelIcon} from './TravelIcon';
 export {default as TwitterIcon} from './TwitterIcon';
 
 const typeMap = {
+	abortionCare: AbortionCareIcon,
 	account: AccountIcon,
 	airplane: AirplaneIcon,
 	collapse: CollapseIcon,

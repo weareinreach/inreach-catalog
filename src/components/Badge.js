@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import {withStyles} from '@material-ui/core/styles';
 
 import {
+	AbortionCareIcon,
 	CommunitySupportIcon,
 	ComputersIcon,
 	EducationEmploymentIcon,
@@ -161,6 +162,7 @@ const Badge = ({
 
 Badge.propTypes = {
 	type: PropTypes.oneOf([
+		'abortionCare',
 		'communitySupport',
 		'computers',
 		'educationEmployment',
