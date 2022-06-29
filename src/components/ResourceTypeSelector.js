@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import AsylumConnectSelector from './AsylumConnectSelector';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -14,6 +15,7 @@ import ACBadge from './Badge';
 import {breakpoints, searchInput, searchInputMobile} from '../theme';
 import ResourceTypes from '../utils/tags';
 import withWidth from './withWidth';
+import {InformationIcon} from './icons';
 
 const styles = (theme) => ({
 	searchInput: Object.assign(searchInput(theme), {
@@ -310,7 +312,28 @@ const FilterSubCollection = (props) => {
 						return (
 							<Grid item key={i} xs={12}>
 								<AsylumConnectCheckbox
-									label={filter.title}
+									label={
+										filter.info ? (
+											<Tooltip
+												data-test-id="badge-tooltip"
+												// className={classes.tooltip}
+												classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+												title={filter.info}
+												placement="top"
+											>
+												<div
+													data-test-id="badge"
+													// className={iconClassList.join(' ')}
+													// style={{width: iconWidth, height: iconHeight}}
+												>
+													{filter.title}
+												</div>
+											</Tooltip>
+										) : (
+											filter.title
+										)
+									}
+									interactive
 									value={itemValue}
 									classes={{
 										checkboxDefault: classes.subFilterCheckBox,

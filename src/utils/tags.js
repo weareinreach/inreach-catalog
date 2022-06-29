@@ -34,7 +34,9 @@ const resourceTypes = [
 		category: 'Abortion Care',
 		type: 'abortionCare',
 		acTag: 'Mail Order Services',
-		title: 'Mail Order Services'
+		title: 'Mail Order Services',
+		info: 'Click here to learn more about abortion pills, medical abortion.',
+		link: 'https://safe2choose.org/safe-abortion/abortion-pills/'
 	},
 	{
 		category: 'Abortion Care',
@@ -598,10 +600,19 @@ const getResourceTypesByGroup = (locale = defaultLocale) => {
 						({title}) => title === item.title
 					)
 				) {
-					categorized[categoryIndex].children.push({
-						title: item.title,
-						value: item.acTag
-					});
+					if (item.info !== 'undefined') {
+						categorized[categoryIndex].children.push({
+							title: item.title,
+							value: item.acTag,
+							info: item.info,
+							link: item.link
+						});
+					} else {
+						categorized[categoryIndex].children.push({
+							title: item.title,
+							value: item.acTag
+						});
+					}
 				}
 			} else {
 				categorized[categoryIndex].value = item.acTag;
