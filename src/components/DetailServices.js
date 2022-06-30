@@ -1,4 +1,5 @@
 import React from 'react';
+import {useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -42,6 +43,7 @@ const addBadges = (list, locale) => {
 const Services = (props) => {
 	const {classes, list, isMobile, locale, resource, badge} = props;
 	const itemsWithBadges = addBadges(list, locale);
+	const intl = useIntl();
 	let lastBadge = false;
 
 	return (
@@ -93,7 +95,7 @@ const Services = (props) => {
 								className={classes.serviceItemContainer}
 							>
 								<Grid item xs={12} md={3}>
-									{badge ? (
+									{badge && item.label?.split(' ')[0] ? (
 										<>
 											<ACBadge
 												extraClasses={{
@@ -109,7 +111,7 @@ const Services = (props) => {
 												component="span"
 												className={classes.badge}
 											>
-												{item.label?.split(' ')[0]}
+												{intl.formatMessage({id: item.label?.split(' ')[0]})}
 											</Typography>
 										</>
 									) : (
