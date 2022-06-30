@@ -240,6 +240,7 @@ class Language extends React.Component {
 					<FormattedMessage
 						id="language.inreach-attribution"
 						defaultMessage="Provided by InReach"
+						description="Dropdown label describing language translator"
 					>
 						{(providedBy) => <span>{providedBy}</span>}
 					</FormattedMessage>
@@ -257,6 +258,7 @@ class Language extends React.Component {
 					<FormattedMessage
 						id="language.google-attribution"
 						defaultMessage="Powered by Google Translate"
+						description="Dropdown label describing language translator"
 					>
 						{(poweredBy) => <span>{poweredBy}</span>}
 					</FormattedMessage>
@@ -276,6 +278,7 @@ class Language extends React.Component {
 						<FormattedMessage
 							id="language.dropdown-translate"
 							defaultMessage="Powered by"
+							description="Dropdown label describing language translator"
 						>
 							{(translate) => (
 								<span className={this.props.classes.blackTranslateColor}>
@@ -336,7 +339,7 @@ class Language extends React.Component {
 	handleRequestCloseAfterSelect(langCode, langName, provider) {
 		this.setState({open: false, selectedLang: langName, provider: provider});
 		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
-		this.setState({open: false, selectedLang: langName, provider: provider});
+			this.setState({open: false, selectedLang: langName, provider: provider});
 			//clear location.hash
 			var uri = window.location.toString();
 			if (uri.indexOf('#') > 0) {
@@ -481,6 +484,7 @@ class Language extends React.Component {
 						<FormattedMessage
 							id="language.dropdown-select-language"
 							defaultMessage="Select Language"
+							description="Dropdown label to prompting to select a language"
 						>
 							{(selectLanguage) => (
 								<Typography className={classes.textCenter} variant="h3">
