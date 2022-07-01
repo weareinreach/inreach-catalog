@@ -230,6 +230,7 @@ const FilterCollectionMobile = (props) => {
 				<Grid container spacing={0} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;
+						const itemTitle = `${props.value}.${filter.title}`;
 
 						return (
 							<Grid item key={i} xs={12} sm={6} md={4}>
@@ -270,13 +271,13 @@ const FilterCollectionMobile = (props) => {
 													enterTouchDelay={0}
 												>
 													<div data-test-id="filter-title">
-														{intl.formatMessage({id: filter.title})}{' '}
+														{intl.formatMessage({id: filter.titleIntl})}{' '}
 														<InformationIcon />
 													</div>
 												</Tooltip>
 											</>
 										) : (
-											intl.formatMessage({id: filter.title})
+											intl.formatMessage({id: filter.titleIntl})
 										)
 									}
 									value={itemValue}
@@ -284,6 +285,7 @@ const FilterCollectionMobile = (props) => {
 									disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}
 									checked={
 										selectedResourceTypes.indexOf(itemValue) >= 0 ||
+										selectedResourceTypes.indexOf(itemTitle) >= 0 ||
 										selectedResourceTypes.indexOf(categoryValue) >= 0
 									}
 								/>
@@ -327,6 +329,8 @@ const FilterCollection = (props) => {
 		backgroundColor = '#D3DCEC';
 	}
 	const intl = useIntl();
+
+	console.log(categoryValue);
 
 	return (
 		<div
@@ -384,7 +388,6 @@ const FilterSubCollection = (props) => {
 		? children?.map((item) => `${props.value}.${item.title}`).join(',')
 		: props.value;
 	const intl = useIntl();
-
 	return (
 		<div>
 			{hasChildren &&
@@ -392,6 +395,7 @@ const FilterSubCollection = (props) => {
 				<Grid container spacing={1} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;
+						const itemTitle = `${props.value}.${filter.title}`;
 
 						return (
 							<Grid item key={i} xs={12}>
@@ -431,13 +435,13 @@ const FilterSubCollection = (props) => {
 													interactive
 												>
 													<div data-test-id="filter-title">
-														{intl.formatMessage({id: filter.title})}{' '}
+														{intl.formatMessage({id: filter.titleIntl})}{' '}
 														<InformationIcon />
 													</div>
 												</Tooltip>
 											</>
 										) : (
-											intl.formatMessage({id: filter.title})
+											intl.formatMessage({id: filter.titleIntl})
 										)
 									}
 									interactive
@@ -451,6 +455,7 @@ const FilterSubCollection = (props) => {
 									disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}
 									checked={
 										selectedResourceTypes.indexOf(itemValue) >= 0 ||
+										selectedResourceTypes.indexOf(itemTitle) >= 0 ||
 										selectedResourceTypes.indexOf(categoryValue) >= 0
 									}
 								/>
