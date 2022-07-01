@@ -230,6 +230,7 @@ const FilterCollectionMobile = (props) => {
 				<Grid container spacing={0} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;
+						const itemTitle = `${props.value}.${filter.title}`;
 
 						return (
 							<Grid item key={i} xs={12} sm={6} md={4}>
@@ -284,6 +285,7 @@ const FilterCollectionMobile = (props) => {
 									disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}
 									checked={
 										selectedResourceTypes.indexOf(itemValue) >= 0 ||
+										selectedResourceTypes.indexOf(itemTitle) >= 0 ||
 										selectedResourceTypes.indexOf(categoryValue) >= 0
 									}
 								/>
