@@ -116,7 +116,7 @@ const LoginForm = ({
 
 		<FormattedMessage id="account.forgot-password">
 			{(forgot) => (
-				<a onClick={() => handleRequestOpen('forgot')}>
+				<p onClick={() => handleRequestOpen('forgot')}>
 					<Typography
 						className={classnames(classes.paddingAbove, classes.link)}
 						variant="body1"
@@ -124,19 +124,19 @@ const LoginForm = ({
 					>
 						{forgot}
 					</Typography>
-				</a>
+				</p>
 			)}
 		</FormattedMessage>
 		<FormattedMessage id="account.no-account">
 			{(noAccount) => (
-				<a
+				<p
 					onClick={() => handleRequestOpen('signup')}
 					data-test-id="log-in-dialog-container-no-acount"
 				>
 					<Typography variant="body1">
 						<span className={classes.link}>{noAccount}</span>
 					</Typography>
-				</a>
+				</p>
 			)}
 		</FormattedMessage>
 	</form>

@@ -1,7 +1,6 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 
@@ -32,7 +31,7 @@ const styles = (theme) => ({
 });
 
 const BottomBanner = ({classes}) => {
-	const {bgLightGrey, textCenter, content, paddingVertical} = classes;
+	const {bgLightGrey, textCenter, content} = classes;
 
 	return (
 		<div className={classNames(textCenter, bgLightGrey)}>
@@ -50,7 +49,7 @@ const BottomBanner = ({classes}) => {
 					className={classes.banner1}
 				>
 					<FormattedMessage id="app.banner-1" />{' '}
-					<span class={classes.line}></span>
+					<span className={classes.line}></span>
 				</Typography>
 				<Typography variant="subtitle1" data-test-id="banner-text-2">
 					<FormattedMessage id="app.banner-2" />

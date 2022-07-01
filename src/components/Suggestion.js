@@ -530,6 +530,7 @@ class Suggestion extends React.Component {
 									),
 									otherLocale1Link: (
 										<Link
+											data-test-id="other-link-1"
 											to={`/en_CA/suggestions/new`}
 											className="hide--on-print"
 										>
@@ -543,6 +544,7 @@ class Suggestion extends React.Component {
 									),
 									otherLocale2Link: (
 										<Link
+											data-test-id="other-link-2"
 											to={`/en_MX/suggestions/new`}
 											className="hide--on-print"
 										>

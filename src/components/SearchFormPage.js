@@ -4,16 +4,15 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
-import AsylumConnectSelector from './AsylumConnectSelector';
 import WhoServeSelector from './WhoServeSelector';
 import AsylumConnectDropdownListItem from './AsylumConnectDropdownListItem';
 import AsylumConnectBackButton from './AsylumConnectBackButton';
-import Disclaimer from './Disclaimer';
 import LocaleForm from './LocaleForm';
 import SearchForm from './SearchForm';
 import SubAnnouncement from './SubAnnouncement';
 import Announcement from './Announcement';
 import withWidth from './withWidth';
+import Disclaimer from './Disclaimer';
 import {getLocale, isLocaleSet, fetchLocaleName} from '../utils/locale';
 import {breakpoints, mobilePadding} from '../theme';
 
@@ -214,7 +213,6 @@ class SearchFormContainer extends React.Component {
 		const {
 			container,
 			iconButton,
-			logoFitHeight,
 			logoMobile,
 			title,
 			subheading,
@@ -423,6 +421,30 @@ class SearchFormContainer extends React.Component {
 										)}
 									</Typography>
 								</Grid>
+								{this.state.locale &&
+								(this.state.locale === 'en_US' ||
+									this.state.locale === 'es_US') ? (
+									<Grid item xs={12}>
+										<Disclaimer
+											data-test-id="announcement-alert-message"
+											text={
+												<FormattedMessage
+													id="announcement.alert-message"
+													values={{
+														b: (chunks) => (
+															<strong style={{color: 'black'}}>{chunks}</strong>
+														),
+														i: (chunks) => (
+															<span style={{fontStyle: 'italic'}}>
+																{chunks}
+															</span>
+														)
+													}}
+												/>
+											}
+										/>
+									</Grid>
+								) : null}
 								<Grid item xs={12}>
 									{locale ? (
 										<SearchForm

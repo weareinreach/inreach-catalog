@@ -570,7 +570,7 @@ class MapPage extends React.Component {
 			};
 		}
 
-		if (params.national && params.national == 'local') {
+		if (params.national && params.national === 'local') {
 			isNational = false;
 		}
 

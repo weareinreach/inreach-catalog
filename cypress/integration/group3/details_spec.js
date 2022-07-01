@@ -6,16 +6,12 @@
 
 //Test Suite
 describe('Organization Details Tests', () => {
-    let viewports = [Cypress.env('desktop')]//,Cypress.env('tablet'),Cypress.env('mobile')];
+    let viewports = [Cypress.env('desktop'),Cypress.env('tablet'),Cypress.env('mobile')];
     beforeEach(() => {
+        cy.fixture('organization_suggestion.json').as('organization');
+        cy.fixture('user_new.json').as('user');
         cy.visit(Cypress.env('baseUrl'));
-        cy.fixture('organization_suggestion.json').as('organization').then(organization =>{
-            cy.addOrg(organization);
-        });
-        cy.fixture('user_new.json').as('user').then(user=>{
-            //Add User
-            cy.addUser(user);
-        });
+        
     });
     afterEach(()=>{
         //Do the clean up
@@ -35,7 +31,9 @@ describe('Organization Details Tests', () => {
                 cy.get('@organization').then(org=>{
                     cy.addOrg(org).then(()=>{
                         cy.get('@user').then(user=>{
-                            cy.testSearchDetailPageAbout(viewport,user,org);
+                            cy.addUser(user).then(()=>{
+                                cy.testSearchDetailPageAbout(viewport,user,org);
+                            });
                         });
                     });
                     
@@ -45,7 +43,9 @@ describe('Organization Details Tests', () => {
                 cy.get('@organization').then(org=>{
                     cy.addOrg(org).then(()=>{
                         cy.get('@user').then(user=>{
-                            cy.testSearchDetailsPageService(viewport,user,org);
+                            cy.addUser(user).then(()=>{
+                                cy.testSearchDetailsPageService(viewport,user,org);
+                            });
                         });
                     });
                 });
@@ -54,7 +54,9 @@ describe('Organization Details Tests', () => {
                 cy.get('@organization').then(org=>{
                     cy.addOrg(org).then(()=>{
                         cy.get('@user').then(user=>{
-                            cy.testSearchDetailsPageReviews(viewport,user,org);
+                            cy.addUser(user).then(()=>{
+                                cy.testSearchDetailsPageReviews(viewport,user,org);
+                            });
                         });
                     });
                 });
@@ -63,7 +65,9 @@ describe('Organization Details Tests', () => {
                 cy.get('@organization').then(org=>{
                     cy.addOrg(org).then(()=>{
                         cy.get('@user').then(user=>{
+                            cy.addUser(user).then(()=>{
                             cy.testSearchDetailsPageReviewsAction(viewport,user,org);
+                            });
                         });
                     });
                 });

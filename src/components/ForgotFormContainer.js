@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import {FormattedMessage} from 'react-intl';
 
 import ForgotForm from './ForgotForm';

@@ -1,38 +1,43 @@
 Cypress.Commands.add('testLanguageAction',(viewport)=>{
     cy.viewport(viewport);
-    if(viewport === Cypress.env('mobile')){
-        cy.getElementByTestId('mobile-nav-button-language').then($element=>{
-            expect($element).to.have.attr('type','button');
-            expect($element.children()).contain('Language');
-            cy.wrap($element).click();
-            cy.getElementByTestId('nav-button-language-item').then($element=>{
-                //Ensure it is French
-                expect($element[2]).contain("Français");
-                cy.wrap($element[2]).click();
+    switch(viewport){
+        case Cypress.env('mobile'):
+            cy.getElementByTestId('mobile-nav-button-language').then($element=>{
+                expect($element).to.have.attr('type','button');
+                expect($element.children()).contain('Language');
+                cy.wrap($element).click();
+                cy.intercept('http://translate.google.com/*').as('translation');
+                cy.getElementByTestId('nav-button-language-item').then($element=>{
+                    //Ensure it is French
+                    expect($element[2]).contain("Français");
+                    cy.wrap($element[2]).click();
+                });
+                cy.wait('@translation');
+                cy.location().should(loc => {
+                    expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');
+                    expect(loc.hostname).to.be.eq('localhost');
+                });
             });
-            cy.wait(3000);
-            cy.location().should(loc => {
-                expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');
-                expect(loc.hostname).to.be.eq('localhost');
-            });
-        });
-    }else{
-    let index = viewport === Cypress.env('desktop') ? 0 : 1;
-    cy.getElementByTestId('nav-button-language').then($element=>{
-        expect($element.children()).contain('English');
-        cy.wrap($element[index]).click();
-        cy.getElementByTestId('nav-button-language-item').then($element=>{
-            //Ensure it is French
-            expect($element[2]).contain("Français");
-            cy.wrap($element[2]).click();
-        });
-        cy.location().should(loc => {
-            expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');
-        });
-        cy.getElementByTestId('search-page-next-button').click();
-        cy.wait(3000);
-        });
-    };
+        break;
+        default:
+            let index = viewport === Cypress.env('desktop') ? 0 : 1;
+            cy.getElementByTestId('nav-button-language').then($element=>{
+                expect($element.children()).contain('English');
+                cy.wrap($element[index]).click();
+                cy.intercept('http://translate.google.com/*').as('translation');
+                cy.getElementByTestId('nav-button-language-item').then($element=>{
+                    //Ensure it is French
+                    expect($element[2]).contain("Français");
+                    cy.wrap($element[2]).click();
+                });
+                cy.location().should(loc => {
+                    expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');
+                });
+                cy.getElementByTestId('search-page-next-button').click();
+                cy.wait('@translation');
+                });
+        break;
+    }
 });
 
 

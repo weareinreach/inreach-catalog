@@ -13,13 +13,9 @@ describe('Home Page Navigation Bar Tests', () => {
 	];
 
 	beforeEach(() => {
+		cy.fixture('user_new.json').as('user');
 		cy.visit(Cypress.env('baseUrl'));
-		cy.fixture('user_new.json')
-			.as('user')
-			.then((user) => {
-				//Add User
-				cy.addUser(user);
-			});
+		
 	});
 	afterEach(() => {
 		//Do the clean up
@@ -36,7 +32,9 @@ describe('Home Page Navigation Bar Tests', () => {
 		context(`Testing the ${viewport} Version of the application`, () => {
 			it(`Navigation Bar Elements`, () => {
 				cy.get('@user').then((user) => {
-					cy.testNavigationBar(viewport, user);
+					cy.addUser(user).then(()=>{
+						cy.testNavigationBar(viewport, user);
+					});
 				});
 			});
 		});

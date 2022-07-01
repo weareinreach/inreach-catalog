@@ -6,8 +6,9 @@ import {InformationIcon} from './icons';
 
 const styles = (theme) => ({
 	disclaimerContainer: (props) => ({
-		border: '1px solid',
-		borderColor: theme.palette.secondary[900],
+		// border: '1px solid',
+		// borderColor: theme.palette.secondary[900],
+		borderRadius: '10px',
 		backgroundColor: theme.palette.common.separator,
 		marginBottom: props?.marginBottom || theme.spacing(5),
 		width: '100%',
@@ -29,7 +30,7 @@ const styles = (theme) => ({
 	},
 	textParagraph: (props) => ({
 		padding: props?.padding || '24px 40px 24px 62px',
-		color: theme.palette.secondary[900]
+		color: '#1D1F23'
 	}),
 	moreInfo: {}
 });
@@ -43,6 +44,7 @@ const Disclaimer = (props) => {
 			<Grid container>
 				<Grid item xs={12} className={textContainer}>
 					<Typography
+						variant="body2"
 						className={textParagraph}
 						align="left"
 						data-test-id="disclaimer"

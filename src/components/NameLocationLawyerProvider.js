@@ -8,7 +8,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import AsylumConnectButton from './AsylumConnectButton';
@@ -22,8 +21,6 @@ import {
 } from '../data/organizationTypeFormOptions';
 
 const LAWYER_TYPE = 'lawyer';
-const PROVIDER_TYPE = 'provider';
-const SEEKER_TYPE = 'seeker';
 
 const styles = (theme) => ({
 	container: {
@@ -153,10 +150,8 @@ const styles = (theme) => ({
 const NameLocationLawyerProvider = (props) => {
 	const {
 		classes,
-		handleSelect,
 		handleStepNext,
 		handleChange,
-		handleChangeArray,
 		name,
 		orgType,
 		specifiedOrgType,
@@ -229,7 +224,10 @@ const NameLocationLawyerProvider = (props) => {
 				data-test-id="name-location-form"
 			>
 				<FormLabel required className={classes.labels} margin="none">
-					<FormattedMessage id="form.lawyer-organization-name" />
+					<FormattedMessage
+						id="form.lawyer-organization-name"
+						data-test-id="test"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedName}

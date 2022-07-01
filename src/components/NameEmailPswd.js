@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 
-import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
-import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import DialogTitle from './DialogTitle';
@@ -18,7 +12,6 @@ import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
 import {breakpoints} from '../theme';
 
 const LAWYER_TYPE = 'lawyer';
-const PROVIDER_TYPE = 'provider';
 const SEEKER_TYPE = 'seeker';
 
 const styles = (theme) => ({
@@ -153,7 +146,6 @@ const NameEmailPswd = (props) => {
 		) : (
 			<FormattedMessage id="form.lawyer-organization-name" />
 		);
-	const intl = useIntl();
 
 	const [touchedName, setTouchedName] = useState(false);
 	const [touchedEmail, setTouchedEmail] = useState(false);
@@ -205,6 +197,7 @@ const NameEmailPswd = (props) => {
 							className={classes.labels}
 							classes={classes.fontWeightMedium}
 							margin="none"
+							data-test-id="sign-up-form-name-label"
 						>
 							{nameLabel}
 						</FormLabel>
@@ -239,7 +232,12 @@ const NameEmailPswd = (props) => {
 						/>
 					</>
 				) : null}
-				<FormLabel required className={classes.labels} margin="none">
+				<FormLabel
+					required
+					className={classes.labels}
+					margin="none"
+					data-test-id="sign-up-form-email-label"
+				>
 					{emailLabel}
 				</FormLabel>
 				<TextField
@@ -271,7 +269,12 @@ const NameEmailPswd = (props) => {
 						}
 					}}
 				/>
-				<FormLabel required className={classes.labels} margin="none">
+				<FormLabel
+					required
+					className={classes.labels}
+					margin="none"
+					data-test-id="sign-up-form-password-label"
+				>
 					<FormattedMessage id="form.password" />
 				</FormLabel>
 				<TextField

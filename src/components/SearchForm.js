@@ -3,11 +3,12 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage} from 'react-intl';
 import LocaleSelector from './LocaleSelector';
-import AsylumConnectInfographicButton from './AsylumConnectInfographicButton';
 import withWidth from './withWidth';
 import {breakpoints, boldFont} from '../theme';
 import DesktopSearch from './DesktopSearch';
 import MobileSearch from './MobileSearch';
+import Disclaimer from './Disclaimer';
+import {getLocale} from '../utils/locale';
 
 const styles = (theme) => ({
 	formRow: {
@@ -166,14 +167,34 @@ class SearchForm extends React.Component {
 					</Grid>
 				) : null}
 				{isMobile ? (
-					<MobileSearch
-						handleSearchByOrgName={handleSearchByOrgName}
-						handleSearchButtonClick={handleSearchButtonClick}
-						handleOrgSelection={handleOrgSelection}
-						handleTabChange={this.handleTabChange}
-						{...this.props}
-						{...this.state}
-					/>
+					<>
+						{getLocale() === 'en_US' || getLocale() === 'es_US' ? (
+							<Disclaimer
+								data-test-id="announcement-alert-message"
+								text={
+									<FormattedMessage
+										id="announcement.alert-message"
+										values={{
+											b: (chunks) => (
+												<strong style={{color: 'black'}}>{chunks}</strong>
+											),
+											i: (chunks) => (
+												<span style={{fontStyle: 'italic'}}>{chunks}</span>
+											)
+										}}
+									/>
+								}
+							/>
+						) : null}
+						<MobileSearch
+							handleSearchByOrgName={handleSearchByOrgName}
+							handleSearchButtonClick={handleSearchButtonClick}
+							handleOrgSelection={handleOrgSelection}
+							handleTabChange={this.handleTabChange}
+							{...this.props}
+							{...this.state}
+						/>
+					</>
 				) : (
 					<DesktopSearch
 						handleTabChange={this.handleTabChange}

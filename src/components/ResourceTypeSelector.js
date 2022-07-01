@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import AsylumConnectSelector from './AsylumConnectSelector';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -14,10 +15,11 @@ import ACBadge from './Badge';
 import {breakpoints, searchInput, searchInputMobile} from '../theme';
 import ResourceTypes from '../utils/tags';
 import withWidth from './withWidth';
+import {InformationIcon} from './icons';
 
 const styles = (theme) => ({
 	searchInput: Object.assign(searchInput(theme), {
-		// borderLeft: '2px solid ' + theme.palette.common.lightGrey,
+		// backgroundColor: theme.palette.common.white,
 		cursor: 'pointer',
 		position: 'relative',
 		// boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
@@ -48,6 +50,39 @@ const styles = (theme) => ({
 		cursor: 'not-allowed'
 	},
 	filterLayout: {
+		backgroundColor: theme.palette.common.white,
+		[theme.breakpoints.up('sm')]: {
+			// display: 'flex',
+			width: '100%',
+			'& > div:first-child': {
+				overflowY: 'auto',
+				padding: '8px',
+				// backgroundColor: 'theme.palette.common.white',
+				// boxShadow: '0px 1px 0px 1px rgba(0, 0, 0, 0.12)',
+				textAlign: 'left'
+			},
+			'& > div:nth-child(2)': {
+				// overflowY: 'auto',
+				width: 'auto',
+				// height: 'fit-content',
+				top: theme.spacing(6),
+				bottom: '0',
+				left: '0',
+				marginBottom: theme.spacing(2),
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 6px 10px 0px rgba(0, 0, 0, 0.12)'
+			},
+			'& > div:last-child': {
+				width: '290px',
+				height: 'auto',
+				marginTop: '-660px',
+				marginLeft: '100%',
+				backgroundColor: theme.palette.common.white,
+				boxShadow: '0px 1px 10px 1px rgba(0, 0, 0, 0.12)'
+			}
+		}
+	},
+	filterLayoutMX: {
 		backgroundColor: theme.palette.common.white,
 		[theme.breakpoints.up('sm')]: {
 			// display: 'flex',
@@ -163,6 +198,7 @@ const FilterCollectionMobile = (props) => {
 	const categoryValue = hasChildren
 		? children?.map((item) => `${props.value}.${item.value}`).join(',')
 		: props.value;
+	const intl = useIntl();
 
 	return (
 		<div>
@@ -185,10 +221,12 @@ const FilterCollectionMobile = (props) => {
 					</span>
 				) : null}
 				<ACBadge type={type} width="45px" height="45px" useIcon={true} />
-				<span className={classes.sectionTitle}>{category}</span>
+				<span className={classes.sectionTitle}>
+					{intl.formatMessage({id: category})}
+				</span>
 				{hasChildren ? <ExpandMoreIcon className={classes.arrowIcon} /> : null}
 			</Typography>
-			{hasChildren && clickedCategory == index ? (
+			{hasChildren && clickedCategory === index ? (
 				<Grid container spacing={0} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;
@@ -196,7 +234,51 @@ const FilterCollectionMobile = (props) => {
 						return (
 							<Grid item key={i} xs={12} sm={6} md={4}>
 								<AsylumConnectCheckbox
-									label={filter.title}
+									label={
+										filter.info && filter.link ? (
+											<>
+												<Tooltip
+													data-test-id="filter-info-tooltip"
+													classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+													title={
+														<a style={{color: '#e9e9e9'}}>
+															<FormattedMessage
+																id={filter.info}
+																values={{
+																	b: (chunks) => (
+																		<strong style={{color: 'black'}}>
+																			{chunks}
+																		</strong>
+																	),
+																	clickHere: (
+																		<a
+																			href={filter.link}
+																			target="_blank"
+																			rel="noopener noreferrer"
+																			className="hide--on-print"
+																			style={{color: 'black'}}
+																		>
+																			<FormattedMessage id="resource.click-here" />
+																		</a>
+																	)
+																}}
+															/>
+														</a>
+													}
+													placement="top"
+													interactive
+													enterTouchDelay={0}
+												>
+													<div data-test-id="filter-title">
+														{intl.formatMessage({id: filter.title})}{' '}
+														<InformationIcon />
+													</div>
+												</Tooltip>
+											</>
+										) : (
+											intl.formatMessage({id: filter.title})
+										)
+									}
 									value={itemValue}
 									onChange={onChange}
 									disabled={selectedResourceTypes.indexOf(categoryValue) >= 0}
@@ -239,11 +321,12 @@ const FilterCollection = (props) => {
 		: props.value;
 
 	var backgroundColor = '#FFFFFF';
-	if (clickedCategory == index) {
+	if (clickedCategory === index) {
 		backgroundColor = '#E9E9E9';
-	} else if (hoveredCategory == index) {
+	} else if (hoveredCategory === index) {
 		backgroundColor = '#D3DCEC';
 	}
+	const intl = useIntl();
 
 	return (
 		<div
@@ -266,7 +349,9 @@ const FilterCollection = (props) => {
 					</span>
 				) : null}
 				<ACBadge type={type} width="45px" height="45px" useIcon={true} />
-				<span className={classes.sectionTitle}>{category}</span>
+				<span className={classes.sectionTitle}>
+					{intl.formatMessage({id: category})}
+				</span>
 				{hasChildren ? (
 					<ArrowForwardIosIcon className={classes.arrowIcon} />
 				) : null}
@@ -298,10 +383,12 @@ const FilterSubCollection = (props) => {
 	const categoryValue = hasChildren
 		? children?.map((item) => `${props.value}.${item.title}`).join(',')
 		: props.value;
+	const intl = useIntl();
 
 	return (
 		<div>
-			{hasChildren && (clickedCategory == index || hoveredCategory == index) ? (
+			{hasChildren &&
+			(clickedCategory === index || hoveredCategory === index) ? (
 				<Grid container spacing={1} className={classes.subfilterSpacing}>
 					{children.map((filter, i) => {
 						const itemValue = `${props.value}.${filter.value}`;
@@ -309,7 +396,51 @@ const FilterSubCollection = (props) => {
 						return (
 							<Grid item key={i} xs={12}>
 								<AsylumConnectCheckbox
-									label={filter.title}
+									label={
+										filter.info && filter.link ? (
+											<>
+												<Tooltip
+													data-test-id="filter-info-tooltip"
+													classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+													title={
+														<a style={{color: '#e9e9e9'}}>
+															<FormattedMessage
+																id={filter.info}
+																values={{
+																	b: (chunks) => (
+																		<strong style={{color: 'black'}}>
+																			{chunks}
+																		</strong>
+																	),
+																	clickHere: (
+																		<a
+																			href={filter.link}
+																			target="_blank"
+																			rel="noopener noreferrer"
+																			className="hide--on-print"
+																			style={{color: 'black'}}
+																		>
+																			<FormattedMessage id="resource.click-here" />
+																		</a>
+																	)
+																}}
+															/>
+														</a>
+													}
+													placement="top"
+													interactive
+												>
+													<div data-test-id="filter-title">
+														{intl.formatMessage({id: filter.title})}{' '}
+														<InformationIcon />
+													</div>
+												</Tooltip>
+											</>
+										) : (
+											intl.formatMessage({id: filter.title})
+										)
+									}
+									interactive
 									value={itemValue}
 									classes={{
 										checkboxDefault: classes.subFilterCheckBox,
@@ -381,7 +512,8 @@ class ResourceTypeSelector extends React.Component {
 			resourceList,
 			uncheckLink,
 			uncheckLinkDisabled,
-			filterLayout
+			filterLayout,
+			filterLayoutMX
 		} = this.props.classes;
 		const {
 			onChange,
@@ -442,7 +574,13 @@ class ResourceTypeSelector extends React.Component {
 						/>
 					))
 				) : (
-					<div className={filterLayout}>
+					<div
+						className={
+							this.props.locale !== 'en_MX' || this.props.locale !== 'es_MX'
+								? filterLayout
+								: filterLayoutMX
+						}
+					>
 						<div>
 							{selectedResourceTypes.length ? (
 								<span onClick={clearResourceTypes} className={uncheckLink}>

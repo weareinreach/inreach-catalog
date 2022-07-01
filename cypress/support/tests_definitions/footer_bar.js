@@ -59,7 +59,6 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
     cy.getElementByTestId('footer-disclaimer').then($element=>{
         expect($element).to.be.visible;
         cy.wrap($element).click();
-        cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('InReach Disclaimer');
@@ -79,7 +78,6 @@ Cypress.Commands.add('testFooterElements',(viewport)=>{
         expect($element).to.be.visible;
         expect($element).contain('Privacy Statement');
         cy.wrap($element).click();
-        cy.wait(500);
         cy.getElementByTestId('dialog-container-title').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('InReach Privacy Statement');

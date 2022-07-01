@@ -17,7 +17,7 @@ axios(getWorkflowOptions).then(async (res)=>{
 
 getJobArtifactAndWriteToFile = (jobId, fileName) =>{
     const getJobArtifactsOptions = {
-        url:`https://circleci.com/api/v2/project/gh/asylum-connect/asylumconnect-catalog/${jobId}/artifacts`,
+        url:`https://circleci.com/api/v2/project/gh/asylum-connect/inreach-catalog/${jobId}/artifacts`,
         method: 'GET'
     }
     axios(getJobArtifactsOptions).then(async res=>{

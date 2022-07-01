@@ -1,28 +1,13 @@
 Cypress.Commands.add('testSearchDetailPageAbout',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    if(viewport === Cypress.env('mobile')){ 
-        cy.getElementByTestId('mobile-nav-button-search').click() 
-    }
-    cy.getElementByTestId('search-page-next-button').click();
-    cy.getElementByTestId('search-page-checkbox').click();
-    cy.waitFor(1000);
-    cy.getElementByTestId('search-bar-input').type(org.locations[0].city);
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').click();
-	} else {
-        cy.getElementByTestId('search-bar-search-by-location-button').click();
-    }
-    cy.wait(500);
-    
+    cy.searchOrganizationsByCityName(viewport,org.locations[0].city);
     cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
+        cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
         //click the org
         cy.wrap($element[0]).click();
-        cy.wait(200);
+        cy.wait('@clickedOrg');
         cy.getElementByTestId('details-about').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain(org.description);
@@ -47,32 +32,18 @@ Cypress.Commands.add('testSearchDetailPageAbout',(viewport,user,org)=>{
 
 });
 
-// THIS IS WHERE I STAYED, WILL Add more info to this org details so i can test everything. create a separate org just for this
-
 Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    if(viewport === Cypress.env('mobile')){ 
-        cy.getElementByTestId('mobile-nav-button-search').click() 
-    }
-    cy.getElementByTestId('search-page-next-button').click();
-    cy.waitFor(1000);
-    cy.getElementByTestId('search-page-checkbox').click();
-    cy.getElementByTestId('search-bar-input').type(org.locations[0].city);
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').click();
-	} else {
-        cy.getElementByTestId('search-bar-search-by-location-button').click();
-    }
-    cy.wait(500);
-    
-    cy.getElementByTestId('favorites-list-item').scrollIntoView().then($element=>{
+    cy.searchOrganizationsByCityName(viewport,org.locations[0].city);
+    cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
+
+    cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
         //click the org
-        cy.wrap($element).click();
+        cy.wrap($element[0]).click();
+        cy.wait('@clickedOrg');
+
     cy.getElementByTestId('resource-details-services');
         cy.getElementByTestId('details-service-item').then($element=>{
             expect($element[0]).to.be.visible;
@@ -98,42 +69,31 @@ Cypress.Commands.add('testSearchDetailsPageService',(viewport,user,org)=>{
 Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    if(viewport === Cypress.env('mobile')){ 
-        cy.getElementByTestId('mobile-nav-button-search').click() 
-    }
-    cy.getElementByTestId('search-page-next-button').click();
-    cy.waitFor(1000);
-    cy.getElementByTestId('search-page-checkbox').click();
-    cy.getElementByTestId('search-bar-input').type(org.locations[0].city);
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').click({force: true});
-	} else {
-        cy.getElementByTestId('search-bar-search-by-location-button').click();
-    }
-    cy.wait(500);
-    
+    cy.searchOrganizationsByCityName(viewport,org.locations[0].city);
+    cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
+
     cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
         //click the org
-        cy.wrap($element).click();
-        cy.wait(200);
+        cy.wrap($element[0]).click();
+        cy.wait('@clickedOrg');
     cy.getElementByTestId('tabs-value-reviews').click();
 
-        cy.getElementByTestId('details-review-form-header').scrollIntoView().then($element=>{
+        cy.getElementByTestId('details-review-form-header').then($element=>{
             expect($element).to.be.visible;
             expect($element).contain('Rate this resource');
         });
 
-        
-
-        if(viewport !== Cypress.env('mobile')){
-            cy.getElementByTestId('details-review-form-body1').scrollIntoView().then($element=>{
-                expect($element).to.be.visible;
-                expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? InReach will update our resource app based on your review.');
-            });
+        switch(viewport){
+            case Cypress.env('mobile'):
+                //do Nothing
+            break;
+            default:
+                cy.getElementByTestId('details-review-form-body1').scrollIntoView().then($element=>{
+                    expect($element).to.be.visible;
+                    expect($element).contain('Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? InReach will update our resource app based on your review.');
+                });
+            break;
         }
         cy.getElementByTestId('details-review-form-input').scrollIntoView().then($element=>{
             expect($element).to.be.visible;
@@ -147,37 +107,27 @@ Cypress.Commands.add('testSearchDetailsPageReviews',(viewport,user,org)=>{
 Cypress.Commands.add('testSearchDetailsPageReviewsAction',(viewport,user,org)=>{
     cy.viewport(viewport);
     cy.login(user,viewport);
-    if(viewport === Cypress.env('mobile')){ 
-        cy.getElementByTestId('mobile-nav-button-search').click(); 
-    }
-    cy.getElementByTestId('search-page-next-button').click();
-    cy.waitFor(1000);
-    cy.getElementByTestId('search-bar-input').type(org.locations[0].city);
-    cy.getElementByTestId('search-page-checkbox').click();
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    if (viewport !== Cypress.env('mobile')) {
-		cy.getElementByTestId('search-bar-search-button').click();
-	} else {
-        cy.getElementByTestId('search-bar-search-by-location-button').click();
-    }
-    cy.wait(500);
-    
+    cy.searchOrganizationsByCityName(viewport,org.locations[0].city);
+    cy.intercept('/v1/slug/organizations/*').as('clickedOrg');
     cy.getElementByTestId('favorites-list-item').then($element=>{
         expect($element).to.be.visible;
         //click the org
-        cy.wrap($element).click();
-        cy.wait(200);
+        cy.wrap($element[0]).click();
+        cy.wait('@clickedOrg');
     cy.getElementByTestId('tabs-value-reviews').click();
     cy.getElementByTestId('details-review-form-input').type('This a great resource! I recommend it');
     cy.getElementByTestId('details-review-form-submit-button').click();
     //Reload Page
     cy.reload();
     //Check that review is posted
-    if(viewport===Cypress.env('mobile')){
-        cy.getElementByTestId('tabs-value-reviews').click();
-    }
+    switch(viewport){
+        case Cypress.env('mobile'):
+            cy.getElementByTestId('tabs-value-reviews').click();
+        break;
+        default:
+           //Do Nothing
+        break;
+    };
     cy.getElementByTestId('review-list-title').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain("Reviews");
@@ -185,7 +135,7 @@ Cypress.Commands.add('testSearchDetailsPageReviewsAction',(viewport,user,org)=>{
     cy.getElementByTestId('review-list-comment').then($element=>{
         expect($element).to.be.visible;
         expect($element).contain('This a great resource! I recommend it');
-    })
+    });
 
     });
 });

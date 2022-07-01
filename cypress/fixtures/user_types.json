@@ -1,0 +1,36 @@
+{
+    "myself": {
+      "dialog_container_button": "dialog-container-sign-up-help-myself-button",
+      "name_placeholder_content": "John Smith",
+      "name_content": "Test User Myself",
+      "email_placeholder_content": "john@gmail.com",
+      "email_content": "automation-regular@gmail.com",
+      "password_placeholder_content": "***",
+      "password_content": "1111111Kl#",
+      "organization": "Surprisingly Unique Org Name"
+    },
+    "lawyer": {
+      "dialog_container_button": "dialog-container-sign-up-attorney-button",
+      "name_placeholder_content": "John Smith",
+      "name_content": "Test User lawyer",
+      "email_placeholder_content": "john@gmail.com",
+      "email_content": "automation-attorney@gmail.com",
+      "currentLocation_placeholder_content": "San Francisco",
+      "currentLocation_content": "New York City, NY",
+      "password_placeholder_content": "***",
+      "password_content": "1111111Kl#",
+      "organization": "Surprisingly Unique Org Name"
+    },
+    "service_provider": {
+      "dialog_container_button": "dialog-container-sign-up-non-legal-service-provider-button",
+      "name_placeholder_content": "John Smith",
+      "name_content": "Test User Provider",
+      "email_placeholder_content": "john@gmail.com",
+      "email_content": "automation-service-provider@gmail.com",
+      "currentLocation_placeholder_content": "San Francisco",
+      "currentLocation_content": "New York City, NY",
+      "password_placeholder_content": "***",
+      "password_content": "1111111Kl#",
+      "organization": "Surprisingly Unique Org Name"
+    }
+  }
