@@ -55,7 +55,7 @@ const Badge = ({
 	const typeMapping = {
 		abortionCare: {
 			label: 'service-type.abortion-care',
-			icon: <MedicalIcon />
+			icon: <AbortionCareIcon />
 		},
 		communitySupport: {
 			label: 'service-type.community-support',
