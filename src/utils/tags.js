@@ -16,25 +16,29 @@ const resourceTypes = [
 		category: 'service-type.abortion-care',
 		type: 'abortionCare',
 		acTag: 'Abortion Providers',
-		title: 'services.abortion-care-providers'
+		title: 'Abortion Providers',
+		titleIntl: 'services.abortion-care-providers'
 	},
 	{
 		category: 'service-type.abortion-care',
 		type: 'abortionCare',
 		acTag: 'Financial Assistance',
-		title: 'services.abortion-care-financial'
+		title: 'Financial Assistance',
+		titleIntl: 'services.abortion-care-financial'
 	},
 	{
 		category: 'service-type.abortion-care',
 		type: 'abortionCare',
 		acTag: 'Lodging Assistance',
-		title: 'services.abortion-care-lodging'
+		title: 'Lodging Assistance',
+		titleIntl: 'services.abortion-care-lodging'
 	},
 	{
 		category: 'service-type.abortion-care',
 		type: 'abortionCare',
 		acTag: 'Mail Order Services',
-		title: 'services.abortion-care-mail-order',
+		title: 'Mail Order Services',
+		titleIntl: 'services.abortion-care-mail-order',
 		info: 'services.abortion-care-mail-order-msg',
 		link: 'https://safe2choose.org/safe-abortion/abortion-pills/'
 	},
@@ -42,13 +46,15 @@ const resourceTypes = [
 		category: 'service-type.abortion-care',
 		type: 'abortionCare',
 		acTag: 'Mental Health Support',
-		title: 'services.abortion-care-mental'
+		title: 'Mental Health Support',
+		titleIntl: 'services.abortion-care-mental'
 	},
 	{
 		category: 'service-type.abortion-care',
 		type: 'abortionCare',
 		acTag: 'Travel Assistance',
-		title: 'services.abortion-care-travel'
+		title: 'Travel Assistance',
+		titleIntl: 'services.abortion-care-travel'
 	},
 
 	/* InReach Community support Category */
@@ -61,43 +67,50 @@ const resourceTypes = [
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Cultural centers',
-		title: 'services.cultural-centers'
+		title: 'Cultural centers',
+		titleIntl: 'services.cultural-centers'
 	},
 	{
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Cultural centres',
-		title: 'services.cultural-centres'
+		title: 'Cultural centres',
+		titleIntl: 'services.cultural-centres'
 	},
 	{
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'LGBTQ centers',
-		title: 'services.lgbtq-centers'
+		title: 'LGBTQ centers',
+		titleIntl: 'services.lgbtq-centers'
 	},
 	{
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Reception services',
-		title: 'services.reception-services'
+		title: 'Reception services',
+		titleIntl: 'services.reception-services'
 	},
 	{
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'LGBTQ centres',
-		title: 'services.lgbtq-centres'
+		title: 'LGBTQ centres',
+		titleIntl: 'services.lgbtq-centres'
 	},
 	{
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Sponsors',
-		title: 'services.sponsors'
+		title: 'Sponsors',
+		titleIntl: 'services.sponsors'
 	},
 	{
 		category: 'service-type.community-support',
 		type: 'communitySupport',
 		acTag: 'Spiritual Support',
-		title: 'services.spiritual'
+		title: 'Spiritual Support',
+		titleIntl: 'services.spiritual'
 	},
 
 	/* AC Computers and Internet Category */
@@ -117,43 +130,50 @@ const resourceTypes = [
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Career counselling',
-		title: 'services.career-counselling'
+		title: 'Career counselling',
+		titleIntl: 'services.career-counselling'
 	},
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Career counseling',
-		title: 'services.career-counseling'
+		title: 'Career counseling',
+		titleIntl: 'services.career-counseling'
 	},
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Educational support for LGBTQ youth',
-		title: 'services.educational-support-lgbtq-youth'
+		title: 'Educational support for LGBTQ youth',
+		titleIntl: 'services.educational-support-lgbtq-youth'
 	},
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'English classes',
-		title: 'services.english-classes'
+		title: 'English classes',
+		titleIntl: 'services.english-classes'
 	},
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Language classes',
-		title: 'services.language-classes'
+		title: 'Language classes',
+		titleIntl: 'services.language-classes'
 	},
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Libraries',
-		title: 'services.libraries'
+		title: 'Libraries',
+		titleIntl: 'services.libraries'
 	},
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
 		acTag: 'Scholarships',
-		title: 'services.scholarships'
+		title: 'Scholarships',
+		titleIntl: 'services.scholarships'
 	},
 
 	/* AC Food Category */
@@ -169,31 +189,36 @@ const resourceTypes = [
 		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Drop-in centers for LGBTQ youth',
-		title: 'services.drop-in-centers-lgbtq-youth'
+		title: 'Drop-in centers for LGBTQ youth',
+		titleIntl: 'services.drop-in-centers-lgbtq-youth'
 	},
 	{
 		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Drop-in centres for LGBTQ youth',
-		title: 'services.drop-in-centres-lgbtq-youth'
+		title: 'Drop-in centres for LGBTQ youth',
+		titleIntl: 'services.drop-in-centres-lgbtq-youth'
 	},
 	{
 		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Emergency housing',
-		title: 'services.emergency-housing'
+		title: 'Emergency housing',
+		titleIntl: 'services.emergency-housing'
 	},
 	{
 		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Housing information and referrals',
-		title: 'services.housing-information-referrals'
+		title: 'Housing information and referrals',
+		titleIntl: 'services.housing-information-referrals'
 	},
 	{
 		category: 'service-type.housing',
 		type: 'housing',
 		acTag: 'Short-term housing',
-		title: 'services.short-term-housing'
+		title: 'Short-term housing',
+		titleIntl: 'services.short-term-housing'
 	},
 
 	/* AC Hygiene and Clothing Category */
@@ -206,37 +231,43 @@ const resourceTypes = [
 		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Clothes',
-		title: 'services.clothes'
+		title: 'Clothes',
+		titleIntl: 'services.clothes'
 	},
 	{
 		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-affirming items',
-		title: 'services.gender-affirming-items'
+		title: 'Gender-affirming items',
+		titleIntl: 'services.gender-affirming-items'
 	},
 	{
 		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-neutral bathrooms',
-		title: 'services.gender-neutral-bathrooms'
+		title: 'Gender-neutral bathrooms',
+		titleIntl: 'services.gender-neutral-bathrooms'
 	},
 	{
 		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-neutral restrooms',
-		title: 'services.gender-neutral-restrooms'
+		title: 'Gender-neutral restrooms',
+		titleIntl: 'services.gender-neutral-restrooms'
 	},
 	{
 		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Gender-neutral washrooms',
-		title: 'services.gender-neutral-washrooms'
+		title: 'Gender-neutral washrooms',
+		titleIntl: 'services.gender-neutral-washrooms'
 	},
 	{
 		category: 'service-type.hygiene-clothing',
 		type: 'hygiene',
 		acTag: 'Hygiene',
-		title: 'services.hygiene'
+		title: 'Hygiene',
+		titleIntl: 'services.hygiene'
 	},
 
 	/* AC Legal Category */
@@ -245,103 +276,120 @@ const resourceTypes = [
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Asylum application in Mexico',
-		title: 'services.asylum-application-in-mexico'
+		title: 'Asylum application in Mexico (Affirmative Asylum)',
+		titleIntl: 'services.asylum-application-in-mexico'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Asylum application in the US from Mexico',
-		title: 'services.asylum-application-in-united-states-from-mexico'
+		title: 'Asylum application in the US from Mexico (Affirmative Asylum)',
+		titleIntl: 'services.asylum-application-in-united-states-from-mexico'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Asylum application',
-		title: 'services.asylum-application'
+		title: 'Asylum application (Affirmative Asylum)',
+		titleIntl: 'services.asylum-application'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Citizenship',
-		title: 'services.citizenship'
+		title: 'Citizenship',
+		titleIntl: 'services.citizenship'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Crime and discrimination',
-		title: 'services.crime-discrimination'
+		title: 'Crime and discrimination',
+		titleIntl: 'services.crime-discrimination'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Deferred Action for Childhood Arrivals (DACA)',
-		title: 'services.deferred-action-childhood-arrivals'
+		title: 'Deferred Action for Childhood Arrivals (DACA)',
+		titleIntl: 'services.deferred-action-childhood-arrivals'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Deportation or removal',
-		title: 'services.deportation-or-removal'
+		title: 'Deportation or removal (Defensive Asylum)',
+		titleIntl: 'services.deportation-or-removal'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Employment Authorization',
-		title: 'services.employment-authorization'
+		title: 'Employment Authorization',
+		titleIntl: 'services.employment-authorization'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Family Petitions',
-		title: 'services.family-petitions'
+		title: 'Family Petitions',
+		titleIntl: 'services.family-petitions'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Immigration detention',
-		title: 'services.immigration-detention'
+		title: 'Immigration detention',
+		titleIntl: 'services.immigration-detention'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Legal hotlines',
-		title: 'services.legal-hotlines'
+		title: 'Legal hotlines',
+		titleIntl: 'services.legal-hotlines'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Name and gender change',
-		title: 'services.name-gender-change'
+		title: 'Name and gender change',
+		titleIntl: 'services.name-gender-change'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Refugee claim',
-		title: 'services.refugee-claim'
+		title: 'Refugee claim',
+		titleIntl: 'services.refugee-claim'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Residency',
-		title: 'services.residency'
+		title: 'Residency',
+		titleIntl: 'services.residency'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'Special Immigrant Juvenile Status (SIJS)',
-		title: 'services.special-immigrant-juvenile-status'
+		title: 'Special Immigrant Juvenile Status (SIJS)',
+		titleIntl: 'services.special-immigrant-juvenile-status'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'T Visa',
-		title: 'services.t-visa'
+		title: 'T Visa',
+		titleIntl: 'services.t-visa'
 	},
 	{
 		category: 'service-type.legal',
 		type: 'legal',
 		acTag: 'U Visa',
-		title: 'services.u-visa'
+		title: 'U Visa',
+		titleIntl: 'services.u-visa'
 	},
 
 	/* AC Mail services Category */
@@ -352,56 +400,58 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
-		acTag: 'Abortion services',
-		title: 'services.abortion-services'
-	},
-	{
-		category: 'service-type.medical',
-		type: 'medical',
 		acTag: 'COVID-19 services',
-		title: 'services.covid-19'
+		title: 'COVID-19 services',
+		titleIntl: 'services.covid-19'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Dental care',
-		title: 'services.dental-care'
+		title: 'Dental care',
+		titleIntl: 'services.dental-care'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'HIV and sexual health',
-		title: 'services.hiv-sexual-health'
+		title: 'HIV and sexual health',
+		titleIntl: 'services.hiv-sexual-health'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Medical clinics',
-		title: 'services.medical-clinics'
+		title: 'Medical clinics',
+		titleIntl: 'services.medical-clinics'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'OBGYN services',
-		title: 'services.obgyn-services'
+		title: 'OBGYN services',
+		titleIntl: 'services.obgyn-services'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Physical evaluations for asylum claim',
-		title: 'services.physical-evaluations-for-asylum'
+		title: 'Physical evaluations for asylum claim',
+		titleIntl: 'services.physical-evaluations-for-asylum'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Physical evaluations for refugee claim',
-		title: 'services.physical-evaluations-for-refugee'
+		title: 'Physical evaluations for refugee claim',
+		titleIntl: 'services.physical-evaluations-for-refugee'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Trans health',
-		title: 'services.trans-health'
+		title: 'Trans health',
+		titleIntl: 'services.trans-health'
 	},
 
 	/* AC Mental Health Category */
@@ -414,49 +464,57 @@ const resourceTypes = [
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Hotlines',
-		title: 'services.hotlines'
+		title: 'Hotlines',
+		titleIntl: 'services.hotlines'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Private therapy and counseling',
-		title: 'services.private-therapy-counseling'
+		title: 'Private therapy and counseling',
+		titleIntl: 'services.private-therapy-counseling'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Private therapy and counselling',
-		title: 'services.private-therapy-counselling'
+		title: 'Private therapy and counselling',
+		titleIntl: 'services.private-therapy-counselling'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Psychological evaluations for asylum claim',
-		title: 'services.psychological-evaluation-for-asylum'
+		title: 'Psychological evaluations for asylum claim',
+		titleIntl: 'services.psychological-evaluation-for-asylum'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Psychological evaluations for refugee claim',
-		title: 'services.psychological-evaluation-for-refugee'
+		title: 'Psychological evaluations for refugee claim',
+		titleIntl: 'services.psychological-evaluation-for-refugee'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Substance use',
-		title: 'services.substance-use'
+		title: 'Substance use',
+		titleIntl: 'services.substance-use'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Support groups',
-		title: 'services.support-groups'
+		title: 'Support groups',
+		titleIntl: 'services.support-groups'
 	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Trans support groups',
-		title: 'services.trans-support-groups'
+		title: 'Trans support groups',
+		titleIntl: 'services.trans-support-groups'
 	},
 
 	/* AC Sports and Entertainment Category */
@@ -483,19 +541,37 @@ const resourceTypes = [
 		category: 'service-type.transportation',
 		type: 'transportation',
 		acTag: 'Transit passes and discounts',
-		title: 'services.transit-passes-and-discounts'
+		title: 'Transit passes and discounts',
+		titleIntl: 'services.transit-passes-and-discounts'
 	},
 	{
 		category: 'service-type.transportation',
 		type: 'transportation',
 		acTag: 'Transportation assistance',
-		title: 'services.transportation-assistance'
+		title: 'Transportation assistance',
+		titleIntl: 'services.transportation-assistance'
 	}
 ];
 
 //use this to exclude certain resource types from the list for certain locales
 const localeExclusions = {
 	en_US: [
+		/*** title values ***/
+		'Asylum application in Mexico (Affirmative Asylum)',
+		'Asylum application in the US from Mexico (Affirmative Asylum)',
+		'Career counselling',
+		'Cultural centres',
+		'Drop-in centres for LGBTQ youth',
+		'Gender-neutral restrooms',
+		'Gender-neutral washrooms',
+		'LGBTQ centres',
+		'Reception services',
+		'Language classes',
+		'Private therapy and counselling',
+		'Physical evaluations for refugee claim',
+		'Psychological evaluations for refugee claim',
+		'Refugee claim',
+		/*** Intl values ***/
 		'services.asylum-application-in-mexico',
 		'services.asylum-application-in-united-states-from-mexico',
 		'services.career-counselling',
@@ -512,6 +588,22 @@ const localeExclusions = {
 		'services.refugee-claim'
 	],
 	es_US: [
+		/*** title values ***/
+		'Asylum application in Mexico (Affirmative Asylum)',
+		'Asylum application in the US from Mexico (Affirmative Asylum)',
+		'Career counselling',
+		'Cultural centres',
+		'Drop-in centres for LGBTQ youth',
+		'Gender-neutral restrooms',
+		'Gender-neutral washrooms',
+		'LGBTQ centres',
+		'Reception services',
+		'Language classes',
+		'Private therapy and counselling',
+		'Physical evaluations for refugee claim',
+		'Psychological evaluations for refugee claim',
+		'Refugee claim',
+		/*** Intl values ***/
 		'services.asylum-application-in-mexico',
 		'services.asylum-application-in-united-states-from-mexico',
 		'services.career-counselling',
@@ -528,6 +620,30 @@ const localeExclusions = {
 		'services.refugee-claim'
 	],
 	en_CA: [
+		/*** title values ***/
+		'Asylum application (Affirmative Asylum)',
+		'Asylum application in Mexico (Affirmative Asylum)',
+		'Asylum application in the US from Mexico (Affirmative Asylum)',
+		'Career counseling',
+		'Citizenship',
+		'Cultural centers',
+		'Deferred Action for Childhood Arrivals (DACA)',
+		'Drop-in centers for LGBTQ youth',
+		'Employment Authorization',
+		'English Classes',
+		'Famly Petitions',
+		'Gender-neutral bathrooms',
+		'Gender-neutral washrooms',
+		'LGBTQ centers',
+		'Physical evaluations for refugee claim',
+		'Private therapy and counseling',
+		'Psychological evaluations for refugee claim',
+		'Residency',
+		'Special Immigrant Juvenile Status (SIJS)',
+		'Sponsors',
+		'T Visa',
+		'U Visa',
+		/*** Intl values ***/
 		'services.asylum-application',
 		'services.asylum-application-in-mexico',
 		'services.asylum-application-in-united-states-from-mexico',
@@ -552,6 +668,32 @@ const localeExclusions = {
 		'services.u-visa'
 	],
 	en_MX: [
+		/*** title values ***/
+		'Asylum application (Affirmative Asylum)',
+		'Career counselling',
+		'Citizenship',
+		'Cultural centres',
+		'Deferred Action for Childhood Arrivals (DACA)',
+		'Drop-in centres for LGBTQ youth',
+		'Employment Authorization',
+		'English Classes',
+		'Famly Petitions',
+		'Gender-neutral restrooms',
+		'Gender-neutral washrooms',
+		'Legal hotlines',
+		'LGBTQ centres',
+		'Mail',
+		'Physical evaluations for refugee claim',
+		'Private therapy and counselling',
+		'Psychological evaluations for refugee claim',
+		'Reception',
+		'Residency',
+		'Short-term housing',
+		'Special Immigrant Juvenile Status (SIJS)',
+		'Sponsors',
+		'T Visa',
+		'U Visa',
+		/*** Intl values ***/
 		'services.asylum-application',
 		'services.career-counselling',
 		'services.citizenship',
@@ -579,6 +721,32 @@ const localeExclusions = {
 		'services.u-visa'
 	],
 	es_MX: [
+		/*** title values ***/
+		'Asylum application (Affirmative Asylum)',
+		'Career counselling',
+		'Citizenship',
+		'Cultural centres',
+		'Deferred Action for Childhood Arrivals (DACA)',
+		'Drop-in centres for LGBTQ youth',
+		'Employment Authorization',
+		'English Classes',
+		'Famly Petitions',
+		'Gender-neutral restrooms',
+		'Gender-neutral washrooms',
+		'Legal hotlines',
+		'LGBTQ centres',
+		'Mail',
+		'Physical evaluations for refugee claim',
+		'Private therapy and counselling',
+		'Psychological evaluations for refugee claim',
+		'Reception',
+		'Residency',
+		'Short-term housing',
+		'Special Immigrant Juvenile Status (SIJS)',
+		'Sponsors',
+		'T Visa',
+		'U Visa',
+		/*** Intl values ***/
 		'services.asylum-application',
 		'services.career-counselling',
 		'services.citizenship',
@@ -607,10 +775,14 @@ const localeExclusions = {
 	]
 };
 const filterResourceType = function (item, locale) {
-	if (typeof item.title !== 'undefined') {
+	if (
+		typeof item.title !== 'undefined' ||
+		typeof item.titleIntl !== 'undefined'
+	) {
 		return (
 			typeof localeExclusions[locale] === 'undefined' ||
-			localeExclusions[locale].indexOf(item.title) === -1
+			localeExclusions[locale].indexOf(item.title) === -1 ||
+			localeExclusions[locale].indexOf(item.titleIntl) === -1
 		);
 	} else {
 		return (
@@ -648,7 +820,10 @@ const getResourceTypesByGroup = (locale = defaultLocale) => {
 			);
 			// if resource type is subcategory then add it as child of parent category in
 			// categorized list
-			if (typeof item.title !== 'undefined') {
+			if (
+				typeof item.title !== 'undefined' ||
+				typeof item.titleIntl !== 'undefined'
+			) {
 				if (!categorized[categoryIndex].children) {
 					categorized[categoryIndex].children = [];
 				}
@@ -659,6 +834,7 @@ const getResourceTypesByGroup = (locale = defaultLocale) => {
 				) {
 					if (item.info !== 'undefined') {
 						categorized[categoryIndex].children.push({
+							titleIntl: item.titleIntl,
 							title: item.title,
 							value: item.acTag,
 							info: item.info,
@@ -666,6 +842,7 @@ const getResourceTypesByGroup = (locale = defaultLocale) => {
 						});
 					} else {
 						categorized[categoryIndex].children.push({
+							titleIntl: item.titleIntl,
 							title: item.title,
 							value: item.acTag
 						});
@@ -695,7 +872,7 @@ const getResourceCategoryIndex = (locale = defaultLocale) => {
 	resourceTypes
 		.filter((item) => filterResourceType(item, locale))
 		.forEach((item) => {
-			if (item.title) {
+			if (item.title || item.titleIntl) {
 				index[item.title] = item;
 			} else if (
 				(typeof item.iconOnly === 'undefined' || !item.iconOnly) &&
