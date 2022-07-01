@@ -61,11 +61,7 @@ const DetailHeader = ({
 												width="12px"
 											/>
 											<span className={classes.verifiedHeaderText}>
-												<FormattedMessage
-													id="resource.claimed"
-													defaultMessage="Claimed"
-													description="label for a cliamed resource"
-												/>
+												<FormattedMessage id="resource.claimed" />
 											</span>
 										</>
 									) : null}
@@ -76,11 +72,7 @@ const DetailHeader = ({
 						{isService && isMobile ? (
 							<Grid item xs={12} className={classes.serviceOrgContainer}>
 								<Typography variant="h6" className={classes.serviceOrg}>
-									<FormattedMessage
-										id="resource.service-from"
-										defaultMessage="Service from"
-										description="header label for where the servce is from"
-									/>{' '}
+									<FormattedMessage id="resource.service-from" />{' '}
 									<Link to={orgLink}>{orgName}</Link>
 								</Typography>
 							</Grid>
@@ -153,15 +145,10 @@ const DetailHeader = ({
 									classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
 									title={
 										<a style={{color: '#e9e9e9'}}>
-											<FormattedMessage
-												id="resource.last-updated"
-												description="date when the details were last verified"
-											/>{' '}
+											<FormattedMessage id="resource.last-updated" />{' '}
 											{verified.toDateString()}.{' '}
 											<FormattedMessage
 												id="resource.accuracy-disclaimer"
-												defaultMessage="InReach prioritizes accuracy and user safety, and updates all information at least once every 6 months."
-												description="vetting process summary"
 												values={{
 													b: (chunks) => (
 														<strong style={{color: 'black'}}>{chunks}</strong>
@@ -174,11 +161,7 @@ const DetailHeader = ({
 															className="hide--on-print"
 															style={{color: 'black'}}
 														>
-															<FormattedMessage
-																id="resource.click-here"
-																defaultMessage="click here"
-																description="link that opens a page which explains the vetting process"
-															/>
+															<FormattedMessage id="resource.click-here" />
 														</a>
 													)
 												}}
@@ -198,11 +181,7 @@ const DetailHeader = ({
 											color="secondary"
 											data-test-id="details-header-verified-text"
 										>
-											<FormattedMessage
-												id="resource.verified-information"
-												defaultMessage="Verified Information"
-												description="veriied information badge"
-											/>
+											<FormattedMessage id="resource.verified-information" />
 										</Typography>
 									</Badge>
 								</Tooltip>
@@ -239,15 +218,10 @@ const DetailHeader = ({
 								classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
 								title={
 									<a style={{color: '#e9e9e9'}}>
-										<FormattedMessage
-											id="resource.last-updated"
-											description="date when the details were last verified"
-										/>{' '}
+										<FormattedMessage id="resource.last-updated" />{' '}
 										{verified.toDateString()}.{' '}
 										<FormattedMessage
 											id="resource.accuracy-disclaimer"
-											defaultMessage="InReach prioritizes accuracy and user safety, and updates all information at least once every 6 months."
-											description="vetting process summary"
 											values={{
 												b: (chunks) => (
 													<strong style={{color: 'black'}}>{chunks}</strong>
@@ -260,11 +234,7 @@ const DetailHeader = ({
 														className="hide--on-print"
 														style={{color: 'black'}}
 													>
-														<FormattedMessage
-															id="resource.click-here"
-															defaultMessage="click here"
-															description="link that opens a page which explains the vetting process"
-														/>
+														<FormattedMessage id="resource.click-here" />
 													</a>
 												)
 											}}
@@ -273,17 +243,15 @@ const DetailHeader = ({
 								}
 								arrow
 								placement="bottom"
+								enterTouchDelay={0}
+								interactive
 							>
 								<Typography
 									color="secondary"
 									variant="body1"
 									data-test-id="details-header-verified-text"
 								>
-									<FormattedMessage
-										id="resource.verified-information"
-										defaultMessage="Verified Information"
-										description="verification badge"
-									/>
+									<FormattedMessage id="resource.verified-information" />
 								</Typography>
 							</Tooltip>
 						</Badge>

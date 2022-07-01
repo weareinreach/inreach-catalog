@@ -128,7 +128,6 @@ class ResourceListItem extends React.Component {
 			badge,
 			badgeItem
 		} = classes;
-
 		const isMobile = width < breakpoints['sm'];
 		const displayData = [
 			{

@@ -12,7 +12,6 @@ const ServiceType = (props) => {
 	let subcategories = [];
 	let categories = [];
 	let list = false;
-
 	const intl = useIntl();
 
 	if (props.list && props.list.length) {

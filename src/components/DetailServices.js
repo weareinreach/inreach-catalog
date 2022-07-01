@@ -115,26 +115,15 @@ const Services = (props) => {
 											</Typography>
 										</>
 									) : (
-										<>
-											<ACBadge
-												extraClasses={{
-													tooltip: classes.serviceTooltip
-												}}
-												key="misc"
-												type="misc"
-												width="45px"
-												height="45px"
-											/>
-											<Typography
-												variant="body2"
-												component="span"
-												className={classes.badge}
-											>
-												{intl.formatMessage({
-													id: 'service-type.other-services'
-												})}
-											</Typography>
-										</>
+										<ACBadge
+											extraClasses={{
+												tooltip: classes.serviceTooltip
+											}}
+											key="misc"
+											type="misc"
+											width="45px"
+											height="45px"
+										/>
 									)}
 								</Grid>
 								<Grid item xs={12} md={9}>
