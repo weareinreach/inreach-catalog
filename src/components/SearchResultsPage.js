@@ -127,6 +127,7 @@ const ResultsContainer = (props) => {
 		loadingColor,
 		userData
 	} = props;
+
 	const disclaimerProps = {};
 	disclaimerProps.children = (
 		<FormattedMessage id="search.covid-disclaimer-default" />

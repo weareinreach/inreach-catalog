@@ -141,11 +141,19 @@ const AboutYouOrganization = (props) => {
 		<>
 			{!isMobile && (
 				<DialogTitle>
-					<FormattedMessage id="account.signup-about-you" />
+					<FormattedMessage
+						id="account.signup-about-you"
+						defaultMessage="About You"
+						description="Title for the About You sign up dialog"
+					/>
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-about-you-subtitle" />
+				<FormattedMessage
+					id="account.signup-about-you-subtitle"
+					defaultMessage="Help us improve your experience by telling us more about yourself"
+					description="Sub-title for the About You sign up dialog"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -158,7 +166,11 @@ const AboutYouOrganization = (props) => {
 					classes={classes.fontWeightMedium}
 					margin="none"
 				>
-					<FormattedMessage id="aboutyou.organization-name" />
+					<FormattedMessage
+						id="aboutyou.organization-name"
+						defaultMessage="Name of your firm or organization"
+						description="question asking about firm/organization name"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedOrgName}
@@ -169,7 +181,10 @@ const AboutYouOrganization = (props) => {
 					type="text"
 					value={orgName}
 					placeholder={intl.formatMessage({
-						id: 'aboutyou.organization-name-placeholder'
+						id: 'aboutyou.organization-name-placeholder',
+						defaultMessage: 'Your firm or organization',
+						description:
+							'Text field placeholder to enter the name of your organization'
 					})}
 					data-test-id="about-you-organization-name"
 					InputLabelProps={{shrink: true}}
@@ -187,7 +202,11 @@ const AboutYouOrganization = (props) => {
 					classes={classes.fontWeightMedium}
 					margin="none"
 				>
-					<FormattedMessage id="aboutyou.organization-postion" />
+					<FormattedMessage
+						id="aboutyou.organization-postion"
+						defaultMessage="Your position in the organization"
+						description="question asking about your position in the organization"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedPosition}
@@ -198,7 +217,10 @@ const AboutYouOrganization = (props) => {
 					type="text"
 					value={orgPositionTitle}
 					placeholder={intl.formatMessage({
-						id: 'aboutyou.organization-postion-placeholder'
+						id: 'aboutyou.organization-postion-placeholder',
+						defaultMessage: 'Your position in the organization',
+						description:
+							'Text field placeholder to enter your position in the organization'
 					})}
 					data-test-id="about-you-organization-position"
 					InputLabelProps={{shrink: true}}
@@ -216,7 +238,11 @@ const AboutYouOrganization = (props) => {
 					classes={classes.fontWeightMedium}
 					margin="none"
 				>
-					<FormattedMessage id="aboutyou.organization-reason" />
+					<FormattedMessage
+						id="aboutyou.organization-reason"
+						defaultMessage="Your reason for joining"
+						description="question asking about you joined the platform"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedReason}
@@ -227,7 +253,10 @@ const AboutYouOrganization = (props) => {
 					type="text"
 					value={reasonForJoining}
 					placeholder={intl.formatMessage({
-						id: 'aboutyou.organization-reason-placeholder'
+						id: 'aboutyou.organization-reason-placeholder',
+						defaultMessage: 'I joined InReach because..',
+						description:
+							'Text field placeholder to enter the reason you joined the platform'
 					})}
 					data-test-id="about-you-organization-reason"
 					InputLabelProps={{shrink: true}}
@@ -245,7 +274,11 @@ const AboutYouOrganization = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="navigation.next" />
+					<FormattedMessage
+						id="navigation.next"
+						defaultMessage="Next"
+						description="Next button"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

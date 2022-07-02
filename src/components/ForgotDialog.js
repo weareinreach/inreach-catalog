@@ -12,7 +12,11 @@ const ForgotDialog = ({
 }) => (
 	<div>
 		<DialogTitle>
-			<FormattedMessage id="account.reset-password" />
+			<FormattedMessage
+				id="account.reset-password"
+				defaultMessage="Reset Your Password"
+				description="Reset password dialog title"
+			/>
 		</DialogTitle>
 		<ForgotFormContainer
 			handleMessageNew={handleMessageNew}

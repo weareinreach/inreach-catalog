@@ -118,7 +118,11 @@ const SuggestEditsModal = ({
 		return (
 			<div>
 				<Typography variant="body1" className={classes.body}>
-					<FormattedMessage id="resource.suggest-edits-have-correct-information" />
+					<FormattedMessage
+						id="resource.suggest-edits-have-correct-information"
+						defaultMessage="Do you have the correct information?"
+						description="Message to cofirm the corrected information has been entered"
+					/>
 				</Typography>
 				<Grid
 					container
@@ -139,7 +143,11 @@ const SuggestEditsModal = ({
 							onClose();
 						}}
 					>
-						<FormattedMessage id="resource.suggest-edits-has-information" />
+						<FormattedMessage
+							id="resource.suggest-edits-has-information"
+							defaultMessage="Yes, I'll make the edits"
+							description="Prompt for edits to be made"
+						/>
 					</Button>
 					<Button
 						classes={{
@@ -147,7 +155,11 @@ const SuggestEditsModal = ({
 						}}
 						onClick={() => setContent(CONTENT.selectInfo)}
 					>
-						<FormattedMessage id="resource.suggest-edits-does-not-have-information" />
+						<FormattedMessage
+							id="resource.suggest-edits-does-not-have-information"
+							defaultMessage="No, but I know it's wrong"
+							description="prompt for if the user knows the information is wrong but does not have the correct information available"
+						/>
 					</Button>
 				</Grid>
 			</div>
@@ -159,7 +171,11 @@ const SuggestEditsModal = ({
 			<Grid container direction="column" alignItems="center">
 				<Grid container direction="column" className={classes.selectContent}>
 					<Typography variant="body1">
-						<FormattedMessage id="resource.suggest-edits-which-information-is-incorrect" />
+						<FormattedMessage
+							id="resource.suggest-edits-which-information-is-incorrect"
+							defaultMessage="What information is incorrect?"
+							description="Message asking to indicate what information is incorrect"
+						/>
 					</Typography>
 					<FormControlLabel
 						control={
@@ -207,13 +223,21 @@ const SuggestEditsModal = ({
 					/>
 					<label htmlFor="comment">
 						<Typography variant="body1">
-							<FormattedMessage id="resource.suggest-edits-your-comment" />
+							<FormattedMessage
+								id="resource.suggest-edits-your-comment"
+								defaultMessage="Your comment"
+								description="Your comment indication message"
+							/>
 						</Typography>
 					</label>
 					<textarea
 						id="comment"
 						name="title"
-						placeholder={intl.formatMessage({id: 'resource.suggest-edits'})}
+						placeholder={intl.formatMessage({
+							id: 'resource.suggest-edits',
+							defaultMessage: 'Add a note...',
+							description: 'prompt to add a note'
+						})}
 						rows={5}
 						className={classes.commentBox}
 						value={comment}
@@ -224,7 +248,11 @@ const SuggestEditsModal = ({
 					classes={{root: classNames(classes.button, classes.red)}}
 					onClick={() => handleSubmit()}
 				>
-					<FormattedMessage id="action.submit" />
+					<FormattedMessage
+						id="action.submit"
+						defaultMessage="Submit"
+						description="prompt to submit"
+					/>
 				</Button>
 				{errorMsg && (
 					<Typography variant="caption" className={classes.error}>
@@ -245,15 +273,25 @@ const SuggestEditsModal = ({
 				classes={{root: classes.tallContainer}}
 			>
 				<div className={classes.titleText}>
-					<FormattedMessage id="app.thank-you-heading" />
+					<FormattedMessage
+						id="app.thank-you-heading"
+						defaultMessage="Thank You!"
+						description="Thank you message"
+					/>
 				</div>
 				<Typography variant="body1">
-					<FormattedMessage id="action.resource-suggest-edits-submitted-successfully" />
+					<FormattedMessage
+						id="action.resource-suggest-edits-submitted-successfully"
+						defaultMessage="Our team has received your proposed edits and will update the relevant page(s) shortly."
+						description="confirmation message that edtis have been received"
+					/>
 				</Typography>
 				<img
 					src={ThankYou}
 					alt={intl.formatMessage({
-						id: 'alt-text.resource-suggest-edits-thank-you'
+						id: 'alt-text.resource-suggest-edits-thank-you',
+						defaultMessage: 'super thank you',
+						description: 'Super thank you message'
 					})}
 				/>
 				<Button
@@ -262,7 +300,11 @@ const SuggestEditsModal = ({
 					}}
 					onClick={onClose}
 				>
-					<FormattedMessage id="action.close" />
+					<FormattedMessage
+						id="action.close"
+						defaultMessage="Close"
+						description="prompt to close"
+					/>
 				</Button>
 			</Grid>
 		);
@@ -384,7 +426,11 @@ const SuggestEditsModal = ({
 					className={classes.title}
 				>
 					<div className={classes.titleText}>
-						<FormattedMessage id="resource.suggest-edits-heading" />
+						<FormattedMessage
+							id="resource.suggest-edits-heading"
+							defaultMessage="Suggest Edits"
+							description="Edit suggestion message"
+						/>
 					</div>
 					<Button classes={{root: classes.xButton}} onClick={onClose}>
 						x

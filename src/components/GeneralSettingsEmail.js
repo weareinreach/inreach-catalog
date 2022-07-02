@@ -94,7 +94,13 @@ class GeneralSettingsEmail extends React.Component {
 
 		const {currentEmail, newEmail, confirmedEmail} = this.state;
 		if (!currentEmail || !newEmail || !confirmedEmail) {
-			handleMessageNew(<FormattedMessage id="error.required-field-empty" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.required-field-empty"
+					defaultMessage="Please fill out all fields"
+					description="Error message that all fields must be filled out."
+				/>
+			);
 		}
 
 		if (currentEmail && newEmail && confirmedEmail) {
@@ -108,7 +114,11 @@ class GeneralSettingsEmail extends React.Component {
 				});
 			} else {
 				handleMessageNew(
-					<FormattedMessage id="error.email-address-mismatch" />
+					<FormattedMessage
+						id="error.email-address-mismatch"
+						defaultMessage="The email addresses you have entered do not match."
+						description="Error message that the entered email addresses do not match."
+					/>
 				);
 			}
 		}
@@ -125,7 +135,11 @@ class GeneralSettingsEmail extends React.Component {
 					className={classes.settingsTypeFont}
 				>
 					<span>
-						<FormattedMessage id="action.update-email-address" />
+						<FormattedMessage
+							id="action.update-email-address"
+							defaultMessage="Update email address"
+							description="Update email address dropdown button"
+						/>
 					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
@@ -136,7 +150,13 @@ class GeneralSettingsEmail extends React.Component {
 							className={classes.inputLabel}
 							name="currentEmail"
 							type="email"
-							label={<FormattedMessage id="form.current-email-address" />}
+							label={
+								<FormattedMessage
+									id="form.current-email-address"
+									defaultMessage="Current email address"
+									description="Current email address input field"
+								/>
+							}
 							value={currentEmail}
 							InputLabelProps={{
 								shrink: true
@@ -150,7 +170,13 @@ class GeneralSettingsEmail extends React.Component {
 							className={classes.inputLabel}
 							name="newEmail"
 							type="email"
-							label={<FormattedMessage id="form.new-email-address" />}
+							label={
+								<FormattedMessage
+									id="form.new-email-address"
+									defaultMessage="New email address"
+									description="New email address input field"
+								/>
+							}
 							value={newEmail}
 							InputLabelProps={{
 								shrink: true
@@ -164,7 +190,13 @@ class GeneralSettingsEmail extends React.Component {
 							className={classes.inputLabel}
 							name="confirmedEmail"
 							type="email"
-							label={<FormattedMessage id="form.confirm-new-email-address" />}
+							label={
+								<FormattedMessage
+									id="form.confirm-new-email-address"
+									defaultMessage="Confirm new email address"
+									description="Confirm new email address input field"
+								/>
+							}
 							value={confirmedEmail}
 							InputLabelProps={{
 								shrink: true
@@ -178,7 +210,11 @@ class GeneralSettingsEmail extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-email-button"
 							>
-								<FormattedMessage id="action.update-email-address" />
+								<FormattedMessage
+									id="action.update-email-address"
+									defaultMessage="Update email address"
+									description="Update email address button"
+								/>
 							</AsylumConnectButton>
 						</div>
 					</form>

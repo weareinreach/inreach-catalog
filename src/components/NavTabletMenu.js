@@ -51,7 +51,7 @@ const NavTabletMenu = (props) => {
 				useSmall
 					? generateOnlyIconLabel()
 					: intl.formatMessage({
-							id: 'naviagtion.menu',
+							id: 'navigation.menu',
 							description: 'In Reach Website links',
 							defaultMessage: 'Menu'
 					  })

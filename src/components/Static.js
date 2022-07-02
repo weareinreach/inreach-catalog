@@ -153,7 +153,11 @@ class Static extends React.Component {
 			if (data.error) {
 				this.props.history.push('/');
 				this.props.handleMessageNew(
-					<FormattedMessage id="error.page-not-found" />
+					<FormattedMessage
+						id="error.page-not-found"
+						defaultMessage="Page not found"
+						description="Error message for page not found"
+					/>
 				);
 
 				return;
@@ -192,7 +196,13 @@ class Static extends React.Component {
 		const {classes, width} = this.props;
 		const lastSection = this.state.page ? this.state.page.length : 0;
 		const isMobile = this.props.width < breakpoints['sm'];
-		const localeLabel = <FormattedMessage id="app.select-country" />;
+		const localeLabel = (
+			<FormattedMessage
+				id="app.select-country"
+				defaultMessage="Select country"
+				description="select country prompt"
+			/>
+		);
 
 		let leftPadding = '';
 		if (width > 1364) {
@@ -235,6 +245,7 @@ class Static extends React.Component {
 									<FormattedMessage
 										id="app.welcome-main-2"
 										defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+										description="welcome message"
 									/>
 								</Typography>
 							</Grid>
@@ -271,7 +282,13 @@ class Static extends React.Component {
 								<AsylumConnectBackButton
 									className={classes.changeCountryButton}
 									color="default"
-									text={<FormattedMessage id="app.choose-different-country" />}
+									text={
+										<FormattedMessage
+											id="app.choose-different-country"
+											defaultMessage="Choose a different country"
+											description="prompt to choose a different country"
+										/>
+									}
 									onClick={this.handleLocaleReset}
 								/>
 							</Grid>

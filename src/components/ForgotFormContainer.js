@@ -27,17 +27,33 @@ class ForgotFormContainer extends React.Component {
 			.then((res) => {
 				if (res.status === 200) {
 					handleMessageNew(
-						<FormattedMessage id="action.password-reset-success" />
+						<FormattedMessage
+							id="action.password-reset-success"
+							defaultMessage="Your password has been reset successfully! Please check your email."
+							description="Message to check your email since your password reset was successful."
+						/>
 					);
 				}
 				//bad email - user does not exist
 				else if (res.status.status === 400) {
-					handleMessageNew(<FormattedMessage id="error.incorrect-email" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.incorrect-email"
+							defaultMessage="Oops! Please check that you entered the correct email address."
+							description="Message to check the email address entered because it is invalid"
+						/>
+					);
 				}
 			})
 			// something else went wrong so handle it here
 			.catch((error) => {
-				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+						description="Message that there was an error"
+					/>
+				);
 			});
 	}
 
