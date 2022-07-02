@@ -6,15 +6,12 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
+import language from '../utils/language';
+
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
-import {
-	searchInput,
-	searchInputMobile,
-	breakpoints,
-	mobilePadding
-} from '../theme';
+import {searchInput, searchInputMobile, breakpoints} from '../theme';
 
 const styles = (theme) => ({
 	inputClass: Object.assign(searchInput(theme), {
@@ -46,11 +43,11 @@ const styles = (theme) => ({
 		}
 	},
 	labelRowMobile: {
-		marginBottom: theme.spacing(2),
-		[theme.breakpoints.down('xs')]: {
-			color: theme.palette.common.midBlack,
-			fontSize: theme.typography.h2.fontSize
-		}
+		fontSize: '18px',
+		fontWeight: 600,
+		lineHeight: '22px',
+		textAlign: 'center',
+		padding: '16px 0'
 	},
 	formRow: {
 		marginBottom: theme.spacing(3)
@@ -66,7 +63,9 @@ const styles = (theme) => ({
 	},
 	[theme.breakpoints.down('xs')]: {
 		searchButton: {
-			textAlign: 'center'
+			textAlign: 'center',
+			width: '100%',
+			marginTop: '16px'
 		},
 		body2: {
 			color: theme.palette.common.white
@@ -94,8 +93,8 @@ class LocaleForm extends React.Component {
 			reload: false,
 			selectedLanguage: false,
 			selectedLanguageName: false,
-			/*selectedLocale: false,
-      selectedLocaleName: false,*/
+			selectedLocale: false,
+			selectedLocaleName: false,
 			startingLang: this.getStartingLanguage()
 		};
 
@@ -121,13 +120,28 @@ class LocaleForm extends React.Component {
 	handleNextClick(ev) {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
-
-			//will need this once catalog is fully translasted to spanish
-			/* if(this.state.selectedLocale === 'en_MX' && this.state.selectedLanguage === 'es'){
+			//show app code in spanish if langCode is 'es' and locale is MX or US
+			if (
+				this.state.selectedLocale === 'en_MX' &&
+				this.state.selectedLanguage === 'es'
+			) {
 				this.props.changeLocale('es_MX');
-			}else {
-				this.props.changeLocale(this.state.selectedLocale);
-			} */
+			} else if (
+				this.state.selectedLocale === 'en_US' &&
+				this.state.selectedLanguage === 'es'
+			) {
+				this.props.changeLocale('es_US');
+			} else if (
+				this.state.selectedLocale === 'es_US' &&
+				this.state.selectedLanguage === 'en'
+			) {
+				this.props.changeLocale('en_US');
+			} else if (
+				this.state.selectedLocale === 'es_MX' &&
+				this.state.selectedLanguage === 'en'
+			) {
+				this.props.changeLocale('en_MX');
+			}
 		}
 
 		if (typeof this.props.onLocaleSelect === 'function') {
@@ -170,58 +184,90 @@ class LocaleForm extends React.Component {
 		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
 		const localeLabel = <FormattedMessage id="app.select-country" />;
-		return (
-			<Grid
-				container
-				justify="flex-start"
-				spacing={6}
-				className={formContainer}
-			>
-				<Grid item xs={12} md={6}>
-					{isMobile ? (
+
+		if (isMobile) {
+			return (
+				<Grid container style={{margin: '16px'}}>
+					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="language.select-preferred-language" />
 						</Typography>
-					) : null}
-					<Typography variant="h3" className={labelRow} component="p">
-						<FormattedMessage id="language.select-preferred-language" />
-					</Typography>
-					<Language
-						useMobile={false}
-						useIcon={true}
-						colorClass={languageIconColor}
-						inputClass={inputClass}
-						autoReload={false}
-						listContainerClass={listContainerClass}
-						onSelect={this.handleSelectLanguage}
-						triggerReload={this.state.reload}
-					/>
-				</Grid>
-				<Grid item xs={12} md={6}>
-					{isMobile ? (
+						<Language
+							useMobile={false}
+							useIcon={true}
+							colorClass={languageIconColor}
+							inputClass={inputClass}
+							autoReload={false}
+							listContainerClass={listContainerClass}
+							onSelect={this.handleSelectLanguage}
+							triggerReload={this.state.reload}
+						/>
+					</Grid>
+					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
 							<FormattedMessage id="search.search-location-prompt" />
 						</Typography>
-					) : null}
-					<Typography variant="h3" className={labelRow} component="p">
-						<FormattedMessage id="search.search-location-prompt" />
-					</Typography>
-					<LocaleSelector
-						label={localeLabel}
-						handleSelectLocale={this.handleSelectLocale}
-					/>
+						<LocaleSelector
+							label={localeLabel}
+							handleSelectLocale={this.handleSelectLocale}
+						/>
+					</Grid>
+					<Grid item className={searchButton}>
+						<AsylumConnectButton
+							variant={variant}
+							testIdName="search-page-next-button"
+							onClick={this.handleNextClick}
+						>
+							<FormattedMessage id="navigation.next" />
+						</AsylumConnectButton>
+					</Grid>
 				</Grid>
-				<Grid item xs={12} className={searchButton}>
-					<AsylumConnectButton
-						variant={variant}
-						testIdName="search-page-next-button"
-						onClick={this.handleNextClick}
-					>
-						<FormattedMessage id="navigation.next" />
-					</AsylumConnectButton>
+			);
+		} else {
+			return (
+				<Grid
+					container
+					justify="flex-start"
+					spacing={6}
+					className={formContainer}
+				>
+					<Grid item xs={12} md={6}>
+						<Typography variant="h3" className={labelRow} component="p">
+							<FormattedMessage id="language.select-preferred-language" />
+						</Typography>
+						<Language
+							useMobile={false}
+							useIcon={true}
+							colorClass={languageIconColor}
+							inputClass={inputClass}
+							autoReload={false}
+							listContainerClass={listContainerClass}
+							onSelect={this.handleSelectLanguage}
+							triggerReload={this.state.reload}
+							selectedLanguage={this.state.selectedLanguageName}
+						/>
+					</Grid>
+					<Grid item xs={12} md={6}>
+						<Typography variant="h3" className={labelRow} component="p">
+							<FormattedMessage id="search.search-location-prompt" />
+						</Typography>
+						<LocaleSelector
+							label={localeLabel}
+							handleSelectLocale={this.handleSelectLocale}
+						/>
+					</Grid>
+					<Grid item xs={12} className={searchButton}>
+						<AsylumConnectButton
+							variant={variant}
+							testIdName="search-page-next-button"
+							onClick={this.handleNextClick}
+						>
+							<FormattedMessage id="navigation.next" />
+						</AsylumConnectButton>
+					</Grid>
 				</Grid>
-			</Grid>
-		);
+			);
+		}
 	}
 }
 
