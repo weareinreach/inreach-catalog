@@ -250,7 +250,7 @@ const AboutYouIdentity = (props) => {
 									/>
 								) : touchedIdentity && textFieldTest.test(specifiedIdentity) ? (
 									<FormattedMessage
-										d="form.field-valid-identity"
+										id="form.field-valid-identity"
 										defaultMessage="Identity is specified"
 										description="message if Identity field has data"
 									/>
