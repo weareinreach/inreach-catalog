@@ -309,7 +309,12 @@ const NameEmailPswd = (props) => {
 						}
 					}}
 				/>
-				<FormLabel required className={classes.labels} margin="none">
+				<FormLabel
+					required
+					className={classes.labels}
+					margin="none"
+					data-test-id="sign-up-form-password-label"
+				>
 					<FormattedMessage
 						id="form.password"
 						defaultMessage="Password"
