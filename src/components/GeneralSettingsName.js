@@ -94,7 +94,13 @@ class GeneralSettingsName extends React.Component {
 
 		const {currentName, newName, confirmedName} = this.state;
 		if (!currentName || !newName || !confirmedName) {
-			handleMessageNew(<FormattedMessage id="error.name-missing" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.name-missing"
+					defaultMessage="Missing Name input"
+					description="Name field error message: required."
+				/>
+			);
 		}
 
 		if (currentName && newName && confirmedName) {
@@ -107,7 +113,13 @@ class GeneralSettingsName extends React.Component {
 					confirmedName: ''
 				});
 			} else {
-				handleMessageNew(<FormattedMessage id="error.name-mismatch" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.name-mismatch"
+						defaultMessage="The new name values you have entered do not match."
+						description="Name field error message: the new name values do not match."
+					/>
+				);
 			}
 		}
 	}
@@ -123,7 +135,15 @@ class GeneralSettingsName extends React.Component {
 					onClick={this.handleToggleDropDown}
 					className={classes.settingsTypeFont}
 				>
-					<span>{<FormattedMessage id="form.name-update-label" />}</span>
+					<span>
+						{
+							<FormattedMessage
+								id="form.name-update-label"
+								defaultMessage="Update Name"
+								description="Update name dropdown button"
+							/>
+						}
+					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
 				<Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
@@ -133,7 +153,13 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="currentName"
 							type="text"
-							label={<FormattedMessage id="form.name" />}
+							label={
+								<FormattedMessage
+									id="form.name"
+									defaultMessage="Name (or Alias)"
+									description="Name input field"
+								/>
+							}
 							value={
 								!currentName ||
 								currentName === 'user name' ||
@@ -153,13 +179,21 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="newName"
 							type="text"
-							label={<FormattedMessage id="form.name-new" />}
+							label={
+								<FormattedMessage
+									id="form.name-new"
+									defaultMessage="Enter new name (or Alias)"
+									description="New name input field"
+								/>
+							}
 							value={newName}
 							InputLabelProps={{
 								shrink: true
 							}}
 							placeholder={intl.formatMessage({
-								id: 'form.name-new-placeholder'
+								id: 'form.name-new-placeholder',
+								defaultMessage: 'New name',
+								description: 'New name placeholder message'
 							})}
 							onChange={this.handleChange}
 							required
@@ -169,13 +203,21 @@ class GeneralSettingsName extends React.Component {
 							className={classes.inputLabel}
 							name="confirmedName"
 							type="text"
-							label={<FormattedMessage id="form.name-confirm" />}
+							label={
+								<FormattedMessage
+									id="form.name-confirm"
+									defaultMessage="Confirm new name (or Alias)"
+									description="Confirm new name input field"
+								/>
+							}
 							value={confirmedName}
 							InputLabelProps={{
 								shrink: true
 							}}
 							placeholder={intl.formatMessage({
-								id: 'form.name-confirm-placeholder'
+								id: 'form.name-confirm-placeholder',
+								defaultMessage: 'Confirm new name',
+								description: 'Confirm new name placeholder message'
 							})}
 							onChange={this.handleChange}
 							required
@@ -185,7 +227,13 @@ class GeneralSettingsName extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-name-button"
 							>
-								{<FormattedMessage id="form.name-update-label" />}
+								{
+									<FormattedMessage
+										id="form.name-update-label"
+										defaultMessage="Update Name"
+										description="Update name button"
+									/>
+								}
 							</AsylumConnectButton>
 						</div>
 					</form>

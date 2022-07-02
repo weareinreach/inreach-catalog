@@ -222,7 +222,11 @@ class AsylumConnectMap extends React.Component {
 																ev.stopPropagation();
 															}}
 														>
-															<FormattedMessage id="app.map-directions" />
+															<FormattedMessage
+																id="app.map-directions"
+																defaultMessage="Directions to here"
+																description="map directions action link"
+															/>
 														</a>
 													) : null}
 												</Typography>
@@ -232,7 +236,8 @@ class AsylumConnectMap extends React.Component {
 								});
 						  })
 						: null}
-					{!(resources && resources.length) && this.props.locale === 'en_MX' ? (
+					{!(resources && resources.length) &&
+					(this.props.locale === 'en_MX' || this.props.locale === 'es_MX') ? (
 						<AsylumConnectMexicoMapContainer />
 					) : null}
 				</GoogleMap>

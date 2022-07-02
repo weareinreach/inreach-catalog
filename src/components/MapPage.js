@@ -17,6 +17,15 @@ import {fetchOrganizations} from '../utils/api';
 import infograph from '../utils/infographics';
 import ResourceTypes from '../utils/tags';
 
+import {returnOrgNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const styles = (theme) => ({
 	searchArea: {
 		padding: '2rem'
@@ -517,10 +526,14 @@ class MapPage extends React.Component {
 	}
 
 	processSearchResults(data, nextPage) {
-		const newOrgs = (data?.organizations || []).map((org) => ({
+		var newOrgs = (data?.organizations || []).map((org) => ({
 			...org,
 			resource_type: 'Organization'
 		}));
+
+		newOrgs = doNativeTranslation
+			? returnOrgNativeLanguageData(newOrgs, langCode)
+			: newOrgs;
 
 		this.setState((prevState) => ({
 			endOfList: newOrgs.length === 0,

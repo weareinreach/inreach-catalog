@@ -150,10 +150,18 @@ const AboutYouAge = (props) => {
 	return (
 		<>
 			<DialogTitle>
-				<FormattedMessage id="account.signup-about-you" />
+				<FormattedMessage
+					id="account.signup-about-you"
+					defaultMessage="About You"
+					description="Title for the About You sign up dialog"
+				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-about-you-subtitle" />
+				<FormattedMessage
+					id="account.signup-about-you-subtitle"
+					defaultMessage="Help us improve your experience by telling us more about yourself"
+					description="Sub-title for the About You sign up dialog"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -164,7 +172,11 @@ const AboutYouAge = (props) => {
 				data-test-id="about-you-age-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
-					<FormattedMessage id="aboutyou.age" />
+					<FormattedMessage
+						id="aboutyou.age"
+						defaultMessage="How old are you?"
+						description="Question asking your age"
+					/>
 				</Typography>
 				<RadioGroup name="age" onChange={handleChange} required={true}>
 					<Grid container spacing={0} className={classes.gridTxtAlign}>
@@ -173,7 +185,11 @@ const AboutYouAge = (props) => {
 								<FormControlLabel
 									value={type.dbValue}
 									control={<Radio />}
-									label={intl.formatMessage({id: type.formatMessageId})}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
 									checked={age === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
@@ -186,7 +202,11 @@ const AboutYouAge = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="action.submit" />
+					<FormattedMessage
+						id="action.submit"
+						defaultMessage="Submit"
+						description="This is the form submit button"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

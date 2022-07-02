@@ -58,6 +58,7 @@ const DesktopSearch = (props) => {
 							<FormattedMessage
 								id="search.search-by-location-tab-heading"
 								defaultMessage="Find services near you"
+								description="tab heading to search by location"
 							/>
 						}
 						{...a11yProps(0)}
@@ -71,6 +72,7 @@ const DesktopSearch = (props) => {
 							<FormattedMessage
 								id="search.search-by-name-tab-heading"
 								defaultMessage="Find an organization by name"
+								description="tab heading to search by organization name"
 							/>
 						}
 						{...a11yProps(1)}
@@ -128,6 +130,7 @@ const DesktopSearch = (props) => {
 							<FormattedMessage
 								id="navigation.search"
 								defaultMessage="Search"
+								description="search action button"
 							/>
 							{props.searchDisabled ? (
 								<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
@@ -167,6 +170,7 @@ const DesktopSearch = (props) => {
 							<FormattedMessage
 								id="navigation.search"
 								defaultMessage="Search"
+								description="search action button"
 							/>
 							{props.searchDisabled ? (
 								<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />

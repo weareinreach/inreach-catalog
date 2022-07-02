@@ -54,7 +54,20 @@ import {
 } from '../theme';
 import {getSocialMediaLinks} from './ResourceSocialMedia';
 
+import {
+	returnOrgNativeLanguageData,
+	returnServiceNativeLanguageData
+} from '../utils/utils';
+import language from '../utils/language';
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const formatOrganization = (organization) => {
+	organization = doNativeTranslation
+		? returnOrgNativeLanguageData(organization, langCode)
+		: organization;
 	return {
 		...organization,
 		alertMessage: organization?.alert_message
@@ -62,7 +75,12 @@ const formatOrganization = (organization) => {
 };
 
 const formatService = (service) => {
-	const organization = service?.organization;
+	service = doNativeTranslation
+		? returnServiceNativeLanguageData(service, langCode)
+		: service;
+	var organization = doNativeTranslation
+		? returnOrgNativeLanguageData(service?.organization, langCode)
+		: service?.organization;
 
 	return {
 		...service,
@@ -339,14 +357,41 @@ class Detail extends React.Component {
 		this.isServicePage = Boolean(id && serviceId);
 
 		this.tabs = [
-			{label: <FormattedMessage id="resource.about-header" />, value: 'about'},
 			{
-				label: <FormattedMessage id="resource.visit" />,
-				mobileLabel: <FormattedMessage id="resource.visit-mobile" />,
+				label: (
+					<FormattedMessage
+						id="resource.about-header"
+						defaultMessage="About"
+						description="section title for organization details"
+					/>
+				),
+				value: 'about'
+			},
+			{
+				label: (
+					<FormattedMessage
+						id="resource.visit"
+						defaultMessage="Visit"
+						description="section title for organization address details"
+					/>
+				),
+				mobileLabel: (
+					<FormattedMessage
+						id="resource.visit-mobile"
+						defaultMessage="Visit"
+						description="section title for organization address details"
+					/>
+				),
 				value: 'visit'
 			},
 			{
-				label: <FormattedMessage id="resource.reviews-heading" />,
+				label: (
+					<FormattedMessage
+						id="resource.reviews-heading"
+						defaultMessage="Reviews"
+						description="section title for organization reviews"
+					/>
+				),
 				value: 'reviews'
 			}
 		];
@@ -418,7 +463,11 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getOrganizationBySlug(orgSlug).then((organization) => {
-			const formattedOrg = formatOrganization(organization);
+			var formattedOrg = formatOrganization(organization);
+
+			formattedOrg = doNativeTranslation
+				? returnOrgNativeLanguageData(formattedOrg, langCode)
+				: formattedOrg;
 
 			this.setState({
 				loading: false,
@@ -436,7 +485,11 @@ class Detail extends React.Component {
 		this.setState({loading: true});
 
 		getServiceBySlug(orgSlug, serviceSlug).then((service) => {
-			const formattedService = formatService(service);
+			var formattedService = formatService(service);
+
+			formattedService = doNativeTranslation
+				? returnServiceNativeLanguageData(formattedService, langCode)
+				: formattedService;
 
 			this.setState({
 				loading: false,
@@ -557,7 +610,11 @@ class Detail extends React.Component {
 					<EditIcon />
 				</IconButton>
 				<Typography className={this.props.classes.editText} variant="h5">
-					<FormattedMessage id="action.edit" />
+					<FormattedMessage
+						id="action.edit"
+						defaultMessage="Edit"
+						description="button to open organization edit page"
+					/>
 				</Typography>
 			</div>
 		);
@@ -573,7 +630,11 @@ class Detail extends React.Component {
 						this.setState({editFocus: ''});
 					}}
 				>
-					<FormattedMessage id="action.cancel" />
+					<FormattedMessage
+						id="action.cancel"
+						defaultMessage="Cancel"
+						description="button to cancel organization edits"
+					/>
 				</Button>
 				<Button
 					className={classNames(classes.button, classes.red)}
@@ -581,7 +642,11 @@ class Detail extends React.Component {
 						this.setState({editFocus: ''});
 					}}
 				>
-					<FormattedMessage id="action.save-edits" />
+					<FormattedMessage
+						id="action.save-edits"
+						defaultMessage="Save"
+						description="button to save organization edits"
+					/>
 				</Button>
 			</Grid>
 		);
@@ -650,9 +715,17 @@ class Detail extends React.Component {
 		const showReviewForm =
 			session && (userComment === false || userComment === null);
 		const whoThis = this.isServicePage ? (
-			<FormattedMessage id="resource.who-it-helps" />
+			<FormattedMessage
+				id="resource.who-it-helps"
+				defaultMessage="Who this resource serves"
+				description="who this organization can help"
+			/>
 		) : (
-			<FormattedMessage id="resource.who-it-serves" />
+			<FormattedMessage
+				id="resource.who-it-serves"
+				defaultMessage="Who this service helps"
+				description="who this organization can help"
+			/>
 		);
 
 		const isMobile = width < breakpoints['sm'];
@@ -792,30 +865,54 @@ class Detail extends React.Component {
 													}}
 												>
 													<p>
-														<FormattedMessage id="error.sign-in-to-share-resources" />
+														<FormattedMessage
+															id="error.sign-in-to-share-resources"
+															defaultMessage="Must be signed in to share this resource"
+															description="error meesage when ot signed in"
+														/>
 													</p>
 													<p
 														style={{
 															fontWeight: 'bold'
 														}}
 													>
-														<FormattedMessage id="app.unlock-features-with-account-prompt" />
+														<FormattedMessage
+															id="app.unlock-features-with-account-prompt"
+															defaultMessage="With a free InReach account you can unlock additional features:"
+															description="title for things you can unlock with an account"
+														/>
 													</p>
 													<div>
 														<li>
-															<FormattedMessage id="app.feature-save-resource-lists" />
+															<FormattedMessage
+																id="app.feature-save-resource-lists"
+																defaultMessage="Save and share personalised resources lists"
+																description="list item - save and share resources"
+															/>
 														</li>
 														<br />
 														<li>
-															<FormattedMessage id="app.feature-rate-review-resources" />
+															<FormattedMessage
+																id="app.feature-rate-review-resources"
+																defaultMessage="Leave public rating/reviews on resources"
+																description="list item - rate resources"
+															/>
 														</li>
 														<br />
 														<li>
-															<FormattedMessage id="app.feature-suggest-resource" />
+															<FormattedMessage
+																id="app.feature-suggest-resource"
+																defaultMessage="Suggest resources in your area"
+																description="list item - suggest resources"
+															/>
 														</li>
 														<br />
 														<li>
-															<FormattedMessage id="app.feature-claim-resource-page" />
+															<FormattedMessage
+																id="app.feature-claim-resource-page"
+																defaultMessage="Claim your organization's profile page"
+																description="list item - claim a resource"
+															/>
 														</li>
 													</div>
 												</div>
@@ -838,8 +935,17 @@ class Detail extends React.Component {
 														}}
 														onClick={() => this.handleOpen('signup')}
 													>
-														<FormattedMessage id="account.sign-in" />/
-														<FormattedMessage id="account.sign-up" />
+														<FormattedMessage
+															id="account.sign-in"
+															defaultMessage="Sign In"
+															description="sign in button"
+														/>
+														/
+														<FormattedMessage
+															id="account.sign-up"
+															defaultMessage="Sign Up"
+															description="sign up button"
+														/>
 													</Button>
 												</div>
 												<div
@@ -864,7 +970,11 @@ class Detail extends React.Component {
 															this.setState({modal: false});
 														}}
 													>
-														<FormattedMessage id="action.close" />
+														<FormattedMessage
+															id="action.close"
+															defaultMessage="Close"
+															description="button to close the dialog"
+														/>
 													</Button>
 												</div>
 											</Modal>
@@ -929,7 +1039,11 @@ class Detail extends React.Component {
 														<AsylumConnectCollapsibleSection
 															testIdName="services"
 															title={
-																<FormattedMessage id="resource.services-heading" />
+																<FormattedMessage
+																	id="resource.services-heading"
+																	defaultMessage="Services"
+																	description="Services secton title"
+																/>
 															}
 															content={
 																<Services
@@ -961,7 +1075,11 @@ class Detail extends React.Component {
 																<AsylumConnectCollapsibleSection
 																	testIdName="cost"
 																	title={
-																		<FormattedMessage id="resource.cost-heading" />
+																		<FormattedMessage
+																			id="resource.cost-heading"
+																			defaultMessage="Costs"
+																			description="Costs secton title"
+																		/>
 																	}
 																	content={
 																		<DetailPropertyList
@@ -975,7 +1093,11 @@ class Detail extends React.Component {
 																<AsylumConnectCollapsibleSection
 																	testIdName="requirements"
 																	title={
-																		<FormattedMessage id="resource.requirements-heading" />
+																		<FormattedMessage
+																			id="resource.requirements-heading"
+																			defaultMessage="Additional requirements"
+																			description="Additional requirements secton title"
+																		/>
 																	}
 																	content={
 																		<DetailPropertyList
@@ -989,7 +1111,11 @@ class Detail extends React.Component {
 																<AsylumConnectCollapsibleSection
 																	testIdName="required"
 																	title={
-																		<FormattedMessage id="resource.required-header" />
+																		<FormattedMessage
+																			id="resource.required-header"
+																			defaultMessage="Required"
+																			description="Section for a list of requirements"
+																		/>
 																	}
 																	content={
 																		<DetailPropertyList
@@ -1003,7 +1129,11 @@ class Detail extends React.Component {
 																<AsylumConnectCollapsibleSection
 																	testIdName="additional-information"
 																	title={
-																		<FormattedMessage id="form.additional-information" />
+																		<FormattedMessage
+																			id="form.additional-information"
+																			defaultMessage="Additional Information"
+																			description="Additional Information section title"
+																		/>
 																	}
 																	content={
 																		<DetailPropertyList
@@ -1019,7 +1149,11 @@ class Detail extends React.Component {
 														<AsylumConnectCollapsibleSection
 															testIdName="language-services"
 															title={
-																<FormattedMessage id="resource.language-services" />
+																<FormattedMessage
+																	id="resource.language-services"
+																	defaultMessage="Supported Languages"
+																	description="Supported Languages section title"
+																/>
 															}
 															content={
 																<Languages
@@ -1095,7 +1229,11 @@ class Detail extends React.Component {
 													testIdName="leave-review"
 													borderTop={false}
 													title={
-														<FormattedMessage id="resource.leave-review" />
+														<FormattedMessage
+															id="resource.leave-review"
+															defaultMessage="Leave Review"
+															description="review box title"
+														/>
 													}
 													content={
 														<ReviewForm
@@ -1112,7 +1250,11 @@ class Detail extends React.Component {
 												testIdName="review"
 												borderTop={showReviewForm}
 												title={
-													<FormattedMessage id="resource.reviews-heading" />
+													<FormattedMessage
+														id="resource.reviews-heading"
+														defaultMessage="Reviews"
+														description="Title for reviews section"
+													/>
 												}
 												content={<Reviews reviews={comments} />}
 											/>

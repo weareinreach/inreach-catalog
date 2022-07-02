@@ -150,10 +150,18 @@ const AboutYouImmigration = (props) => {
 	return (
 		<>
 			<DialogTitle>
-				<FormattedMessage id="account.signup-about-you" />
+				<FormattedMessage
+					id="account.signup-about-you"
+					defaultMessage="About You"
+					description="Title for the About You sign up dialog"
+				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-about-you-subtitle" />
+				<FormattedMessage
+					id="account.signup-about-you-subtitle"
+					defaultMessage="Help us improve your experience by telling us more about yourself"
+					description="Sub-title for the About You sign up dialog"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -164,7 +172,11 @@ const AboutYouImmigration = (props) => {
 				data-test-id="about-you-immigration-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
-					<FormattedMessage id="aboutyou.immigration" />
+					<FormattedMessage
+						id="aboutyou.immigration"
+						defaultMessage="My immigration status is.."
+						description="question asking about immigration status"
+					/>
 				</Typography>
 				<RadioGroup
 					name="immigrationStatus"
@@ -177,7 +189,11 @@ const AboutYouImmigration = (props) => {
 								<FormControlLabel
 									value={type.dbValue}
 									control={<Radio />}
-									label={intl.formatMessage({id: type.formatMessageId})}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
 									checked={immigrationStatus === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
@@ -190,7 +206,11 @@ const AboutYouImmigration = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="navigation.next" />
+					<FormattedMessage
+						id="navigation.next"
+						defaultMessage="Next"
+						description="Next button"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

@@ -91,7 +91,11 @@ class SuggestHour extends React.Component {
 					className={classes.settingsTypeFont}
 				>
 					<span>
-						<FormattedMessage id="form.schedule" />
+						<FormattedMessage
+							id="form.schedule"
+							defaultMessage="Schedule"
+							description="Schedule message"
+						/>
 					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
@@ -100,7 +104,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-monday"
-								label={intl.formatMessage({id: 'app.days-monday'})}
+								label={intl.formatMessage({
+									id: 'app.days-monday',
+									defaultMessage: 'Monday',
+									description: 'Monday'
+								})}
 								value="monday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -154,7 +162,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-tuesday"
-								label={intl.formatMessage({id: 'app.days-tuesday'})}
+								label={intl.formatMessage({
+									id: 'app.days-tuesday',
+									defaultMessage: 'Tuesday',
+									description: 'Tuesday'
+								})}
 								value="tuesday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -208,7 +220,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-wednesday"
-								label={intl.formatMessage({id: 'app.days-wednesday'})}
+								label={intl.formatMessage({
+									id: 'app.days-wednesday',
+									defaultMessage: 'Wednesday',
+									description: 'wednesday'
+								})}
 								value="wednesday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -262,7 +278,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-thursday"
-								label={intl.formatMessage({id: 'app.days-thursday'})}
+								label={intl.formatMessage({
+									id: 'app.days-thursday',
+									defaultMessage: 'Thursday',
+									description: 'thursday'
+								})}
 								value="thursday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -316,7 +336,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-friday"
-								label={intl.formatMessage({id: 'app.days-friday'})}
+								label={intl.formatMessage({
+									id: 'app.days-friday',
+									defaultMessage: 'Friday',
+									description: 'friday'
+								})}
 								value="friday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -370,7 +394,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-saturday"
-								label={intl.formatMessage({id: 'app.days-saturday'})}
+								label={intl.formatMessage({
+									id: 'app.days-saturday',
+									defaultMessage: 'Saturday',
+									description: 'saturday'
+								})}
 								value="saturday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -424,7 +452,11 @@ class SuggestHour extends React.Component {
 						<div className={classes.formControl}>
 							<AsylumConnectCheckbox
 								testIdName="suggest-page-hour-sunday"
-								label={intl.formatMessage({id: 'app.days-sunday'})}
+								label={intl.formatMessage({
+									id: 'app.days-sunday',
+									defaultMessage: 'Sunday',
+									description: 'sunday'
+								})}
 								value="sunday"
 								onChange={(ref) =>
 									handleDaySelect(
@@ -479,7 +511,11 @@ class SuggestHour extends React.Component {
 							data-test-id="suggest-page-hour-additional-information"
 							className={classes.inputLabel}
 							label={
-								intl.formatMessage({id: 'form.additional-information'}) + ':'
+								intl.formatMessage({
+									id: 'form.additional-information',
+									defaultMessage: 'Additional Information',
+									description: 'Prompt for additional information on form'
+								}) + ':'
 							}
 							defaultValue={schedule.notes}
 							multiline={true}
@@ -489,7 +525,9 @@ class SuggestHour extends React.Component {
 							}}
 							onChange={this.handleChange}
 							placeholder={intl.formatMessage({
-								id: 'form.resource-schedule-additional-information-placeholder'
+								id: 'form.resource-schedule-additional-information-placeholder',
+								defaultMessage: 'e.g. closed on holidays',
+								description: 'Placeholder for additional schedule information'
 							})}
 						/>
 					</form>

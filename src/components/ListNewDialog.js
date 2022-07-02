@@ -15,7 +15,11 @@ const ListNewDialog = ({
 }) => (
 	<div>
 		<DialogTitle>
-			<FormattedMessage id="favorites.create-new-list" />
+			<FormattedMessage
+				id="favorites.create-new-list"
+				defaultMessage="Create New Favorites List"
+				description="Title for Create New Favorites dialog box"
+			/>
 		</DialogTitle>
 		<ListNewFormContainer
 			handleListNew={handleListNew}

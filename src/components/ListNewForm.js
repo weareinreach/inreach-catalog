@@ -25,13 +25,29 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			variant="body1"
 			data-test-id="favorites-create-new-page-header-text"
 		>
-			<FormattedMessage id="favorites.privacy-disclaimer" />
+			<FormattedMessage
+				id="favorites.privacy-disclaimer"
+				defaultMessage="Your favorites lists are only visible to you and anyone you share them with."
+				description="Message regarding privacy disclaimer"
+			/>
 		</Typography>
 		<TextField
 			id="name"
-			label={<FormattedMessage id="favorites.list-name" />}
+			label={
+				<FormattedMessage
+					id="favorites.list-name"
+					defaultMessage="Name"
+					description="Input field for the name of your favorites list"
+				/>
+			}
 			margin="normal"
-			helperText={<FormattedMessage id="favorites.name-list-help" />}
+			helperText={
+				<FormattedMessage
+					id="favorites.name-list-help"
+					defaultMessage="Name your list by category, day of the week, or the name of whomever this list is for."
+					description="Help message for naming your favorites list"
+				/>
+			}
 			className={classes.helperText}
 			name="name"
 			onChange={handleChange}
@@ -44,7 +60,11 @@ const ListNewForm = ({classes, handleChange, handleSubmit, name, password}) => (
 			variant="primary"
 			testIdName="favorites-create-new-button"
 		>
-			<FormattedMessage id="favorites.create-new-list" />
+			<FormattedMessage
+				id="favorites.create-new-list"
+				defaultMessage="Create New Favorites List"
+				description="Button to create your new favorites list"
+			/>
 		</AsylumConnectButton>
 	</form>
 );

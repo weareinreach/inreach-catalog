@@ -46,7 +46,13 @@ class GeneralSettingsOrganization extends Component {
 				window.location.reload();
 			})
 			.catch(() => {
-				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+						description="Error message from processing the request."
+					/>
+				);
 			});
 	}
 
@@ -61,7 +67,11 @@ class GeneralSettingsOrganization extends Component {
 			this.props;
 		if (organizationSelection === null) {
 			handleMessageNew(
-				<FormattedMessage id="account.join-organization-error" />
+				<FormattedMessage
+					id="account.join-organization-error"
+					defaultMessage="Please select an organization"
+					description="Message to select an organization."
+				/>
 			);
 		} else {
 			if (organizationSelection.owners.length) {
@@ -73,12 +83,16 @@ class GeneralSettingsOrganization extends Component {
 						? handleMessageNew(
 								<FormattedMessage
 									id="account.already-organization-affiliate"
+									defaultMessage="You are already affiliated with {name}."
+									description="Message that you are already affiliated with {name}."
 									values={{name: organizationSelection.name}}
 								/>
 						  )
 						: handleMessageNew(
 								<FormattedMessage
 									id="account.organization-affiliation-pending"
+									defaultMessage="Your request to be affiliated with {name} is pending."
+									description="Message that your request to be affiliated is pending."
 									values={{name: organizationSelection.name}}
 								/>
 						  );
@@ -94,13 +108,21 @@ class GeneralSettingsOrganization extends Component {
 					handleMessageNew(
 						<FormattedMessage
 							id="account.organization-affiliation-request-received"
+							defaultMessage="Request to be affiliated with {name} received. You will be notified when it is approved."
+							description="Message that your request to be affiliated was received."
 							values={{name: organizationSelection.name}}
 						/>
 					);
 					window.location.reload();
 				})
 				.catch(() => {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="Error message from processing the request."
+						/>
+					);
 				});
 		}
 	}
@@ -115,6 +137,8 @@ class GeneralSettingsOrganization extends Component {
 						<Typography>
 							<FormattedMessage
 								id="account.organization-affiliation-pending"
+								defaultMessage="Your request to be affiliated with {name} is pending."
+								description="Message that your request to be affiliated is pending."
 								values={{name: affiliation.name}}
 							/>
 						</Typography>
@@ -122,14 +146,22 @@ class GeneralSettingsOrganization extends Component {
 				) : affiliation && isApproved ? (
 					<div>
 						<Typography>
-							<FormattedMessage id="account.leave-organization-help" />
+							<FormattedMessage
+								id="account.leave-organization-help"
+								defaultMessage="Before joining a new organization, you must leave your current organization."
+								description="Message that you must leave your current organization before joining a new one."
+							/>
 						</Typography>
 						<AsylumConnectButton
 							className={classes.marginVertical}
 							onClick={this.handleAffiliationDelete}
 							variant="secondary"
 						>
-							<FormattedMessage id="account.leave-organization" />
+							<FormattedMessage
+								id="account.leave-organization"
+								defaultMessage="Leave organization"
+								description="Leave organization button"
+							/>
 						</AsylumConnectButton>
 					</div>
 				) : (
@@ -157,7 +189,11 @@ class GeneralSettingsOrganization extends Component {
 							className={classes.marginVertical}
 							variant="secondary"
 						>
-							<FormattedMessage id="account.join-organization" />
+							<FormattedMessage
+								id="account.join-organization"
+								defaultMessage=""
+								description=""
+							/>
 						</AsylumConnectButton>
 					</form>
 				)}

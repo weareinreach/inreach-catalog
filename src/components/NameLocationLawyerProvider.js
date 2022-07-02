@@ -172,9 +172,17 @@ const NameLocationLawyerProvider = (props) => {
 
 	const orgTypeQuestion =
 		selection === LAWYER_TYPE ? (
-			<FormattedMessage id="account.signup-organization-orgType-lawyer" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-lawyer"
+				defaultMessage="Where do you practice law? *"
+				description=""
+			/>
 		) : (
-			<FormattedMessage id="account.signup-organization-orgType-provider" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-provider"
+				defaultMessage="Where do you work or volunteer? *"
+				description=""
+			/>
 		);
 	const orgTypeOptions =
 		selection === LAWYER_TYPE
@@ -182,9 +190,17 @@ const NameLocationLawyerProvider = (props) => {
 			: organizationTypesProvider;
 	const orgTypeOther =
 		selection === LAWYER_TYPE ? (
-			<FormattedMessage id="account.signup-organization-orgType-lawyer-other" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-lawyer-other"
+				defaultMessage="I practice law here:"
+				description=""
+			/>
 		) : (
-			<FormattedMessage id="account.signup-organization-orgType-provider-other" />
+			<FormattedMessage
+				id="account.signup-organization-orgType-provider-other"
+				defaultMessage="I work/volunteer here:"
+				description=""
+			/>
 		);
 
 	const isOrgValid = () => {
@@ -209,11 +225,19 @@ const NameLocationLawyerProvider = (props) => {
 		<>
 			{!isMobile && (
 				<DialogTitle>
-					<FormattedMessage id="account.sign-up" />
+					<FormattedMessage
+						id="account.sign-up"
+						defaultMessage="Sign Up"
+						description=""
+					/>
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="app.welcome-main-3" />
+				<FormattedMessage
+					id="app.welcome-main-3"
+					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+					description=""
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -226,7 +250,8 @@ const NameLocationLawyerProvider = (props) => {
 				<FormLabel required className={classes.labels} margin="none">
 					<FormattedMessage
 						id="form.lawyer-organization-name"
-						data-test-id="test"
+						defaultMessage="First and Last Name"
+						description=""
 					/>
 				</FormLabel>
 				<TextField
@@ -234,9 +259,17 @@ const NameLocationLawyerProvider = (props) => {
 					error={touchedName && !textFieldTest.test(name)}
 					helperText={
 						touchedName && !textFieldTest.test(name) ? (
-							<FormattedMessage id="error.text-field-name" />
+							<FormattedMessage
+								id="error.text-field-name"
+								defaultMessage="'Name' field must contain at least 2 characters"
+								description=""
+							/>
 						) : touchedName && textFieldTest.test(name) ? (
-							<FormattedMessage id="form.field-valid-name" />
+							<FormattedMessage
+								id="form.field-valid-name"
+								defaultMessage="'Name' field is valid"
+								description=""
+							/>
 						) : null
 					}
 					id="name"
@@ -259,16 +292,28 @@ const NameLocationLawyerProvider = (props) => {
 					}}
 				/>
 				<FormLabel required className={classes.labels} margin="none">
-					<FormattedMessage id="account.signup-organization-location" />
+					<FormattedMessage
+						id="account.signup-organization-location"
+						defaultMessage="Current location"
+						description=""
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedLocation}
 					error={touchedLocation && !textFieldTest.test(currentLocation)}
 					helperText={
 						touchedLocation && !textFieldTest.test(currentLocation) ? (
-							<FormattedMessage id="error.text-field-location" />
+							<FormattedMessage
+								id="error.text-field-location"
+								defaultMessage="'Location' field must contain at least 2 characters"
+								description=""
+							/>
 						) : touchedLocation && textFieldTest.test(currentLocation) ? (
-							<FormattedMessage id="form.field-valid-location" />
+							<FormattedMessage
+								id="form.field-valid-location"
+								defaultMessage="'Location' field is valid"
+								description=""
+							/>
 						) : null
 					}
 					id="currentLocation"
@@ -323,9 +368,17 @@ const NameLocationLawyerProvider = (props) => {
 							error={touchedOrgType && !textFieldTest.test(specifiedOrgType)}
 							helperText={
 								touchedOrgType && !textFieldTest.test(specifiedOrgType) ? (
-									<FormattedMessage id="error.text-field-orgType" />
+									<FormattedMessage
+										id="error.text-field-orgType"
+										defaultMessage="'Organization Type' field must contain at least 2 characters"
+										description=""
+									/>
 								) : touchedOrgType && textFieldTest.test(specifiedOrgType) ? (
-									<FormattedMessage id="form.field-valid-orgType" />
+									<FormattedMessage
+										id="form.field-valid-orgType"
+										defaultMessage="'Organization Type' field is valid"
+										description=""
+									/>
 								) : null
 							}
 							id="specifiedOrgType"
@@ -357,7 +410,11 @@ const NameLocationLawyerProvider = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="navigation.next" />
+					<FormattedMessage
+						id="navigation.next"
+						defaultMessage="Next"
+						description=""
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

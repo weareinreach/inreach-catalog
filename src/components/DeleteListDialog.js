@@ -24,7 +24,11 @@ const DeleteListDialog = (props) => {
 			.then((response) => {
 				if (response.status === 200) {
 					handleMessageNew(
-						<FormattedMessage id="favorites.delete-list-dialog-success-message" />
+						<FormattedMessage
+							id="favorites.delete-list-dialog-success-message"
+							defaultMessage="list was deleted"
+							description="message displayed when list delete succeeds"
+						/>
 					);
 					handleFetchUser(props.session);
 					handleRequestClose();
@@ -34,23 +38,45 @@ const DeleteListDialog = (props) => {
 					(response.status.status === 401 || response.status.status === 500)
 				) {
 					handleMessageNew(
-						<FormattedMessage id="error.sign-in-to-delete-resources" />
+						<FormattedMessage
+							id="error.sign-in-to-delete-resources"
+							defaultMessage="You must be signed in to delete a list"
+							description="error message displayed if you are not signed in"
+						/>
 					);
 					handleRequestClose();
 					history.push('/' + props.locale + '/favorites');
 				} else if (response.error && response.status.status === 404) {
-					handleMessageNew(<FormattedMessage id="error.resource-not-found" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.resource-not-found"
+							defaultMessage="list not found"
+							description="error message displayed when the list is not found"
+						/>
+					);
 					handleRequestClose();
 					history.push('/' + props.locale + '/favorites');
 				} else {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="an error message"
+						/>
+					);
 					handleRequestClose();
 					history.push('/' + props.locale + '/favorites');
 				}
 			})
 			// something else went wrong so handle it here
 			.catch((error) => {
-				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+						description="an error message"
+					/>
+				);
 				handleRequestClose();
 			});
 	};
@@ -75,12 +101,20 @@ const DeleteListDialog = (props) => {
 				className={classes.wordWrap}
 				data-test-id="delete-list-title"
 			>
-				<FormattedMessage id="favorites.delete-list-dialog-title" />"
-				{props.listTitle}" ?
+				<FormattedMessage
+					id="favorites.delete-list-dialog-title"
+					defaultMessage="Delete List"
+					description="title of delete list dialog"
+				/>
+				"{props.listTitle}" ?
 			</DialogTitle>
 			{isShared ? (
 				<Typography type="body1" data-test-id="delete-list-shared">
-					<FormattedMessage id="favorites.delete-list-dialog-shared-message" />
+					<FormattedMessage
+						id="favorites.delete-list-dialog-shared-message"
+						defaultMessage="You have shared this list with others. Once deleted, it will no longer be accessible to those for whom it has been shared."
+						description="warning message if deleting a list that has been shared"
+					/>
 				</Typography>
 			) : null}
 			<AsylumConnectButton
@@ -89,7 +123,11 @@ const DeleteListDialog = (props) => {
 				className={classes.marginTop}
 				testIdName="delete-list-delete-button"
 			>
-				<FormattedMessage id="action.delete" />
+				<FormattedMessage
+					id="action.delete"
+					defaultMessage="Delete"
+					description="button to delete list"
+				/>
 			</AsylumConnectButton>
 
 			<AsylumConnectButton
@@ -97,7 +135,11 @@ const DeleteListDialog = (props) => {
 				testIdName="delete-list-cancel-button"
 				onClick={handleRequestClose}
 			>
-				<FormattedMessage id="action.cancel" />
+				<FormattedMessage
+					id="action.cancel"
+					defaultMessage="Cancel"
+					description="button to cancel deleting the list"
+				/>
 			</AsylumConnectButton>
 		</div>
 	);

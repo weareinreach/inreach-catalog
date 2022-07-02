@@ -101,7 +101,11 @@ const FavoritesList = ({
 				align="center"
 				data-test-id="favorites-page-header-text"
 			>
-				<FormattedMessage id="favorites.sign-in-to-view" />
+				<FormattedMessage
+					id="favorites.sign-in-to-view"
+					defaultMessage="You must be signed in to view Favorites."
+					description="Favorites page header for not signed in"
+				/>
 			</Typography>
 		);
 	}
@@ -121,7 +125,11 @@ const FavoritesList = ({
 						variant="body1"
 						align="center"
 					>
-						<FormattedMessage id="favorites.mobile-no-access" />
+						<FormattedMessage
+							id="favorites.mobile-no-access"
+							defaultMessage="Sorry! It seems you don't have access to this list!"
+							description="Favorites list message for no access"
+						/>
 					</Typography>
 				</Grid>
 			</Grid>
@@ -142,7 +150,15 @@ const FavoritesList = ({
 					align="center"
 					data-test-id="favorites-page-title-text"
 				>
-					{publicList ? publicList : <FormattedMessage id="favorites.title" />}
+					{publicList ? (
+						publicList
+					) : (
+						<FormattedMessage
+							id="favorites.title"
+							defaultMessage="Favorites"
+							description="Favorites page title"
+						/>
+					)}
 				</Typography>
 				{!publicList && isOwner && (
 					<Typography
@@ -151,7 +167,11 @@ const FavoritesList = ({
 						align="center"
 						data-test-id="favorites-page-header-text"
 					>
-						<FormattedMessage id="favorites.privacy-disclaimer" />
+						<FormattedMessage
+							id="favorites.privacy-disclaimer"
+							defaultMessage="Your favorites lists are only visible to you and anyone you share them with."
+							description="Favorites lists privacy disclaimer"
+						/>
 					</Typography>
 				)}
 				{!publicList && !isOwner && (
@@ -161,7 +181,11 @@ const FavoritesList = ({
 						align="center"
 						data-test-id="favorites-page-header-text"
 					>
-						<FormattedMessage id="favorites.list-shared" />
+						<FormattedMessage
+							id="favorites.list-shared"
+							defaultMessage="This list was shared with you."
+							description="Message that a favorites list was shared with you"
+						/>
 					</Typography>
 				)}
 
@@ -180,7 +204,11 @@ const FavoritesList = ({
 							<Grid item xs={12} md={6}>
 								{lists.length > 0 && (
 									<Typography variant="h3">
-										<FormattedMessage id="favorites.action-select-list" />
+										<FormattedMessage
+											id="favorites.action-select-list"
+											defaultMessage="Select a list"
+											description="Message to select a favorites list"
+										/>
 									</Typography>
 								)}
 							</Grid>
@@ -192,7 +220,11 @@ const FavoritesList = ({
 									testIdName="favorites-page-create-new-list-button"
 								>
 									<Fa className={classes.marginRight} name="plus" />
-									<FormattedMessage id="favorites.create-new-list" />
+									<FormattedMessage
+										id="favorites.create-new-list"
+										defaultMessage="Create New Favorites List"
+										description="Button to create a new favorites list"
+									/>
 								</AsylumConnectButton>
 							</Grid>
 						</Grid>
@@ -222,7 +254,11 @@ const FavoritesList = ({
 								align="center"
 								data-test-id="favorites-page-body-text"
 							>
-								<FormattedMessage id="favorites.no-lists" />
+								<FormattedMessage
+									id="favorites.no-lists"
+									defaultMessage="You haven't created any lists yet."
+									description="Message that you have no favorites lists"
+								/>
 							</Typography>
 						)}
 					</>
@@ -276,13 +312,21 @@ const FavoritesList = ({
 													`share/collection/${list._id}/${list.name}`
 											  )
 											: handleMessageNew(
-													<FormattedMessage id="error.sign-in-to-share-resources" />
+													<FormattedMessage
+														id="error.sign-in-to-share-resources"
+														defaultMessage="Oops! You need to be signed in to share resources."
+														description="Message saying you need to be signed in to share content"
+													/>
 											  )
 									}
 									variant="secondary"
 									testIdName="favorites-page-share-button"
 								>
-									<FormattedMessage id="action.share" />
+									<FormattedMessage
+										id="action.share"
+										defaultMessage="Share"
+										description="Button to share favorites"
+									/>
 								</AsylumConnectButton>
 							)}
 							{isOwner && (
@@ -294,13 +338,21 @@ const FavoritesList = ({
 													`deleteList/${list._id}/${list.name}/${list.visibility}`
 											  )
 											: handleMessageNew(
-													<FormattedMessage id="error.sign-in-to-delete-resources" />
+													<FormattedMessage
+														id="error.sign-in-to-delete-resources"
+														defaultMessage="Oops! You need to be signed in to delete resources."
+														description="Message saying you need to be signed in to delete content"
+													/>
 											  )
 									}
 									variant="primary"
 									testIdName="favorites-page-delete-button"
 								>
-									<FormattedMessage id="action.delete" />
+									<FormattedMessage
+										id="action.delete"
+										defaultMessage="Delete"
+										description="Button to delete favorites"
+									/>
 								</AsylumConnectButton>
 							)}
 						</Grid>
@@ -337,7 +389,11 @@ const FavoritesList = ({
 									variant="body1"
 									data-test-id="favorites-page-body-text"
 								>
-									<FormattedMessage id="favorites.empty-list" />
+									<FormattedMessage
+										id="favorites.empty-list"
+										defaultMessage="You haven't added any resources to this list yet."
+										description="Message that no favorites were added to the favorites list yet"
+									/>
 								</Typography>
 							)}
 						</div>
