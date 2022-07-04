@@ -166,14 +166,24 @@ class LocaleForm extends React.Component {
 		} = this.props.classes;
 		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
-		const localeLabel = <FormattedMessage id="app.select-country" />;
+		const localeLabel = (
+			<FormattedMessage
+				id="app.select-country"
+				defaultMessage="Select country"
+				description="Select country dropdown"
+			/>
+		);
 
 		if (isMobile) {
 			return (
 				<Grid container style={{margin: '16px'}}>
 					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
-							<FormattedMessage id="language.select-preferred-language" />
+							<FormattedMessage
+								id="language.select-preferred-language"
+								defaultMessage="Select Prefered Language"
+								description="language selection helper text"
+							/>
 						</Typography>
 						<Language
 							useMobile={false}
@@ -188,7 +198,11 @@ class LocaleForm extends React.Component {
 					</Grid>
 					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
-							<FormattedMessage id="search.search-location-prompt" />
+							<FormattedMessage
+								id="search.search-location-prompt"
+								defaultMessage="Select prefered location"
+								description="search location helper text"
+							/>
 						</Typography>
 						<LocaleSelector
 							label={localeLabel}
@@ -201,7 +215,11 @@ class LocaleForm extends React.Component {
 							testIdName="search-page-next-button"
 							onClick={this.handleNextClick}
 						>
-							<FormattedMessage id="navigation.next" />
+							<FormattedMessage
+								id="navigation.next"
+								defaultMessage="Next"
+								description="Text for submit button"
+							/>
 						</AsylumConnectButton>
 					</Grid>
 				</Grid>
@@ -216,7 +234,11 @@ class LocaleForm extends React.Component {
 				>
 					<Grid item xs={12} md={6}>
 						<Typography variant="h3" className={labelRow} component="p">
-							<FormattedMessage id="language.select-preferred-language" />
+							<FormattedMessage
+								id="language.select-preferred-language"
+								defaultMessage="Select Prefered Language"
+								description="language selection helper text"
+							/>
 						</Typography>
 						<Language
 							useMobile={false}
@@ -231,7 +253,11 @@ class LocaleForm extends React.Component {
 					</Grid>
 					<Grid item xs={12} md={6}>
 						<Typography variant="h3" className={labelRow} component="p">
-							<FormattedMessage id="search.search-location-prompt" />
+							<FormattedMessage
+								id="search.search-location-prompt"
+								defaultMessage="Where are you looking for help?"
+								description="search location helper text"
+							/>
 						</Typography>
 						<LocaleSelector
 							label={localeLabel}
@@ -244,7 +270,11 @@ class LocaleForm extends React.Component {
 							testIdName="search-page-next-button"
 							onClick={this.handleNextClick}
 						>
-							<FormattedMessage id="navigation.next" />
+							<FormattedMessage
+								id="navigation.next"
+								defaultMessage="Search"
+								description="this is the search button"
+							/>
 						</AsylumConnectButton>
 					</Grid>
 				</Grid>
