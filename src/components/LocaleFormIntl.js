@@ -122,23 +122,23 @@ class LocaleForm extends React.Component {
 			this.props.changeLocale(this.state.selectedLocale);
 			//show app code in spanish if langCode is 'es' and locale is MX or US
 			if (
-				this.state.selectedLocale === 'en_MX' &&
-				this.state.selectedLanguage === 'es'
+				this.state.selectedLocale == 'en_MX' &&
+				this.state.selectedLanguage == 'es'
 			) {
 				this.props.changeLocale('es_MX');
 			} else if (
-				this.state.selectedLocale === 'en_US' &&
-				this.state.selectedLanguage === 'es'
+				this.state.selectedLocale == 'en_US' &&
+				this.state.selectedLanguage == 'es'
 			) {
 				this.props.changeLocale('es_US');
 			} else if (
-				this.state.selectedLocale === 'es_US' &&
-				this.state.selectedLanguage === 'en'
+				this.state.selectedLocale == 'es_US' &&
+				this.state.selectedLanguage == 'en'
 			) {
 				this.props.changeLocale('en_US');
 			} else if (
-				this.state.selectedLocale === 'es_MX' &&
-				this.state.selectedLanguage === 'en'
+				this.state.selectedLocale == 'es_MX' &&
+				this.state.selectedLanguage == 'en'
 			) {
 				this.props.changeLocale('en_MX');
 			}

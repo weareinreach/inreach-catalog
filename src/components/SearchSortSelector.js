@@ -31,7 +31,13 @@ class SearchOrderSelector extends React.Component {
 
 		return (
 			<AsylumConnectSelector
-				label={<FormattedMessage id="search.sort-by-label" />}
+				label={
+					<FormattedMessage
+						id="search.sort-by-label"
+						defaultMessage="Sort list"
+						description="sort list label"
+					/>
+				}
 				selected={[]}
 				containerWidth={containerWidth}
 				rootClass={rootClass}
