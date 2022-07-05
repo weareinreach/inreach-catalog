@@ -70,12 +70,24 @@ class SaveToFavoritesButton extends React.Component {
 	handleFetchError(error) {
 		const {handleLogOut, handleMessageNew} = this.props;
 		if (error.response && error.response.status === 401) {
-			handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="app.inactivity-sign-in"
+					defaultMessage="Due to inactivity, please sign in to confirm your identity."
+					description="error, must sign in"
+				/>
+			);
 			handleLogOut();
 		} else if (error.response && error.response.status === 403) {
 			this.handleOpen('password');
 		} else {
-			handleMessageNew(<FormattedMessage id="error.unspecified" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.unspecified"
+					defaultMessage="Oops! Something went wrong."
+					description="generic error message"
+				/>
+			);
 		}
 	}
 
@@ -118,7 +130,11 @@ class SaveToFavoritesButton extends React.Component {
 		const list = lists ? lists.find((it) => it._id === listId) : null;
 		if (list && isInList(resourceId, list)) {
 			handleMessageNew(
-				<FormattedMessage id="app.feature-save-reseource-already-in-list" />
+				<FormattedMessage
+					id="app.feature-save-reseource-already-in-list"
+					defaultMessage="resource already in list"
+					description="warning message that resource is already in the favorites list"
+				/>
 			);
 			return;
 		}
@@ -217,30 +233,54 @@ class SaveToFavoritesButton extends React.Component {
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%'}}>
 							<p>
-								<FormattedMessage id="error.sign-in-to-save-resources" />
+								<FormattedMessage
+									id="error.sign-in-to-save-resources"
+									defaultMessage="Must be signed in to save resource"
+									description="error message - must be signed in"
+								/>
 							</p>
 							<p
 								style={{
 									fontWeight: 'bold'
 								}}
 							>
-								<FormattedMessage id="app.unlock-features-with-account-prompt" />
+								<FormattedMessage
+									id="app.unlock-features-with-account-prompt"
+									defaultMessage="With a free InReach account you can unlock additional features:"
+									description="Options title"
+								/>
 							</p>
 							<div>
 								<li>
-									<FormattedMessage id="app.feature-save-resource-lists" />
+									<FormattedMessage
+										id="app.feature-save-resource-lists"
+										defaultMessage="Save and share personalised resources lists"
+										description="list item - save and share"
+									/>
 								</li>
 								<br />
 								<li>
-									<FormattedMessage id="app.feature-rate-review-resources" />
+									<FormattedMessage
+										id="app.feature-rate-review-resources"
+										defaultMessage="Leave public rating/reviews on resources"
+										description="list item - Leave ratings and reviews"
+									/>
 								</li>
 								<br />
 								<li>
-									<FormattedMessage id="app.feature-suggest-resource" />
+									<FormattedMessage
+										id="app.feature-suggest-resource"
+										defaultMessage="Suggest resources in your area"
+										description="list item - suggest a resource"
+									/>
 								</li>
 								<br />
 								<li>
-									<FormattedMessage id="app.feature-claim-resource-page" />
+									<FormattedMessage
+										id="app.feature-claim-resource-page"
+										defaultMessage="Claim your organisation's profile page"
+										description="list item - claim your organisation"
+									/>
 								</li>
 							</div>
 						</div>
@@ -261,8 +301,17 @@ class SaveToFavoritesButton extends React.Component {
 								}}
 								onClick={() => this.handleOpen('signup')}
 							>
-								<FormattedMessage id="account.sign-in" />/
-								<FormattedMessage id="account.sign-up" />
+								<FormattedMessage
+									id="account.sign-in"
+									defaultMessage="Sign In"
+									description="Sign in button"
+								/>
+								/
+								<FormattedMessage
+									id="account.sign-up"
+									defaultMessage="Sign Up"
+									description="Sign up button"
+								/>
 							</Button>
 						</div>
 						<div style={{paddingBottom: '20px', textAlign: 'center'}}>
@@ -285,7 +334,11 @@ class SaveToFavoritesButton extends React.Component {
 									this.setState({modal: false});
 								}}
 							>
-								<FormattedMessage id="action.close" />
+								<FormattedMessage
+									id="action.close"
+									defaultMessage="close"
+									description="close the dialog button"
+								/>
 							</Button>
 						</div>
 					</Modal>
@@ -341,30 +394,54 @@ class SaveToFavoritesButton extends React.Component {
 						</div>
 						<div style={{paddingTop: '40px', padding: '8%', fontSize: '14px'}}>
 							<p>
-								<FormattedMessage id="error.sign-in-to-save-resources" />
+								<FormattedMessage
+									id="error.sign-in-to-save-resources"
+									defaultMessage="Must be signed in to save resource"
+									description="error message - must be signed in"
+								/>
 							</p>
 							<p
 								style={{
 									fontWeight: 'bold'
 								}}
 							>
-								<FormattedMessage id="app.unlock-features-with-account-prompt" />
+								<FormattedMessage
+									id="app.unlock-features-with-account-prompt"
+									defaultMessage="With a free InReach account you can unlock additional features:"
+									description="Options title"
+								/>
 							</p>
 							<div>
 								<li>
-									<FormattedMessage id="app.feature-save-resource-lists" />
+									<FormattedMessage
+										id="app.feature-save-resource-lists"
+										defaultMessage="Save and share personalised resources lists"
+										description="list item - save and share"
+									/>
 								</li>
 								<br />
 								<li>
-									<FormattedMessage id="app.feature-rate-review-resources" />
+									<FormattedMessage
+										id="app.feature-rate-review-resources"
+										defaultMessage="Leave public rating/reviews on resources"
+										description="list item - Leave ratings and reviews"
+									/>
 								</li>
 								<br />
 								<li>
-									<FormattedMessage id="app.feature-suggest-resource" />
+									<FormattedMessage
+										id="app.feature-suggest-resource"
+										defaultMessage="Suggest resources in your area"
+										description="list item - suggest a resource"
+									/>
 								</li>
 								<br />
 								<li>
-									<FormattedMessage id="app.feature-claim-resource-page" />
+									<FormattedMessage
+										id="app.feature-claim-resource-page"
+										defaultMessage="Claim your organisation's profile page"
+										description="list item - claim your organisation"
+									/>
 								</li>
 							</div>
 						</div>
@@ -385,8 +462,17 @@ class SaveToFavoritesButton extends React.Component {
 								}}
 								onClick={() => this.handleOpen('signup')}
 							>
-								<FormattedMessage id="account.sign-in" />/
-								<FormattedMessage id="account.sign-up" />
+								<FormattedMessage
+									id="account.sign-in"
+									defaultMessage="Sign In"
+									description="Sign in button"
+								/>
+								/
+								<FormattedMessage
+									id="account.sign-up"
+									defaultMessage="Sign Up"
+									description="Sign up button"
+								/>
 							</Button>
 						</div>
 						<div style={{paddingBottom: '20px', textAlign: 'center'}}>
@@ -409,7 +495,11 @@ class SaveToFavoritesButton extends React.Component {
 									this.setState({modal: false});
 								}}
 							>
-								<FormattedMessage id="action.close" />
+								<FormattedMessage
+									id="action.close"
+									defaultMessage="close"
+									description="close the dialog button"
+								/>
 							</Button>
 						</div>
 					</Modal>
@@ -456,7 +546,11 @@ class SaveToFavoritesButton extends React.Component {
 						}
 					>
 						<span className={classes.textBlue}>
-							<FormattedMessage id="favorites.create-new-list" />
+							<FormattedMessage
+								id="favorites.create-new-list"
+								defaultMessage="Create new list"
+								description="link to create a new list action"
+							/>
 						</span>
 					</MenuItem>
 				</AsylumConnectPopUp>

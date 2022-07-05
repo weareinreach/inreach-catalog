@@ -82,7 +82,12 @@ const DetailAccessInstructions = (props) => {
 														classes.boldFont + ' ' + classes.mobileHide
 													}
 												>
-													<FormattedMessage id="resource.phone-numbers" />:{' '}
+													<FormattedMessage
+														id="resource.phone-numbers"
+														defaultMessage="Phone Numbers"
+														description="phone numbers section label"
+													/>
+													:{' '}
 												</strong>
 												{typeof phoneValue.digits !== 'undefined' ? (
 													<Phone
@@ -119,7 +124,12 @@ const DetailAccessInstructions = (props) => {
 											<strong
 												className={classes.boldFont + ' ' + classes.mobileHide}
 											>
-												<FormattedMessage id="resource.email-label" />:{' '}
+												<FormattedMessage
+													id="resource.email-label"
+													defaultMessage="Email"
+													description="email section label"
+												/>
+												:{' '}
 											</strong>
 											{[emailValue].map((email) => {
 												if (!email) {
@@ -166,7 +176,12 @@ const DetailAccessInstructions = (props) => {
 													className={classes.lineSpacing}
 												>
 													<strong className={classes.boldFont}>
-														<FormattedMessage id="resource.location-label" />:{' '}
+														<FormattedMessage
+															id="resource.location-label"
+															defaultMessage="Location"
+															description="Locations section label"
+														/>
+														:{' '}
 													</strong>
 													{item?.access_value ||
 														AddressParser({address: location})}
@@ -189,7 +204,12 @@ const DetailAccessInstructions = (props) => {
 																	classes.boldFont + ' ' + classes.mobileHide
 																}
 															>
-																<FormattedMessage id="form.schedule" />:{' '}
+																<FormattedMessage
+																	id="form.schedule"
+																	defaultMessage="Schedule"
+																	description="Schedule section"
+																/>
+																:{' '}
 															</strong>
 															{schedule
 																.map((sch) => {
@@ -226,7 +246,12 @@ const DetailAccessInstructions = (props) => {
 											<strong
 												className={classes.boldFont + ' ' + classes.mobileHide}
 											>
-												<FormattedMessage id="resource.website-label" />:{' '}
+												<FormattedMessage
+													id="resource.website-label"
+													defaultMessage="website"
+													description="website details"
+												/>
+												:{' '}
 											</strong>
 											<a
 												href={linkValue}
