@@ -159,7 +159,11 @@ class OrgSettings extends React.Component {
 				})
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error-unspecified" />
+						<FormattedMessage
+							id="error-unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="generic error message"
+						/>
 					);
 				});
 		}

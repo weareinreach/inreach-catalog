@@ -129,7 +129,11 @@ class OrgSettingsAdditional extends React.Component {
 					<TextField
 						className={classes.inputLabel}
 						label={
-							intl.formatMessage({id: 'resource.additional-information'}) + ':'
+							intl.formatMessage({
+								id: 'resource.additional-information',
+								defaultMessage: 'Additional Information',
+								description: 'label for the organizational setting input field'
+							}) + ':'
 						}
 						InputLabelProps={{
 							shrink: true
@@ -142,7 +146,12 @@ class OrgSettingsAdditional extends React.Component {
 						<div>
 							<div className={classes.settingsTypeFont}>
 								<span>
-									<FormattedMessage id="resource.mark-at-capacity" />:
+									<FormattedMessage
+										id="resource.mark-at-capacity"
+										defaultMessage="At Capacity"
+										description="Label on the Radio button to specify that this organization is At Capacity"
+									/>
+									:
 								</span>
 							</div>
 						</div>
@@ -155,7 +164,13 @@ class OrgSettingsAdditional extends React.Component {
 									onClick={this.handleToggleCapacity}
 								/>
 							}
-							label={<FormattedMessage id="form.yes" />}
+							label={
+								<FormattedMessage
+									id="form.yes"
+									defaultMessage="Yes"
+									description="toggle the at capacity field to Yes"
+								/>
+							}
 						/>
 					</FormControl>
 					<FormControl className={classes.modifiedSelector}>

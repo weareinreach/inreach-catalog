@@ -161,6 +161,7 @@ class NavMobile extends React.Component {
 							<FormattedMessage
 								id="navigation.search"
 								defaultMessage="Search"
+								description="Search button"
 							/>
 						}
 						showLabel
@@ -174,6 +175,7 @@ class NavMobile extends React.Component {
 							<FormattedMessage
 								id="navigation.favorites"
 								defaultMessage="Favorites"
+								description="Favorites button"
 							/>
 						}
 						showLabel
@@ -187,6 +189,7 @@ class NavMobile extends React.Component {
 							<FormattedMessage
 								id="navigation.language"
 								defaultMessage="Language"
+								description="Select Language button"
 							/>
 						}
 						showLabel
@@ -200,6 +203,7 @@ class NavMobile extends React.Component {
 							<FormattedMessage
 								id="navigation.account"
 								defaultMessage="Account"
+								description="link to Account page"
 							/>
 						}
 						showLabel
@@ -210,7 +214,11 @@ class NavMobile extends React.Component {
 						className={classes.navButton}
 						classes={buttonStyles}
 						label={
-							<FormattedMessage id="navigation.more" defaultMessage="More" />
+							<FormattedMessage
+								id="navigation.more"
+								defaultMessage="More"
+								description="link to more information"
+							/>
 						}
 						showLabel
 						data-test-id="mobile-nav-button-more"
