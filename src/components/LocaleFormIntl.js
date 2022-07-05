@@ -148,7 +148,7 @@ class LocaleForm extends React.Component {
 			this.props.onLocaleSelect(
 				this.state.selectedLocale,
 				this.state.selectedLanguage,
-				this.state.selectedLanguageName !== this.state.startingLang
+				this.state.selectedLanguageName != this.state.startingLang
 			);
 		}
 		/*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
