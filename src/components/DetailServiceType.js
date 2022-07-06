@@ -76,7 +76,11 @@ const ServiceType = (props) => {
 															tooltip: props.classes.serviceTooltip
 														}}
 														type={tag.type}
-														mobileLabel={intl.formatMessage({id: tag.label})}
+														mobileLabel={intl.formatMessage({
+															id: tag.label,
+															defaultMessage: tag.defaultMessage,
+															description: tag.description
+														})}
 														width="48px"
 														height="48px"
 													/>

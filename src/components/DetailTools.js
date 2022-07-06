@@ -182,30 +182,54 @@ const Tools = (props) => {
 					</div>
 					<div style={{paddingTop: '40px', padding: '8%'}}>
 						<p data-test-id="resource-detail-dialog-title">
-							<FormattedMessage id="error.sign-in-to-share-resources" />
+							<FormattedMessage
+								id="error.sign-in-to-share-resources"
+								defaultMessage="Oops! You need to be signed in to share resources."
+								description="Error for not being signed in"
+							/>
 						</p>
 						<p
 							style={{
 								fontWeight: 'bold'
 							}}
 						>
-							<FormattedMessage id="app.unlock-features-with-account-prompt" />
+							<FormattedMessage
+								id="app.unlock-features-with-account-prompt"
+								defaultMessage="With a free InReach account you can unlock additional features:"
+								description="heaing text for modal"
+							/>
 						</p>
 						<div data-test-id="resource-detail-dialog-body">
 							<li>
-								<FormattedMessage id="app.feature-save-resource-lists" />
+								<FormattedMessage
+									id="app.feature-save-resource-lists"
+									defaultMessage="Save and share personalised resources lists"
+									description="list item if signed in - Save"
+								/>
 							</li>
 							<br />
 							<li>
-								<FormattedMessage id="app.feature-rate-review-resources" />
+								<FormattedMessage
+									id="app.feature-rate-review-resources"
+									defaultMessage="Leave public rating/reviews on resources"
+									description="list item if signed in - Leave a review"
+								/>
 							</li>
 							<br />
 							<li>
-								<FormattedMessage id="app.feature-suggest-resource" />
+								<FormattedMessage
+									id="app.feature-suggest-resource"
+									defaultMessage="Suggest resources in your area"
+									description="list item if signed in - Make suggestions"
+								/>
 							</li>
 							<br />
 							<li>
-								<FormattedMessage id="app.feature-claim-resource-page" />
+								<FormattedMessage
+									id="app.feature-claim-resource-page"
+									defaultMessage="Claim your organisation's profile page"
+									description="list item if signed in - Claim an organization"
+								/>
 							</li>
 						</div>
 					</div>
@@ -227,8 +251,17 @@ const Tools = (props) => {
 							}}
 							onClick={() => handleOpen('signup')}
 						>
-							<FormattedMessage id="account.sign-in" />/
-							<FormattedMessage id="account.sign-up" />
+							<FormattedMessage
+								id="account.sign-in"
+								defaultMessage="Sign In"
+								description="link to go to the sign in form"
+							/>
+							/
+							<FormattedMessage
+								id="account.sign-up"
+								defaultMessage="Sign Up"
+								description="link to go to the sign up form"
+							/>
 						</Button>
 					</div>
 					<div style={{paddingBottom: '20px', textAlign: 'center'}}>
@@ -250,7 +283,11 @@ const Tools = (props) => {
 							}}
 							onClick={() => setModalIsOpen(false)}
 						>
-							<FormattedMessage id="action.close" />
+							<FormattedMessage
+								id="action.close"
+								defaultMessage="close"
+								description="button to close the modal"
+							/>
 						</Button>
 					</div>
 				</Modal>

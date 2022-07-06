@@ -207,11 +207,21 @@ class SignupFormContainer extends React.Component {
 				})
 				.catch(() => {
 					handleMessageNew(
-						<FormattedMessage id="error.joining-organization-failed" />
+						<FormattedMessage
+							id="error.joining-organization-failed"
+							defaultMessage="An error occurred while trying to connect you to your organization. Please try again"
+							description="error connecting to organization"
+						/>
 					);
 				});
 		} else {
-			handleMessageNew(<FormattedMessage id="error.organization-empty" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.organization-empty"
+					defaultMessage="Please enter a valid organization name."
+					description="error - organization name not valid"
+				/>
+			);
 		}
 	}
 
@@ -257,7 +267,13 @@ class SignupFormContainer extends React.Component {
 						this.setState({userData: data.user}, function () {});
 					})
 					.catch((error) => {
-						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+						handleMessageNew(
+							<FormattedMessage
+								id="error.unspecified"
+								defaultMessage="Oops! Something went wrong."
+								description="generic error"
+							/>
+						);
 					});
 			});
 		} else {
@@ -267,7 +283,13 @@ class SignupFormContainer extends React.Component {
 					this.setState({userData: data.user}, function () {});
 				})
 				.catch((error) => {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="generic error"
+						/>
+					);
 				});
 		}
 
@@ -291,7 +313,13 @@ class SignupFormContainer extends React.Component {
 						this.setState({userData: data.user}, function () {});
 					})
 					.catch((error) => {
-						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+						handleMessageNew(
+							<FormattedMessage
+								id="error.unspecified"
+								defaultMessage="Oops! Something went wrong."
+								description="generic error"
+							/>
+						);
 					});
 			});
 		} else {
@@ -301,7 +329,13 @@ class SignupFormContainer extends React.Component {
 					this.setState({userData: data.user}, function () {});
 				})
 				.catch((error) => {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="generic error"
+						/>
+					);
 				});
 		}
 
@@ -311,7 +345,13 @@ class SignupFormContainer extends React.Component {
 				this.setState({userData: data.user}, function () {});
 			})
 			.catch((error) => {
-				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+						description="generic error"
+					/>
+				);
 			});
 
 		//determine next step in the workflow
@@ -343,12 +383,24 @@ class SignupFormContainer extends React.Component {
 		);
 
 		if (!pswdTest.test(password)) {
-			handleMessageNew(<FormattedMessage id="error.password-format" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.password-format"
+					defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
+					description="error - password format not valid"
+				/>
+			);
 			return;
 		}
 
 		if (!emailTest.test(email)) {
-			handleMessageNew(<FormattedMessage id="error.email-format" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.email-format"
+					defaultMessage="Invalid email format"
+					description="error - email format not valid"
+				/>
+			);
 			return;
 		}
 
@@ -365,14 +417,24 @@ class SignupFormContainer extends React.Component {
 		};
 
 		const handleError = () =>
-			handleMessageNew(<FormattedMessage id="error.unspecified" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.unspecified"
+					defaultMessage="Oops! Something went wrong."
+					description="generic error"
+				/>
+			);
 
 		catalogPost('/users', body)
 			.then((user) => {
 				if (user.error) {
 					if (user.status.status === 409) {
 						handleMessageNew(
-							<FormattedMessage id="error.user-already-exists" />
+							<FormattedMessage
+								id="error.user-already-exists"
+								defaultMessage=""
+								description="error"
+							/>
 						);
 						return;
 					}

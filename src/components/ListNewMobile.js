@@ -48,7 +48,11 @@ const ListNewMobile = ({
 				/>
 			</Toolbar>
 			<DialogTitle>
-				<FormattedMessage id="favorites.create-new-list" />
+				<FormattedMessage
+					id="favorites.create-new-list"
+					defaultMessage="create new list"
+					description="title of section that allows users to create a new list"
+				/>
 			</DialogTitle>
 			<ListNewFormContainer
 				handleListNew={handleListNew}

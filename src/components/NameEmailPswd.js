@@ -133,18 +133,22 @@ const NameEmailPswd = (props) => {
 
 	const emailLabel =
 		selection === SEEKER_TYPE ? (
-			<FormattedMessage id="form.email" defaultMessage="Email" description="" />
+			<FormattedMessage
+				id="form.email"
+				defaultMessage="Email"
+				description="Entry for Email as a Seeker"
+			/>
 		) : selection === LAWYER_TYPE ? (
 			<FormattedMessage
 				id="form.lawyer-email"
 				defaultMessage="Organization Email"
-				description=""
+				description="Entry for Email as a Lawyer"
 			/>
 		) : (
 			<FormattedMessage
 				id="form.organization-email"
 				defaultMessage="Organization or personal Email"
-				description=""
+				description="Entry for Email as an Organization"
 			/>
 		);
 
@@ -153,13 +157,13 @@ const NameEmailPswd = (props) => {
 			<FormattedMessage
 				id="form.name"
 				defaultMessage="Name (or Alias)"
-				description=""
+				description="Entry for Name as a Seeker"
 			/>
 		) : (
 			<FormattedMessage
 				id="form.lawyer-organization-name"
 				defaultMessage="First and Last Name"
-				description=""
+				description="Entry for Name as a Lawyer or Organization"
 			/>
 		);
 
@@ -195,7 +199,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage
 						id="account.sign-up"
 						defaultMessage="Sign Up"
-						description=""
+						description="Account Sign Up Pop-Up"
 					/>
 				</DialogTitle>
 			)}
@@ -329,13 +333,13 @@ const NameEmailPswd = (props) => {
 							<FormattedMessage
 								id="error.password-format"
 								defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
-								description="error message when passowrd does not meet requirements"
+								description="error message when password does not meet requirements"
 							/>
 						) : touchedPassword && pswdTest.test(password) ? (
 							<FormattedMessage
 								id="form.field-valid-password"
 								defaultMessage="'Password' field is valid"
-								description=""
+								description="success message when password meets requirements"
 							/>
 						) : null
 					}
@@ -368,7 +372,7 @@ const NameEmailPswd = (props) => {
 					<FormattedMessage
 						id="account.sign-up"
 						defaultMessage="Sign Up"
-						description=""
+						description="Account Sign Up Pop Up"
 					/>
 				</AsylumConnectButton>
 			</form>

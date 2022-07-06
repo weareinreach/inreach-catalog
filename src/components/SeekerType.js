@@ -63,11 +63,19 @@ const SeekerType = (props) => {
 		<>
 			{!isMobile && (
 				<DialogTitle>
-					<FormattedMessage id="account.sign-up" />
+					<FormattedMessage
+						id="account.sign-up"
+						defaultMessage="Sign Up"
+						description="Sign Up form title"
+					/>
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="app.welcome-main-3" />
+				<FormattedMessage
+					id="app.welcome-main-3"
+					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+					description="Sign Up form welcome message"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<div
@@ -75,7 +83,11 @@ const SeekerType = (props) => {
 				className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
 			>
 				<Typography className={classes.question} variant="h3">
-					<FormattedMessage id="account.signup-catalog-type-selection-prompt" />
+					<FormattedMessage
+						id="account.signup-catalog-type-selection-prompt"
+						defaultMessage="Which are you?"
+						description="Sign up form question - what type of user are you"
+					/>
 				</Typography>
 				<AsylumConnectButton
 					className={classes.marginBottom}
@@ -83,7 +95,11 @@ const SeekerType = (props) => {
 					variant="primary"
 					testIdName="dialog-container-sign-up-help-myself-button"
 				>
-					<FormattedMessage id="account.signup-catalog-type-asylum-seeker" />
+					<FormattedMessage
+						id="account.signup-catalog-type-asylum-seeker"
+						defaultMessage="My self"
+						description="button to select my self"
+					/>
 				</AsylumConnectButton>
 				<AsylumConnectButton
 					className={classes.marginBottom}
@@ -91,7 +107,11 @@ const SeekerType = (props) => {
 					variant="primary"
 					testIdName="dialog-container-sign-up-attorney-button"
 				>
-					<FormattedMessage id="account.signup-catalog-type-legal-provider" />
+					<FormattedMessage
+						id="account.signup-catalog-type-legal-provider"
+						defaultMessage="lawyer"
+						description="button to select lawyer"
+					/>
 				</AsylumConnectButton>
 				<AsylumConnectButton
 					className={classes.marginBottomLg}
@@ -99,7 +119,11 @@ const SeekerType = (props) => {
 					variant="primary"
 					testIdName="dialog-container-sign-up-non-legal-service-provider-button"
 				>
-					<FormattedMessage id="account.signup-catalog-type-non-legal-provider" />
+					<FormattedMessage
+						id="account.signup-catalog-type-non-legal-provider"
+						defaultMessage="provider"
+						description="button to select provider"
+					/>
 				</AsylumConnectButton>
 				<div
 					onClick={() => handleRequestOpen('login')}
@@ -107,7 +131,11 @@ const SeekerType = (props) => {
 				>
 					<Typography variant="body1">
 						<span className={classes.link}>
-							<FormattedMessage id="account.already-have-account" />
+							<FormattedMessage
+								id="account.already-have-account"
+								defaultMessage="Already have an account?"
+								description="link to go to the sign in form"
+							/>
 						</span>
 					</Typography>
 				</div>

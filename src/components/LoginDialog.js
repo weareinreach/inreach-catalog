@@ -13,7 +13,11 @@ const LoginDialog = ({
 }) => (
 	<div data-test-id="log-in-dialog-container">
 		<DialogTitle>
-			<FormattedMessage id="account.sign-in" defaultMessage="Sign In" />
+			<FormattedMessage
+				id="account.sign-in"
+				defaultMessage="Sign In"
+				description="sign in form"
+			/>
 		</DialogTitle>
 		<LoginFormContainer
 			handleLogIn={handleLogIn}

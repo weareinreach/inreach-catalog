@@ -119,10 +119,18 @@ class ReviewForm extends React.Component {
 								className={'center-align ' + classes.bottomSpacing}
 							>
 								<span className={classes.boldFont}>
-									<FormattedMessage id="resource-property.rate-this-resource" />
+									<FormattedMessage
+										id="resource-property.rate-this-resource"
+										defaultMessage="Rate this resource"
+										description="Section for Resource Reviews"
+									/>
 								</span>{' '}
 								{isMobile ? null : (
-									<FormattedMessage id="resource-property.save-rating" />
+									<FormattedMessage
+										id="resource-property.save-rating"
+										defaultMessage="Your rating will not be recorded until you hit Submit"
+										description="Info text indicating review details are not saved until they are submitted"
+									/>
 								)}
 							</Typography>
 						</Grid>
@@ -133,7 +141,11 @@ class ReviewForm extends React.Component {
 									variant="body2"
 									className={classes.italicFont + ' ' + classes.bottomSpacing}
 								>
-									<FormattedMessage id="resource.lgbtq-friendly-prompt" />
+									<FormattedMessage
+										id="resource.lgbtq-friendly-prompt"
+										defaultMessage="Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? InReach will update our resource app based on your review."
+										description="helper text for the review form"
+									/>
 								</Typography>
 							</Grid>
 						)}
@@ -154,7 +166,11 @@ class ReviewForm extends React.Component {
 								variant="primary"
 								onClick={this.handleFormSubmission}
 							>
-								<FormattedMessage id="action.submit" />
+								<FormattedMessage
+									id="action.submit"
+									defaultMessage="Submit"
+									description="label for the submit review button"
+								/>
 							</AsylumConnectButton>
 						</Grid>
 					</div>
@@ -165,7 +181,11 @@ class ReviewForm extends React.Component {
 							data-test-id="details-review-form-post-review"
 							className={classes.boldFont + ' ' + classes.bottomSpacing}
 						>
-							<FormattedMessage id="action.comment-submitted-confirmation" />{' '}
+							<FormattedMessage
+								id="action.comment-submitted-confirmation"
+								defaultMessage="hank you for your comment! Questions? Please email"
+								description="Thank you text after submitting a review"
+							/>{' '}
 							<a href="mailto:app@inreach.org" className={classes.bodyLink}>
 								app@inreach.org
 							</a>

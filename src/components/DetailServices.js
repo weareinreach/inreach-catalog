@@ -111,7 +111,11 @@ const Services = (props) => {
 												component="span"
 												className={classes.badge}
 											>
-												{intl.formatMessage({id: item.label?.split(' ')[0]})}
+												{intl.formatMessage({
+													id: item.label?.split(' ')[0],
+													defaultMessage: item.defaultMessage,
+													description: item.description
+												})}
 											</Typography>
 										</>
 									) : (

@@ -88,7 +88,11 @@ const NavTablet = ({
 				/>
 			</Link>
 			<a className="hide--on-screen" href="/#">
-				<FormattedMessage id="app.asylum-connect-catalog">
+				<FormattedMessage
+					id="app.asylum-connect-catalog"
+					defaultMessage="InReach App"
+					description="title of app"
+				>
 					{(catalog) => <Typography variant="h1">{catalog}</Typography>}
 				</FormattedMessage>
 			</a>
@@ -100,7 +104,11 @@ const NavTablet = ({
 				rel="noopener noreferrer"
 				href={navLinks.safety}
 			>
-				<FormattedMessage id="navigation.safety-exit">
+				<FormattedMessage
+					id="navigation.safety-exit"
+					defaultMessage="Safety Exit"
+					description="button that takes user to a Google search page"
+				>
 					{(safety) => (
 						<AsylumConnectButton variant="safety">{safety}</AsylumConnectButton>
 					)}

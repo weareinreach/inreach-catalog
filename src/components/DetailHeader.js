@@ -61,7 +61,11 @@ const DetailHeader = ({
 												width="12px"
 											/>
 											<span className={classes.verifiedHeaderText}>
-												<FormattedMessage id="resource.claimed" />
+												<FormattedMessage
+													id="resource.claimed"
+													defaultMessage="Claimed"
+													description="badge that specifies that this organization has been claimed"
+												/>
 											</span>
 										</>
 									) : null}
@@ -72,7 +76,11 @@ const DetailHeader = ({
 						{isService && isMobile ? (
 							<Grid item xs={12} className={classes.serviceOrgContainer}>
 								<Typography variant="h6" className={classes.serviceOrg}>
-									<FormattedMessage id="resource.service-from" />{' '}
+									<FormattedMessage
+										id="resource.service-from"
+										defaultMessage="Service from"
+										description="title for the who provides the service section"
+									/>{' '}
 									<Link to={orgLink}>{orgName}</Link>
 								</Typography>
 							</Grid>
@@ -145,10 +153,16 @@ const DetailHeader = ({
 									classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
 									title={
 										<a style={{color: '#e9e9e9'}}>
-											<FormattedMessage id="resource.last-updated" />{' '}
+											<FormattedMessage
+												id="resource.last-updated"
+												defaultMessage={verified.toDateString()}
+												description="date this resource data was last updated"
+											/>{' '}
 											{verified.toDateString()}.{' '}
 											<FormattedMessage
 												id="resource.accuracy-disclaimer"
+												defaultMessage="InReach prioritizes accuracy and user safety, and updates all information at least once every 6 months. For more information on our vetting process."
+												description="text that explain when and how the resource data is verified"
 												values={{
 													b: (chunks) => (
 														<strong style={{color: 'black'}}>{chunks}</strong>
@@ -161,7 +175,11 @@ const DetailHeader = ({
 															className="hide--on-print"
 															style={{color: 'black'}}
 														>
-															<FormattedMessage id="resource.click-here" />
+															<FormattedMessage
+																id="resource.click-here"
+																defaultMessage="Click Here"
+																description="link that takes user to full vetting process details"
+															/>
 														</a>
 													)
 												}}
@@ -181,7 +199,11 @@ const DetailHeader = ({
 											color="secondary"
 											data-test-id="details-header-verified-text"
 										>
-											<FormattedMessage id="resource.verified-information" />
+											<FormattedMessage
+												id="resource.verified-information"
+												defaultMessage="Verified Information"
+												description="badge with a tooltip that provides information on the accuracy of the resource data"
+											/>
 										</Typography>
 									</Badge>
 								</Tooltip>
@@ -218,7 +240,11 @@ const DetailHeader = ({
 								classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
 								title={
 									<a style={{color: '#e9e9e9'}}>
-										<FormattedMessage id="resource.last-updated" />{' '}
+										<FormattedMessage
+											id="resource.last-updated"
+											defaultMessage={verified.toDateString()}
+											description="date this resource data was last updated"
+										/>{' '}
 										{verified.toDateString()}.{' '}
 										<FormattedMessage
 											id="resource.accuracy-disclaimer"
@@ -234,7 +260,11 @@ const DetailHeader = ({
 														className="hide--on-print"
 														style={{color: 'black'}}
 													>
-														<FormattedMessage id="resource.click-here" />
+														<FormattedMessage
+															id="resource.click-here"
+															defaultMessage="Click Here"
+															description="link that takes user to full vetting process details"
+														/>
 													</a>
 												)
 											}}
@@ -251,7 +281,11 @@ const DetailHeader = ({
 									variant="body1"
 									data-test-id="details-header-verified-text"
 								>
-									<FormattedMessage id="resource.verified-information" />
+									<FormattedMessage
+										id="resource.verified-information"
+										defaultMessage="Verified Information"
+										description="badge with a tooltip that provides information on the accuracy of the resource data"
+									/>
 								</Typography>
 							</Tooltip>
 						</Badge>
