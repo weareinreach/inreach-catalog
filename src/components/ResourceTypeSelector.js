@@ -330,8 +330,6 @@ const FilterCollection = (props) => {
 	}
 	const intl = useIntl();
 
-	console.log(categoryValue);
-
 	return (
 		<div
 			onMouseOver={onMouseOver}

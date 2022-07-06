@@ -140,6 +140,10 @@ const Visit = ({
 			{locations && locations.length
 				? locations.map((location) => {
 						let schedule;
+
+						if (!location.show_on_organization) {
+							return null;
+						}
 						return (
 							<div
 								key={location._id}
