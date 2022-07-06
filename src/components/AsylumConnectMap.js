@@ -169,7 +169,7 @@ class AsylumConnectMap extends React.Component {
 								return points.map((location) => {
 									const {lat, lng} = getLatLong(location);
 
-									if (!lat || !lng) {
+									if (!lat || !lng || !location.show_on_organization) {
 										return null;
 									}
 
