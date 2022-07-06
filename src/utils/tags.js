@@ -220,6 +220,14 @@ const resourceTypes = [
 		title: 'Short-term housing',
 		titleIntl: 'services.short-term-housing'
 	},
+	//Change: new subcategory
+	{
+		category: 'service-type.housing',
+		type: 'housing',
+		acTag: 'Trans housing',
+		title: 'Trans housing',
+		titleIntl: 'services.trans-housing'
+	},
 
 	/* AC Hygiene and Clothing Category */
 	{
@@ -460,6 +468,14 @@ const resourceTypes = [
 		type: 'mentalHealth',
 		acTag: 'Mental Health'
 	},
+	//Change: new subcategory
+	{
+		category: 'service-type.mental-health',
+		type: 'mentalHealth',
+		acTag: 'BIPOC support groups',
+		title: 'BIPOC support groups',
+		titleIntl: 'services.bipoc-support-groups'
+	},
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
@@ -501,6 +517,14 @@ const resourceTypes = [
 		acTag: 'Substance use',
 		title: 'Substance use',
 		titleIntl: 'services.substance-use'
+	},
+	//Change: new subcategory
+	{
+		category: 'service-type.mental-health',
+		type: 'mentalHealth',
+		acTag: 'Support for conversion therapy survivors',
+		title: 'Support for converstion therapy survivors',
+		titleIntl: 'services.bipoc support groups'
 	},
 	{
 		category: 'service-type.mental-health',
