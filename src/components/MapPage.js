@@ -53,7 +53,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			distance
 		} = this.parseParams(props.match.params);
 		this.props.handleAddressChange(nearAddress);
 		this.state = {
@@ -76,7 +77,8 @@ class MapPage extends React.Component {
 			selectedResource: null,
 			selectedService: null,
 			lastSearch: null,
-			orgName: name ?? null
+			orgName: name ?? null,
+			distance: null
 		};
 
 		this.recentResourceCache = {};

@@ -8,12 +8,17 @@ import TabContext from '@material-ui/lab/TabContext';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '@material-ui/lab/TabPanel';
 import TabList from '@material-ui/lab/TabList';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
 import SearchBar from './SearchBar';
 import SearchByLocation from './SearchByLocation';
 import SearchByOrgName from './SearchByOrgName';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+import {distanceOptions} from '../data/distanceOptions';
 
 const DesktopSearch = (props) => {
 	const {
@@ -30,7 +35,8 @@ const DesktopSearch = (props) => {
 		locale,
 		handleTabChange,
 		tabValue,
-		moveButton
+		moveButton,
+		distance
 	} = props;
 	const variant = 'primary';
 	const intl = useIntl();
@@ -48,6 +54,7 @@ const DesktopSearch = (props) => {
 			'aria-controls': `search-tabpanel-${index}`
 		};
 	};
+	console.log(props);
 	return (
 		<TabContext value={tabValue.toString()}>
 			<AppBar position="static">
@@ -101,16 +108,37 @@ const DesktopSearch = (props) => {
 				<Grid
 					container
 					spacing={0}
-					className={nationalOrgCheckboxContainer}
+					// className={nationalOrgCheckboxContainer}
 					style={{paddingTop: '24px'}}
 				>
 					<Grid item>
-						<AsylumConnectCheckbox
+						{/*						<AsylumConnectCheckbox
 							label={checkboxLabel}
 							checked={props.isNational}
 							onChange={props.handleNationalCheckBox}
 							testIdName="search-page-checkbox"
-						/>
+						/>*/}
+						Max distance from search location
+						<RadioGroup name="distance" required={true}>
+							<Grid container spacing={6}>
+								{distanceOptions.map((type, index) => (
+									<Grid item key={index}>
+										<FormControlLabel
+											value={type.searchValue}
+											control={<Radio />}
+											label={intl.formatMessage({
+												id: type.formatMessageId,
+												defaultMessage: type.defaultMessage,
+												description: type.description
+											})}
+											checked={props.distance === type.searchValue}
+											data-test-id={type.searchValue}
+										/>
+									</Grid>
+								))}
+							</Grid>
+						</RadioGroup>
+						Show results up to XXX from search location
 					</Grid>
 				</Grid>
 				<Grid container spacing={0} className={searchButtonContainer}>
