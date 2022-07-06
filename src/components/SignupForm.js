@@ -178,9 +178,17 @@ const SignupForm = (props) => {
 
 	const dialogSubTitle =
 		selection === LAWYER_TYPE ? (
-			<FormattedMessage id="account.signup-organization-law-affiliation-subtitle" />
+			<FormattedMessage
+				id="account.signup-organization-law-affiliation-subtitle"
+				defaultMessage="Find or add your organization in our App"
+				description="Organization Search form title"
+			/>
 		) : (
-			<FormattedMessage id="account.signup-organization-provider-affiliation-subtitle" />
+			<FormattedMessage
+				id="account.signup-organization-provider-affiliation-subtitle"
+				defaultMessage="Do you volunteer or work at an organization able to serve LGBTQ+ asylum seekers? Find or add your organization in our App."
+				description="Organization Search form title"
+			/>
 		);
 	return (
 		<div
@@ -195,7 +203,11 @@ const SignupForm = (props) => {
 			{activeStep === 3 && (
 				<>
 					<DialogTitle data-test-id="dialog-container-title">
-						<FormattedMessage id="account.signup-organization-affiliation-title" />
+						<FormattedMessage
+							id="account.signup-organization-affiliation-title"
+							defaultMessage="Connect Your Organization"
+							description="Organization Search form sub-title"
+						/>
 					</DialogTitle>
 					<DialogSubTitle
 						className={isMobile ? classes.sideMarginMobile : classes.sideMargin}
@@ -216,7 +228,11 @@ const SignupForm = (props) => {
 							data-test-id="sign-up-form-header-text"
 							align="left"
 						>
-							<FormattedMessage id="form.organization-name-title" />
+							<FormattedMessage
+								id="form.organization-name-title"
+								defaultMessage="Organization Name"
+								description="search box label"
+							/>
 						</Typography>
 						<OrganizationAutocomplete
 							handleBlurOrganizations={handleBlurOrganizations}
@@ -243,11 +259,19 @@ const SignupForm = (props) => {
 								testIdName="sign-up-form-join-organization-button"
 								type="submit"
 							>
-								<FormattedMessage id="account.join-organization" />
+								<FormattedMessage
+									id="account.join-organization"
+									defaultMessage="Request to join organization"
+									description="button to request to join an organization"
+								/>
 							</AsylumConnectButton>
 						</div>
 						<Typography variant="body1" data-test-id="sign-up-form-body-text">
-							<FormattedMessage id="account.join-organization-later" />
+							<FormattedMessage
+								id="account.join-organization-later"
+								defaultMessage="You may also join your organization later in Account Settings."
+								description="join organization later text"
+							/>
 						</Typography>
 						<Typography
 							className={classes.cursor}
@@ -255,7 +279,11 @@ const SignupForm = (props) => {
 							data-test-id="sign-up-form-skip-text"
 							onClick={() => handleSkip()}
 						>
-							<FormattedMessage id="action.skip" />
+							<FormattedMessage
+								id="action.skip"
+								defaultMessage="Skip"
+								description="skip this question button"
+							/>
 						</Typography>
 					</form>
 				</>
@@ -263,7 +291,11 @@ const SignupForm = (props) => {
 			{activeStep === 4 && (
 				<>
 					<DialogTitle>
-						<FormattedMessage id="account.signup-organization-affiliation-title" />
+						<FormattedMessage
+							id="account.signup-organization-affiliation-title"
+							defaultMessage="Connect Your Organization"
+							description="Organization Search form sub-title"
+						/>
 					</DialogTitle>
 					<div className={classes.greyLine} />
 					<form className={classes.formContainer} onSubmit={handleStepNext}>
@@ -273,14 +305,22 @@ const SignupForm = (props) => {
 								className={classes.orgBody1}
 								data-test-id="sign-up-form-org-request-rcv"
 							>
-								<FormattedMessage id="account.join-organization-request-received" />
+								<FormattedMessage
+									id="account.join-organization-request-received"
+									defaultMessage="Thank you for requesting to join your organization!"
+									description="thank you message part 1"
+								/>
 							</Typography>
 							<Typography
 								variant="body1"
 								className={isMobile ? classes.orgBodyMobile : classes.orgBody2}
 								data-test-id="sign-up-form-org-request-next"
 							>
-								<FormattedMessage id="account.join-organization-next-step" />
+								<FormattedMessage
+									id="account.join-organization-next-step"
+									defaultMessage="Please be on the lookout for an email from the InReach team shortly with next steps."
+									description="thank you message part 2"
+								/>
 							</Typography>
 						</div>
 						<div className={classes.marginVertical}>
@@ -288,7 +328,11 @@ const SignupForm = (props) => {
 								variant="primary"
 								testIdName="sign-up-form-finish-registration-button"
 							>
-								<FormattedMessage id="navigation.next" />
+								<FormattedMessage
+									id="navigation.next"
+									defaultMessage="Next"
+									description="button to go to the next page"
+								/>
 							</AsylumConnectButton>
 						</div>
 					</form>
@@ -306,7 +350,11 @@ const SignupForm = (props) => {
 			{activeStep === 10 && <AboutYouAge {...props}></AboutYouAge>}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
-					<FormattedMessage id="aboutyou.complete-later" />
+					<FormattedMessage
+						id="aboutyou.complete-later"
+						defaultMessage="You may complete this information later in Account Settings."
+						description="complete later message"
+					/>
 				</Typography>
 			)}
 			{activeStep < 3 && (
@@ -385,7 +433,11 @@ const SignupForm = (props) => {
 						onClick={handleStepBack}
 					>
 						<KeyboardArrowLeft />
-						<FormattedMessage id="navigation.back" />
+						<FormattedMessage
+							id="navigation.back"
+							defaultMessage="Back"
+							description="back button to go to previous page"
+						/>
 					</Button>
 				</div>
 			)}

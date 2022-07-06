@@ -1042,7 +1042,7 @@ class Detail extends React.Component {
 																<FormattedMessage
 																	id="resource.services-heading"
 																	defaultMessage="Services"
-																	description="Services secton title"
+																	description="Services section title"
 																/>
 															}
 															content={
@@ -1078,7 +1078,7 @@ class Detail extends React.Component {
 																		<FormattedMessage
 																			id="resource.cost-heading"
 																			defaultMessage="Costs"
-																			description="Costs secton title"
+																			description="Costs section title"
 																		/>
 																	}
 																	content={
@@ -1096,7 +1096,7 @@ class Detail extends React.Component {
 																		<FormattedMessage
 																			id="resource.requirements-heading"
 																			defaultMessage="Additional requirements"
-																			description="Additional requirements secton title"
+																			description="Additional requirements section title"
 																		/>
 																	}
 																	content={

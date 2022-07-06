@@ -20,7 +20,13 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
 	<form className={classes.container} onSubmit={handleSubmit}>
 		<TextField
 			id="email"
-			label={<FormattedMessage id="form.email" />}
+			label={
+				<FormattedMessage
+					id="form.email"
+					defaultMessage="Email"
+					description="text box to enter the email address of who you want to share this resource with"
+				/>
+			}
 			margin="normal"
 			name="email"
 			onChange={handleChange}
@@ -35,9 +41,17 @@ const ShareForm = ({classes, email, handleChange, handleSubmit, shareType}) => (
 			variant="primary"
 		>
 			{shareType === 'collection' ? (
-				<FormattedMessage id="action.share-list" />
+				<FormattedMessage
+					id="action.share-list"
+					defaultMessage="Share List"
+					description="button to share this item"
+				/>
 			) : (
-				<FormattedMessage id="action.share-resource" />
+				<FormattedMessage
+					id="action.share-resource"
+					defaultMessage="Share Resource"
+					description="button to share this item"
+				/>
 			)}
 		</AsylumConnectButton>
 	</form>

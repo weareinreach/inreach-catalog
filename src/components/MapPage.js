@@ -352,7 +352,11 @@ class MapPage extends React.Component {
 				.then(redirect)
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.no-location-entered" />
+						<FormattedMessage
+							id="error.no-location-entered"
+							defaultMessage="no location entered"
+							description="error because no location was entered"
+						/>
 					);
 					this.setState({
 						searchDisabled: false
@@ -484,7 +488,11 @@ class MapPage extends React.Component {
 				})
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.unspecified" />
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="generic error message"
+						/>
 					);
 				});
 		} else if (name !== null && name !== 'undefined') {

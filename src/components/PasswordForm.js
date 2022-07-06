@@ -19,11 +19,21 @@ const styles = (theme) => ({
 const PasswordForm = ({classes, handleChange, handleSubmit, password}) => (
 	<form className={classes.container} onSubmit={handleSubmit}>
 		<Typography variant="body1">
-			<FormattedMessage id="app.inactivity-sign-in" />
+			<FormattedMessage
+				id="app.inactivity-sign-in"
+				defaultMessage="Due to inactivity, please sign in to confirm your identity."
+				description=""
+			/>
 		</Typography>
 		<TextField
 			id="password"
-			label={<FormattedMessage id="form.password" />}
+			label={
+				<FormattedMessage
+					id="form.password"
+					defaultMessage="Password"
+					description="text field to enter paswword"
+				/>
+			}
 			margin="normal"
 			name="password"
 			onChange={handleChange}
@@ -32,7 +42,11 @@ const PasswordForm = ({classes, handleChange, handleSubmit, password}) => (
 			value={password}
 		/>
 		<AsylumConnectButton className={classes.spacingVertical} variant="primary">
-			<FormattedMessage id="form.confirm-password" />
+			<FormattedMessage
+				id="form.confirm-password"
+				defaultMessage="Confirm Password"
+				description="text field to confirm password"
+			/>
 		</AsylumConnectButton>
 	</form>
 );

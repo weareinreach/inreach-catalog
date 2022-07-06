@@ -83,15 +83,15 @@ class GeneralSettingsOrganization extends Component {
 						? handleMessageNew(
 								<FormattedMessage
 									id="account.already-organization-affiliate"
-									defaultMessage="You are already affiliated with {name}."
-									description="Message that you are already affiliated with {name}."
+									defaultMessage="You are already affiliated."
+									description="Message that you are already affiliated with the organization."
 									values={{name: organizationSelection.name}}
 								/>
 						  )
 						: handleMessageNew(
 								<FormattedMessage
 									id="account.organization-affiliation-pending"
-									defaultMessage="Your request to be affiliated with {name} is pending."
+									defaultMessage="Your request to be affiliated is pending."
 									description="Message that your request to be affiliated is pending."
 									values={{name: organizationSelection.name}}
 								/>
@@ -108,7 +108,7 @@ class GeneralSettingsOrganization extends Component {
 					handleMessageNew(
 						<FormattedMessage
 							id="account.organization-affiliation-request-received"
-							defaultMessage="Request to be affiliated with {name} received. You will be notified when it is approved."
+							defaultMessage="Request to be affiliated received. You will be notified when it is approved."
 							description="Message that your request to be affiliated was received."
 							values={{name: organizationSelection.name}}
 						/>
@@ -137,7 +137,7 @@ class GeneralSettingsOrganization extends Component {
 						<Typography>
 							<FormattedMessage
 								id="account.organization-affiliation-pending"
-								defaultMessage="Your request to be affiliated with {name} is pending."
+								defaultMessage="Your request to be affiliated is pending."
 								description="Message that your request to be affiliated is pending."
 								values={{name: affiliation.name}}
 							/>

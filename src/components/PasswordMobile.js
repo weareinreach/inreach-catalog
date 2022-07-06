@@ -47,7 +47,11 @@ const PasswordMobile = ({
 				/>
 			</Toolbar>
 			<DialogTitle>
-				<FormattedMessage id="form.confirm-password" />
+				<FormattedMessage
+					id="form.confirm-password"
+					defaultMessage="Password Confirmed"
+					description="message that the password was correct"
+				/>
 			</DialogTitle>
 			<PasswordFormContainer
 				handleConfirmSession={handleConfirmSession}

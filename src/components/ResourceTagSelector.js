@@ -79,7 +79,13 @@ class ResourceTagSelector extends React.Component {
 
 		return (
 			<AsylumConnectSelector
-				label={<FormattedMessage id="search.service-types" />}
+				label={
+					<FormattedMessage
+						id="search.service-types"
+						defaultMessage="Service Types"
+						description="service types dropdown"
+					/>
+				}
 				selected={selectedResourceTags}
 				containerWidth={containerWidth}
 				containerClass={searchInput}

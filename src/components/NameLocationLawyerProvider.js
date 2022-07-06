@@ -175,13 +175,13 @@ const NameLocationLawyerProvider = (props) => {
 			<FormattedMessage
 				id="account.signup-organization-orgType-lawyer"
 				defaultMessage="Where do you practice law? *"
-				description=""
+				description="question - for lawyer form"
 			/>
 		) : (
 			<FormattedMessage
 				id="account.signup-organization-orgType-provider"
 				defaultMessage="Where do you work or volunteer? *"
-				description=""
+				description="question for volunteer form"
 			/>
 		);
 	const orgTypeOptions =
@@ -193,13 +193,13 @@ const NameLocationLawyerProvider = (props) => {
 			<FormattedMessage
 				id="account.signup-organization-orgType-lawyer-other"
 				defaultMessage="I practice law here:"
-				description=""
+				description="placeholder for the I practice law here, input field"
 			/>
 		) : (
 			<FormattedMessage
 				id="account.signup-organization-orgType-provider-other"
 				defaultMessage="I work/volunteer here:"
-				description=""
+				description="placeholder for the I volunteer here, input field"
 			/>
 		);
 
@@ -228,7 +228,7 @@ const NameLocationLawyerProvider = (props) => {
 					<FormattedMessage
 						id="account.sign-up"
 						defaultMessage="Sign Up"
-						description=""
+						description="Sign Up dialog title"
 					/>
 				</DialogTitle>
 			)}
@@ -236,7 +236,7 @@ const NameLocationLawyerProvider = (props) => {
 				<FormattedMessage
 					id="app.welcome-main-3"
 					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-					description=""
+					description="Sub-title describing the InReach application"
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -251,7 +251,7 @@ const NameLocationLawyerProvider = (props) => {
 					<FormattedMessage
 						id="form.lawyer-organization-name"
 						defaultMessage="First and Last Name"
-						description=""
+						description="label for the Name input field"
 					/>
 				</FormLabel>
 				<TextField
@@ -262,13 +262,13 @@ const NameLocationLawyerProvider = (props) => {
 							<FormattedMessage
 								id="error.text-field-name"
 								defaultMessage="'Name' field must contain at least 2 characters"
-								description=""
+								description="error message if the Name input field is not formatted properly"
 							/>
 						) : touchedName && textFieldTest.test(name) ? (
 							<FormattedMessage
 								id="form.field-valid-name"
 								defaultMessage="'Name' field is valid"
-								description=""
+								description="Success message if the Name field is formatted properly"
 							/>
 						) : null
 					}
@@ -295,7 +295,7 @@ const NameLocationLawyerProvider = (props) => {
 					<FormattedMessage
 						id="account.signup-organization-location"
 						defaultMessage="Current location"
-						description=""
+						description="Loation input field label"
 					/>
 				</FormLabel>
 				<TextField
@@ -306,13 +306,13 @@ const NameLocationLawyerProvider = (props) => {
 							<FormattedMessage
 								id="error.text-field-location"
 								defaultMessage="'Location' field must contain at least 2 characters"
-								description=""
+								description="error message if the Location input field is not formatted properly"
 							/>
 						) : touchedLocation && textFieldTest.test(currentLocation) ? (
 							<FormattedMessage
 								id="form.field-valid-location"
 								defaultMessage="'Location' field is valid"
-								description=""
+								description="Success message if the Name field is formatted properly"
 							/>
 						) : null
 					}
@@ -371,13 +371,13 @@ const NameLocationLawyerProvider = (props) => {
 									<FormattedMessage
 										id="error.text-field-orgType"
 										defaultMessage="'Organization Type' field must contain at least 2 characters"
-										description=""
+										description="Error message for the Organization input field"
 									/>
 								) : touchedOrgType && textFieldTest.test(specifiedOrgType) ? (
 									<FormattedMessage
 										id="form.field-valid-orgType"
 										defaultMessage="'Organization Type' field is valid"
-										description=""
+										description="Success message for the Organization input field"
 									/>
 								) : null
 							}
@@ -413,7 +413,7 @@ const NameLocationLawyerProvider = (props) => {
 					<FormattedMessage
 						id="navigation.next"
 						defaultMessage="Next"
-						description=""
+						description="Next button"
 					/>
 				</AsylumConnectButton>
 			</form>

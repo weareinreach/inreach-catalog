@@ -26,7 +26,11 @@ function renderInput(inputProps) {
 				htmlFor="organization"
 				className={`${classes.textFieldLabel} ${classes.textAlignLeft} ${classes.colorGrey}`}
 			>
-				<FormattedMessage id="form.organization-name-placeholder" />
+				<FormattedMessage
+					id="form.organization-name-placeholder"
+					defaultMessage="your organization name"
+					description="organization placeholder text for the search input field"
+				/>
 			</InputLabel>
 			<Input
 				id="organization"
@@ -123,7 +127,11 @@ function renderSuggestionsContainer(options) {
 							style={{fontWeight: 200}}
 							data-test-id="sign-up-form-no-organization"
 						>
-							<FormattedMessage id="form.cant-find-organization" />
+							<FormattedMessage
+								id="form.cant-find-organization"
+								defaultMessage="Can't find it? Use the form below to add a new organization"
+								description="instruction to use the Suggest Resource form when an Organization can't be found"
+							/>
 						</span>
 					</MenuItem>
 				</Link>
