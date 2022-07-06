@@ -21,14 +21,22 @@ const styles = (theme) => ({
 const PromptReconfirm = ({classes, handleRequestOpen}) => (
 	<Paper className={classes.container}>
 		<Typography className={classes.spacingVertical}>
-			<FormattedMessage id="app.sensitive-information-sign-in-prompt" />
+			<FormattedMessage
+				id="app.sensitive-information-sign-in-prompt"
+				defaultMessage="This page contains sensitive information. For your security, please sign in."
+				description="warning message about sensitive information"
+			/>
 		</Typography>
 		<AsylumConnectButton
 			className={classes.spacingVertical}
 			onClick={() => handleRequestOpen('password')}
 			variant="primary"
 		>
-			<FormattedMessage id="account.sign-in" />
+			<FormattedMessage
+				id="account.sign-in"
+				defaultMessage="Sign in"
+				description="button to open sign in dialog"
+			/>
 		</AsylumConnectButton>
 	</Paper>
 );

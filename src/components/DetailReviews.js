@@ -76,7 +76,11 @@ const ReviewList = ({title, classes, list}) => (
 				variant="body2"
 				className={classes.boldFont}
 			>
-				<FormattedMessage id="resource.no-reviews" />
+				<FormattedMessage
+					id="resource.no-reviews"
+					defaultMessage="No Reviews"
+					description="Text indicating there are no reviews for this resource"
+				/>
 			</Typography>
 		)}
 	</div>
@@ -91,7 +95,13 @@ const Reviews = ({classes, reviews}) => (
 						<Loading />
 					) : (
 						<ReviewList
-							title={<FormattedMessage id="resource.reviews-heading" />}
+							title={
+								<FormattedMessage
+									id="resource.reviews-heading"
+									defaultMessage="Reviews"
+									description="Label for Reviews section"
+								/>
+							}
 							list={reviews}
 							classes={classes}
 						/>

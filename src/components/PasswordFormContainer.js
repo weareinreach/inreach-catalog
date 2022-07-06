@@ -33,15 +33,33 @@ class PasswordFormContainer extends React.Component {
 		} = this.props;
 		catalogPost(this.state.password, session)
 			.then((response) => {
-				handleMessageNew(<FormattedMessage id="action.confirm-password" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="action.confirm-password"
+						defaultMessage="Password Confirmed"
+						description="message that the password has been entered correctly"
+					/>
+				);
 				handleConfirmSession();
 				handleRequestClose();
 			})
 			.catch((error) => {
 				if (error.response.status === 401) {
-					handleMessageNew(<FormattedMessage id="error.incorrect-password" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.incorrect-password"
+							defaultMessage="The password you entered was incorrect."
+							description="message that the password was not correct"
+						/>
+					);
 				} else {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="genreic error message"
+						/>
+					);
 				}
 			});
 	}
