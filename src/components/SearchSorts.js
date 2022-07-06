@@ -44,17 +44,49 @@ const styles = (theme) => ({
 });
 
 const sortCollection = [
-	[{label: <FormattedMessage id="search.sort-by-relevance" />, name: 'best'}],
 	[
 		{
-			label: <FormattedMessage id="search.sort-by-distance" />,
+			label: (
+				<FormattedMessage
+					id="search.sort-by-relevance"
+					defaultMessage="Sort by relevance (default)"
+					description="ption to sort the results by relevance"
+				/>
+			),
+			name: 'best'
+		}
+	],
+	[
+		{
+			label: (
+				<FormattedMessage
+					id="search.sort-by-distance"
+					defaultMessage="Sort by distance"
+					description="option to sort the results by distance"
+				/>
+			),
 			name: 'distance'
 		},
 		{
-			label: <FormattedMessage id="search.sort-by-popularity" />,
+			label: (
+				<FormattedMessage
+					id="search.sort-by-popularity"
+					defaultMessage="Sort by popularity"
+					description="ption to sort the results by popularity"
+				/>
+			),
 			name: 'popularity'
 		},
-		{label: <FormattedMessage id="search.sort-by-newest" />, name: 'newest'}
+		{
+			label: (
+				<FormattedMessage
+					id="search.sort-by-newest"
+					defaultMessage="Sort by newest"
+					description="ption to sort the results by newest"
+				/>
+			),
+			name: 'newest'
+		}
 	]
 ];
 

@@ -17,6 +17,15 @@ import {fetchOrganizations} from '../utils/api';
 import infograph from '../utils/infographics';
 import ResourceTypes from '../utils/tags';
 
+import {returnOrgNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const styles = (theme) => ({
 	searchArea: {
 		padding: '2rem'
@@ -343,7 +352,11 @@ class MapPage extends React.Component {
 				.then(redirect)
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.no-location-entered" />
+						<FormattedMessage
+							id="error.no-location-entered"
+							defaultMessage="no location entered"
+							description="error because no location was entered"
+						/>
 					);
 					this.setState({
 						searchDisabled: false
@@ -475,7 +488,11 @@ class MapPage extends React.Component {
 				})
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.unspecified" />
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="generic error message"
+						/>
 					);
 				});
 		} else if (name !== null && name !== 'undefined') {
@@ -517,10 +534,14 @@ class MapPage extends React.Component {
 	}
 
 	processSearchResults(data, nextPage) {
-		const newOrgs = (data?.organizations || []).map((org) => ({
+		var newOrgs = (data?.organizations || []).map((org) => ({
 			...org,
 			resource_type: 'Organization'
 		}));
+
+		newOrgs = doNativeTranslation
+			? returnOrgNativeLanguageData(newOrgs, langCode)
+			: newOrgs;
 
 		this.setState((prevState) => ({
 			endOfList: newOrgs.length === 0,

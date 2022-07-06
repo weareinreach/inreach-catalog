@@ -133,18 +133,38 @@ const NameEmailPswd = (props) => {
 
 	const emailLabel =
 		selection === SEEKER_TYPE ? (
-			<FormattedMessage id="form.email" />
+			<FormattedMessage
+				id="form.email"
+				defaultMessage="Email"
+				description="Entry for Email as a Seeker"
+			/>
 		) : selection === LAWYER_TYPE ? (
-			<FormattedMessage id="form.lawyer-email" />
+			<FormattedMessage
+				id="form.lawyer-email"
+				defaultMessage="Organization Email"
+				description="Entry for Email as a Lawyer"
+			/>
 		) : (
-			<FormattedMessage id="form.organization-email" />
+			<FormattedMessage
+				id="form.organization-email"
+				defaultMessage="Organization or personal Email"
+				description="Entry for Email as an Organization"
+			/>
 		);
 
 	const nameLabel =
 		selection === SEEKER_TYPE ? (
-			<FormattedMessage id="form.name" />
+			<FormattedMessage
+				id="form.name"
+				defaultMessage="Name (or Alias)"
+				description="Entry for Name as a Seeker"
+			/>
 		) : (
-			<FormattedMessage id="form.lawyer-organization-name" />
+			<FormattedMessage
+				id="form.lawyer-organization-name"
+				defaultMessage="First and Last Name"
+				description="Entry for Name as a Lawyer or Organization"
+			/>
 		);
 
 	const [touchedName, setTouchedName] = useState(false);
@@ -176,11 +196,19 @@ const NameEmailPswd = (props) => {
 		<>
 			{!isMobile && (
 				<DialogTitle>
-					<FormattedMessage id="account.sign-up" />
+					<FormattedMessage
+						id="account.sign-up"
+						defaultMessage="Sign Up"
+						description="Account Sign Up Pop-Up"
+					/>
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="app.welcome-main-3" />
+				<FormattedMessage
+					id="app.welcome-main-3"
+					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+					description="sign up dialog header message"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -206,9 +234,17 @@ const NameEmailPswd = (props) => {
 							error={touchedName && !textFieldTest.test(name)}
 							helperText={
 								touchedName && !textFieldTest.test(name) ? (
-									<FormattedMessage id="error.text-field-name" />
+									<FormattedMessage
+										id="error.text-field-name"
+										defaultMessage="'Name' field must contain at least 2 characters"
+										description="error message if name value does not meet requirements"
+									/>
 								) : touchedName && textFieldTest.test(name) ? (
-									<FormattedMessage id="form.field-valid-name" />
+									<FormattedMessage
+										id="form.field-valid-name"
+										defaultMessage="'Name' field is valid"
+										description="success message when name value meets requirements"
+									/>
 								) : null
 							}
 							id="name"
@@ -245,9 +281,17 @@ const NameEmailPswd = (props) => {
 					error={touchedEmail && !emailTest.test(email)}
 					helperText={
 						touchedEmail && !emailTest.test(email) ? (
-							<FormattedMessage id="error.email-format" />
+							<FormattedMessage
+								id="error.email-format"
+								defaultMessage="Your email should have a format similar to 'john@gmail.com'"
+								description="error message when email is not formatted properly"
+							/>
 						) : touchedEmail && emailTest.test(email) ? (
-							<FormattedMessage id="form.field-valid-email" />
+							<FormattedMessage
+								id="form.field-valid-email"
+								defaultMessage="'Email' field is valid"
+								description="success message when email is formatted properly"
+							/>
 						) : null
 					}
 					id="email"
@@ -275,16 +319,28 @@ const NameEmailPswd = (props) => {
 					margin="none"
 					data-test-id="sign-up-form-password-label"
 				>
-					<FormattedMessage id="form.password" />
+					<FormattedMessage
+						id="form.password"
+						defaultMessage="Password"
+						description="Text field to enter a password"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedPassword}
 					error={touchedPassword && !pswdTest.test(password)}
 					helperText={
 						touchedPassword && !pswdTest.test(password) ? (
-							<FormattedMessage id="error.password-format" />
+							<FormattedMessage
+								id="error.password-format"
+								defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
+								description="error message when password does not meet requirements"
+							/>
 						) : touchedPassword && pswdTest.test(password) ? (
-							<FormattedMessage id="form.field-valid-password" />
+							<FormattedMessage
+								id="form.field-valid-password"
+								defaultMessage="'Password' field is valid"
+								description="success message when password meets requirements"
+							/>
 						) : null
 					}
 					id="password"
@@ -313,7 +369,11 @@ const NameEmailPswd = (props) => {
 					variant={SEEKER_TYPE ? 'signUp' : 'primary'}
 					className={classes.noBottomMargin}
 				>
-					<FormattedMessage id="account.sign-up" />
+					<FormattedMessage
+						id="account.sign-up"
+						defaultMessage="Sign Up"
+						description="Account Sign Up Pop Up"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

@@ -55,63 +55,93 @@ const Badge = ({
 	const typeMapping = {
 		abortionCare: {
 			label: 'service-type.abortion-care',
-			icon: <AbortionCareIcon />
+			icon: <AbortionCareIcon />,
+			defaultMessage: 'Abortion Care',
+			description: 'Label for Abortion Care icon'
 		},
 		communitySupport: {
 			label: 'service-type.community-support',
-			icon: <CommunitySupportIcon />
+			icon: <CommunitySupportIcon />,
+			defaultMessage: 'Community Support',
+			description: 'Label for Community Support icon'
 		},
 		computers: {
 			label: 'service-type.computers-internet',
-			icon: <ComputersIcon />
+			icon: <ComputersIcon />,
+			defaultMessage: 'Computers and Internet',
+			description: 'Label for Computers and Internet icon'
 		},
 		educationEmployment: {
 			label: 'service-type.education-employment',
-			icon: <EducationEmploymentIcon />
+			icon: <EducationEmploymentIcon />,
+			defaultMessage: 'Education and Employment',
+			description: 'Label for Education and Employment icon'
 		},
 		food: {
 			label: 'service-type.food',
-			icon: <FoodIcon />
+			icon: <FoodIcon />,
+			defaultMessage: 'Food',
+			description: 'Label for Food icon'
 		},
 		housing: {
 			label: 'service-type.housing',
-			icon: <HousingIcon />
+			icon: <HousingIcon />,
+			defaultMessage: 'Housing',
+			description: 'Label for Housing icon'
 		},
 		hygiene: {
 			label: 'service-type.hygiene-clothing',
-			icon: <ClothingIcon />
+			icon: <ClothingIcon />,
+			defaultMessage: 'Hygiene and Clothing',
+			description: 'Label for Hygiene and Clothing icon'
 		},
 		legal: {
 			label: 'service-type.legal',
-			icon: <LegalIcon />
+			icon: <LegalIcon />,
+			defaultMessage: 'Legal',
+			description: 'Label for Legal icon'
 		},
 		mail: {
 			label: 'service-type.mail',
-			icon: <MailIcon />
+			icon: <MailIcon />,
+			defaultMessage: 'Mail',
+			description: 'Label for Mail icon'
 		},
 		medical: {
 			label: 'service-type.medical',
-			icon: <MedicalIcon />
+			icon: <MedicalIcon />,
+			defaultMessage: 'Medical',
+			description: 'Label for Medical icon'
 		},
 		mentalHealth: {
 			label: 'service-type.mental-health',
-			icon: <MentalHealthIcon />
+			icon: <MentalHealthIcon />,
+			defaultMessage: 'Mental Health',
+			description: 'Label for ental Health icon'
 		},
 		misc: {
 			label: 'service-type.other-services',
-			icon: <MiscIcon />
+			icon: <MiscIcon />,
+			defaultMessage: 'Other',
+			description: 'Label for Other icon'
 		},
 		speechBubble: {
 			label: 'service-type.translation-interpretation',
-			icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />
+			icon: <SpeechBubblesIcon fillColor="#5073b3" strokeColor="#FFFFFF" />,
+			defaultMessage: 'Translation Services',
+			description: 'Label for Translation Services icon'
 		},
 		sportsEntertainment: {
 			label: 'service-type.sports-entertainment',
-			icon: <SportsEntertainmentIcon />
+			icon: <SportsEntertainmentIcon />,
+			defaultMessage: 'Sports and Entertainment',
+			description: 'Label for Sports and Entertainment icon'
 		},
 		transportation: {
 			label: 'service-type.transportation',
-			icon: <TransportationIcon />
+			icon: <TransportationIcon />,
+			defaultMessage: 'Transportation',
+			description: 'Label for Transportation icon'
 		}
 	};
 

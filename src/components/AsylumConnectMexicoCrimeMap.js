@@ -63,6 +63,8 @@ const AsylumConnectMexicoCrimeMap = ({classes}) => {
 							<span style={{display: 'inline-block', color: '#E1001C'}}>
 								<FormattedMessage
 									id="app.mexico-crime-map-generalised-murder-heading"
+									defaultMessage="Generalised Murder Rate:"
+									description="Heading for the murder rate data"
 									values={{data: data}}
 								/>
 							</span>

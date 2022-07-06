@@ -227,7 +227,11 @@ class ResourceListItem extends React.Component {
 										data-test-id="resource-list-item"
 									>
 										<Fa name="info-circle" className={moreInfo} />
-										<FormattedMessage id="resource.is-national-organization" />
+										<FormattedMessage
+											id="resource.is-national-organization"
+											defaultMessage="This organization can help people located anywhere in the country."
+											description="icon that indicates this organization has National reach"
+										/>
 									</Typography>
 								</Grid>
 							) : null}
@@ -332,7 +336,11 @@ class ResourceListItem extends React.Component {
 								<Grid item xs={12}>
 									<Typography variant="body1" className={nationalOrg}>
 										<Fa name="info-circle" className={moreInfo} />{' '}
-										<FormattedMessage id="resource.is-national-organization" />
+										<FormattedMessage
+											id="resource.is-national-organization"
+											defaultMessage="This organization can help people located anywhere in the country."
+											description="icon that indicates this organization has National reach"
+										/>
 									</Typography>
 								</Grid>
 							) : null}
@@ -349,7 +357,11 @@ class ResourceListItem extends React.Component {
 														<span>
 															...
 															<Link to={link} className={moreInfo}>
-																<FormattedMessage id="resource.read-more" />
+																<FormattedMessage
+																	id="resource.read-more"
+																	defaultMessage="Read More"
+																	description="link to get more information"
+																/>
 															</Link>
 														</span>
 													}
@@ -378,7 +390,11 @@ class ResourceListItem extends React.Component {
 										<Grid item xs={12} className={labelClass}>
 											<Typography variant="body2" className={lineSpacing}>
 												<strong className={classes.boldFont + ' ' + labelClass}>
-													<FormattedMessage id="resource.who-it-serves" />{' '}
+													<FormattedMessage
+														id="resource.who-it-serves"
+														defaultMessage="who this resource serves"
+														description="label for the text that decribes who this resource can help"
+													/>{' '}
 												</strong>
 												{resource.opportunity_community_properties
 													.map((item) => {

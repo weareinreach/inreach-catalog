@@ -83,7 +83,13 @@ class GeneralSettingsPassword extends React.Component {
 		const {currentPassword, newPassword, confirmedPassword, email} = this.state;
 
 		if (!currentPassword || !newPassword || !confirmedPassword) {
-			handleMessageNew(<FormattedMessage id="error.required-field-empty" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.required-field-empty"
+					defaultMessage="Please fill out all fields"
+					description="Error message that all fields must be filled out."
+				/>
+			);
 		}
 		if (currentPassword && newPassword && confirmedPassword) {
 			if (newPassword === confirmedPassword) {
@@ -97,21 +103,35 @@ class GeneralSettingsPassword extends React.Component {
 								.handleUpdatePassword(currentPassword, newPassword)
 								.then(() => {
 									handleMessageNew(
-										<FormattedMessage id="action.update-password-successful" />
+										<FormattedMessage
+											id="action.update-password-successful"
+											defaultMessage="Your password has been updated successfully!"
+											description="Success message that your password has been updated."
+										/>
 									);
 								})
 								.catch(() => {
 									this.setState({currentPassword: ''});
 									this.setState({newPassword: ''});
 									this.setState({confirmedPassword: ''});
-									handleMessageNew(<FormattedMessage id="error.unspecified" />);
+									handleMessageNew(
+										<FormattedMessage
+											id="error.unspecified"
+											defaultMessage="Oops! Something went wrong."
+											description="Error message from processing the request."
+										/>
+									);
 								});
 						} else {
 							this.setState({currentPassword: ''});
 							this.setState({newPassword: ''});
 							this.setState({confirmedPassword: ''});
 							handleMessageNew(
-								<FormattedMessage id="error.incorrect-password" />
+								<FormattedMessage
+									id="error.incorrect-password"
+									defaultMessage="The password you entered was incorrect"
+									description="Error message that the entered password is incorrect."
+								/>
 							);
 						}
 					})
@@ -119,13 +139,25 @@ class GeneralSettingsPassword extends React.Component {
 						this.setState({currentPassword: ''});
 						this.setState({newPassword: ''});
 						this.setState({confirmedPassword: ''});
-						handleMessageNew(<FormattedMessage id="error.unspecified" />);
+						handleMessageNew(
+							<FormattedMessage
+								id="error.unspecified"
+								defaultMessage="Oops! Something went wrong."
+								description="Error message from processing the request."
+							/>
+						);
 					});
 			} else {
 				this.setState({currentPassword: ''});
 				this.setState({newPassword: ''});
 				this.setState({confirmedPassword: ''});
-				handleMessageNew(<FormattedMessage id="error.password-mismatch" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.password-mismatch"
+						defaultMessage="The passwords you have entered do not match."
+						description="Message that the passwords entered must match."
+					/>
+				);
 			}
 		}
 	}
@@ -150,9 +182,21 @@ class GeneralSettingsPassword extends React.Component {
 		let errorMsg = '';
 
 		if (year < '2022') {
-			errorMsg = <FormattedMessage id="error.password-length" />;
+			errorMsg = (
+				<FormattedMessage
+					id="error.password-length"
+					defaultMessage="Password must be at least 8 characters."
+					description="Message that passwords must have at least 8 characters."
+				/>
+			);
 		} else if (year > '2021') {
-			errorMsg = <FormattedMessage id="error.password-format" />;
+			errorMsg = (
+				<FormattedMessage
+					id="error.password-format"
+					defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
+					description="Message that the password is invalid."
+				/>
+			);
 		}
 
 		function errorCheck(value) {
@@ -171,7 +215,11 @@ class GeneralSettingsPassword extends React.Component {
 					className={classes.settingsTypeFont}
 				>
 					<span>
-						<FormattedMessage id="action.update-password" />
+						<FormattedMessage
+							id="action.update-password"
+							defaultMessage="Update password"
+							description="Update password dropdown button"
+						/>
 					</span>
 					{this.state.open ? <ExpandLess /> : <ExpandMore />}
 				</div>
@@ -181,7 +229,13 @@ class GeneralSettingsPassword extends React.Component {
 							data-test-id="account-settings-password-old-password"
 							className={classes.inputLabel}
 							name="currentPassword"
-							label={<FormattedMessage id="form.current-password" />}
+							label={
+								<FormattedMessage
+									id="form.current-password"
+									defaultMessage="Current password"
+									description="Current password input field"
+								/>
+							}
 							type="password"
 							error={
 								(year < '2022' &&
@@ -213,12 +267,22 @@ class GeneralSettingsPassword extends React.Component {
 							data-test-id="account-settings-password-new-password"
 							className={classes.inputLabel}
 							name="newPassword"
-							label={<FormattedMessage id="form.new-password" />}
+							label={
+								<FormattedMessage
+									id="form.new-password"
+									defaultMessage="New password"
+									description="New password input field"
+								/>
+							}
 							type="password"
 							error={errorCheck(newPassword)}
 							helperText={
 								errorCheck(newPassword) ? (
-									<FormattedMessage id="error.password-format" />
+									<FormattedMessage
+										id="error.password-format"
+										defaultMessage="Invalid password - your password must be at least 10 characters long; it must contain 1 uppercase character, 1 number, and 1 special character of the following !@#$%^&?"
+										description="Message that the password is invalid."
+									/>
 								) : null
 							}
 							value={newPassword}
@@ -233,12 +297,22 @@ class GeneralSettingsPassword extends React.Component {
 							data-test-id="account-settings-password-new-password-confirm"
 							className={classes.inputLabel}
 							name="confirmedPassword"
-							label={<FormattedMessage id="form.confirm-new-password" />}
+							label={
+								<FormattedMessage
+									id="form.confirm-new-password"
+									defaultMessage="Confirm new password"
+									description="Confirm new password input field"
+								/>
+							}
 							type="password"
 							error={errorConfirmMatch(confirmedPassword, newPassword)}
 							helperText={
 								errorConfirmMatch(confirmedPassword, newPassword) ? (
-									<FormattedMessage id="error.password-mismatch" />
+									<FormattedMessage
+										id="error.password-mismatch"
+										defaultMessage="The passwords you have entered do not match."
+										description="Error message that the passwords do not match."
+									/>
 								) : null
 							}
 							value={confirmedPassword}
@@ -254,7 +328,11 @@ class GeneralSettingsPassword extends React.Component {
 								variant="secondary"
 								testIdName="account-settings-password-button"
 							>
-								<FormattedMessage id="action.update-password" />
+								<FormattedMessage
+									id="action.update-password"
+									defaultMessage="Update password"
+									description="Update password button"
+								/>
 							</AsylumConnectButton>
 						</div>
 					</form>

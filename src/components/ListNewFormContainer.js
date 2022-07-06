@@ -43,7 +43,13 @@ class ListNewFormContainer extends React.Component {
 		createList(payload, session)
 			.then((data) => {
 				if (data.error) {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="an error message that something went wrong"
+						/>
+					);
 					handleRequestClose();
 					return;
 				}
@@ -52,13 +58,25 @@ class ListNewFormContainer extends React.Component {
 			})
 			.catch((error) => {
 				if (error.response && error.response.status === 401) {
-					handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="app.inactivity-sign-in"
+							defaultMessage="Due to inactivity, please sign in to confirm your identity."
+							description="error that user is not signed in"
+						/>
+					);
 					handleLogOut();
 					handleRequestClose();
 				} else if (error.response && error.response.status === 403) {
 					handleRequestOpen('password');
 				} else {
-					handleMessageNew(<FormattedMessage id="error.unspecified" />);
+					handleMessageNew(
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="an error message that something went wrong"
+						/>
+					);
 					handleRequestClose();
 				}
 			});

@@ -43,7 +43,11 @@ const LoginForm = ({
 		data-test-id="log-in-dialog-container-login-form"
 		onSubmit={handleSubmit}
 	>
-		<FormattedMessage id="form.email">
+		<FormattedMessage
+			id="form.email"
+			defaultMessage="Email"
+			description="sign in form, email input field"
+		>
 			{(emailText) => (
 				<TextField
 					id="email"
@@ -58,7 +62,11 @@ const LoginForm = ({
 				/>
 			)}
 		</FormattedMessage>
-		<FormattedMessage id="form.password">
+		<FormattedMessage
+			id="form.password"
+			defaultMessage="Password"
+			description="sign in form, password input field"
+		>
 			{(passwordText) => (
 				<TextField
 					id="password"
@@ -75,9 +83,17 @@ const LoginForm = ({
 		</FormattedMessage>
 
 		<Typography variant="body1" className={classes.paddingVertical}>
-			<FormattedMessage id="legal.sign-in-agree-to-terms" />
+			<FormattedMessage
+				id="legal.sign-in-agree-to-terms"
+				defaultMessage="By clicking Sign in, you agree to InReach's"
+				description="part 1 of terms and conditions"
+			/>
 			{` `}
-			<FormattedMessage id="legal.privacy-policy">
+			<FormattedMessage
+				id="legal.privacy-policy"
+				defaultMessage="Privacy Policy"
+				description="label for privacy policy"
+			>
 				{(privacy) => (
 					<a
 						href="https://inreach.org/privacy/"
@@ -89,8 +105,8 @@ const LoginForm = ({
 					</a>
 				)}
 			</FormattedMessage>{' '}
-			<FormattedMessage id="legal.and" />{' '}
-			<FormattedMessage id="legal.terms-of-use">
+			<FormattedMessage id="legal.and" defaultMessage="and" />{' '}
+			<FormattedMessage id="legal.terms-of-use" defaultMessage="Terms of Use">
 				{(terms) => (
 					<a
 						href="https://inreach.org/terms-of-use/"
@@ -103,7 +119,11 @@ const LoginForm = ({
 				)}
 			</FormattedMessage>
 		</Typography>
-		<FormattedMessage id="account.sign-in">
+		<FormattedMessage
+			id="account.sign-in"
+			defaultMessage="Sign In"
+			description="sign in button"
+		>
 			{(signIn) => (
 				<AsylumConnectButton
 					variant="signUp"
@@ -114,7 +134,11 @@ const LoginForm = ({
 			)}
 		</FormattedMessage>
 
-		<FormattedMessage id="account.forgot-password">
+		<FormattedMessage
+			id="account.forgot-password"
+			defaultMessage="Forgot Password"
+			description="link to request password reset"
+		>
 			{(forgot) => (
 				<p onClick={() => handleRequestOpen('forgot')}>
 					<Typography
@@ -127,7 +151,11 @@ const LoginForm = ({
 				</p>
 			)}
 		</FormattedMessage>
-		<FormattedMessage id="account.no-account">
+		<FormattedMessage
+			id="account.no-account"
+			defaultMessage="Don't have an account?"
+			description="link to go to the create account form"
+		>
 			{(noAccount) => (
 				<p
 					onClick={() => handleRequestOpen('signup')}

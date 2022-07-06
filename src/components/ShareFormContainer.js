@@ -42,7 +42,13 @@ class ShareFormContainer extends React.Component {
 			!listId ||
 			!shareType
 		) {
-			handleMessageNew(<FormattedMessage id="error.invalid-request" />);
+			handleMessageNew(
+				<FormattedMessage
+					id="error.invalid-request"
+					defaultMessage="Invalid request"
+					description="error message - invalid request"
+				/>
+			);
 			return;
 		}
 		try {
@@ -57,21 +63,41 @@ class ShareFormContainer extends React.Component {
 			await shareResource(payload);
 			handleMessageNew(
 				shareType === 'collection' ? (
-					<FormattedMessage id="favorites.share-list-success-message" />
+					<FormattedMessage
+						id="favorites.share-list-success-message"
+						defaultMessage="List shared succesfully"
+						description="success message"
+					/>
 				) : (
-					<FormattedMessage id="favorites.share-resource-success-message" />
+					<FormattedMessage
+						id="favorites.share-resource-success-message"
+						defaultMessage="Resource shared succesfully"
+						description="success message"
+					/>
 				)
 			);
 			handleRequestClose();
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
-				handleMessageNew(<FormattedMessage id="app.inactivity-sign-in" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="app.inactivity-sign-in"
+						defaultMessage="Due to inactivity, please sign in to confirm your identity."
+						description="must be signed in error"
+					/>
+				);
 				handleLogOut();
 				handleRequestClose();
 			} else if (error.response && error.response.status === 403) {
 				handleRequestOpen('password');
 			} else {
-				handleMessageNew(<FormattedMessage id="error.unspecified" />);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong"
+						description="generic error"
+					/>
+				);
 				handleRequestClose();
 			}
 		}
