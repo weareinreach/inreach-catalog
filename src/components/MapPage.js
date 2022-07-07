@@ -54,7 +54,7 @@ class MapPage extends React.Component {
 			selectedFilters,
 			selectedSort,
 			name,
-			distance
+			selectedDistance
 		} = this.parseParams(props.match.params);
 		this.props.handleAddressChange(nearAddress);
 		this.state = {
@@ -78,7 +78,7 @@ class MapPage extends React.Component {
 			selectedService: null,
 			lastSearch: null,
 			orgName: name ?? null,
-			distance: null
+			selectedDistance: isNational ? 'isNational' : null
 		};
 
 		this.recentResourceCache = {};
@@ -102,6 +102,7 @@ class MapPage extends React.Component {
 		this.clearSearchStatus = this.clearSearchStatus.bind(this);
 		this.handleSearchByOrgName = this.handleSearchByOrgName.bind(this);
 		this.handleOrgSelection = this.handleOrgSelection.bind(this);
+		this.handleDistanceSelection = this.handleDistanceSelection.bind(this);
 	}
 
 	componentDidMount() {
@@ -221,6 +222,12 @@ class MapPage extends React.Component {
 
 	handleNationalCheckBox(event) {
 		this.setState({isNational: event.target.checked});
+	}
+
+	handleDistanceSelection(event) {
+		const {name, value} = event.target;
+		this.setState({[name]: value});
+		value == 'isNational' ? this.setState({isNational: true}) : null;
 	}
 
 	handleResourceTypeSelect(event, checked) {
@@ -568,7 +575,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes = [],
 			selectedFilters = [],
 			selectedSort = 'best',
-			name = null;
+			name = null,
+			selectedDistance = isNational ? 'isNational' : null;
 		if (params.in) {
 			inState = {long_name: decodeURIComponent(params.in)};
 		}
@@ -718,6 +726,7 @@ class MapPage extends React.Component {
 											handlePlaceChange={this.handlePlaceChange}
 											handleSearchButtonClick={this.handleSearchButtonClick}
 											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleFilterSelect={this.handleFilterSelect}
 											handleSortSelect={this.handleSortSelect}
@@ -758,6 +767,7 @@ class MapPage extends React.Component {
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
 											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleRequestOpen={this.props.handleRequestOpen}
 											handleSortSelect={this.handleSortSelect}
@@ -803,6 +813,7 @@ class MapPage extends React.Component {
 											handlePlaceChange={this.handlePlaceChange}
 											handleSearchButtonClick={this.handleSearchButtonClick}
 											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											infographic={infographic}
 											nearAddress={this.props.nearAddress}
@@ -839,6 +850,7 @@ class MapPage extends React.Component {
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
 											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleOrgSelection={this.handleOrgSelection}
 											handleSearchByOrgName={this.handleSearchByOrgName}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}

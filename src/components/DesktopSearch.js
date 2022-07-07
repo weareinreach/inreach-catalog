@@ -2,6 +2,7 @@ import React from 'react';
 import Fa from 'react-fontawesome';
 import Grid from '@material-ui/core/Grid';
 import {FormattedMessage, useIntl} from 'react-intl';
+import Typography from '@material-ui/core/Typography';
 
 import AppBar from '@material-ui/core/AppBar';
 import TabContext from '@material-ui/lab/TabContext';
@@ -36,17 +37,20 @@ const DesktopSearch = (props) => {
 		handleTabChange,
 		tabValue,
 		moveButton,
-		distance
+		selectedDistance
 	} = props;
 	const variant = 'primary';
 	const intl = useIntl();
-	const checkboxLabel = intl
-		.formatMessage({
-			id: 'search.show-national-organizations-country',
-			defaultMessage:
-				'Show me national organizations who can help anyone located in the country'
-		})
-		.toString();
+	const checkboxLabel =
+		selectedDistance == 'isNational'
+			? intl
+					.formatMessage({
+						id: 'search.show-national-organizations-country',
+						defaultMessage:
+							'Show me national organizations who can help anyone located in the country'
+					})
+					.toString()
+			: null;
 
 	const a11yProps = (index) => {
 		return {
@@ -54,7 +58,10 @@ const DesktopSearch = (props) => {
 			'aria-controls': `search-tabpanel-${index}`
 		};
 	};
-	console.log(props);
+	const distanceMessageObj = distanceOptions.find(
+		(option) => option.searchValue === selectedDistance
+	);
+
 	return (
 		<TabContext value={tabValue.toString()}>
 			<AppBar position="static">
@@ -118,8 +125,20 @@ const DesktopSearch = (props) => {
 							onChange={props.handleNationalCheckBox}
 							testIdName="search-page-checkbox"
 						/>*/}
-						Max distance from search location
-						<RadioGroup name="distance" required={true}>
+						<Typography>
+							{distanceMessageObj.selectionMessageformatMessageId +
+								(selectedDistance !== 'isNational' ? props.nearAddress : '')}
+							{/*							<FormattedMessage 
+									id={distanceMessageObj.message}
+									defaultMessage="Search"
+									description="search action button"
+								/>*/}
+						</Typography>
+						<RadioGroup
+							name="selectedDistance"
+							required={true}
+							onChange={props.handleDistanceSelection}
+						>
 							<Grid container spacing={6}>
 								{distanceOptions.map((type, index) => (
 									<Grid item key={index}>
@@ -127,18 +146,17 @@ const DesktopSearch = (props) => {
 											value={type.searchValue}
 											control={<Radio />}
 											label={intl.formatMessage({
-												id: type.formatMessageId,
-												defaultMessage: type.defaultMessage,
+												id: type.distanceFormatMessageId,
+												defaultMessage: type.distanceDefaultMessage,
 												description: type.description
 											})}
-											checked={props.distance === type.searchValue}
+											checked={selectedDistance === type.searchValue}
 											data-test-id={type.searchValue}
 										/>
 									</Grid>
 								))}
 							</Grid>
 						</RadioGroup>
-						Show results up to XXX from search location
 					</Grid>
 				</Grid>
 				<Grid container spacing={0} className={searchButtonContainer}>
