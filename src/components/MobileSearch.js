@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import Fa from 'react-fontawesome';
 import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -12,6 +12,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import {distanceOptions} from '../data/distanceOptions';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const MobileSearch = (props) => {
 	const {
@@ -33,9 +37,15 @@ const MobileSearch = (props) => {
 		handleSearchButtonClick,
 		moveButton,
 		mobileTabValue,
-		handleTabChange
+		handleTabChange,
+		selectedDistance
 	} = props;
 	const variant = 'primary';
+	const intl = useIntl();
+
+	const distanceMessageObj = distanceOptions.find(
+		(option) => option.searchValue === selectedDistance
+	);
 
 	return (
 		<>
@@ -122,7 +132,7 @@ const MobileSearch = (props) => {
 							</SearchBar>
 						</Grid>
 						<Grid item className={nationalOrgCheckboxContainer}>
-							<AsylumConnectCheckbox
+							{/*							<AsylumConnectCheckbox
 								label={
 									<FormattedMessage
 										id="search.show-national-organizations-country"
@@ -132,7 +142,39 @@ const MobileSearch = (props) => {
 								checked={isNational}
 								onChange={handleNationalCheckBox}
 								testIdName="search-page-checkbox"
-							/>
+							/>*/}
+							<Typography>
+								{distanceMessageObj.selectionMessageformatMessageId +
+									(selectedDistance !== 'isNational' ? props.nearAddress : '')}
+								{/*							<FormattedMessage 
+									id={distanceMessageObj.message}
+									defaultMessage="Search"
+									description="search action button"
+								/>*/}
+							</Typography>
+							<RadioGroup
+								name="selectedDistance"
+								required={true}
+								onChange={props.handleDistanceSelection}
+							>
+								<Grid item xs={12} container spacing={0}>
+									{distanceOptions.map((type, index) => (
+										<Grid item xs key={index}>
+											<FormControlLabel
+												value={type.searchValue}
+												control={<Radio />}
+												label={intl.formatMessage({
+													id: type.distanceFormatMessageId,
+													defaultMessage: type.distanceDefaultMessage,
+													description: type.description
+												})}
+												checked={selectedDistance === type.searchValue}
+												data-test-id={type.searchValue}
+											/>
+										</Grid>
+									))}
+								</Grid>
+							</RadioGroup>
 						</Grid>
 						<Grid
 							item
