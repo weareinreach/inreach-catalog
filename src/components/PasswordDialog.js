@@ -15,7 +15,11 @@ const PasswordMobile = ({
 	<div>
 		<Paper>
 			<DialogTitle>
-				<FormattedMessage id="form.confirm-password" />
+				<FormattedMessage
+					id="form.confirm-password"
+					defaultMessage="Confirm Password"
+					description="text feild to add password"
+				/>
 			</DialogTitle>
 			<PasswordFormContainer
 				handleConfirmSession={handleConfirmSession}

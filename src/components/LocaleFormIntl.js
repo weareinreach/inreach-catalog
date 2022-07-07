@@ -122,23 +122,23 @@ class LocaleForm extends React.Component {
 			this.props.changeLocale(this.state.selectedLocale);
 			//show app code in spanish if langCode is 'es' and locale is MX or US
 			if (
-				this.state.selectedLocale === 'en_MX' &&
-				this.state.selectedLanguage === 'es'
+				this.state.selectedLocale == 'en_MX' &&
+				this.state.selectedLanguage == 'es'
 			) {
 				this.props.changeLocale('es_MX');
 			} else if (
-				this.state.selectedLocale === 'en_US' &&
-				this.state.selectedLanguage === 'es'
+				this.state.selectedLocale == 'en_US' &&
+				this.state.selectedLanguage == 'es'
 			) {
 				this.props.changeLocale('es_US');
 			} else if (
-				this.state.selectedLocale === 'es_US' &&
-				this.state.selectedLanguage === 'en'
+				this.state.selectedLocale == 'es_US' &&
+				this.state.selectedLanguage == 'en'
 			) {
 				this.props.changeLocale('en_US');
 			} else if (
-				this.state.selectedLocale === 'es_MX' &&
-				this.state.selectedLanguage === 'en'
+				this.state.selectedLocale == 'es_MX' &&
+				this.state.selectedLanguage == 'en'
 			) {
 				this.props.changeLocale('en_MX');
 			}
@@ -148,7 +148,7 @@ class LocaleForm extends React.Component {
 			this.props.onLocaleSelect(
 				this.state.selectedLocale,
 				this.state.selectedLanguage,
-				this.state.selectedLanguageName !== this.state.startingLang
+				this.state.selectedLanguageName != this.state.startingLang
 			);
 		}
 		/*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
@@ -183,14 +183,24 @@ class LocaleForm extends React.Component {
 		} = this.props.classes;
 		const isMobile = this.props.width < breakpoints['sm'];
 		const variant = 'primary';
-		const localeLabel = <FormattedMessage id="app.select-country" />;
+		const localeLabel = (
+			<FormattedMessage
+				id="app.select-country"
+				defaultMessage="Select country"
+				description="Select country dropdown"
+			/>
+		);
 
 		if (isMobile) {
 			return (
 				<Grid container style={{margin: '16px'}}>
 					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
-							<FormattedMessage id="language.select-preferred-language" />
+							<FormattedMessage
+								id="language.select-preferred-language"
+								defaultMessage="Select Prefered Language"
+								description="language selection helper text"
+							/>
 						</Typography>
 						<Language
 							useMobile={false}
@@ -205,7 +215,11 @@ class LocaleForm extends React.Component {
 					</Grid>
 					<Grid item xs={12} sm={12}>
 						<Typography variant="h3" className={labelRowMobile} component="p">
-							<FormattedMessage id="search.search-location-prompt" />
+							<FormattedMessage
+								id="search.search-location-prompt"
+								defaultMessage="Select prefered location"
+								description="search location helper text"
+							/>
 						</Typography>
 						<LocaleSelector
 							label={localeLabel}
@@ -218,7 +232,11 @@ class LocaleForm extends React.Component {
 							testIdName="search-page-next-button"
 							onClick={this.handleNextClick}
 						>
-							<FormattedMessage id="navigation.next" />
+							<FormattedMessage
+								id="navigation.next"
+								defaultMessage="Next"
+								description="Text for submit button"
+							/>
 						</AsylumConnectButton>
 					</Grid>
 				</Grid>
@@ -233,7 +251,11 @@ class LocaleForm extends React.Component {
 				>
 					<Grid item xs={12} md={6}>
 						<Typography variant="h3" className={labelRow} component="p">
-							<FormattedMessage id="language.select-preferred-language" />
+							<FormattedMessage
+								id="language.select-preferred-language"
+								defaultMessage="Select Prefered Language"
+								description="language selection helper text"
+							/>
 						</Typography>
 						<Language
 							useMobile={false}
@@ -249,7 +271,11 @@ class LocaleForm extends React.Component {
 					</Grid>
 					<Grid item xs={12} md={6}>
 						<Typography variant="h3" className={labelRow} component="p">
-							<FormattedMessage id="search.search-location-prompt" />
+							<FormattedMessage
+								id="search.search-location-prompt"
+								defaultMessage="Where are you looking for help?"
+								description="search location helper text"
+							/>
 						</Typography>
 						<LocaleSelector
 							label={localeLabel}
@@ -262,7 +288,11 @@ class LocaleForm extends React.Component {
 							testIdName="search-page-next-button"
 							onClick={this.handleNextClick}
 						>
-							<FormattedMessage id="navigation.next" />
+							<FormattedMessage
+								id="navigation.next"
+								defaultMessage="Search"
+								description="this is the search button"
+							/>
 						</AsylumConnectButton>
 					</Grid>
 				</Grid>

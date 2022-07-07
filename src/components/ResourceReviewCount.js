@@ -15,9 +15,17 @@ class ReviewCount extends React.Component {
 			>
 				{total}{' '}
 				{total !== 1 ? (
-					<FormattedMessage id="resource.reviews-heading" />
+					<FormattedMessage
+						id="resource.reviews-heading"
+						defaultMessage="Reviews"
+						description="Reviews section"
+					/>
 				) : (
-					<FormattedMessage id="resource.review-single" />
+					<FormattedMessage
+						id="resource.review-single"
+						defaultMessage="Review"
+						description="Review section"
+					/>
 				)}
 			</Typography>
 		);

@@ -118,8 +118,8 @@ const NavDesktop = ({
 			<a className="hide--on-screen" href="/#">
 				<FormattedMessage
 					id="app.asylum-connect-catalog"
-					defaultMessage=""
-					description=""
+					defaultMessage="InReach Catalog"
+					description="logo that links to the InReach catalog app"
 				>
 					{(catalog) => <Typography variant="h1">{catalog}</Typography>}
 				</FormattedMessage>
@@ -133,8 +133,8 @@ const NavDesktop = ({
 			>
 				<FormattedMessage
 					id="navigation.about"
-					defaultMessage=""
-					description=""
+					defaultMessage="ABout Us"
+					description="link to th InReach.org About Us page"
 				>
 					{(about) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
@@ -152,8 +152,8 @@ const NavDesktop = ({
 			>
 				<FormattedMessage
 					id="navigation.take-action"
-					defaultMessage=""
-					description=""
+					defaultMessage="Donate"
+					description="link to th InReach.org Donate page"
 				>
 					{(action) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
@@ -171,8 +171,8 @@ const NavDesktop = ({
 			>
 				<FormattedMessage
 					id="navigation.get-help"
-					defaultMessage=""
-					description=""
+					defaultMessage="Get Help"
+					description="link to th InReach.org FAQ page"
 				>
 					{(help) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
@@ -190,8 +190,8 @@ const NavDesktop = ({
 			>
 				<FormattedMessage
 					id="navigation.contact"
-					defaultMessage=""
-					description=""
+					defaultMessage="Contact Us"
+					description="link to th InReach.org Contact Us page"
 				>
 					{(contact) => (
 						<Typography variant="h6" classes={{h6: headerLink}}>
@@ -209,8 +209,8 @@ const NavDesktop = ({
 			>
 				<FormattedMessage
 					id="navigation.safety-exit"
-					defaultMessage=""
-					description=""
+					defaultMessage="safety Exit"
+					description="button that takes the user to a Google search page"
 				>
 					{(safety) => (
 						<AsylumConnectButton variant="safety">{safety}</AsylumConnectButton>

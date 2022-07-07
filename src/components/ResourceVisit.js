@@ -65,7 +65,12 @@ const Visit = ({
 		<Grid item xs={12}>
 			<Typography variant="body2" className={classes.lineSpacing}>
 				<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-					<FormattedMessage id="resource.website-label" />:{' '}
+					<FormattedMessage
+						id="resource.website-label"
+						defaultMessage="Website"
+						description="website details section"
+					/>
+					:{' '}
 				</strong>
 				{website ? (
 					<a
@@ -82,7 +87,12 @@ const Visit = ({
 			{emails && emails.length ? (
 				<Typography variant="body2" className={classes.lineSpacing}>
 					<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-						<FormattedMessage id="resource.email-label" />:{' '}
+						<FormattedMessage
+							id="resource.email-label"
+							defaultMessage="Email"
+							description="email details section"
+						/>
+						:{' '}
 					</strong>
 					{emails.map((email) => {
 						let name = trim(
@@ -109,7 +119,12 @@ const Visit = ({
 			{phones && phones.length ? (
 				<Typography variant="body2" className={classes.lineSpacing}>
 					<strong className={classes.boldFont + ' ' + classes.mobileHide}>
-						<FormattedMessage id="resource.phone-numbers" />:{' '}
+						<FormattedMessage
+							id="resource.phone-numbers"
+							defaultMessage="Phone numbers"
+							description="Service Types"
+						/>
+						:{' '}
 					</strong>
 					{phones.map((phone) => (
 						<Phone
@@ -125,6 +140,10 @@ const Visit = ({
 			{locations && locations.length
 				? locations.map((location) => {
 						let schedule;
+
+						if (!location.show_on_organization) {
+							return null;
+						}
 						return (
 							<div
 								key={location._id}
@@ -137,7 +156,11 @@ const Visit = ({
 										{location.name ? (
 											location.name
 										) : (
-											<FormattedMessage id="resource.location-label" />
+											<FormattedMessage
+												id="resource.location-label"
+												defaultMessage="Locations"
+												description="location details section"
+											/>
 										)}
 										:{' '}
 									</strong>
@@ -152,7 +175,12 @@ const Visit = ({
 										<strong
 											className={classes.boldFont + ' ' + classes.mobileHide}
 										>
-											<FormattedMessage id="form.schedule" />:{' '}
+											<FormattedMessage
+												id="form.schedule"
+												defaultMessage="Schedule"
+												description="schedule section"
+											/>
+											:{' '}
 										</strong>
 										{schedule
 											.map((sch) => {
@@ -168,7 +196,12 @@ const Visit = ({
 								trim(location.schedule.notes).length ? (
 									<Typography variant="body2" className={classes.lineSpacing}>
 										<strong className={classes.boldFont}>
-											<FormattedMessage id="resource.additional-information" />:{' '}
+											<FormattedMessage
+												id="resource.additional-information"
+												defaultMessage="Additional Information"
+												description="Additional Information section"
+											/>
+											:{' '}
 										</strong>
 										{location.schedule.notes}
 										<Fa name="info-circle" className={classes.mobileIcon} />

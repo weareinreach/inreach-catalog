@@ -56,6 +56,7 @@ const SearchByLocation = (props) => {
 						<FormattedMessage
 							id="search.search-field-placeholder"
 							defaultMessage="Start typing county, city or state…"
+							description="search input box placeholder text"
 						>
 							{(placeholder) => (
 								<input
@@ -72,6 +73,7 @@ const SearchByLocation = (props) => {
 									<FormattedMessage
 										id="app.loading"
 										defaultMessage="Loading..."
+										description="results list loading message"
 									/>
 								</div>
 							)}

@@ -58,6 +58,7 @@ const MobileSearch = (props) => {
 						<FormattedMessage
 							id="search.search-by-name-tab-heading"
 							defaultMessage="Find an organization by name"
+							description="Title for organization search form"
 						/>
 					</Typography>
 				</AccordionSummary>
@@ -96,6 +97,7 @@ const MobileSearch = (props) => {
 									<FormattedMessage
 										id="navigation.search"
 										defaultMessage="Search"
+										description="serach button"
 									/>
 									{searchDisabled ? (
 										<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />
@@ -115,6 +117,7 @@ const MobileSearch = (props) => {
 						<FormattedMessage
 							id="search.search-by-location-tab-heading"
 							defaultMessage="Find services near you"
+							description="helper text for search dropdown"
 						/>
 					</Typography>
 				</AccordionSummary>
@@ -137,6 +140,7 @@ const MobileSearch = (props) => {
 									<FormattedMessage
 										id="search.show-national-organizations-country"
 										defaultMessage="Show me national organizations who can help anyone located in the country"
+										description="checkbox to find all national organizations"
 									/>
 								}
 								checked={isNational}
@@ -192,6 +196,7 @@ const MobileSearch = (props) => {
 								<FormattedMessage
 									id="navigation.search"
 									defaultMessage="Search"
+									description="search button"
 								/>
 								{searchDisabled ? (
 									<Fa name="spinner" spin style={{marginLeft: '0.5rem'}} />

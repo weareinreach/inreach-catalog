@@ -9,11 +9,19 @@ import PrivacyText from './PrivacyText';
 const PrivacyDialog = ({handleRequestClose}) => (
 	<div>
 		<DialogTitle>
-			<FormattedMessage id="legal.privacy-statement" />
+			<FormattedMessage
+				id="legal.privacy-statement"
+				defaultMessage="InReach Privacy Statement"
+				description="label for privacy statement modal"
+			/>
 		</DialogTitle>
 		<PrivacyText />
 		<DialogButton handleRequestClose={handleRequestClose}>
-			<FormattedMessage id="action.ok" />
+			<FormattedMessage
+				id="action.ok"
+				defaultMessage="OK"
+				description="button to close the modal"
+			/>
 		</DialogButton>
 	</div>
 );

@@ -39,6 +39,7 @@ class LoginFormContainer extends React.Component {
 						<FormattedMessage
 							id="error.incorrect-email-password"
 							defaultMessage="The email or password you entered was incorrect."
+							description="error message that password is not correct"
 						></FormattedMessage>
 					);
 				}
@@ -48,6 +49,7 @@ class LoginFormContainer extends React.Component {
 					<FormattedMessage
 						id="error.unspecified"
 						defaultMessage="Oops! Something went wrong."
+						description="generic error message"
 					/>
 				);
 			});

@@ -72,7 +72,11 @@ const MoreMobile = ({
 	messages
 }) => (
 	<div>
-		<FormattedMessage id="navigation.more">
+		<FormattedMessage
+			id="navigation.more"
+			defaultMessage="more"
+			description="button to see more options"
+		>
 			{(more) => (
 				<Typography
 					variant="h1"
@@ -91,6 +95,7 @@ const MoreMobile = ({
 				<FormattedMessage
 					id="navigation.help-myself"
 					defaultMessage="Help for Myself"
+					description="section to get more information on finding help for ones self"
 				/>
 			}
 			content={
@@ -102,6 +107,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.find-resources"
 									defaultMessage="Find Resources"
+									description="section to get more information on finding additional resources"
 								/>
 							),
 							url: '/'
@@ -112,6 +118,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.learn-more"
 									defaultMessage="Learn More"
+									description="link that goes to the app FAQ"
 								/>
 							),
 							url: 'https://inreach.org/faqs/'
@@ -122,6 +129,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.rate-app"
 									defaultMessage="Rate This App"
+									description="Link that goes to an app feedback form"
 								/>
 							),
 							url: 'https://bit.ly/inreach-app-share-feedback'
@@ -146,6 +154,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.find-referrals"
 									defaultMessage="Help for a Client/Someone Else"
+									description="section to get more information on finding help for someone else"
 								/>
 							),
 							url: '/'
@@ -156,6 +165,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.learn-more"
 									defaultMessage="Learn More"
+									description="link that goese to the InReach FAQ"
 								/>
 							),
 							url: 'https://inreach.org/how-to-find-resources-for-clients/'
@@ -166,6 +176,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.rate-app"
 									defaultMessage="Rate This App"
+									description="Link that goes to an app feedback form"
 								/>
 							),
 							url: 'https://bit.ly/inreach-app-share-feedback'
@@ -184,6 +195,7 @@ const MoreMobile = ({
 				<FormattedMessage
 					id="navigation.general-supporter-information"
 					defaultMessage="General Supporter Information"
+					description="section to get more information on finding general help"
 				/>
 			}
 			content={
@@ -195,6 +207,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.donate"
 									defaultMessage="Donate"
+									description="link to the InReach organization donation page"
 								/>
 							),
 							url: 'https://inreach.org/donate/'
@@ -205,6 +218,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="navigation.learn-more"
 									defaultMessage="Learn More"
+									description="link to the main InReach.org website"
 								/>
 							),
 							url: 'https://inreach.org/'
@@ -223,6 +237,7 @@ const MoreMobile = ({
 				<FormattedMessage
 					id="suggestion.suggest-resource"
 					defaultMessage="Suggest a resource"
+					description="link to the suggest a new resource page"
 				/>
 			}
 			content={
@@ -234,6 +249,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="suggestion.suggest-resource-united-states"
 									defaultMessage="Suggest a U.S. resource"
+									description="link to the suggest a new resource form for the US"
 								/>
 							),
 							url: '/en_US/suggestions/new'
@@ -244,6 +260,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="suggestion.suggest-resource-canada"
 									defaultMessage="Suggest a Canada Resource"
+									description="link to the suggest a new resource form for Canada"
 								/>
 							),
 							url: '/en_CA/suggestions/new'
@@ -254,6 +271,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="suggestion.suggest-resource-mexico"
 									defaultMessage="Suggest a Mexico Resource"
+									description="link to the suggest a new resource form for Mexico"
 								/>
 							),
 							url: '/en_MX/suggestions/new'
@@ -272,6 +290,7 @@ const MoreMobile = ({
 				<FormattedMessage
 					id="legal.privacy-and-disclaimer"
 					defaultMessage="Privacy Statement & Disclaimer"
+					description="Privacy Statement & Disclaimer section"
 				/>
 			}
 			content={
@@ -283,6 +302,7 @@ const MoreMobile = ({
 								<FormattedMessage
 									id="legal.privacy-and-disclaimer"
 									defaultMessage="Privacy Statement & Disclaimer"
+									description="link to the privacy-and-disclaimer Statement"
 								/>
 							),
 							url: '/'
