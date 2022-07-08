@@ -41,16 +41,6 @@ const DesktopSearch = (props) => {
 	} = props;
 	const variant = 'primary';
 	const intl = useIntl();
-	const checkboxLabel =
-		selectedDistance == 'isNational'
-			? intl
-					.formatMessage({
-						id: 'search.show-national-organizations-country',
-						defaultMessage:
-							'Show me national organizations who can help anyone located in the country'
-					})
-					.toString()
-			: null;
 
 	const a11yProps = (index) => {
 		return {
@@ -112,34 +102,40 @@ const DesktopSearch = (props) => {
 					moveSearchButton={onMoveSearchButton}
 					data-test-id="servicetype-searchbar"
 				/>
-				<Grid
-					container
-					spacing={0}
-					// className={nationalOrgCheckboxContainer}
-					style={{paddingTop: '24px'}}
-				>
+				<Grid container spacing={0} style={{paddingTop: '24px'}}>
 					<Grid item>
-						{/*						<AsylumConnectCheckbox
-							label={checkboxLabel}
-							checked={props.isNational}
-							onChange={props.handleNationalCheckBox}
-							testIdName="search-page-checkbox"
-						/>*/}
+						<Typography variant="h5">
+							<FormattedMessage
+								id="search.distance-select"
+								defaultMessage="Select Search Distance"
+								description="label for distance selection form"
+							/>
+							:
+						</Typography>
 						<Typography>
-							{distanceMessageObj.selectionMessageformatMessageId +
-								(selectedDistance !== 'isNational' ? props.nearAddress : '')}
-							{/*							<FormattedMessage 
-									id={distanceMessageObj.message}
-									defaultMessage="Search"
-									description="search action button"
-								/>*/}
+							{!props.nearAddress ? (
+								<FormattedMessage
+									id="error.no-location-entered"
+									defaultMessage="Please enter a city or state in the location search box above."
+									description="error when a location is not specified"
+								/>
+							) : (
+								<FormattedMessage
+									id={distanceMessageObj.selectionMessageFormatMessageId}
+									defaultMessage={
+										distanceMessageObj.selectionMessageDefaultMessage
+									}
+									description={distanceMessageObj.selectedDescription}
+									values={{searchLocation: props.nearAddress}}
+								/>
+							)}
 						</Typography>
 						<RadioGroup
 							name="selectedDistance"
 							required={true}
 							onChange={props.handleDistanceSelection}
 						>
-							<Grid container spacing={6}>
+							<Grid container spacing={0}>
 								{distanceOptions.map((type, index) => (
 									<Grid item key={index}>
 										<FormControlLabel
@@ -169,7 +165,7 @@ const DesktopSearch = (props) => {
 						<AsylumConnectButton
 							variant={variant}
 							onClick={props.handleSearchButtonClick}
-							disabled={props.searchDisabled}
+							disabled={props.searchDisabled || !props.nearAddress}
 							className={moveButton ? lowerButton : null}
 							testIdName="search-bar-search-button"
 						>
@@ -209,7 +205,7 @@ const DesktopSearch = (props) => {
 						<AsylumConnectButton
 							variant={variant}
 							onClick={handleSearchByOrgName}
-							disabled={props.searchDisabled}
+							disabled={props.searchDisabled || !props.orgName}
 							className={moveButton ? lowerButton : null}
 							testIdName="search-bar-search-button"
 						>

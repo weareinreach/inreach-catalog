@@ -90,7 +90,7 @@ const MobileSearch = (props) => {
 								<AsylumConnectButton
 									variant={variant}
 									onClick={handleSearchByOrgName}
-									disabled={searchDisabled}
+									disabled={props.searchDisabled || !props.orgName}
 									className={moveButton ? lowerButton : null}
 									testIdName="search-bar-search-button"
 								>
@@ -134,27 +134,32 @@ const MobileSearch = (props) => {
 								<SearchByLocation {...props} />
 							</SearchBar>
 						</Grid>
-						<Grid item className={nationalOrgCheckboxContainer}>
-							{/*							<AsylumConnectCheckbox
-								label={
-									<FormattedMessage
-										id="search.show-national-organizations-country"
-										defaultMessage="Show me national organizations who can help anyone located in the country"
-										description="checkbox to find all national organizations"
-									/>
-								}
-								checked={isNational}
-								onChange={handleNationalCheckBox}
-								testIdName="search-page-checkbox"
-							/>*/}
+						<Grid item>
+							<Typography variant="h5">
+								<FormattedMessage
+									id="search.distance-select"
+									defaultMessage="Select Search Distance"
+									description="label for distance selection form"
+								/>
+								:
+							</Typography>
 							<Typography>
-								{distanceMessageObj.selectionMessageformatMessageId +
-									(selectedDistance !== 'isNational' ? props.nearAddress : '')}
-								{/*							<FormattedMessage 
-									id={distanceMessageObj.message}
-									defaultMessage="Search"
-									description="search action button"
-								/>*/}
+								{!props.nearAddress ? (
+									<FormattedMessage
+										id="error.no-location-entered"
+										defaultMessage="Please enter a city or state in the location search box above."
+										description="error when a location is not specified"
+									/>
+								) : (
+									<FormattedMessage
+										id={distanceMessageObj.selectionMessageFormatMessageId}
+										defaultMessage={
+											distanceMessageObj.selectionMessageDefaultMessage
+										}
+										description={distanceMessageObj.selectedDescription}
+										values={{searchLocation: props.nearAddress}}
+									/>
+								)}
 							</Typography>
 							<RadioGroup
 								name="selectedDistance"
@@ -189,7 +194,7 @@ const MobileSearch = (props) => {
 							<AsylumConnectButton
 								variant={variant}
 								onClick={handleSearchButtonClick}
-								disabled={searchDisabled}
+								disabled={props.searchDisabled || !props.nearAddress}
 								className={moveButton ? lowerButton : null}
 								testIdName="search-bar-search-by-location-button"
 							>

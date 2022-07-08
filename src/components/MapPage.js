@@ -363,7 +363,7 @@ class MapPage extends React.Component {
 					this.props.handleMessageNew(
 						<FormattedMessage
 							id="error.no-location-entered"
-							defaultMessage="no location entered"
+							defaultMessage="Please enter a city/state/province/territory in the location search box above."
 							description="error because no location was entered"
 						/>
 					);
