@@ -429,7 +429,8 @@ class MapPage extends React.Component {
 			selectedSort,
 			name,
 			updated,
-			stringified
+			stringified,
+			selectedDistance
 		} = this.checkForURLUpdates();
 		let nextState,
 			params = {};
@@ -489,7 +490,8 @@ class MapPage extends React.Component {
 						),
 						state,
 						isNational,
-						county
+						county,
+						selectedDistance
 					};
 					fetchOrganizations(params).then((data) =>
 						this.processSearchResults(data, nextPage)
@@ -516,7 +518,8 @@ class MapPage extends React.Component {
 				name: name,
 				locale: this.props.locale,
 				page,
-				isNational: false
+				isNational: false,
+				selectedDistance
 			};
 			fetchOrganizations(params).then((data) =>
 				this.processSearchResults(data, nextPage)
@@ -631,7 +634,8 @@ class MapPage extends React.Component {
 			isNational,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		};
 	}
 
@@ -644,7 +648,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		} = this.parseParams(this.props.match.params);
 		let updated = false;
 		let stringified = JSON.stringify({
@@ -653,7 +658,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		});
 		if (stringified !== this.state.lastSearch) {
 			updated = true;
@@ -668,7 +674,8 @@ class MapPage extends React.Component {
 			selectedSort,
 			name,
 			updated,
-			stringified
+			stringified,
+			selectedDistance
 		};
 	}
 
