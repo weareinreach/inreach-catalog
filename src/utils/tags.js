@@ -220,7 +220,6 @@ const resourceTypes = [
 		title: 'Short-term housing',
 		titleIntl: 'services.short-term-housing'
 	},
-	//Change: new subcategory
 	{
 		category: 'service-type.housing',
 		type: 'housing',
@@ -468,7 +467,6 @@ const resourceTypes = [
 		type: 'mentalHealth',
 		acTag: 'Mental Health'
 	},
-	//Change: new subcategory
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
@@ -518,12 +516,11 @@ const resourceTypes = [
 		title: 'Substance use',
 		titleIntl: 'services.substance-use'
 	},
-	//Change: new subcategory
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
 		acTag: 'Support for conversion therapy survivors',
-		title: 'Support for converstion therapy survivors',
+		title: 'Support for conversion therapy survivors',
 		titleIntl: 'services.support-for-conversion-therapy-survivors'
 	},
 	{
