@@ -220,6 +220,13 @@ const resourceTypes = [
 		title: 'Short-term housing',
 		titleIntl: 'services.short-term-housing'
 	},
+	{
+		category: 'service-type.housing',
+		type: 'housing',
+		acTag: 'Trans housing',
+		title: 'Trans housing',
+		titleIntl: 'services.trans-housing'
+	},
 
 	/* AC Hygiene and Clothing Category */
 	{
@@ -463,6 +470,13 @@ const resourceTypes = [
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
+		acTag: 'BIPOC support groups',
+		title: 'BIPOC support groups',
+		titleIntl: 'services.bipoc-support-groups'
+	},
+	{
+		category: 'service-type.mental-health',
+		type: 'mentalHealth',
 		acTag: 'Hotlines',
 		title: 'Hotlines',
 		titleIntl: 'services.hotlines'
@@ -501,6 +515,13 @@ const resourceTypes = [
 		acTag: 'Substance use',
 		title: 'Substance use',
 		titleIntl: 'services.substance-use'
+	},
+	{
+		category: 'service-type.mental-health',
+		type: 'mentalHealth',
+		acTag: 'Support for conversion therapy survivors',
+		title: 'Support for conversion therapy survivors',
+		titleIntl: 'services.support-for-conversion-therapy-survivors'
 	},
 	{
 		category: 'service-type.mental-health',
@@ -624,6 +645,7 @@ const localeExclusions = {
 		'Asylum application (Affirmative Asylum)',
 		'Asylum application in Mexico (Affirmative Asylum)',
 		'Asylum application in the US from Mexico (Affirmative Asylum)',
+		'BIPOC support groups',
 		'Career counseling',
 		'Citizenship',
 		'Cultural centers',
@@ -641,12 +663,15 @@ const localeExclusions = {
 		'Residency',
 		'Special Immigrant Juvenile Status (SIJS)',
 		'Sponsors',
+		'Support for conversion therapy survivors',
 		'T Visa',
+		'Trans housing',
 		'U Visa',
 		/*** Intl values ***/
 		'services.asylum-application',
 		'services.asylum-application-in-mexico',
 		'services.asylum-application-in-united-states-from-mexico',
+		'services.bipoc-support-groups',
 		'services.career-counseling',
 		'services.citizenship',
 		'services.cultural-centers',
@@ -664,12 +689,15 @@ const localeExclusions = {
 		'services.residency',
 		'services.special-immigrant-juvenile-status',
 		'services.sponsors',
+		'services.support-for-conversion-therapy-survivors',
 		'services.t-visa',
+		'services.trans-housing',
 		'services.u-visa'
 	],
 	en_MX: [
 		/*** title values ***/
 		'Asylum application (Affirmative Asylum)',
+		'BIPOC support groups',
 		'Career counselling',
 		'Citizenship',
 		'Cultural centres',
@@ -692,10 +720,13 @@ const localeExclusions = {
 		'Short-term housing',
 		'Special Immigrant Juvenile Status (SIJS)',
 		'Sponsors',
+		'Support for conversion therapy survivors',
 		'T Visa',
+		'Trans housing',
 		'U Visa',
 		/*** Intl values ***/
 		'services.asylum-application',
+		'services.bipoc-support-groups',
 		'services.career-counselling',
 		'services.citizenship',
 		'services.cultural-centres',
@@ -718,12 +749,15 @@ const localeExclusions = {
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
 		'services.sponsors',
+		'services.support-for-conversion-therapy-survivors',
 		'services.t-visa',
+		'services.trans-housing',
 		'services.u-visa'
 	],
 	es_MX: [
 		/*** title values ***/
 		'Asylum application (Affirmative Asylum)',
+		'BIPOC support groups',
 		'Career counselling',
 		'Citizenship',
 		'Cultural centres',
@@ -746,10 +780,13 @@ const localeExclusions = {
 		'Short-term housing',
 		'Special Immigrant Juvenile Status (SIJS)',
 		'Sponsors',
+		'Support for conversion therapy survivors',
 		'T Visa',
+		'Trans housing',
 		'U Visa',
 		/*** Intl values ***/
 		'services.asylum-application',
+		'services.bipoc-support-groups',
 		'services.career-counselling',
 		'services.citizenship',
 		'services.cultural-centres',
@@ -772,7 +809,9 @@ const localeExclusions = {
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
 		'services.sponsors',
+		'services.support-for-conversion-therapy-survivors',
 		'services.t-visa',
+		'services.trans-housing',
 		'services.u-visa'
 	]
 };
