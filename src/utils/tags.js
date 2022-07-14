@@ -117,14 +117,14 @@ const resourceTypes = [
 	{
 		category: 'service-type.computers-internet',
 		type: 'computers',
-		acTag: 'service-type.computers-internet'
+		acTag: 'Computers and Internet'
 	},
 
 	/* AC Education and Employment Category */
 	{
 		category: 'service-type.education-employment',
 		type: 'educationEmployment',
-		acTag: 'service-type.education-employment'
+		acTag: 'Education and Employment'
 	},
 	{
 		category: 'service-type.education-employment',
@@ -542,14 +542,14 @@ const resourceTypes = [
 	{
 		category: 'service-type.sports-entertainment',
 		type: 'sportsEntertainment',
-		acTag: 'service-type.sports-entertainment'
+		acTag: 'Sports and Entertainment'
 	},
 
 	/* AC Translation and interpretation Category */
 	{
 		category: 'service-type.translation-interpretation',
 		type: 'speechBubble',
-		acTag: 'service-type.translation-interpretation'
+		acTag: 'Translation and Interpretation'
 	},
 
 	/* AC Transportation Category */
