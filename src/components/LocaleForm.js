@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
-import language from '../utils/language';
 
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';

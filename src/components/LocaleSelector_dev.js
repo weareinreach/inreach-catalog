@@ -62,11 +62,7 @@ class LocaleSelector extends React.Component {
 
 	getLocaleNameFromCode(code) {
 		let selectedLocale = supportedLocales.filter((item) => item.code === code);
-		if (selectedLocale.length) {
-			return selectedLocale[0].name;
-		} else {
-			return false;
-		}
+		selectedLocale?.length ? selectedLocale[0].name : false;
 	}
 
 	componentWillMount() {

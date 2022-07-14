@@ -2,8 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import ValidLanguageList from '../utils/validLanguageList';
 import language from '../utils/language';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/List';
+import {List, ListSubheader} from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
@@ -257,7 +256,7 @@ class Language extends React.Component {
 		);
 	}
 
-	handleClick(event) {
+	handleClick() {
 		this.setState({open: !this.state.open});
 	}
 
@@ -299,7 +298,7 @@ class Language extends React.Component {
 	}
 
 	componentWillMount() {
-		var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
+		let currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
 		if (window.location.hash.length !== 0) {
 			let langCode = window.location.hash
 				.substring(window.location.hash.indexOf('(') + 1)
@@ -314,8 +313,8 @@ class Language extends React.Component {
 				'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
 			//Google Translate started adding root domain translation cookies - this will clear those
-			var hostComponents = window.location.host.split('.');
-			var domain =
+			let hostComponents = window.location.host.split('.');
+			let domain =
 				hostComponents.length >= 2
 					? hostComponents[hostComponents.length - 2] +
 					  '.' +
