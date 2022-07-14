@@ -144,9 +144,19 @@ Cypress.Commands.add('testCreateAccountBackButton', (viewport) => {
 //Create Account - Seeker 
 Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObject) => {
     cy.viewport(viewport);
-    cy.getElementByTestId('nav-account-sign-up').click({
-        force: true
-    });
+    cy.deleteUsersIfExist();
+    if(viewport !== 'iphone-x'){
+        cy.getElementByTestId('nav-account-sign-up').click({
+            force: true
+        });
+    }else {
+        cy.getElementByTestId('mobile-nav-button-account').click({
+            force: true
+        });
+        cy.getElementByTestId('account-mobile-sign-up').click({
+            force: true
+        });
+    }
     cy.getElementByTestId(userTypeObject.dialog_container_button).click({
         force: true
     });
@@ -159,7 +169,6 @@ Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObj
         cy.getElementByTestId('sign-up-form-name-input').children().then($element => {
             expect($element.children()[0]).to.be.visible;
             expect($element.children()[0]).to.have.attr('placeholder', userTypeObject.name_placeholder_content);
-            cy.wrap($element).type(userTypeObject.name_content);
             cy.wrap($element.children()[0]).type(userTypeObject.name_content);
         });
         cy.getElementByTestId('sign-up-form-email-label').then($element => {
@@ -169,7 +178,7 @@ Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObj
         cy.getElementByTestId('sign-up-form-email-input').children().then($element => {
             expect($element.children()[0]).to.be.visible;
             expect($element.children()[0]).to.have.attr('placeholder', userTypeObject.email_placeholder_content);
-            cy.wrap($element.children()[0]).type(userTypeObject.email_content);
+            cy.wrap($element.children()[0]).type(userTypeObject.email_content+viewport);
         });
         cy.getElementByTestId('sign-up-form-password-label').then($element => {
             expect($element).to.be.visible;
@@ -197,15 +206,16 @@ Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObj
         expect($element).to.have.attr('target', '_blank');
         expect($element).to.have.attr('rel', 'noopener noreferrer');
     });
+    cy.intercept('/v1/users/**').as('user');
     cy.getElementByTestId('sign-up-form-submit-button').then($element => {
         expect($element).to.be.visible;
         expect($element.children()).to.contain("Sign Up");
         expect($element).to.have.attr('type', 'submit');
-    });
-    cy.intercept('/v1/users/*').as('user');
-    cy.intercept('/v1/auth/check').as('loggedIn');
-    cy.getElementByTestId('sign-up-form-submit-button').click();
-    cy.wait(['@loggedIn', '@user']);
+        cy.wrap($element).click({
+            force: true
+        });
+    })
+    cy.wait(['@user']);
 
     cy.getElementByTestId('dialog-container-title').then($element => {
         expect($element).to.be.visible;
@@ -363,6 +373,8 @@ Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObj
             cy.getElementByTestId('thank-you-profile-button').should('be.visible').click();
             break;
     }
+
+    cy.deleteUsersIfExist();
     cy.logout(viewport);
 });
 

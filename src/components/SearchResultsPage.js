@@ -132,8 +132,8 @@ const ResultsContainer = (props) => {
 	disclaimerProps.children = (
 		<FormattedMessage
 			id="search.covid-disclaimer-default"
-			defaultMessage="Some organisations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services. Please see each organization's profile page for details."
-			description="covid-19 aler message"
+			defaultMessage="Some organizations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services. Please see each organization's profile page for details."
+			description="covid-19 alert message"
 		/>
 	);
 
