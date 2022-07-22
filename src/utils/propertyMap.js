@@ -19,33 +19,60 @@ const propertyMap = {
 		'community-african-american':
 			'resource-property.community-african-american',
 		'community-api': 'resource-property.community-asian-islander',
+		'community-arabic-speakers': 'resource-property.community-arabic-speakers',
+		'community-asexual': 'resource-property.community-asexual',
 		'community-asia-immigrant':
 			'resource-property.community-immigrants-from-asia',
 		'community-asylee': 'resource-property.community-asylum-seekers',
+		'community-asylee': 'resource-property.community-asylum-seekers',
+		'community-bipoc': 'resource-property.community-bipoc',
+		'community-bisexual': 'resource-property.community-bisexual',
+		'community-black': 'resource-property.community-black',
+		'community-conversion-therapy-survivors':
+			'resource-property.community-conversion-therapy-survivors',
 		'community-daca-recipient-seeker':
 			'resource-property.community-daca-seeker',
 		'community-detained-immigrant':
 			'resource-property.community-detained-immigrants',
 		'community-disabled':
 			'resource-property.community-people-with-disabilities',
+		'community-french-speakers': 'resource-property.community-french-speakers',
+		'community-gay': 'resource-property.community-gay',
+		'community-gender-nonconforming':
+			'resource-property.community-gender-nonconforming',
 		'community-hiv-aids': 'resource-property.community-individuals-with-hiv',
 		'community-homeless': 'resource-property.community-homeless-individuals',
 		'community-human-trafficking-survivor':
 			'resource-property.community-human-trafficking-survivors',
+		'community-intersex': 'resource-property.community-intersex',
 		'community-latin-america-immigrant':
 			'resource-property.community-latin-immigrants',
 		'community-latino': 'resource-property.community-latino',
+		'community-lesbian': 'resource-property.community-lesbian',
 		'community-lgbtq-youth': 'resource-property.community-lgbtq-youth',
+		'community-lgbtq-youth-caregivers':
+			'resource-property.community-lgbtq-youth-caregivers',
 		'community-middle-east-immigrant':
 			'resource-property.community-middle-east-immigrants',
 		'community-muslim': 'resource-property.community-muslim',
 		'community-native-american': 'resource-property.community-native-american',
+		'community-nonbinary': 'resource-property.community-nonbinary',
+		'community-queer': 'resource-property.community-queer',
 		'community-refugee': 'resource-property.community-refugees',
 		'community-russia-immigrant':
 			'resource-property.community-russian-immigrants',
+		'community-russian-speakers':
+			'resource-property.community-russian-speakers',
 		'community-seniors': 'resource-property.community-seniors',
+		'community-spanish-speakers':
+			'resource-property.community-spanish-speakers',
 		'community-teens': 'resource-property.community-teenagers',
+		'community-transfeminine': 'resource-property.community-transfeminine',
 		'community-transgender': 'resource-property.community-transgender',
+		'community-trans-youth': 'resource-property.community-trans-youth',
+		'community-trans-youth-caregivers':
+			'resource-property.community-trans-youth-caregivers',
+		'community-transmasculine': 'resource-property.community-transmasculine',
 		'community-undocumented': 'resource-property.community-undocumented'
 	},
 	cost: {
