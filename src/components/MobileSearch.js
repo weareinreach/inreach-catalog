@@ -18,13 +18,8 @@ import {distanceOptions} from '../data/distanceOptions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const MobileSearch = (props) => {
-	const {
-		boldFont,
-		searchButton,
-		searchButtonContainer,
-		lowerButton,
-		nationalOrgCheckboxContainer
-	} = props.classes;
+	const {boldFont, searchButton, searchButtonContainer, lowerButton} =
+		props.classes;
 	const {
 		onMoveSearchButton,
 		handleOrgSelection,
@@ -32,7 +27,6 @@ const MobileSearch = (props) => {
 		locale,
 		searchDisabled,
 		isNational,
-		handleNationalCheckBox,
 		handleSearchByOrgName,
 		handleSearchButtonClick,
 		moveButton,

@@ -84,7 +84,7 @@ class MapPage extends React.Component {
 		this.recentResourceCache = {};
 
 		this.handlePlaceChange = this.handlePlaceChange.bind(this);
-		this.handleNationalCheckBox = this.handleNationalCheckBox.bind(this);
+		//this.handleNationalCheckBox = this.handleNationalCheckBox.bind(this);
 		this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this);
 		this.handleResourceBackButton = this.handleResourceBackButton.bind(this);
 		this.handleFilterSelect = this.handleFilterSelect.bind(this);
@@ -220,14 +220,9 @@ class MapPage extends React.Component {
 		this.props.handleAddressChange(address);
 	}
 
-	handleNationalCheckBox(event) {
-		this.setState({isNational: event.target.checked});
-	}
-
 	handleDistanceSelection(event) {
 		const {name, value} = event.target;
 		this.setState({[name]: value});
-		value == 'isNational' ? this.setState({isNational: true}) : null;
 	}
 
 	handleResourceTypeSelect(event, checked) {
@@ -738,7 +733,6 @@ class MapPage extends React.Component {
 											clearResourceTypes={this.clearResourceTypes}
 											handlePlaceChange={this.handlePlaceChange}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
 											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleFilterSelect={this.handleFilterSelect}
@@ -779,7 +773,6 @@ class MapPage extends React.Component {
 											handlePlaceChange={this.handlePlaceChange}
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
 											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleRequestOpen={this.props.handleRequestOpen}
@@ -825,7 +818,6 @@ class MapPage extends React.Component {
 											clearResourceTypes={this.clearResourceTypes}
 											handlePlaceChange={this.handlePlaceChange}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
 											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											infographic={infographic}
@@ -862,7 +854,6 @@ class MapPage extends React.Component {
 											handlePlaceChange={this.handlePlaceChange}
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
 											handleDistanceSelection={this.handleDistanceSelection}
 											handleOrgSelection={this.handleOrgSelection}
 											handleSearchByOrgName={this.handleSearchByOrgName}
