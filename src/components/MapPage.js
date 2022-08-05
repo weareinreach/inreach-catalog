@@ -322,9 +322,7 @@ class MapPage extends React.Component {
 			const inState = encodeURIComponent(state.long_name);
 			const nearAddress = encodeURIComponent(this.props.nearAddress);
 			const nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
-			const isNational = encodeURIComponent(
-				this.state.isNational ? 'national' : 'local'
-			);
+			const isNational = encodeURIComponent(this.state.selectedDistance);
 			const filters = encodeURIComponent(
 				this.state.selectedFilters.length
 					? this.state.selectedFilters.join(',')
@@ -711,11 +709,11 @@ class MapPage extends React.Component {
 			this.state.selectedResourceTypes.length
 				? this.state.selectedResourceTypes
 				: [];
-		//on the search results, enforce a distance limitation of 100 miles
+		//on the search results, enforce a distance limitation of 200 miles
 		const mapMaxDistance =
 			this.props.match.path ===
 			'/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
-				? 100
+				? 200
 				: null;
 
 		return (
