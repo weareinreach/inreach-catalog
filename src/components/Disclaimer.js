@@ -29,7 +29,7 @@ const styles = (theme) => ({
 		position: 'relative'
 	},
 	textParagraph: (props) => ({
-		padding: props?.padding || '24px 40px 24px 62px',
+		padding: props?.padding || '12px 24px 12px 44px',
 		color: '#1D1F23'
 	}),
 	moreInfo: {}

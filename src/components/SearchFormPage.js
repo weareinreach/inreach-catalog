@@ -426,6 +426,7 @@ class SearchFormContainer extends React.Component {
 									this.state.locale === 'es_US') ? (
 									<Grid item xs={12}>
 										<Disclaimer
+											icon={true}
 											data-test-id="announcement-alert-message"
 											text={
 												<FormattedMessage
@@ -444,6 +445,7 @@ class SearchFormContainer extends React.Component {
 											}
 										/>
 										<Disclaimer
+											icon={true}
 											data-test-id="announcement-alert-message-1"
 											text={
 												<FormattedMessage
@@ -467,6 +469,7 @@ class SearchFormContainer extends React.Component {
 								) : locale ? (
 									<Grid item xs={12}>
 										<Disclaimer
+											icon={true}
 											data-test-id="announcement-alert-message-1"
 											text={
 												<FormattedMessage

@@ -170,6 +170,7 @@ class SearchForm extends React.Component {
 					<>
 						{getLocale() === 'en_US' || getLocale() === 'es_US' ? (
 							<Disclaimer
+								icon={true}
 								data-test-id="announcement-alert-message"
 								text={
 									<FormattedMessage
@@ -187,6 +188,7 @@ class SearchForm extends React.Component {
 							/>
 						) : null}
 						<Disclaimer
+							icon={true}
 							data-test-id="announcement-alert-message-1"
 							text={
 								<FormattedMessage
