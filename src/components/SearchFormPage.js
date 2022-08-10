@@ -443,6 +443,21 @@ class SearchFormContainer extends React.Component {
 												/>
 											}
 										/>
+										<Disclaimer
+											data-test-id="announcement-alert-message-1"
+											text={
+												<FormattedMessage id="announcement.alert-message-1" />
+											}
+										/>
+									</Grid>
+								) : locale ? (
+									<Grid item xs={12}>
+										<Disclaimer
+											data-test-id="announcement-alert-message-1"
+											text={
+												<FormattedMessage id="announcement.alert-message-1" />
+											}
+										/>
 									</Grid>
 								) : null}
 								<Grid item xs={12}>

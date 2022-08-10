@@ -186,6 +186,10 @@ class SearchForm extends React.Component {
 								}
 							/>
 						) : null}
+						<Disclaimer
+							data-test-id="announcement-alert-message-1"
+							text={<FormattedMessage id="announcement.alert-message-1" />}
+						/>
 						<MobileSearch
 							handleSearchByOrgName={handleSearchByOrgName}
 							handleSearchButtonClick={handleSearchButtonClick}
