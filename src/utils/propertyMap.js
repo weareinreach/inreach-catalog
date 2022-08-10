@@ -23,8 +23,8 @@ const propertyMap = {
 		'community-asexual': 'resource-property.community-asexual',
 		'community-asia-immigrant':
 			'resource-property.community-immigrants-from-asia',
-		'community-asylee': 'resource-property.community-asylum-seekers',
-		'community-asylee': 'resource-property.community-asylum-seekers',
+		'community-asylee': 'resource-property.community-asylee',
+		'community-asylum-seeker': 'resource-property.community-asylum-seeker',
 		'community-bipoc': 'resource-property.community-bipoc',
 		'community-bisexual': 'resource-property.community-bisexual',
 		'community-black': 'resource-property.community-black',
