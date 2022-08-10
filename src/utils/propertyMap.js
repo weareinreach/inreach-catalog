@@ -47,7 +47,7 @@ const propertyMap = {
 		'community-intersex': 'resource-property.community-intersex',
 		'community-latin-america-immigrant':
 			'resource-property.community-latin-immigrants',
-		'community-latino': 'resource-property.community-latino',
+		'community-latinx': 'resource-property.community-latinx',
 		'community-lesbian': 'resource-property.community-lesbian',
 		'community-lgbtq-youth': 'resource-property.community-lgbtq-youth',
 		'community-lgbtq-youth-caregivers':
@@ -55,7 +55,8 @@ const propertyMap = {
 		'community-middle-east-immigrant':
 			'resource-property.community-middle-east-immigrants',
 		'community-muslim': 'resource-property.community-muslim',
-		'community-native-american': 'resource-property.community-native-american',
+		'community-native-american-two-spirit':
+			'resource-property.community-native-american-two-spirit',
 		'community-nonbinary': 'resource-property.community-nonbinary',
 		'community-queer': 'resource-property.community-queer',
 		'community-refugee': 'resource-property.community-refugees',
