@@ -21,7 +21,8 @@ const propertyMap = {
 		'community-api': 'resource-property.community-asian-islander',
 		'community-asia-immigrant':
 			'resource-property.community-immigrants-from-asia',
-		'community-asylee': 'resource-property.community-asylum-seekers',
+		'community-asylee': 'resource-property.community-asylee',
+		'community-asylum-seeker': 'resource-property.community-asylum-seeker',
 		'community-daca-recipient-seeker':
 			'resource-property.community-daca-seeker',
 		'community-detained-immigrant':
