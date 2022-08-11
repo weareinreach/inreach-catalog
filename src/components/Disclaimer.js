@@ -14,7 +14,7 @@ const styles = (theme) => ({
 		width: '100%',
 		[theme.breakpoints.down('xs')]: {
 			border: 0,
-			marginBottom: 0
+			marginBottom: '12px'
 		}
 	}),
 	iconContainer: {
