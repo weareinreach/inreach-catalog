@@ -127,19 +127,14 @@ const ResultsContainer = (props) => {
 		loadingColor,
 		userData
 	} = props;
-
 	const disclaimerProps = {};
 	disclaimerProps.children = (
-		<FormattedMessage
-			id="search.covid-disclaimer-default"
-			defaultMessage="Some organizations are putting measures in place to respond to the coronavirus outbreak. This may impact hours and accessibility to some services. Please see each organization's profile page for details."
-			description="covid-19 alert message"
-		/>
+		<FormattedMessage id="search.covid-disclaimer-default" />
 	);
 
 	return (
 		<>
-			<Disclaimer {...disclaimerProps} />
+			<Disclaimer icon={true} {...disclaimerProps} />
 			<div
 				className={
 					searching && !searchResults.length
@@ -166,8 +161,6 @@ const ResultsContainer = (props) => {
 					<Typography variant="body2" className={noResults}>
 						<FormattedMessage
 							id="search.no-results-for-location"
-							defaultMessage="We found no verified resources within your search criteria.Try choosing different resource types or location."
-							description="no results found message"
 							values={{
 								br: <br />
 							}}
@@ -351,13 +344,7 @@ class SearchResultsContainer extends React.Component {
 									className={centerText + ' ' + halfBottomMargin}
 								>
 									<AsylumConnectCheckbox
-										label={
-											<FormattedMessage
-												id="search.show-walk-in-orgs"
-												defaultMessage="Only show me resources that provide walk-in hours"
-												description="checkbox to show only organizations with walk-in hours"
-											/>
-										}
+										label={<FormattedMessage id="search.show-walk-in-orgs" />}
 										value="time-walk-in"
 										onChange={this.props.handleFilterSelect}
 										checked={
@@ -385,33 +372,9 @@ class SearchResultsContainer extends React.Component {
 									indicator: indicatorColor
 								}}
 							>
-								<Tab
-									label={
-										<FormattedMessage
-											id="navigation.tab-list"
-											defaultMessage="List"
-											description="tab for the results list"
-										/>
-									}
-								/>
-								<Tab
-									label={
-										<FormattedMessage
-											id="navigation.tab-map"
-											defaultMessage="Map"
-											description="tab for the map view of the results"
-										/>
-									}
-								/>
-								<Tab
-									label={
-										<FormattedMessage
-											id="navigation.tab-filter"
-											defaultMessage="Filter"
-											description="tab to filter results"
-										/>
-									}
-								/>
+								<Tab label={<FormattedMessage id="navigation.tab-list" />} />
+								<Tab label={<FormattedMessage id="navigation.tab-map" />} />
+								<Tab label={<FormattedMessage id="navigation.tab-filter" />} />
 							</Tabs>
 							<SwipeableViews
 								index={this.state.tab}
