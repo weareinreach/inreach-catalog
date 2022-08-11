@@ -11,6 +11,7 @@ const styles = (theme) => ({
 		borderRadius: '10px',
 		backgroundColor: theme.palette.common.separator,
 		marginBottom: props?.marginBottom || theme.spacing(2),
+		marginTop: props?.marginTop || null,
 		width: '100%',
 		[theme.breakpoints.down('xs')]: {
 			border: 0,
@@ -21,8 +22,8 @@ const styles = (theme) => ({
 		position: 'absolute',
 		height: '14px',
 		width: '14px',
-		top: '26px',
-		left: '40px'
+		top: '15px',
+		left: '20px'
 	},
 	textContainer: {
 		margin: 'auto',
