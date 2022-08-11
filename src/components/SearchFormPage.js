@@ -82,7 +82,7 @@ const styles = (theme) => ({
 		}
 	},
 	containerSearchForm: {
-		paddingTop: theme.spacing(8)
+		paddingTop: theme.spacing(3)
 	},
 	infographicSpacing: {},
 	[theme.breakpoints.down('xs')]: {

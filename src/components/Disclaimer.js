@@ -10,7 +10,7 @@ const styles = (theme) => ({
 		// borderColor: theme.palette.secondary[900],
 		borderRadius: '10px',
 		backgroundColor: theme.palette.common.separator,
-		marginBottom: props?.marginBottom || theme.spacing(5),
+		marginBottom: props?.marginBottom || theme.spacing(2),
 		width: '100%',
 		[theme.breakpoints.down('xs')]: {
 			border: 0,
@@ -29,7 +29,7 @@ const styles = (theme) => ({
 		position: 'relative'
 	},
 	textParagraph: (props) => ({
-		padding: props?.padding || '12px 24px 12px 44px',
+		padding: props?.padding || '12px 44px 12px 44px',
 		color: '#1D1F23'
 	}),
 	moreInfo: {}

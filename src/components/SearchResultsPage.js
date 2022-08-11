@@ -134,7 +134,7 @@ const ResultsContainer = (props) => {
 
 	return (
 		<>
-			<Disclaimer {...disclaimerProps} />
+			<Disclaimer icon={true} {...disclaimerProps} />
 			<div
 				className={
 					searching && !searchResults.length
