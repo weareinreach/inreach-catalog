@@ -82,7 +82,7 @@ const styles = (theme) => ({
 		}
 	},
 	containerSearchForm: {
-		paddingTop: theme.spacing(8)
+		paddingTop: theme.spacing(3)
 	},
 	infographicSpacing: {},
 	[theme.breakpoints.down('xs')]: {
@@ -426,6 +426,7 @@ class SearchFormContainer extends React.Component {
 									this.state.locale === 'es_US') ? (
 									<Grid item xs={12}>
 										<Disclaimer
+											icon={true}
 											data-test-id="announcement-alert-message"
 											text={
 												<FormattedMessage
@@ -438,6 +439,51 @@ class SearchFormContainer extends React.Component {
 															<span style={{fontStyle: 'italic'}}>
 																{chunks}
 															</span>
+														)
+													}}
+												/>
+											}
+										/>
+										<Disclaimer
+											icon={true}
+											data-test-id="announcement-alert-message-1"
+											text={
+												<FormattedMessage
+													id="announcement.alert-message-1"
+													values={{
+														hereLink: (
+															<a
+																target="_blank"
+																rel="noopener noreferrer"
+																href={`https://help.grindr.com/hc/en-us/articles/8216530716307-Monkeypox-Virus`}
+																className="hide--on-print"
+															>
+																<FormattedMessage id="legal.privacy-here" />
+															</a>
+														)
+													}}
+												/>
+											}
+										/>
+									</Grid>
+								) : locale ? (
+									<Grid item xs={12}>
+										<Disclaimer
+											icon={true}
+											data-test-id="announcement-alert-message-1"
+											text={
+												<FormattedMessage
+													id="announcement.alert-message-1"
+													values={{
+														hereLink: (
+															<a
+																target="_blank"
+																rel="noopener noreferrer"
+																href={`https://help.grindr.com/hc/en-us/articles/8216530716307-Monkeypox-Virus`}
+																className="hide--on-print"
+															>
+																<FormattedMessage id="legal.privacy-here" />
+															</a>
 														)
 													}}
 												/>

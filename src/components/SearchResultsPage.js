@@ -127,7 +127,9 @@ const ResultsContainer = (props) => {
 		loadingColor,
 		userData
 	} = props;
-	const disclaimerProps = {};
+	const windowSize = window.innerWidth;
+	const isMobile = windowSize < breakpoints['sm'];
+	const disclaimerProps = !isMobile ? {marginTop: '-50px'} : {};
 	disclaimerProps.children = (
 		<FormattedMessage id="search.covid-disclaimer-default" />
 	);

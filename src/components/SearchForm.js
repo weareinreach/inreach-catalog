@@ -170,6 +170,7 @@ class SearchForm extends React.Component {
 					<>
 						{getLocale() === 'en_US' || getLocale() === 'es_US' ? (
 							<Disclaimer
+								icon={true}
 								data-test-id="announcement-alert-message"
 								text={
 									<FormattedMessage
@@ -186,6 +187,27 @@ class SearchForm extends React.Component {
 								}
 							/>
 						) : null}
+						<Disclaimer
+							icon={true}
+							data-test-id="announcement-alert-message-1"
+							text={
+								<FormattedMessage
+									id="announcement.alert-message-1"
+									values={{
+										hereLink: (
+											<a
+												target="_blank"
+												rel="noopener noreferrer"
+												href={`https://help.grindr.com/hc/en-us/articles/8216530716307-Monkeypox-Virus`}
+												className="hide--on-print"
+											>
+												<FormattedMessage id="legal.privacy-here" />
+											</a>
+										)
+									}}
+								/>
+							}
+						/>
 						<MobileSearch
 							handleSearchByOrgName={handleSearchByOrgName}
 							handleSearchButtonClick={handleSearchButtonClick}
