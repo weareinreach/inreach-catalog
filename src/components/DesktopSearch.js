@@ -149,6 +149,7 @@ const DesktopSearch = (props) => {
 											})}
 											checked={selectedDistance === type.searchValue}
 											data-test-id={type.searchValue}
+											disabled={props.searchDisabled || !props.nearAddress}
 										/>
 									</Grid>
 								))}

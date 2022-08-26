@@ -173,6 +173,7 @@ const MobileSearch = (props) => {
 												})}
 												checked={props.selectedDistance === type.searchValue}
 												data-test-id={type.searchValue}
+												disabled={props.searchDisabled || !props.nearAddress}
 											/>
 										</Grid>
 									))}
