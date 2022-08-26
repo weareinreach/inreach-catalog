@@ -37,10 +37,8 @@ const MobileSearch = (props) => {
 	const variant = 'primary';
 	const intl = useIntl();
 
-	const distanceMessageObj = distanceOptions.find((option) =>
-		option.searchValue == props.selectedDistance
-			? option.searchValue
-			: 'isNational'
+	const distanceMessageObj = distanceOptions.find(
+		(option) => option.searchValue == props.selectedDistance
 	);
 
 	return (

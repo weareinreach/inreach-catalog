@@ -49,10 +49,8 @@ const DesktopSearch = (props) => {
 		};
 	};
 
-	var distanceMessageObj = distanceOptions.find((option) =>
-		option.searchValue == props.selectedDistance
-			? option.searchValue
-			: 'isNational'
+	const distanceMessageObj = distanceOptions.find(
+		(option) => option.searchValue == props.selectedDistance
 	);
 
 	return (
