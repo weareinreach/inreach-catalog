@@ -48,9 +48,14 @@ const DesktopSearch = (props) => {
 			'aria-controls': `search-tabpanel-${index}`
 		};
 	};
-	const distanceMessageObj = distanceOptions.find(
-		(option) => option.searchValue === selectedDistance
+
+	const distanceMessageObj = distanceOptions.find((option) =>
+		option.searchValue === props.selectedDistance
+			? props.selectedDistance
+			: 'isNational'
 	);
+
+	console.log(distanceMessageObj);
 
 	return (
 		<TabContext value={tabValue.toString()}>
@@ -146,7 +151,7 @@ const DesktopSearch = (props) => {
 												defaultMessage: type.distanceDefaultMessage,
 												description: type.description
 											})}
-											checked={selectedDistance === type.searchValue}
+											checked={props.selectedDistance === type.searchValue}
 											data-test-id={type.searchValue}
 										/>
 									</Grid>

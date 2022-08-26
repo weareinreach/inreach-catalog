@@ -37,8 +37,10 @@ const MobileSearch = (props) => {
 	const variant = 'primary';
 	const intl = useIntl();
 
-	const distanceMessageObj = distanceOptions.find(
-		(option) => option.searchValue === selectedDistance
+	const distanceMessageObj = distanceOptions.find((option) =>
+		option.searchValue === props.selectedDistance
+			? props.selectedDistance
+			: 'isNational'
 	);
 
 	return (
@@ -171,7 +173,7 @@ const MobileSearch = (props) => {
 													defaultMessage: type.distanceDefaultMessage,
 													description: type.description
 												})}
-												checked={selectedDistance === type.searchValue}
+												checked={props.selectedDistance === type.searchValue}
 												data-test-id={type.searchValue}
 											/>
 										</Grid>

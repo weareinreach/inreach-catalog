@@ -1,8 +1,8 @@
 export const distanceOptions = [
 	{
 		searchValue: 'isNational',
-		distanceFormatMessageId: 'search.diatance-nationally',
-		distanceDeaultMessage: 'Nationally',
+		distanceFormatMessageId: 'search.distance-nationally',
+		distanceDefaultMessage: 'Nationally',
 		description:
 			'option to show organizations that can serve people nationally',
 		selectionMessageFormatMessageId:

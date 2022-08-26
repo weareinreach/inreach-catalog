@@ -471,7 +471,7 @@
 	"search.distance-message-100": "Show me search results within 100 miles of {searchLocation}.",
 	"search.distance-200": "within 200 miles",
 	"search.distance-message-200": "Show me search results within 200 miles of {searchLocation}.",
-	"search.diatance-nationally": "Nationally",
+	"search.distance-nationally": "Nationally",
 	"search.distance-select": "Select search distance",
 	"search.filter-additional-filters": "Additional Filters",
 	"search.filter-exclude-no-new-clients": "Exclude resources that are currently unable to take new clients",

@@ -471,7 +471,7 @@
 	"search.distance-message-100": "Mostrar resultados dentro, 160km de {searchLocation}",
 	"search.distance-200": "dentro de 320km",
 	"search.distance-message-200": "Mostrar resultados dentro, 320km de {searchLocation}",
-	"search.diatance-nationally": "Nacional",
+	"search.distance-nationally": "Nacional",
 	"search.distance-select": "Elige distancia de resultados",
 	"search.filter-additional-filters": "Filtros Adicionales",
 	"search.filter-exclude-no-new-clients": "Excluir organizaciones que actualmente no pueden recibir nuevxs clientes",
