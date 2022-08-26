@@ -49,13 +49,11 @@ const DesktopSearch = (props) => {
 		};
 	};
 
-	const distanceMessageObj = distanceOptions.find((option) =>
-		option.searchValue === props.selectedDistance
-			? props.selectedDistance
+	var distanceMessageObj = distanceOptions.find((option) =>
+		option.searchValue == props.selectedDistance
+			? option.searchValue
 			: 'isNational'
 	);
-
-	console.log(distanceMessageObj);
 
 	return (
 		<TabContext value={tabValue.toString()}>
@@ -151,7 +149,7 @@ const DesktopSearch = (props) => {
 												defaultMessage: type.distanceDefaultMessage,
 												description: type.description
 											})}
-											checked={props.selectedDistance === type.searchValue}
+											checked={selectedDistance === type.searchValue}
 											data-test-id={type.searchValue}
 										/>
 									</Grid>
