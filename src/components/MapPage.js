@@ -482,9 +482,10 @@ class MapPage extends React.Component {
 							[]
 						),
 						state,
-						isNational,
+						isNational:
+							this.state.selectedDistance == 'isNational' ? true : false,
 						county,
-						selectedDistance
+						selectedDistance: this.state.selectedDistance
 					};
 					fetchOrganizations(params).then((data) =>
 						this.processSearchResults(data, nextPage)
