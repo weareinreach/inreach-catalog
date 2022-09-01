@@ -665,6 +665,7 @@ const localeExclusions = {
 		'Gender-neutral restrooms',
 		'Leadership training and professional development',
 		'LGBTQ centers',
+		'Leadership training and professional development',
 		'Physical evaluations for asylum claim',
 		'Private therapy and counseling',
 		'Psychological evaluations for asylum claim',
