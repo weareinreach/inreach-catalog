@@ -25,7 +25,15 @@ Cypress.Commands.add('testSearchPageElements', (viewport) => {
 		expect($element).to.be.visible;
 	});
 
-	cy.getElementByTestId('search-page-checkbox').then(($element) => {
+	cy.getElementByTestId('isNational').then(($element) => {
+		expect($element).to.be.visible;
+	});
+
+	cy.getElementByTestId('100').then(($element) => {
+		expect($element).to.be.visible;
+	});
+
+	cy.getElementByTestId('200').then(($element) => {
 		expect($element).to.be.visible;
 	});
 
