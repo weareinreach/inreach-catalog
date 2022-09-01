@@ -33,7 +33,11 @@ const SubAnnouncement = ({classes, handleRequestOpen, url}) => (
 			rel="noopener noreferrer"
 			className={classes.subAnnouncementText}
 		>
-			<FormattedMessage id="app.download-mobile-app" />
+			<FormattedMessage
+				id="app.download-mobile-app"
+				defaultMessage="Download our free mobile app"
+				description="prompt to download the mobile app"
+			/>
 			&nbsp;&nbsp;
 			<KeyboardArrowRightIcon className={classes.subAnnouncementTextArrow} />
 		</a>

@@ -9,8 +9,12 @@ import propertyMap from '../utils/propertyMap';
 const Communities = (props) => {
 	const intl = useIntl();
 
-	function returnCommunity(slug) {
-		return intl.formatMessage({id: slug});
+	function returnCommunity(item, slug) {
+		return intl.formatMessage({
+			id: item.text,
+			defaultMessage: item.defaultMessage,
+			description: item.description
+		});
 	}
 
 	return (
@@ -24,6 +28,7 @@ const Communities = (props) => {
 									.map(
 										(item) =>
 											returnCommunity(
+												item,
 												propertyMap?.['community']?.[item?.slug]
 											) || ''
 									)

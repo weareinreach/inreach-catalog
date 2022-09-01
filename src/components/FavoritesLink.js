@@ -34,6 +34,7 @@ const FavoritesLink = ({classes, locale}) => (
 		<FormattedMessage
 			id="favorites.view-favorites"
 			defaultMessage="View Your Favorites"
+			description="Link to Favorites"
 		>
 			{(favorites) => (
 				<Typography variant="h4" className={classes.viewYourFavoritesText}>

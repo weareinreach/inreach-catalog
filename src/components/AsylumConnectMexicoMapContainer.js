@@ -90,7 +90,11 @@ const AsylumConnectMexicoMapContainer = ({classes}) => {
 						additionalClass={classes.listItem}
 						onClick={() => setDisplayMap(!displayMap)}
 					>
-						<FormattedMessage id="app.mexico-crime-map-generalised-murder" />
+						<FormattedMessage
+							id="app.mexico-crime-map-generalised-murder"
+							defaultMessage="Generalized Murder"
+							description="button to toggle crime data"
+						/>
 					</AsylumConnectDropdownListItem>
 				</Paper>
 			</div>
@@ -100,10 +104,18 @@ const AsylumConnectMexicoMapContainer = ({classes}) => {
 					<Card className={classes.legendContainer} id={legendId}>
 						<CardContent>
 							<Typography variant="h5">
-								<FormattedMessage id="app.mexico-crime-map-header" />
+								<FormattedMessage
+									id="app.mexico-crime-map-header"
+									defaultMessage="Generalized Murder"
+									description="title of crime data graphic"
+								/>
 							</Typography>
 							<Typography variant="caption">
-								<FormattedMessage id="app.mexico-crime-map-rate-calculation" />
+								<FormattedMessage
+									id="app.mexico-crime-map-rate-calculation"
+									defaultMessage="Rates are calculated per 100,000 people in 30 days"
+									description="text that shows are crime rate is calulated"
+								/>
 							</Typography>
 							<div className={classes.legend}>
 								<div className={classes.legendItem}>
@@ -131,7 +143,11 @@ const AsylumConnectMexicoMapContainer = ({classes}) => {
 									target="_blank"
 									className="hide--on-print"
 								>
-									<FormattedMessage id="app.mexico-crime-map-source-data-link" />
+									<FormattedMessage
+										id="app.mexico-crime-map-source-data-link"
+										defaultMessage="Source Data - SESNSP"
+										description="link to raw data used for crime rate calculations"
+									/>
 								</Link>
 							</Typography>
 						</CardContent>

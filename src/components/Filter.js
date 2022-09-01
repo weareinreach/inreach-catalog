@@ -25,7 +25,9 @@ function Filter(props) {
 				onClick={handleOnClick}
 				className={inputClassName}
 				placeholder={intl.formatMessage({
-					id: 'form.filter-generic-placeholder'
+					id: 'form.filter-generic-placeholder',
+					defaultMessage: 'Start typing to filter',
+					description: 'Message on input box to type to filter'
 				})}
 			/>
 		</FormControl>

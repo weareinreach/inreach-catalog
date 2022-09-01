@@ -145,7 +145,11 @@ class FavoritesListContainer extends React.Component {
 			})
 			.catch((error) => {
 				this.props.handleMessageNew(
-					<FormattedMessage id="error.unspecified" />
+					<FormattedMessage
+						id="error.unspecified"
+						defaultMessage="Oops! Something went wrong."
+						description="Message saying there was an error deleting the favorites list"
+					/>
 				);
 			});
 	}

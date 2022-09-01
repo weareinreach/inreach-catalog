@@ -17,6 +17,15 @@ import {fetchOrganizations} from '../utils/api';
 import infograph from '../utils/infographics';
 import ResourceTypes from '../utils/tags';
 
+import {returnOrgNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const styles = (theme) => ({
 	searchArea: {
 		padding: '2rem'
@@ -44,7 +53,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		} = this.parseParams(props.match.params);
 		this.props.handleAddressChange(nearAddress);
 		this.state = {
@@ -67,13 +77,14 @@ class MapPage extends React.Component {
 			selectedResource: null,
 			selectedService: null,
 			lastSearch: null,
-			orgName: name ?? null
+			orgName: name ?? null,
+			selectedDistance: isNational ? 'isNational' : null
 		};
 
 		this.recentResourceCache = {};
 
 		this.handlePlaceChange = this.handlePlaceChange.bind(this);
-		this.handleNationalCheckBox = this.handleNationalCheckBox.bind(this);
+		//this.handleNationalCheckBox = this.handleNationalCheckBox.bind(this);
 		this.handleResourceTypeSelect = this.handleResourceTypeSelect.bind(this);
 		this.handleResourceBackButton = this.handleResourceBackButton.bind(this);
 		this.handleFilterSelect = this.handleFilterSelect.bind(this);
@@ -91,6 +102,7 @@ class MapPage extends React.Component {
 		this.clearSearchStatus = this.clearSearchStatus.bind(this);
 		this.handleSearchByOrgName = this.handleSearchByOrgName.bind(this);
 		this.handleOrgSelection = this.handleOrgSelection.bind(this);
+		this.handleDistanceSelection = this.handleDistanceSelection.bind(this);
 	}
 
 	componentDidMount() {
@@ -208,8 +220,9 @@ class MapPage extends React.Component {
 		this.props.handleAddressChange(address);
 	}
 
-	handleNationalCheckBox(event) {
-		this.setState({isNational: event.target.checked});
+	handleDistanceSelection(event) {
+		const {name, value} = event.target;
+		this.setState({[name]: value});
 	}
 
 	handleResourceTypeSelect(event, checked) {
@@ -304,9 +317,7 @@ class MapPage extends React.Component {
 			const inState = encodeURIComponent(state.long_name);
 			const nearAddress = encodeURIComponent(this.props.nearAddress);
 			const nearLatLng = encodeURIComponent(latLng.lat + ',' + latLng.lng);
-			const isNational = encodeURIComponent(
-				this.state.isNational ? 'national' : 'local'
-			);
+			const isNational = encodeURIComponent(this.state.selectedDistance);
 			const filters = encodeURIComponent(
 				this.state.selectedFilters.length
 					? this.state.selectedFilters.join(',')
@@ -343,7 +354,11 @@ class MapPage extends React.Component {
 				.then(redirect)
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.no-location-entered" />
+						<FormattedMessage
+							id="error.no-location-entered"
+							defaultMessage="Please enter a city/state/province/territory in the location search box above."
+							description="error because no location was entered"
+						/>
 					);
 					this.setState({
 						searchDisabled: false
@@ -407,7 +422,8 @@ class MapPage extends React.Component {
 			selectedSort,
 			name,
 			updated,
-			stringified
+			stringified,
+			selectedDistance
 		} = this.checkForURLUpdates();
 		let nextState,
 			params = {};
@@ -466,8 +482,10 @@ class MapPage extends React.Component {
 							[]
 						),
 						state,
-						isNational,
-						county
+						isNational:
+							this.state.selectedDistance == 'isNational' ? true : false,
+						county,
+						selectedDistance: this.state.selectedDistance
 					};
 					fetchOrganizations(params).then((data) =>
 						this.processSearchResults(data, nextPage)
@@ -475,7 +493,11 @@ class MapPage extends React.Component {
 				})
 				.catch((error) => {
 					this.props.handleMessageNew(
-						<FormattedMessage id="error.unspecified" />
+						<FormattedMessage
+							id="error.unspecified"
+							defaultMessage="Oops! Something went wrong."
+							description="generic error message"
+						/>
 					);
 				});
 		} else if (name !== null && name !== 'undefined') {
@@ -490,7 +512,8 @@ class MapPage extends React.Component {
 				name: name,
 				locale: this.props.locale,
 				page,
-				isNational: false
+				isNational: false,
+				selectedDistance
 			};
 			fetchOrganizations(params).then((data) =>
 				this.processSearchResults(data, nextPage)
@@ -517,10 +540,14 @@ class MapPage extends React.Component {
 	}
 
 	processSearchResults(data, nextPage) {
-		const newOrgs = (data?.organizations || []).map((org) => ({
+		var newOrgs = (data?.organizations || []).map((org) => ({
 			...org,
 			resource_type: 'Organization'
 		}));
+
+		newOrgs = doNativeTranslation
+			? returnOrgNativeLanguageData(newOrgs, langCode)
+			: newOrgs;
 
 		this.setState((prevState) => ({
 			endOfList: newOrgs.length === 0,
@@ -553,7 +580,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes = [],
 			selectedFilters = [],
 			selectedSort = 'best',
-			name = null;
+			name = null,
+			selectedDistance = isNational ? 'isNational' : null;
 		if (params.in) {
 			inState = {long_name: decodeURIComponent(params.in)};
 		}
@@ -600,7 +628,8 @@ class MapPage extends React.Component {
 			isNational,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		};
 	}
 
@@ -613,7 +642,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		} = this.parseParams(this.props.match.params);
 		let updated = false;
 		let stringified = JSON.stringify({
@@ -622,7 +652,8 @@ class MapPage extends React.Component {
 			selectedResourceTypes,
 			selectedFilters,
 			selectedSort,
-			name
+			name,
+			selectedDistance
 		});
 		if (stringified !== this.state.lastSearch) {
 			updated = true;
@@ -637,7 +668,8 @@ class MapPage extends React.Component {
 			selectedSort,
 			name,
 			updated,
-			stringified
+			stringified,
+			selectedDistance
 		};
 	}
 
@@ -673,11 +705,11 @@ class MapPage extends React.Component {
 			this.state.selectedResourceTypes.length
 				? this.state.selectedResourceTypes
 				: [];
-		//on the search results, enforce a distance limitation of 100 miles
+		//on the search results, enforce a distance limitation of 200 miles
 		const mapMaxDistance =
 			this.props.match.path ===
 			'/:locale/search/:in/:place/:near/:national/:for/:filter/:sort'
-				? 100
+				? 200
 				: null;
 
 		return (
@@ -702,7 +734,7 @@ class MapPage extends React.Component {
 											clearResourceTypes={this.clearResourceTypes}
 											handlePlaceChange={this.handlePlaceChange}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleFilterSelect={this.handleFilterSelect}
 											handleSortSelect={this.handleSortSelect}
@@ -742,7 +774,7 @@ class MapPage extends React.Component {
 											handlePlaceChange={this.handlePlaceChange}
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											handleRequestOpen={this.props.handleRequestOpen}
 											handleSortSelect={this.handleSortSelect}
@@ -787,7 +819,7 @@ class MapPage extends React.Component {
 											clearResourceTypes={this.clearResourceTypes}
 											handlePlaceChange={this.handlePlaceChange}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}
 											infographic={infographic}
 											nearAddress={this.props.nearAddress}
@@ -823,7 +855,7 @@ class MapPage extends React.Component {
 											handlePlaceChange={this.handlePlaceChange}
 											handlePrintClick={this.handlePrintClick}
 											handleSearchButtonClick={this.handleSearchButtonClick}
-											handleNationalCheckBox={this.handleNationalCheckBox}
+											handleDistanceSelection={this.handleDistanceSelection}
 											handleOrgSelection={this.handleOrgSelection}
 											handleSearchByOrgName={this.handleSearchByOrgName}
 											handleResourceTypeSelect={this.handleResourceTypeSelect}

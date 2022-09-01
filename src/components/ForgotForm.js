@@ -31,11 +31,21 @@ const ForgotForm = ({
 }) => (
 	<form className={classes.container} onSubmit={handleSubmit}>
 		<Typography variant="body1" data-test-id="forgot-password-body">
-			<FormattedMessage id="account.request-password-reset" />
+			<FormattedMessage
+				id="account.request-password-reset"
+				defaultMessage="Enter your email address and we will send you an email to reset your password."
+				description="Message to enter your email address to reset password"
+			/>
 		</Typography>
 		<TextField
 			id="email"
-			label={<FormattedMessage id="form.email" />}
+			label={
+				<FormattedMessage
+					id="form.email"
+					defaultMessage="Email"
+					description="Message to enter your email here"
+				/>
+			}
 			margin="normal"
 			name="email"
 			onChange={handleChange}
@@ -49,7 +59,11 @@ const ForgotForm = ({
 			variant="primary"
 			testIdName="forgot-password-send-button"
 		>
-			<FormattedMessage id="form.send" />
+			<FormattedMessage
+				id="form.send"
+				defaultMessage="Send"
+				description="Button to send new password to your email"
+			/>
 		</AsylumConnectButton>
 		<div onClick={() => handleRequestOpen('login')}>
 			<Typography
@@ -57,7 +71,11 @@ const ForgotForm = ({
 				className={classes.link}
 				data-test-id="forgot-password-back-button"
 			>
-				<FormattedMessage id="navigation.back" />
+				<FormattedMessage
+					id="navigation.back"
+					defaultMessage="Back"
+					description="Back button to go back to the sign in page"
+				/>
 			</Typography>
 		</div>
 	</form>

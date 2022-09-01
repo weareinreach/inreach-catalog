@@ -51,7 +51,7 @@ const NavTabletMenu = (props) => {
 				useSmall
 					? generateOnlyIconLabel()
 					: intl.formatMessage({
-							id: 'naviagtion.menu',
+							id: 'navigation.menu',
 							description: 'In Reach Website links',
 							defaultMessage: 'Menu'
 					  })
@@ -68,7 +68,11 @@ const NavTabletMenu = (props) => {
 					rel="noopener noreferrer"
 					href={navLinks.about}
 				>
-					<FormattedMessage id="navigation.about">
+					<FormattedMessage
+						id="navigation.about"
+						defaultMessage="About"
+						description="link to the InReach.org About Us page"
+					>
 						{(about) => <Typography variant="h6">{about}</Typography>}
 					</FormattedMessage>
 				</a>
@@ -80,7 +84,11 @@ const NavTabletMenu = (props) => {
 					rel="noopener noreferrer"
 					href={navLinks.action}
 				>
-					<FormattedMessage id="navigation.take-action">
+					<FormattedMessage
+						id="navigation.take-action"
+						defaultMessage="Take Action"
+						description="ink to the InReach.org Donate Now page"
+					>
 						{(action) => <Typography variant="h6">{action}</Typography>}
 					</FormattedMessage>
 				</a>
@@ -92,7 +100,11 @@ const NavTabletMenu = (props) => {
 					rel="noopener noreferrer"
 					href={navLinks.help}
 				>
-					<FormattedMessage id="navigation.get-help">
+					<FormattedMessage
+						id="navigation.get-help"
+						defaultMessage="Get Help"
+						description="ink to the InReach.org FAQ page"
+					>
 						{(help) => <Typography variant="h6">{help}</Typography>}
 					</FormattedMessage>
 				</a>
@@ -104,7 +116,11 @@ const NavTabletMenu = (props) => {
 					rel="noopener noreferrer"
 					href={navLinks.contact}
 				>
-					<FormattedMessage id="navigation.contact">
+					<FormattedMessage
+						id="navigation.contact"
+						defaultMessage="Contact Us"
+						description="ink to the InReach.org Contact Us page"
+					>
 						{(contact) => <Typography variant="h6">{contact}</Typography>}
 					</FormattedMessage>
 				</a>

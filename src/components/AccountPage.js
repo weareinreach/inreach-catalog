@@ -14,6 +14,15 @@ import withWidth from './withWidth';
 import {breakpoints} from '../theme';
 import {fetchOrganizations, fetchUser} from '../utils/api';
 
+import {returnOrgNativeLanguageData} from '../utils/utils';
+import language from '../utils/language';
+
+const langCode = language.getLanguageCode();
+const provider = language.getLanguageProvider();
+
+const doNativeTranslation =
+	langCode !== 'en' && provider === 'inreach' ? true : false;
+
 const styles = (theme) => ({
 	root: {
 		padding: '5% 0 5% 0',
@@ -79,6 +88,10 @@ class AccountPage extends React.Component {
 			.then((user) => {
 				fetchOrganizations({owner: user.email})
 					.then(({organizations}) => {
+						organizations = doNativeTranslation
+							? returnOrgNativeLanguageData(organizations, langCode)
+							: organizations;
+
 						const affiliation = organizations?.[0] || null;
 						const isApproved =
 							affiliation?.owners?.some(
@@ -94,7 +107,11 @@ class AccountPage extends React.Component {
 					})
 					.catch((err) => {
 						this.props.handleMessageNew(
-							<FormattedMessage id="error-unspecified" />
+							<FormattedMessage
+								id="error-unspecified"
+								defaultMessage="Oops! Something went wrong."
+								descriptio="an error message"
+							/>
 						);
 
 						return;
@@ -102,7 +119,11 @@ class AccountPage extends React.Component {
 			})
 			.catch((err) => {
 				this.props.handleMessageNew(
-					<FormattedMessage id="error-unspecified" />
+					<FormattedMessage
+						id="error-unspecified"
+						defaultMessage="Oops! Something went wrong."
+						descriptio="an error message"
+					/>
 				);
 
 				return;
@@ -121,7 +142,11 @@ class AccountPage extends React.Component {
 	handleNullSession() {
 		this.props.history.push('/');
 		this.props.handleMessageNew(
-			<FormattedMessage id="account.user-sign-in-prompt" />
+			<FormattedMessage
+				id="account.user-sign-in-prompt"
+				defaultMessage="Sign In"
+				description="button to sign in to app"
+			/>
 		);
 	}
 
@@ -154,11 +179,21 @@ class AccountPage extends React.Component {
 							fullWidth
 						>
 							<Tab
-								label={<FormattedMessage id="account.your-account-heading" />}
+								label={
+									<FormattedMessage
+										id="account.your-account-heading"
+										defaultMessage="Account Settings"
+										description="title for the account settings page"
+									/>
+								}
 							/>
 							<Tab
 								label={
-									<FormattedMessage id="account.your-organization-heading" />
+									<FormattedMessage
+										id="account.your-organization-heading"
+										defaultMessage="Organization Settings"
+										description="title for the organization settings page"
+									/>
 								}
 							/>
 						</Tabs>
@@ -191,7 +226,11 @@ class AccountPage extends React.Component {
 			) : (
 				<div>
 					<Typography variant="h4" className={classes.textAlignCenter}>
-						<FormattedMessage id="account.organization" />
+						<FormattedMessage
+							id="account.organization"
+							defaultMessage="Organization"
+							description="title for organization form"
+						/>
 					</Typography>
 					<div className={classes.formRow}>
 						<OrgSettings
@@ -227,11 +266,21 @@ class AccountPage extends React.Component {
 							fullWidth
 						>
 							<Tab
-								label={<FormattedMessage id="account.your-account-heading" />}
+								label={
+									<FormattedMessage
+										id="account.your-account-heading"
+										defaultMessage="Account Settings"
+										description="title for the account settings page"
+									/>
+								}
 							/>
 							<Tab
 								label={
-									<FormattedMessage id="account.your-organization-heading" />
+									<FormattedMessage
+										id="account.your-organization-heading"
+										defaultMessage="Organization Settings"
+										description="title for the organization settings page"
+									/>
 								}
 								disabled
 							/>
@@ -280,7 +329,11 @@ class AccountPage extends React.Component {
 					variant="h3"
 					className={[classes.marginBottom, classes.textAlignCenter].join(' ')}
 				>
-					<FormattedMessage id="account.your-account-heading" />
+					<FormattedMessage
+						id="account.your-account-heading"
+						defaultMessage="Account Settings"
+						description="title for the account settings page"
+					/>
 				</Typography>
 				{this.props.sessionConfirmed ? (
 					settings

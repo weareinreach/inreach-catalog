@@ -36,7 +36,13 @@ class SearchFilterSelector extends React.Component {
 
 		return (
 			<AsylumConnectSelector
-				label={<FormattedMessage id="search.filter-additional-filters" />}
+				label={
+					<FormattedMessage
+						id="search.filter-additional-filters"
+						defaultMessage="Additional Filters"
+						description="Additional Filters dropdown"
+					/>
+				}
 				selected={selectedFilters}
 				rootClass={rootClass}
 				containerClass={selectInput}

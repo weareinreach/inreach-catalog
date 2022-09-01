@@ -9,11 +9,19 @@ import DisclaimerText from './DisclaimerText';
 const DisclaimerDialog = ({handleRequestClose}) => (
 	<div>
 		<DialogTitle>
-			<FormattedMessage id="legal.disclaimer" />
+			<FormattedMessage
+				id="legal.disclaimer"
+				defaultMessage="InReach Disclaimer"
+				description="title for the InReach Disclaimer message"
+			/>
 		</DialogTitle>
 		<DisclaimerText />
 		<DialogButton handleRequestClose={handleRequestClose}>
-			<FormattedMessage id="action.ok" />
+			<FormattedMessage
+				id="action.ok"
+				defaultMessage="OK"
+				description="button to accept the disclaimer and close the message box"
+			/>
 		</DialogButton>
 	</div>
 );

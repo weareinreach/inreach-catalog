@@ -48,7 +48,11 @@ const AccountMobile = ({
 	<div>
 		<Paper className={classes.root}>
 			{tab === 0 && (
-				<FormattedMessage id="account.sign-in" defaultMessage="Sign In">
+				<FormattedMessage
+					id="account.sign-in"
+					defaultMessage="Sign In"
+					description="button to sign in to app"
+				>
 					{(signIn) => (
 						<Typography className={classes.textCenter} variant="h3">
 							{signIn}
@@ -57,7 +61,11 @@ const AccountMobile = ({
 				</FormattedMessage>
 			)}
 			{tab === 1 && (
-				<FormattedMessage id="account.sign-up" defaultMessage="Sign Up">
+				<FormattedMessage
+					id="account.sign-up"
+					defaultMessage="Sign Up"
+					description="button to create an account"
+				>
 					{(signUp) => (
 						<Typography className={classes.textCenter} variant="h3">
 							{signUp}
@@ -75,13 +83,21 @@ const AccountMobile = ({
 				<Tab
 					data-test-id="account-mobile-sign-in"
 					label={
-						<FormattedMessage id="account.sign-in" defaultMessage="Sign In" />
+						<FormattedMessage
+							id="account.sign-in"
+							defaultMessage="Sign In"
+							description="button to sign in to app"
+						/>
 					}
 				/>
 				<Tab
 					data-test-id="account-mobile-sign-up"
 					label={
-						<FormattedMessage id="account.sign-up" defaultMessage="Sign Up" />
+						<FormattedMessage
+							id="account.sign-up"
+							defaultMessage="Sign Up"
+							description="button to create an account"
+						/>
 					}
 				/>
 			</Tabs>

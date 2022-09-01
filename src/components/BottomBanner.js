@@ -41,18 +41,30 @@ const BottomBanner = ({classes}) => {
 					className={classes.paddingBottom}
 					data-test-id="banner-header"
 				>
-					<FormattedMessage id="app.banner" />
+					<FormattedMessage
+						id="app.banner"
+						defaultMessage="Who does InReach serve?"
+						description="question - who InReach serves"
+					/>
 				</Typography>
 				<Typography
 					variant="subtitle1"
 					data-test-id="banner-text-1"
 					className={classes.banner1}
 				>
-					<FormattedMessage id="app.banner-1" />{' '}
+					<FormattedMessage
+						id="app.banner-1"
+						defaultMessage="InReach is for the entire diverse LGBTQ+ community"
+						description="describes who the app serves"
+					/>{' '}
 					<span className={classes.line}></span>
 				</Typography>
 				<Typography variant="subtitle1" data-test-id="banner-text-2">
-					<FormattedMessage id="app.banner-2" />
+					<FormattedMessage
+						id="app.banner-2"
+						defaultMessage="including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
+						description="describes who the app serves"
+					/>
 				</Typography>
 			</div>
 		</div>

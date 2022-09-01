@@ -89,7 +89,12 @@ const Resource = ({
 				className={classes.infoItem}
 				data-test-id="static-resource-header-1"
 			>
-				<FormattedMessage id="resource.who-it-serves" />:
+				<FormattedMessage
+					id="resource.who-it-serves"
+					defaultMessage="Who this resource serves"
+					description="who this resource serves message"
+				/>
+				:
 			</Typography>
 		)}
 		{who && (
@@ -112,7 +117,12 @@ const Resource = ({
 				className={classes.infoItem}
 				data-test-id="static-resource-header-2"
 			>
-				<FormattedMessage id="resource.how-to-use" />:
+				<FormattedMessage
+					id="resource.how-to-use"
+					defaultMessage="How to use this resource"
+					description="how to use this resource message"
+				/>
+				:
 			</Typography>
 		)}
 		{how && (
@@ -135,7 +145,12 @@ const Resource = ({
 				className={classes.infoItem}
 				data-test-id="static-resource-header-3"
 			>
-				<FormattedMessage id="resource.how-to-visit" />:
+				<FormattedMessage
+					id="resource.how-to-visit"
+					defaultMessage="How to visit this resource"
+					description="how to visit this resource message"
+				/>
+				:
 			</Typography>
 		)}
 		{visit && (

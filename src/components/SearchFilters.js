@@ -66,44 +66,98 @@ const styles = (theme) => ({
 const filterCollection = [
 	[
 		{
-			label: <FormattedMessage id="search.filter-has-confidentiality-policy" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-has-confidentiality-policy"
+					defaultMessage="Has a confidentiality policy"
+					description=""
+				/>
+			),
 			name: 'has-confidentiality-policy'
 		},
 		{
-			label: <FormattedMessage id="search.filter-has-free-services" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-has-free-services"
+					defaultMessage="Has free services"
+					description="free service option requirement"
+				/>
+			),
 			name: 'cost-free'
 		}
 		//{label: <FormattedMessage id="search.filter-has-service-my-language />, name: 'lang-'},
 	],
 	[
 		{
-			label: <FormattedMessage id="search.filter-photo-id" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-photo-id"
+					defaultMessage="Photo ID"
+					description="photo id required requirement"
+				/>
+			),
 			name: 'req-photo-id'
 		},
 		{
-			label: <FormattedMessage id="search.filter-proof-income" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-proof-income"
+					defaultMessage="Proof of Income"
+					description="proof of income requirement"
+				/>
+			),
 			name: 'req-proof-of-income'
 		},
 		{
-			label: <FormattedMessage id="search.filter-proof-age" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-proof-age"
+					defaultMessage="Proof of Age"
+					description="proof of age requirement"
+				/>
+			),
 			name: 'req-proof-of-age'
 		},
 		{
-			label: <FormattedMessage id="search.filter-medical-insurance" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-medical-insurance"
+					defaultMessage="Medical insurance"
+					description="medical insurance requirement"
+				/>
+			),
 			name: 'req-medical-insurance'
 		},
 		{
-			label: <FormattedMessage id="search.filter-proof-residence" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-proof-residence"
+					defaultMessage="Proof of residence"
+					description="proof of residence requirement"
+				/>
+			),
 			name: 'req-proof-of-residence'
 		},
 		{
-			label: <FormattedMessage id="search.filter-referral" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-referral"
+					defaultMessage="A referral"
+					description="needs a referral"
+				/>
+			),
 			name: 'req-referral'
 		}
 	],
 	[
 		{
-			label: <FormattedMessage id="search.filter-exclude-no-new-clients" />,
+			label: (
+				<FormattedMessage
+					id="search.filter-exclude-no-new-clients"
+					defaultMessage="Exclude resources that are currently unable to take new clients"
+					description="option to exclude organizations not accepting clients"
+				/>
+			),
 			name: 'at-capacity'
 		}
 	]
@@ -153,10 +207,18 @@ class SearchFilters extends React.Component {
 					<Grid item xs={12}>
 						<Typography variant="body2" className={props.classes.sectionHeader}>
 							<span className={props.classes.sectionTitle}>
-								<FormattedMessage id="search.filter-resources-placeholder" />
+								<FormattedMessage
+									id="search.filter-resources-placeholder"
+									defaultMessage="Filter resources by..."
+									description="title for inclusion section of check boxes"
+								/>
 							</span>
 							<br />
-							<FormattedMessage id="search.select-all-that-apply" />
+							<FormattedMessage
+								id="search.select-all-that-apply"
+								defaultMessage="(Select all that apply)"
+								description="Select all that apply text"
+							/>
 						</Typography>
 					</Grid>
 					{filterCollection[0].map((filter) => (
@@ -188,10 +250,18 @@ class SearchFilters extends React.Component {
 					<Grid item xs={12}>
 						<Typography variant="body2" className={props.classes.sectionHeader}>
 							<span className={props.classes.sectionTitle}>
-								<FormattedMessage id="search.filter-exclude-resources-with-requirements" />
+								<FormattedMessage
+									id="search.filter-exclude-resources-with-requirements"
+									defaultMessage="Do not show me resources that require..."
+									description="title for exclusion section of check boxes"
+								/>
 							</span>
 							<br />
-							<FormattedMessage id="search.select-all-that-apply" />
+							<FormattedMessage
+								id="search.select-all-that-apply"
+								defaultMessage="(Select all that apply)"
+								description="Select all that apply text"
+							/>
 						</Typography>
 					</Grid>
 					{filterCollection[1].map((filter) => (

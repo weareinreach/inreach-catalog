@@ -36,7 +36,11 @@ const styles = (theme) => ({
 
 const PrivacyMobile = ({classes, handleRequestOpen, tab}) => (
 	<div>
-		<FormattedMessage id="legal.privacy-and-disclaimer">
+		<FormattedMessage
+			id="legal.privacy-and-disclaimer"
+			defaultMessage="Privacy Statement & Disclaimer"
+			description="label for the InReach disclaimer title"
+		>
 			{(legal) => (
 				<Typography variant="h1" className={classes.title}>
 					{legal}
@@ -45,7 +49,11 @@ const PrivacyMobile = ({classes, handleRequestOpen, tab}) => (
 		</FormattedMessage>
 		<Grid container spacing={0} className={classes.mobilePadding}>
 			<Grid item xs={12} className={classes.underline}>
-				<FormattedMessage id="legal.privacy-statement">
+				<FormattedMessage
+					id="legal.privacy-statement"
+					defaultMessage="InReach Privacy Statement"
+					description="label for the InReach Privacy Statement title"
+				>
 					{(privacy) => (
 						<Typography variant="h2" className={classes.titleSpacing}>
 							{privacy}
@@ -55,7 +63,11 @@ const PrivacyMobile = ({classes, handleRequestOpen, tab}) => (
 				<PrivacyText />
 			</Grid>
 			<Grid item xs={12}>
-				<FormattedMessage id="legal.disclaimer">
+				<FormattedMessage
+					id="legal.disclaimer"
+					defaultMessage="InReach Disclaimer"
+					description="label for the InReach disclaimer title"
+				>
 					{(disclaimer) => (
 						<Typography variant="h2" className={classes.titleSpacing}>
 							{disclaimer}

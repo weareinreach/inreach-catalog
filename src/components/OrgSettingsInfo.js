@@ -120,7 +120,11 @@ class OrgSettingsInfo extends React.Component {
 						<TextField
 							className={classes.inputLabel}
 							label={
-								intl.formatMessage({id: 'form.organization-name-title'}) + ':'
+								intl.formatMessage({
+									id: 'form.organization-name-title',
+									defaultMessage: 'Organization Name',
+									description: 'Organization Name Input field label'
+								}) + ':'
 							}
 							value={name}
 							disabled={!isSuggestion}
@@ -129,7 +133,11 @@ class OrgSettingsInfo extends React.Component {
 						<TextField
 							className={classes.inputLabel}
 							label={
-								intl.formatMessage({id: 'form.organization-name-title'}) + ':'
+								intl.formatMessage({
+									id: 'form.organization-name-title',
+									defaultMessage: 'Organization Name',
+									description: 'Organization Name input field'
+								}) + ':'
 							}
 							name="name"
 							value={name}
@@ -137,14 +145,22 @@ class OrgSettingsInfo extends React.Component {
 								shrink: true
 							}}
 							placeholder={intl.formatMessage({
-								id: 'form.organization-name-title'
+								id: 'form.organization-name-title',
+								defaultMessage: 'Organization Name',
+								description: 'Organization Name input field'
 							})}
 							onChange={this.handleChange}
 						/>
 					)}
 					<TextField
 						className={classes.inputLabel}
-						label={intl.formatMessage({id: 'resource.about-header'}) + ':'}
+						label={
+							intl.formatMessage({
+								id: 'resource.about-header',
+								defaultMessage: 'About',
+								description: 'About input field Label'
+							}) + ':'
+						}
 						name="description"
 						value={description}
 						multiline={true}
@@ -152,13 +168,21 @@ class OrgSettingsInfo extends React.Component {
 							shrink: true
 						}}
 						placeholder={intl.formatMessage({
-							id: 'form.resource-description-placeholder'
+							id: 'form.resource-description-placeholder',
+							defaultMessage: 'Short description of resource',
+							description: 'placeholder message for the about field'
 						})}
 						onChange={this.handleChange}
 					/>
 					<TextField
 						className={classes.inputLabel}
-						label={intl.formatMessage({id: 'form.alert-message'}) + ':'}
+						label={
+							intl.formatMessage({
+								id: 'form.alert-message',
+								defaultMessage: 'Alert Message',
+								description: 'Alert Message input field label'
+							}) + ':'
+						}
 						name="alert_message"
 						value={alert_message}
 						multiline={true}
@@ -166,19 +190,31 @@ class OrgSettingsInfo extends React.Component {
 							shrink: true
 						}}
 						placeholder={intl.formatMessage({
-							id: 'form.alert-message-placeholder'
+							id: 'form.alert-message-placeholder',
+							defaultMessage: 'Alert Message placeholder',
+							description: 'Alert Message placeholder text'
 						})}
 						onChange={this.handleChange}
 					/>
 					<TextField
 						className={classes.inputLabel}
-						label={intl.formatMessage({id: 'resource.website-label'}) + ':'}
+						label={
+							intl.formatMessage({
+								id: 'resource.website-label',
+								defaultMessage: 'Website',
+								description: 'website field input label'
+							}) + ':'
+						}
 						name="website"
 						value={website}
 						InputLabelProps={{
 							shrink: true
 						}}
-						placeholder={intl.formatMessage({id: 'form.website-placeholder'})}
+						placeholder={intl.formatMessage({
+							id: 'form.website-placeholder',
+							defaultMessage: 'organization website',
+							description: 'website field input box'
+						})}
 						onChange={this.handleChange}
 					/>
 					{/* <FormControl className={classes.inputLabel}>

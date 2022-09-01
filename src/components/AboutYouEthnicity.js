@@ -169,10 +169,18 @@ const AboutYouEthnicity = (props) => {
 	return (
 		<>
 			<DialogTitle>
-				<FormattedMessage id="account.signup-about-you" />
+				<FormattedMessage
+					id="account.signup-about-you"
+					defaultMessage="About You"
+					description="Title for the About You sign up dialog"
+				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-about-you-subtitle" />
+				<FormattedMessage
+					id="account.signup-about-you-subtitle"
+					defaultMessage="Help us improve your experience by telling us more about yourself"
+					description="Sub-title for the About You sign up dialog"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -183,10 +191,18 @@ const AboutYouEthnicity = (props) => {
 				data-test-id="about-you-ethnicity-form"
 			>
 				<Typography className={classes.formQuestion1} variant="h3">
-					<FormattedMessage id="aboutyou.ethnicity" />
+					<FormattedMessage
+						id="aboutyou.ethnicity"
+						defaultMessage="My ethnicity/race is.."
+						description="question asking about ethnicity"
+					/>
 				</Typography>
 				<Typography className={classes.formQuestion2} variant="h3">
-					<FormattedMessage id="aboutyou.select-all" />
+					<FormattedMessage
+						id="aboutyou.select-all"
+						defaultMessage="(Select all that apply)"
+						description="Sub-title to select all options that apply"
+					/>
 				</Typography>
 
 				<Grid container spacing={0} className={classes.gridTxtAlign}>
@@ -199,7 +215,11 @@ const AboutYouEthnicity = (props) => {
 								}
 								value={type.dbValue}
 								control={<Checkbox />}
-								label={intl.formatMessage({id: type.formatMessageId})}
+								label={intl.formatMessage({
+									id: type.formatMessageId,
+									defaultMessage: type.defaultMessage,
+									description: type.description
+								})}
 								name="ethnicityRace"
 								onChange={handleChangeArray}
 								checked={ethnicityRace.includes(type.dbValue)}
@@ -216,7 +236,11 @@ const AboutYouEthnicity = (props) => {
 							classes={classes.fontWeightMedium}
 							margin="none"
 						>
-							<FormattedMessage id="aboutyou.ethnicity" />
+							<FormattedMessage
+								id="aboutyou.ethnicity"
+								defaultMessage="My ethnicity/race is.."
+								description="question asking about ethnicity"
+							/>
 						</FormLabel>
 						<TextField
 							onBlur={setTouchedEthnicity}
@@ -239,7 +263,9 @@ const AboutYouEthnicity = (props) => {
 							type="text"
 							value={specifiedEthnicity}
 							placeholder={intl.formatMessage({
-								id: 'account.signup-generic-placeholder'
+								id: 'account.signup-generic-placeholder',
+								defaultMessage: 'Specify here',
+								description: 'text field placeholder text of Specify Here'
 							})}
 							data-test-id="about-you-ethnicity"
 							InputLabelProps={{shrink: true}}
@@ -263,7 +289,11 @@ const AboutYouEthnicity = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="navigation.next" />
+					<FormattedMessage
+						id="navigation.next"
+						defaultMessage="Next"
+						description="Next button"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

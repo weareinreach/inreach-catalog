@@ -162,10 +162,18 @@ const AboutYouCountry = (props) => {
 	return (
 		<>
 			<DialogTitle>
-				<FormattedMessage id="account.signup-about-you" />
+				<FormattedMessage
+					id="account.signup-about-you"
+					defaultMessage="About You"
+					description="Title for the About You sign up dialog"
+				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage id="account.signup-about-you-subtitle" />
+				<FormattedMessage
+					id="account.signup-about-you-subtitle"
+					defaultMessage="Help us improve your experience by telling us more about yourself"
+					description="Sub-title for the About You sign up dialog"
+				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -176,7 +184,11 @@ const AboutYouCountry = (props) => {
 				data-test-id="about-you-country-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
-					<FormattedMessage id="aboutyou.country" />
+					<FormattedMessage
+						id="aboutyou.country"
+						defaultMessage="My country of origin is in.."
+						description="Question asking the country of origin"
+					/>
 				</Typography>
 				<RadioGroup
 					name="countryOfOrigin"
@@ -189,7 +201,11 @@ const AboutYouCountry = (props) => {
 								<FormControlLabel
 									value={type.dbValue}
 									control={<Radio />}
-									label={intl.formatMessage({id: type.formatMessageId})}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
 									checked={countryOfOrigin === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
@@ -205,16 +221,28 @@ const AboutYouCountry = (props) => {
 							classes={classes.fontWeightMedium}
 							margin="none"
 						>
-							<FormattedMessage id="aboutyou.country-other" />
+							<FormattedMessage
+								id="aboutyou.country-other"
+								defaultMessage="My home country is located in.."
+								description="Option to specif country of origin, if it's not listed"
+							/>
 						</FormLabel>
 						<TextField
 							onBlur={setTouchedCountry}
 							error={touchedCountry && !textFieldTest.test(specifiedCountry)}
 							helperText={
 								touchedCountry && !textFieldTest.test(specifiedCountry) ? (
-									<FormattedMessage id="error.text-field-country" />
+									<FormattedMessage
+										id="error.text-field-country"
+										defaultMessage="Country not specified"
+										description="error if no Country is specified"
+									/>
 								) : touchedCountry && textFieldTest.test(specifiedCountry) ? (
-									<FormattedMessage id="form.field-valid-country" />
+									<FormattedMessage
+										id="form.field-valid-country"
+										defaultMessage="Country is specified"
+										description="message if country field has data"
+									/>
 								) : null
 							}
 							id="specifiedCountry"
@@ -225,7 +253,9 @@ const AboutYouCountry = (props) => {
 							type="text"
 							value={specifiedCountry}
 							placeholder={intl.formatMessage({
-								id: 'aboutyou.country-other-placeholder'
+								id: 'aboutyou.country-other-placeholder',
+								defaultMessage: 'Ex Indian Ocean',
+								description: 'placeholder for the specify country field'
 							})}
 							data-test-id="about-you-country"
 							InputLabelProps={{shrink: true}}
@@ -249,7 +279,11 @@ const AboutYouCountry = (props) => {
 					variant="primary"
 					className={classes.nextBtn}
 				>
-					<FormattedMessage id="navigation.next" />
+					<FormattedMessage
+						id="navigation.next"
+						defaultMessage="Next"
+						description="Next button"
+					/>
 				</AsylumConnectButton>
 			</form>
 		</>

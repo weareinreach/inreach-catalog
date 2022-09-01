@@ -108,7 +108,11 @@ class PrivacyNotice extends React.Component {
 					{this.state.hiding ? (
 						<Paper className={hidingBox} onClick={this.handleLaunchPrivacyPage}>
 							<Typography variant="h6" className={hidingBoxTitle}>
-								<FormattedMessage id="app.privacy-statement-dismissed" />
+								<FormattedMessage
+									id="app.privacy-statement-dismissed"
+									defaultMessage="Information dismissed. You can find our Disclaimer & Privacy Statement again under the more tab"
+									description="message has been dismissed"
+								/>
 							</Typography>
 						</Paper>
 					) : (
@@ -117,7 +121,11 @@ class PrivacyNotice extends React.Component {
 								<PrivacyIcon width="25px" />
 							</span>
 							<Typography variant="h6" className={valignMiddle + ' ' + title}>
-								<FormattedMessage id="app.read-privacy-statement" />
+								<FormattedMessage
+									id="app.read-privacy-statement"
+									defaultMessage="READ OUR PRIVACY STATEMENT"
+									description="icon label"
+								/>
 							</Typography>
 							<span className={valignMiddle + ' stop-click-propagation'}>
 								<Button onClick={this.handleDismiss} className={closeButton}>
