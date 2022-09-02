@@ -18,7 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
-			reviewerSteps: [0, 2, 11, 12],
+			reviewerSteps: [0, 2, 11, 12, 13],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -56,7 +56,6 @@ class SignupFormContainer extends React.Component {
 	}
 
 	handleChange(event) {
-		console.log(event.target);
 		const {name, value} = event.target;
 		this.setState({[name]: value});
 	}
@@ -259,7 +258,8 @@ class SignupFormContainer extends React.Component {
 			immigrationStatus: this.state.immigrationStatus,
 			orgName: this.state.orgName,
 			orgPositionTitle: this.state.orgPositionTitle,
-			reasonForJoining: this.state.reasonForJoining
+			reasonForJoining: this.state.reasonForJoining,
+			verifyAnswer: this.state.verifyAnswer
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
@@ -369,13 +369,12 @@ class SignupFormContainer extends React.Component {
 					/>
 				);
 			});
-
 		//determine next step in the workflow
-		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
-			this.props.handleRequestOpen('thankyou');
-		} else if (
-			this.state.activeStep === 11 &&
-			this.state.verifyAnswer === 'yes'
+		if (
+			this.state.verifyAnswer === 'yes' ||
+			this.state.activeStep === 12 ||
+			this.state.activeStep === 10 ||
+			this.state.activeStep === 5
 		) {
 			this.props.handleRequestOpen('thankyou');
 		} else {
