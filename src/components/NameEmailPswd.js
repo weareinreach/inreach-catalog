@@ -11,8 +11,8 @@ import DialogSubTitle from './DialogSubTitle';
 import AsylumConnectSignupAgreement from './AsylumConnectSignupAgreement';
 import {breakpoints} from '../theme';
 
-const LAWYER_TYPE = 'lawyer';
 const SEEKER_TYPE = 'seeker';
+const REVIEWER_TYPE = 'reviewer';
 
 const styles = (theme) => ({
 	container: {
@@ -124,6 +124,7 @@ const NameEmailPswd = (props) => {
 		name,
 		password,
 		selection,
+		currentLocation,
 		handleSignUp,
 		handleChange
 	} = props;
@@ -131,44 +132,32 @@ const NameEmailPswd = (props) => {
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
-	const emailLabel =
-		selection === SEEKER_TYPE ? (
-			<FormattedMessage
-				id="form.email"
-				defaultMessage="Email"
-				description="Entry for Email as a Seeker"
-			/>
-		) : selection === LAWYER_TYPE ? (
-			<FormattedMessage
-				id="form.lawyer-email"
-				defaultMessage="Organization Email"
-				description="Entry for Email as a Lawyer"
-			/>
-		) : (
-			<FormattedMessage
-				id="form.organization-email"
-				defaultMessage="Organization or personal Email"
-				description="Entry for Email as an Organization"
-			/>
-		);
+	const emailLabel = (
+		<FormattedMessage
+			id="form.email"
+			defaultMessage="Email"
+			description="Input text field for an Email"
+		/>
+	);
 
 	const nameLabel =
 		selection === SEEKER_TYPE ? (
 			<FormattedMessage
 				id="form.name"
 				defaultMessage="Name (or Alias)"
-				description="Entry for Name as a Seeker"
+				description="Input text field for a Name"
 			/>
 		) : (
 			<FormattedMessage
 				id="form.lawyer-organization-name"
 				defaultMessage="First and Last Name"
-				description="Entry for Name as a Lawyer or Organization"
+				description="Input text field for a Name"
 			/>
 		);
 
 	const [touchedName, setTouchedName] = useState(false);
 	const [touchedEmail, setTouchedEmail] = useState(false);
+	const [touchedLocation, setTouchedLocation] = useState(false);
 	const [touchedPassword, setTouchedPassword] = useState(false);
 
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
@@ -184,7 +173,9 @@ const NameEmailPswd = (props) => {
 			email &&
 			emailTest.test(email) &&
 			password &&
-			pswdTest.test(password)
+			pswdTest.test(password) &&
+			currentLocation &&
+			textFieldTest.test(currentLocation)
 		) {
 			return true;
 		}
@@ -204,11 +195,19 @@ const NameEmailPswd = (props) => {
 				</DialogTitle>
 			)}
 			<DialogSubTitle className={classes.sideMargin}>
-				<FormattedMessage
-					id="app.welcome-main-3"
-					defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
-					description="sign up dialog header message"
-				/>
+				{selection === SEEKER_TYPE ? (
+					<FormattedMessage
+						id="app.welcome-main-3"
+						defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+						description="sign up dialog header message"
+					/>
+				) : (
+					<FormattedMessage
+						id="account.signup-welcome-reviewer"
+						defaultMessage="Must be knowledgeable about the local LGBTQ+ community and support services."
+						description="sign up dialog header message"
+					/>
+				)}
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
 			<form
@@ -218,44 +217,88 @@ const NameEmailPswd = (props) => {
 				onSubmit={handleSignUp}
 				data-test-id="name-email-password-form"
 			>
-				{selection === SEEKER_TYPE ? (
+				<FormLabel
+					required
+					className={classes.labels}
+					classes={classes.fontWeightMedium}
+					margin="none"
+					data-test-id="sign-up-form-name-label"
+				>
+					{nameLabel}
+				</FormLabel>
+				<TextField
+					onBlur={setTouchedName}
+					error={touchedName && !textFieldTest.test(name)}
+					helperText={
+						touchedName && !textFieldTest.test(name) ? (
+							<FormattedMessage
+								id="error.text-field-name"
+								defaultMessage="'Name' field must contain at least 2 characters"
+								description="error message if name value does not meet requirements"
+							/>
+						) : touchedName && textFieldTest.test(name) ? (
+							<FormattedMessage
+								id="form.field-valid-name"
+								defaultMessage="'Name' field is valid"
+								description="success message when name value meets requirements"
+							/>
+						) : null
+					}
+					id="name"
+					margin="none"
+					name="name"
+					onChange={handleChange}
+					required
+					type="text"
+					value={name ?? ''}
+					placeholder="John Smith"
+					data-test-id="sign-up-form-name-input"
+					InputLabelProps={{shrink: true}}
+					variant="outlined"
+					className={classes.borderOutline}
+					InputProps={{
+						classes: {
+							input: classes.borderOutline,
+							notchedOutline: classes.borderOutline
+						}
+					}}
+				/>
+				{selection === REVIEWER_TYPE ? (
 					<>
-						<FormLabel
-							required
-							className={classes.labels}
-							classes={classes.fontWeightMedium}
-							margin="none"
-							data-test-id="sign-up-form-name-label"
-						>
-							{nameLabel}
+						<FormLabel required className={classes.labels} margin="none">
+							<FormattedMessage
+								id="account.signup-organization-location"
+								defaultMessage="Current location"
+								description="Loation input field label"
+							/>
 						</FormLabel>
 						<TextField
-							onBlur={setTouchedName}
-							error={touchedName && !textFieldTest.test(name)}
+							onBlur={setTouchedLocation}
+							error={touchedLocation && !textFieldTest.test(currentLocation)}
 							helperText={
-								touchedName && !textFieldTest.test(name) ? (
+								touchedLocation && !textFieldTest.test(currentLocation) ? (
 									<FormattedMessage
-										id="error.text-field-name"
-										defaultMessage="'Name' field must contain at least 2 characters"
-										description="error message if name value does not meet requirements"
+										id="error.text-field-location"
+										defaultMessage="'Location' field must contain at least 2 characters"
+										description="error message if the Location input field is not formatted properly"
 									/>
-								) : touchedName && textFieldTest.test(name) ? (
+								) : touchedLocation && textFieldTest.test(currentLocation) ? (
 									<FormattedMessage
-										id="form.field-valid-name"
-										defaultMessage="'Name' field is valid"
-										description="success message when name value meets requirements"
+										id="form.field-valid-location"
+										defaultMessage="'Location' field is valid"
+										description="Success message if the Name field is formatted properly"
 									/>
 								) : null
 							}
-							id="name"
+							id="currentLocation"
 							margin="none"
-							name="name"
+							name="currentLocation"
 							onChange={handleChange}
 							required
 							type="text"
-							value={name ?? ''}
-							placeholder="John Smith"
-							data-test-id="sign-up-form-name-input"
+							value={currentLocation}
+							placeholder="San Francisco"
+							data-test-id="sign-up-form-location-input"
 							InputLabelProps={{shrink: true}}
 							variant="outlined"
 							className={classes.borderOutline}
