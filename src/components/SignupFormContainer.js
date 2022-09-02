@@ -18,6 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
+			reviewerSteps: [0, 2],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -139,6 +140,19 @@ class SignupFormContainer extends React.Component {
 			(prevState) => ({activeStep: prevState.activeStep + 1}),
 			function () {
 				if (this.state.selection === 'seeker') {
+					if (this.state.activeStep > 6) {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.seekerSteps[this.state.activeStep]},
+							function () {}
+						);
+					}
+				}
+				if (this.state.selection === 'reviewer') {
 					if (this.state.activeStep > 6) {
 						this.setState(
 							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
