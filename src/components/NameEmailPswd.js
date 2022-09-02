@@ -132,14 +132,6 @@ const NameEmailPswd = (props) => {
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
-	const emailLabel = (
-		<FormattedMessage
-			id="form.email"
-			defaultMessage="Email"
-			description="Input text field for an Email"
-		/>
-	);
-
 	const nameLabel =
 		selection === SEEKER_TYPE ? (
 			<FormattedMessage
@@ -317,7 +309,11 @@ const NameEmailPswd = (props) => {
 					margin="none"
 					data-test-id="sign-up-form-email-label"
 				>
-					{emailLabel}
+					<FormattedMessage
+						id="form.email"
+						defaultMessage="Email"
+						description="Input text field for an Email"
+					/>
 				</FormLabel>
 				<TextField
 					onBlur={setTouchedEmail}
