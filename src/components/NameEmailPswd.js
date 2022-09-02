@@ -158,7 +158,21 @@ const NameEmailPswd = (props) => {
 		'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&?])(?=.{10,})'
 	);
 
-	const isValid = () => {
+	const isValidSeeker = () => {
+		if (
+			name &&
+			textFieldTest.test(name) &&
+			email &&
+			emailTest.test(email) &&
+			password &&
+			pswdTest.test(password)
+		) {
+			return true;
+		}
+		return false;
+	};
+
+	const isValidReviewer = () => {
 		if (
 			name &&
 			textFieldTest.test(name) &&
@@ -171,7 +185,6 @@ const NameEmailPswd = (props) => {
 		) {
 			return true;
 		}
-
 		return false;
 	};
 
@@ -403,9 +416,15 @@ const NameEmailPswd = (props) => {
 				/>
 				<AsylumConnectSignupAgreement />
 				<AsylumConnectButton
-					disabled={!isValid()}
+					disabled={
+						selection === SEEKER_TYPE ? !isValidSeeker() : !isValidReviewer()
+					}
 					testIdName="sign-up-form-submit-button"
-					variant={SEEKER_TYPE ? 'signUp' : 'primary'}
+					variant={
+						selection === SEEKER_TYPE || selection === REVIEWER_TYPE
+							? 'signUp'
+							: 'primary'
+					}
 					className={classes.noBottomMargin}
 				>
 					<FormattedMessage
