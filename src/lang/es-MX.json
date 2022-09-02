@@ -210,6 +210,7 @@
 	"app.sensitive-information-sign-in-prompt": "Esta página contiene información sensible. Por tu seguridad, por favor inicia una sesión.",
 	"app.thank-you-heading": "¡Gracias!",
 	"app.thank-you-text": "Está todo listo.",
+	"app.thank-you-text-reviewer": "You will receive a notification from the InReach team soon.",
 	"app.unlock-features-with-account-prompt": "Con una cuenta gratuita de InReach, puedes desbloquear funciones adicionales",
 	"app.welcome": "Bienvenidx a InReach | {country}",
 	"app.welcome-main-1": "Bienvenidx a InReach",
