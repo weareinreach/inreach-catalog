@@ -23,9 +23,11 @@ import AboutYouIdentity from './AboutYouIdentity';
 import AboutYouEthnicity from './AboutYouEthnicity';
 import AboutYouAge from './AboutYouAge';
 import AboutYouOrganization from './AboutYouOrganization';
+import CommunityReviewerVerify from './CommunityReviewerVerify';
 
 const LAWYER_TYPE = 'lawyer';
 const SEEKER_TYPE = 'seeker';
+const REVIEWER_TYPE = 'reviewer';
 
 const styles = (theme) => ({
 	container: {
@@ -348,6 +350,9 @@ const SignupForm = (props) => {
 			{activeStep === 8 && <AboutYouIdentity {...props}></AboutYouIdentity>}
 			{activeStep === 9 && <AboutYouEthnicity {...props}></AboutYouEthnicity>}
 			{activeStep === 10 && <AboutYouAge {...props}></AboutYouAge>}
+			{activeStep === 11 && (
+				<CommunityReviewerVerify {...props}></CommunityReviewerVerify>
+			)}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
 					<FormattedMessage
@@ -402,7 +407,7 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{activeStep > 5 && activeStep < 11 && (
+			{activeStep > 5 && activeStep < 12 && (
 				<MobileStepper
 					className={
 						activeStep === 6
@@ -419,7 +424,7 @@ const SignupForm = (props) => {
 			)}
 			{(activeStep === 1 ||
 				activeStep === 2 ||
-				(activeStep > 6 && activeStep < 11)) && (
+				(activeStep > 6 && activeStep < 12)) && (
 				<div
 					className={
 						isMobile

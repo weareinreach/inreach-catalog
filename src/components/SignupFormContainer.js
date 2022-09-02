@@ -18,7 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
-			reviewerSteps: [0, 2],
+			reviewerSteps: [0, 2, 11],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -55,6 +55,7 @@ class SignupFormContainer extends React.Component {
 	}
 
 	handleChange(event) {
+		console.log(event.target);
 		const {name, value} = event.target;
 		this.setState({[name]: value});
 	}
@@ -139,6 +140,7 @@ class SignupFormContainer extends React.Component {
 		this.setState(
 			(prevState) => ({activeStep: prevState.activeStep + 1}),
 			function () {
+				console.log(this.state.selection);
 				if (this.state.selection === 'seeker') {
 					if (this.state.activeStep > 6) {
 						this.setState(
@@ -155,12 +157,12 @@ class SignupFormContainer extends React.Component {
 				if (this.state.selection === 'reviewer') {
 					if (this.state.activeStep > 6) {
 						this.setState(
-							{activeStep: this.state.seekerSteps[this.state.activeStep - 4]},
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 4]},
 							function () {}
 						);
 					} else {
 						this.setState(
-							{activeStep: this.state.seekerSteps[this.state.activeStep]},
+							{activeStep: this.state.reviewerSteps[this.state.activeStep]},
 							function () {}
 						);
 					}
@@ -257,7 +259,8 @@ class SignupFormContainer extends React.Component {
 			immigrationStatus: this.state.immigrationStatus,
 			orgName: this.state.orgName,
 			orgPositionTitle: this.state.orgPositionTitle,
-			reasonForJoining: this.state.reasonForJoining
+			reasonForJoining: this.state.reasonForJoining,
+			verifyAnswer: this.state.verifyAnswer
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
@@ -463,9 +466,14 @@ class SignupFormContainer extends React.Component {
 					}
 
 					this.props.handleLogIn(auth.token);
-					if (!isProfessional) {
+					if (selection === 'seeker') {
 						this.setState(
 							{activeStep: this.state.seekerSteps[2]},
+							function () {}
+						);
+					} else if (selection === 'reviewer') {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[2]},
 							function () {}
 						);
 					} else {
