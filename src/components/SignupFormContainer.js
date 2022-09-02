@@ -18,7 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
-			reviewerSteps: [0, 2, 11],
+			reviewerSteps: [0, 2, 11, 12],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -29,7 +29,8 @@ class SignupFormContainer extends React.Component {
 			specifiedOrgType: '',
 			specifiedCountry: '',
 			specifiedIdentity: '',
-			specifiedEthnicity: ''
+			specifiedEthnicity: '',
+			verifyAnswer: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -140,7 +141,6 @@ class SignupFormContainer extends React.Component {
 		this.setState(
 			(prevState) => ({activeStep: prevState.activeStep + 1}),
 			function () {
-				console.log(this.state.selection);
 				if (this.state.selection === 'seeker') {
 					if (this.state.activeStep > 6) {
 						this.setState(
@@ -155,9 +155,9 @@ class SignupFormContainer extends React.Component {
 					}
 				}
 				if (this.state.selection === 'reviewer') {
-					if (this.state.activeStep > 6) {
+					if (this.state.activeStep > 11) {
 						this.setState(
-							{activeStep: this.state.reviewerSteps[this.state.activeStep - 4]},
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 9]},
 							function () {}
 						);
 					} else {
@@ -259,8 +259,7 @@ class SignupFormContainer extends React.Component {
 			immigrationStatus: this.state.immigrationStatus,
 			orgName: this.state.orgName,
 			orgPositionTitle: this.state.orgPositionTitle,
-			reasonForJoining: this.state.reasonForJoining,
-			verifyAnswer: this.state.verifyAnswer
+			reasonForJoining: this.state.reasonForJoining
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
@@ -373,6 +372,11 @@ class SignupFormContainer extends React.Component {
 
 		//determine next step in the workflow
 		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
+			this.props.handleRequestOpen('thankyou');
+		} else if (
+			this.state.activeStep === 11 &&
+			this.state.verifyAnswer === 'yes'
+		) {
 			this.props.handleRequestOpen('thankyou');
 		} else {
 			this.handleStepNext();

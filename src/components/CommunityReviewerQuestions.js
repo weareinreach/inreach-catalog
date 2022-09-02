@@ -141,7 +141,7 @@ const styles = (theme) => ({
 	}
 });
 
-const CommunityReviewerVerify = (props) => {
+const CommunityReviewerQuestions = (props) => {
 	const {classes, handleChange, verifyAnswer, handleUpdateUser} = props;
 
 	const windowSize = window.innerWidth;
@@ -173,7 +173,7 @@ const CommunityReviewerVerify = (props) => {
 					isMobile ? classes.formContainerMobile : classes.formContainer
 				}
 				onSubmit={handleUpdateUser}
-				data-test-id="community-reviewer-verify-form"
+				data-test-id="community-reviewer-question-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
@@ -182,25 +182,31 @@ const CommunityReviewerVerify = (props) => {
 						description="Question asking for pre-verification"
 					/>
 				</Typography>
-				<RadioGroup name="verifyAnswer" onChange={handleChange} required={true}>
-					<Grid container spacing={0} className={classes.gridTxtAlign}>
-						{communityReviewerVerifyOptions.map((type, index) => (
-							<Grid item xs={12} key={index}>
-								<FormControlLabel
-									value={type.dbValue}
-									control={<Radio />}
-									label={intl.formatMessage({
-										id: type.formatMessageId,
-										defaultMessage: type.defaultMessage,
-										description: type.description
-									})}
-									checked={verifyAnswer === type.dbValue}
-									data-test-id={type.dbValue}
-								/>
-							</Grid>
-						))}
-					</Grid>
-				</RadioGroup>
+
+				<Typography className={classes.formQuestion} variant="h3">
+					<FormattedMessage
+						id="community-reviewer-verify-question"
+						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
+						description="Question asking for pre-verification"
+					/>
+				</Typography>
+
+				<Typography className={classes.formQuestion} variant="h3">
+					<FormattedMessage
+						id="community-reviewer-verify-question"
+						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
+						description="Question asking for pre-verification"
+					/>
+				</Typography>
+
+				<Typography className={classes.formQuestion} variant="h3">
+					<FormattedMessage
+						id="community-reviewer-verify-question"
+						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
+						description="Question asking for pre-verification"
+					/>
+				</Typography>
+
 				<AsylumConnectButton
 					// disabled={}
 					testIdName="community-reviewer-next-button"
@@ -218,4 +224,4 @@ const CommunityReviewerVerify = (props) => {
 	);
 };
 
-export default withStyles(styles)(CommunityReviewerVerify);
+export default withStyles(styles)(CommunityReviewerQuestions);
