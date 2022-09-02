@@ -69,8 +69,10 @@ export const fetchOrganizations = (params) => {
 		state,
 		isNational,
 		county,
-		nearLatLng
+		nearLatLng,
+		selectedDistance
 	} = params || {};
+
 	const tagLocale = localeTagMap[locale] || '';
 	const query = {};
 
@@ -88,6 +90,10 @@ export const fetchOrganizations = (params) => {
 
 	if (page) {
 		query.page = page;
+	}
+
+	if (selectedDistance) {
+		query.selectedDistance = selectedDistance;
 	}
 
 	// START: formatting properties

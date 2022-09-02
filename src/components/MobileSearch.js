@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import Fa from 'react-fontawesome';
 import AsylumConnectButton from './AsylumConnectButton';
 import AsylumConnectCheckbox from './AsylumConnectCheckbox';
@@ -12,15 +12,14 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import {distanceOptions} from '../data/distanceOptions';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const MobileSearch = (props) => {
-	const {
-		boldFont,
-		searchButton,
-		searchButtonContainer,
-		lowerButton,
-		nationalOrgCheckboxContainer
-	} = props.classes;
+	const {boldFont, searchButton, searchButtonContainer, lowerButton} =
+		props.classes;
 	const {
 		onMoveSearchButton,
 		handleOrgSelection,
@@ -28,14 +27,19 @@ const MobileSearch = (props) => {
 		locale,
 		searchDisabled,
 		isNational,
-		handleNationalCheckBox,
 		handleSearchByOrgName,
 		handleSearchButtonClick,
 		moveButton,
 		mobileTabValue,
-		handleTabChange
+		handleTabChange,
+		selectedDistance
 	} = props;
 	const variant = 'primary';
+	const intl = useIntl();
+
+	const distanceMessageObj = distanceOptions.find(
+		(option) => option.searchValue == props.selectedDistance
+	);
 
 	return (
 		<>
@@ -80,7 +84,7 @@ const MobileSearch = (props) => {
 								<AsylumConnectButton
 									variant={variant}
 									onClick={handleSearchByOrgName}
-									disabled={searchDisabled}
+									disabled={props.searchDisabled || !props.orgName}
 									className={moveButton ? lowerButton : null}
 									testIdName="search-bar-search-button"
 								>
@@ -124,19 +128,57 @@ const MobileSearch = (props) => {
 								<SearchByLocation {...props} />
 							</SearchBar>
 						</Grid>
-						<Grid item className={nationalOrgCheckboxContainer}>
-							<AsylumConnectCheckbox
-								label={
+						<Grid item>
+							<Typography variant="h5">
+								<FormattedMessage
+									id="search.distance-select"
+									defaultMessage="Select Search Distance"
+									description="label for distance selection form"
+								/>
+								:
+							</Typography>
+							<Typography>
+								{!props.nearAddress ? (
 									<FormattedMessage
-										id="search.show-national-organizations-country"
-										defaultMessage="Show me national organizations who can help anyone located in the country"
-										description="checkbox to find all national organizations"
+										id="error.no-location-entered"
+										defaultMessage="Please enter a city or state in the location search box above."
+										description="error when a location is not specified"
 									/>
-								}
-								checked={isNational}
-								onChange={handleNationalCheckBox}
-								testIdName="search-page-checkbox"
-							/>
+								) : (
+									<FormattedMessage
+										id={distanceMessageObj.selectionMessageFormatMessageId}
+										defaultMessage={
+											distanceMessageObj.selectionMessageDefaultMessage
+										}
+										description={distanceMessageObj.selectedDescription}
+										values={{searchLocation: props.nearAddress}}
+									/>
+								)}
+							</Typography>
+							<RadioGroup
+								name="selectedDistance"
+								required={true}
+								onChange={props.handleDistanceSelection}
+							>
+								<Grid item xs={12} container spacing={0}>
+									{distanceOptions.map((type, index) => (
+										<Grid item xs key={index}>
+											<FormControlLabel
+												value={type.searchValue}
+												control={<Radio />}
+												label={intl.formatMessage({
+													id: type.distanceFormatMessageId,
+													defaultMessage: type.distanceDefaultMessage,
+													description: type.description
+												})}
+												checked={props.selectedDistance === type.searchValue}
+												data-test-id={type.searchValue}
+												disabled={props.searchDisabled || !props.nearAddress}
+											/>
+										</Grid>
+									))}
+								</Grid>
+							</RadioGroup>
 						</Grid>
 						<Grid
 							item
@@ -147,7 +189,7 @@ const MobileSearch = (props) => {
 							<AsylumConnectButton
 								variant={variant}
 								onClick={handleSearchButtonClick}
-								disabled={searchDisabled}
+								disabled={props.searchDisabled || !props.nearAddress}
 								className={moveButton ? lowerButton : null}
 								testIdName="search-bar-search-by-location-button"
 							>
