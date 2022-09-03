@@ -372,7 +372,13 @@ const SignupForm = (props) => {
 						classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
 					}
 					type="dots"
-					steps={selection === SEEKER_TYPE || selection === '' ? 2 : 3}
+					steps={
+						selection === SEEKER_TYPE ||
+						selection === '' ||
+						selection === REVIEWER_TYPE
+							? 2
+							: 3
+					}
 					position="static"
 					activeStep={
 						selection === SEEKER_TYPE && activeStep > 0
@@ -385,19 +391,23 @@ const SignupForm = (props) => {
 			)}
 			{(activeStep >= 3 && selection !== SEEKER_TYPE) ||
 				activeStep !== 5 ||
-				(activeStep !== 2 && (
-					<MobileStepper
-						className={
-							classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
-						}
-						type="dots"
-						steps={2}
-						position="static"
-						activeStep={activeStep - 3}
-						nextButton={<div />}
-						backButton={<div />}
-					/>
-				))}
+				activeStep !== 11 ||
+				activeStep !==
+					12(
+						activeStep !== 2 && (
+							<MobileStepper
+								className={
+									classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+								}
+								type="dots"
+								steps={2}
+								position="static"
+								activeStep={activeStep - 3}
+								nextButton={<div />}
+								backButton={<div />}
+							/>
+						)
+					)}
 			{activeStep === 5 && (
 				<MobileStepper
 					className={
@@ -411,7 +421,7 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{activeStep > 5 && activeStep < 12 && (
+			{activeStep > 5 && activeStep < 11 && (
 				<MobileStepper
 					className={
 						activeStep === 6
@@ -428,7 +438,7 @@ const SignupForm = (props) => {
 			)}
 			{(activeStep === 1 ||
 				activeStep === 2 ||
-				(activeStep > 6 && activeStep < 12)) && (
+				(activeStep > 6 && activeStep < 11)) && (
 				<div
 					className={
 						isMobile

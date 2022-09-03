@@ -86,7 +86,7 @@ const ThankYouDialog = (props) => {
 				{userData.catalogType === 'reviewer' ? (
 					<FormattedMessage
 						id="app.thank-you-text-reviewer"
-						defaultMessage="You are all set."
+						defaultMessage="You will receive a notification from the InReach team soon."
 						description="thank you message"
 					/>
 				) : (
