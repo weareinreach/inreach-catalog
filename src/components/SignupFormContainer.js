@@ -53,6 +53,7 @@ class SignupFormContainer extends React.Component {
 		this.setState({name: ''});
 		this.setState({currentLocation: ''});
 		this.setState({password: ''});
+		this.setState({verifyAnswer: ''});
 	}
 
 	handleChange(event) {
@@ -195,6 +196,17 @@ class SignupFormContainer extends React.Component {
 							}
 						);
 					}
+				}
+				if (this.state.selection === 'reviewer') {
+					this.setState(
+						{activeStep: this.state.reviewerSteps[this.state.activeStep - 1]},
+						function () {
+							//reset values if the user goes back to the beginning
+							if (this.state.activeStep === 0) {
+								this.handleResetState();
+							}
+						}
+					);
 				}
 				//reset values if the user goes back to the beginning
 				if (this.state.activeStep === 0) {

@@ -59,7 +59,7 @@ const styles = (theme) => ({
 });
 
 const ThankYouMobile = (props) => {
-	const {classes, history, handleRequestClose, locale} = props;
+	const {classes, history, handleRequestClose, locale, userData} = props;
 
 	const intl = useIntl();
 
@@ -99,11 +99,19 @@ const ThankYouMobile = (props) => {
 					className={classes.body}
 					data-test-id="thank-you-text"
 				>
-					<FormattedMessage
-						id="app.thank-you-text"
-						defaultMessage="You are all set."
-						description="You are all set message"
-					/>
+					{userData.catalogType === 'reviewer' ? (
+						<FormattedMessage
+							id="app.thank-you-text-reviewer"
+							defaultMessage="You will receive a notification from the InReach team soon."
+							description="thank you message"
+						/>
+					) : (
+						<FormattedMessage
+							id="app.thank-you-text"
+							defaultMessage="You are all set."
+							description="thank you message"
+						/>
+					)}
 				</Typography>
 				<img
 					data-test-id="thank-you-image"
