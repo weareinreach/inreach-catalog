@@ -54,9 +54,6 @@ const styles = (theme) => ({
 		backgroundColor: theme.palette.common.darkGrey,
 		marginTop: `${theme.spacing(3)}px`
 	},
-	gridTxtAlign: {
-		textAlign: 'left'
-	},
 	labels: {
 		textAlign: 'left',
 		paddingLeft: '.25rem',
@@ -141,11 +138,18 @@ const styles = (theme) => ({
 	}
 });
 
-const CommunityReviewerQuestions = (props) => {
-	const {classes, handleChange, verifyAnswer, handleUpdateUser} = props;
+const CommunityReviewerTimeCommit = (props) => {
+	const {
+		classes,
+		handleChange,
+		timeCommitAnswer,
+		specifiedTimeCommit,
+		handleUpdateUser
+	} = props;
 
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
+	const [touchedTimeCommit, setTouchedTimeCommit] = useState(false);
 
 	const intl = useIntl();
 
@@ -156,14 +160,14 @@ const CommunityReviewerQuestions = (props) => {
 			<DialogTitle>
 				<FormattedMessage
 					id="community-reviewer-dialog-title"
-					defaultMessage="Local Community Reviewer"
+					defaultMessage="InReach Local Community Reviewer Expectations"
 					description="Title for the Local Community Reviewer dialog"
 				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
 					id="community-reviewer-dialog-subtitle"
-					defaultMessage="Must be knowledgeable about the local LGBTQ+ community and support services."
+					defaultMessage='Please read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
 					description="Sub-title for the Local Community Reviewer dialog"
 				/>
 			</DialogSubTitle>
@@ -177,38 +181,100 @@ const CommunityReviewerQuestions = (props) => {
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
-						id="community-reviewer-verify-question"
-						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
-						description="Question asking for pre-verification"
+						id="community-reviewer-time-commitment-question"
+						defaultMessage="I understand that as a Local Community Reviewer Volunteer, I agree to dedicate at least 5 hours per month to InReach."
+						description="Question asking for time commitment"
 					/>
 				</Typography>
-
-				<Typography className={classes.formQuestion} variant="h3">
-					<FormattedMessage
-						id="community-reviewer-verify-question"
-						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
-						description="Question asking for pre-verification"
-					/>
-				</Typography>
-
-				<Typography className={classes.formQuestion} variant="h3">
-					<FormattedMessage
-						id="community-reviewer-verify-question"
-						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
-						description="Question asking for pre-verification"
-					/>
-				</Typography>
-
-				<Typography className={classes.formQuestion} variant="h3">
-					<FormattedMessage
-						id="community-reviewer-verify-question"
-						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer?"
-						description="Question asking for pre-verification"
-					/>
-				</Typography>
-
+				<RadioGroup
+					name="timeCommitAnswer"
+					onChange={handleChange}
+					required={true}
+				>
+					<Grid container spacing={0}>
+						{communityReviewerVerifyOptions.map((type, index) => (
+							<Grid item xs={6} key={index}>
+								<FormControlLabel
+									value={type.dbValue}
+									control={<Radio />}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
+									checked={timeCommitAnswer === type.dbValue}
+									data-test-id={type.dbValue}
+								/>
+							</Grid>
+						))}
+					</Grid>
+				</RadioGroup>
+				{timeCommitAnswer === 'no' ? (
+					<>
+						<FormLabel
+							required
+							className={classes.labels}
+							classes={classes.fontWeightMedium}
+							margin="none"
+						>
+							<FormattedMessage
+								id="account-time-commit-other"
+								defaultMessage="If you cannot dedicate at least 5 hours/month to InReach, please explain your plan here."
+								description="Option to detail time commitment"
+							/>
+						</FormLabel>
+						<TextField
+							onBlur={setTouchedTimeCommit}
+							error={
+								touchedTimeCommit && !textFieldTest.test(specifiedTimeCommit)
+							}
+							helperText={
+								touchedTimeCommit &&
+								!textFieldTest.test(specifiedTimeCommit) ? (
+									<FormattedMessage
+										id="error.text-field-time"
+										defaultMessage="Time commitment is not specified"
+										description="error if no Time commitment is specified"
+									/>
+								) : touchedTimeCommit &&
+								  textFieldTest.test(specifiedTimeCommit) ? (
+									<FormattedMessage
+										id="form.field-valid-time"
+										defaultMessage="Time commitment is specified"
+										description="message if Time commitment field has data"
+									/>
+								) : null
+							}
+							id="specifiedTimeCommit"
+							margin="none"
+							name="specifiedTimeCommit"
+							onChange={handleChange}
+							required
+							type="text"
+							value={specifiedTimeCommit}
+							placeholder={intl.formatMessage({
+								id: 'account-time-commit-other',
+								defaultMessage: 'Explain time commitment plan here',
+								description: 'placeholder for the time commitment field'
+							})}
+							data-test-id="account-time-commit-other"
+							InputLabelProps={{shrink: true}}
+							variant="outlined"
+							className={classes.borderOutline}
+							InputProps={{
+								classes: {
+									input: classes.borderOutline,
+									notchedOutline: classes.borderOutline
+								}
+							}}
+						/>
+					</>
+				) : null}
 				<AsylumConnectButton
-					// disabled={}
+					disabled={
+						!timeCommitAnswer ||
+						(timeCommitAnswer === 'no' && !specifiedTimeCommit)
+					}
 					testIdName="community-reviewer-next-button"
 					variant="primary"
 					className={classes.nextBtn}
@@ -224,4 +290,4 @@ const CommunityReviewerQuestions = (props) => {
 	);
 };
 
-export default withStyles(styles)(CommunityReviewerQuestions);
+export default withStyles(styles)(CommunityReviewerTimeCommit);

@@ -106,7 +106,7 @@ const CommunityReviewerVerify = (props) => {
 					/>
 				</Typography>
 				<RadioGroup name="verifyAnswer" onChange={handleChange} required={true}>
-					<Grid container spacing={0} className={classes.gridTxtAlign}>
+					<Grid container spacing={0}>
 						{communityReviewerVerifyOptions.map((type, index) => (
 							<Grid item xs={6} key={index}>
 								<FormControlLabel

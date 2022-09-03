@@ -30,7 +30,9 @@ class SignupFormContainer extends React.Component {
 			specifiedCountry: '',
 			specifiedIdentity: '',
 			specifiedEthnicity: '',
-			verifyAnswer: ''
+			verifyAnswer: '',
+			timeCommitAnswer: '',
+			specifiedTimeCommit: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -54,6 +56,8 @@ class SignupFormContainer extends React.Component {
 		this.setState({currentLocation: ''});
 		this.setState({password: ''});
 		this.setState({verifyAnswer: ''});
+		this.setState({timeCommitAnswer: ''});
+		this.setState({specifiedTimeCommit: ''});
 	}
 
 	handleChange(event) {
@@ -271,7 +275,9 @@ class SignupFormContainer extends React.Component {
 			orgName: this.state.orgName,
 			orgPositionTitle: this.state.orgPositionTitle,
 			reasonForJoining: this.state.reasonForJoining,
-			verifyAnswer: this.state.verifyAnswer
+			verifyAnswer: this.state.verifyAnswer,
+			timeCommitAnswer: this.state.timeCommitAnswer,
+			specifiedTimeCommit: this.state.specifiedTimeCommit
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body

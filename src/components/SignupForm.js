@@ -24,7 +24,7 @@ import AboutYouEthnicity from './AboutYouEthnicity';
 import AboutYouAge from './AboutYouAge';
 import AboutYouOrganization from './AboutYouOrganization';
 import CommunityReviewerVerify from './CommunityReviewerVerify';
-import CommunityReviewerQuestions from './CommunityReviewerQuestions';
+import CommunityReviewerTimeCommit from './CommunityReviewerTimeCommit';
 
 const LAWYER_TYPE = 'lawyer';
 const SEEKER_TYPE = 'seeker';
@@ -355,7 +355,7 @@ const SignupForm = (props) => {
 				<CommunityReviewerVerify {...props}></CommunityReviewerVerify>
 			)}
 			{activeStep === 12 && (
-				<CommunityReviewerQuestions {...props}></CommunityReviewerQuestions>
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
 			)}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
