@@ -18,7 +18,7 @@ const propertyMap = {
 			'resource-property.community-immigrants-from-africa',
 		'community-african-american':
 			'resource-property.community-african-american',
-		'community-api': 'resource-property.community-asian-islander',
+		'community-api': 'resource-property.community-api',
 		'community-arabic-speakers': 'resource-property.community-arabic-speakers',
 		'community-asexual': 'resource-property.community-asexual',
 		'community-asia-immigrant':
@@ -77,7 +77,9 @@ const propertyMap = {
 		'community-trans-youth-caregivers':
 			'resource-property.community-trans-youth-caregivers',
 		'community-transmasculine': 'resource-property.community-transmasculine',
-		'community-undocumented': 'resource-property.community-undocumented'
+		'community-undocumented': 'resource-property.community-undocumented',
+		'community-unaccompanied-minors':
+			'resource-property.community-unaccompanied-minors'
 	},
 	cost: {
 		'cost-fees': 'resource-property.community-cost-heading',
