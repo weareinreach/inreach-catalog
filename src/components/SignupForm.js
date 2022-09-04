@@ -357,6 +357,21 @@ const SignupForm = (props) => {
 			{activeStep === 12 && (
 				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
 			)}
+			{activeStep === 13 && (
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+			)}
+			{activeStep === 14 && (
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+			)}
+			{activeStep === 15 && (
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+			)}
+			{activeStep === 16 && (
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+			)}
+			{activeStep === 17 && (
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+			)}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
 					<FormattedMessage

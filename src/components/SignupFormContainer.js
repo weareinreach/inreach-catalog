@@ -18,7 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
-			reviewerSteps: [0, 2, 11, 12, 13],
+			reviewerSteps: [0, 2, 11, 12, 13, 14, 15, 16, 17],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -390,7 +390,7 @@ class SignupFormContainer extends React.Component {
 		//determine next step in the workflow
 		if (
 			this.state.verifyAnswer === 'yes' ||
-			this.state.activeStep === 12 ||
+			this.state.activeStep === 17 ||
 			this.state.activeStep === 10 ||
 			this.state.activeStep === 5
 		) {
