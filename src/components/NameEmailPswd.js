@@ -270,7 +270,12 @@ const NameEmailPswd = (props) => {
 				/>
 				{selection === REVIEWER_TYPE ? (
 					<>
-						<FormLabel required className={classes.labels} margin="none">
+						<FormLabel
+							required
+							className={classes.labels}
+							margin="none"
+							data-test-id="sign-up-form-location-label"
+						>
 							<FormattedMessage
 								id="account.signup-organization-location"
 								defaultMessage="Current location"
@@ -291,7 +296,7 @@ const NameEmailPswd = (props) => {
 									<FormattedMessage
 										id="form.field-valid-location"
 										defaultMessage="'Location' field is valid"
-										description="Success message if the Name field is formatted properly"
+										description="Success message if the Location field is formatted properly"
 									/>
 								) : null
 							}
