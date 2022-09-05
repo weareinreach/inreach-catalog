@@ -4,6 +4,7 @@ import GeneralSettingsName from './GeneralSettingsName';
 import GeneralSettingsEmail from './GeneralSettingsEmail';
 import GeneralSettingsOrganization from './GeneralSettingsOrganization';
 import GeneralSettingsPassword from './GeneralSettingsPassword';
+import GeneralSettingsLocation from './GeneralSettingsLocation';
 
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -55,12 +56,14 @@ class GeneralSettings extends React.Component {
 			errorMessage: '',
 			isPasswordUpdated: null,
 			isEmailUpdated: null,
+			isLocationUpdated: null,
 			dialog: 'none'
 		};
 		this.handleOdasError = this.handleOdasError.bind(this);
 		this.updateName = this.updateName.bind(this);
 		this.updateEmail = this.updateEmail.bind(this);
 		this.updatePassword = this.updatePassword.bind(this);
+		this.updateLocation = this.updateLocation.bind(this);
 	}
 
 	handleOdasError(error) {
@@ -117,6 +120,21 @@ class GeneralSettings extends React.Component {
 			.catch((error) => this.handleOdasError(error));
 	}
 
+	updateLocation(newLocation) {
+		updateUser(this.state.userData, {currentLocation: newLocation})
+			.then((data) => {
+				this.setState({userData: data, isLocationUpdated: true});
+				this.props.handleMessageNew(
+					<FormattedMessage
+						id="action.update-location-successful"
+						defaultMessage="Your location has been updated successfully!"
+						description="Success message that your location has been updated."
+					/>
+				);
+			})
+			.catch((error) => this.handleOdasError(error));
+	}
+
 	updatePassword(currentPassword, newPassword) {
 		updateUserPassword(this.state.userData, newPassword)
 			.then((data) => {
@@ -144,9 +162,14 @@ class GeneralSettings extends React.Component {
 			session,
 			userData,
 			isApproved,
-			userData: {isProfessional, email, name}
+			userData: {isProfessional, email, name, currentLocation}
 		} = this.props;
-		const {isPasswordUpdated, isEmailUpdated, isNameUpdated} = this.state;
+		const {
+			isPasswordUpdated,
+			isEmailUpdated,
+			isNameUpdated,
+			isLocationUpdated
+		} = this.state;
 
 		return (
 			<div className={classes.root}>
@@ -178,6 +201,12 @@ class GeneralSettings extends React.Component {
 						handleMessageNew={handleMessageNew}
 					/>
 				)}
+				<GeneralSettingsLocation
+					currentLocation={currentLocation}
+					handleUpdateLocation={this.updateLocation}
+					isLocationUpdated={isLocationUpdated}
+					handleMessageNew={handleMessageNew}
+				/>
 				<GeneralSettingsEmail
 					currentEmail={email}
 					handleUpdateEmail={this.updateEmail}
