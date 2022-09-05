@@ -25,6 +25,10 @@ import AboutYouAge from './AboutYouAge';
 import AboutYouOrganization from './AboutYouOrganization';
 import CommunityReviewerVerify from './CommunityReviewerVerify';
 import CommunityReviewerTimeCommit from './CommunityReviewerTimeCommit';
+import CommunityReviewerAudit from './CommunityReviewerAudit';
+import CommunityReviewerSuggestions from './CommunityReviewerSuggestions';
+import CommunityReviewerReviews from './CommunityReviewerReviews';
+import CommunityReviewerPay from './CommunityReviewerPay';
 
 const LAWYER_TYPE = 'lawyer';
 const SEEKER_TYPE = 'seeker';
@@ -358,19 +362,16 @@ const SignupForm = (props) => {
 				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
 			)}
 			{activeStep === 13 && (
-				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+				<CommunityReviewerAudit {...props}></CommunityReviewerAudit>
 			)}
 			{activeStep === 14 && (
-				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+				<CommunityReviewerSuggestions {...props}></CommunityReviewerSuggestions>
 			)}
 			{activeStep === 15 && (
-				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+				<CommunityReviewerReviews {...props}></CommunityReviewerReviews>
 			)}
 			{activeStep === 16 && (
-				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
-			)}
-			{activeStep === 17 && (
-				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+				<CommunityReviewerPay {...props}></CommunityReviewerPay>
 			)}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
@@ -396,7 +397,8 @@ const SignupForm = (props) => {
 					}
 					position="static"
 					activeStep={
-						selection === SEEKER_TYPE && activeStep > 0
+						(selection === SEEKER_TYPE && activeStep > 0) ||
+						(selection === REVIEWER_TYPE && activeStep > 0)
 							? activeStep - 1
 							: activeStep
 					}
@@ -436,7 +438,7 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{activeStep > 5 && activeStep < 11 && (
+			{activeStep > 5 && activeStep < 17 && activeStep != 11 && (
 				<MobileStepper
 					className={
 						activeStep === 6
@@ -446,14 +448,17 @@ const SignupForm = (props) => {
 					type="dots"
 					steps={5}
 					position="static"
-					activeStep={activeStep - 6}
+					activeStep={
+						selection === SEEKER_TYPE ? activeStep - 6 : activeStep - 12
+					}
 					nextButton={<div />}
 					backButton={<div />}
 				/>
 			)}
 			{(activeStep === 1 ||
 				activeStep === 2 ||
-				(activeStep > 6 && activeStep < 11)) && (
+				(activeStep > 6 && activeStep < 11) ||
+				(activeStep > 12 && activeStep < 17)) && (
 				<div
 					className={
 						isMobile

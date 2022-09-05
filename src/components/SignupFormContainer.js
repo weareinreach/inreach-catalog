@@ -18,7 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
-			reviewerSteps: [0, 2, 11, 12, 13, 14, 15, 16, 17],
+			reviewerSteps: [0, 2, 11, 12, 13, 14, 15, 16],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -32,7 +32,12 @@ class SignupFormContainer extends React.Component {
 			specifiedEthnicity: '',
 			verifyAnswer: '',
 			timeCommitAnswer: '',
-			specifiedTimeCommit: ''
+			specifiedTimeCommit: '',
+			auditAnswer: '',
+			suggestionsAnswer: '',
+			reviewsAnswer: '',
+			payAnswer: '',
+			specifiedOtherInfo: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -58,6 +63,11 @@ class SignupFormContainer extends React.Component {
 		this.setState({verifyAnswer: ''});
 		this.setState({timeCommitAnswer: ''});
 		this.setState({specifiedTimeCommit: ''});
+		this.setState({auditAnswer: ''});
+		this.setState({suggestionsAnswer: ''});
+		this.setState({reviewsAnswer: ''});
+		this.setState({payAnswer: ''});
+		this.setState({specifiedOtherInfo: ''});
 	}
 
 	handleChange(event) {
@@ -180,6 +190,7 @@ class SignupFormContainer extends React.Component {
 	}
 
 	handleStepBack() {
+		console.log(this.state.activeStep);
 		this.setState(
 			(prevState) => ({activeStep: prevState.activeStep - 1}),
 			function () {
@@ -202,15 +213,31 @@ class SignupFormContainer extends React.Component {
 					}
 				}
 				if (this.state.selection === 'reviewer') {
-					this.setState(
-						{activeStep: this.state.reviewerSteps[this.state.activeStep - 1]},
-						function () {
-							//reset values if the user goes back to the beginning
-							if (this.state.activeStep === 0) {
-								this.handleResetState();
+					// this.setState(
+					// 	{activeStep: this.state.reviewerSteps[this.state.activeStep - 1]},
+					// 	function () {
+					// 		//reset values if the user goes back to the beginning
+					// 		if (this.state.activeStep === 0) {
+					// 			this.handleResetState();
+					// 		}
+					// 	}
+					// );
+					if (this.state.activeStep > 9) {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 9]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 1]},
+							function () {
+								//reset values if the user goes back to the beginning
+								if (this.state.activeStep === 0) {
+									this.handleResetState();
+								}
 							}
-						}
-					);
+						);
+					}
 				}
 				//reset values if the user goes back to the beginning
 				if (this.state.activeStep === 0) {
@@ -277,7 +304,17 @@ class SignupFormContainer extends React.Component {
 			reasonForJoining: this.state.reasonForJoining,
 			verifyAnswer: this.state.verifyAnswer,
 			timeCommitAnswer: this.state.timeCommitAnswer,
-			specifiedTimeCommit: this.state.specifiedTimeCommit
+			specifiedTimeCommit:
+				this.state.timeCommitAnswer == 'no'
+					? this.state.specifiedTimeCommit
+					: '',
+			auditAnswer: this.state.auditAnswer,
+			suggestionsAnswer: this.state.suggestionsAnswer,
+			reviewsAnswer: this.state.reviewsAnswer,
+			payAnswer: this.state.payAnswer,
+			specifiedOtherInfo: !this.state.specifiedOtherInfo
+				? ''
+				: this.state.specifiedOtherInfo
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
@@ -390,7 +427,7 @@ class SignupFormContainer extends React.Component {
 		//determine next step in the workflow
 		if (
 			this.state.verifyAnswer === 'yes' ||
-			this.state.activeStep === 17 ||
+			this.state.activeStep === 16 ||
 			this.state.activeStep === 10 ||
 			this.state.activeStep === 5
 		) {

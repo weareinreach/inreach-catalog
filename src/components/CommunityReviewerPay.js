@@ -138,18 +138,18 @@ const styles = (theme) => ({
 	}
 });
 
-const CommunityReviewerTimeCommit = (props) => {
+const CommunityReviewerPay = (props) => {
 	const {
 		classes,
 		handleChange,
-		timeCommitAnswer,
-		specifiedTimeCommit,
+		payAnswer,
+		specifiedOtherInfo,
 		handleUpdateUser
 	} = props;
 
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
-	const [touchedTimeCommit, setTouchedTimeCommit] = useState(false);
+	const [touchedOtherInfo, setOtherInfo] = useState(false);
 
 	const intl = useIntl();
 
@@ -182,15 +182,11 @@ const CommunityReviewerTimeCommit = (props) => {
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
 						id="community-reviewer-time-commitment-question"
-						defaultMessage="I understand that as a Local Community Reviewer Volunteer, I agree to dedicate at least 5 hours per month to InReach. *"
-						description="Question asking for time commitment"
+						defaultMessage="I understand that this is an unpaid volunteer position. *"
+						description="Understanding of Pay (unpaid)"
 					/>
 				</Typography>
-				<RadioGroup
-					name="timeCommitAnswer"
-					onChange={handleChange}
-					required={true}
-				>
+				<RadioGroup name="payAnswer" onChange={handleChange} required={true}>
 					<Grid container spacing={0}>
 						{communityReviewerVerifyOptions.map((type, index) => (
 							<Grid item xs={6} key={index}>
@@ -202,87 +198,57 @@ const CommunityReviewerTimeCommit = (props) => {
 										defaultMessage: type.defaultMessage,
 										description: type.description
 									})}
-									checked={timeCommitAnswer === type.dbValue}
+									checked={payAnswer === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{timeCommitAnswer === 'no' ? (
-					<>
-						<FormLabel
-							required
-							className={classes.labels}
-							classes={classes.fontWeightMedium}
-							margin="none"
-						>
-							<FormattedMessage
-								id="account-time-commit-other"
-								defaultMessage="If you cannot dedicate at least 5 hours/month to InReach, please explain your plan here."
-								description="Option to detail time commitment"
-							/>
-						</FormLabel>
-						<TextField
-							onBlur={setTouchedTimeCommit}
-							error={
-								touchedTimeCommit && !textFieldTest.test(specifiedTimeCommit)
-							}
-							helperText={
-								touchedTimeCommit &&
-								!textFieldTest.test(specifiedTimeCommit) ? (
-									<FormattedMessage
-										id="error.text-field-time"
-										defaultMessage="Time commitment is not specified"
-										description="error if no Time commitment is specified"
-									/>
-								) : touchedTimeCommit &&
-								  textFieldTest.test(specifiedTimeCommit) ? (
-									<FormattedMessage
-										id="form.field-valid-time"
-										defaultMessage="Time commitment is specified"
-										description="message if Time commitment field has data"
-									/>
-								) : null
-							}
-							id="specifiedTimeCommit"
-							margin="none"
-							name="specifiedTimeCommit"
-							onChange={handleChange}
-							required
-							type="text"
-							value={specifiedTimeCommit}
-							placeholder={intl.formatMessage({
-								id: 'account-time-commit-other',
-								defaultMessage: 'Explain time commitment plan here',
-								description: 'placeholder for the time commitment field'
-							})}
-							data-test-id="account-time-commit-other"
-							InputLabelProps={{shrink: true}}
-							variant="outlined"
-							className={classes.borderOutline}
-							InputProps={{
-								classes: {
-									input: classes.borderOutline,
-									notchedOutline: classes.borderOutline
-								}
-							}}
-						/>
-					</>
-				) : null}
+				<FormLabel
+					className={classes.labels}
+					classes={classes.fontWeightMedium}
+					margin="none"
+				>
+					<FormattedMessage
+						id="account-other-info"
+						defaultMessage="Is there anything else we should know?"
+						description="Input field to provide other info"
+					/>
+				</FormLabel>
+				<TextField
+					id="specifiedOtherInfo"
+					margin="none"
+					name="specifiedOtherInfo"
+					onChange={handleChange}
+					type="text"
+					value={specifiedOtherInfo}
+					placeholder={intl.formatMessage({
+						id: 'account-specified-other-info',
+						defaultMessage: 'Provide more details here',
+						description: 'placeholder for the time commitment field'
+					})}
+					data-test-id="account-specified-other-info"
+					InputLabelProps={{shrink: true}}
+					variant="outlined"
+					className={classes.borderOutline}
+					InputProps={{
+						classes: {
+							input: classes.borderOutline,
+							notchedOutline: classes.borderOutline
+						}
+					}}
+				/>
 				<AsylumConnectButton
-					disabled={
-						!timeCommitAnswer ||
-						(timeCommitAnswer === 'no' && !specifiedTimeCommit)
-					}
+					disabled={!payAnswer}
 					testIdName="community-reviewer-next-button"
 					variant="primary"
 					className={classes.nextBtn}
 				>
 					<FormattedMessage
-						id="navigation.next"
-						defaultMessage="Next"
-						description="Next button"
+						id="action.submit"
+						defaultMessage="Submit"
+						description="This is the form submit button"
 					/>
 				</AsylumConnectButton>
 			</form>
@@ -290,4 +256,4 @@ const CommunityReviewerTimeCommit = (props) => {
 	);
 };
 
-export default withStyles(styles)(CommunityReviewerTimeCommit);
+export default withStyles(styles)(CommunityReviewerPay);
