@@ -48,6 +48,14 @@ const styles = (theme) => ({
 		lineHeight: '24.51px',
 		marginBottom: '24px'
 	},
+	formQuestionBtm: {
+		textAlign: 'left',
+		fontSize: '16px',
+		fontWeight: '600',
+		lineHeight: '24.51px',
+		marginTop: '12px',
+		marginBottom: '10px'
+	},
 	greyLine: {
 		width: 'auto',
 		height: '1px',
@@ -222,17 +230,13 @@ const CommunityReviewerPay = (props) => {
 						))}
 					</Grid>
 				</RadioGroup>
-				<FormLabel
-					className={classes.labels}
-					classes={classes.fontWeightMedium}
-					margin="none"
-				>
+				<Typography className={classes.formQuestionBtm} variant="h3">
 					<FormattedMessage
 						id="account.signup-community-reviewer-other-info"
 						defaultMessage="Is there anything else we should know?"
 						description="Input field to provide other info"
 					/>
-				</FormLabel>
+				</Typography>
 				<TextField
 					id="specifiedOtherInfo"
 					margin="none"
