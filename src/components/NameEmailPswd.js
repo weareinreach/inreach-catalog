@@ -208,9 +208,27 @@ const NameEmailPswd = (props) => {
 					/>
 				) : (
 					<FormattedMessage
-						id="account.signup-welcome-reviewer"
-						defaultMessage="Must be knowledgeable about the local LGBTQ+ community and support services."
+						id="account.signup-subtitle-reviewer-1"
+						defaultMessage="To register for this account type, you must be knowledgeable about the local LGBTQ+ community and support services in your area."
 						description="sign up dialog header message"
+						values={{
+							b: (chunks) => <strong>{chunks}</strong>,
+							clickHere: (
+								<a
+									href="https://inreach.org/become-a-local-community-reviewer"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="hide--on-print"
+									// style={{color: 'blue'}}
+								>
+									<FormattedMessage
+										id="resource.click-here"
+										defaultMessage="Click Here"
+										description="link that takes user to Local Community Reviewer vetting process details"
+									/>
+								</a>
+							)
+						}}
 					/>
 				)}
 			</DialogSubTitle>
@@ -422,7 +440,11 @@ const NameEmailPswd = (props) => {
 				<AsylumConnectSignupAgreement />
 				<AsylumConnectButton
 					disabled={
-						selection === SEEKER_TYPE ? !isValidSeeker() : !isValidReviewer()
+						selection === SEEKER_TYPE
+							? !isValidSeeker()
+							: selection === REVIEWER_TYPE
+							? !isValidReviewer()
+							: null
 					}
 					testIdName="sign-up-form-submit-button"
 					variant={

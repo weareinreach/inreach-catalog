@@ -159,16 +159,33 @@ const CommunityReviewerTimeCommit = (props) => {
 		<>
 			<DialogTitle>
 				<FormattedMessage
-					id="community-reviewer-dialog-title"
+					id="account.signup-community-reviewer-dialog-title"
 					defaultMessage="InReach Local Community Reviewer Questionnaire"
 					description="Title for the Local Community Reviewer dialog"
 				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
-					id="community-reviewer-dialog-subtitle"
-					defaultMessage='Please read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
+					id="account.signup-subtitle-reviewer-2"
+					defaultMessage='Please click here to read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
 					description="Sub-title for the Local Community Reviewer dialog"
+					values={{
+						b: (chunks) => <strong>{chunks}</strong>,
+						clickHere: (
+							<a
+								href="https://inreach.org/become-a-local-community-reviewer"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hide--on-print"
+							>
+								<FormattedMessage
+									id="resource.click-here"
+									defaultMessage="Click Here"
+									description="link that takes user to Local Community Reviewer vetting process details"
+								/>
+							</a>
+						)
+					}}
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -181,7 +198,7 @@ const CommunityReviewerTimeCommit = (props) => {
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
-						id="community-reviewer-time-commitment-question"
+						id="account.signup-community-reviewer-time-commitment-question"
 						defaultMessage="I understand that as a Local Community Reviewer Volunteer, I agree to dedicate at least 5 hours per month to InReach. *"
 						description="Question asking for time commitment"
 					/>
@@ -218,7 +235,7 @@ const CommunityReviewerTimeCommit = (props) => {
 							margin="none"
 						>
 							<FormattedMessage
-								id="account-time-commit-other"
+								id="account.signup-community-reviewer-time-commit-other"
 								defaultMessage="If you cannot dedicate at least 5 hours/month to InReach, please explain your plan here."
 								description="Option to detail time commitment"
 							/>
@@ -253,11 +270,11 @@ const CommunityReviewerTimeCommit = (props) => {
 							type="text"
 							value={specifiedTimeCommit}
 							placeholder={intl.formatMessage({
-								id: 'account-time-commit-other',
-								defaultMessage: 'Explain time commitment plan here',
+								id: 'account.signup-community-reviewer-time-commit-other-placeholder',
+								defaultMessage: 'Explain your time commitment plan here',
 								description: 'placeholder for the time commitment field'
 							})}
-							data-test-id="account-time-commit-other"
+							data-test-id="account-time-commit-other-placeholder"
 							InputLabelProps={{shrink: true}}
 							variant="outlined"
 							className={classes.borderOutline}

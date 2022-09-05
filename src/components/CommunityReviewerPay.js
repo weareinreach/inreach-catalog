@@ -159,16 +159,33 @@ const CommunityReviewerPay = (props) => {
 		<>
 			<DialogTitle>
 				<FormattedMessage
-					id="community-reviewer-dialog-title"
+					id="account.signup-community-reviewer-dialog-title"
 					defaultMessage="InReach Local Community Reviewer Questionnaire"
 					description="Title for the Local Community Reviewer dialog"
 				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
-					id="community-reviewer-dialog-subtitle"
-					defaultMessage='Please read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
+					id="account.signup-subtitle-reviewer-2"
+					defaultMessage='Please click here to read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
 					description="Sub-title for the Local Community Reviewer dialog"
+					values={{
+						b: (chunks) => <strong>{chunks}</strong>,
+						clickHere: (
+							<a
+								href="https://inreach.org/become-a-local-community-reviewer"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hide--on-print"
+							>
+								<FormattedMessage
+									id="resource.click-here"
+									defaultMessage="Click Here"
+									description="link that takes user to Local Community Reviewer vetting process details"
+								/>
+							</a>
+						)
+					}}
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -181,7 +198,7 @@ const CommunityReviewerPay = (props) => {
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
-						id="community-reviewer-time-commitment-question"
+						id="account.signup-community-reviewer-pay-question"
 						defaultMessage="I understand that this is an unpaid volunteer position. *"
 						description="Understanding of Pay (unpaid)"
 					/>
@@ -211,7 +228,7 @@ const CommunityReviewerPay = (props) => {
 					margin="none"
 				>
 					<FormattedMessage
-						id="account-other-info"
+						id="account.signup-community-reviewer-other-info"
 						defaultMessage="Is there anything else we should know?"
 						description="Input field to provide other info"
 					/>
@@ -224,9 +241,9 @@ const CommunityReviewerPay = (props) => {
 					type="text"
 					value={specifiedOtherInfo}
 					placeholder={intl.formatMessage({
-						id: 'account-specified-other-info',
-						defaultMessage: 'Provide more details here',
-						description: 'placeholder for the time commitment field'
+						id: 'account.signup-community-reviewer-specified-other-info-placeholder',
+						defaultMessage: 'Provide more details here ...',
+						description: 'placeholder for the more info field'
 					})}
 					data-test-id="account-specified-other-info"
 					InputLabelProps={{shrink: true}}

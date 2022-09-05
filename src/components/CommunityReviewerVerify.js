@@ -78,16 +78,33 @@ const CommunityReviewerVerify = (props) => {
 		<>
 			<DialogTitle>
 				<FormattedMessage
-					id="community-reviewer-dialog-title"
-					defaultMessage="Local Community Reviewer Questionnaire"
+					id="account.signup-community-reviewer-dialog-title"
+					defaultMessage="InReach Local Community Reviewer Questionnaire"
 					description="Title for the Local Community Reviewer dialog"
 				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
-					id="community-reviewer-dialog-subtitle"
-					defaultMessage="Must be knowledgeable about the local LGBTQ+ community and support services."
-					description="Sub-title for the Local Community Reviewer dialog"
+					id="account.signup-subtitle-reviewer-1"
+					defaultMessage="To register for this account type, you must be knowledgeable about the local LGBTQ+ community and support services in your area."
+					description="sign up dialog header message"
+					values={{
+						b: (chunks) => <strong>{chunks}</strong>,
+						clickHere: (
+							<a
+								href="https://inreach.org/become-a-local-community-reviewer"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hide--on-print"
+							>
+								<FormattedMessage
+									id="resource.click-here"
+									defaultMessage="Click Here"
+									description="link that takes user to Local Community Reviewer vetting process details"
+								/>
+							</a>
+						)
+					}}
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -100,7 +117,7 @@ const CommunityReviewerVerify = (props) => {
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
-						id="community-reviewer-verify-question"
+						id="account.signup-community-reviewer-verify-question"
 						defaultMessage="Have you already been verified by the InReach team as a Local Community Reviewer? *"
 						description="Question asking for pre-verification"
 					/>
@@ -125,9 +142,12 @@ const CommunityReviewerVerify = (props) => {
 					</Grid>
 				</RadioGroup>
 				{verifyAnswer === 'no' ? (
-					<Typography>
-						Click the 'Next button' to complete our survey. Once completed an
-						InReach Team member will contact you with further details.
+					<Typography data-test-id="community-reviewer-next-text">
+						<FormattedMessage
+							id="account.signup-community-reviewer-next-text"
+							defaultMessage="Click the 'Next' button to complete our survey. Once completed an InReach Team member will contact you with further details."
+							description="Question asking for pre-verification"
+						/>
 					</Typography>
 				) : null}
 				<AsylumConnectButton

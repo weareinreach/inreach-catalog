@@ -150,16 +150,33 @@ const CommunityReviewerReviews = (props) => {
 		<>
 			<DialogTitle>
 				<FormattedMessage
-					id="community-reviewer-dialog-title"
+					id="account.signup-community-reviewer-dialog-title"
 					defaultMessage="InReach Local Community Reviewer Questionnaire"
 					description="Title for the Local Community Reviewer dialog"
 				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
-					id="community-reviewer-dialog-subtitle"
-					defaultMessage='Please read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
+					id="account.signup-subtitle-reviewer-2"
+					defaultMessage='Please click here to read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
 					description="Sub-title for the Local Community Reviewer dialog"
+					values={{
+						b: (chunks) => <strong>{chunks}</strong>,
+						clickHere: (
+							<a
+								href="https://inreach.org/become-a-local-community-reviewer"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hide--on-print"
+							>
+								<FormattedMessage
+									id="resource.click-here"
+									defaultMessage="Click Here"
+									description="link that takes user to Local Community Reviewer vetting process details"
+								/>
+							</a>
+						)
+					}}
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -172,7 +189,7 @@ const CommunityReviewerReviews = (props) => {
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
-						id="community-reviewer-reviews-question"
+						id="account.signup-community-reviewer-reviews-question"
 						defaultMessage="I understand that I am expected to leave public written reviews and ratings (1 to 5 stars) in the InReach App for organizations in my local area that I am familiar with. I will not leave any reviews or ratings for organizations I am not familiar with. I will not write reviews or leave ratings for organizations outside of my local community. I also agree to not write any hate speech, or other discriminatory or unprofessional reviews. *"
 						description="Understanding of Reviews requirements"
 					/>
