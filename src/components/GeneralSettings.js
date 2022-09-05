@@ -162,7 +162,7 @@ class GeneralSettings extends React.Component {
 			session,
 			userData,
 			isApproved,
-			userData: {isProfessional, email, name, currentLocation}
+			userData: {isProfessional, email, name, currentLocation, catalogType}
 		} = this.props;
 		const {
 			isPasswordUpdated,
@@ -201,12 +201,14 @@ class GeneralSettings extends React.Component {
 						handleMessageNew={handleMessageNew}
 					/>
 				)}
-				<GeneralSettingsLocation
-					currentLocation={currentLocation}
-					handleUpdateLocation={this.updateLocation}
-					isLocationUpdated={isLocationUpdated}
-					handleMessageNew={handleMessageNew}
-				/>
+				{catalogType === 'reviewer' ? (
+					<GeneralSettingsLocation
+						currentLocation={currentLocation}
+						handleUpdateLocation={this.updateLocation}
+						isLocationUpdated={isLocationUpdated}
+						handleMessageNew={handleMessageNew}
+					/>
+				) : null}
 				<GeneralSettingsEmail
 					currentEmail={email}
 					handleUpdateEmail={this.updateEmail}
