@@ -16,7 +16,7 @@ describe('Home Page Create Account Form Tests', () => {
 
     beforeEach(() => {
         cy.fixture('organization.json').as('organization');
-        cy.fixture('sign_up_user_regular_user.json').as('regular_user');
+        cy.fixture('sign_up_user_regular.json').as('regular_user');
         cy.fixture('sign_up_user_attorney.json').as('attorney');
         cy.fixture('sign_up_user_service_provider.json').as('provider');
         cy.fixture('sign_up_user_reviewer.json').as('reviewer');
