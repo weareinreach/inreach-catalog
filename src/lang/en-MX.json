@@ -374,7 +374,7 @@
 	"resource-property.ages-under": "Ages {value} and under",
 	"resource-property.appointment-required": "Appointment Required",
 	"resource-property.at-capacity": "At capacity",
-	"resource-property.community-adult": "Adults (18+)",
+	"resource-property.community-adult": "Adults",
 	"resource-property.community-african-american": "African American community",
 	"resource-property.community-arabic-speakers": "Arabic speakers",
 	"resource-property.community-api": "Asian/Pacific Islander community",
