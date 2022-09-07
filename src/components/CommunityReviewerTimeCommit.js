@@ -15,7 +15,10 @@ import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 import {breakpoints} from '../theme';
 
-import {communityReviewerVerifyOptions} from '../data/communityReviwerFormOptions';
+import {
+	communityReviewerVerifyOptions,
+	handleRadioButton
+} from '../data/communityReviwerFormOptions';
 
 const styles = (theme) => ({
 	container: {
@@ -59,21 +62,6 @@ const styles = (theme) => ({
 		paddingLeft: '.25rem',
 		marginBottom: '.25rem',
 		marginTop: '1rem'
-	},
-	link: {
-		color: theme.palette.secondary[500],
-		cursor: 'pointer',
-		fontSize: '16px',
-		fontWeight: '600',
-		lineHeight: '20px',
-		marginTop: '48px'
-	},
-	question: {
-		fontSize: '18px',
-		fontWeight: '600',
-		lineHeight: '25px',
-		marginBottom: '48px',
-		marginTop: `${theme.spacing(4.5)}px`
 	},
 	nextBtn: {
 		marginTop: '24px',
@@ -219,14 +207,14 @@ const CommunityReviewerTimeCommit = (props) => {
 										defaultMessage: type.defaultMessage,
 										description: type.description
 									})}
-									checked={timeCommitAnswer === type.dbValue}
+									checked={handleRadioButton(timeCommitAnswer) === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{timeCommitAnswer === 'no' ? (
+				{timeCommitAnswer === 'false' ? (
 					<>
 						<FormLabel
 							required
@@ -290,7 +278,7 @@ const CommunityReviewerTimeCommit = (props) => {
 				<AsylumConnectButton
 					disabled={
 						!timeCommitAnswer ||
-						(timeCommitAnswer === 'no' && !specifiedTimeCommit)
+						(timeCommitAnswer === 'false' && !specifiedTimeCommit)
 					}
 					testIdName="community-reviewer-next-button"
 					variant="primary"

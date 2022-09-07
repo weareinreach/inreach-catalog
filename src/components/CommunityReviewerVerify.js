@@ -15,7 +15,10 @@ import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 import {breakpoints} from '../theme';
 
-import {communityReviewerVerifyOptions} from '../data/communityReviwerFormOptions';
+import {
+	communityReviewerVerifyOptions,
+	handleRadioButton
+} from '../data/communityReviwerFormOptions';
 
 const styles = (theme) => ({
 	container: {
@@ -134,14 +137,14 @@ const CommunityReviewerVerify = (props) => {
 										defaultMessage: type.defaultMessage,
 										description: type.description
 									})}
-									checked={verifyAnswer === type.dbValue}
+									checked={handleRadioButton(verifyAnswer) === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
 							</Grid>
 						))}
 					</Grid>
 				</RadioGroup>
-				{verifyAnswer === 'no' ? (
+				{verifyAnswer === 'false' ? (
 					<Typography data-test-id="community-reviewer-next-text">
 						<FormattedMessage
 							id="account.signup-community-reviewer-next-text"

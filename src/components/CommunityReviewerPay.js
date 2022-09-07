@@ -15,7 +15,10 @@ import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 import {breakpoints} from '../theme';
 
-import {communityReviewerVerifyOptions} from '../data/communityReviwerFormOptions';
+import {
+	communityReviewerVerifyOptions,
+	handleRadioButton
+} from '../data/communityReviwerFormOptions';
 
 const styles = (theme) => ({
 	container: {
@@ -61,20 +64,6 @@ const styles = (theme) => ({
 		height: '1px',
 		backgroundColor: theme.palette.common.darkGrey,
 		marginTop: `${theme.spacing(3)}px`
-	},
-	labels: {
-		textAlign: 'left',
-		paddingLeft: '.25rem',
-		marginBottom: '.25rem',
-		marginTop: '1rem'
-	},
-	link: {
-		color: theme.palette.secondary[500],
-		cursor: 'pointer',
-		fontSize: '16px',
-		fontWeight: '600',
-		lineHeight: '20px',
-		marginTop: '48px'
 	},
 	question: {
 		fontSize: '18px',
@@ -223,7 +212,7 @@ const CommunityReviewerPay = (props) => {
 										defaultMessage: type.defaultMessage,
 										description: type.description
 									})}
-									checked={payAnswer === type.dbValue}
+									checked={handleRadioButton(payAnswer) === type.dbValue}
 									data-test-id={type.dbValue}
 								/>
 							</Grid>

@@ -60,13 +60,13 @@ class SignupFormContainer extends React.Component {
 		this.setState({name: ''});
 		this.setState({currentLocation: ''});
 		this.setState({password: ''});
-		this.setState({verifyAnswer: ''});
-		this.setState({timeCommitAnswer: ''});
+		this.setState({verifyAnswer: null});
+		this.setState({timeCommitAnswer: null});
 		this.setState({specifiedTimeCommit: ''});
-		this.setState({auditAnswer: ''});
-		this.setState({suggestionsAnswer: ''});
-		this.setState({reviewsAnswer: ''});
-		this.setState({payAnswer: ''});
+		this.setState({auditAnswer: null});
+		this.setState({suggestionsAnswer: null});
+		this.setState({reviewsAnswer: null});
+		this.setState({payAnswer: null});
 		this.setState({specifiedOtherInfo: ''});
 	}
 
@@ -213,15 +213,6 @@ class SignupFormContainer extends React.Component {
 					}
 				}
 				if (this.state.selection === 'reviewer') {
-					// this.setState(
-					// 	{activeStep: this.state.reviewerSteps[this.state.activeStep - 1]},
-					// 	function () {
-					// 		//reset values if the user goes back to the beginning
-					// 		if (this.state.activeStep === 0) {
-					// 			this.handleResetState();
-					// 		}
-					// 	}
-					// );
 					if (this.state.activeStep > 9) {
 						this.setState(
 							{activeStep: this.state.reviewerSteps[this.state.activeStep - 9]},
@@ -305,7 +296,7 @@ class SignupFormContainer extends React.Component {
 			verifyAnswer: this.state.verifyAnswer,
 			timeCommitAnswer: this.state.timeCommitAnswer,
 			specifiedTimeCommit:
-				this.state.timeCommitAnswer == 'no'
+				this.state.timeCommitAnswer == false
 					? this.state.specifiedTimeCommit
 					: '',
 			auditAnswer: this.state.auditAnswer,
@@ -426,7 +417,7 @@ class SignupFormContainer extends React.Component {
 			});
 		//determine next step in the workflow
 		if (
-			this.state.verifyAnswer === 'yes' ||
+			this.state.verifyAnswer === 'true' ||
 			this.state.activeStep === 16 ||
 			this.state.activeStep === 10 ||
 			this.state.activeStep === 5

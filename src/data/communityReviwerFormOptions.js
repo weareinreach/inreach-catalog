@@ -1,14 +1,22 @@
 export const communityReviewerVerifyOptions = [
 	{
-		dbValue: 'yes',
-		formatMessageId: 'yes',
+		dbValue: true,
+		formatMessageId: 'form.yes',
 		defaultMessage: 'yes',
 		description: 'yes option'
 	},
 	{
-		dbValue: 'no',
-		formatMessageId: 'no',
+		dbValue: false,
+		formatMessageId: 'form.no',
 		defaultMessage: 'no',
 		description: 'no option'
 	}
 ];
+
+export const handleRadioButton = (answer) => {
+	if (answer === 'true') {
+		return true;
+	} else if (answer === 'false') {
+		return false;
+	}
+};
