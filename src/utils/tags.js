@@ -428,9 +428,30 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
+		acTag: 'Gender Affirming Surgery',
+		title: 'Gender Affirming Surgery',
+		titleIntl: 'services.trans-health'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
 		acTag: 'HIV and sexual health',
 		title: 'HIV and sexual health',
 		titleIntl: 'services.hiv-sexual-health'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Hormone and Surgery Letters',
+		title: 'Hormone and Surgery Letters',
+		titleIntl: 'services.trans-health'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Hormone Therapy',
+		title: 'Hormone Therapy',
+		titleIntl: 'services.trans-health'
 	},
 	{
 		category: 'service-type.medical',
@@ -459,6 +480,20 @@ const resourceTypes = [
 		acTag: 'Physical evaluations for refugee claim',
 		title: 'Physical evaluations for refugee claim',
 		titleIntl: 'services.physical-evaluations-for-refugee'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Primary Care',
+		title: 'Primary Care',
+		titleIntl: 'services.trans-health'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Speech Therapy',
+		title: 'Speech Therapy',
+		titleIntl: 'services.trans-health'
 	},
 	{
 		category: 'service-type.medical',
