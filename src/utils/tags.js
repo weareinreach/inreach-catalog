@@ -430,7 +430,7 @@ const resourceTypes = [
 		type: 'medical',
 		acTag: 'Gender Affirming Surgery',
 		title: 'Gender Affirming Surgery',
-		titleIntl: 'services.trans-health'
+		titleIntl: 'services.trans-health-gender-affirming-surgery'
 	},
 	{
 		category: 'service-type.medical',
@@ -444,14 +444,14 @@ const resourceTypes = [
 		type: 'medical',
 		acTag: 'Hormone and Surgery Letters',
 		title: 'Hormone and Surgery Letters',
-		titleIntl: 'services.trans-health'
+		titleIntl: 'services.trans-health-hormone-and-surgery-letters'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Hormone Therapy',
 		title: 'Hormone Therapy',
-		titleIntl: 'services.trans-health'
+		titleIntl: 'services.trans-health-hormone-therapy'
 	},
 	{
 		category: 'service-type.medical',
@@ -486,14 +486,14 @@ const resourceTypes = [
 		type: 'medical',
 		acTag: 'Primary Care',
 		title: 'Primary Care',
-		titleIntl: 'services.trans-health'
+		titleIntl: 'services.trans-health-primary-care'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
 		acTag: 'Speech Therapy',
 		title: 'Speech Therapy',
-		titleIntl: 'services.trans-health'
+		titleIntl: 'services.trans-health-speech-therapy'
 	},
 	{
 		category: 'service-type.medical',
