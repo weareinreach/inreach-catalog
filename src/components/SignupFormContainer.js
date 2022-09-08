@@ -190,7 +190,6 @@ class SignupFormContainer extends React.Component {
 	}
 
 	handleStepBack() {
-		console.log(this.state.activeStep);
 		this.setState(
 			(prevState) => ({activeStep: prevState.activeStep - 1}),
 			function () {
@@ -292,20 +291,7 @@ class SignupFormContainer extends React.Component {
 			immigrationStatus: this.state.immigrationStatus,
 			orgName: this.state.orgName,
 			orgPositionTitle: this.state.orgPositionTitle,
-			reasonForJoining: this.state.reasonForJoining,
-			verifyAnswer: this.state.verifyAnswer,
-			timeCommitAnswer: this.state.timeCommitAnswer,
-			specifiedTimeCommit:
-				this.state.timeCommitAnswer == false
-					? this.state.specifiedTimeCommit
-					: '',
-			auditAnswer: this.state.auditAnswer,
-			suggestionsAnswer: this.state.suggestionsAnswer,
-			reviewsAnswer: this.state.reviewsAnswer,
-			payAnswer: this.state.payAnswer,
-			specifiedOtherInfo: !this.state.specifiedOtherInfo
-				? ''
-				: this.state.specifiedOtherInfo
+			reasonForJoining: this.state.reasonForJoining
 		};
 
 		//if 'Other' is selected for a multi-select, need to push the specified value into the array then set the body
@@ -401,6 +387,33 @@ class SignupFormContainer extends React.Component {
 				});
 		}
 
+		if (this.state.selection === 'reviewer') {
+			body.reviewerQuestions = {
+				verifyAnswer: this.state.verifyAnswer,
+				timeCommitAnswer: this.state.timeCommitAnswer,
+				specifiedTimeCommit:
+					this.state.timeCommitAnswer == 'false'
+						? this.state.specifiedTimeCommit
+						: '',
+				auditAnswer: this.state.auditAnswer,
+				suggestionsAnswer: this.state.suggestionsAnswer,
+				reviewsAnswer: this.state.reviewsAnswer,
+				payAnswer: this.state.payAnswer,
+				specifiedOtherInfo: !this.state.specifiedOtherInfo
+					? ''
+					: this.state.specifiedOtherInfo
+			};
+		}
+
+		if (
+			this.state.selection === 'lawyer' ||
+			this.state.selection === 'provider'
+		) {
+			body.orgName = this.state.orgName;
+			body.orgPositionTitle = this.state.orgPositionTitle;
+			body.reasonForJoining = this.state.reasonForJoining;
+		}
+
 		//update other attributes here
 		updateUser(userData, body)
 			.then((data) => {
@@ -470,17 +483,24 @@ class SignupFormContainer extends React.Component {
 			return;
 		}
 
-		// if orgType state is 'other', need to set it to the specified value before saving
-		// don't want to change the state directly, else the "Other" radio button won't be checked
-		const body = {
+		// specify fields based on catalogType, only add appropriate fields
+		let body = {
 			catalogType: selection,
 			email,
 			isProfessional,
 			password,
-			name,
-			currentLocation,
-			orgType: orgType === 'other' ? specifiedOrgType : orgType
+			name
 		};
+
+		if (selection !== 'seeker') {
+			body.currentLocation = currentLocation;
+		}
+
+		// if orgType state is 'other', need to set it to the specified value before saving
+		// don't want to change the state directly, else the "Other" radio button won't be checked
+		if (isProfessional) {
+			body.orgType === 'other' ? specifiedOrgType : orgType;
+		}
 
 		const handleError = () =>
 			handleMessageNew(
