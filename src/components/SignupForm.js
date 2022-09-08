@@ -23,9 +23,16 @@ import AboutYouIdentity from './AboutYouIdentity';
 import AboutYouEthnicity from './AboutYouEthnicity';
 import AboutYouAge from './AboutYouAge';
 import AboutYouOrganization from './AboutYouOrganization';
+import CommunityReviewerVerify from './CommunityReviewerVerify';
+import CommunityReviewerTimeCommit from './CommunityReviewerTimeCommit';
+import CommunityReviewerAudit from './CommunityReviewerAudit';
+import CommunityReviewerSuggestions from './CommunityReviewerSuggestions';
+import CommunityReviewerReviews from './CommunityReviewerReviews';
+import CommunityReviewerPay from './CommunityReviewerPay';
 
 const LAWYER_TYPE = 'lawyer';
 const SEEKER_TYPE = 'seeker';
+const REVIEWER_TYPE = 'reviewer';
 
 const styles = (theme) => ({
 	container: {
@@ -348,6 +355,24 @@ const SignupForm = (props) => {
 			{activeStep === 8 && <AboutYouIdentity {...props}></AboutYouIdentity>}
 			{activeStep === 9 && <AboutYouEthnicity {...props}></AboutYouEthnicity>}
 			{activeStep === 10 && <AboutYouAge {...props}></AboutYouAge>}
+			{activeStep === 11 && (
+				<CommunityReviewerVerify {...props}></CommunityReviewerVerify>
+			)}
+			{activeStep === 12 && (
+				<CommunityReviewerTimeCommit {...props}></CommunityReviewerTimeCommit>
+			)}
+			{activeStep === 13 && (
+				<CommunityReviewerAudit {...props}></CommunityReviewerAudit>
+			)}
+			{activeStep === 14 && (
+				<CommunityReviewerSuggestions {...props}></CommunityReviewerSuggestions>
+			)}
+			{activeStep === 15 && (
+				<CommunityReviewerReviews {...props}></CommunityReviewerReviews>
+			)}
+			{activeStep === 16 && (
+				<CommunityReviewerPay {...props}></CommunityReviewerPay>
+			)}
 			{activeStep > 4 && activeStep < 11 && (
 				<Typography className={classes.formStatement} variant="h5">
 					<FormattedMessage
@@ -363,10 +388,17 @@ const SignupForm = (props) => {
 						classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
 					}
 					type="dots"
-					steps={selection === SEEKER_TYPE || selection === '' ? 2 : 3}
+					steps={
+						selection === SEEKER_TYPE ||
+						selection === '' ||
+						selection === REVIEWER_TYPE
+							? 2
+							: 3
+					}
 					position="static"
 					activeStep={
-						selection === SEEKER_TYPE && activeStep > 0
+						(selection === SEEKER_TYPE && activeStep > 0) ||
+						(selection === REVIEWER_TYPE && activeStep > 0)
 							? activeStep - 1
 							: activeStep
 					}
@@ -376,19 +408,23 @@ const SignupForm = (props) => {
 			)}
 			{(activeStep >= 3 && selection !== SEEKER_TYPE) ||
 				activeStep !== 5 ||
-				(activeStep !== 2 && (
-					<MobileStepper
-						className={
-							classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
-						}
-						type="dots"
-						steps={2}
-						position="static"
-						activeStep={activeStep - 3}
-						nextButton={<div />}
-						backButton={<div />}
-					/>
-				))}
+				activeStep !== 11 ||
+				activeStep !==
+					12(
+						activeStep !== 2 && (
+							<MobileStepper
+								className={
+									classes.stepperSpacing1 + ' ' + classes.backgroundTransparent
+								}
+								type="dots"
+								steps={2}
+								position="static"
+								activeStep={activeStep - 3}
+								nextButton={<div />}
+								backButton={<div />}
+							/>
+						)
+					)}
 			{activeStep === 5 && (
 				<MobileStepper
 					className={
@@ -402,7 +438,7 @@ const SignupForm = (props) => {
 					backButton={<div />}
 				/>
 			)}
-			{activeStep > 5 && activeStep < 11 && (
+			{activeStep > 5 && activeStep < 17 && activeStep != 11 && (
 				<MobileStepper
 					className={
 						activeStep === 6
@@ -412,14 +448,17 @@ const SignupForm = (props) => {
 					type="dots"
 					steps={5}
 					position="static"
-					activeStep={activeStep - 6}
+					activeStep={
+						selection === SEEKER_TYPE ? activeStep - 6 : activeStep - 12
+					}
 					nextButton={<div />}
 					backButton={<div />}
 				/>
 			)}
 			{(activeStep === 1 ||
 				activeStep === 2 ||
-				(activeStep > 6 && activeStep < 11)) && (
+				(activeStep > 6 && activeStep < 11) ||
+				(activeStep > 12 && activeStep < 17)) && (
 				<div
 					className={
 						isMobile

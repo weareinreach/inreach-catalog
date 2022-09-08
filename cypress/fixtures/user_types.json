@@ -32,5 +32,17 @@
       "password_placeholder_content": "***",
       "password_content": "1111111Kl#",
       "organization": "Surprisingly Unique Org Name"
+    },
+    "reviewer":{
+      "dialog_container_button": "dialog-container-sign-up-reviewer-button",
+      "name_placeholder_content": "John Smith",
+      "name_content": "Test User Reviwer",
+      "email_placeholder_content": "john@gmail.com",
+      "email_content": "automation-reviewer@gmail.com",
+      "currentLocation_placeholder_content": "San Francisco",
+      "currentLocation_content": "New York City, NY",
+      "password_placeholder_content": "***",
+      "password_content": "1111111Kl#",
+      "organization": "Surprisingly Unique Org Name"
     }
   }
