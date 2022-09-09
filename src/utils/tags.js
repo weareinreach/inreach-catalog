@@ -428,9 +428,30 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
+		acTag: 'Gender Affirming Surgery',
+		title: 'Gender Affirming Surgery',
+		titleIntl: 'services.trans-health-gender-affirming-surgery'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
 		acTag: 'HIV and sexual health',
 		title: 'HIV and sexual health',
 		titleIntl: 'services.hiv-sexual-health'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Hormone and Surgery Letters',
+		title: 'Hormone and Surgery Letters',
+		titleIntl: 'services.trans-health-hormone-and-surgery-letters'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Hormone Therapy',
+		title: 'Hormone Therapy',
+		titleIntl: 'services.trans-health-hormone-therapy'
 	},
 	{
 		category: 'service-type.medical',
@@ -463,9 +484,16 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
-		acTag: 'Trans health',
-		title: 'Trans health',
-		titleIntl: 'services.trans-health'
+		acTag: 'Primary Care',
+		title: 'Primary Care',
+		titleIntl: 'services.trans-health-primary-care'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Speech Therapy',
+		title: 'Speech Therapy',
+		titleIntl: 'services.trans-health-speech-therapy'
 	},
 
 	/* AC Mental Health Category */
