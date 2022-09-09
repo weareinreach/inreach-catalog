@@ -283,6 +283,13 @@ const resourceTypes = [
 		title: 'Hygiene',
 		titleIntl: 'services.hygiene'
 	},
+	{
+		category: 'service-type.hygiene-clothing',
+		type: 'hygiene',
+		acTag: 'Haircuts and stylists',
+		title: 'Haircuts and stylists',
+		titleIntl: 'services.haircuts-stylists'
+	},
 
 	/* AC Legal Category */
 	{category: 'service-type.legal', type: 'legal', acTag: 'Legal'},
