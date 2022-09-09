@@ -495,13 +495,6 @@ const resourceTypes = [
 		title: 'Speech Therapy',
 		titleIntl: 'services.trans-health-speech-therapy'
 	},
-	{
-		category: 'service-type.medical',
-		type: 'medical',
-		acTag: 'Trans health',
-		title: 'Trans health',
-		titleIntl: 'services.trans-health'
-	},
 
 	/* AC Mental Health Category */
 	{
