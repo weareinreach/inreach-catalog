@@ -410,6 +410,7 @@ class AppConnectCatalog extends React.Component {
 										history={history}
 										locale={locale}
 										handleRequestClose={this.handleRequestClose}
+										userData={userData}
 									/>
 								)}
 								{dialogHasShare && (

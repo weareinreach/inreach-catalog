@@ -18,6 +18,7 @@ class SignupFormContainer extends React.Component {
 			password: '',
 			selection: '',
 			seekerSteps: [0, 2, 6, 7, 8, 9, 10],
+			reviewerSteps: [0, 2, 11, 12, 13, 14, 15, 16],
 			currentLocation: '',
 			orgType: '',
 			immigrationStatus: '',
@@ -28,7 +29,15 @@ class SignupFormContainer extends React.Component {
 			specifiedOrgType: '',
 			specifiedCountry: '',
 			specifiedIdentity: '',
-			specifiedEthnicity: ''
+			specifiedEthnicity: '',
+			verifyAnswer: '',
+			timeCommitAnswer: '',
+			specifiedTimeCommit: '',
+			auditAnswer: '',
+			suggestionsAnswer: '',
+			reviewsAnswer: '',
+			payAnswer: '',
+			specifiedOtherInfo: ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -51,6 +60,14 @@ class SignupFormContainer extends React.Component {
 		this.setState({name: ''});
 		this.setState({currentLocation: ''});
 		this.setState({password: ''});
+		this.setState({verifyAnswer: null});
+		this.setState({timeCommitAnswer: null});
+		this.setState({specifiedTimeCommit: ''});
+		this.setState({auditAnswer: null});
+		this.setState({suggestionsAnswer: null});
+		this.setState({reviewsAnswer: null});
+		this.setState({payAnswer: null});
+		this.setState({specifiedOtherInfo: ''});
 	}
 
 	handleChange(event) {
@@ -151,6 +168,19 @@ class SignupFormContainer extends React.Component {
 						);
 					}
 				}
+				if (this.state.selection === 'reviewer') {
+					if (this.state.activeStep > 11) {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 9]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[this.state.activeStep]},
+							function () {}
+						);
+					}
+				}
 			}
 		);
 	}
@@ -172,6 +202,24 @@ class SignupFormContainer extends React.Component {
 					} else {
 						this.setState(
 							{activeStep: this.state.seekerSteps[this.state.activeStep - 1]},
+							function () {
+								//reset values if the user goes back to the beginning
+								if (this.state.activeStep === 0) {
+									this.handleResetState();
+								}
+							}
+						);
+					}
+				}
+				if (this.state.selection === 'reviewer') {
+					if (this.state.activeStep > 9) {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 9]},
+							function () {}
+						);
+					} else {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[this.state.activeStep - 1]},
 							function () {
 								//reset values if the user goes back to the beginning
 								if (this.state.activeStep === 0) {
@@ -339,6 +387,33 @@ class SignupFormContainer extends React.Component {
 				});
 		}
 
+		if (this.state.selection === 'reviewer') {
+			body.reviewerQuestions = {
+				verifyAnswer: this.state.verifyAnswer,
+				timeCommitAnswer: this.state.timeCommitAnswer,
+				specifiedTimeCommit:
+					this.state.timeCommitAnswer == 'false'
+						? this.state.specifiedTimeCommit
+						: '',
+				auditAnswer: this.state.auditAnswer,
+				suggestionsAnswer: this.state.suggestionsAnswer,
+				reviewsAnswer: this.state.reviewsAnswer,
+				payAnswer: this.state.payAnswer,
+				specifiedOtherInfo: !this.state.specifiedOtherInfo
+					? ''
+					: this.state.specifiedOtherInfo
+			};
+		}
+
+		if (
+			this.state.selection === 'lawyer' ||
+			this.state.selection === 'provider'
+		) {
+			body.orgName = this.state.orgName;
+			body.orgPositionTitle = this.state.orgPositionTitle;
+			body.reasonForJoining = this.state.reasonForJoining;
+		}
+
 		//update other attributes here
 		updateUser(userData, body)
 			.then((data) => {
@@ -353,9 +428,13 @@ class SignupFormContainer extends React.Component {
 					/>
 				);
 			});
-
 		//determine next step in the workflow
-		if (this.state.activeStep === 10 || this.state.activeStep === 5) {
+		if (
+			this.state.verifyAnswer === 'true' ||
+			this.state.activeStep === 16 ||
+			this.state.activeStep === 10 ||
+			this.state.activeStep === 5
+		) {
 			this.props.handleRequestOpen('thankyou');
 		} else {
 			this.handleStepNext();
@@ -404,17 +483,24 @@ class SignupFormContainer extends React.Component {
 			return;
 		}
 
-		// if orgType state is 'other', need to set it to the specified value before saving
-		// don't want to change the state directly, else the "Other" radio button won't be checked
-		const body = {
+		// specify fields based on catalogType, only add appropriate fields
+		let body = {
 			catalogType: selection,
 			email,
 			isProfessional,
 			password,
-			name,
-			currentLocation,
-			orgType: orgType === 'other' ? specifiedOrgType : orgType
+			name
 		};
+
+		if (selection !== 'seeker') {
+			body.currentLocation = currentLocation;
+		}
+
+		// if orgType state is 'other', need to set it to the specified value before saving
+		// don't want to change the state directly, else the "Other" radio button won't be checked
+		if (isProfessional) {
+			body.orgType === 'other' ? specifiedOrgType : orgType;
+		}
 
 		const handleError = () =>
 			handleMessageNew(
@@ -449,9 +535,14 @@ class SignupFormContainer extends React.Component {
 					}
 
 					this.props.handleLogIn(auth.token);
-					if (!isProfessional) {
+					if (selection === 'seeker') {
 						this.setState(
 							{activeStep: this.state.seekerSteps[2]},
+							function () {}
+						);
+					} else if (selection === 'reviewer') {
+						this.setState(
+							{activeStep: this.state.reviewerSteps[2]},
 							function () {}
 						);
 					} else {

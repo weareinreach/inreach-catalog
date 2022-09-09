@@ -11,6 +11,7 @@ import {breakpoints} from '../theme';
 const LAWYER_TYPE = 'lawyer';
 const PROVIDER_TYPE = 'provider';
 const SEEKER_TYPE = 'seeker';
+const REVIEWER_TYPE = 'reviewer';
 
 const styles = (theme) => ({
 	container: {
@@ -97,8 +98,8 @@ const SeekerType = (props) => {
 				>
 					<FormattedMessage
 						id="account.signup-catalog-type-asylum-seeker"
-						defaultMessage="My self"
-						description="button to select my self"
+						defaultMessage="I am looking for help for Myself"
+						description="button to select myself option"
 					/>
 				</AsylumConnectButton>
 				<AsylumConnectButton
@@ -109,20 +110,32 @@ const SeekerType = (props) => {
 				>
 					<FormattedMessage
 						id="account.signup-catalog-type-legal-provider"
-						defaultMessage="lawyer"
-						description="button to select lawyer"
+						defaultMessage="I am an Attorney or Law Student"
+						description="button to select lawyer option"
 					/>
 				</AsylumConnectButton>
 				<AsylumConnectButton
-					className={classes.marginBottomLg}
+					className={classes.marginBottom}
 					onClick={() => handleSelect(PROVIDER_TYPE)}
 					variant="primary"
 					testIdName="dialog-container-sign-up-non-legal-service-provider-button"
 				>
 					<FormattedMessage
 						id="account.signup-catalog-type-non-legal-provider"
-						defaultMessage="provider"
-						description="button to select provider"
+						defaultMessage="I am a non-legal Service Provider"
+						description="button to select provider option"
+					/>
+				</AsylumConnectButton>
+				<AsylumConnectButton
+					className={classes.marginBottomLg}
+					onClick={() => handleSelect(REVIEWER_TYPE)}
+					variant="primary"
+					testIdName="dialog-container-sign-up-reviewer-button"
+				>
+					<FormattedMessage
+						id="account.signup-catalog-type-reviewer"
+						defaultMessage="I am a Local Community Reviewer"
+						description="button to select local community reviewer opton"
 					/>
 				</AsylumConnectButton>
 				<div
