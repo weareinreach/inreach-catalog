@@ -435,30 +435,9 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
-		acTag: 'Gender Affirming Surgery',
-		title: 'Gender Affirming Surgery',
-		titleIntl: 'services.trans-health-gender-affirming-surgery'
-	},
-	{
-		category: 'service-type.medical',
-		type: 'medical',
 		acTag: 'HIV and sexual health',
 		title: 'HIV and sexual health',
 		titleIntl: 'services.hiv-sexual-health'
-	},
-	{
-		category: 'service-type.medical',
-		type: 'medical',
-		acTag: 'Hormone and Surgery Letters',
-		title: 'Hormone and Surgery Letters',
-		titleIntl: 'services.trans-health-hormone-and-surgery-letters'
-	},
-	{
-		category: 'service-type.medical',
-		type: 'medical',
-		acTag: 'Hormone Therapy',
-		title: 'Hormone Therapy',
-		titleIntl: 'services.trans-health-hormone-therapy'
 	},
 	{
 		category: 'service-type.medical',
@@ -491,15 +470,36 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
-		acTag: 'Primary Care',
-		title: 'Primary Care',
+		acTag: 'Trans Health - Gender Affirming Surgery',
+		title: 'Trans Health - Gender Affirming Surgery',
+		titleIntl: 'services.trans-health-gender-affirming-surgery'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Hormone and Surgery Letters',
+		title: 'Trans Health - Hormone and Surgery Letters',
+		titleIntl: 'services.trans-health-hormone-and-surgery-letters'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Hormone Therapy',
+		title: 'Trans Health - Hormone Therapy',
+		titleIntl: 'services.trans-health-hormone-therapy'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Primary Care',
+		title: 'Trans Health - Primary Care',
 		titleIntl: 'services.trans-health-primary-care'
 	},
 	{
 		category: 'service-type.medical',
 		type: 'medical',
-		acTag: 'Speech Therapy',
-		title: 'Speech Therapy',
+		acTag: 'Trans Health - Speech Therapy',
+		title: 'Trans Health - Speech Therapy',
 		titleIntl: 'services.trans-health-speech-therapy'
 	},
 
