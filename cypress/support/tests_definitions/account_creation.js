@@ -44,6 +44,12 @@ Cypress.Commands.add('testCreateAccountOptionTypes', (viewport) => {
         expect($element).to.have.attr('type', 'submit');
     });
 
+    cy.getElementByTestId('dialog-container-sign-up-reviewer-button').then($element => {
+        expect($element).to.be.visible;
+        expect($element.children()).contain("I am a Local Community Reviewer");
+        expect($element).to.have.attr('type', 'submit');
+    });
+
     cy.getElementByTestId('dialog-container-sign-up-already-have-account').then($element => {
         expect($element).to.be.visible;
         expect($element.children()).contain("Already have an account?");
@@ -134,6 +140,18 @@ Cypress.Commands.add('testCreateAccountBackButton', (viewport) => {
     cy.getElementByTestId('dialog-container-sign-up-non-legal-service-provider-button').then($element => {
         expect($element).to.be.visible;
         expect($element.children()).contain("I am a non-legal service provider");
+        expect($element).to.have.attr('type', 'submit');
+        cy.wrap($element).click();
+    });
+    cy.getElementByTestId('sign-up-form-back-button').click();
+    
+    cy.getElementByTestId('dialog-container-sign-up-question').then($element => {
+        expect($element).to.be.visible;
+        expect($element.children()).contain('Which are you?');
+    });
+    cy.getElementByTestId('dialog-container-sign-up-reviewer-button').then($element => {
+        expect($element).to.be.visible;
+        expect($element.children()).contain("I am a Local Community Reviewer");
         expect($element).to.have.attr('type', 'submit');
         cy.wrap($element).click();
     });
@@ -376,6 +394,68 @@ Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObj
 
     cy.deleteUsersIfExist();
     cy.logout(viewport);
+});
+
+//Create Account - Reviwer
+Cypress.Commands.add('testCreateAccountReviewer', (viewport, userType, userTypeObject) => {
+    cy.viewport(viewport);
+    cy.deleteUsersIfExist();
+    if(viewport !== 'iphone-x'){
+        cy.getElementByTestId('nav-account-sign-up').click({
+            force: true
+        });
+    }else {
+        cy.getElementByTestId('mobile-nav-button-account').click({
+            force: true
+        });
+        cy.getElementByTestId('account-mobile-sign-up').click({
+            force: true
+        });
+    }
+    cy.getElementByTestId(userTypeObject.dialog_container_button).click({
+        force: true
+    });
+
+        cy.getElementByTestId('name-email-password-form').within(() => {
+        cy.getElementByTestId('sign-up-form-name-label').then($element => {
+            expect($element).to.be.visible;
+            expect($element).contain('First and Last Name');
+        });
+        cy.getElementByTestId('sign-up-form-name-input').children().then($element => {
+            expect($element.children()[0]).to.be.visible;
+            expect($element.children()[0]).to.have.attr('placeholder', userTypeObject.name_placeholder_content);
+            cy.wrap($element.children()[0]).type(userTypeObject.name_content);
+        });
+        
+        cy.getElementByTestId('sign-up-form-location-label').then($element => {
+            expect($element).to.be.visible;
+            expect($element).contain('Email');
+        });
+        cy.getElementByTestId('sign-up-form-location-input').children().then($element => {
+            expect($element.children()[0]).to.be.visible;
+            expect($element.children()[0]).to.have.attr('placeholder', userTypeObject.currentLocation_placeholder_content);
+            cy.wrap($element.children()[0]).type(userTypeObject.currentLocation_content+viewport);
+        });
+
+        cy.getElementByTestId('sign-up-form-email-label').then($element => {
+            expect($element).to.be.visible;
+            expect($element).contain('Email');
+        });
+        cy.getElementByTestId('sign-up-form-email-input').children().then($element => {
+            expect($element.children()[0]).to.be.visible;
+            expect($element.children()[0]).to.have.attr('placeholder', userTypeObject.email_placeholder_content);
+            cy.wrap($element.children()[0]).type(userTypeObject.email_content+viewport);
+        });
+        cy.getElementByTestId('sign-up-form-password-label').then($element => {
+            expect($element).to.be.visible;
+            expect($element).contain('Password');
+        });
+        cy.getElementByTestId('sign-up-form-password-input').children().then($element => {
+            expect($element.children()[0]).to.be.visible;
+            expect($element.children()[0]).to.have.attr('placeholder', userTypeObject.password_placeholder_content);
+            cy.wrap($element.children()[0]).type(userTypeObject.password_content);
+        });
+    });
 });
 
 //------
