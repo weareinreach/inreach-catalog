@@ -575,6 +575,13 @@ const resourceTypes = [
 	{
 		category: 'service-type.mental-health',
 		type: 'mentalHealth',
+		acTag: 'Support for caregivers of trans youth',
+		title: 'Support for caregivers of trans youth',
+		titleIntl: 'services.support-for-caregivers-of-trans-youth'
+	},
+	{
+		category: 'service-type.mental-health',
+		type: 'mentalHealth',
 		acTag: 'Trans support groups',
 		title: 'Trans support groups',
 		titleIntl: 'services.trans-support-groups'
@@ -707,6 +714,7 @@ const localeExclusions = {
 		'Residency',
 		'Special Immigrant Juvenile Status (SIJS)',
 		'Sponsors',
+		'Support for caregivers of trans youth',
 		'Support for conversion therapy survivors',
 		'T Visa',
 		'Trans housing',
@@ -734,6 +742,7 @@ const localeExclusions = {
 		'services.residency',
 		'services.special-immigrant-juvenile-status',
 		'services.sponsors',
+		'services.support-for-caregivers-of-trans-youth',
 		'services.support-for-conversion-therapy-survivors',
 		'services.t-visa',
 		'services.trans-housing',
@@ -766,6 +775,7 @@ const localeExclusions = {
 		'Short-term housing',
 		'Special Immigrant Juvenile Status (SIJS)',
 		'Sponsors',
+		'Support for caregivers of trans youth',
 		'Support for conversion therapy survivors',
 		'T Visa',
 		'Trans housing',
@@ -796,6 +806,7 @@ const localeExclusions = {
 		'services.short-term-housing',
 		'services.special-immigrant-juvenile-status',
 		'services.sponsors',
+		'services.support-for-caregivers-of-trans-youth',
 		'services.support-for-conversion-therapy-survivors',
 		'services.t-visa',
 		'services.trans-housing',
@@ -828,6 +839,7 @@ const localeExclusions = {
 		'Short-term housing',
 		'Special Immigrant Juvenile Status (SIJS)',
 		'Sponsors',
+		'Support for caregivers of trans youth',
 		'Support for conversion therapy survivors',
 		'T Visa',
 		'Trans housing',
@@ -859,6 +871,7 @@ const localeExclusions = {
 		'services.special-immigrant-juvenile-status',
 		'services.sponsors',
 		'services.support-for-conversion-therapy-survivors',
+		'services.support-for-caregivers-of-trans-youth',
 		'services.t-visa',
 		'services.trans-housing',
 		'services.u-visa'
