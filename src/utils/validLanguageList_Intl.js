@@ -1,13 +1,12 @@
 import langs from 'langs/data';
 
-let validLangs = [
+var validLangs = [
 	{name: 'Arabic'},
-	{name: 'English'},
 	{name: 'French'},
+	{name: 'Spanish'},
 	{name: 'Hindi'},
 	{name: 'Russian'},
 	{name: 'Somali'},
-	{name: 'Spanish'},
 	{name: 'Chinese (Simplified)', 1: 'zh-cn', local: '廣東話'},
 	{name: 'Chinese (Traditional)', 1: 'zh-tw', local: '台語'},
 	{name: 'Afrikaans'},
@@ -109,7 +108,7 @@ let validLangs = [
 	{name: 'Zulu'}
 ];
 
-let ValidLanguageList = {
+var ValidLanguageList = {
 	all: getValidLanguagueList,
 	byCode: getValidLanguageByCode,
 	codeByName: getValidLanguageCodeByName,
@@ -117,7 +116,7 @@ let ValidLanguageList = {
 };
 
 function getValidLanguagueList() {
-	for (let validLang of validLangs) {
+	for (var validLang of validLangs) {
 		// eslint-disable-next-line
 		langs.forEach(function (lang) {
 			if (lang['name'] === validLang['name']) {
@@ -130,7 +129,7 @@ function getValidLanguagueList() {
 }
 
 function getValidLanguageByCode(code) {
-	for (let validLang of validLangs) {
+	for (var validLang of validLangs) {
 		if (validLang['1'] === code) {
 			return validLang['local'];
 		}
@@ -138,7 +137,7 @@ function getValidLanguageByCode(code) {
 }
 
 function getValidLanguageCodeByName(name) {
-	for (let validLang of validLangs) {
+	for (var validLang of validLangs) {
 		if (validLang['local'] === name) {
 			return validLang['1'];
 		}
