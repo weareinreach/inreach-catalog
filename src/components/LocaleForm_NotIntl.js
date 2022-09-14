@@ -113,7 +113,7 @@ class LocaleForm extends React.Component {
 		});
 	}
 
-	handleNextClick(ev) {
+	handleNextClick() {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
 		}
@@ -122,12 +122,12 @@ class LocaleForm extends React.Component {
 			this.props.onLocaleSelect(
 				this.state.selectedLocale,
 				this.state.selectedLanguage,
-				this.state.selectedLanguageName !== this.state.startingLang
+				this.state.selectedLanguageName != this.state.startingLang
 			);
 		}
 	}
 
-	handleSelectLocale(localeCode, localeName) {
+	handleSelectLocale(localeCode) {
 		this.setState({
 			selectedLocale: localeCode
 		});
