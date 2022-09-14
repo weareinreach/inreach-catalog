@@ -150,7 +150,7 @@ class LocaleForm extends React.Component {
 		}
 	}
 
-	handleSelectLocale(localeCode, localeName) {
+	handleSelectLocale(localeCode) {
 		this.setState({
 			selectedLocale: localeCode
 		});
