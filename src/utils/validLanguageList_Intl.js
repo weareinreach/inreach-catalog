@@ -108,7 +108,7 @@ let validLangs = [
 	{name: 'Zulu'}
 ];
 
-var ValidLanguageList = {
+let ValidLanguageList = {
 	all: getValidLanguagueList,
 	byCode: getValidLanguageByCode,
 	codeByName: getValidLanguageCodeByName,
