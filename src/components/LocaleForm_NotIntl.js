@@ -91,8 +91,6 @@ class LocaleForm extends React.Component {
 			reload: false,
 			selectedLanguage: false,
 			selectedLanguageName: false,
-			/*selectedLocale: false,
-      selectedLocaleName: false,*/
 			startingLang: this.getStartingLanguage()
 		};
 
@@ -118,13 +116,6 @@ class LocaleForm extends React.Component {
 	handleNextClick() {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
-
-			//will need this once catalog is fully translasted to spanish
-			/* if(this.state.selectedLocale === 'en_MX' && this.state.selectedLanguage === 'es'){
-				this.props.changeLocale('es_MX');
-			}else {
-				this.props.changeLocale(this.state.selectedLocale);
-			} */
 		}
 
 		if (typeof this.props.onLocaleSelect === 'function') {
@@ -134,11 +125,6 @@ class LocaleForm extends React.Component {
 				this.state.selectedLanguageName != this.state.startingLang
 			);
 		}
-		/*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
-      this.setState({
-        reload: true
-      });
-    } */
 	}
 
 	handleSelectLocale(localeCode) {

@@ -6,7 +6,6 @@ import {withStyles} from '@material-ui/core/styles';
 
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
-
 import LocaleSelector from './LocaleSelector';
 import withWidth from './withWidth';
 import {getLocale} from '../utils/locale';
@@ -150,14 +149,9 @@ class LocaleForm extends React.Component {
 				this.state.selectedLanguageName != this.state.startingLang
 			);
 		}
-		/*if(this.state.selectedLanguageName !== this.state.startingLang && allowRedirect) {
-      this.setState({
-        reload: true
-      });
-    } */
 	}
 
-	handleSelectLocale(localeCode, localeName) {
+	handleSelectLocale(localeCode) {
 		this.setState({
 			selectedLocale: localeCode
 		});
