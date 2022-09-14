@@ -1,6 +1,6 @@
 import langs from 'langs/data';
 
-var validLangs = [
+let validLangs = [
 	{name: 'Arabic'},
 	{name: 'French'},
 	{name: 'Spanish'},
@@ -108,7 +108,7 @@ var validLangs = [
 	{name: 'Zulu'}
 ];
 
-var ValidLanguageList = {
+let ValidLanguageList = {
 	all: getValidLanguagueList,
 	byCode: getValidLanguageByCode,
 	codeByName: getValidLanguageCodeByName,
@@ -116,7 +116,7 @@ var ValidLanguageList = {
 };
 
 function getValidLanguagueList() {
-	for (var validLang of validLangs) {
+	for (let validLang of validLangs) {
 		// eslint-disable-next-line
 		langs.forEach(function (lang) {
 			if (lang['name'] === validLang['name']) {
@@ -129,7 +129,7 @@ function getValidLanguagueList() {
 }
 
 function getValidLanguageByCode(code) {
-	for (var validLang of validLangs) {
+	for (let validLang of validLangs) {
 		if (validLang['1'] === code) {
 			return validLang['local'];
 		}
@@ -137,7 +137,7 @@ function getValidLanguageByCode(code) {
 }
 
 function getValidLanguageCodeByName(name) {
-	for (var validLang of validLangs) {
+	for (let validLang of validLangs) {
 		if (validLang['local'] === name) {
 			return validLang['1'];
 		}
