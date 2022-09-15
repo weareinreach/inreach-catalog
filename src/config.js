@@ -14,10 +14,8 @@ const prod = {
 	apiDomain: 'https://inreach-api.herokuapp.com'
 };
 
-const env = process.env.REACT_APP_APP_ENV;
-const useIntl = process.env.USE_INTL;
 console.log(process.env);
-console.log(useIntl);
+const env = process.env.REACT_APP_APP_ENV;
 
 export default {
 	...base,
