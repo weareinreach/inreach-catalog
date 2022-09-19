@@ -5,6 +5,8 @@
     "local": "REACT_APP_APP_ENV=TEST yarn start",
     "prod": "REACT_APP_APP_ENV=production yarn start",
     "dev": "yarn start",
+    "dev-use-intl": "REACT_APP_USE_INTL=TRUE yarn start",
+    "local-use-intl": "REACT_APP_APP_ENV=TEST REACT_APP_USE_INTL=TRUE yarn start",
     "start": "react-app-rewired -r @cypress/instrument-cra start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --passWithNoTests",

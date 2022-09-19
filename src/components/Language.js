@@ -1,7 +1,9 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import ValidLanguageList from '../utils/validLanguageList';
+import ValidNativeLanguageList from '../utils/validNativeLanguageList';
 import language from '../utils/language';
+import {getLocale, setLocale} from '../utils/locale';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
@@ -20,6 +22,118 @@ import {
 	searchInputMobile
 } from '../theme';
 import {FormattedMessage} from 'react-intl';
+import {useIntl} from '../config';
+
+// const styles = (theme) => ({
+// 	root: {
+// 		display: 'block'
+// 	},
+// 	languageListContainer: {
+// 		width: 'auto'
+// 	},
+// 	bodySelector: Object.assign(searchInput(theme), {
+// 		borderLeft: '2px solid ' + theme.palette.common.lightGrey,
+// 		cursor: 'pointer',
+// 		position: 'relative',
+// 		boxShadow:
+// 			'-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+// 		[theme.breakpoints.down('md')]: {
+// 			boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
+// 			borderLeft: 'none'
+// 		},
+// 		[theme.breakpoints.down('xs')]: searchInputMobile(theme)
+// 	}),
+// 	languageList: {
+// 		background: theme.palette.background.paper,
+// 		paddingTop: 0,
+// 		overflow: 'auto',
+// 		maxHeight: 300,
+// 		[theme.breakpoints.down('xs')]: {
+// 			position: 'static',
+// 			width: '100%',
+// 			maxHeight: 'none',
+// 			height: 'auto',
+// 			boxShadow: 'none',
+// 			border: 'none',
+// 			borderRadius: '0px',
+// 			marginBottom: '91px'
+// 		}
+// 	},
+// 	poweredByGoogle: {
+// 		display: 'flex',
+// 		fontFamily: 'arial',
+// 		fontSize: '11px',
+// 		color: '#666',
+// 		whiteSpace: 'nowrap',
+// 		padding: theme.spacing(2)
+// 	},
+// 	gooLogoLink: {
+// 		display: 'flex',
+// 		flexDirection: 'row',
+// 		alignItems: 'center'
+// 	},
+// 	gooLogoImg: {
+// 		paddingRight: '4px',
+// 		paddingLeft: '4px',
+// 		width: 'auto'
+// 	},
+// 	filterFormControl: {
+// 		width: '100%',
+// 		border: '2px solid #E9E9E9',
+// 		borderRadius: '4px'
+// 	},
+// 	filterInput: {
+// 		padding: '0 10px'
+// 	},
+// 	filterInputBar: {
+// 		padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px`,
+// 		[theme.breakpoints.down('xs')]: {
+// 			padding: '10px'
+// 		}
+// 	},
+// 	blackTranslateColor: {
+// 		display: 'inline',
+// 		fontSize: '12px',
+// 		color: '#444',
+// 		fontWeight: 'bold',
+// 		textDecoration: 'none'
+// 	},
+// 	languageLink: {
+// 		textTransform: 'capitalize'
+// 	},
+// 	centerTextAlign: {
+// 		display: 'flex',
+// 		justifyContent: 'center',
+// 		alignItems: 'center',
+// 		padding: '5 5 5',
+// 		cursor: 'pointer'
+// 	},
+// 	textCenter: {
+// 		textAlign: 'center'
+// 	},
+// 	mobilePadding: {
+// 		[theme.breakpoints.down('xs')]: mobilePadding(theme)
+// 	},
+// 	topPadding: {
+// 		[theme.breakpoints.down('xs')]: {
+// 			paddingTop: '8px'
+// 		}
+// 	},
+// 	languageSelect: {
+// 		display: 'flex',
+// 		flexDirection: 'row',
+// 		alignItems: 'center'
+// 	},
+// 	languageIcon: {
+// 		width: '35px',
+// 		height: '30px',
+// 		paddingRight: '3px',
+// 		'@media(max-width:972px)': {
+// 			width: '33px',
+// 			height: '27px'
+// 		}
+// 	}
+// });
 
 const styles = (theme) => ({
 	root: {
@@ -55,6 +169,14 @@ const styles = (theme) => ({
 			borderRadius: '0px',
 			marginBottom: '91px'
 		}
+	},
+	providedByInReach: {
+		display: 'flex',
+		fontFamily: 'arial',
+		fontSize: '11px',
+		color: '#666',
+		whiteSpace: 'nowrap',
+		padding: theme.spacing(2)
 	},
 	poweredByGoogle: {
 		display: 'flex',
@@ -139,12 +261,17 @@ class LangMenuItem extends React.Component {
 	}
 
 	handleSelectLang() {
-		this.props.handleSelectLang(this.props.langCode, this.props.langName);
+		this.props.handleSelectLang(
+			this.props.langCode,
+			this.props.langName,
+			this.props.provider
+		);
 	}
+
 	render() {
 		return (
 			<AsylumConnectDropdownListItem
-				data-test-id="nav-button-language-item"
+				data-test-id={'nav-button-language-item-' + this.props.langCode}
 				button
 				onClick={this.handleSelectLang}
 			>
@@ -159,8 +286,10 @@ class Language extends React.Component {
 		super();
 		this.state = {
 			open: false,
+			selectedLang: 'English',
 			langsList: ValidLanguageList.all(),
-			selectedLang: 'English'
+			langsNativeList: ValidNativeLanguageList.all(),
+			provider: ''
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
@@ -174,15 +303,32 @@ class Language extends React.Component {
 		this.handleOnFilterBarClick = this.handleOnFilterBarClick.bind(this);
 	}
 
+	generateNativeLanguageItems() {
+		return (
+			<Fragment>
+				{this.state.langsNativeList.map((lang, index) => (
+					<LangMenuItem
+						key={100 + index}
+						langName={lang.local}
+						langCode={lang['1']}
+						handleSelectLang={this.handleRequestCloseAfterSelect}
+						provider={ValidNativeLanguageList.provider}
+					/>
+				))}
+			</Fragment>
+		);
+	}
+
 	generateLanguageItems() {
 		return (
 			<Fragment>
 				{this.state.langsList.map((lang, index) => (
 					<LangMenuItem
-						key={index}
+						key={200 + index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
+						provider="gt"
 					/>
 				))}
 			</Fragment>
@@ -199,6 +345,20 @@ class Language extends React.Component {
 				].join(' ')}
 				spacing={3}
 			>
+				{useIntl ? (
+					<>
+						<ListSubheader className={this.props.classes.providedByInReach}>
+							<FormattedMessage
+								id="language.inreach-attribution"
+								defaultMessage="Provided by InReach"
+								description="Dropdown label describing language translator"
+							>
+								{(providedBy) => <span>{providedBy}</span>}
+							</FormattedMessage>
+						</ListSubheader>
+						{this.generateNativeLanguageItems()}
+					</>
+				) : null}
 				<div className={this.props.classes.filterInputBar}>
 					<Filter
 						className={this.props.classes.filterFormControl}
@@ -258,31 +418,84 @@ class Language extends React.Component {
 	}
 
 	handleClick(event) {
-		this.setState({open: !this.state.open});
+		this.setState(
+			{open: !this.state.open},
+			{selectedLang: language.getLanguage()}
+		);
 	}
 
-	handleSelect(langCode, langName) {
+	handleSelect(langCode, langName, provider) {
 		if (typeof this.props.onSelect === 'function') {
-			this.props.onSelect(langCode, langName);
+			this.props.onSelect(langCode, langName, provider);
+			this.setState({
+				selectedLanguage: langName
+			});
 		}
 	}
 
 	handleOnFilterChange(e) {
 		const filteredList = ValidLanguageList.filteredLanguageList(e.target.value);
+		const filteredNativeList = ValidNativeLanguageList.filteredLanguageList(
+			e.target.value
+		);
 		this.setState({
-			langsList: filteredList
+			langsList: filteredList,
+			langsNativeList: filteredNativeList
 		});
 	}
+
 	handleOnFilterBarClick(e) {
 		e.stopPropagation();
 	}
 
-	handleRequestCloseAfterSelect(langCode, langName) {
-		this.setState({open: false, selectedLang: langName});
-		window.location.hash = '#googtrans(' + langCode + ')';
+	// handleRequestCloseAfterSelect(langCode, langName) {
+	// 	this.setState({open: false, selectedLang: langName});
+	// 	window.location.hash = '#googtrans(' + langCode + ')';
+	// 	language.setLanguage(langName);
+	// 	//window.localStorage.setItem('lang', langName);
+	// 	this.handleSelect(langCode, langName);
+	// 	if (this.props.autoReload) {
+	// 		window.location.reload();
+	// 	}
+	// }
+
+	handleRequestCloseAfterSelect(langCode, langName, provider) {
+		this.setState({open: false, selectedLang: langName, provider: provider});
+		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
+			this.setState({open: false, selectedLang: langName, provider: provider});
+			//clear location.hash
+			let uri = window.location.toString();
+			if (uri.indexOf('#') > 0) {
+				let clean_uri = uri.substring(0, uri.indexOf('#'));
+				window.history.replaceState({}, document.title, clean_uri);
+			}
+			//also clear googltrans cookie
+			document.cookie = 'googtrans=; path=/;Max-Age=0;';
+		} else {
+			//use google translate
+			window.location.hash = '#googtrans(' + langCode + ')';
+		}
 		language.setLanguage(langName);
-		//window.localStorage.setItem('lang', langName);
+		language.setLanguageCode(langCode);
+		provider
+			? language.setLanguageProvider(provider)
+			: language.removeLanguageProvider();
 		this.handleSelect(langCode, langName);
+
+		if (langCode === 'es' && getLocale() === 'en_MX') {
+			setLocale('es_MX');
+		}
+		if (langCode === 'es' && getLocale() === 'en_US') {
+			setLocale('es_US');
+		}
+
+		if (langCode === 'en' && getLocale() === 'es_MX') {
+			setLocale('en_MX');
+		}
+		if (langCode === 'en' && getLocale() === 'es_US') {
+			setLocale('en_US');
+		}
+
 		if (this.props.autoReload) {
 			window.location.reload();
 		}
@@ -298,17 +511,50 @@ class Language extends React.Component {
 		}
 	}
 
+	// componentWillMount() {
+	// 	var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
+	// 	if (window.location.hash.length !== 0) {
+	// 		let langCode = window.location.hash
+	// 			.substring(window.location.hash.indexOf('(') + 1)
+	// 			.slice(0, -1)
+	// 			.toLowerCase();
+	// 		currentLang = ValidLanguageList.byCode(langCode);
+	// 	}
+	// 	this.setState({selectedLang: currentLang});
+	// 	this.handleSelect(ValidLanguageList.codeByName(currentLang), currentLang);
+	// 	if (currentLang === 'English') {
+	// 		document.cookie =
+	// 			'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+	// 		//Google Translate started adding root domain translation cookies - this will clear those
+	// 		var hostComponents = window.location.host.split('.');
+	// 		var domain =
+	// 			hostComponents.length >= 2
+	// 				? hostComponents[hostComponents.length - 2] +
+	// 				  '.' +
+	// 				  hostComponents[hostComponents.length - 1]
+	// 				: window.location.host;
+	// 		document.cookie =
+	// 			'googtrans=;domain=' +
+	// 			domain +
+	// 			';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	// 	}
+	// }
+
 	componentWillMount() {
 		var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
 		if (window.location.hash.length !== 0) {
-			let langCode = window.location.hash
-				.substring(window.location.hash.indexOf('(') + 1)
-				.slice(0, -1)
-				.toLowerCase();
-			currentLang = ValidLanguageList.byCode(langCode);
+			let langCode = language.getLanguageCode();
+			currentLang =
+				ValidLanguageList.byCode(langCode) ||
+				ValidNativeLanguageList.byCode(langCode);
 		}
 		this.setState({selectedLang: currentLang});
 		this.handleSelect(ValidLanguageList.codeByName(currentLang), currentLang);
+		this.handleSelect(
+			ValidNativeLanguageList.codeByName(currentLang),
+			currentLang
+		);
 		if (currentLang === 'English') {
 			document.cookie =
 				'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -391,6 +637,7 @@ class Language extends React.Component {
 						<FormattedMessage
 							id="language.dropdown-select-language"
 							defaultMessage="Select Language"
+							description="Dropdown label to prompting to select a language"
 						>
 							{(selectLanguage) => (
 								<Typography className={classes.textCenter} variant="h3">

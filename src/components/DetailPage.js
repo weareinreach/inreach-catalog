@@ -59,10 +59,12 @@ import {
 	returnServiceNativeLanguageData
 } from '../utils/utils';
 import language from '../utils/language';
+import {useIntl} from '../config';
+
 const langCode = language.getLanguageCode();
 const provider = language.getLanguageProvider();
 const doNativeTranslation =
-	langCode !== 'en' && provider === 'inreach' ? true : false;
+	langCode !== 'en' && provider === 'inreach' && useIntl ? true : false;
 
 const formatOrganization = (organization) => {
 	organization = doNativeTranslation

@@ -1,6 +1,7 @@
 import langs from 'langs/data';
+import {useIntl} from '../config';
 
-let validLangs = [
+let allLangs = [
 	{name: 'Arabic'},
 	{name: 'English'},
 	{name: 'French'},
@@ -108,6 +109,10 @@ let validLangs = [
 	{name: 'Yoruba'},
 	{name: 'Zulu'}
 ];
+
+let validLangs = !useIntl
+	? allLangs
+	: allLangs.filter((item) => item.name !== 'English');
 
 let ValidLanguageList = {
 	all: getValidLanguagueList,
