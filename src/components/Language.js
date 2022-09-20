@@ -24,117 +24,6 @@ import {
 import {FormattedMessage} from 'react-intl';
 import {useIntl} from '../config';
 
-// const styles = (theme) => ({
-// 	root: {
-// 		display: 'block'
-// 	},
-// 	languageListContainer: {
-// 		width: 'auto'
-// 	},
-// 	bodySelector: Object.assign(searchInput(theme), {
-// 		borderLeft: '2px solid ' + theme.palette.common.lightGrey,
-// 		cursor: 'pointer',
-// 		position: 'relative',
-// 		boxShadow:
-// 			'-10px 0px 0px 0px rgba(255,255,255,1), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
-// 		[theme.breakpoints.down('md')]: {
-// 			boxShadow: '0px 1px 10px 0px rgba(0, 0, 0, 0.12)',
-// 			borderLeft: 'none'
-// 		},
-// 		[theme.breakpoints.down('xs')]: searchInputMobile(theme)
-// 	}),
-// 	languageList: {
-// 		background: theme.palette.background.paper,
-// 		paddingTop: 0,
-// 		overflow: 'auto',
-// 		maxHeight: 300,
-// 		[theme.breakpoints.down('xs')]: {
-// 			position: 'static',
-// 			width: '100%',
-// 			maxHeight: 'none',
-// 			height: 'auto',
-// 			boxShadow: 'none',
-// 			border: 'none',
-// 			borderRadius: '0px',
-// 			marginBottom: '91px'
-// 		}
-// 	},
-// 	poweredByGoogle: {
-// 		display: 'flex',
-// 		fontFamily: 'arial',
-// 		fontSize: '11px',
-// 		color: '#666',
-// 		whiteSpace: 'nowrap',
-// 		padding: theme.spacing(2)
-// 	},
-// 	gooLogoLink: {
-// 		display: 'flex',
-// 		flexDirection: 'row',
-// 		alignItems: 'center'
-// 	},
-// 	gooLogoImg: {
-// 		paddingRight: '4px',
-// 		paddingLeft: '4px',
-// 		width: 'auto'
-// 	},
-// 	filterFormControl: {
-// 		width: '100%',
-// 		border: '2px solid #E9E9E9',
-// 		borderRadius: '4px'
-// 	},
-// 	filterInput: {
-// 		padding: '0 10px'
-// 	},
-// 	filterInputBar: {
-// 		padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px`,
-// 		[theme.breakpoints.down('xs')]: {
-// 			padding: '10px'
-// 		}
-// 	},
-// 	blackTranslateColor: {
-// 		display: 'inline',
-// 		fontSize: '12px',
-// 		color: '#444',
-// 		fontWeight: 'bold',
-// 		textDecoration: 'none'
-// 	},
-// 	languageLink: {
-// 		textTransform: 'capitalize'
-// 	},
-// 	centerTextAlign: {
-// 		display: 'flex',
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 		padding: '5 5 5',
-// 		cursor: 'pointer'
-// 	},
-// 	textCenter: {
-// 		textAlign: 'center'
-// 	},
-// 	mobilePadding: {
-// 		[theme.breakpoints.down('xs')]: mobilePadding(theme)
-// 	},
-// 	topPadding: {
-// 		[theme.breakpoints.down('xs')]: {
-// 			paddingTop: '8px'
-// 		}
-// 	},
-// 	languageSelect: {
-// 		display: 'flex',
-// 		flexDirection: 'row',
-// 		alignItems: 'center'
-// 	},
-// 	languageIcon: {
-// 		width: '35px',
-// 		height: '30px',
-// 		paddingRight: '3px',
-// 		'@media(max-width:972px)': {
-// 			width: '33px',
-// 			height: '27px'
-// 		}
-// 	}
-// });
-
 const styles = (theme) => ({
 	root: {
 		display: 'block'
@@ -448,17 +337,6 @@ class Language extends React.Component {
 		e.stopPropagation();
 	}
 
-	// handleRequestCloseAfterSelect(langCode, langName) {
-	// 	this.setState({open: false, selectedLang: langName});
-	// 	window.location.hash = '#googtrans(' + langCode + ')';
-	// 	language.setLanguage(langName);
-	// 	//window.localStorage.setItem('lang', langName);
-	// 	this.handleSelect(langCode, langName);
-	// 	if (this.props.autoReload) {
-	// 		window.location.reload();
-	// 	}
-	// }
-
 	handleRequestCloseAfterSelect(langCode, langName, provider) {
 		this.setState({open: false, selectedLang: langName, provider: provider});
 		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
@@ -510,36 +388,6 @@ class Language extends React.Component {
 			this.handleReload();
 		}
 	}
-
-	// componentWillMount() {
-	// 	var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
-	// 	if (window.location.hash.length !== 0) {
-	// 		let langCode = window.location.hash
-	// 			.substring(window.location.hash.indexOf('(') + 1)
-	// 			.slice(0, -1)
-	// 			.toLowerCase();
-	// 		currentLang = ValidLanguageList.byCode(langCode);
-	// 	}
-	// 	this.setState({selectedLang: currentLang});
-	// 	this.handleSelect(ValidLanguageList.codeByName(currentLang), currentLang);
-	// 	if (currentLang === 'English') {
-	// 		document.cookie =
-	// 			'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-
-	// 		//Google Translate started adding root domain translation cookies - this will clear those
-	// 		var hostComponents = window.location.host.split('.');
-	// 		var domain =
-	// 			hostComponents.length >= 2
-	// 				? hostComponents[hostComponents.length - 2] +
-	// 				  '.' +
-	// 				  hostComponents[hostComponents.length - 1]
-	// 				: window.location.host;
-	// 		document.cookie =
-	// 			'googtrans=;domain=' +
-	// 			domain +
-	// 			';path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	// 	}
-	// }
 
 	componentWillMount() {
 		var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
