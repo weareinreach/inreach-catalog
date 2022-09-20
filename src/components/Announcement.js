@@ -3,6 +3,8 @@ import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 import {InformationIcon, InformationIcon24} from './icons';
 import language from '../utils/language';
 import {useIntl} from '../config';
@@ -30,12 +32,7 @@ const styles = (theme) => ({
 		fontSize: '24px',
 		textDecorationLine: 'underline'
 	},
-	textBeta1: {
-		color: theme.palette.common.black,
-		maxWidth: theme.maxColumnWidth,
-		fontSize: '18px'
-	},
-	textBeta2: {
+	textBeta: {
 		color: theme.palette.common.black,
 		maxWidth: theme.maxColumnWidth,
 		fontSize: '18px'
@@ -53,6 +50,12 @@ const styles = (theme) => ({
 
 const Announcement = (props) => {
 	const {classes, useSmallIcon} = props;
+
+	function handleUseGoogle() {
+		language.setLanguageProvider('gt');
+		window.location.hash = '#googtrans(' + langCode + ')';
+		window.location.reload();
+	}
 
 	return (
 		<>
@@ -87,7 +90,7 @@ const Announcement = (props) => {
 						<Typography
 							variant="caption"
 							color="secondary"
-							className={classes.textBeta1}
+							className={classes.textBeta}
 						>
 							<FormattedMessage
 								id="announcement-language-test"
@@ -120,21 +123,33 @@ const Announcement = (props) => {
 						<Typography
 							variant="caption"
 							color="secondary"
-							className={classes.textBeta2}
-							onClick={alert('sdsdd')}
+							className={classes.textBeta}
 						>
 							<FormattedMessage
-								id="announcement-language-test"
+								id="announcement-use-google-translate"
 								defaultMessage="Optionally {clickHere} to use Google Translate"
 								description="Use google tranlate instaead of InReach Spanish"
 								values={{
 									b: (chunks) => <strong>{chunks}</strong>,
 									clickHere: (
-										<FormattedMessage
-											id="resource.click-here"
-											defaultMessage="Click Here"
-											description="changes to Google Translated Spanish"
-										/>
+										<Button
+											variant="text"
+											style={{
+												padding: '0',
+												textTransform: 'none',
+												fontWeight: 'bold',
+												color: '#6988c1'
+											}}
+											onClick={() => {
+												handleUseGoogle();
+											}}
+										>
+											<FormattedMessage
+												id="resource.click-here"
+												defaultMessage="Click Here"
+												description="changes to Google Translated Spanish"
+											/>
+										</Button>
 									)
 								}}
 							/>
