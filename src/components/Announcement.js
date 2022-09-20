@@ -94,7 +94,7 @@ const Announcement = (props) => {
 						>
 							<FormattedMessage
 								id="announcement-language-test"
-								defaultMessage='Spanish "Provided by InReach" is a Beta Feature, {clickHere} to provide feedback.'
+								defaultMessage='Español \"Proporcionado por InReach\" es una función Beta, <b>{clickeHere}</b> para enviar tus comentarios.'
 								description="Notice that seeing data in Spanish is being tested"
 								values={{
 									b: (chunks) => <strong>{chunks}</strong>,
@@ -117,7 +117,7 @@ const Announcement = (props) => {
 						</Typography>
 					</div>
 					<div
-						id="announcement-div-google-translate"
+						id="announcement-use-google-translate"
 						className={classes.rootBeta + ' hide--on-print'}
 					>
 						<Typography
@@ -127,7 +127,7 @@ const Announcement = (props) => {
 						>
 							<FormattedMessage
 								id="announcement-use-google-translate"
-								defaultMessage="Optionally {clickHere} to use Google Translate"
+								defaultMessage="De manera opcional, <b>{clickeHere}</b> para usar el traductor de Google."
 								description="Use google tranlate instaead of InReach Spanish"
 								values={{
 									b: (chunks) => <strong>{chunks}</strong>,
@@ -137,8 +137,10 @@ const Announcement = (props) => {
 											style={{
 												padding: '0',
 												textTransform: 'none',
-												fontWeight: 'bold',
-												color: '#6988c1'
+												fontWeight: 400,
+												fontFamily: 'Inter, Helvetica , Arial, sans-serif',
+												color: '#5073B3',
+												fontSize: '18px'
 											}}
 											onClick={() => {
 												handleUseGoogle();
