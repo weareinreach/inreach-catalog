@@ -143,6 +143,8 @@ const styles = (theme) => ({
 	}
 });
 
+const locale = getLocale();
+
 class LangMenuItem extends React.Component {
 	constructor(props) {
 		super(props);
@@ -163,6 +165,11 @@ class LangMenuItem extends React.Component {
 				data-test-id={'nav-button-language-item-' + this.props.langCode}
 				button
 				onClick={this.handleSelectLang}
+				disabled={
+					(locale === 'intl' || locale === 'en_CA') &&
+					this.props.langCode === 'es' &&
+					this.props.provider === 'inreach'
+				}
 			>
 				{this.props.langName}
 			</AsylumConnectDropdownListItem>
