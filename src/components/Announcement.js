@@ -39,7 +39,7 @@ const styles = (theme) => ({
 	},
 	rootBeta: {
 		backgroundColor: theme.palette.banner[300],
-		padding: '0 5px',
+		padding: '5px 5px',
 		textAlign: 'center',
 		width: '100%',
 		[theme.breakpoints.down('xs')]: {
