@@ -35,15 +35,18 @@ const styles = (theme) => ({
 	textBeta: {
 		color: theme.palette.common.black,
 		maxWidth: theme.maxColumnWidth,
-		fontSize: '18px'
+		fontSize: '16px'
 	},
 	rootBeta: {
 		backgroundColor: theme.palette.banner[300],
-		padding: '12px 0',
+		padding: '0 5px',
 		textAlign: 'center',
 		width: '100%',
 		[theme.breakpoints.down('xs')]: {
 			borderRadius: '5px'
+		},
+		'& p': {
+			margin: '0'
 		}
 	}
 });
@@ -82,11 +85,11 @@ const Announcement = (props) => {
 				</a>
 			</div>
 			{doNativeTranslation ? (
-				<>
-					<div
-						id="announcement-div-spanish-beta"
-						className={classes.rootBeta + ' hide--on-print'}
-					>
+				<div
+					id="announcement-div-spanish-beta"
+					className={classes.rootBeta + ' hide--on-print'}
+				>
+					<p>
 						<Typography
 							variant="caption"
 							color="secondary"
@@ -115,11 +118,8 @@ const Announcement = (props) => {
 								}}
 							/>
 						</Typography>
-					</div>
-					<div
-						id="announcement-use-google-translate"
-						className={classes.rootBeta + ' hide--on-print'}
-					>
+					</p>
+					<p>
 						<Typography
 							variant="caption"
 							color="secondary"
@@ -138,9 +138,9 @@ const Announcement = (props) => {
 												padding: '0',
 												textTransform: 'none',
 												fontWeight: 400,
-												fontFamily: 'Inter, Helvetica , Arial, sans-serif',
+												fontFamily: 'Inter, sans-serif',
 												color: '#5073B3',
-												fontSize: '18px'
+												fontSize: '16px'
 											}}
 											onClick={() => {
 												handleUseGoogle();
@@ -156,8 +156,8 @@ const Announcement = (props) => {
 								}}
 							/>
 						</Typography>
-					</div>
-				</>
+					</p>
+				</div>
 			) : null}
 		</>
 	);
