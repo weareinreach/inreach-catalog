@@ -128,7 +128,9 @@ export const OrgPhotoGrid = ({photos}) => {
 								display: 'flex'
 							}}
 						>
-							<span style={{margin: 'auto'}}>View more...</span>
+							<span style={{margin: 'auto'}}>
+								<FormattedMessage id="resource.photos-view-more" />
+							</span>
 						</div>
 					</Grid>
 			  ];
