@@ -94,17 +94,7 @@ const Reviews = ({classes, reviews}) => (
 					{reviews === false ? (
 						<Loading />
 					) : (
-						<ReviewList
-							title={
-								<FormattedMessage
-									id="resource.reviews-heading"
-									defaultMessage="Reviews"
-									description="Label for Reviews section"
-								/>
-							}
-							list={reviews}
-							classes={classes}
-						/>
+						<ReviewList list={reviews} classes={classes} />
 					)}
 				</Grid>
 			</Grid>
