@@ -2,12 +2,11 @@ import langs from 'langs/data';
 
 let validLangs = [
 	{name: 'Arabic'},
-	{name: 'English'},
 	{name: 'French'},
+	{name: 'Spanish'},
 	{name: 'Hindi'},
 	{name: 'Russian'},
 	{name: 'Somali'},
-	{name: 'Spanish'},
 	{name: 'Chinese (Simplified)', 1: 'zh-cn', local: '廣東話'},
 	{name: 'Chinese (Traditional)', 1: 'zh-tw', local: '台語'},
 	{name: 'Afrikaans'},

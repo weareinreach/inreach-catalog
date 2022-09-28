@@ -341,9 +341,9 @@ class Language extends React.Component {
 		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
 			this.setState({open: false, selectedLang: langName, provider: provider});
 			//clear location.hash
-			var uri = window.location.toString();
+			let uri = window.location.toString();
 			if (uri.indexOf('#') > 0) {
-				var clean_uri = uri.substring(0, uri.indexOf('#'));
+				let clean_uri = uri.substring(0, uri.indexOf('#'));
 				window.history.replaceState({}, document.title, clean_uri);
 			}
 			//also clear googltrans cookie
