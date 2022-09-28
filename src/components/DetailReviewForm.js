@@ -183,7 +183,7 @@ class ReviewForm extends React.Component {
 						>
 							<FormattedMessage
 								id="action.comment-submitted-confirmation"
-								defaultMessage="hank you for your comment! Questions? Please email"
+								defaultMessage="Thank you for your comment! Questions? Please email"
 								description="Thank you text after submitting a review"
 							/>{' '}
 							<a href="mailto:app@inreach.org" className={classes.bodyLink}>
