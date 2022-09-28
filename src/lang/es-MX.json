@@ -513,7 +513,7 @@
 	"resource.who-it-serves": "A quién sirve este recurso",
 	"resource.who-it-helps": "A quién ayuda este servicio",
 	"resources.download-legal-guides": "Descarga Guías Legales sobre Asilo LGBT en México",
-	"review.disclaimer": "This review was submitted on {reviewDate}. Reviewers must meet strict standards to be considered an InReach Verified Reviewer, {clickHere} for more details.",
+	"review.disclaimer": "This review was published on {reviewDate}. Reviewers must meet strict standards to be considered an InReach Verified Reviewer, {clickHere} for more details.",
 	"review.inreach-user": "by an InReach App User on {reviewDate}",
 	"review.inreach-verified-user": "by an InReach Verified Reviewer from {reviewLocation}",
 	"search.covid-disclaimer-default": "Algunas organizaciones están utilizando medidas para responder al brote de coronavirus. Esto puede afectar el horario de y la accesibilidad a algunos servicios. Por favor diríjase a la página de la organización para más detalles.",
