@@ -238,10 +238,7 @@ class SearchFormContainer extends React.Component {
 					<Grid container className={container}>
 						<Grid item class={mobileSubContainer}>
 							<Grid item xs={12} sm={12} className={mobileGridItem}>
-								<a
-									href="https://www.asylumconnect.org"
-									data-test-id="search-form-logo"
-								>
+								<a href="/" data-test-id="search-form-logo">
 									<IconButton className={iconButton}>
 										<img src={logo} alt="inreach logo" className={logoMobile} />
 									</IconButton>
