@@ -480,7 +480,7 @@
 	"resource.is-national-organization": "This organization can help people located anywhere in the country.",
 	"resource.language-services": "Language Services",
 	"resource.language-services-placeholder": "List any language services offered",
-	"resource.last-updated": "The information on this page was last updated",
+	"resource.last-updated": "The information on this page was last updated {verifiedDate}. ",
 	"resource.leave-review": "Leave a review",
 	"resource.lgbtq-friendly-prompt": "Is this resource LGBTQ-friendly? Is this resource friendly to asylum seekers? InReach will update our resource app based on your review.",
 	"resource.location-label": "Location",
