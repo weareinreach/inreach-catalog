@@ -4,7 +4,7 @@ import 'react-app-polyfill/stable';
 import {ThemeProvider} from '@material-ui/core/styles';
 import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga4';
+import ReactGA from 'react-ga';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import HttpsRedirect from 'react-https-redirect';
 

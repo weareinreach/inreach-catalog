@@ -2,8 +2,7 @@
 const base = {
 	apiDomain: 'https://inreach-api-staging.herokuapp.com',
 	apiBasePath: '/v1',
-	//googleAnalyticsKey: 'G-Y3MGLFJVJH'
-	googleAnalyticsKey: 'G-8GPK2JR6RN'
+	googleAnalyticsKey: 'UA-76058112-1'
 };
 
 const local = {
