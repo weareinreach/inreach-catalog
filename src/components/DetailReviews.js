@@ -63,8 +63,8 @@ const ReviewList = ({title, classes, list}) => (
 			</Typography>
 		) : null}
 		{list.length ? (
-			list[0].map((review) =>
-				!review.isDeleted ? (
+			list.map((review) =>
+				review.isVerified && !review.isDeleted ? (
 					<Grid
 						key={review.userId}
 						container
@@ -75,7 +75,7 @@ const ReviewList = ({title, classes, list}) => (
 							<Typography data-test-id="review-list-comment" variant="body2">
 								"{review.comment}"
 							</Typography>
-							{review.isVerified && review.source === 'reviewer' ? (
+							{review.source === 'reviewer' ? (
 								<>
 									<Tooltip
 										className={classes.leftMargin}
