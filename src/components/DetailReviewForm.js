@@ -77,9 +77,10 @@ class ReviewForm extends React.Component {
 
 		if (resource && resource?._id) {
 			const body = {
-				source: this.props?.userData.isReviewerApproved
-					? 'reviewer'
-					: 'catalog',
+				source:
+					this.props?.userData.catalogType === 'reviewer'
+						? 'reviewer'
+						: 'catalog',
 				userId: this.props?.user,
 				userLocation: this.props?.userData.currentLocation
 			};
