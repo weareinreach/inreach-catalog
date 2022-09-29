@@ -63,7 +63,7 @@ const ReviewList = ({title, classes, list}) => (
 			</Typography>
 		) : null}
 		{list.length ? (
-			list.map((review) =>
+			list[0].map((review) =>
 				review.isVerified && !review.isDeleted ? (
 					<Grid
 						key={review.userId}
