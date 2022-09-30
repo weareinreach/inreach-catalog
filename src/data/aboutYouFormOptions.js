@@ -1647,16 +1647,11 @@ export const aboutYouSogOptions = [
 
 export const aboutYouEthnicityOptions = [
 	{
-		dbValue: 'african-middle-eastern',
-		formatMessageId: 'aboutyou.ethnicity-answer-af-md',
-		defaultMessage: 'Middle Eastern/North African',
-		description: 'ethnicity option of Middle Eastern/North African'
-	},
-	{
-		dbValue: 'african-american-black',
-		formatMessageId: 'aboutyou.ethnicity-answer-af-am',
-		defaultMessage: 'Black',
-		description: 'ethnicity option Black'
+		dbValue: 'native',
+		formatMessageId: 'aboutyou.ethnicity-answer-native',
+		defaultMessage: 'American Indian/Native American/Indigenous Person',
+		description:
+			'ethnicity option of American Indian/Native American/Indigenous Person'
 	},
 	{
 		dbValue: 'asian-asian-american',
@@ -1665,23 +1660,28 @@ export const aboutYouEthnicityOptions = [
 		description: 'ethnicity Asian'
 	},
 	{
+		dbValue: 'multiracial',
+		formatMessageId: 'aboutyou.ethnicity-answer-multiracial',
+		defaultMessage: 'Biracial/Multiracial',
+		description: 'ethnicity option of Biracial/Multiracial'
+	},
+	{
+		dbValue: 'african-american-black',
+		formatMessageId: 'aboutyou.ethnicity-answer-af-am',
+		defaultMessage: 'Black',
+		description: 'ethnicity option Black'
+	},
+	{
 		dbValue: 'hispanic',
 		formatMessageId: 'aboutyou.ethnicity-answer-hispanic',
 		defaultMessage: 'Latino/a/x/Hispanic',
 		description: 'ethnicity option of Latino/a/x/Hispanic'
 	},
 	{
-		dbValue: 'indian',
-		formatMessageId: 'aboutyou.ethnicity-answer-indian',
-		defaultMessage: 'South Asian',
-		description: 'ethnicity option of South Asian'
-	},
-	{
-		dbValue: 'native',
-		formatMessageId: 'aboutyou.ethnicity-answer-native',
-		defaultMessage: 'American Indian/Native American/Indigenous Person',
-		description:
-			'ethnicity option of American Indian/Native American/Indigenous Person'
+		dbValue: 'african-middle-eastern',
+		formatMessageId: 'aboutyou.ethnicity-answer-af-md',
+		defaultMessage: 'Middle Eastern/North African',
+		description: 'ethnicity option of Middle Eastern/North African'
 	},
 	{
 		dbValue: 'pacific-islander',
@@ -1690,16 +1690,16 @@ export const aboutYouEthnicityOptions = [
 		description: 'ethnicity option of Native Hawaiian/Pacific Islander'
 	},
 	{
+		dbValue: 'indian',
+		formatMessageId: 'aboutyou.ethnicity-answer-indian',
+		defaultMessage: 'South Asian',
+		description: 'ethnicity option of South Asian'
+	},
+	{
 		dbValue: 'white',
 		formatMessageId: 'aboutyou.ethnicity-answer-white',
 		defaultMessage: 'White',
 		description: 'ethnicity option of White'
-	},
-	{
-		dbValue: 'prefer-not-to-say',
-		formatMessageId: 'aboutyou.answer-prefer-not-to-say',
-		defaultMessage: 'prefer not to say',
-		description: 'ethnicity option of prefer not to say'
 	},
 	{
 		dbValue: 'other',
@@ -1708,10 +1708,10 @@ export const aboutYouEthnicityOptions = [
 		description: 'ethnicity option of other'
 	},
 	{
-		dbValue: 'multiracial',
-		formatMessageId: 'aboutyou.ethnicity-answer-multiracial',
-		defaultMessage: 'Biracial/Multiracial',
-		description: 'ethnicity option of Biracial/Multiracial'
+		dbValue: 'prefer-not-to-say',
+		formatMessageId: 'aboutyou.answer-prefer-not-to-say',
+		defaultMessage: 'prefer not to say',
+		description: 'ethnicity option of prefer not to say'
 	}
 ];
 
