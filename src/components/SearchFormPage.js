@@ -238,10 +238,7 @@ class SearchFormContainer extends React.Component {
 					<Grid container className={container}>
 						<Grid item class={mobileSubContainer}>
 							<Grid item xs={12} sm={12} className={mobileGridItem}>
-								<a
-									href="https://www.asylumconnect.org"
-									data-test-id="search-form-logo"
-								>
+								<a href="/" data-test-id="search-form-logo">
 									<IconButton className={iconButton}>
 										<img src={logo} alt="inreach logo" className={logoMobile} />
 									</IconButton>
@@ -257,6 +254,7 @@ class SearchFormContainer extends React.Component {
 									<FormattedMessage
 										id="app.welcome-main-2"
 										defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+										description="application welcome message part 1"
 									/>
 								</Typography>
 							</Grid>
@@ -274,6 +272,7 @@ class SearchFormContainer extends React.Component {
 										<FormattedMessage
 											id="app.welcome-main-1"
 											defaultMessage="Welcome to InReach"
+											description="application welcome message title"
 										/>
 									</Typography>
 								</Grid>
@@ -289,6 +288,7 @@ class SearchFormContainer extends React.Component {
 										<FormattedMessage
 											id="app.welcome-main-3"
 											defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+											description="application welcome message part 2"
 										/>
 									</Typography>
 								</Grid>
@@ -307,6 +307,7 @@ class SearchFormContainer extends React.Component {
 											<FormattedMessage
 												id="app.banner-1-green"
 												defaultMessage="InReach is for the entire diverse LGBTQ+ community"
+												description="application welcome message part 3"
 												values={{
 													greenTag: (
 														<span style={{color: '#00D56C'}}>
@@ -319,6 +320,7 @@ class SearchFormContainer extends React.Component {
 											<FormattedMessage
 												id="app.banner-2"
 												defaultMessage="including asylum seekers and refugees, undocumented and other immigrants, young people experiencing homelessness, those facing family or community rejection due to their identity, and other transgender and non-binary people in need of safe resources."
+												description="application welcome message part 4"
 											/>
 										</Typography>
 									</AsylumConnectDropdownListItem>
@@ -369,7 +371,10 @@ class SearchFormContainer extends React.Component {
 										className={changeCountryButton}
 										color="default"
 										text={
-											<FormattedMessage id="app.choose-different-country" />
+											<FormattedMessage
+												id="app.choose-different-country"
+												defaultMessage="Choose a different country link"
+											/>
 										}
 										onClick={this.handleLocaleReset}
 									/>
@@ -386,6 +391,7 @@ class SearchFormContainer extends React.Component {
 											<FormattedMessage
 												id="app.welcome"
 												defaultMessage="Welcome to InReach"
+												description="Welcome message title"
 												values={{
 													country: fetchLocaleName(locale)
 												}}
@@ -395,6 +401,7 @@ class SearchFormContainer extends React.Component {
 												<FormattedMessage
 													id="app.welcome-main-1"
 													defaultMessage="Welcome to InReach"
+													description="Welcome message title"
 												/>
 											</>
 										)}
@@ -411,12 +418,14 @@ class SearchFormContainer extends React.Component {
 												<FormattedMessage
 													id="app.welcome-main-3"
 													defaultMessage="Seek LGBTQ+ resources. Reach safety. Find belonging."
+													description="application welcome message part 1"
 												/>
 											</>
 										) : (
 											<FormattedMessage
 												id="app.welcome-main-2"
 												defaultMessage="The world's first tech platform matching LGBTQ+ people with safe, verified resources."
+												description="application welcome message part 2"
 											/>
 										)}
 									</Typography>
@@ -431,6 +440,7 @@ class SearchFormContainer extends React.Component {
 											text={
 												<FormattedMessage
 													id="announcement.alert-message"
+													decription="placeholder for alert messages. message will vary."
 													values={{
 														b: (chunks) => (
 															<strong style={{color: 'black'}}>{chunks}</strong>
@@ -450,6 +460,7 @@ class SearchFormContainer extends React.Component {
 											text={
 												<FormattedMessage
 													id="announcement.alert-message-1"
+													decription="placeholder for alert messages. message will vary."
 													values={{
 														hereLink: (
 															<a
@@ -474,6 +485,7 @@ class SearchFormContainer extends React.Component {
 											text={
 												<FormattedMessage
 													id="announcement.alert-message-1"
+													decription="placeholder for alert messages. message will vary."
 													values={{
 														hereLink: (
 															<a

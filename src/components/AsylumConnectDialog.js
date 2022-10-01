@@ -160,6 +160,7 @@ const AsylumConnectDialog = ({
 						history={history}
 						locale={locale}
 						handleRequestClose={handleRequestClose}
+						userData={userData}
 					/>
 				)}
 				{dialog === 'signup' && (

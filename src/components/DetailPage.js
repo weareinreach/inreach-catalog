@@ -59,10 +59,14 @@ import {
 	returnServiceNativeLanguageData
 } from '../utils/utils';
 import language from '../utils/language';
+import {useIntl} from '../config';
+import {OrgPhotoGrid, PhotoGallery} from './OrgPhotos';
+
+
 const langCode = language.getLanguageCode();
 const provider = language.getLanguageProvider();
 const doNativeTranslation =
-	langCode !== 'en' && provider === 'inreach' ? true : false;
+	langCode !== 'en' && provider === 'inreach' && useIntl ? true : false;
 
 const formatOrganization = (organization) => {
 	organization = doNativeTranslation
@@ -383,6 +387,16 @@ class Detail extends React.Component {
 					/>
 				),
 				value: 'visit'
+			},
+			{
+				label: (
+					<FormattedMessage
+						id="resource.photos"
+						defaultMessage="Photos"
+						description="section title for photos"
+					/>
+				),
+				value: 'photos'
 			},
 			{
 				label: (
@@ -1224,6 +1238,9 @@ class Detail extends React.Component {
 											/>
 										</div>
 										<div className={classes.mobileSpacing}>
+											<PhotoGallery photos={organization.photos} />
+										</div>
+										<div className={classes.mobileSpacing}>
 											{showReviewForm ? (
 												<AsylumConnectCollapsibleSection
 													testIdName="leave-review"
@@ -1596,6 +1613,11 @@ class Detail extends React.Component {
 												/>
 											)
 										}
+									/>
+									<Element name="photos" />
+									<AsylumConnectCollapsibleSection
+										title={<FormattedMessage id="resource.photos" />}
+										content={<OrgPhotoGrid photos={organization.photos} />}
 									/>
 									<Element name="reviews" />
 									{showReviewForm && (

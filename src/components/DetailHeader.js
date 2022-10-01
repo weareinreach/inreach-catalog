@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {FormattedMessage, useIntl, FormattedDate} from 'react-intl';
 import {Link} from 'react-router-dom';
 import url from 'url';
 import Grid from '@material-ui/core/Grid';
@@ -155,10 +155,20 @@ const DetailHeader = ({
 										<a style={{color: '#e9e9e9'}}>
 											<FormattedMessage
 												id="resource.last-updated"
-												defaultMessage={verified.toDateString()}
+												defaultMessage="The information on this page was last updated {verifiedDate}. "
 												description="date this resource data was last updated"
-											/>{' '}
-											{verified.toDateString()}.{' '}
+												values={{
+													verifiedDate: (
+														<FormattedDate
+															value={new Date(verified)}
+															year="numeric"
+															month="short"
+															day="numeric"
+															weekday="short"
+														/>
+													)
+												}}
+											/>
 											<FormattedMessage
 												id="resource.accuracy-disclaimer"
 												defaultMessage="InReach prioritizes accuracy and user safety, and updates all information at least once every 6 months. For more information on our vetting process."

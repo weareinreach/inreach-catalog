@@ -551,7 +551,7 @@ class Suggestion extends React.Component {
 						/>{' '}
 					</Typography>
 					<Typography type="body1" data-test-id="suggest-page-body">
-						{locale === 'en_US' && (
+						{(locale === 'en_US' || locale === 'es_US') && (
 							<FormattedMessage
 								id="suggestion.country-disclaimer-united-states"
 								defaultMessage="<b>Note:</b> This form is to suggest resources in the <b>United States</b>. If you would like to suggest a new resource in either <b>Canada</b> or <b>Mexico</b> please {otherLocale1Link} or {otherLocale2Link}"
@@ -661,7 +661,7 @@ class Suggestion extends React.Component {
 								}}
 							/>
 						)}
-						{locale === 'en_MX' && (
+						{(locale === 'en_MX' || locale === 'es_MX') && (
 							<FormattedMessage
 								id="suggestion.country-disclaimer-mexico"
 								defaultMessage="<b>Note:</b> This form is to suggest resources in <b>Mexico</b>. If you would like to suggest a new resource in either the <b>United States</b> or <b>Canada</b>, please {otherLocale1Link} or {otherLocale2Link}"

@@ -7,10 +7,10 @@ Cypress.Commands.add('testLanguageAction',(viewport)=>{
                 expect($element.children()).contain('Language');
                 cy.wrap($element).click();
                 cy.intercept('http://translate.google.com/*').as('translation');
-                cy.getElementByTestId('nav-button-language-item').then($element=>{
+                cy.getElementByTestId('nav-button-language-item-fr').then($element=>{
                     //Ensure it is French
-                    expect($element[2]).contain("Français");
-                    cy.wrap($element[2]).click();
+                    expect($element).contain("Français");
+                    cy.wrap($element).click();
                 });
                 cy.wait('@translation');
                 cy.location().should(loc => {
@@ -25,10 +25,10 @@ Cypress.Commands.add('testLanguageAction',(viewport)=>{
                 expect($element.children()).contain('English');
                 cy.wrap($element[index]).click();
                 cy.intercept('http://translate.google.com/*').as('translation');
-                cy.getElementByTestId('nav-button-language-item').then($element=>{
+                cy.getElementByTestId('nav-button-language-item-fr').then($element=>{
                     //Ensure it is French
-                    expect($element[2]).contain("Français");
-                    cy.wrap($element[2]).click();
+                    expect($element).contain("Français");
+                    cy.wrap($element).click();
                 });
                 cy.location().should(loc => {
                     expect(loc.href).to.be.eq('http://localhost:3000/#googtrans(fr)');

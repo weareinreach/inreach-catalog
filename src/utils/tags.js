@@ -283,6 +283,13 @@ const resourceTypes = [
 		title: 'Hygiene',
 		titleIntl: 'services.hygiene'
 	},
+	{
+		category: 'service-type.hygiene-clothing',
+		type: 'hygiene',
+		acTag: 'Haircuts and stylists',
+		title: 'Haircuts and stylists',
+		titleIntl: 'services.haircuts-stylists'
+	},
 
 	/* AC Legal Category */
 	{category: 'service-type.legal', type: 'legal', acTag: 'Legal'},
@@ -463,9 +470,37 @@ const resourceTypes = [
 	{
 		category: 'service-type.medical',
 		type: 'medical',
-		acTag: 'Trans health',
-		title: 'Trans health',
-		titleIntl: 'services.trans-health'
+		acTag: 'Trans Health - Gender Affirming Surgery',
+		title: 'Trans Health - Gender Affirming Surgery',
+		titleIntl: 'services.trans-health-gender-affirming-surgery'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Hormone and Surgery Letters',
+		title: 'Trans Health - Hormone and Surgery Letters',
+		titleIntl: 'services.trans-health-hormone-and-surgery-letters'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Hormone Therapy',
+		title: 'Trans Health - Hormone Therapy',
+		titleIntl: 'services.trans-health-hormone-therapy'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Primary Care',
+		title: 'Trans Health - Primary Care',
+		titleIntl: 'services.trans-health-primary-care'
+	},
+	{
+		category: 'service-type.medical',
+		type: 'medical',
+		acTag: 'Trans Health - Speech Therapy',
+		title: 'Trans Health - Speech Therapy',
+		titleIntl: 'services.trans-health-speech-therapy'
 	},
 
 	/* AC Mental Health Category */

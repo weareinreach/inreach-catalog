@@ -70,7 +70,7 @@ const Tools = (props) => {
 				</Grid>
 			) : null}
 			{tabs ? (
-				<Grid item xs={12} sm={12} md={5}>
+				<Grid item xs={12} sm={12} md={8}>
 					<ResourceHeaderTabs
 						tabs={tabs}
 						tab={tab}
@@ -83,7 +83,7 @@ const Tools = (props) => {
 				item
 				xs={12}
 				sm={12}
-				md={7}
+				md={4}
 				className={classnames('pull-right', classes.cushion)}
 			>
 				{!isEditing && (

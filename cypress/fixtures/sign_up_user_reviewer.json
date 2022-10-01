@@ -1,0 +1,14 @@
+{
+	"password": "testPassword$1",
+	"name": "test automation reviewer user",
+	"email": "automation@gmail.com",
+	"currentLocation": "San Francisco",
+	"verifyAnswer": "no",
+	"timeCommitAnswer": "yes",
+	"auditAnswer": "yes",
+	"suggestionsAnswer": "yes",
+	"reviewsAnswer":"yes",
+	"payAnswer": "yes",
+	"specifiedOtherInfo": "other stuff",
+    "specifiedTimeCommit": "sometimes"
+}

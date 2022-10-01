@@ -19,7 +19,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-email').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Update email address');
+        expect($element).contain('Update Email Address');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-email-old-address').then($element=>{
                 expect($element.children()).contain('Current email address');
@@ -31,7 +31,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
                 expect($element.children()).contain('Confirm new email address');
             });
             cy.getElementByTestId('account-settings-email-button').then($element=>{
-                expect($element).contain('Update email address');
+                expect($element).contain('Update Email Address');
             });
         });
         //Close the element
@@ -39,7 +39,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
     });
     cy.getElementByTestId('account-page-change-password').then($element=>{
         expect($element).to.be.visible;
-        expect($element).contain('Update password');
+        expect($element).contain('Update Password');
         cy.wrap($element).click().then(()=>{
             cy.getElementByTestId('account-settings-password-old-password').then($element=>{
                 expect($element.children()).contain('Current password');
@@ -51,7 +51,7 @@ Cypress.Commands.add('testAccountSettingsElements',(viewport,user)=>{
                 expect($element.children()).contain('Confirm new password');
             });
             cy.getElementByTestId('account-settings-password-button').then($element=>{
-                expect($element).contain('Update password');
+                expect($element).contain('Update Password');
             });
         });
          //Close the element

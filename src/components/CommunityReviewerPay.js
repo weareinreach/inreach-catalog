@@ -3,9 +3,11 @@ import {FormattedMessage, useIntl} from 'react-intl';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormLabel from '@material-ui/core/FormLabel';
+import Grid from '@material-ui/core/Grid';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import AsylumConnectButton from './AsylumConnectButton';
@@ -13,7 +15,10 @@ import DialogTitle from './DialogTitle';
 import DialogSubTitle from './DialogSubTitle';
 import {breakpoints} from '../theme';
 
-import {aboutYouCountryOptions} from '../data/aboutYouFormOptions';
+import {
+	communityReviewerVerifyOptions,
+	handleRadioButton
+} from '../data/communityReviwerFormOptions';
 
 const styles = (theme) => ({
 	container: {
@@ -46,28 +51,19 @@ const styles = (theme) => ({
 		lineHeight: '24.51px',
 		marginBottom: '24px'
 	},
+	formQuestionBtm: {
+		textAlign: 'left',
+		fontSize: '16px',
+		fontWeight: '600',
+		lineHeight: '24.51px',
+		marginTop: '12px',
+		marginBottom: '10px'
+	},
 	greyLine: {
 		width: 'auto',
 		height: '1px',
 		backgroundColor: theme.palette.common.darkGrey,
 		marginTop: `${theme.spacing(3)}px`
-	},
-	gridTxtAlign: {
-		textAlign: 'left'
-	},
-	labels: {
-		textAlign: 'left',
-		paddingLeft: '.25rem',
-		marginBottom: '.25rem',
-		marginTop: '1rem'
-	},
-	link: {
-		color: theme.palette.secondary[500],
-		cursor: 'pointer',
-		fontSize: '16px',
-		fontWeight: '600',
-		lineHeight: '20px',
-		marginTop: '48px'
 	},
 	question: {
 		fontSize: '18px',
@@ -139,73 +135,54 @@ const styles = (theme) => ({
 	}
 });
 
-const AboutYouCountry = (props) => {
+const CommunityReviewerPay = (props) => {
 	const {
 		classes,
 		handleChange,
-		countryOfOrigin,
-		specifiedCountry,
+		payAnswer,
+		specifiedOtherInfo,
 		handleUpdateUser
 	} = props;
 
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
-
-	// const [ touchedCountry, setTouchedCountry ] = useState( false );
+	const [touchedOtherInfo, setOtherInfo] = useState(false);
 
 	const intl = useIntl();
 
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 
-	const countryText = (country) =>
-		intl.formatMessage({
-			id: country.formatMessageId,
-			defaultMessage: country.defaultMessage
-		});
-
-	const [boxDisabled, setBoxDisabled] = useState(false);
-	const [resetToggle, setResetToggle] = useState(0);
-
-	const boxLabel = intl.formatMessage({
-		id: 'aboutyou.country.select',
-		defaultMessage: 'Choose a country'
-	});
-
-	const handleChangeHelper = (value) => {
-		const event = {
-			target: {
-				name: 'countryOfOrigin',
-				value: value.dbValue
-			}
-		};
-		handleChange(event);
-	};
-
-	const handleCheckbox = () => {
-		if (!boxDisabled) {
-			setResetToggle(resetToggle + 1);
-			const event = {
-				target: {name: 'countryOfOrigin', value: 'preferNotToSay'}
-			};
-			handleChange(event);
-		}
-		setBoxDisabled(!boxDisabled);
-	};
-
 	return (
 		<>
 			<DialogTitle>
 				<FormattedMessage
-					id="account.signup-about-you"
-					defaultMessage="About You"
-					description="Title for the About You sign up dialog"
+					id="account.signup-community-reviewer-dialog-title"
+					defaultMessage="InReach Local Community Reviewer Questionnaire"
+					description="Title for the Local Community Reviewer dialog"
 				/>
 			</DialogTitle>
 			<DialogSubTitle className={classes.sideMargin}>
 				<FormattedMessage
-					id="account.signup-about-you-subtitle"
-					defaultMessage="Help us improve your experience by telling us more about yourself"
-					description="Sub-title for the About You sign up dialog"
+					id="account.signup-subtitle-reviewer-2"
+					defaultMessage='Please click here to read over the volunteer expectations for Local Community Reviewers at InReach. If you must check "no" for any expectation, please reach out to your supervisor with questions. Thank you!'
+					description="Sub-title for the Local Community Reviewer dialog"
+					values={{
+						b: (chunks) => <strong>{chunks}</strong>,
+						clickHere: (
+							<a
+								href="https://inreach.org/become-a-local-community-reviewer"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hide--on-print"
+							>
+								<FormattedMessage
+									id="resource.click-here"
+									defaultMessage="Click Here"
+									description="link that takes user to Local Community Reviewer vetting process details"
+								/>
+							</a>
+						)
+					}}
 				/>
 			</DialogSubTitle>
 			<div className={classes.greyLine} />
@@ -214,58 +191,74 @@ const AboutYouCountry = (props) => {
 					isMobile ? classes.formContainerMobile : classes.formContainer
 				}
 				onSubmit={handleUpdateUser}
-				data-test-id="about-you-country-form"
+				data-test-id="community-reviewer-question-form"
 			>
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
-						id="aboutyou.country"
-						defaultMessage="My country of origin is..."
-						description="Question asking the country of origin"
+						id="account.signup-community-reviewer-pay-question"
+						defaultMessage="I understand that this is an unpaid volunteer position. *"
+						description="Understanding of Pay (unpaid)"
 					/>
 				</Typography>
-				<Autocomplete
-					key={resetToggle}
-					options={aboutYouCountryOptions}
-					autoHighlight
-					id="countrySelect"
-					name="countryOfOrigin"
-					disabled={boxDisabled}
-					onChange={(e, value) => handleChangeHelper(value)}
-					getOptionLabel={(country) => countryText(country)}
-					renderOption={(opt) => <>{`${opt.flag} ${countryText(opt)}`}</>}
-					renderInput={(params) => (
-						<TextField
-							{...params}
-							inputProps={{...params.inputProps}}
-							autoComplete="country-name"
-							variant="outlined"
-							label={boxLabel}
-						/>
-					)}
-				/>
-				<FormControlLabel
-					className={classes.labels}
-					value="preferNotToSay"
-					control={<Checkbox onChange={() => handleCheckbox()} />}
-					labelPlacement="end"
-					label={intl.formatMessage({
-						id: 'aboutyou.answer-prefer-not-to-say',
-						defaultMessage: 'Prefer not to say'
+				<RadioGroup name="payAnswer" onChange={handleChange} required={true}>
+					<Grid container spacing={0}>
+						{communityReviewerVerifyOptions.map((type, index) => (
+							<Grid item xs={6} key={index}>
+								<FormControlLabel
+									value={type.dbValue}
+									control={<Radio />}
+									label={intl.formatMessage({
+										id: type.formatMessageId,
+										defaultMessage: type.defaultMessage,
+										description: type.description
+									})}
+									checked={handleRadioButton(payAnswer) === type.dbValue}
+									data-test-id={type.dbValue}
+								/>
+							</Grid>
+						))}
+					</Grid>
+				</RadioGroup>
+				<Typography className={classes.formQuestionBtm} variant="h3">
+					<FormattedMessage
+						id="account.signup-community-reviewer-other-info"
+						defaultMessage="Is there anything else we should know?"
+						description="Input field to provide other info"
+					/>
+				</Typography>
+				<TextField
+					id="specifiedOtherInfo"
+					margin="none"
+					name="specifiedOtherInfo"
+					onChange={handleChange}
+					type="text"
+					value={specifiedOtherInfo}
+					placeholder={intl.formatMessage({
+						id: 'account.signup-community-reviewer-specified-other-info-placeholder',
+						defaultMessage: 'Provide more details here ...',
+						description: 'placeholder for the more info field'
 					})}
+					data-test-id="account-specified-other-info"
+					InputLabelProps={{shrink: true}}
+					variant="outlined"
+					className={classes.borderOutline}
+					InputProps={{
+						classes: {
+							input: classes.borderOutline,
+							notchedOutline: classes.borderOutline
+						}
+					}}
 				/>
 				<AsylumConnectButton
-					disabled={
-						countryOfOrigin.includes('other') &&
-						!textFieldTest.test(specifiedCountry)
-					}
-					testIdName="about-you-next-button"
+					disabled={!payAnswer}
+					testIdName="community-reviewer-next-button"
 					variant="primary"
 					className={classes.nextBtn}
 				>
 					<FormattedMessage
-						id="navigation.next"
-						defaultMessage="Next"
-						description="Next button"
+						id="action.submit"
+						defaultMessage="Submit"
+						description="This is the form submit button"
 					/>
 				</AsylumConnectButton>
 			</form>
@@ -273,4 +266,4 @@ const AboutYouCountry = (props) => {
 	);
 };
 
-export default withStyles(styles)(AboutYouCountry);
+export default withStyles(styles)(CommunityReviewerPay);
