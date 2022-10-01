@@ -1,7 +1,9 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import ValidLanguageList from '../utils/validLanguageList';
+import ValidNativeLanguageList from '../utils/validNativeLanguageList';
 import language from '../utils/language';
+import {getLocale, setLocale} from '../utils/locale';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/List';
 import {withStyles} from '@material-ui/core/styles';
@@ -20,6 +22,7 @@ import {
 	searchInputMobile
 } from '../theme';
 import {FormattedMessage} from 'react-intl';
+import {useIntl} from '../config';
 
 const styles = (theme) => ({
 	root: {
@@ -55,6 +58,14 @@ const styles = (theme) => ({
 			borderRadius: '0px',
 			marginBottom: '91px'
 		}
+	},
+	providedByInReach: {
+		display: 'flex',
+		fontFamily: 'arial',
+		fontSize: '11px',
+		color: '#666',
+		whiteSpace: 'nowrap',
+		padding: theme.spacing(2)
 	},
 	poweredByGoogle: {
 		display: 'flex',
@@ -132,6 +143,8 @@ const styles = (theme) => ({
 	}
 });
 
+const locale = getLocale();
+
 class LangMenuItem extends React.Component {
 	constructor(props) {
 		super(props);
@@ -139,14 +152,24 @@ class LangMenuItem extends React.Component {
 	}
 
 	handleSelectLang() {
-		this.props.handleSelectLang(this.props.langCode, this.props.langName);
+		this.props.handleSelectLang(
+			this.props.langCode,
+			this.props.langName,
+			this.props.provider
+		);
 	}
+
 	render() {
 		return (
 			<AsylumConnectDropdownListItem
-				data-test-id="nav-button-language-item"
+				data-test-id={'nav-button-language-item-' + this.props.langCode}
 				button
 				onClick={this.handleSelectLang}
+				disabled={
+					(locale === 'intl' || locale === 'en_CA') &&
+					this.props.langCode === 'es' &&
+					this.props.provider === 'inreach'
+				}
 			>
 				{this.props.langName}
 			</AsylumConnectDropdownListItem>
@@ -159,8 +182,10 @@ class Language extends React.Component {
 		super();
 		this.state = {
 			open: false,
+			selectedLang: 'English',
 			langsList: ValidLanguageList.all(),
-			selectedLang: 'English'
+			langsNativeList: ValidNativeLanguageList.all(),
+			provider: ''
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
@@ -174,15 +199,32 @@ class Language extends React.Component {
 		this.handleOnFilterBarClick = this.handleOnFilterBarClick.bind(this);
 	}
 
+	generateNativeLanguageItems() {
+		return (
+			<Fragment>
+				{this.state.langsNativeList.map((lang, index) => (
+					<LangMenuItem
+						key={100 + index}
+						langName={lang.local}
+						langCode={lang['1']}
+						handleSelectLang={this.handleRequestCloseAfterSelect}
+						provider={ValidNativeLanguageList.provider}
+					/>
+				))}
+			</Fragment>
+		);
+	}
+
 	generateLanguageItems() {
 		return (
 			<Fragment>
 				{this.state.langsList.map((lang, index) => (
 					<LangMenuItem
-						key={index}
+						key={200 + index}
 						langName={lang.local}
 						langCode={lang['1']}
 						handleSelectLang={this.handleRequestCloseAfterSelect}
+						provider="gt"
 					/>
 				))}
 			</Fragment>
@@ -199,6 +241,20 @@ class Language extends React.Component {
 				].join(' ')}
 				spacing={3}
 			>
+				{useIntl ? (
+					<>
+						<ListSubheader className={this.props.classes.providedByInReach}>
+							<FormattedMessage
+								id="language.inreach-attribution"
+								defaultMessage="Provided by InReach"
+								description="Dropdown label describing language translator"
+							>
+								{(providedBy) => <span>{providedBy}</span>}
+							</FormattedMessage>
+						</ListSubheader>
+						{this.generateNativeLanguageItems()}
+					</>
+				) : null}
 				<div className={this.props.classes.filterInputBar}>
 					<Filter
 						className={this.props.classes.filterFormControl}
@@ -258,31 +314,73 @@ class Language extends React.Component {
 	}
 
 	handleClick(event) {
-		this.setState({open: !this.state.open});
+		this.setState(
+			{open: !this.state.open},
+			{selectedLang: language.getLanguage()}
+		);
 	}
 
-	handleSelect(langCode, langName) {
+	handleSelect(langCode, langName, provider) {
 		if (typeof this.props.onSelect === 'function') {
-			this.props.onSelect(langCode, langName);
+			this.props.onSelect(langCode, langName, provider);
+			this.setState({
+				selectedLanguage: langName
+			});
 		}
 	}
 
 	handleOnFilterChange(e) {
 		const filteredList = ValidLanguageList.filteredLanguageList(e.target.value);
+		const filteredNativeList = ValidNativeLanguageList.filteredLanguageList(
+			e.target.value
+		);
 		this.setState({
-			langsList: filteredList
+			langsList: filteredList,
+			langsNativeList: filteredNativeList
 		});
 	}
+
 	handleOnFilterBarClick(e) {
 		e.stopPropagation();
 	}
 
-	handleRequestCloseAfterSelect(langCode, langName) {
-		this.setState({open: false, selectedLang: langName});
-		window.location.hash = '#googtrans(' + langCode + ')';
+	handleRequestCloseAfterSelect(langCode, langName, provider) {
+		this.setState({open: false, selectedLang: langName, provider: provider});
+		if ((langCode === 'en' || langCode === 'es') && provider === 'inreach') {
+			this.setState({open: false, selectedLang: langName, provider: provider});
+			//clear location.hash
+			let uri = window.location.toString();
+			if (uri.indexOf('#') > 0) {
+				let clean_uri = uri.substring(0, uri.indexOf('#'));
+				window.history.replaceState({}, document.title, clean_uri);
+			}
+			//also clear googltrans cookie
+			document.cookie = 'googtrans=; path=/;Max-Age=0;';
+		} else {
+			//use google translate
+			window.location.hash = '#googtrans(' + langCode + ')';
+		}
 		language.setLanguage(langName);
-		//window.localStorage.setItem('lang', langName);
+		language.setLanguageCode(langCode);
+		provider
+			? language.setLanguageProvider(provider)
+			: language.removeLanguageProvider();
 		this.handleSelect(langCode, langName);
+
+		if (langCode === 'es' && getLocale() === 'en_MX') {
+			setLocale('es_MX');
+		}
+		if (langCode === 'es' && getLocale() === 'en_US') {
+			setLocale('es_US');
+		}
+
+		if (langCode === 'en' && getLocale() === 'es_MX') {
+			setLocale('en_MX');
+		}
+		if (langCode === 'en' && getLocale() === 'es_US') {
+			setLocale('en_US');
+		}
+
 		if (this.props.autoReload) {
 			window.location.reload();
 		}
@@ -301,14 +399,17 @@ class Language extends React.Component {
 	componentWillMount() {
 		var currentLang = language.getLanguage(); //window.localStorage.getItem('lang') ? window.localStorage.getItem('lang') : 'English';
 		if (window.location.hash.length !== 0) {
-			let langCode = window.location.hash
-				.substring(window.location.hash.indexOf('(') + 1)
-				.slice(0, -1)
-				.toLowerCase();
-			currentLang = ValidLanguageList.byCode(langCode);
+			let langCode = language.getLanguageCode();
+			currentLang =
+				ValidLanguageList.byCode(langCode) ||
+				ValidNativeLanguageList.byCode(langCode);
 		}
 		this.setState({selectedLang: currentLang});
 		this.handleSelect(ValidLanguageList.codeByName(currentLang), currentLang);
+		this.handleSelect(
+			ValidNativeLanguageList.codeByName(currentLang),
+			currentLang
+		);
 		if (currentLang === 'English') {
 			document.cookie =
 				'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -391,6 +492,7 @@ class Language extends React.Component {
 						<FormattedMessage
 							id="language.dropdown-select-language"
 							defaultMessage="Select Language"
+							description="Dropdown label to prompting to select a language"
 						>
 							{(selectLanguage) => (
 								<Typography className={classes.textCenter} variant="h3">

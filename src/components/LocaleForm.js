@@ -3,7 +3,6 @@ import {FormattedMessage} from 'react-intl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
-
 import AsylumConnectButton from './AsylumConnectButton';
 import Language from './Language';
 import LocaleSelector from './LocaleSelector';
@@ -91,6 +90,8 @@ class LocaleForm extends React.Component {
 			reload: false,
 			selectedLanguage: false,
 			selectedLanguageName: false,
+			selectedLocale: false,
+			selectedLocaleName: false,
 			startingLang: this.getStartingLanguage()
 		};
 
@@ -113,9 +114,45 @@ class LocaleForm extends React.Component {
 		});
 	}
 
-	handleNextClick() {
+	// handleNextClick() {
+	// 	if (this.state.selectedLocale) {
+	// 		this.props.changeLocale(this.state.selectedLocale);
+	// 	}
+
+	// 	if (typeof this.props.onLocaleSelect === 'function') {
+	// 		this.props.onLocaleSelect(
+	// 			this.state.selectedLocale,
+	// 			this.state.selectedLanguage,
+	// 			this.state.selectedLanguageName != this.state.startingLang
+	// 		);
+	// 	}
+	// }
+
+	handleNextClick(ev) {
 		if (this.state.selectedLocale) {
 			this.props.changeLocale(this.state.selectedLocale);
+			//show app code in spanish if langCode is 'es' and locale is MX or US
+			if (
+				this.state.selectedLocale == 'en_MX' &&
+				this.state.selectedLanguage == 'es'
+			) {
+				this.props.changeLocale('es_MX');
+			} else if (
+				this.state.selectedLocale == 'en_US' &&
+				this.state.selectedLanguage == 'es'
+			) {
+				this.props.changeLocale('es_US');
+			} else if (
+				this.state.selectedLocale == 'es_US' &&
+				this.state.selectedLanguage == 'en'
+			) {
+				this.props.changeLocale('en_US');
+			} else if (
+				this.state.selectedLocale == 'es_MX' &&
+				this.state.selectedLanguage == 'en'
+			) {
+				this.props.changeLocale('en_MX');
+			}
 		}
 
 		if (typeof this.props.onLocaleSelect === 'function') {
@@ -235,6 +272,7 @@ class LocaleForm extends React.Component {
 							listContainerClass={listContainerClass}
 							onSelect={this.handleSelectLanguage}
 							triggerReload={this.state.reload}
+							selectedLanguage={this.state.selectedLanguageName}
 						/>
 					</Grid>
 					<Grid item xs={12} md={6}>
