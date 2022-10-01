@@ -3,11 +3,9 @@ import {FormattedMessage, useIntl} from 'react-intl';
 
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
-import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import AsylumConnectButton from './AsylumConnectButton';
@@ -153,11 +151,46 @@ const AboutYouCountry = (props) => {
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
-	const [touchedCountry, setTouchedCountry] = useState(false);
+	// const [ touchedCountry, setTouchedCountry ] = useState( false );
 
 	const intl = useIntl();
 
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
+
+	const countryText = (country) =>
+		intl.formatMessage({
+			id: country.formatMessageId,
+			defaultMessage: country.defaultMessage
+		});
+
+	const [boxDisabled, setBoxDisabled] = useState(false);
+	const [resetToggle, setResetToggle] = useState(0);
+
+	const boxLabel = intl.formatMessage({
+		id: 'aboutyou.country.select',
+		defaultMessage: 'Choose a country'
+	});
+
+	const handleChangeHelper = (value) => {
+		const event = {
+			target: {
+				name: 'countryOfOrigin',
+				value: value.dbValue
+			}
+		};
+		handleChange(event);
+	};
+
+	const handleCheckbox = () => {
+		if (!boxDisabled) {
+			setResetToggle(resetToggle + 1);
+			const event = {
+				target: {name: 'countryOfOrigin', value: 'preferNotToSay'}
+			};
+			handleChange(event);
+		}
+		setBoxDisabled(!boxDisabled);
+	};
 
 	return (
 		<>
@@ -186,90 +219,40 @@ const AboutYouCountry = (props) => {
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
 						id="aboutyou.country"
-						defaultMessage="My country of origin is in.."
+						defaultMessage="My country of origin is..."
 						description="Question asking the country of origin"
 					/>
 				</Typography>
-				<RadioGroup
+				<Autocomplete
+					key={resetToggle}
+					options={aboutYouCountryOptions}
+					autoHighlight
+					id="countrySelect"
 					name="countryOfOrigin"
-					onChange={handleChange}
-					required={true}
-				>
-					<Grid container spacing={0} className={classes.gridTxtAlign}>
-						{aboutYouCountryOptions.map((type, index) => (
-							<Grid item xs={6} key={index}>
-								<FormControlLabel
-									value={type.dbValue}
-									control={<Radio />}
-									label={intl.formatMessage({
-										id: type.formatMessageId,
-										defaultMessage: type.defaultMessage,
-										description: type.description
-									})}
-									checked={countryOfOrigin === type.dbValue}
-									data-test-id={type.dbValue}
-								/>
-							</Grid>
-						))}
-					</Grid>
-				</RadioGroup>
-				{countryOfOrigin === 'other' ? (
-					<>
-						<FormLabel
-							required
-							className={classes.labels}
-							classes={classes.fontWeightMedium}
-							margin="none"
-						>
-							<FormattedMessage
-								id="aboutyou.country-other"
-								defaultMessage="My home country is located in.."
-								description="Option to specif country of origin, if it's not listed"
-							/>
-						</FormLabel>
+					disabled={boxDisabled}
+					onChange={(e, value) => handleChangeHelper(value)}
+					getOptionLabel={(country) => countryText(country)}
+					renderOption={(opt) => <>{`${opt.flag} ${countryText(opt)}`}</>}
+					renderInput={(params) => (
 						<TextField
-							onBlur={setTouchedCountry}
-							error={touchedCountry && !textFieldTest.test(specifiedCountry)}
-							helperText={
-								touchedCountry && !textFieldTest.test(specifiedCountry) ? (
-									<FormattedMessage
-										id="error.text-field-country"
-										defaultMessage="Country not specified"
-										description="error if no Country is specified"
-									/>
-								) : touchedCountry && textFieldTest.test(specifiedCountry) ? (
-									<FormattedMessage
-										id="form.field-valid-country"
-										defaultMessage="Country is specified"
-										description="message if country field has data"
-									/>
-								) : null
-							}
-							id="specifiedCountry"
-							margin="none"
-							name="specifiedCountry"
-							onChange={handleChange}
-							required
-							type="text"
-							value={specifiedCountry}
-							placeholder={intl.formatMessage({
-								id: 'aboutyou.country-other-placeholder',
-								defaultMessage: 'Ex Indian Ocean',
-								description: 'placeholder for the specify country field'
-							})}
-							data-test-id="about-you-country"
-							InputLabelProps={{shrink: true}}
+							{...params}
+							inputProps={{...params.inputProps}}
+							autoComplete="country-name"
 							variant="outlined"
-							className={classes.borderOutline}
-							InputProps={{
-								classes: {
-									input: classes.borderOutline,
-									notchedOutline: classes.borderOutline
-								}
-							}}
+							label={boxLabel}
 						/>
-					</>
-				) : null}
+					)}
+				/>
+				<FormControlLabel
+					className={classes.labels}
+					value="preferNotToSay"
+					control={<Checkbox onChange={() => handleCheckbox()} />}
+					labelPlacement="end"
+					label={intl.formatMessage({
+						id: 'aboutyou.answer-prefer-not-to-say',
+						defaultMessage: 'Prefer not to say'
+					})}
+				/>
 				<AsylumConnectButton
 					disabled={
 						countryOfOrigin.includes('other') &&
