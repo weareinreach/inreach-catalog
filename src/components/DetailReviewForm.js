@@ -135,7 +135,7 @@ class ReviewForm extends React.Component {
 								{isMobile ? null : (
 									<FormattedMessage
 										id="resource-property.save-rating"
-										defaultMessage="Your rating will not be recorded until you hit Submit"
+										defaultMessage="Your rating will not be recorded until you comment and hit Submit"
 										description="Info text indicating review details are not saved until they are submitted"
 									/>
 								)}
@@ -169,6 +169,7 @@ class ReviewForm extends React.Component {
 						</Grid>
 						<Grid item xs={12} className={classes.dividerSpacing}>
 							<AsylumConnectButton
+								disabled={this.state.rating <= 0 || !this.state.comment}
 								testIdName="details-review-form-submit-button"
 								variant="primary"
 								onClick={this.handleFormSubmission}

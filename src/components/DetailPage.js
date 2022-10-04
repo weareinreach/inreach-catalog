@@ -709,8 +709,8 @@ class Detail extends React.Component {
 			: combineProperties([resource, ...services]);
 		const propsByType = seperatePropsByType(allProperties);
 		const userComment =
-			comments.find((comment) =>
-				comment.find((c) => c.userId === this.props?.userData?._id)
+			comments.find(
+				(comment) => comment.userId === this.props?.userData?._id
 			) || null;
 		const showReviewForm =
 			session && (userComment === false || userComment === null);

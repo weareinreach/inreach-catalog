@@ -63,7 +63,7 @@ const ReviewList = ({title, classes, list}) => (
 			</Typography>
 		) : null}
 		{list.length ? (
-			list[0].map((review) =>
+			list.map((review) =>
 				review.isVerified && !review.isDeleted ? (
 					<Grid
 						key={review.userId}
@@ -84,12 +84,13 @@ const ReviewList = ({title, classes, list}) => (
 											<a style={{color: '#e9e9e9'}}>
 												<FormattedMessage
 													id="review.disclaimer"
-													defaultMessage="This review was submitted on {reviewDate, date, ::yyyyMMdd}. Reviewers must meet strict standards to be considered an InReach Verified Reviewer, {clickHere} for more details."
+													defaultMessage="This review was submitted on {reviewDate}. By an InReach Local Community Reviewer with experience and knowledge of {reviewLocation}. Reviewers must meet strict standards to be considered an InReach Verified Reviewer, {clickHere} for more details."
 													description="text that explain when and how the review data is verified"
 													values={{
 														b: (chunks) => (
 															<strong style={{color: 'black'}}>{chunks}</strong>
 														),
+														reviewLocation: review.userLocation,
 														reviewDate: (
 															<FormattedDate
 																value={new Date(review.created_at)}
@@ -134,10 +135,18 @@ const ReviewList = ({title, classes, list}) => (
 											>
 												<FormattedMessage
 													id="review.inreach-verified-user"
-													defaultMessage="by an InReach Verified Reviewer from {reviewLocation}"
+													defaultMessage="by an InReach Verified Reviewer on {reviewDate}"
 													description="Text indicating who submitted the review"
 													values={{
-														reviewLocation: review.userLocation
+														reviewDate: (
+															<FormattedDate
+																value={new Date(review.created_at)}
+																year="numeric"
+																month="short"
+																day="numeric"
+																weekday="short"
+															/>
+														)
 													}}
 												/>
 											</Typography>
