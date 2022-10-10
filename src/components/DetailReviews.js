@@ -75,7 +75,7 @@ const ReviewList = ({title, classes, list}) => (
 							<Typography data-test-id="review-list-comment" variant="body2">
 								"{review.comment}"
 							</Typography>
-							{review.isVerified && review.source === 'reviewer' ? (
+							{review.isUserApproved && review.source === 'reviewer' ? (
 								<>
 									<Tooltip
 										className={classes.leftMargin}
