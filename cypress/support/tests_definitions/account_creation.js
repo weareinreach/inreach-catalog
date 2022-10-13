@@ -262,31 +262,13 @@ Cypress.Commands.add('testCreateAccountSeeker', (viewport, userType, userTypeObj
         expect($element).to.be.visible;
         expect($element).to.contain("My country of origin is in..");
     });
-    cy.getElementByTestId('africa').click();
     cy.getElementByTestId('about-you-next-button').then($element => {
         expect($element).to.be.visible;
         expect($element.children()).to.contain("Next");
         expect($element).to.have.attr('type', 'submit');
     });
     cy.getElementByTestId('about-you-next-button').click();
-
-    //go back
-    cy.getElementByTestId('sign-up-form-back-button').click();
-
-    cy.getElementByTestId('about-you-country-form').then($element => {
-        expect($element).to.be.visible;
-        expect($element).to.contain("My country of origin is in..");
-    });
-    cy.getElementByTestId('other').click();
-    cy.get('[name="specifiedCountry"]').focus().type('a').blur();
-    cy.get('[id=specifiedCountry-helper-text]').should('be.visible')
-        .should('contain', "'Country' field must contain at least 2 characters");
-    cy.getElementByTestId('about-you-next-button').should('be.disabled');
-    cy.get('[name="specifiedCountry"]').focus().type('abc').blur()
-    cy.get('[id=specifiedCountry-helper-text]').should('be.visible')
-        .should('contain', "'Country' field is valid");
-    cy.getElementByTestId('about-you-next-button').click();
-
+   
     //identity
     cy.getElementByTestId('about-you-identity-form').then($element => {
         expect($element).to.be.visible;
