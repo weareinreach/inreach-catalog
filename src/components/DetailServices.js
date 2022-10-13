@@ -19,6 +19,7 @@ const addBadges = (list, locale) => {
 					...(item?.categories?.length ? item.categories : []),
 					...(item?.areas?.length ? item.areas : [])
 				].sort();
+
 				item.badge = resourceTypes.getBadge(badgeList, locale);
 				if (typeof resourceIndex[badgeList[0]] !== 'undefined') {
 					item.label = resourceIndex[badgeList[0]].category;
