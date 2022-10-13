@@ -43,7 +43,7 @@ import {
 	getServiceBySlug
 } from '../utils/api';
 import {combineProperties, seperatePropsByType} from '../utils/propertyMap';
-import {getTags} from '../utils/tags';
+import {getTags, getOrgTags} from '../utils/tags';
 import {
 	bodyLink,
 	boldFont,
@@ -61,7 +61,7 @@ import {
 import language from '../utils/language';
 import {useIntl} from '../config';
 import {OrgPhotoGrid, PhotoGallery} from './OrgPhotos';
-
+import {localeTagMap} from '../utils/locale';
 
 const langCode = language.getLanguageCode();
 const provider = language.getLanguageProvider();
@@ -718,9 +718,13 @@ class Detail extends React.Component {
 			owners,
 			social_media
 		} = resource || {};
+		let services2 = services.filter(
+			(service) => service.tags?.[localeTagMap?.[locale]]
+		);
+
 		const allProperties = this.isServicePage
 			? properties
-			: combineProperties([resource, ...services]);
+			: combineProperties([resource, ...services2]);
 		const propsByType = seperatePropsByType(allProperties);
 		const userComment =
 			comments.find(
@@ -738,7 +742,7 @@ class Detail extends React.Component {
 			<FormattedMessage
 				id="resource.who-it-serves"
 				defaultMessage="Who this service helps"
-				description="who this organization can help"
+				description="who this service can help"
 			/>
 		);
 
@@ -765,7 +769,7 @@ class Detail extends React.Component {
 			owners,
 			socialMedia: social_media
 		};
-		const resourceTags = getTags(resource, locale);
+		const resourceTags = getTags(resource, this.props.locale);
 		return (
 			<Grid
 				container
@@ -1049,7 +1053,7 @@ class Detail extends React.Component {
 															}
 														/>
 													)}
-													{services?.length > 0 && (
+													{services2?.length > 0 && (
 														<AsylumConnectCollapsibleSection
 															testIdName="services"
 															title={
@@ -1062,7 +1066,7 @@ class Detail extends React.Component {
 															content={
 																<Services
 																	resource={resource}
-																	list={services}
+																	list={services2}
 																	classes={classes}
 																	locale={locale}
 																	isMobile={isMobile}
@@ -1481,7 +1485,7 @@ class Detail extends React.Component {
 													}
 												/>
 											)}
-											{services?.length > 0 && (
+											{services2?.length > 0 && (
 												<AsylumConnectCollapsibleSection
 													testIdName="services"
 													title={
@@ -1490,7 +1494,7 @@ class Detail extends React.Component {
 													content={
 														<Services
 															resource={resource}
-															list={services}
+															list={services2}
 															classes={classes}
 															locale={locale}
 															isMobile={isMobile}

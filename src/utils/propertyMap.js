@@ -240,7 +240,6 @@ export const combineProperties = (list) => {
 			if (item?.properties) {
 				return {...result, ...item.properties};
 			}
-
 			return result;
 		}, {}) || {}
 	);
