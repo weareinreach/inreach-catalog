@@ -31,7 +31,7 @@ const ServiceType = (props) => {
 
 		list = subcategories
 			.map((subcategory) => ({
-				label: subcategory.title,
+				label: subcategory.titleIntl,
 				type: subcategory.type
 			}))
 			.concat(
@@ -67,6 +67,7 @@ const ServiceType = (props) => {
 										tag.type !== 'misc'
 									) {
 										listedTags.push(tag.label);
+
 										return (
 											<Grid item xs={12}>
 												<span key={index} style={{position: 'relative'}}>

@@ -59,10 +59,14 @@ import {
 	returnServiceNativeLanguageData
 } from '../utils/utils';
 import language from '../utils/language';
+import {useIntl} from '../config';
+import {OrgPhotoGrid, PhotoGallery} from './OrgPhotos';
+import {localeTagMap} from '../utils/locale';
+
 const langCode = language.getLanguageCode();
 const provider = language.getLanguageProvider();
 const doNativeTranslation =
-	langCode !== 'en' && provider === 'inreach' ? true : false;
+	langCode !== 'en' && provider === 'inreach' && useIntl ? true : false;
 
 const formatOrganization = (organization) => {
 	organization = doNativeTranslation
@@ -387,6 +391,16 @@ class Detail extends React.Component {
 			{
 				label: (
 					<FormattedMessage
+						id="resource.photos"
+						defaultMessage="Photos"
+						description="section title for photos"
+					/>
+				),
+				value: 'photos'
+			},
+			{
+				label: (
+					<FormattedMessage
 						id="resource.reviews-heading"
 						defaultMessage="Reviews"
 						description="section title for organization reviews"
@@ -704,9 +718,13 @@ class Detail extends React.Component {
 			owners,
 			social_media
 		} = resource || {};
+		let services2 = services.filter(
+			(service) => service.tags?.[localeTagMap?.[locale]]
+		);
+
 		const allProperties = this.isServicePage
 			? properties
-			: combineProperties([resource, ...services]);
+			: combineProperties([resource, ...services2]);
 		const propsByType = seperatePropsByType(allProperties);
 		const userComment =
 			comments.find(
@@ -724,7 +742,7 @@ class Detail extends React.Component {
 			<FormattedMessage
 				id="resource.who-it-serves"
 				defaultMessage="Who this service helps"
-				description="who this organization can help"
+				description="who this service can help"
 			/>
 		);
 
@@ -751,7 +769,7 @@ class Detail extends React.Component {
 			owners,
 			socialMedia: social_media
 		};
-		const resourceTags = getTags(resource, locale);
+		const resourceTags = getTags(resource, this.props.locale);
 		return (
 			<Grid
 				container
@@ -1035,7 +1053,7 @@ class Detail extends React.Component {
 															}
 														/>
 													)}
-													{services?.length > 0 && (
+													{services2?.length > 0 && (
 														<AsylumConnectCollapsibleSection
 															testIdName="services"
 															title={
@@ -1048,7 +1066,7 @@ class Detail extends React.Component {
 															content={
 																<Services
 																	resource={resource}
-																	list={services}
+																	list={services2}
 																	classes={classes}
 																	locale={locale}
 																	isMobile={isMobile}
@@ -1222,6 +1240,9 @@ class Detail extends React.Component {
 												mapMaxDistance={mapMaxDistance}
 												t={t}
 											/>
+										</div>
+										<div className={classes.mobileSpacing}>
+											<PhotoGallery photos={organization.photos} />
 										</div>
 										<div className={classes.mobileSpacing}>
 											{showReviewForm ? (
@@ -1464,7 +1485,7 @@ class Detail extends React.Component {
 													}
 												/>
 											)}
-											{services?.length > 0 && (
+											{services2?.length > 0 && (
 												<AsylumConnectCollapsibleSection
 													testIdName="services"
 													title={
@@ -1473,7 +1494,7 @@ class Detail extends React.Component {
 													content={
 														<Services
 															resource={resource}
-															list={services}
+															list={services2}
 															classes={classes}
 															locale={locale}
 															isMobile={isMobile}
@@ -1596,6 +1617,11 @@ class Detail extends React.Component {
 												/>
 											)
 										}
+									/>
+									<Element name="photos" />
+									<AsylumConnectCollapsibleSection
+										title={<FormattedMessage id="resource.photos" />}
+										content={<OrgPhotoGrid photos={organization.photos} />}
 									/>
 									<Element name="reviews" />
 									{showReviewForm && (
