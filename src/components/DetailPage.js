@@ -43,7 +43,7 @@ import {
 	getServiceBySlug
 } from '../utils/api';
 import {combineProperties, seperatePropsByType} from '../utils/propertyMap';
-import {getTags, getOrgTags} from '../utils/tags';
+import {getTags} from '../utils/tags';
 import {
 	bodyLink,
 	boldFont,
