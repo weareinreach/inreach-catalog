@@ -16,6 +16,12 @@ const prod = {
 
 const env = process.env.REACT_APP_APP_ENV;
 
+export const useIntl = process.env.REACT_APP_USE_INTL == 'TRUE' ? true : false;
+console.log(
+	'process.env.REACT_APP_USE_INTL: ' + process.env.REACT_APP_USE_INTL
+);
+
+console.log('useIntl: ' + useIntl);
 export default {
 	...base,
 	...(env === 'TEST' ? local : {}),

@@ -1,0 +1,21 @@
+#Rules of usage:
+# - Only use this file when you need to test a feature env connected against production API/DB
+# - Otherwise this whole file should be commented out
+# - Update the the branches option under branches:
+name: Custom Deploy
+on:
+  push:
+    branches:
+    #Your custom branch goes here
+      - feature/1200486114359751/OrgInfoInSpanish_ES
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "inreach-catalog-custom" #Must be unique in Heroku
+          heroku_email: "workdev.moreira@gmail.com"
