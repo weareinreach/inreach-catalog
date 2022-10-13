@@ -219,7 +219,7 @@ const AboutYouCountry = (props) => {
 				<Typography className={classes.formQuestion} variant="h3">
 					<FormattedMessage
 						id="aboutyou.country"
-						defaultMessage="My country of origin is..."
+						defaultMessage="My country of origin is in.."
 						description="Question asking the country of origin"
 					/>
 				</Typography>
