@@ -130,7 +130,7 @@ const updateAccessInstructions = (accessArr) => {
 					access_instruction?.access_value_ES ||
 					access_instruction.access_value,
 				instructions:
-					access_instruction?.instruction_ES || access_instruction.instructions
+					access_instruction?.instructions_ES || access_instruction.instructions
 			};
 			rmUnKeys(tempAccessInstruction);
 			tempAccessInstructions.push(tempAccessInstruction);
