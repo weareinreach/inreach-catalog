@@ -90,14 +90,14 @@ jobs:
           command: node --version
       - run:
           name: Print API branch
-          command: echo "Pulling branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) from catalog-api"
+          command: echo "Pulling branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) from inreach-api"
       - run:
           name: Pull API code
           command: git clone --branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) https://github.com/weareinreach/inreach-api.git
       - run:
           name: Create API Env File
           command: |
-            cd catalog-api && cat \<< EOF > ./.env
+            cd inreach-api && cat \<< EOF > ./.env
             MAILGUN_API_KEY=$MAILGUN_API_KEY
             MAILGUN_DOMAIN=$MAILGUN_DOMAIN
             DB_URI=$DB_URI_STAGING
@@ -107,16 +107,16 @@ jobs:
             EOF
       - run:
           name: Install API Packages
-          command: cd catalog-api && yarn install
+          command: cd inreach-api && yarn install
       - run:
           name: 'Seed Docker DB'
-          command: cd catalog-api && yarn seed-docker-db
+          command: cd inreach-api && yarn seed-docker-db
       - run:
           name: Install Control Panel Packages
           command: cd catalog && yarn install
       - run:
           name: Instantiate API And Run E2E tests
-          command: (cd catalog-api && yarn dev-background) && (cd catalog && yarn test:pre-e2e && yarn test:e2e:ci:local)
+          command: (cd inreach-api && yarn dev-background) && (cd catalog && yarn test:pre-e2e && yarn test:e2e:ci:local)
       - run:
           name: 'Show Coverage'
           command: 'cd catalog && yarn show-coverage'
