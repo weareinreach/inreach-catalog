@@ -10,7 +10,7 @@ orbs:
 jobs:
   linting:
     docker:
-      - image: cimg/node:16.18.0
+      - image: cimg/node:18.11.0
     working_directory: ~/catalog
     steps:
       - checkout
@@ -35,7 +35,7 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:16.18.0
+      - image: cimg/node:18.11.0
     working_directory: ~/catalog
     steps:
       - checkout
