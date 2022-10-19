@@ -69,7 +69,7 @@ jobs:
       GROUP: << parameters.group >>
       GROUP_NAME: << parameters.group_name >>
     docker:
-      - image: cypress/base:16.17.1
+      - image: cypress/base:18.6.0
         environment:
           TERM: xterm
       #MongoDB
@@ -133,7 +133,7 @@ jobs:
           destination: lcov<< parameters.group >>.info
   sonar:
     docker:
-      - image: cypress/base:16.17.1
+      - image: cypress/base:18.6.0
     steps:
       - checkout
       #Install dependencies
