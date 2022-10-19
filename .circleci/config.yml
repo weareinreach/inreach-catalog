@@ -83,7 +83,7 @@ jobs:
           path: catalog
       - run:
           name: Install OS dependencies
-          command: apt-get update && apt-get install curl git -y
+          command: apt-get update && apt-get install curl git gpg unzip -y
       - jq/install
       - run:
           name: Check Node Version
@@ -140,6 +140,9 @@ jobs:
     steps:
       - checkout
       #Install dependencies
+      - run:
+          name: Install OS dependencies
+          command: apt-get update && apt-get install curl git gpg unzip -y
       - run:
           name: 'Install dependencies'
           command: yarn add lcov-result-merger axios --dev
