@@ -93,7 +93,7 @@ jobs:
           command: echo "Pulling branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) from catalog-api"
       - run:
           name: Pull API code
-          command: git clone --branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) https://github.com/asylum-connect/catalog-api.git
+          command: git clone --branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) https://github.com/weareinreach/catalog-api.git
       - run:
           name: Create API Env File
           command: |
