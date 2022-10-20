@@ -111,6 +111,9 @@ jobs:
       - run:
           name: ls
           command: ls -alh catalog/
+      - run:
+          name: gitignore
+          command: cat catalog/.gitignore
       - restore_cache:
           name: Restore Cache
           keys:
