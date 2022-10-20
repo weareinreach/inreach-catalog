@@ -108,12 +108,6 @@ jobs:
       - run:
           name: Pull API code
           command: git clone --branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) https://github.com/weareinreach/inreach-api.git
-      - run:
-          name: ls
-          command: ls -alh catalog/
-      - run:
-          name: gitignore
-          command: cat catalog/.gitignore
       - restore_cache:
           name: Restore Cache
           keys:
@@ -168,11 +162,11 @@ jobs:
     docker:
       - image: cypress/base:16.17.1
     steps:
-      - checkout
       #Install dependencies
       - run:
           name: Install OS dependencies
           command: apt-get update && apt-get install curl git gpg unzip -y
+      - checkout
       - run:
           name: 'Install dependencies'
           command: yarn add lcov-result-merger axios --dev
