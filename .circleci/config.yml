@@ -87,8 +87,6 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: password
           MONGO_INITDB_DATABASE: asylum-connect
     steps:
-      - checkout:
-          path: catalog
       - run:
           name: Install OS dependencies
           command: apt-get update && apt-get install curl git gpg unzip -y
@@ -102,6 +100,8 @@ jobs:
       - run:
           name: Check Node Version
           command: node --version
+      - checkout:
+          path: catalog
       - run:
           name: Print API branch
           command: echo "Pulling branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) from inreach-api"
