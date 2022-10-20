@@ -110,7 +110,7 @@ jobs:
           command: git clone --branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) https://github.com/weareinreach/inreach-api.git
       - run:
           name: ls
-          command: ls -alh
+          command: ls -alh catalog/
       - restore_cache:
           name: Restore Cache
           keys:
