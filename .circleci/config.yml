@@ -17,7 +17,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - catalog-{{ checksum "catalog/yarn.lock" }}
+            - catalog-{{ checksum "yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
@@ -33,7 +33,7 @@ jobs:
           command: npx eslint cypress
       - save_cache:
           name: Save Yarn Package Cache
-          key: control-panel-{{ checksum "catalog/yarn.lock" }}
+          key: control-panel-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -46,7 +46,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - catalog-{{ checksum "catalog/yarn.lock" }}
+            - catalog-{{ checksum "yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
@@ -61,7 +61,7 @@ jobs:
       #save cache for use next tests
       - save_cache:
           name: Save Yarn Package Cache
-          key: control-panel-{{ checksum "catalog/yarn.lock" }}
+          key: control-panel-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
