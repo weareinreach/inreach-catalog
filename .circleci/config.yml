@@ -17,7 +17,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - catalog-{{ checksum "yarn.lock" }}
+            - catalog-{{ checksum "catalog/yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
@@ -33,7 +33,7 @@ jobs:
           command: npx eslint cypress
       - save_cache:
           name: Save Yarn Package Cache
-          key: control-panel-{{ checksum "yarn.lock" }}
+          key: control-panel-{{ checksum "catalog/yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -46,7 +46,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - catalog-{{ checksum "yarn.lock" }}
+            - catalog-{{ checksum "catalog/yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
@@ -61,7 +61,7 @@ jobs:
       #save cache for use next tests
       - save_cache:
           name: Save Yarn Package Cache
-          key: control-panel-{{ checksum "yarn.lock" }}
+          key: control-panel-{{ checksum "catalog/yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -111,7 +111,7 @@ jobs:
       - restore_cache:
           name: Restore Cache
           keys:
-            - catalog-{{ checksum "control-panel/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
+            - catalog-{{ checksum "catalog/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
       - run:
           name: Create API Env File
           command: |
@@ -154,7 +154,7 @@ jobs:
           destination: lcov<< parameters.group >>.info
       - save_cache:
           name: Save Cache
-          key: control-panel-{{ checksum "control-panel/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
+          key: control-panel-{{ checksum "catalog/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
           paths:
             - ~/.cache
 
