@@ -33,7 +33,7 @@ jobs:
           command: npx eslint cypress
       - save_cache:
           name: Save Yarn Package Cache
-          key: control-panel-{{ checksum "yarn.lock" }}
+          key: catalog-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -61,7 +61,7 @@ jobs:
       #save cache for use next tests
       - save_cache:
           name: Save Yarn Package Cache
-          key: control-panel-{{ checksum "yarn.lock" }}
+          key: catalog-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
@@ -154,7 +154,7 @@ jobs:
           destination: lcov<< parameters.group >>.info
       - save_cache:
           name: Save Cache
-          key: control-panel-{{ checksum "catalog/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
+          key: catalog-{{ checksum "catalog/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
           paths:
             - ~/.cache
 
