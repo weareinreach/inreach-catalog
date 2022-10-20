@@ -14,6 +14,9 @@ jobs:
     working_directory: ~/catalog
     steps:
       - checkout
+      - run:
+          name: ls
+          command: ls -alh
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
