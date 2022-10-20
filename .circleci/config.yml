@@ -14,24 +14,28 @@ jobs:
     working_directory: ~/catalog
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - catalog-{{ checksum "yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
       - run:
           name: Install Packages
-          command: yarn install
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       #save cache for use next tests
-      - save_cache:
-          paths:
-            - node_modules
-            - '~./cache/Cypress'
-          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: EsLint Source Code
           command: npx eslint src
       - run:
           name: EsLint Cypress
           command: npx eslint cypress
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: control-panel-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
   build:
     docker:
@@ -39,23 +43,27 @@ jobs:
     working_directory: ~/catalog
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - catalog-{{ checksum "yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
       - run:
           name: Install Packages
-          command: yarn install
-      #save cache for use next tests
-      - save_cache:
-          paths:
-            - node_modules
-            - '~./cache/Cypress'
-          key: v1-dependencies-{{ checksum "package.json" }}
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - run:
           name: Compile Binary
           command: yarn build
           environment:
             CI: 'false'
+      #save cache for use next tests
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: control-panel-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
   e2e:
     parameters:
@@ -84,6 +92,12 @@ jobs:
       - run:
           name: Install OS dependencies
           command: apt-get update && apt-get install curl git gpg unzip -y
+      - run:
+          name: Add Nodesource repo
+          command: curl -fsSL https://deb.nodesource.com/setup_16.x | bash
+      - run:
+          name: Install latest Node16
+          command: apt-get update && apt-get install nodejs -y
       - jq/install
       - run:
           name: Check Node Version
@@ -94,6 +108,10 @@ jobs:
       - run:
           name: Pull API code
           command: git clone --branch $(jq -r '.api_ci_branch' catalog/cypress.env.json) https://github.com/weareinreach/inreach-api.git
+      - restore_cache:
+          name: Restore Cache
+          keys:
+            - catalog-{{ checksum "control-panel/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
       - run:
           name: Create API Env File
           command: |
@@ -107,13 +125,13 @@ jobs:
             EOF
       - run:
           name: Install API Packages
-          command: cd inreach-api && yarn install
+          command: cd inreach-api && yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - run:
           name: 'Seed Docker DB'
           command: cd inreach-api && yarn seed-docker-db
       - run:
           name: Install Control Panel Packages
-          command: cd catalog && yarn install
+          command: cd catalog && yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - run:
           name: Instantiate API And Run E2E tests
           command: (cd inreach-api && yarn dev-background) && (cd catalog && yarn test:pre-e2e && yarn test:e2e:ci:local)
@@ -134,6 +152,12 @@ jobs:
       - store_artifacts:
           path: ./catalog/lcov<< parameters.group >>/lcov.info
           destination: lcov<< parameters.group >>.info
+      - save_cache:
+          name: Save Cache
+          key: control-panel-{{ checksum "control-panel/yarn.lock" }}-{{ checksum "inreach-api/yarn.lock" }}
+          paths:
+            - ~/.cache
+
   sonar:
     docker:
       - image: cypress/base:16.17.1
