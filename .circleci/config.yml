@@ -96,7 +96,7 @@ jobs:
       TEST_DB_URI: mongodb://localhost:27017/InReach
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
     working_directory: /mnt/ramdisk/inreach-app
-    parallelism: 10
+    parallelism: 8
     resource_class: large
     docker:
       - image: cimg/node:16.18-browsers
