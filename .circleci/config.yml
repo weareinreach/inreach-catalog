@@ -216,7 +216,6 @@ workflows:
             branches:
               ignore: [main, dev]
       - e2e:
-          name: e2e-1
           requires:
             - e2eprepare
           filters:
