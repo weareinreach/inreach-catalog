@@ -7,6 +7,7 @@ orbs:
   codecov: codecov/codecov@3.2.4
   jq: circleci/jq@2.2.0
   sonarcloud: sonarsource/sonarcloud@1.1.1
+  cypress: cypress-io/cypress@2
 
 jobs:
   linting:
@@ -126,9 +127,9 @@ jobs:
       - run:
           name: Instantiate API And Run E2E tests
           command: |
-            TEST_FILES="$(circleci tests glob "cypress/integration/**/*.js" | circleci tests split --split-by=timings)"
+            TEST_FILES="$(circleci tests glob "cypress/integration/**/*.js" | circleci tests split --split-by=timings | paste -sd ',')" 
             echo ${TEST_FILES} && 
-            yarn test:pre-e2e && yarn test:e2e:ci --spec ${TEST_FILES//$'\n'/','}
+            yarn test:pre-e2e && yarn test:e2e:ci
       # - run:
       #     name: Move reports to instance folders
       #     command: |
