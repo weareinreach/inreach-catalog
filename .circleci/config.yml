@@ -125,9 +125,11 @@ jobs:
             - inreach-app-deps-{{ checksum "yarn.lock" }}
       - checkout
       - run:
+          name: Split tests
+          command: export TEST_FILES="$(circleci tests glob "cypress/integration/**/*.js" | circleci tests split --split-by=timings | paste -sd ',')"
+      - run:
           name: Instantiate API And Run E2E tests
           command: |
-            TEST_FILES="$(circleci tests glob "cypress/integration/**/*.js" | circleci tests split --split-by=timings | paste -sd ',')" 
             echo ${TEST_FILES} && 
             yarn test:pre-e2e && yarn test:e2e:ci
       # - run:
