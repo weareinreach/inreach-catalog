@@ -126,7 +126,7 @@ jobs:
       - checkout
       - run:
           name: Split tests
-          command: export TEST_FILES="$(circleci tests glob "cypress/integration/**/*.js" | circleci tests split --split-by=timings | paste -sd ',')"
+          command: export TEST_FILES="$(circleci tests glob 'cypress/integration/**/*.js' | circleci tests split --split-by=timings | paste -sd ',')"
       - run:
           name: Instantiate API And Run E2E tests
           command: |
