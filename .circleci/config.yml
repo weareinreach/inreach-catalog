@@ -100,7 +100,6 @@ jobs:
           TERM: xterm
       ## MongoDB
       - image: mongo:4.4.17
-        name: mongodocker-${CIRCLE_NODE_INDEX}
         environment:
           MONGO_INITDB_DATABASE: InReach
       - image: ghcr.io/weareinreach/inreach-api:dev
