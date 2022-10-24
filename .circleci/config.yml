@@ -104,11 +104,11 @@ jobs:
           MONGO_INITDB_DATABASE: InReach
       - image: ghcr.io/weareinreach/inreach-api:dev
         environment:
-          MAILGUN_API_KEY: $MAILGUN_API_KEY
-          MAILGUN_DOMAIN: $MAILGUN_DOMAIN
+          MAILGUN_API_KEY: ${MAILGUN_API_KEY}
+          MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
           DB_URI: mongodb://localhost:27017/InReach
           ENV: TEST
-          SHEETS_API_KEY: $SHEETS_API_KEY
+          SHEETS_API_KEY: ${SHEETS_API_KEY}
           TEST_DB_URI: mongodb://localhost:27017/InReach
     steps:
       - attach_workspace:
