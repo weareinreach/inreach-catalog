@@ -91,10 +91,10 @@ jobs:
     environment:
       MAILGUN_API_KEY: $MAILGUN_API_KEY
       MAILGUN_DOMAIN: $MAILGUN_DOMAIN
-      DB_URI: mongodb://localhost:27017/InReach
+      DB_URI: mongodb://mongodocker${CIRCLE_NODE_INDEX}:27017/InReach
       ENV: TEST
       SHEETS_API_KEY: $SHEETS_API_KEY
-      TEST_DB_URI: mongodb://localhost:27017/InReach
+      TEST_DB_URI: mongodb://mongodocker${CIRCLE_NODE_INDEX}:27017/InReach
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
     working_directory: /mnt/ramdisk/inreach-app
     parallelism: 8
@@ -106,16 +106,10 @@ jobs:
           TERM: xterm
       ## MongoDB
       - image: mongo:4.4.17
+        name: mongodocker${CIRCLE_NODE_INDEX}
         environment:
           MONGO_INITDB_DATABASE: InReach
       - image: ghcr.io/weareinreach/inreach-api:dev
-        environment:
-          MAILGUN_API_KEY: $MAILGUN_API_KEY
-          MAILGUN_DOMAIN: $MAILGUN_DOMAIN
-          DB_URI: mongodb://localhost:27017/InReach
-          ENV: TEST
-          SHEETS_API_KEY: $SHEETS_API_KEY
-          TEST_DB_URI: mongodb://localhost:27017/InReach
     steps:
       - attach_workspace:
           at: /mnt/ramdisk
