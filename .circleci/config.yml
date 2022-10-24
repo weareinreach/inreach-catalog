@@ -88,8 +88,6 @@ jobs:
 
   e2e:
     environment:
-      GROUP: << parameters.group >>
-      GROUP_NAME: << parameters.group_name >>
       MAILGUN_API_KEY: $MAILGUN_API_KEY
       MAILGUN_DOMAIN: $MAILGUN_DOMAIN
       DB_URI: mongodb://localhost:27017/InReach
