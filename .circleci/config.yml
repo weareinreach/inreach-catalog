@@ -47,7 +47,7 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - inreach-app-deps-{{ checksum "yarn.lock" }}
+            - inreach-app-{{ checksum "yarn.lock" }}
       - run:
           name: Check Node Version
           command: node --version
@@ -59,6 +59,10 @@ jobs:
           command: yarn build
           environment:
             CI: 'false'
+      - save_cache:
+          paths:
+            - ~/.cache
+          key: inreach-app-{{ checksum "yarn.lock" }}
 
   e2eprepare:
     docker:
@@ -71,6 +75,7 @@ jobs:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
     steps:
       - checkout
+      - jq/install
       - restore_cache:
           name: Restore Cache
           keys:
@@ -78,6 +83,26 @@ jobs:
       - run:
           name: Install Packages
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - run:
+          name: Print API branch
+          command: echo "Pulling branch $(jq -r '.api_ci_branch' /mnt/ramdisk/inreach-app/cypress.env.json) from inreach-api"
+      - run:
+          name: Pull API code
+          command: git clone --branch $(jq -r '.api_ci_branch' /mnt/ramdisk/inreach-app/cypress.env.json) https://github.com/weareinreach/inreach-api.git /mnt/ramdisk/inreach-api
+      - run:
+          name: Create API Env File
+          command: |
+            cat \<< EOF > /mnt/ramdisk/inreach-api/.env
+            MAILGUN_API_KEY=$MAILGUN_API_KEY
+            MAILGUN_DOMAIN=$MAILGUN_DOMAIN
+            DB_URI=$DB_URI_STAGING
+            ENV=TEST
+            SHEETS_API_KEY=$SHEETS_API_KEY
+            TEST_DB_URI=$TEST_DB_URI
+            EOF
+      - run:
+          name: Install API Packages
+          command: cd /mnt/ramdisk/inreach-api && yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           paths:
             - ~/.cache
@@ -86,6 +111,7 @@ jobs:
           root: /mnt/ramdisk
           paths:
             - inreach-app
+            - inreach-api
 
   e2e:
     environment:
@@ -102,21 +128,32 @@ jobs:
       - image: mongo:4.4.17
         environment:
           MONGO_INITDB_DATABASE: InReach
-      - image: ghcr.io/weareinreach/inreach-api:dev
-        environment:
-          MAILGUN_API_KEY: ${MAILGUN_API_KEY}
-          MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
-          DB_URI: mongodb://localhost:27017/InReach
-          ENV: TEST
-          SHEETS_API_KEY: ${SHEETS_API_KEY}
-          TEST_DB_URI: mongodb://localhost:27017/InReach
+      # - image: ghcr.io/weareinreach/inreach-api:dev
+      #   environment:
+      #     MAILGUN_API_KEY: ${MAILGUN_API_KEY}
+      #     MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
+      #     DB_URI: mongodb://localhost:27017/InReach
+      #     ENV: TEST
+      #     SHEETS_API_KEY: ${SHEETS_API_KEY}
+      #     TEST_DB_URI: mongodb://localhost:27017/InReach
     steps:
       - attach_workspace:
           at: /mnt/ramdisk
+      - run:
+          name: Launch API
+          command: |
+            cd /mnt/ramdisk/inreach-app 
+            yarn dev
+          background: true
       - restore_cache:
           name: Restore Cache
           keys:
             - inreach-app-deps-{{ checksum "yarn.lock" }}
+      - run:
+          name: Seed DB
+          command: |
+            cd /mnt/ramdisk/inreach-app 
+            yarn seed-docker-db
       - run:
           name: Split tests
           command: export TEST_FILES="$(circleci tests glob 'cypress/integration/**/*.js' | circleci tests split --split-by=timings | paste -sd ',')"
@@ -152,9 +189,9 @@ jobs:
       - image: cimg/node:16.18-browsers
     steps:
       #Install dependencies
-      - run:
-          name: Install OS dependencies
-          command: apt-get update && apt-get install curl git gpg unzip -y
+      # - run:
+      #     name: Install OS dependencies
+      #     command: apt-get update && apt-get install curl git gpg unzip -y
       - checkout
       - run:
           name: 'Install dependencies'
