@@ -25,7 +25,7 @@
 		"test:e2e": "NODE_ENV=test REACT_APP_USE_INTL=TRUE start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:open'",
 		"test:e2e:local": "NODE_ENV=test REACT_APP_USE_INTL=TRUE start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:open'",
 		"test:e2e:ci": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:run:ci'",
-		"test:e2e:ci:local": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:run --record --group $GROUP_NAME --key=57c5c982-91a8-48be-99dd-5f5792a8542f --spec 'cypress/integration/group${GROUP}/**/*''",
+		"test:e2e:ci:parallel": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:run --record --parallel --key=57c5c982-91a8-48be-99dd-5f5792a8542f",
 		"show-coverage": "npx nyc report --reporter=text"
 	},
 	"dependencies": {
@@ -73,7 +73,7 @@
 		"sass": "^1.32.12"
 	},
 	"devDependencies": {
-		"@cypress/code-coverage": "^3.9.4",
+		"@cypress/code-coverage": "^3.10.0",
 		"@cypress/instrument-cra": "^1.4.0",
 		"@testing-library/jest-dom": "^5.5.0",
 		"@testing-library/react": "^10.0.3",
@@ -81,11 +81,13 @@
 		"axios": "^0.27.2",
 		"babel-plugin-istanbul": "^6.0.0",
 		"babel-plugin-jsx-remove-data-test-id": "^3.0.0",
-		"cypress": "^9.6.0",
+		"cypress": "10",
+		"cypress-multi-reporters": "^1.6.1",
 		"eslint-plugin-cypress": "^2.12.1",
 		"husky": "^4.2.5",
 		"lcov-result-merger": "^3.1.0",
 		"lint-staged": "^10.1.7",
+		"mocha-junit-reporter": "^2.1.0",
 		"mochawesome": "^6.2.2",
 		"mochawesome-merge": "^4.2.0",
 		"nyc": "^15.1.0",

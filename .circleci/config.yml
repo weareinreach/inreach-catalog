@@ -130,14 +130,6 @@ jobs:
       - image: mongo:4.4.17
         environment:
           MONGO_INITDB_DATABASE: InReach
-      # - image: ghcr.io/weareinreach/inreach-api:dev
-      #   environment:
-      #     MAILGUN_API_KEY: ${MAILGUN_API_KEY}
-      #     MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
-      #     DB_URI: mongodb://localhost:27017/InReach
-      #     ENV: TEST
-      #     SHEETS_API_KEY: ${SHEETS_API_KEY}
-      #     TEST_DB_URI: mongodb://localhost:27017/InReach
     steps:
       - attach_workspace:
           at: /mnt/ramdisk
@@ -157,20 +149,18 @@ jobs:
             cd /mnt/ramdisk/inreach-api
             yarn seed-docker-db
       - run:
-          name: Split tests
-          command: export TEST_FILES="$(circleci tests glob 'cypress/integration/**/*.js' | circleci tests split --split-by=timings | paste -sd ',')"
-      - run:
           name: Instantiate API And Run E2E tests
           command: |
-            echo ${TEST_FILES}
             cd /mnt/ramdisk/inreach-app
             yarn test:pre-e2e
-            yarn test:e2e:ci
-      # - run:
-      #     name: Move reports to instance folders
-      #     command: |
-      #       cd cypressCoverage && mkdir ${CIRCLE_NODE_INDEX} &&  find . ! -name . -prune ! -name ${CIRCLE_NODE_INDEX} -exec mv {} ${CIRCLE_NODE_INDEX}/ \; &&
-      #       cd ../mochawesome-report && mkdir ${CIRCLE_NODE_INDEX} && find . ! -name . -prune ! -name ${CIRCLE_NODE_INDEX} -exec mv {} ${CIRCLE_NODE_INDEX}/ \;
+            yarn test:e2e:ci:parallel
+      - run:
+          name: Move reports to instance folders
+          command: |
+            cd /mnt/ramdisk/inreach-app/cypressCoverage
+            mkdir ${CIRCLE_NODE_INDEX}
+            find . ! -name . -prune ! -name ${CIRCLE_NODE_INDEX} -exec mv {} ${CIRCLE_NODE_INDEX}/ \;
+            cd /mnt/ramdisk/inreach-app
       - run:
           name: 'Show Coverage'
           command: yarn show-coverage
@@ -183,6 +173,8 @@ jobs:
       - codecov/upload:
           file: '/mnt/ramdisk/inreach-app/coverageReports/coverage-final.json'
           flags: 'Integration'
+      - store_test_results:
+          path: /mnt/ramdisk/inreach-app/results
       - persist_to_workspace:
           root: /mnt/ramdisk
           paths:

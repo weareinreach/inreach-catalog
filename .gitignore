@@ -33,4 +33,5 @@ jestCoverage
 junit.xml
 cypress/integration/examples
 .nyc_output/
+results/
 .vercel
