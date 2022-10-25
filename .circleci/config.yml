@@ -21,14 +21,14 @@ jobs:
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
-            - inreach-app-deps-{{ checksum "yarn.lock" }}
+            - inreach-app-{{ checksum "yarn.lock" }}
+            - inreach-app
       - run:
           name: Check Node Version
           command: node --version
       - run:
           name: Install Packages
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
-      #save cache for use next tests
       - run:
           name: EsLint Source Code
           command: npx eslint src
@@ -48,6 +48,7 @@ jobs:
           name: Restore Yarn Package Cache
           keys:
             - inreach-app-{{ checksum "yarn.lock" }}
+            - inreach-app
       - run:
           name: Check Node Version
           command: node --version
@@ -80,6 +81,7 @@ jobs:
           name: Restore Cache
           keys:
             - inreach-app-deps-{{ checksum "yarn.lock" }}
+            - inreach-app-deps
       - run:
           name: Install Packages
           command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
