@@ -26,61 +26,63 @@
 
 const MOBILE = 'mobile';
 const TABLET = 'tablet';
-Cypress.Commands.add('getElementByTestId',(id_name) =>{
-    return cy.get(`[data-test-id=${id_name}]`);
+Cypress.Commands.add('getElementByTestId', (id_name) => {
+	return cy.get(`[data-test-id=${id_name}]`);
 });
 
-Cypress.Commands.add('goBackAndSwitchToViewport',(viewport) =>{
-    cy.go('back');
-    cy.viewport(viewport);
+Cypress.Commands.add('goBackAndSwitchToViewport', (viewport) => {
+	cy.go('back');
+	cy.viewport(viewport);
 });
 
-Cypress.Commands.add('login',(user,viewport)=>{
+Cypress.Commands.add('login', (user, viewport) => {
 	cy.intercept('/v1/auth').as('login');
-	switch(viewport){
+	switch (viewport) {
 		case Cypress.env(MOBILE):
 			cy.getElementByTestId('mobile-nav-button-account').click();
-		break;
+			break;
 		default:
-			cy.getElementByTestId('nav-account-sign-in').click({force:true});
-		break;
+			cy.getElementByTestId('nav-account-sign-in').click({force: true});
+			break;
 	}
-	 //Enter Creds
-	 cy.getElementByTestId('log-in-dialog-container-email-input').type(user.email);
-	 cy.getElementByTestId('log-in-dialog-container-password-input').type(user.password);
-	 cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
-	 cy.wait('@login');
+	//Enter Creds
+	cy.getElementByTestId('log-in-dialog-container-email-input').type(user.email);
+	cy.getElementByTestId('log-in-dialog-container-password-input').type(
+		user.password
+	);
+	cy.getElementByTestId('log-in-dialog-container-sign-in-button').click();
+	cy.wait('@login');
 });
 
-Cypress.Commands.add('logout',(viewport)=>{
-	switch(viewport){
+Cypress.Commands.add('logout', (viewport) => {
+	switch (viewport) {
 		case Cypress.env(MOBILE):
-			cy.getElementByTestId('mobile-nav-button-account').click()
-            cy.getElementByTestId('account-page-logout').click({
-                force: true
-            });
-		break;
+			cy.getElementByTestId('mobile-nav-button-account').click();
+			cy.getElementByTestId('account-page-logout').click({
+				force: true
+			});
+			break;
 		case Cypress.env(TABLET):
 			cy.getElementByTestId('nav-button-account').click();
-            cy.getElementByTestId('nav-account-sign-out').click({
-                force: true
-            });
-		break;
+			cy.getElementByTestId('nav-account-sign-out').click({
+				force: true
+			});
+			break;
 		default:
 			cy.getElementByTestId('nav-account-sign-out').click({
-                force: true
-            });
-		break;
+				force: true
+			});
+			break;
 	}
 });
 
-Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
-	switch(viewport){
+Cypress.Commands.add('createFavoriteList', (viewport, listName) => {
+	switch (viewport) {
 		case Cypress.env(MOBILE):
 			cy.getElementByTestId('mobile-nav-button-favorites').click();
 			break;
 		case Cypress.env(TABLET):
-			cy.getElementByTestId('drop-down-selector-item').then($element=>{
+			cy.getElementByTestId('drop-down-selector-item').then(($element) => {
 				cy.wrap($element[2]).click();
 				cy.getElementByTestId('nav-button-view-favorites').click();
 			});
@@ -89,103 +91,117 @@ Cypress.Commands.add('createFavoriteList',(viewport,listName)=>{
 			cy.getElementByTestId('nav-button-view-favorites').click();
 			break;
 	}
-    cy.getElementByTestId('favorites-page-create-new-list-button').click();
+	cy.getElementByTestId('favorites-page-create-new-list-button').click();
 
-	switch(viewport){
+	switch (viewport) {
 		case Cypress.env(MOBILE):
-			cy.getElementByTestId('favorites-create-new-list-name-input').children('.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl').type(listName);
+			cy.getElementByTestId('favorites-create-new-list-name-input')
+				.children(
+					'.MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl'
+				)
+				.type(listName);
 			break;
 		default:
-			cy.getElementByTestId('favorites-create-new-list-name-input').type(listName);
+			cy.getElementByTestId('favorites-create-new-list-name-input').type(
+				listName
+			);
 			break;
 	}
-    cy.getElementByTestId('favorites-create-new-button').click();
+	cy.getElementByTestId('favorites-create-new-button').click();
 });
 
-Cypress.Commands.add('addToFavoritesListFromSearchPage',(searchName, viewport)=>{
-	//Search
-    cy.getElementByTestId('search-page-next-button').click({multiple:true});
-    cy.getElementByTestId('search-bar-input').type(searchName);
-    //Click first option 
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-	cy.intercept('GET','/v1/organizations*').as('orgSearch');
-	switch(viewport){
-		case Cypress.env(MOBILE):
-			cy.getElementByTestId('search-bar-search-by-location-button').click();
-			
-	    break;
-		default:
-			cy.getElementByTestId('search-bar-search-button').click();
-		break;
+Cypress.Commands.add(
+	'addToFavoritesListFromSearchPage',
+	(searchName, viewport) => {
+		//Search
+		cy.getElementByTestId('search-page-next-button').click({multiple: true});
+		cy.getElementByTestId('search-bar-input').type(searchName);
+		//Click first option
+		cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
+			cy.wrap($element[0]).click();
+		});
+		cy.intercept('GET', '/v1/organizations*').as('orgSearch');
+		switch (viewport) {
+			case Cypress.env(MOBILE):
+				cy.getElementByTestId('search-bar-search-by-location-button').click();
+
+				break;
+			default:
+				cy.getElementByTestId('search-bar-search-button').click();
+				break;
+		}
+		//Let it load
+		cy.wait('@orgSearch');
+		cy.getElementByTestId('search-result-favorite-button').then(($element) => {
+			cy.wrap($element[0]).click();
+		});
+		cy.getElementByTestId('search-result-favorite-list-item').then(
+			($element) => {
+				cy.wrap($element[0]).click();
+			}
+		);
 	}
-    //Let it load 
-    cy.wait('@orgSearch');
-    cy.getElementByTestId('search-result-favorite-button').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    cy.getElementByTestId('search-result-favorite-list-item').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-});
+);
 
-Cypress.Commands.add('selectFavoritesList',(viewport)=>{
-	switch(viewport){
-        case Cypress.env(MOBILE):
-            cy.getElementByTestId('mobile-nav-button-favorites').click({force:true});
-            break;
-        case Cypress.env(TABLET):
-            cy.scrollTo('top');
-            cy.getElementByTestId('drop-down-selector-item').then($element=>{
+Cypress.Commands.add('selectFavoritesList', (viewport) => {
+	switch (viewport) {
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('mobile-nav-button-favorites').click({force: true});
+			break;
+		case Cypress.env(TABLET):
+			cy.scrollTo('top');
+			cy.getElementByTestId('drop-down-selector-item').then(($element) => {
 				cy.wrap($element[2]).click();
 				cy.getElementByTestId('nav-button-view-favorites').click();
 			});
-            break;
-        default:
-            cy.getElementByTestId('nav-button-view-favorites').click();
-            break;
-    }
-});
-
-Cypress.Commands.add('searchOrganizationsByCityName',(viewport,cityName)=>{
-	switch(viewport){
-        case Cypress.env(MOBILE):
-            cy.getElementByTestId('mobile-nav-button-search').click();
-        break;
-        default:
-            //do nothing
-        break; 
-    }
-       
-    cy.getElementByTestId('search-page-next-button').click();
-    cy.getElementByTestId('search-page-checkbox').click();
-    cy.getElementByTestId('search-bar-input').type(cityName);
-    cy.getElementByTestId('search-bar-item-suggestion').then($element=>{
-        cy.wrap($element[0]).click();
-    });
-    cy.intercept('/v1/organizations*').as('search');
-    switch(viewport){
-        case Cypress.env(MOBILE):
-            cy.getElementByTestId('search-bar-search-by-location-button').click();
-        break;
-        default:
-            cy.getElementByTestId('search-bar-search-button').click();
-        break; 
-    }
-    cy.wait('@search');
-});
-
-Cypress.Commands.add('navigateToSuggestion',(viewport)=>{
-	switch(viewport){
-		case Cypress.env(MOBILE):
-		cy.getElementByTestId('mobile-nav-button-more').click();
-		cy.getElementByTestId('resource-details-more-suggest-a-resource').click({force:true,multiple:true});
-		cy.getElementByTestId('more-suggest-a-resource-us').click();
-	    break;
+			break;
 		default:
-		cy.scrollTo('bottom');
-		cy.getElementByTestId('footer-suggest-new').click();
-		break;
+			cy.getElementByTestId('nav-button-view-favorites').click();
+			break;
+	}
+});
+
+Cypress.Commands.add('searchOrganizationsByCityName', (viewport, cityName) => {
+	switch (viewport) {
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('mobile-nav-button-search').click();
+			break;
+		default:
+			//do nothing
+			break;
+	}
+
+	cy.getElementByTestId('search-page-next-button').click();
+	// cy.getElementByTestId('search-page-checkbox').click();
+	cy.getElementByTestId('search-bar-input').type(cityName);
+	cy.getElementByTestId('search-bar-item-suggestion').then(($element) => {
+		cy.wrap($element[0]).click();
+	});
+	cy.intercept('/v1/organizations*').as('search');
+	switch (viewport) {
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('search-bar-search-by-location-button').click();
+			break;
+		default:
+			cy.getElementByTestId('search-bar-search-button').click();
+			break;
+	}
+	cy.wait('@search');
+});
+
+Cypress.Commands.add('navigateToSuggestion', (viewport) => {
+	switch (viewport) {
+		case Cypress.env(MOBILE):
+			cy.getElementByTestId('mobile-nav-button-more').click();
+			cy.getElementByTestId('resource-details-more-suggest-a-resource').click({
+				force: true,
+				multiple: true
+			});
+			cy.getElementByTestId('more-suggest-a-resource-us').click();
+			break;
+		default:
+			cy.scrollTo('bottom');
+			cy.getElementByTestId('footer-suggest-new').click();
+			break;
 	}
 });
