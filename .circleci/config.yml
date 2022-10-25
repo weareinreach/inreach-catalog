@@ -159,8 +159,12 @@ jobs:
       - run:
           name: Move reports to instance folders
           command: |
+            cd /mnt/ramdisk/inreach-app
+            mkdir cypressCoverage/${CIRCLE_NODE_INDEX}
+            mkdir mochawesome-report/${CIRCLE_NODE_INDEX}
             cd /mnt/ramdisk/inreach-app/cypressCoverage
-            mkdir ${CIRCLE_NODE_INDEX}
+            find . ! -name . -prune ! -name ${CIRCLE_NODE_INDEX} -exec mv {} ${CIRCLE_NODE_INDEX}/ \;
+            cd /mnt/ramdisk/inreach-app/mochawesome-report
             find . ! -name . -prune ! -name ${CIRCLE_NODE_INDEX} -exec mv {} ${CIRCLE_NODE_INDEX}/ \;
             cd /mnt/ramdisk/inreach-app
       - run:
@@ -186,18 +190,8 @@ jobs:
     docker:
       - image: cimg/node:16.18-browsers
     steps:
-      #Install dependencies
-      # - run:
-      #     name: Install OS dependencies
-      #     command: apt-get update && apt-get install curl git gpg unzip -y
-      - checkout
-      # - run:
-      #     name: 'Install dependencies'
-      #     command: yarn add lcov-result-merger --dev
-      #Download artifacts
-      # - run:
-      #     name: 'Download reports'
-      #     command: cd .circleci && node getLcovReports.js
+      - attach_workspace:
+          at: /mnt/ramdisk
       - run:
           name: 'Merge Records'
           command: npx lcov-result-merger 'lcov-*.info' 'merged-lcov.info'
