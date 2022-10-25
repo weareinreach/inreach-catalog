@@ -1,172 +1,175 @@
 {
-  "name": "asylumconnect-catalog",
-  "private": true,
-  "scripts": {
-    "local": "REACT_APP_APP_ENV=TEST yarn start",
-    "prod": "REACT_APP_APP_ENV=production yarn start",
-    "dev": "yarn start",
-    "dev-use-intl": "REACT_APP_USE_INTL=TRUE yarn start",
-    "local-use-intl": "REACT_APP_APP_ENV=TEST REACT_APP_USE_INTL=TRUE yarn start",
-    "start": "react-app-rewired -r @cypress/instrument-cra start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --passWithNoTests",
-    "serve": "node src/server",
-    "cypress:open": "CYPRESS_environment=TEST cypress open --config-file cypress.config.js",
-    "cypress:run": "CYPRESS_environment=TEST cypress run --config-file cypress.config.js",
-    "cypress:open:local": "CYPRESS_enviroment=TEST cypress open --config-file ./cypress.json",
-    "combine-reports": "mkdir ./reports && mochawesome-merge mochawesome-report/*.json > ./reports/reporte2e.json",
-    "generate-report": "marge ./reports/reporte2e.json -f e2e-report -o ./reports",
-    "report:combined": "npx nyc report --reporter html --reporter json --report-dir coverageReports",
-    "report:lcov": "npx nyc report --reporter lcov --reportDir lcov${GROUP}",
-    "report:merge-lcov": "./node_modules/.bin/lcov-result-merger 'lcov-*.info' 'lcov-merged.info'",
-    "test:pre-e2e": "rm -R -f ./mochawesome-report && rm -R -f ./.nyc_output && rm -R -f ./cypressCoverage && rm -R -f ./reports",
-    "test:post-e2e": "yarn combine-reports && yarn generate-report",
-    "test:e2e": "NODE_ENV=test REACT_APP_USE_INTL=TRUE start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:open'",
-    "test:e2e:local": "NODE_ENV=test REACT_APP_USE_INTL=TRUE start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:open'",
-    "test:e2e:ci": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:run'",
-    "test:e2e:ci:local": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:run --record --group $GROUP_NAME --key=57c5c982-91a8-48be-99dd-5f5792a8542f --spec 'cypress/integration/group${GROUP}/**/*''",
-    "show-coverage": "npx nyc report --reporter=text"
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.58",
-    "autosuggest-highlight": "^3.1.1",
-    "babel-plugin-react-remove-properties": "^0.3.0",
-    "classnames": "^2.2.6",
-    "customize-cra": "^1.0.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "fetch-jsonp": "^1.1.3",
-    "js-cookie": "^2.2.1",
-    "langs": "^2.0.0",
-    "lodash": "^4.17.19",
-    "node-sass": "^6.0.0",
-    "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2",
-    "query-string": "^6.12.1",
-    "ramda": "^0.27.1",
-    "react": "^16.13.1",
-    "react-addons-update": "^15.6.2",
-    "react-app-rewired": "^2.1.8",
-    "react-autosuggest": "^9.4.3",
-    "react-dimensions": "^1.3.1",
-    "react-dom": "^16.13.1",
-    "react-fontawesome": "^1.7.1",
-    "react-ga": "^2.7.0",
-    "react-ga4": "^1.4.1",
-    "react-google-maps": "^9.4.5",
-    "react-https-redirect": "^1.1.0",
-    "react-intl": "^5.12.1",
-    "react-markdown": "^4.3.1",
-    "react-modal": "^3.11.2",
-    "react-places-autocomplete": "^7.2.1",
-    "react-responsive": "^8.0.3",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.1",
-    "react-scroll": "^1.7.16",
-    "react-sticky-state": "^2.1.9",
-    "react-swipeable-views": "^0.13.9",
-    "react-text-mask": "^5.4.3",
-    "react-truncate": "^2.4.0",
-    "sass": "^1.32.12"
-  },
-  "devDependencies": {
-    "@cypress/code-coverage": "^3.9.4",
-    "@cypress/instrument-cra": "^1.4.0",
-    "@testing-library/jest-dom": "^5.5.0",
-    "@testing-library/react": "^10.0.3",
-    "@testing-library/user-event": "^10.0.2",
-    "axios": "^0.27.2",
-    "babel-plugin-istanbul": "^6.0.0",
-    "babel-plugin-jsx-remove-data-test-id": "^3.0.0",
-    "cypress": "^9.6.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "husky": "^4.2.5",
-    "lcov-result-merger": "^3.1.0",
-    "lint-staged": "^10.1.7",
-    "mochawesome": "^6.2.2",
-    "mochawesome-merge": "^4.2.0",
-    "nyc": "^15.1.0",
-    "prettier": "^2.0.5",
-    "start-server-and-test": "^1.12.0"
-  },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false,
-    "excludeAfterRemap": false,
-    "all": true,
-    "include": [
-      "**/src/*"
-    ],
-    "exclude": [
-      "**/src/*.html"
-    ],
-    "report-dir": "cypressCoverage",
-    "reporter": [
-      "html",
-      "json",
-      "lcov"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all",
-      "ie 11"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-      "ie 11"
-    ]
-  },
-  "engines": {
-    "node": "16.x"
-  },
-  "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "react/prop-types": "off",
-      "indent": "off",
-      "no-tabs": "off",
-      "operator-linebreak": "off",
-      "no-unused-expressions": "off",
-      "cypress/no-assigning-return-values": "error",
-      "cypress/no-unnecessary-waiting": "error",
-      "cypress/assertion-before-screenshot": "warn",
-      "cypress/no-force": "warn",
-      "cypress/no-async-tests": "error",
-      "cypress/no-pause": "error"
-    },
-    "env": {
-      "cypress/globals": true
-    },
-    "plugins": [
-      "cypress"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,json,md}": [
-      "prettier --write"
-    ]
-  },
-  "prettier": {
-    "bracketSpacing": false,
-    "singleQuote": true,
-    "semi": true,
-    "trailingComma": "none",
-    "arrowParens": "always",
-    "jsxBracketSameLine:": true,
-    "tabWidth": 2,
-    "useTabs": true
-  },
-  "version": "0.0.1"
+	"name": "asylumconnect-catalog",
+	"private": true,
+	"scripts": {
+		"local": "REACT_APP_APP_ENV=TEST yarn start",
+		"prod": "REACT_APP_APP_ENV=production yarn start",
+		"dev": "yarn start",
+		"dev-use-intl": "REACT_APP_USE_INTL=TRUE yarn start",
+		"local-use-intl": "REACT_APP_APP_ENV=TEST REACT_APP_USE_INTL=TRUE yarn start",
+		"start": "react-app-rewired -r @cypress/instrument-cra start",
+		"build": "react-app-rewired build",
+		"test": "react-app-rewired test --passWithNoTests",
+		"serve": "node src/server",
+		"cypress:open": "CYPRESS_environment=TEST cypress open --config-file cypress.config.js",
+		"cypress:run": "CYPRESS_environment=TEST cypress run --config-file cypress.config.js",
+		"cypress:run:ci": "CYPRESS_environment=TEST cypress run --config-file cypress.config.js --spec $(circleci tests glob 'cypress/integration/**/*.js' | circleci tests split --split-by=timings | paste -sd ',')",
+		"cypress:open:local": "CYPRESS_enviroment=TEST cypress open --config-file ./cypress.json",
+		"combine-reports": "mkdir ./reports && mochawesome-merge mochawesome-report/*.json > ./reports/reporte2e.json",
+		"generate-report": "marge ./reports/reporte2e.json -f e2e-report -o ./reports",
+		"report:combined": "npx nyc report --reporter html --reporter json --report-dir coverageReports",
+		"report:lcov": "npx nyc report --reporter lcov --reportDir lcov${CIRCLE_NODE_INDEX} && cp lcov${CIRCLE_NODE_INDEX}/lcov.info ./lcov${CIRCLE_NODE_INDEX}.info",
+		"report:merge-lcov": "./node_modules/.bin/lcov-result-merger 'lcov-*.info' 'lcov-merged.info'",
+		"test:pre-e2e": "rm -R -f ./mochawesome-report && rm -R -f ./.nyc_output && rm -R -f ./cypressCoverage && rm -R -f ./reports",
+		"test:post-e2e": "yarn combine-reports && yarn generate-report",
+		"test:e2e": "NODE_ENV=test REACT_APP_USE_INTL=TRUE start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:open'",
+		"test:e2e:local": "NODE_ENV=test REACT_APP_USE_INTL=TRUE start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:open'",
+		"test:e2e:ci": "NODE_ENV=test start-server-and-test 'nyc yarn start' http://localhost:3000 'yarn cypress:run:ci'",
+		"test:e2e:ci:parallel": "NODE_ENV=test start-server-and-test 'nyc yarn local' http://localhost:3000 'yarn cypress:run --record --parallel --key=57c5c982-91a8-48be-99dd-5f5792a8542f'",
+		"show-coverage": "npx nyc report --reporter=text"
+	},
+	"dependencies": {
+		"@material-ui/core": "^4.11.4",
+		"@material-ui/icons": "^4.11.2",
+		"@material-ui/lab": "^4.0.0-alpha.58",
+		"autosuggest-highlight": "^3.1.1",
+		"babel-plugin-react-remove-properties": "^0.3.0",
+		"classnames": "^2.2.6",
+		"customize-cra": "^1.0.0",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"fetch-jsonp": "^1.1.3",
+		"js-cookie": "^2.2.1",
+		"langs": "^2.0.0",
+		"lodash": "^4.17.19",
+		"node-sass": "^6.0.0",
+		"normalize.css": "^8.0.1",
+		"prop-types": "^15.7.2",
+		"query-string": "^6.12.1",
+		"ramda": "^0.27.1",
+		"react": "^16.13.1",
+		"react-addons-update": "^15.6.2",
+		"react-app-rewired": "^2.1.8",
+		"react-autosuggest": "^9.4.3",
+		"react-dimensions": "^1.3.1",
+		"react-dom": "^16.13.1",
+		"react-fontawesome": "^1.7.1",
+		"react-ga": "^2.7.0",
+		"react-ga4": "^1.4.1",
+		"react-google-maps": "^9.4.5",
+		"react-https-redirect": "^1.1.0",
+		"react-intl": "^5.12.1",
+		"react-markdown": "^4.3.1",
+		"react-modal": "^3.11.2",
+		"react-places-autocomplete": "^7.2.1",
+		"react-responsive": "^8.0.3",
+		"react-router-dom": "^5.1.2",
+		"react-scripts": "^4.0.1",
+		"react-scroll": "^1.7.16",
+		"react-sticky-state": "^2.1.9",
+		"react-swipeable-views": "^0.13.9",
+		"react-text-mask": "^5.4.3",
+		"react-truncate": "^2.4.0",
+		"sass": "^1.32.12"
+	},
+	"devDependencies": {
+		"@cypress/code-coverage": "^3.10.0",
+		"@cypress/instrument-cra": "^1.4.0",
+		"@testing-library/jest-dom": "^5.5.0",
+		"@testing-library/react": "^10.0.3",
+		"@testing-library/user-event": "^10.0.2",
+		"axios": "^0.27.2",
+		"babel-plugin-istanbul": "^6.0.0",
+		"babel-plugin-jsx-remove-data-test-id": "^3.0.0",
+		"cypress": "10",
+		"cypress-multi-reporters": "^1.6.1",
+		"eslint-plugin-cypress": "^2.12.1",
+		"husky": "^4.2.5",
+		"lcov-result-merger": "^3.1.0",
+		"lint-staged": "^10.1.7",
+		"mocha-junit-reporter": "^2.1.0",
+		"mochawesome": "^6.2.2",
+		"mochawesome-merge": "^4.2.0",
+		"nyc": "^15.1.0",
+		"prettier": "^2.0.5",
+		"start-server-and-test": "^1.12.0"
+	},
+	"nyc": {
+		"sourceMap": false,
+		"instrument": false,
+		"excludeAfterRemap": false,
+		"all": true,
+		"include": [
+			"**/src/*"
+		],
+		"exclude": [
+			"**/src/*.html"
+		],
+		"report-dir": "cypressCoverage",
+		"reporter": [
+			"html",
+			"json",
+			"lcov"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all",
+			"ie 11"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version",
+			"ie 11"
+		]
+	},
+	"engines": {
+		"node": "16.x"
+	},
+	"eslintConfig": {
+		"extends": "react-app",
+		"rules": {
+			"react/prop-types": "off",
+			"indent": "off",
+			"no-tabs": "off",
+			"operator-linebreak": "off",
+			"no-unused-expressions": "off",
+			"cypress/no-assigning-return-values": "error",
+			"cypress/no-unnecessary-waiting": "error",
+			"cypress/assertion-before-screenshot": "warn",
+			"cypress/no-force": "warn",
+			"cypress/no-async-tests": "error",
+			"cypress/no-pause": "error"
+		},
+		"env": {
+			"cypress/globals": true
+		},
+		"plugins": [
+			"cypress"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"src/**/*.{js,json,md}": [
+			"prettier --write"
+		]
+	},
+	"prettier": {
+		"bracketSpacing": false,
+		"singleQuote": true,
+		"semi": true,
+		"trailingComma": "none",
+		"arrowParens": "always",
+		"jsxBracketSameLine:": true,
+		"tabWidth": 2,
+		"useTabs": true
+	},
+	"version": "0.0.1"
 }
