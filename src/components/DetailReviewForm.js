@@ -76,7 +76,15 @@ class ReviewForm extends React.Component {
 		const resource = this.props?.resource;
 
 		if (resource && resource?._id) {
-			const body = {source: 'catalog', userId: this.props?.user};
+			const body = {
+				source:
+					this.props?.userData.catalogType === 'reviewer'
+						? 'reviewer'
+						: 'catalog',
+				userId: this.props?.user,
+				userLocation: this.props?.userData.currentLocation,
+				isUserApproved: this.props?.userData.isReviewerApproved
+			};
 
 			if (resource?.organization && resource.organization?._id) {
 				body.orgId = resource.organization._id;
@@ -128,7 +136,7 @@ class ReviewForm extends React.Component {
 								{isMobile ? null : (
 									<FormattedMessage
 										id="resource-property.save-rating"
-										defaultMessage="Your rating will not be recorded until you hit Submit"
+										defaultMessage="Your rating will not be recorded until you comment and hit Submit"
 										description="Info text indicating review details are not saved until they are submitted"
 									/>
 								)}
@@ -162,6 +170,7 @@ class ReviewForm extends React.Component {
 						</Grid>
 						<Grid item xs={12} className={classes.dividerSpacing}>
 							<AsylumConnectButton
+								disabled={this.state.rating <= 0 || !this.state.comment}
 								testIdName="details-review-form-submit-button"
 								variant="primary"
 								onClick={this.handleFormSubmission}
@@ -183,7 +192,7 @@ class ReviewForm extends React.Component {
 						>
 							<FormattedMessage
 								id="action.comment-submitted-confirmation"
-								defaultMessage="hank you for your comment! Questions? Please email"
+								defaultMessage="Thank you for your comment! Questions? Please email"
 								description="Thank you text after submitting a review"
 							/>{' '}
 							<a href="mailto:app@inreach.org" className={classes.bodyLink}>
