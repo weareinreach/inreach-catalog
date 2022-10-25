@@ -1,11 +1,15 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, FormattedDate} from 'react-intl';
 
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import {boldFont, dividerSpacing} from '../theme';
+import VerifiedIcon from './icons/VerifiedIcon';
+
 import Loading from './Loading';
 
 const styles = (theme) => ({
@@ -41,6 +45,9 @@ const styles = (theme) => ({
 	reviewAC: {
 		backgroundColor: theme.palette.secondary[500],
 		color: theme.palette.common.white
+	},
+	leftMargin: {
+		marginLeft: '2%'
 	}
 });
 
@@ -56,20 +63,124 @@ const ReviewList = ({title, classes, list}) => (
 			</Typography>
 		) : null}
 		{list.length ? (
-			list.map((review) => (
-				<Grid
-					key={review.userId}
-					container
-					spacing={0}
-					className={classes.bottomSpacing}
-				>
-					<Grid item xs={12}>
-						<Typography data-test-id="review-list-comment" variant="body2">
-							"{review.comment}"
-						</Typography>
+			list.map((review) =>
+				!review.isDeleted ? (
+					<Grid
+						key={review.userId}
+						container
+						spacing={0}
+						className={classes.bottomSpacing}
+					>
+						<Grid item xs={12}>
+							<Typography data-test-id="review-list-comment" variant="body2">
+								"{review.comment}"
+							</Typography>
+							{review.isUserApproved && review.source === 'reviewer' ? (
+								<>
+									<Tooltip
+										className={classes.leftMargin}
+										classes={{tooltipPlacementTop: 'badge-tooltipTop'}}
+										title={
+											<a style={{color: '#e9e9e9'}}>
+												<FormattedMessage
+													id="review.disclaimer"
+													defaultMessage="This review was submitted on {reviewDate}. By an InReach Local Community Reviewer with experience and knowledge of {reviewLocation}. Reviewers must meet strict standards to be considered an InReach Verified Reviewer, {clickHere} for more details."
+													description="text that explain when and how the review data is verified"
+													values={{
+														b: (chunks) => (
+															<strong style={{color: 'black'}}>{chunks}</strong>
+														),
+														reviewLocation: review.userLocation,
+														reviewDate: (
+															<FormattedDate
+																value={new Date(review.created_at)}
+																year="numeric"
+																month="short"
+																day="numeric"
+																weekday="short"
+															/>
+														),
+														clickHere: (
+															<a
+																href="https://inreach.org/become-a-local-community-reviewer/"
+																target="_blank"
+																rel="noopener noreferrer"
+																className="hide--on-print"
+																style={{color: 'black'}}
+															>
+																<FormattedMessage
+																	id="resource.click-here"
+																	defaultMessage="Click Here"
+																	description="link that takes user to full vetting process details"
+																/>
+															</a>
+														)
+													}}
+												/>
+											</a>
+										}
+										arrow
+										placement="top"
+										interactive
+									>
+										<Badge>
+											<VerifiedIcon
+												extraClasses={classes.headerBadge}
+												width="12px"
+											/>
+											<Typography
+												data-test-id="review-list-comment-details"
+												variant="body2"
+												className={classes.leftMargin}
+											>
+												<FormattedMessage
+													id="review.inreach-verified-user"
+													defaultMessage="by an InReach Verified Reviewer on {reviewDate}"
+													description="Text indicating who submitted the review"
+													values={{
+														reviewDate: (
+															<FormattedDate
+																value={new Date(review.created_at)}
+																year="numeric"
+																month="short"
+																day="numeric"
+																weekday="short"
+															/>
+														)
+													}}
+												/>
+											</Typography>
+										</Badge>
+									</Tooltip>
+								</>
+							) : (
+								<Typography
+									data-test-id="review-list-comment-details"
+									variant="body2"
+									className={classes.leftMargin}
+								>
+									<FormattedMessage
+										id="review.inreach-user"
+										defaultMessage="by an InReach App User on {reviewDate}"
+										description="Text indicating who submitted the review"
+										values={{
+											reviewDate: (
+												<FormattedDate
+													value={new Date(review.created_at)}
+													year="numeric"
+													month="short"
+													day="numeric"
+													weekday="short"
+												/>
+											)
+										}}
+									></FormattedMessage>
+								</Typography>
+							)}
+						</Grid>
 					</Grid>
-				</Grid>
-			))
+				) : null
+			)
 		) : (
 			<Typography
 				data-test-id="review-list-comment"
@@ -94,17 +205,7 @@ const Reviews = ({classes, reviews}) => (
 					{reviews === false ? (
 						<Loading />
 					) : (
-						<ReviewList
-							title={
-								<FormattedMessage
-									id="resource.reviews-heading"
-									defaultMessage="Reviews"
-									description="Label for Reviews section"
-								/>
-							}
-							list={reviews}
-							classes={classes}
-						/>
+						<ReviewList list={reviews} classes={classes} />
 					)}
 				</Grid>
 			</Grid>
