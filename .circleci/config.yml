@@ -102,7 +102,9 @@ jobs:
             EOF
       - run:
           name: Install API Packages
-          command: cd /mnt/ramdisk/inreach-api && yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+          command: |
+            cd /mnt/ramdisk/inreach-api
+            yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           paths:
             - ~/.cache
@@ -142,7 +144,7 @@ jobs:
       - run:
           name: Launch API
           command: |
-            cd /mnt/ramdisk/inreach-app 
+            cd /mnt/ramdisk/inreach-api
             yarn dev
           background: true
       - restore_cache:
@@ -152,7 +154,7 @@ jobs:
       - run:
           name: Seed DB
           command: |
-            cd /mnt/ramdisk/inreach-app 
+            cd /mnt/ramdisk/inreach-api
             yarn seed-docker-db
       - run:
           name: Split tests
@@ -160,8 +162,10 @@ jobs:
       - run:
           name: Instantiate API And Run E2E tests
           command: |
-            echo ${TEST_FILES} && 
-            yarn test:pre-e2e && yarn test:e2e:ci
+            echo ${TEST_FILES}
+            cd /mnt/ramdisk/inreach-app
+            yarn test:pre-e2e
+            yarn test:e2e:ci
       # - run:
       #     name: Move reports to instance folders
       #     command: |
@@ -193,16 +197,16 @@ jobs:
       #     name: Install OS dependencies
       #     command: apt-get update && apt-get install curl git gpg unzip -y
       - checkout
-      - run:
-          name: 'Install dependencies'
-          command: yarn add lcov-result-merger axios --dev
+      # - run:
+      #     name: 'Install dependencies'
+      #     command: yarn add lcov-result-merger --dev
       #Download artifacts
       # - run:
       #     name: 'Download reports'
       #     command: cd .circleci && node getLcovReports.js
       - run:
           name: 'Merge Records'
-          command: ./node_modules/.bin/lcov-result-merger 'lcov-*.info' 'merged-lcov.info'
+          command: npx lcov-result-merger 'lcov-*.info' 'merged-lcov.info'
       - sonarcloud/scan
 
 workflows:
