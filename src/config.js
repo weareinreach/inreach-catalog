@@ -14,6 +14,13 @@ const prod = {
 	apiDomain: 'https://inreach-api.herokuapp.com'
 };
 
+const vercelProd = {
+	apiDomain: 'https://inreach-api-v1.vercel.app'
+};
+const vercelPreview = {
+	apiDomain: 'https://inreach-api-v1-git-dev-weareinreach.vercel.app'
+};
+
 const env = process.env.REACT_APP_APP_ENV;
 
 export const useIntl = process.env.REACT_APP_USE_INTL == 'TRUE' ? true : false;
@@ -22,8 +29,11 @@ console.log(
 );
 
 console.log('useIntl: ' + useIntl);
-export default {
+const urlEnv = {
 	...base,
 	...(env === 'TEST' ? local : {}),
-	...(env === 'production' ? prod : {})
+	...(env === 'production' ? prod : {}),
+	...(process.env.REACT_APP_VERCEL_ENV === 'production' ? vercelProd : {}),
+	...(process.env.REACT_APP_VERCEL_ENV === 'preview' ? vercelPreview : {})
 };
+export default urlEnv;
