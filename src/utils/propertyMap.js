@@ -68,6 +68,7 @@ const propertyMap = {
 		'community-russian-speakers':
 			'resource-property.community-russian-speakers',
 		'community-seniors': 'resource-property.community-seniors',
+		'community-sex-workers': 'resource-property.community-sex-workers',
 		'community-spanish-speakers':
 			'resource-property.community-spanish-speakers',
 		'community-teens': 'resource-property.community-teenagers',
