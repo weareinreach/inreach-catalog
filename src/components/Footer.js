@@ -7,6 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import {ReactComponent as Vercel} from '../images/vercel.svg';
 
 const styles = (theme) => ({
 	bgDarkGrey: {backgroundColor: theme.palette.common.darkGrey},
@@ -49,6 +50,20 @@ const styles = (theme) => ({
 		}
 	}
 });
+
+const VercelBanner = () => {
+	if (!process.env.REACT_APP_VERCEL_ENV) return null;
+
+	return (
+		<a
+			href="https://vercel.com/?utm_source=in-reach&utm_campaign=oss"
+			target="_blank"
+			rel="noreferrer"
+		>
+			<Vercel />
+		</a>
+	);
+};
 
 const Footer = ({classes, locale, handleRequestOpen}) => {
 	const {
@@ -254,22 +269,28 @@ const Footer = ({classes, locale, handleRequestOpen}) => {
 				</Grid>
 			</Grid>
 
-			<div className={classNames(bgLightGrey, paddingVertical)}>
-				<Typography variant="caption" data-test-id="footer-copy-rights">
-					<FormattedMessage
-						id="app.company-name"
-						defaultMessage="InReach, Inc."
-						description="Company name (InReach)"
-					/>{' '}
-					{new Date().getFullYear()}.{' '}
-					<FormattedMessage
-						id="app.copyright"
-						defaultMessage="All rights reserved"
-						description="Copyright message"
-					/>
-					.
-				</Typography>
-			</div>
+			<Grid container className={classNames(bgLightGrey, paddingVertical)}>
+				<Grid item xs></Grid>
+				<Grid item xs={6} alignSelf="center">
+					<Typography variant="caption" data-test-id="footer-copy-rights">
+						<FormattedMessage
+							id="app.company-name"
+							defaultMessage="InReach, Inc."
+							description="Company name (InReach)"
+						/>{' '}
+						{new Date().getFullYear()}.{' '}
+						<FormattedMessage
+							id="app.copyright"
+							defaultMessage="All rights reserved"
+							description="Copyright message"
+						/>
+						.
+					</Typography>
+				</Grid>
+				<Grid item xs alignItems="center">
+					<VercelBanner />
+				</Grid>
+			</Grid>
 		</footer>
 	);
 };
