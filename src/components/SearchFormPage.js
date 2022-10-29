@@ -430,7 +430,7 @@ class SearchFormContainer extends React.Component {
 										)}
 									</Typography>
 								</Grid>
-								{this.state.locale &&
+								{/* {this.state.locale &&
 								(this.state.locale === 'en_US' ||
 									this.state.locale === 'es_US') ? (
 									<Grid item xs={12}>
@@ -502,7 +502,7 @@ class SearchFormContainer extends React.Component {
 											}
 										/>
 									</Grid>
-								) : null}
+								) : null} */}
 								<Grid item xs={12}>
 									{locale ? (
 										<SearchForm

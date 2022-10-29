@@ -140,7 +140,7 @@ const ResultsContainer = (props) => {
 
 	return (
 		<>
-			<Disclaimer {...disclaimerProps} />
+			{/* <Disclaimer {...disclaimerProps} /> */}
 			<div
 				className={
 					searching && !searchResults.length
