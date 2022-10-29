@@ -174,7 +174,7 @@ class SearchForm extends React.Component {
 				) : null}
 				{isMobile ? (
 					<>
-						{getLocale() === 'en_US' || getLocale() === 'es_US' ? (
+						{/* {getLocale() === 'en_US' || getLocale() === 'es_US' ? (
 							<Disclaimer
 								icon={true}
 								data-test-id="announcement-alert-message"
@@ -193,8 +193,8 @@ class SearchForm extends React.Component {
 									/>
 								}
 							/>
-						) : null}
-						<Disclaimer
+						) : null} */}
+						{/* <Disclaimer
 							icon={true}
 							data-test-id="announcement-alert-message-1"
 							text={
@@ -214,7 +214,7 @@ class SearchForm extends React.Component {
 									}}
 								/>
 							}
-						/>
+						/> */}
 						<MobileSearch
 							handleSearchByOrgName={handleSearchByOrgName}
 							handleSearchButtonClick={handleSearchButtonClick}
