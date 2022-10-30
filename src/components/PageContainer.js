@@ -4,6 +4,8 @@ import {Route, Redirect, Switch} from 'react-router-dom';
 
 import AccountPage from './AccountPage';
 import FavoritesListContainer from './FavoritesListContainer';
+import ReviewsListContainer from './ReviewsListContainer';
+
 import ResetPasswordPage from './ResetPasswordPage';
 import Suggestion from './Suggestion';
 import Static from './Static';
@@ -42,6 +44,24 @@ class PageContainer extends React.Component {
 			userData: this.props.userData,
 			t: t
 		};
+		const reviewsListProps = {
+			country: country,
+			dialog: this.props.dialog,
+			// handleListRemoveFavorite: this.props.handleListRemoveFavorite,
+			handleLogOut: this.props.handleLogOut,
+			handleMessageNew: this.props.handleMessageNew,
+			handleRequestOpen: this.props.handleRequestOpen,
+			reviews: [
+				{organization: 'fsdfsdf1', comment: 'thing1'},
+				{organization: 'fsdfsdf2', comment: 'thing2'},
+				{organization: 'fsdfsdf3', comment: 'thing3'}
+			],
+			locale: locale,
+			session: this.props.session,
+			user: this.props.user,
+			userData: this.props.userData,
+			t: t
+		};
 
 		return (
 			<div className="page-container">
@@ -53,6 +73,14 @@ class PageContainer extends React.Component {
 					<Route
 						path="/:locale/favorites"
 						render={() => <FavoritesListContainer {...favoritesListProps} />}
+					/>
+					<Route
+						path="/:locale/reviews/:listId"
+						render={() => <ReviewsListContainer {...reviewsListProps} />}
+					/>
+					<Route
+						path="/:locale/reviews"
+						render={() => <ReviewsListContainer {...reviewsListProps} />}
 					/>
 					<Route
 						path="/:locale/account/reset-password"
