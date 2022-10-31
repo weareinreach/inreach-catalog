@@ -51,15 +51,10 @@ class PageContainer extends React.Component {
 			handleLogOut: this.props.handleLogOut,
 			handleMessageNew: this.props.handleMessageNew,
 			handleRequestOpen: this.props.handleRequestOpen,
-			reviews: [
-				{organization: 'fsdfsdf1', comment: 'thing1'},
-				{organization: 'fsdfsdf2', comment: 'thing2'},
-				{organization: 'fsdfsdf3', comment: 'thing3'}
-			],
 			locale: locale,
+			comments: this.props.comments,
 			session: this.props.session,
 			user: this.props.user,
-			userData: this.props.userData,
 			t: t
 		};
 

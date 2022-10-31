@@ -28,11 +28,9 @@ const styles = (theme) => ({
 });
 
 const ReviewsListContainer = (props) => {
-	const {classes, handleChange, handleUpdateUser, reviews} = props;
-
+	const {classes, handleChange, handleUpdateUser, comments} = props;
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
-
 	const intl = useIntl();
 
 	return (
@@ -60,17 +58,19 @@ const ReviewsListContainer = (props) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{reviews.map((review) => (
+						{comments.map((comment) => (
 							<TableRow
-								key={review.name}
+								key={comment.comments._id}
 								sx={{'&:last-child td, &:last-child th': {border: 0}}}
 							>
 								<TableCell component="th" scope="row" align="center">
-									{review.organization}
+									{comment.organizationId}
 								</TableCell>
-								<TableCell align="center">{review.service}</TableCell>
-								<TableCell align="center">{review.comment}</TableCell>
-								<TableCell align="center">{review.created_at}</TableCell>
+								<TableCell align="center">{comment.serviceId}</TableCell>
+								<TableCell align="center">{comment.comments.comment}</TableCell>
+								<TableCell align="center">
+									{comment.comments.created_at}
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
