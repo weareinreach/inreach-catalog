@@ -17,18 +17,24 @@ const styles = (theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		textAlign: 'center',
-		width: 'auto',
-		marginTop: '25px'
+		width: 'auto'
 	},
 	tableContainer: {
 		width: '80%',
 		marginLeft: '10%',
 		marginRight: '10%'
+	},
+	minHeight: {
+		height: '300px'
+	},
+	marginTitle: {
+		marginTop: '1.5rem',
+		marginBottom: '1.5rem'
 	}
 });
 
 const ReviewsListContainer = (props) => {
-	const {classes, handleChange, handleUpdateUser, comments} = props;
+	const {classes, handleChange, handleUpdateUser, comments, session} = props;
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 	const intl = useIntl();
@@ -36,7 +42,7 @@ const ReviewsListContainer = (props) => {
 	return (
 		<>
 			<Typography
-				className={classes.marginTop}
+				className={classes.marginTitle}
 				variant="h1"
 				align="center"
 				data-test-id="reviews-page-title-text"
@@ -47,35 +53,53 @@ const ReviewsListContainer = (props) => {
 					description="Reviews page title"
 				/>
 			</Typography>
-			<TableContainer component={Paper} className={classes.tableContainer}>
-				<Table aria-label="simple table">
-					<TableHead>
-						<TableRow>
-							<TableCell align="center">Organization</TableCell>
-							<TableCell align="center">Service</TableCell>
-							<TableCell align="center">Comment</TableCell>
-							<TableCell align="center">Submitted</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{comments.map((comment) => (
-							<TableRow
-								key={comment.comments._id}
-								sx={{'&:last-child td, &:last-child th': {border: 0}}}
-							>
-								<TableCell component="th" scope="row" align="center">
-									{comment.organizationId}
-								</TableCell>
-								<TableCell align="center">{comment.serviceId}</TableCell>
-								<TableCell align="center">{comment.comments.comment}</TableCell>
-								<TableCell align="center">
-									{comment.comments.created_at}
-								</TableCell>
+			{!session && (
+				<Typography
+					className={classes.minHeight}
+					variant="body1"
+					align="center"
+					data-test-id="reviews-page-header-text"
+				>
+					<FormattedMessage
+						id="reviews.sign-in-to-view"
+						defaultMessage="You must be signed in to see your reviews."
+						description="Reviews page header for not signed in"
+					/>
+				</Typography>
+			)}
+			{session && (
+				<TableContainer component={Paper} className={classes.tableContainer}>
+					<Table aria-label="simple table">
+						<TableHead>
+							<TableRow>
+								<TableCell align="center">Organization</TableCell>
+								<TableCell align="center">Service</TableCell>
+								<TableCell align="center">Comment</TableCell>
+								<TableCell align="center">Submitted</TableCell>
 							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+						</TableHead>
+						<TableBody>
+							{comments.map((comment) => (
+								<TableRow
+									key={comment.comments._id}
+									sx={{'&:last-child td, &:last-child th': {border: 0}}}
+								>
+									<TableCell component="th" scope="row" align="center">
+										{comment.organizationId}
+									</TableCell>
+									<TableCell align="center">{comment.serviceId}</TableCell>
+									<TableCell align="center">
+										{comment.comments.comment}
+									</TableCell>
+									<TableCell align="center">
+										{comment.comments.created_at}
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			)}
 		</>
 	);
 };
