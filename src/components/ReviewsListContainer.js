@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import {FormattedMessage, useIntl, FormattedDate} from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -87,12 +87,20 @@ const ReviewsListContainer = (props) => {
 									<TableCell component="th" scope="row" align="center">
 										{comment.organizationId}
 									</TableCell>
-									<TableCell align="center">{comment.serviceId}</TableCell>
+									<TableCell align="center">
+										{comment?.serviceId ? comment?.serviceId : 'N/A'}
+									</TableCell>
 									<TableCell align="center">
 										{comment.comments.comment}
 									</TableCell>
 									<TableCell align="center">
-										{comment.comments.created_at}
+										<FormattedDate
+											value={new Date(comment.comments.created_at)}
+											year="numeric"
+											month="short"
+											day="numeric"
+											weekday="short"
+										/>
 									</TableCell>
 								</TableRow>
 							))}
