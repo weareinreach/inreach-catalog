@@ -72,30 +72,27 @@ const ReviewsListContainer = (props) => {
 					<Table aria-label="simple table">
 						<TableHead>
 							<TableRow>
-								<TableCell align="center">Organization</TableCell>
-								<TableCell align="center">Service</TableCell>
-								<TableCell align="center">Comment</TableCell>
-								<TableCell align="center">Submitted</TableCell>
+								<TableCell align="left">Organization</TableCell>
+								<TableCell align="left">Service</TableCell>
+								<TableCell align="left">Comment</TableCell>
+								<TableCell align="left">Submitted</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							{comments.map((comment) => (
 								<TableRow
-									key={comment.comments._id}
+									key={comment['comments._id']}
 									sx={{'&:last-child td, &:last-child th': {border: 0}}}
 								>
-									<TableCell component="th" scope="row" align="center">
-										{comment.organizationId}
+									<TableCell align="left">{comment.organizationName}</TableCell>
+									<TableCell align="left">{comment.serviceName}</TableCell>
+
+									<TableCell align="left">
+										{comment['comments.comment']}
 									</TableCell>
-									<TableCell align="center">
-										{comment?.serviceId ? comment?.serviceId : 'N/A'}
-									</TableCell>
-									<TableCell align="center">
-										{comment.comments.comment}
-									</TableCell>
-									<TableCell align="center">
+									<TableCell align="left">
 										<FormattedDate
-											value={new Date(comment.comments.created_at)}
+											value={new Date(comment['comments.created_at'])}
 											year="numeric"
 											month="short"
 											day="numeric"
