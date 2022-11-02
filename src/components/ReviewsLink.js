@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import {FormattedMessage} from 'react-intl';
 
 const styles = (theme) => ({
-	viewYourreviewsText: {
+	viewYourReviewsText: {
 		color: theme.palette.secondary[500],
 		'&:hover': {
 			color: theme.palette.secondary[900]
@@ -33,11 +33,11 @@ const ReviewsLink = ({classes, locale}) => (
 	>
 		<FormattedMessage
 			id="reviews.view-reviews"
-			defaultMessage="Your Reviews"
+			defaultMessage="View Your Reviews"
 			description="Link to reviews"
 		>
 			{(reviews) => (
-				<Typography variant="h4" className={classes.viewYourreviewsText}>
+				<Typography variant="h4" className={classes.viewYourReviewsText}>
 					{reviews}
 				</Typography>
 			)}
