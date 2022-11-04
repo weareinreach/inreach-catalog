@@ -214,72 +214,8 @@ const CommunityReviewerTimeCommit = (props) => {
 						))}
 					</Grid>
 				</RadioGroup>
-				{timeCommitAnswer === 'false' ? (
-					<>
-						<FormLabel
-							required
-							className={classes.labels}
-							classes={classes.fontWeightMedium}
-							margin="none"
-						>
-							<FormattedMessage
-								id="account.signup-community-reviewer-time-commit-other"
-								defaultMessage="If you cannot dedicate at least 5 hours/month to InReach, please explain your plan here."
-								description="Option to detail time commitment"
-							/>
-						</FormLabel>
-						<TextField
-							onBlur={setTouchedTimeCommit}
-							error={
-								touchedTimeCommit && !textFieldTest.test(specifiedTimeCommit)
-							}
-							helperText={
-								touchedTimeCommit &&
-								!textFieldTest.test(specifiedTimeCommit) ? (
-									<FormattedMessage
-										id="error.text-field-time"
-										defaultMessage="Time commitment is not specified"
-										description="error if no Time commitment is specified"
-									/>
-								) : touchedTimeCommit &&
-								  textFieldTest.test(specifiedTimeCommit) ? (
-									<FormattedMessage
-										id="form.field-valid-time"
-										defaultMessage="Time commitment is specified"
-										description="message if Time commitment field has data"
-									/>
-								) : null
-							}
-							id="specifiedTimeCommit"
-							margin="none"
-							name="specifiedTimeCommit"
-							onChange={handleChange}
-							required
-							type="text"
-							value={specifiedTimeCommit}
-							placeholder={intl.formatMessage({
-								id: 'account.signup-community-reviewer-time-commit-other-placeholder',
-								defaultMessage: 'Explain your time commitment plan here',
-								description: 'placeholder for the time commitment field'
-							})}
-							data-test-id="account-time-commit-other-placeholder"
-							InputLabelProps={{shrink: true}}
-							variant="outlined"
-							className={classes.borderOutline}
-							InputProps={{
-								classes: {
-									input: classes.borderOutline,
-									notchedOutline: classes.borderOutline
-								}
-							}}
-						/>
-					</>
-				) : null}
 				<AsylumConnectButton
-					disabled={
-						!timeCommitAnswer ||
-						(timeCommitAnswer === 'false' && !specifiedTimeCommit)
-					}
+					disabled={!timeCommitAnswer}
 					testIdName="community-reviewer-next-button"
 					variant="primary"
 					className={classes.nextBtn}
