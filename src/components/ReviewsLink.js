@@ -33,7 +33,7 @@ const ReviewsLink = ({classes, locale}) => (
 	>
 		<FormattedMessage
 			id="reviews.view-reviews"
-			defaultMessage="View Your Reviews"
+			defaultMessage="Reviews"
 			description="Link to reviews"
 		>
 			{(reviews) => (

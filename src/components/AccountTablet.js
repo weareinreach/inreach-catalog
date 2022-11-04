@@ -113,7 +113,7 @@ const AccountTablet = (props) => {
 						>
 							<FormattedMessage
 								id="reviews.your-reviews"
-								defaultMessage="View Your Reviews"
+								defaultMessage="Reviews"
 								description="Drop down option to see reviews"
 							>
 								{(reviews) => <Typography variant="h6">{reviews}</Typography>}

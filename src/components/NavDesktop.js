@@ -10,6 +10,7 @@ import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
 import ReviewsLink from './ReviewsLink';
 import Language from './Language';
+import AccountTablet from './AccountTablet';
 import {navLinks} from '../data/navLinks';
 import {searchInput} from '../theme';
 
@@ -224,8 +225,6 @@ const NavDesktop = ({
 				useIcon
 				enableOverlay
 			/>
-			{session && <FavoritesLink locale={locale} />}
-			{session && <ReviewsLink locale={locale} />}
 			<AccountNav
 				handleLogOut={handleLogOut}
 				handleRequestOpen={handleRequestOpen}

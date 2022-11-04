@@ -60,7 +60,7 @@ const ReviewsListContainer = (props) => {
 				>
 					<FormattedMessage
 						id="reviews.title"
-						defaultMessage="Your Reviews"
+						defaultMessage="Reviews"
 						description="Reviews page title"
 					/>
 				</Typography>
