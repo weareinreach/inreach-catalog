@@ -47,11 +47,11 @@ class PageContainer extends React.Component {
 		const reviewsListProps = {
 			country: country,
 			dialog: this.props.dialog,
-			// handleListRemoveFavorite: this.props.handleListRemoveFavorite,
 			handleLogOut: this.props.handleLogOut,
 			handleMessageNew: this.props.handleMessageNew,
 			handleRequestOpen: this.props.handleRequestOpen,
 			locale: locale,
+			history: this.props.history,
 			comments: this.props.comments,
 			session: this.props.session,
 			user: this.props.user,
@@ -70,7 +70,7 @@ class PageContainer extends React.Component {
 						render={() => <FavoritesListContainer {...favoritesListProps} />}
 					/>
 					<Route
-						path="/:locale/reviews/:listId"
+						path="/:locale/reviews/:commentId"
 						render={() => <ReviewsListContainer {...reviewsListProps} />}
 					/>
 					<Route
