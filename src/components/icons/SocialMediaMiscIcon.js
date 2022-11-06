@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ResourceMiscIcon = ({style, width, fillColor, strokeColor}) => (
+const SocialMediaMiscIcon = ({style, width, fillColor, strokeColor}) => (
 	<svg
 		style={style}
 		width={width}
@@ -30,15 +30,15 @@ const ResourceMiscIcon = ({style, width, fillColor, strokeColor}) => (
 	</svg>
 );
 
-ResourceMiscIcon.defaultProps = {
+SocialMediaMiscIcon.defaultProps = {
 	width: '100%',
-	fillColor: '#5073B3',
+	fillColor: '#4792DA',
 	strokeColor: '#FFF'
 };
-ResourceMiscIcon.propTypes = {
+SocialMediaMiscIcon.propTypes = {
 	width: PropTypes.string,
 	fillColor: PropTypes.string,
 	strokeColor: PropTypes.string
 };
 
-export default ResourceMiscIcon;
+export default SocialMediaMiscIcon;
