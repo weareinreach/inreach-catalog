@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FacebookIcon, TwitterIcon, InstagramIcon, MiscIcon} from './icons';
+import {FacebookIcon, TwitterIcon, InstagramIcon} from './icons';
 import IconLink from './IconLink';
 import YouTube from '@material-ui/icons/YouTube';
 import LinkedIn from '@material-ui/icons/LinkedIn';
