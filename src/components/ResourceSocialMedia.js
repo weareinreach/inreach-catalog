@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FacebookIcon, TwitterIcon, InstagramIcon} from './icons';
+import {
+	FacebookIcon,
+	TwitterIcon,
+	InstagramIcon,
+	SocialMediaMiscIcon
+} from './icons';
 import IconLink from './IconLink';
 import YouTube from '@material-ui/icons/YouTube';
+import LinkedIn from '@material-ui/icons/LinkedIn';
 
-import {compose, prop, sortBy, toLower} from 'ramda';
+import {compose, prop, propOr, sortBy, toLower} from 'ramda';
 
 const mapping = {
 	facebook: FacebookIcon,
 	twitter: TwitterIcon,
 	instagram: InstagramIcon,
-	youtube: YouTube
+	youtube: YouTube,
+	linkedin: LinkedIn,
+	zmisc: SocialMediaMiscIcon
 };
 
-const sortByPlatformName = sortBy(compose(toLower, prop('name')));
+const sortByPlatformName = sortBy(compose(toLower, propOr('zname', 'name')));
 
 const getSocialMediaLinks = ({
 	socialMedia,
@@ -22,16 +30,27 @@ const getSocialMediaLinks = ({
 	className,
 	isMobile = false
 }) => {
-	return sortByPlatformName(socialMedia).map(({name, url}) => (
-		<SocialMedia
-			iconWidth={iconWidth}
-			name={name}
-			url={url}
-			style={style}
-			className={className}
-			isMobile={isMobile}
-		/>
-	));
+	return sortByPlatformName(socialMedia).map(({name, url}) =>
+		name ? (
+			<SocialMedia
+				iconWidth={iconWidth}
+				name={name}
+				url={url}
+				style={style}
+				className={className}
+				isMobile={isMobile}
+			/>
+		) : (
+			<SocialMedia
+				iconWidth={iconWidth}
+				name={'zmisc'}
+				url={url}
+				style={style}
+				className={className}
+				isMobile={isMobile}
+			/>
+		)
+	);
 };
 
 const renderIcon = (iconWidth, name) => {
