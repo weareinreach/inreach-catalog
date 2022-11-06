@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ResourceMiscIcon = ({style, width, fillColor, strokeColor}) => (
+const ResourceMiscIcon = ({width, fillColor, strokeColor}) => (
 	<svg
-		style={style}
 		width={width}
 		viewBox="0 2.06 523.875 504.568"
-		// viewBox="0 0 16 16"
 		xmlns="http://www.w3.org/2000/svg"
 	>
 		<g
@@ -31,7 +29,7 @@ const ResourceMiscIcon = ({style, width, fillColor, strokeColor}) => (
 );
 
 ResourceMiscIcon.defaultProps = {
-	width: '100%',
+	width: '110%',
 	fillColor: '#5073B3',
 	strokeColor: '#FFF'
 };

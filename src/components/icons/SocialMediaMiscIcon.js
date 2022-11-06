@@ -6,7 +6,6 @@ const SocialMediaMiscIcon = ({style, width, fillColor, strokeColor}) => (
 		style={style}
 		width={width}
 		viewBox="0 2.06 523.875 504.568"
-		// viewBox="0 0 16 16"
 		xmlns="http://www.w3.org/2000/svg"
 	>
 		<g
