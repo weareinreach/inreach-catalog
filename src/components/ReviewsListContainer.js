@@ -167,7 +167,7 @@ const ReviewsListContainer = (props) => {
 				</Typography>
 			)}
 
-			{session && !isMobile && (
+			{session && !isMobile && comments.length > 0 && (
 				<TableContainer component={Paper} className={classes.tableContainer}>
 					<Table aria-label="simple table">
 						<TableHead>
@@ -204,6 +204,21 @@ const ReviewsListContainer = (props) => {
 						</TableBody>
 					</Table>
 				</TableContainer>
+			)}
+
+			{session && !isMobile && !comments.length && (
+				<Typography
+					variant="body1"
+					className={classes.spacingTop}
+					align="center"
+					data-test-id="reviews-page-body-text"
+				>
+					<FormattedMessage
+						id="reviews.no-lists"
+						defaultMessage="You have not yet submitted a review."
+						description="Message that there are no reviews "
+					/>
+				</Typography>
 			)}
 
 			{isMobile && (
