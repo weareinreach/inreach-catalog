@@ -21,6 +21,7 @@ import MailIcon from './MailIcon';
 import MedicalIcon from './MedicalIcon';
 import MentalHealthIcon from './MentalHealthIcon';
 import MiscIcon from './MiscIcon';
+import SocialMediaMiscIcon from './SocialMediaMiscIcon';
 import PinpointIcon from './PinpointIcon';
 import PrivacyIcon from './PrivacyIcon';
 import RecommendedStarIcon from './RecommendedStarIcon';
@@ -58,6 +59,7 @@ export {default as MailIcon} from './MailIcon';
 export {default as MedicalIcon} from './MedicalIcon';
 export {default as MentalHealthIcon} from './MentalHealthIcon';
 export {default as MiscIcon} from './MiscIcon';
+export {default as SocialMediaMiscIcon} from './SocialMediaMiscIcon';
 export {default as MoreIcon} from './MoreIcon';
 export {default as PinpointIcon} from './PinpointIcon';
 export {default as PrivacyIcon} from './PrivacyIcon';
@@ -95,6 +97,7 @@ const typeMap = {
 	medical: MedicalIcon,
 	mentalHealth: MentalHealthIcon,
 	misc: MiscIcon,
+	socialMediaMisc: SocialMediaMiscIcon,
 	pinpoint: PinpointIcon,
 	privacy: PrivacyIcon,
 	reviews: ReviewsIcon,
