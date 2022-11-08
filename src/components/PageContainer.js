@@ -46,13 +46,8 @@ class PageContainer extends React.Component {
 		};
 		const reviewsListProps = {
 			country: country,
-			dialog: this.props.dialog,
-			handleLogOut: this.props.handleLogOut,
-			handleMessageNew: this.props.handleMessageNew,
 			handleRequestOpen: this.props.handleRequestOpen,
 			locale: locale,
-			history: this.props.history,
-			comments: this.props.comments,
 			session: this.props.session,
 			user: this.props.user,
 			t: t

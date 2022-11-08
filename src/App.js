@@ -33,7 +33,7 @@ import LogoImgCA from './images/logoInReach.png';
 import LogoImgMXMobile from './images/logo2x.png';
 import LogoImgMX from './images/logoInReach.png';
 import {breakpoints} from './theme';
-import {fetchUser, getCommentsByUser} from './utils/api';
+import {fetchUser} from './utils/api';
 import {
 	resetLocale,
 	fetchLocale,
@@ -104,7 +104,6 @@ class AppConnectCatalog extends React.Component {
 		this.handleAddressChange = this.handleAddressChange.bind(this);
 		this.handleConfirmSession = this.handleConfirmSession.bind(this);
 		this.handleFetchUser = this.handleFetchUser.bind(this);
-		this.handleFetchUserComments = this.handleFetchUserComments.bind(this);
 		this.handleListNew = this.handleListNew.bind(this);
 		this.handleListRemoveFavorite = this.handleListRemoveFavorite.bind(this);
 		this.handleLogIn = this.handleLogIn.bind(this);
@@ -123,7 +122,6 @@ class AppConnectCatalog extends React.Component {
 			// assume confirmed until proven otherwise
 			this.handleConfirmSession();
 			this.handleFetchUser(this.state.session);
-			this.handleFetchUserComments(this.state.user);
 		}
 
 		window.addEventListener('storage', this.handleStorageChange);
@@ -179,15 +177,6 @@ class AppConnectCatalog extends React.Component {
 				this.setState({userData, lists: userData?.lists || []});
 				window.localStorage.setItem('user', userData._id);
 				this.handleStorageChange();
-			})
-			.catch(handleErr);
-	}
-
-	handleFetchUserComments(user) {
-		const handleErr = () => this.handleLogOut();
-		getCommentsByUser(user)
-			.then((comments) => {
-				this.setState({comments: comments?.comments || []});
 			})
 			.catch(handleErr);
 	}

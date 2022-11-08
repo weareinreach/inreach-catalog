@@ -252,56 +252,8 @@ export const fetchUser = (session) => {
 };
 
 export const getCommentsByUser = (userId = null) => {
-	//helper function to flatten each comment in the results
-	const flatten = (obj, roots = [], sep = '.') =>
-		Object.keys(obj).reduce(
-			(memo, prop) =>
-				Object.assign(
-					{},
-					memo,
-					Object.prototype.toString.call(obj[prop]) === '[object Object]'
-						? flatten(obj[prop], roots.concat([prop]), sep)
-						: {[roots.concat([prop]).join(sep)]: obj[prop]}
-				),
-			{}
-		);
-	let flattenedResults = [];
-
-	//helper function to get org and service names
-	const getNames = async (comment) => {
-		let orgUrl = `${CATALOG_API_URL}/organizations/${comment.organizationId}`;
-		let serviceUrl = orgUrl + `/services/${comment.serviceId}`;
-
-		comment.organizationName = await get(orgUrl).then((org) => {
-			return org.data.name;
-		});
-
-		comment.serviceName = comment?.serviceId
-			? await get(serviceUrl).then((service) => {
-					return service.data.name;
-			  })
-			: 'N/A';
-	};
-
-	if (!userId) {
-		handleErr('Bad request');
-	}
-
 	return catalogGet(`/comments/${userId}`)
 		.then((result) => {
-			result.comments.forEach((comment) => {
-				comment = flatten(comment);
-				getNames(comment).then(() => {
-					flattenedResults.push(comment);
-					return flattenedResults.sort(
-						(a, b) =>
-							a['organizationName'].localeCompare(b['organizationName']) ||
-							new Date(b['comments.created_at']) -
-								new Date(a['comments.created_at'])
-					);
-				});
-			});
-			result.comments = flattenedResults;
 			return result;
 		})
 		.catch((err) => err);

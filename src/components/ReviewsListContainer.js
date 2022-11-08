@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {FormattedMessage, useIntl, FormattedDate} from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -68,17 +68,9 @@ const styles = (theme) => ({
 });
 
 const ReviewsListContainer = (props) => {
-	const {
-		classes,
-		handleRequestOpen,
-		handleChange,
-		handleUpdateUser,
-		comments,
-		session,
-		dialog,
-		history,
-		locale
-	} = props;
+	const {classes, handleRequestOpen, session, locale} = props;
+	const [comments, setComments] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const [selectedComment, setSelectedComment] = useState(false);
 
@@ -86,11 +78,11 @@ const ReviewsListContainer = (props) => {
 	const isMobile = windowSize < breakpoints['sm'];
 	const intl = useIntl();
 
-	const handleCommentSelect = (comment) => {
-		history.push(`/${locale}/reviews/${comment['comments._id']}`);
-		setSelectedComment(comment);
-		handleRequestOpen('/');
-	};
+	useEffect(() => {
+		getCommentsByUser(props.user).then((data) => {
+			setComments(data.comments);
+		});
+	}, []);
 
 	const createTitle = (comment) => {
 		return (
@@ -100,7 +92,7 @@ const ReviewsListContainer = (props) => {
 				</Typography>
 				<Typography variant="h5" className={classes.listItem}>
 					<FormattedDate
-						value={new Date(comment['comments.created_at'])}
+						value={new Date(comment.comments.created_at)}
 						year="numeric"
 						month="short"
 						day="numeric"
@@ -129,7 +121,7 @@ const ReviewsListContainer = (props) => {
 					/>
 				</Typography>
 				<Typography variant="h4" className={classes.listItem}>
-					{comment['comments.comment']}
+					{comment.comments.comment}
 				</Typography>
 				<Typography variant="h4" className={classes.listItem}></Typography>
 			</Grid>
@@ -181,18 +173,16 @@ const ReviewsListContainer = (props) => {
 						<TableBody>
 							{comments.map((comment) => (
 								<TableRow
-									key={comment['comments._id']}
+									key={comment.comments._id}
 									sx={{'&:last-child td, &:last-child th': {border: 0}}}
 								>
 									<TableCell align="left">{comment.organizationName}</TableCell>
 									<TableCell align="left">{comment.serviceName}</TableCell>
 
-									<TableCell align="left">
-										{comment['comments.comment']}
-									</TableCell>
+									<TableCell align="left">{comment.comments.comment}</TableCell>
 									<TableCell align="left">
 										<FormattedDate
-											value={new Date(comment['comments.created_at'])}
+											value={new Date(comment.comments.created_at)}
 											year="numeric"
 											month="short"
 											day="numeric"
@@ -304,8 +294,7 @@ const ReviewsListContainer = (props) => {
 										>
 											{comments.map((comment) => (
 												<li
-													key={comment['comments._id']}
-													onClick={() => handleCommentSelect(comment)}
+													key={comment.comments._id}
 													data-test-id="reviews-page-list-item"
 												>
 													<AsylumConnectCollapsibleSection
