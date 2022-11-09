@@ -28,7 +28,8 @@ const styles = (theme) => ({
 	tableContainer: {
 		width: '80%',
 		marginLeft: '10%',
-		marginRight: '10%'
+		marginRight: '10%',
+		marginBottom: '1.5rem'
 	},
 	minHeight: {
 		height: '300px'
@@ -87,10 +88,18 @@ const ReviewsListContainer = (props) => {
 	const createTitle = (comment) => {
 		return (
 			<>
-				<Typography variant="h4" className={classes.listItem}>
+				<Typography
+					data-test-id="review-organization-name"
+					variant="h4"
+					className={classes.listItem}
+				>
 					{comment.organizationName}
 				</Typography>
-				<Typography variant="h5" className={classes.listItem}>
+				<Typography
+					data-test-id="review-created-at"
+					variant="h5"
+					className={classes.listItem}
+				>
 					<FormattedDate
 						value={new Date(comment.comments.created_at)}
 						year="numeric"
@@ -105,31 +114,58 @@ const ReviewsListContainer = (props) => {
 	const createContent = (comment) => {
 		return (
 			<Grid item xs={12}>
-				<Typography variant="h5" className={classes.listItem}>
+				<Typography
+					data-test-id="review-service-name-label"
+					variant="h5"
+					className={classes.listItem}
+				>
 					<FormattedMessage
-						id="reviews.service-name-label"
+						id="review.service-name-label"
 						defaultMessage="Service Name: "
+						description="label for Service name field"
 					/>
 				</Typography>
-				<Typography variant="h4" className={classes.listItem}>
+				<Typography
+					data-test-id="review-service-name"
+					variant="h4"
+					className={classes.listItem}
+				>
 					{comment.serviceName}
 				</Typography>
-				<Typography variant="h5" className={classes.listItemBottom}>
+				<Typography
+					data-test-id="review-comment-label"
+					variant="h5"
+					className={classes.listItemBottom}
+				>
 					<FormattedMessage
-						id="reviews.comment-label"
+						id="review.comment-label"
 						defaultMessage="Comment: "
+						description="label for Comment field"
 					/>
 				</Typography>
-				<Typography variant="h4" className={classes.listItem}>
+				<Typography
+					data-test-id="review-comment"
+					variant="h4"
+					className={classes.listItem}
+				>
 					{comment.comments.comment}
 				</Typography>
-				<Typography variant="h5" className={classes.listItemBottom}>
+				<Typography
+					data-test-id="review-rating-label"
+					variant="h5"
+					className={classes.listItemBottom}
+				>
 					<FormattedMessage
-						id="reviews.rating-label"
+						id="review.rating-label"
 						defaultMessage="Rating: "
+						description="label for Rating field"
 					/>
 				</Typography>
-				<Typography variant="h4" className={classes.listItem}>
+				<Typography
+					data-test-id="review-rating"
+					variant="h4"
+					className={classes.listItem}
+				>
 					{comment.comments.rating ? comment.comments.rating : 'N/A'}
 				</Typography>
 			</Grid>
@@ -146,7 +182,7 @@ const ReviewsListContainer = (props) => {
 					data-test-id="reviews-page-title-text"
 				>
 					<FormattedMessage
-						id="reviews.title"
+						id="review.page-title"
 						defaultMessage="Reviews"
 						description="Reviews page title"
 					/>
@@ -160,7 +196,7 @@ const ReviewsListContainer = (props) => {
 					data-test-id="reviews-page-header-text"
 				>
 					<FormattedMessage
-						id="reviews.sign-in-to-view"
+						id="review.sign-in-to-view"
 						defaultMessage="You must be signed in to see your reviews."
 						description="Reviews page header for not signed in"
 					/>
@@ -168,38 +204,129 @@ const ReviewsListContainer = (props) => {
 			)}
 
 			{session && !isMobile && comments.length > 0 && (
-				<TableContainer component={Paper} className={classes.tableContainer}>
-					<Table aria-label="simple table">
+				<TableContainer
+					data-test-id="review-table-container"
+					component={Paper}
+					className={classes.tableContainer}
+				>
+					<Table data-test-id="review-table" aria-label="simple table">
 						<TableHead>
-							<TableRow>
-								<TableCell align="left">Organization</TableCell>
-								<TableCell align="left">Service</TableCell>
-								<TableCell align="left">Comment</TableCell>
-								<TableCell align="left">Rating</TableCell>
-								<TableCell align="left">Submitted</TableCell>
+							<TableRow data-test-id="review-table-header">
+								<TableCell
+									data-test-id="review-table-header-cell-organization"
+									align="left"
+								>
+									<Typography variant="h4">
+										<FormattedMessage
+											id="review.header-cell-organization"
+											defaultMessage="Organization"
+											description="Organization Name column"
+										/>
+									</Typography>
+								</TableCell>
+								<TableCell
+									data-test-id="review-table-header-cell-service"
+									align="left"
+								>
+									<Typography variant="h4">
+										<FormattedMessage
+											id="review.header-cell-service"
+											defaultMessage="Service"
+											description="Service Name column"
+										/>
+									</Typography>
+								</TableCell>
+								<TableCell
+									data-test-id="review-table-header-cell-comment"
+									align="left"
+								>
+									<Typography variant="h4">
+										<FormattedMessage
+											id="review.header-cell-comment"
+											defaultMessage="Comment"
+											description="Comment column"
+										/>
+									</Typography>
+								</TableCell>
+								<TableCell
+									data-test-id="review-table-header-cell-rating"
+									align="left"
+								>
+									<Typography variant="h4">
+										<FormattedMessage
+											id="review.header-cell-rating"
+											defaultMessage="Rating"
+											description="Rating column"
+										/>
+									</Typography>
+								</TableCell>
+								<TableCell
+									data-test-id="review-table-header-cell-submitted"
+									align="left"
+								>
+									<Typography variant="h4">
+										<FormattedMessage
+											id="review.header-cell-submitted"
+											defaultMessage="Submitted"
+											description="Submitted column"
+										/>
+									</Typography>
+								</TableCell>
 							</TableRow>
 						</TableHead>
-						<TableBody>
+						<TableBody data-test-id="review-table-body">
 							{comments.map((comment) => (
 								<TableRow
 									key={comment.comments._id}
 									sx={{'&:last-child td, &:last-child th': {border: 0}}}
 								>
-									<TableCell align="left">{comment.organizationName}</TableCell>
-									<TableCell align="left">{comment.serviceName}</TableCell>
-
-									<TableCell align="left">{comment.comments.comment}</TableCell>
-									<TableCell align="left">
-										{comment.comments.rating ? comment.comments.rating : 'N/A'}
+									<TableCell
+										data-test-id="review-table-body-cell-organization"
+										align="left"
+									>
+										<Typography variant="body1">
+											{comment.organizationName}
+										</Typography>
 									</TableCell>
-									<TableCell align="left">
-										<FormattedDate
-											value={new Date(comment.comments.created_at)}
-											year="numeric"
-											month="short"
-											day="numeric"
-											weekday="short"
-										/>
+									<TableCell
+										data-test-id="review-table-body-cell-service"
+										align="left"
+									>
+										<Typography variant="body1">
+											{comment.serviceName}
+										</Typography>
+									</TableCell>
+									<TableCell
+										data-test-id="review-table-body-cell-comment"
+										align="left"
+									>
+										<Typography variant="body1">
+											{comment.comments.comment}
+										</Typography>
+									</TableCell>
+									<TableCell
+										data-test-id="review-table-body-cell-rating"
+										align="left"
+									>
+										<Typography variant="body1">
+											{comment.comments.rating
+												? comment.comments.rating
+												: 'N/A'}
+										</Typography>
+									</TableCell>
+									<TableCell
+										data-test-id="review-table-body-cell-date"
+										align="left"
+									>
+										<Typography variant="body1">
+											<FormattedDate
+												value={new Date(comment.comments.created_at)}
+												year="numeric"
+												month="short"
+												day="numeric"
+												weekday="short"
+											/>
+										</Typography>
 									</TableCell>
 								</TableRow>
 							))}
@@ -216,7 +343,7 @@ const ReviewsListContainer = (props) => {
 					data-test-id="reviews-page-body-text"
 				>
 					<FormattedMessage
-						id="reviews.no-lists"
+						id="review.no-lists"
 						defaultMessage="You have not yet submitted a review."
 						description="Message that there are no reviews "
 					/>
@@ -231,7 +358,7 @@ const ReviewsListContainer = (props) => {
 						data-test-id="reviews-page-title-text"
 					>
 						<FormattedMessage
-							id="reviews.title"
+							id="review.page-title"
 							defaultMessage="Reviews"
 							description="Reviews page title"
 						/>
@@ -248,9 +375,9 @@ const ReviewsListContainer = (props) => {
 									data-test-id="reviews-page-header-text"
 								>
 									<FormattedMessage
-										id="reviews.sign-in-help"
-										defaultMessage="You must be logged in to see your reviews."
-										description="Message to sign in to see reviews"
+										id="review.sign-in-to-view"
+										defaultMessage="You must be signed in to see your reviews."
+										description="Reviews page header for not signed in"
 									/>
 									<br />
 									<br />
@@ -293,8 +420,8 @@ const ReviewsListContainer = (props) => {
 									align="center"
 								>
 									<FormattedMessage
-										id="reviews.action"
-										defaultMessage="Select a review to see more details"
+										id="review.select-details"
+										defaultMessage="Select a review to see more details."
 										description="Message to select a review"
 									/>
 								</Typography>
@@ -326,7 +453,7 @@ const ReviewsListContainer = (props) => {
 											data-test-id="reviews-page-body-text"
 										>
 											<FormattedMessage
-												id="reviews.no-lists"
+												id="review.no-lists"
 												defaultMessage="You have not yet submitted a review."
 												description="Message that there are no reviews "
 											/>

@@ -18,7 +18,6 @@ const styles = (theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: '82px',
-		// height: '48px',
 		'@media(max-width:972px)': {
 			fontSize: '12px'
 		}
@@ -32,7 +31,7 @@ const ReviewsLink = ({classes, locale}) => (
 		data-test-id="nav-button-view-reviews"
 	>
 		<FormattedMessage
-			id="reviews.view-reviews"
+			id="review.link-to-reviews"
 			defaultMessage="Reviews"
 			description="Link to reviews"
 		>
