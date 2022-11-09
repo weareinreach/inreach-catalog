@@ -62,33 +62,6 @@ const AccountNav = (props) => {
 			data-test-id="nav-button-account"
 		>
 			{session && (
-				// <div className={classes.root}>
-				// 	<Link
-				// 		to={'/' + locale + '/account'}
-				// 		data-test-id="nav-account-account-settings"
-				// 	>
-				// 		<Typography type="body1" className={classes.lowercaseText}>
-				// 			<FormattedMessage
-				// 				id="account.account-settings"
-				// 				description="Account settings text"
-				// 				defaultMessage="Account Settings"
-				// 			/>
-				// 		</Typography>
-				// 	</Link>
-				// 	<div className={classes.line} />
-				// 	<Link to="/" onClick={handleLogOut} data-test-id="nav-account-sign-out">
-				// 		<Typography
-				// 			type="body1"
-				// 			className={[classes.lowercaseText, classes.signOut].join(' ')}
-				// 		>
-				// 			<FormattedMessage
-				// 				id="account.sign-out"
-				// 				description="Account sign out text"
-				// 				defaultMessage="Sign Out"
-				// 			/>
-				// 		</Typography>
-				// 	</Link>
-				// </div>
 				<div className={classes.root}>
 					<AsylumConnectSelector
 						label={intl.formatMessage({
@@ -124,7 +97,7 @@ const AccountNav = (props) => {
 								data-test-id="nav-button-reviews"
 							>
 								<FormattedMessage
-									id="reviews.your-reviews"
+									id="review.review-title"
 									defaultMessage="Reviews"
 									description="Drop down option to see reviews"
 								>

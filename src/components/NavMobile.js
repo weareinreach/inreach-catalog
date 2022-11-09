@@ -195,7 +195,7 @@ class NavMobile extends React.Component {
 						classes={buttonStyles}
 						label={
 							<FormattedMessage
-								id="navigation.reviews"
+								id="review.review-title"
 								defaultMessage="Reviews"
 								description="Reviews button"
 							/>

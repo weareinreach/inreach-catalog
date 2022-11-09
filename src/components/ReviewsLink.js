@@ -31,7 +31,7 @@ const ReviewsLink = ({classes, locale}) => (
 		data-test-id="nav-button-view-reviews"
 	>
 		<FormattedMessage
-			id="review.link-to-reviews"
+			id="review.review-title"
 			defaultMessage="Reviews"
 			description="Link to reviews"
 		>

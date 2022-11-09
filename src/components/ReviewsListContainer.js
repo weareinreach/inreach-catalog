@@ -120,10 +120,11 @@ const ReviewsListContainer = (props) => {
 					className={classes.listItem}
 				>
 					<FormattedMessage
-						id="review.service-name-label"
-						defaultMessage="Service Name: "
+						id="review.service-label"
+						defaultMessage="Service"
 						description="label for Service name field"
 					/>
+					:
 				</Typography>
 				<Typography
 					data-test-id="review-service-name"
@@ -139,9 +140,10 @@ const ReviewsListContainer = (props) => {
 				>
 					<FormattedMessage
 						id="review.comment-label"
-						defaultMessage="Comment: "
+						defaultMessage="Comment"
 						description="label for Comment field"
 					/>
+					:
 				</Typography>
 				<Typography
 					data-test-id="review-comment"
@@ -157,9 +159,10 @@ const ReviewsListContainer = (props) => {
 				>
 					<FormattedMessage
 						id="review.rating-label"
-						defaultMessage="Rating: "
+						defaultMessage="Rating"
 						description="label for Rating field"
 					/>
+					:
 				</Typography>
 				<Typography
 					data-test-id="review-rating"
@@ -182,7 +185,7 @@ const ReviewsListContainer = (props) => {
 					data-test-id="reviews-page-title-text"
 				>
 					<FormattedMessage
-						id="review.page-title"
+						id="review.review-title"
 						defaultMessage="Reviews"
 						description="Reviews page title"
 					/>
@@ -218,7 +221,7 @@ const ReviewsListContainer = (props) => {
 								>
 									<Typography variant="h4">
 										<FormattedMessage
-											id="review.header-cell-organization"
+											id="review.organization-label"
 											defaultMessage="Organization"
 											description="Organization Name column"
 										/>
@@ -230,7 +233,7 @@ const ReviewsListContainer = (props) => {
 								>
 									<Typography variant="h4">
 										<FormattedMessage
-											id="review.header-cell-service"
+											id="review.service-label"
 											defaultMessage="Service"
 											description="Service Name column"
 										/>
@@ -242,7 +245,7 @@ const ReviewsListContainer = (props) => {
 								>
 									<Typography variant="h4">
 										<FormattedMessage
-											id="review.header-cell-comment"
+											id="review.comment-label"
 											defaultMessage="Comment"
 											description="Comment column"
 										/>
@@ -254,7 +257,7 @@ const ReviewsListContainer = (props) => {
 								>
 									<Typography variant="h4">
 										<FormattedMessage
-											id="review.header-cell-rating"
+											id="review.rating-label"
 											defaultMessage="Rating"
 											description="Rating column"
 										/>
@@ -266,7 +269,7 @@ const ReviewsListContainer = (props) => {
 								>
 									<Typography variant="h4">
 										<FormattedMessage
-											id="review.header-cell-submitted"
+											id="review.submitted-label"
 											defaultMessage="Submitted"
 											description="Submitted column"
 										/>
@@ -324,7 +327,6 @@ const ReviewsListContainer = (props) => {
 												year="numeric"
 												month="short"
 												day="numeric"
-												weekday="short"
 											/>
 										</Typography>
 									</TableCell>
@@ -358,7 +360,7 @@ const ReviewsListContainer = (props) => {
 						data-test-id="reviews-page-title-text"
 					>
 						<FormattedMessage
-							id="review.page-title"
+							id="review.review-title"
 							defaultMessage="Reviews"
 							description="Reviews page title"
 						/>
@@ -414,17 +416,19 @@ const ReviewsListContainer = (props) => {
 						)}
 						{session && (
 							<>
-								<Typography
-									className={classes.spacingTop}
-									variant="body1"
-									align="center"
-								>
-									<FormattedMessage
-										id="review.select-details"
-										defaultMessage="Select a review to see more details."
-										description="Message to select a review"
-									/>
-								</Typography>
+								{comments.length > 0 ? (
+									<Typography
+										className={classes.spacingTop}
+										variant="body1"
+										align="center"
+									>
+										<FormattedMessage
+											id="review.select-details"
+											defaultMessage="Select a review to see more details."
+											description="Message to select a review"
+										/>
+									</Typography>
+								) : null}
 								<Grid item xs={12}>
 									{comments.length > 0 ? (
 										<ul
