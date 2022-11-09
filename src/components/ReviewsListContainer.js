@@ -117,13 +117,21 @@ const ReviewsListContainer = (props) => {
 				<Typography variant="h5" className={classes.listItemBottom}>
 					<FormattedMessage
 						id="reviews.comment-label"
-						defaultMessage="Comments: "
+						defaultMessage="Comment: "
 					/>
 				</Typography>
 				<Typography variant="h4" className={classes.listItem}>
 					{comment.comments.comment}
 				</Typography>
-				<Typography variant="h4" className={classes.listItem}></Typography>
+				<Typography variant="h5" className={classes.listItemBottom}>
+					<FormattedMessage
+						id="reviews.rating-label"
+						defaultMessage="Rating: "
+					/>
+				</Typography>
+				<Typography variant="h4" className={classes.listItem}>
+					{comment.comments.rating ? comment.comments.rating : 'N/A'}
+				</Typography>
 			</Grid>
 		);
 	};
@@ -167,6 +175,7 @@ const ReviewsListContainer = (props) => {
 								<TableCell align="left">Organization</TableCell>
 								<TableCell align="left">Service</TableCell>
 								<TableCell align="left">Comment</TableCell>
+								<TableCell align="left">Rating</TableCell>
 								<TableCell align="left">Submitted</TableCell>
 							</TableRow>
 						</TableHead>
@@ -180,6 +189,9 @@ const ReviewsListContainer = (props) => {
 									<TableCell align="left">{comment.serviceName}</TableCell>
 
 									<TableCell align="left">{comment.comments.comment}</TableCell>
+									<TableCell align="left">
+										{comment.comments.rating ? comment.comments.rating : 'N/A'}
+									</TableCell>
 									<TableCell align="left">
 										<FormattedDate
 											value={new Date(comment.comments.created_at)}
