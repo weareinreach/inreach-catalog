@@ -4,6 +4,8 @@ import {Route, Redirect, Switch} from 'react-router-dom';
 
 import AccountPage from './AccountPage';
 import FavoritesListContainer from './FavoritesListContainer';
+import ReviewsListContainer from './ReviewsListContainer';
+
 import ResetPasswordPage from './ResetPasswordPage';
 import Suggestion from './Suggestion';
 import Static from './Static';
@@ -42,6 +44,14 @@ class PageContainer extends React.Component {
 			userData: this.props.userData,
 			t: t
 		};
+		const reviewsListProps = {
+			country: country,
+			handleRequestOpen: this.props.handleRequestOpen,
+			locale: locale,
+			session: this.props.session,
+			user: this.props.user,
+			t: t
+		};
 
 		return (
 			<div className="page-container">
@@ -53,6 +63,14 @@ class PageContainer extends React.Component {
 					<Route
 						path="/:locale/favorites"
 						render={() => <FavoritesListContainer {...favoritesListProps} />}
+					/>
+					<Route
+						path="/:locale/reviews/:commentId"
+						render={() => <ReviewsListContainer {...reviewsListProps} />}
+					/>
+					<Route
+						path="/:locale/reviews"
+						render={() => <ReviewsListContainer {...reviewsListProps} />}
 					/>
 					<Route
 						path="/:locale/account/reset-password"

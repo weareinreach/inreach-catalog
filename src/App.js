@@ -96,7 +96,8 @@ class AppConnectCatalog extends React.Component {
 			session: jwt,
 			sessionConfirmed: false,
 			user: user,
-			userData: {}
+			userData: {},
+			comments: []
 		};
 
 		this.changeLocale = this.changeLocale.bind(this);
@@ -286,7 +287,8 @@ class AppConnectCatalog extends React.Component {
 			session,
 			sessionConfirmed,
 			user,
-			userData
+			userData,
+			comments
 		} = this.state;
 		const t = this.translate;
 		const changeLocale = this.changeLocale;
@@ -633,6 +635,7 @@ class AppConnectCatalog extends React.Component {
 											t={t}
 											user={user}
 											userData={userData}
+											comments={comments}
 										/>
 									)}
 								/>
