@@ -7,7 +7,7 @@ orbs:
   codecov: codecov/codecov@3.2.4
   jq: circleci/jq@2.2.0
   sonarcloud: sonarsource/sonarcloud@1.1.1
-  cypress: cypress-io/cypress@2
+  cypress: cypress-io/cypress@2.2.0
 
 jobs:
   linting:
