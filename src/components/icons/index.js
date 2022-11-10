@@ -25,6 +25,7 @@ import SocialMediaMiscIcon from './SocialMediaMiscIcon';
 import PinpointIcon from './PinpointIcon';
 import PrivacyIcon from './PrivacyIcon';
 import RecommendedStarIcon from './RecommendedStarIcon';
+import ReviewsIcon from './ReviewsIcon';
 import SearchIcon from './SearchIcon';
 import SpeechBubblesIcon from './SpeechBubblesIcon';
 import SportsEntertainmentIcon from './SportsEntertainmentIcon';
@@ -64,6 +65,7 @@ export {default as PinpointIcon} from './PinpointIcon';
 export {default as PrivacyIcon} from './PrivacyIcon';
 export {default as RecommendedStarIcon} from './RecommendedStarIcon';
 export {default as RedHeartIcon} from './RedHeartIcon';
+export {default as ReviewsIcon} from './ReviewsIcon';
 export {default as SearchIcon} from './SearchIcon';
 export {default as ShareIcon} from './ShareIcon';
 export {default as SpeechBubblesIcon} from './SpeechBubblesIcon';
@@ -98,6 +100,7 @@ const typeMap = {
 	socialMediaMisc: SocialMediaMiscIcon,
 	pinpoint: PinpointIcon,
 	privacy: PrivacyIcon,
+	reviews: ReviewsIcon,
 	search: SearchIcon,
 	speechBubble: SpeechBubblesIcon,
 	star: RecommendedStarIcon,

@@ -107,6 +107,21 @@ const AccountTablet = (props) => {
 					</AsylumConnectDropdownListItem>
 					<AsylumConnectDropdownListItem>
 						<Link
+							to={'/' + locale + '/reviews'}
+							className="hide--on-print"
+							data-test-id="nav-button-reviews"
+						>
+							<FormattedMessage
+								id="reviews.your-reviews"
+								defaultMessage="Reviews"
+								description="Drop down option to see reviews"
+							>
+								{(reviews) => <Typography variant="h6">{reviews}</Typography>}
+							</FormattedMessage>
+						</Link>
+					</AsylumConnectDropdownListItem>
+					<AsylumConnectDropdownListItem>
+						<Link
 							to={'/' + locale + '/account'}
 							data-test-id="nav-account-account-settings"
 						>
