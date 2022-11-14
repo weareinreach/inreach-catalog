@@ -372,7 +372,7 @@ class MapPage extends React.Component {
 
 	handleSearchByOrgName() {
 		this.setState({searchDisabled: true});
-		const name = encodeURIComponent(this.state.orgName);
+		const name = this.state.orgName;
 		const sort = encodeURIComponent(this.state.selectedSort);
 		const url = `/${this.props.locale}/search/name/${name}/${sort}`;
 		this.props.handleAddressChange('');
