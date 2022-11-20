@@ -20,6 +20,9 @@ import {
 	handleRadioButton
 } from '../data/communityReviwerFormOptions';
 
+import SignupDialog from './SignupDialog';
+import {deleteUser, catalogPost} from '../utils/api';
+
 const styles = (theme) => ({
 	container: {
 		display: 'flex',
@@ -68,14 +71,52 @@ const styles = (theme) => ({
 });
 
 const CommunityReviewerVerify = (props) => {
-	const {classes, handleChange, verifyAnswer, handleUpdateUser} = props;
-
+	const {
+		classes,
+		handleChange,
+		verifyAnswer,
+		handleUpdateUser,
+		handleLogOut,
+		handleMessageNew,
+		userData,
+		handleRequestClose
+	} = props;
+	const [password, setPassword] = useState(props.password);
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
 	const intl = useIntl();
 
 	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
+
+	const handleDialogClose = () => {
+		//delete account and return user to the same view
+		//they were on when they tried to create an LCR account
+		deleteUser(userData)
+			.then((res) => {
+				console.log(res);
+				handleRequestClose();
+				setPassword('');
+				handleLogOut();
+				handleMessageNew(
+					<FormattedMessage
+						id="action.account-deleted-successfully"
+						defaultMessage="account was deleted"
+						description="message indicating the account was deleted"
+					/>
+				);
+			})
+			.catch((res) => {
+				console.log(res);
+				handleMessageNew(
+					<FormattedMessage
+						id="error.unspecified1"
+						defaultMessage="Oops! Something went wrong."
+						description="an error message"
+					/>
+				);
+			});
+	};
 
 	return (
 		<>
@@ -145,27 +186,44 @@ const CommunityReviewerVerify = (props) => {
 					</Grid>
 				</RadioGroup>
 				{verifyAnswer === 'false' ? (
-					<Typography data-test-id="community-reviewer-next-text">
+					<Typography data-test-id="community-reviewer-not-affiliated">
 						<FormattedMessage
-							id="account.signup-community-reviewer-next-text"
-							defaultMessage="Click the 'Next' button to complete our survey. Once completed an InReach Team member will contact you with further details."
-							description="Question asking for pre-verification"
+							id="account.signup-community-reviewer-not-affiliated"
+							defaultMessage="Thanks very much for your interest! The Local Community Reviewer Program is only open to internal InReach affiliates as we put the final touches on this new user account. Public registration will open in January 2023. Please watch our website and social media for updates."
+							description="Text explaining that the Local Community Reviewer account is not available to the public just yet."
 						/>
 					</Typography>
 				) : null}
+				{verifyAnswer === 'true' ? (
+					<AsylumConnectButton
+						disabled={!verifyAnswer}
+						testIdName="community-reviewer-next-button"
+						variant="primary"
+						className={classes.nextBtn}
+					>
+						<FormattedMessage
+							id="navigation.next"
+							defaultMessage="Next"
+							description="Next button"
+						/>
+					</AsylumConnectButton>
+				) : null}
+			</form>
+			{verifyAnswer === 'false' ? (
 				<AsylumConnectButton
 					disabled={!verifyAnswer}
-					testIdName="community-reviewer-next-button"
+					testIdName="community-reviewer-close-dialog-button"
 					variant="primary"
 					className={classes.nextBtn}
+					onClick={handleDialogClose}
 				>
 					<FormattedMessage
-						id="navigation.next"
-						defaultMessage="Next"
-						description="Next button"
+						id="action.cancel"
+						defaultMessage="Cancel"
+						description="Cancel account creation"
 					/>
 				</AsylumConnectButton>
-			</form>
+			) : null}
 		</>
 	);
 };
