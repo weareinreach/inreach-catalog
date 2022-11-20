@@ -20,7 +20,6 @@ import {
 	handleRadioButton
 } from '../data/communityReviwerFormOptions';
 
-import SignupDialog from './SignupDialog';
 import {deleteUser, catalogPost} from '../utils/api';
 
 const styles = (theme) => ({
@@ -87,14 +86,11 @@ const CommunityReviewerVerify = (props) => {
 
 	const intl = useIntl();
 
-	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
-
 	const handleDialogClose = () => {
 		//delete account and return user to the same view
 		//they were on when they tried to create an LCR account
 		deleteUser(userData)
 			.then((res) => {
-				console.log(res);
 				handleRequestClose();
 				setPassword('');
 				handleLogOut();
@@ -107,7 +103,6 @@ const CommunityReviewerVerify = (props) => {
 				);
 			})
 			.catch((res) => {
-				console.log(res);
 				handleMessageNew(
 					<FormattedMessage
 						id="error.unspecified1"
