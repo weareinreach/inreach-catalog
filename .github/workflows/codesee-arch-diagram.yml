@@ -51,7 +51,7 @@ jobs:
           architecture: 'x64'
 
       - name: Configure Ruby '3.x'
-        uses: ruby/setup-ruby@8ddb7b3348b3951590db24c346e94ebafdabc926 # v1.121.0
+        uses: ruby/setup-ruby@4887fd8753fb3cf1a1e466e0e6d8bc08ca91b0bf # v1.124.0
         if: ${{ fromJSON(steps.detect-languages.outputs.languages).ruby }}
         with:
           ruby-version: '3.0'
