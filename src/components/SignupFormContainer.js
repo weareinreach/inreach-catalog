@@ -169,7 +169,30 @@ class SignupFormContainer extends React.Component {
 					}
 				}
 				if (this.state.selection === 'reviewer') {
-					if (this.state.activeStep > 11) {
+					if (
+						this.state.activeStep > 11 &&
+						this.state.verifyAnswer == 'false'
+					) {
+						this.setState({selection: 'seeker'}, function () {
+							console.log(this.props.userData);
+							let body = {catalogType: 'seeker'};
+							body.reviewerQuestions = {
+								reviewerInterested: 'true'
+							};
+							updateUser(this.props.userData, body)
+								.then((data) => {
+									this.setState({userData: data.user}, function () {});
+								})
+								.catch((error) => {
+									console.log(error);
+								});
+						});
+
+						this.setState({activeStep: 6}, function () {});
+					} else if (
+						this.state.activeStep > 11 &&
+						this.state.verifyAnswer == 'true'
+					) {
 						this.setState(
 							{activeStep: this.state.reviewerSteps[this.state.activeStep - 9]},
 							function () {}
@@ -429,12 +452,7 @@ class SignupFormContainer extends React.Component {
 				);
 			});
 		//determine next step in the workflow
-		if (
-			this.state.verifyAnswer === 'true' ||
-			this.state.activeStep === 16 ||
-			this.state.activeStep === 10 ||
-			this.state.activeStep === 5
-		) {
+		if (['true', 16, 10, 5].includes(this.state.activeStep)) {
 			this.props.handleRequestOpen('thankyou');
 		} else {
 			this.handleStepNext();

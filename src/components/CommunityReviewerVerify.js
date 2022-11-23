@@ -86,33 +86,6 @@ const CommunityReviewerVerify = (props) => {
 
 	const intl = useIntl();
 
-	const handleDialogClose = () => {
-		//delete account and return user to the same view
-		//they were on when they tried to create an LCR account
-		deleteUser(userData)
-			.then((res) => {
-				handleRequestClose();
-				setPassword('');
-				handleLogOut();
-				handleMessageNew(
-					<FormattedMessage
-						id="action.account-deleted-successfully"
-						defaultMessage="account was deleted"
-						description="message indicating the account was deleted"
-					/>
-				);
-			})
-			.catch((res) => {
-				handleMessageNew(
-					<FormattedMessage
-						id="error.unspecified1"
-						defaultMessage="Oops! Something went wrong."
-						description="an error message"
-					/>
-				);
-			});
-	};
-
 	return (
 		<>
 			<DialogTitle>
@@ -183,42 +156,25 @@ const CommunityReviewerVerify = (props) => {
 				{verifyAnswer === 'false' ? (
 					<Typography data-test-id="community-reviewer-not-affiliated">
 						<FormattedMessage
-							id="account.signup-community-reviewer-not-affiliated"
-							defaultMessage="Thanks very much for your interest! The Local Community Reviewer Program is only open to internal InReach affiliates as we put the final touches on this new user account. Public registration will open in January 2023. Please watch our website and social media for updates."
+							id="account.signup-community-reviewer-not-affiliated1"
+							defaultMessage="Thanks very much for your interest! The Local Community Reviewer Program is only open to internal InReach affiliates as we put the final touches on this new user account. Public registration will open in January 2023. For now, your account will be created as a standard user account. Please watch our website and social media for updates."
 							description="Text explaining that the Local Community Reviewer account is not available to the public just yet."
 						/>
 					</Typography>
 				) : null}
-				{verifyAnswer === 'true' ? (
-					<AsylumConnectButton
-						disabled={!verifyAnswer}
-						testIdName="community-reviewer-next-button"
-						variant="primary"
-						className={classes.nextBtn}
-					>
-						<FormattedMessage
-							id="navigation.next"
-							defaultMessage="Next"
-							description="Next button"
-						/>
-					</AsylumConnectButton>
-				) : null}
-			</form>
-			{verifyAnswer === 'false' ? (
 				<AsylumConnectButton
 					disabled={!verifyAnswer}
-					testIdName="community-reviewer-close-dialog-button"
+					testIdName="community-reviewer-next-button"
 					variant="primary"
 					className={classes.nextBtn}
-					onClick={handleDialogClose}
 				>
 					<FormattedMessage
-						id="action.cancel"
-						defaultMessage="Cancel"
-						description="Cancel account creation"
+						id="navigation.next"
+						defaultMessage="Next"
+						description="Next button"
 					/>
 				</AsylumConnectButton>
-			) : null}
+			</form>
 		</>
 	);
 };
