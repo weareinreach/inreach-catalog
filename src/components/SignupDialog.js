@@ -17,6 +17,7 @@ const styles = (theme) => ({
 
 const SignupDialog = ({
 	handleLogIn,
+	handleLogOut,
 	handleMessageNew,
 	handleRequestClose,
 	handleRequestOpen,
@@ -36,6 +37,7 @@ const SignupDialog = ({
 		</ActionButton>
 		<SignupFormContainer
 			handleLogIn={handleLogIn}
+			handleLogOut={handleLogOut}
 			handleMessageNew={handleMessageNew}
 			handleRequestClose={handleRequestClose}
 			handleRequestOpen={handleRequestOpen}

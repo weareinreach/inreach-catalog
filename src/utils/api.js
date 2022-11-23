@@ -245,9 +245,18 @@ export const fetchUser = (session) => {
 		.then((authData) => {
 			return catalogGet(`/users/${authData._id}`)
 				.then((userData) => userData)
+
 				.catch(handleErr);
 		})
 		.catch(handleErr);
+};
+
+export const getCommentsByUser = (userId = null) => {
+	return catalogGet(`/comments/${userId}`)
+		.then((result) => {
+			return result;
+		})
+		.catch((err) => err);
 };
 
 export const updateUser = (user, update) => {

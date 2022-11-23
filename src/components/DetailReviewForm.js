@@ -83,7 +83,8 @@ class ReviewForm extends React.Component {
 						: 'catalog',
 				userId: this.props?.user,
 				userLocation: this.props?.userData.currentLocation,
-				isUserApproved: this.props?.userData.isReviewerApproved
+				isUserApproved: this.props?.userData.isReviewerApproved,
+				rating: this.state?.rating.toString()
 			};
 
 			if (resource?.organization && resource.organization?._id) {

@@ -8,7 +8,9 @@ import {FormattedMessage} from 'react-intl';
 import AccountNav from './AccountNav';
 import AsylumConnectButton from './AsylumConnectButton';
 import FavoritesLink from './FavoritesLink';
+import ReviewsLink from './ReviewsLink';
 import Language from './Language';
+import AccountTablet from './AccountTablet';
 import {navLinks} from '../data/navLinks';
 import {searchInput} from '../theme';
 
@@ -223,7 +225,6 @@ const NavDesktop = ({
 				useIcon
 				enableOverlay
 			/>
-			{session && <FavoritesLink locale={locale} />}
 			<AccountNav
 				handleLogOut={handleLogOut}
 				handleRequestOpen={handleRequestOpen}

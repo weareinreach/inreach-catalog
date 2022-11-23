@@ -10,6 +10,7 @@ import {
 	FavoritesIcon,
 	LanguageIcon,
 	MoreIcon,
+	ReviewsIcon,
 	SearchIcon
 } from './icons';
 import {breakpoints} from '../theme';
@@ -36,7 +37,7 @@ const styles = (theme) => {
 		navButton: Object.assign({}, theme.typography.body1, {
 			fontSize: theme.typography.body1.fontSize - 2,
 			transition: 'none',
-			minWidth: '20%',
+			minWidth: '15%',
 			textTransform: 'uppercase',
 			fontWeight: 'bold',
 			paddingTop: '8px',
@@ -83,6 +84,9 @@ class NavMobile extends React.Component {
 				case /^\/favorites/:
 					value = 1;
 					break;
+				case /^\/reviews/:
+					value = 2;
+					break;
 				case /^\/account/:
 					value = 4;
 					break;
@@ -109,9 +113,13 @@ class NavMobile extends React.Component {
 				handleRequestOpen('none');
 				break;
 			case 2:
-				handleRequestOpen('language');
+				history.replace(`/${locale}/reviews`);
+				handleRequestOpen('none');
 				break;
 			case 3:
+				handleRequestOpen('language');
+				break;
+			case 4:
 				if (session) {
 					handleRequestOpen('none');
 				} else {
@@ -119,7 +127,7 @@ class NavMobile extends React.Component {
 				}
 				history.replace(`/${locale}/account`);
 				break;
-			case 4:
+			case 5:
 				handleRequestOpen('more');
 				break;
 			default:
@@ -166,7 +174,7 @@ class NavMobile extends React.Component {
 						}
 						showLabel
 						data-test-id="mobile-nav-button-search"
-						icon={<SearchIcon width="30px" color={this.iconColor(0)} />}
+						icon={<SearchIcon width="25px" color={this.iconColor(0)} />}
 					/>
 					<BottomNavigationAction
 						className={classes.navButton}
@@ -180,7 +188,21 @@ class NavMobile extends React.Component {
 						}
 						showLabel
 						data-test-id="mobile-nav-button-favorites"
-						icon={<FavoritesIcon width="30px" color={this.iconColor(1)} />}
+						icon={<FavoritesIcon width="25px" color={this.iconColor(1)} />}
+					/>
+					<BottomNavigationAction
+						className={classes.navButton}
+						classes={buttonStyles}
+						label={
+							<FormattedMessage
+								id="review.review-title"
+								defaultMessage="Reviews"
+								description="Reviews button"
+							/>
+						}
+						showLabel
+						data-test-id="mobile-nav-button-reviews"
+						icon={<ReviewsIcon width="25px" color={this.iconColor(2)} />}
 					/>
 					<BottomNavigationAction
 						className={classes.navButton}
@@ -194,7 +216,7 @@ class NavMobile extends React.Component {
 						}
 						showLabel
 						data-test-id="mobile-nav-button-language"
-						icon={<LanguageIcon width="30px" color={this.iconColor(2)} />}
+						icon={<LanguageIcon width="25px" color={this.iconColor(3)} />}
 					/>
 					<BottomNavigationAction
 						className={classes.navButton}
@@ -208,7 +230,7 @@ class NavMobile extends React.Component {
 						}
 						showLabel
 						data-test-id="mobile-nav-button-account"
-						icon={<AccountIcon width="30px" color={this.iconColor(3)} />}
+						icon={<AccountIcon width="25px" color={this.iconColor(4)} />}
 					/>
 					<BottomNavigationAction
 						className={classes.navButton}
@@ -222,7 +244,7 @@ class NavMobile extends React.Component {
 						}
 						showLabel
 						data-test-id="mobile-nav-button-more"
-						icon={<MoreIcon width="30px" color={this.iconColor(4)} />}
+						icon={<MoreIcon width="25px" color={this.iconColor(5)} />}
 					/>
 				</BottomNavigation>
 			</div>
