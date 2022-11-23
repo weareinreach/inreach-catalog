@@ -156,7 +156,7 @@ const CommunityReviewerVerify = (props) => {
 				{verifyAnswer === 'false' ? (
 					<Typography data-test-id="community-reviewer-not-affiliated">
 						<FormattedMessage
-							id="account.signup-community-reviewer-not-affiliated1"
+							id="account.signup-community-reviewer-not-affiliated"
 							defaultMessage="Thanks very much for your interest! The Local Community Reviewer Program is only open to internal InReach affiliates as we put the final touches on this new user account. Public registration will open in January 2023. For now, your account will be created as a standard user account. Please watch our website and social media for updates."
 							description="Text explaining that the Local Community Reviewer account is not available to the public just yet."
 						/>
