@@ -20,6 +20,8 @@ import {
 	handleRadioButton
 } from '../data/communityReviwerFormOptions';
 
+import {deleteUser, catalogPost} from '../utils/api';
+
 const styles = (theme) => ({
 	container: {
 		display: 'flex',
@@ -68,14 +70,21 @@ const styles = (theme) => ({
 });
 
 const CommunityReviewerVerify = (props) => {
-	const {classes, handleChange, verifyAnswer, handleUpdateUser} = props;
-
+	const {
+		classes,
+		handleChange,
+		verifyAnswer,
+		handleUpdateUser,
+		handleLogOut,
+		handleMessageNew,
+		userData,
+		handleRequestClose
+	} = props;
+	const [password, setPassword] = useState(props.password);
 	const windowSize = window.innerWidth;
 	const isMobile = windowSize < breakpoints['sm'];
 
 	const intl = useIntl();
-
-	const textFieldTest = new RegExp(/\s*(?:[\S]\s*){2}$/);
 
 	return (
 		<>
@@ -145,11 +154,11 @@ const CommunityReviewerVerify = (props) => {
 					</Grid>
 				</RadioGroup>
 				{verifyAnswer === 'false' ? (
-					<Typography data-test-id="community-reviewer-next-text">
+					<Typography data-test-id="community-reviewer-not-affiliated">
 						<FormattedMessage
-							id="account.signup-community-reviewer-next-text"
-							defaultMessage="Click the 'Next' button to complete our survey. Once completed an InReach Team member will contact you with further details."
-							description="Question asking for pre-verification"
+							id="account.signup-community-reviewer-not-affiliated"
+							defaultMessage="Thanks very much for your interest! The Local Community Reviewer Program is only open to internal InReach affiliates as we put the final touches on this new user account. Public registration will open in January 2023. For now, your account will be created as a standard user account. Please watch our website and social media for updates."
+							description="Text explaining that the Local Community Reviewer account is not available to the public just yet."
 						/>
 					</Typography>
 				) : null}

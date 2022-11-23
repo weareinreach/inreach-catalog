@@ -115,6 +115,7 @@ const AsylumConnectDialog = ({
 				{dialog === 'login' && (
 					<LoginDialog
 						handleLogIn={handleLogIn}
+						handleLogOut={handleLogOut}
 						handleMessageNew={handleMessageNew}
 						handleRequestClose={handleRequestClose}
 						handleRequestOpen={handleRequestOpen}
@@ -166,6 +167,7 @@ const AsylumConnectDialog = ({
 				{dialog === 'signup' && (
 					<SignupDialog
 						handleLogIn={handleLogIn}
+						handleLogOut={handleLogOut}
 						handleMessageNew={handleMessageNew}
 						handleRequestClose={handleRequestClose}
 						handleRequestOpen={handleRequestOpen}
