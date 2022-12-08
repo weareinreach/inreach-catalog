@@ -51,54 +51,23 @@ const Services = (props) => {
 			<Grid item xs={12} className={classes.sectionSpacing}>
 				<Grid container spacing={0}>
 					{itemsWithBadges.map((item) => {
-						const {_id, badge, name, slug} = item;
-						const itemLink = `/${locale}/resource/${resource.slug}/service/${slug}`;
-						if (isMobile) {
-							let newType = false;
+						if (item.is_deleted == false) {
+							const {_id, badge, name, slug} = item;
+							const itemLink = `/${locale}/resource/${resource.slug}/service/${slug}`;
+							if (isMobile) {
+								let newType = false;
 
-							if (lastBadge !== badge) {
-								newType = true;
-								lastBadge = badge;
-							}
+								if (lastBadge !== badge) {
+									newType = true;
+									lastBadge = badge;
+								}
 
-							return (
-								<Grid item xs={12} key={_id}>
-									{newType && (
-										<ACBadge
-											extraClasses={{
-												icon: classes.serviceBadge,
-												tooltip: classes.serviceTooltip
-											}}
-											key="misc"
-											type={badge}
-											width="48px"
-											height="48px"
-										/>
-									)}
-									<li data-test-id="details-service-item">
-										<Link to={itemLink} className={classes.serviceText}>
-											{name}
-										</Link>
-									</li>
-								</Grid>
-							);
-						}
-
-						return (
-							<Grid
-								item
-								container
-								xs={12}
-								key={_id}
-								alignItems="center"
-								alignContent="center"
-								className={classes.serviceItemContainer}
-							>
-								<Grid item xs={12} md={3}>
-									{badge && item.label?.split(' ')[0] ? (
-										<>
+								return (
+									<Grid item xs={12} key={_id}>
+										{newType && (
 											<ACBadge
 												extraClasses={{
+													icon: classes.serviceBadge,
 													tooltip: classes.serviceTooltip
 												}}
 												key="misc"
@@ -106,53 +75,86 @@ const Services = (props) => {
 												width="48px"
 												height="48px"
 											/>
-											<Typography
-												variant="body2"
-												component="span"
-												className={classes.badge}
-											>
-												{intl.formatMessage({
-													id: item.label?.split(' ')[0],
-													defaultMessage: item.defaultMessage,
-													description: item.description
-												})}
-											</Typography>
-										</>
-									) : (
-										<>
-											<ACBadge
-												extraClasses={{
-													tooltip: classes.serviceTooltip
-												}}
-												key="misc"
-												type="misc"
-												width="45px"
-												height="45px"
-											/>
-											<Typography
-												variant="body2"
-												component="span"
-												className={classes.badge}
-											>
-												{intl.formatMessage({
-													id: 'service-type.other-services'
-												})}
-											</Typography>
-										</>
-									)}
+										)}
+										<li data-test-id="details-service-item">
+											<Link to={itemLink} className={classes.serviceText}>
+												{name}
+											</Link>
+										</li>
+									</Grid>
+								);
+							}
+
+							return (
+								<Grid
+									item
+									container
+									xs={12}
+									key={_id}
+									alignItems="center"
+									alignContent="center"
+									className={classes.serviceItemContainer}
+								>
+									<Grid item xs={12} md={3}>
+										{badge && item.label?.split(' ')[0] ? (
+											<>
+												<ACBadge
+													extraClasses={{
+														tooltip: classes.serviceTooltip
+													}}
+													key="misc"
+													type={badge}
+													width="48px"
+													height="48px"
+												/>
+												<Typography
+													variant="body2"
+													component="span"
+													className={classes.badge}
+												>
+													{intl.formatMessage({
+														id: item.label?.split(' ')[0],
+														defaultMessage: item.defaultMessage,
+														description: item.description
+													})}
+												</Typography>
+											</>
+										) : (
+											<>
+												<ACBadge
+													extraClasses={{
+														tooltip: classes.serviceTooltip
+													}}
+													key="misc"
+													type="misc"
+													width="45px"
+													height="45px"
+												/>
+												<Typography
+													variant="body2"
+													component="span"
+													className={classes.badge}
+												>
+													{intl.formatMessage({
+														id: 'service-type.other-services'
+													})}
+												</Typography>
+											</>
+										)}
+									</Grid>
+									<Grid item xs={12} md={9}>
+										<Typography
+											key={_id}
+											variant="body2"
+											data-test-id="details-service-item"
+											className={classes.serviceText}
+										>
+											<Link to={itemLink}>{name}</Link>
+										</Typography>
+									</Grid>
 								</Grid>
-								<Grid item xs={12} md={9}>
-									<Typography
-										key={_id}
-										variant="body2"
-										data-test-id="details-service-item"
-										className={classes.serviceText}
-									>
-										<Link to={itemLink}>{name}</Link>
-									</Typography>
-								</Grid>
-							</Grid>
-						);
+							);
+						}
 					})}
 				</Grid>
 			</Grid>
