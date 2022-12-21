@@ -1,100 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<title>InReach App</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script
+			async
+			defer
+			data-website-id="240aae32-9e28-4e63-8d15-fe107dd0a601"
+			src="https://stats.inreach.org/umami.js"
+			data-domains="app.inreach.org"
+		></script>
+		<!-- Google Tag Manager -- Google tag (gtag.js) -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-76058112-1"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
 
-<head>
-  <title>InReach App</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Google Tag Manager -- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-76058112-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'UA-76058112-1');
+		</script>
+		<!-- End Google Tag Manager -->
+		<link
+			rel="apple-touch-icon"
+			sizes="57x57"
+			href="%PUBLIC_URL%/apple-icon-57x57.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="60x60"
+			href="%PUBLIC_URL%/apple-icon-60x60.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="72x72"
+			href="%PUBLIC_URL%/apple-icon-72x72.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="76x76"
+			href="%PUBLIC_URL%/apple-icon-76x76.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="114x114"
+			href="%PUBLIC_URL%/apple-icon-114x114.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="120x120"
+			href="%PUBLIC_URL%/apple-icon-120x120.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="144x144"
+			href="%PUBLIC_URL%/apple-icon-144x144.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="152x152"
+			href="%PUBLIC_URL%/apple-icon-152x152.png"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="%PUBLIC_URL%/apple-icon-180x180.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="192x192"
+			href="%PUBLIC_URL%/android-icon-192x192.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="%PUBLIC_URL%/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="96x96"
+			href="%PUBLIC_URL%/favicon-96x96.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="%PUBLIC_URL%/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta
+			name="msapplication-TileImage"
+			content="%PUBLIC_URL%/ms-icon-144x144.png"
+		/>
+		<meta name="theme-color" content="#ffffff" />
+		<link href="%PUBLIC_URL%/css/style.css" rel="stylesheet" type="text/css" />
+		<link
+			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+			rel="stylesheet"
+			integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,500,700,900"
+			rel="stylesheet"
+		/>
+		<script
+			type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeUoDckhXsbyXstM-QMokz66ibmhkVtE&libraries=places,geometry"
+		></script>
+	</head>
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'UA-76058112-1');
-  </script>
-  <!-- End Google Tag Manager -->
-  <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/apple-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/apple-icon-60x60.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/apple-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/apple-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/apple-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="%PUBLIC_URL%/apple-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="%PUBLIC_URL%/apple-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/apple-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-icon-180x180.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/android-icon-192x192.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/favicon-96x96.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta name="msapplication-TileImage" content="%PUBLIC_URL%/ms-icon-144x144.png" />
-  <meta name="theme-color" content="#ffffff" />
-  <link href="%PUBLIC_URL%/css/style.css" rel="stylesheet" type="text/css" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,500,700,900"
-    rel="stylesheet" />
-  <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeUoDckhXsbyXstM-QMokz66ibmhkVtE&libraries=places,geometry">
-  </script>
-</head>
+	<body>
+		<!-- Google Tag Manager (noscript) -->
+		<noscript
+			><iframe
+				src="https://www.googletagmanager.com/ns.html?id=GTM-MNT27N6"
+				height="0"
+				width="0"
+				style="display: none; visibility: hidden"
+			></iframe
+		></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="root">
+			<style>
+				.loader {
+					display: flex;
+					width: 100vw;
+					height: 100vh;
+					align-content: center;
+					justify-content: center;
+					animation-name: loader;
+					animation-duration: 1.8s;
+					animation-iteration-count: infinite;
+					animation-direction: alternate;
+				}
 
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNT27N6" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <div id="root">
-    <style>
-      .loader {
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-        align-content: center;
-        justify-content: center;
-        animation-name: loader;
-        animation-duration: 1.8s;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
+				.loader-image {
+					display: flex;
+					align-self: center;
+					max-width: 33%;
+					max-height: 33%;
+				}
 
-      .loader-image {
-        display: flex;
-        align-self: center;
-        max-width: 33%;
-        max-height: 33%;
-      }
+				@keyframes loader {
+					from {
+						opacity: 0.2;
+					}
 
-      @keyframes loader {
-        from {
-          opacity: 0.2;
-        }
-
-        to {
-          opacity: 1;
-        }
-      }
-    </style>
-    <div class="loader">
-      <img class="loader-image"
-        src="%PUBLIC_URL%/logo.svg">
-    </div>
-  </div>
- <div id="google_translate_element" style="display: none;"></div>
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-          // pageLanguage: 'en'
-        },
-        'google_translate_element'
-      );
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-  </script>
-</body>
+					to {
+						opacity: 1;
+					}
+				}
+			</style>
+			<div class="loader">
+				<img class="loader-image" src="%PUBLIC_URL%/logo.svg" />
+			</div>
+		</div>
+		<div id="google_translate_element" style="display: none"></div>
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement(
+					{
+						// pageLanguage: 'en'
+					},
+					'google_translate_element'
+				);
+			}
+		</script>
+		<script
+			type="text/javascript"
+			src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+		></script>
+	</body>
+</html>
