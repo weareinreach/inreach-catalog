@@ -258,9 +258,9 @@ class SearchFormContainer extends React.Component {
 									/>
 								</Typography>
 							</Grid>
-							<Grid item xs={12} sm={12}>
+							{/* <Grid item xs={12} sm={12}>
 								<Announcement useSmallIcon />
-							</Grid>
+							</Grid> */}
 							{!locale ? (
 								<Grid item xs={12} sm={12}>
 									<Typography
