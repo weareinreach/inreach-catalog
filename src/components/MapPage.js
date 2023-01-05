@@ -433,7 +433,9 @@ class MapPage extends React.Component {
 			searchDisabled: true,
 			printDisabled: true
 		});
+
 		const page = nextPage ? this.state.page + 1 : 1;
+
 		if (nearLatLng !== null) {
 			this.props.handleAddressChange(nearAddress);
 
@@ -491,6 +493,7 @@ class MapPage extends React.Component {
 					fetchOrganizations(params).then((data) =>
 						this.processSearchResults(data, nextPage)
 					);
+					this.setState(nextState);
 				})
 				.catch((error) => {
 					this.props.handleMessageNew(
@@ -519,7 +522,9 @@ class MapPage extends React.Component {
 			fetchOrganizations(params).then((data) =>
 				this.processSearchResults(data, nextPage)
 			);
+			this.setState(nextState);
 		}
+
 		this.setState(nextState);
 		if (this.props.match.path !== '/:locale/search/name') {
 			localStorage.setItem('lastSearch', this.props.history.location.pathname);
