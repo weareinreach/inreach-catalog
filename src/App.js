@@ -467,7 +467,7 @@ class AppConnectCatalog extends React.Component {
 						) : null
 					) : (
 						<>
-							{/* <Announcement handleRequestOpen={this.handleRequestOpen} /> */}
+							<Announcement />
 							<AsylumConnectDialog
 								locale={locale}
 								dialog={dialog}

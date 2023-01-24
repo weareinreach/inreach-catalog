@@ -63,14 +63,17 @@ const Announcement = (props) => {
 	return (
 		<>
 			<div id="announcement-div" className={classes.root + ' hide--on-print'}>
-				<a href="https://prn.to/3lMPU5Y">
+				<a href="https://inreach.org/new-inreach-app-redesign-coming-soon/">
 					{useSmallIcon ? (
 						<InformationIcon fillColor={'#000000'} />
 					) : (
 						<InformationIcon24 fillColor={'#000000'} />
 					)}
 				</a>
-				<a href="https://prn.to/3lMPU5Y" data-test-id="announcement-header">
+				<a
+					href="https://inreach.org/new-inreach-app-redesign-coming-soon/"
+					data-test-id="announcement-header"
+				>
 					<Typography
 						variant="caption"
 						color="primary"
@@ -78,13 +81,13 @@ const Announcement = (props) => {
 					>
 						<FormattedMessage
 							id="announcement-brand"
-							defaultMessage="AsylumConnect is now InReach"
+							defaultMessage="New InReach Redesign Coming Soon"
 							description="update app users of name change"
 						/>
 					</Typography>
 				</a>
 			</div>
-			{doNativeTranslation ? (
+			{/* {doNativeTranslation ? (
 				<div
 					id="announcement-div-spanish-beta"
 					className={classes.rootBeta + ' hide--on-print'}
@@ -158,7 +161,7 @@ const Announcement = (props) => {
 						</Typography>
 					</p>
 				</div>
-			) : null}
+			) : null} */}
 		</>
 	);
 };
