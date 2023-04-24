@@ -71,7 +71,7 @@ const Announcement = (props) => {
 					)}
 				</a>
 				<a
-					href="https://inreach.org/new-inreach-app-redesign-coming-soon/"
+					href="https://inreach.org/sneak-peak-inreach-app-redesign/"
 					data-test-id="announcement-header"
 				>
 					<Typography
