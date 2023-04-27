@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import {InformationIcon, InformationIcon24} from './icons';
+import {InformationIcon, InformationIcon24, WarningIcon} from './icons';
 import language from '../utils/language';
 import {useIntl} from '../config';
 
@@ -29,7 +29,7 @@ const styles = (theme) => ({
 		color: theme.palette.common.black,
 		maxWidth: theme.maxColumnWidth,
 		margin: '0 16px',
-		fontSize: '24px',
+		fontSize: '18px',
 		textDecorationLine: 'underline'
 	},
 	textBeta: {
@@ -64,11 +64,7 @@ const Announcement = (props) => {
 		<>
 			<div id="announcement-div" className={classes.root + ' hide--on-print'}>
 				<a href="https://inreach.org/new-inreach-app-redesign-coming-soon/">
-					{useSmallIcon ? (
-						<InformationIcon fillColor={'#000000'} />
-					) : (
-						<InformationIcon24 fillColor={'#000000'} />
-					)}
+					<InformationIcon fillColor={'#000000'} width={18} height={18} />
 				</a>
 				<a
 					href="https://inreach.org/sneak-peak-inreach-app-redesign/"
@@ -82,7 +78,24 @@ const Announcement = (props) => {
 						<FormattedMessage
 							id="announcement-brand"
 							defaultMessage="New InReach Redesign Coming Soon"
-							description="update app users of name change"
+						/>
+					</Typography>
+				</a>
+				<a href="https://inreach.org/new-inreach-app-redesign-coming-soon/">
+					<WarningIcon width={18} fillColor={'#FF0000'} />
+				</a>
+				<a
+					href="https://inreach.org/information-for-trans-youth-their-caregivers-and-other-trans-people-facing-anti-trans-legislation-in-united-states/"
+					data-test-id="announcement-header2"
+				>
+					<Typography
+						variant="caption"
+						color="primary"
+						className={classes.textContent}
+					>
+						<FormattedMessage
+							id="announcement.antitranslegislation"
+							defaultMessage="Information about U.S. Anti-Trans Legislation."
 						/>
 					</Typography>
 				</a>
