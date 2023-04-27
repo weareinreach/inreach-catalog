@@ -81,9 +81,10 @@ const Announcement = (props) => {
 						/>
 					</Typography>
 				</a>
-				<a href="https://inreach.org/new-inreach-app-redesign-coming-soon/">
+				|
+				{/* <a href="https://inreach.org/new-inreach-app-redesign-coming-soon/">
 					<WarningIcon width={18} fillColor={'#FF0000'} />
-				</a>
+				</a> */}
 				<a
 					href="https://inreach.org/information-for-trans-youth-their-caregivers-and-other-trans-people-facing-anti-trans-legislation-in-united-states/"
 					data-test-id="announcement-header2"
