@@ -32,6 +32,7 @@ import SportsEntertainmentIcon from './SportsEntertainmentIcon';
 import TransportationIcon from './TransportationIcon';
 import TravelIcon from './TravelIcon';
 import TwitterIcon from './TwitterIcon';
+import WarningIcon from './WarningIcon';
 
 export {default as AbortionCareIcon} from './AbortionCareIcon';
 export {default as AccountIcon} from './AccountIcon';
@@ -73,6 +74,7 @@ export {default as SportsEntertainmentIcon} from './SportsEntertainmentIcon';
 export {default as TransportationIcon} from './TransportationIcon';
 export {default as TravelIcon} from './TravelIcon';
 export {default as TwitterIcon} from './TwitterIcon';
+export {default as WarningIcon} from './WarningIcon';
 
 const typeMap = {
 	abortionCare: AbortionCareIcon,
