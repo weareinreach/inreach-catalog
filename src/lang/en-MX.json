@@ -421,6 +421,7 @@
 	"announcement-use-google-translate": "Optionally <b>{clickHere}</b> to use Google Translate",
 	"announcement.alert-message": "On June 24th, 2022, the U.S. Supreme Court overturned Roe v. Wade. We have added a new <b>Abortion Care</b> <i>Service type</i> filter to our free App to help connect LGBTQ+ people in need with verified, affirming abortion care. We believe in reproductive justice for all women, men and nonbinary individuals who can become pregnant.",
 	"announcement.alert-message-1": "The Mpox outbreak has been declared a public health emergency, with cases increasing globally. Mpox can affect anyone of any gender identity or sexual orientation. Please check your local health department website for updates on Mpox vaccines in your area. Grindr also has an international Mpox resource page {hereLink}",
+	"announcement.antitranslegislation": "Information about U.S. Anti-Trans Legislation.",
 	"announcement.border-closure-full": "As of August 2021, the \"Remain in Mexico\" policy has been reinstated. Asylum seekers are forced to await their court proceedings in Mexico. This policy may change and we will provide updates as necessary.",
 	"announcement.border-closure-header": "United States Borders Close Due to Coronavirus:",
 	"announcement.localisation": "The Mexico and United States Apps will be available in native English and Spanish in 2022, with all other languages available via Google Translate.",
