@@ -3,8 +3,8 @@
 #This file is to be used to run Github Status Checks
 version: 2.1
 orbs:
-  node: circleci/node@5.0.3
-  codecov: codecov/codecov@3.2.4
+  node: circleci/node@5.1.0
+  codecov: codecov/codecov@3.2.5
   jq: circleci/jq@2.2.0
   sonarcloud: sonarsource/sonarcloud@1.1.1
   cypress: cypress-io/cypress@2.2.0
@@ -12,7 +12,7 @@ orbs:
 jobs:
   linting:
     docker:
-      - image: cimg/node:16.18.0
+      - image: cimg/node:16.20.0
     working_directory: /mnt/ramdisk/inreach-app
     environment:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
@@ -38,7 +38,7 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:16.18.0
+      - image: cimg/node:16.20.0
     working_directory: /mnt/ramdisk/inreach-app
     environment:
       CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
@@ -67,7 +67,7 @@ jobs:
 
   e2eprepare:
     docker:
-      - image: cimg/node:16.18-browsers
+      - image: cimg/node:16.20-browsers
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -124,12 +124,12 @@ jobs:
     parallelism: 8
     resource_class: large
     docker:
-      - image: cimg/node:16.18-browsers
+      - image: cimg/node:16.20-browsers
         environment:
           ## this enables colors in the output
           TERM: xterm
       ## MongoDB
-      - image: mongo:4.4.17
+      - image: mongo:4.4.22
         environment:
           MONGO_INITDB_DATABASE: InReach
     steps:
@@ -188,7 +188,7 @@ jobs:
 
   sonar:
     docker:
-      - image: cimg/node:16.18-browsers
+      - image: cimg/node:16.20-browsers
     steps:
       - attach_workspace:
           at: /mnt/ramdisk
